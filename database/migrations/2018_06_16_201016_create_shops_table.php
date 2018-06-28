@@ -26,6 +26,17 @@ class CreateShopsTable extends Migration
             $table->string('url')->nullable();
             $table->string('phone')->nullable();
             $table->string('branch');
+            $table->string('monday')->nullable();
+            $table->string('tuesday')->nullable();
+            $table->string('wednesday')->nullable();
+            $table->string('thursday')->nullable();
+            $table->string('friday')->nullable();
+            $table->string('saturday')->nullable();
+            $table->string('sunday')->nullable();
+            $table->string('other')->nullable();
+            $table->integer('creator_id')->default(1);
+            $table->boolean('validated')->default(false);
+            // Deprecated
             $table->string('monday_from');
             $table->string('monday_till');
             $table->string('monday_break')->nullable();
@@ -44,7 +55,6 @@ class CreateShopsTable extends Migration
             $table->string('saturday_from');
             $table->string('saturday_till');
             $table->string('saturday_break')->nullable();
-            $table->string('other')->nullable();
             $table->timestamps();
         });
     }

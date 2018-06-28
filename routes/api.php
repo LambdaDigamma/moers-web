@@ -19,6 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:api')->get('/leaderboard/top', 'LeaderboardController@topUser')->name('leaderboard.topUser');
+Route::middleware('auth:api')->get('/leaderboard/me', 'LeaderboardController@userRanking')->name('leaderboard.me');
+Route::middleware('auth:api')->get('/shops/store', 'ShopController@store')->name('shop.store');
+
 Route::get('/shops', function () {
     return Shop::all();
 });

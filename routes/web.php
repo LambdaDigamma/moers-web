@@ -11,6 +11,8 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('index');
 })->name('index');
@@ -19,3 +21,4 @@ Route::get('/portal/menu', 'PortalController@menu')->name('portal.menu');
 Route::get('/portal', 'PortalController@index')->name('portal.index');
 Route::get('/shops/create', 'ShopController@create')->name('shops.create');
 Route::get('/shops/store', 'ShopController@store')->name('shops.store');
+Route::get('/home', 'HomeController@index')->name('home');
