@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
+Route::get('admin/dashboard', 'AdminController@index')->name('admin');
+
 Route::get('/portal/menu', 'PortalController@menu')->name('portal.menu');
 Route::get('/portal', 'PortalController@index')->name('portal.index');
 Route::get('/shops/create', 'ShopController@create')->name('shops.create');
