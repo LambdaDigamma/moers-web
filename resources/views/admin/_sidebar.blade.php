@@ -30,6 +30,12 @@
                     <p>Permissions</p>
                 </a>
             </li>
+            <li class="nav-item {{ (Request::is('*shops*') ? 'active' : '') }}">
+                <a class="nav-link" href="{{ route('shops.index') }}">
+                    <i class="material-icons">shopping_cart</i>
+                    <p>Shops</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
