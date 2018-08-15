@@ -14,8 +14,10 @@
 Auth::routes();
 
 Route::get('/', function () {
-    return view('index');
+    return view('legacy.index');
 })->name('index');
+
+Route::post('/mailinglist/subscribe', 'MailingListController@subscribe')->name('mailinglist.subscribe');
 
 Route::get('admin/dashboard', 'AdminController@index')->name('admin');
 

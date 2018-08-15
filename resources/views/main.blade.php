@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
+
+<head>
 
     @include('partials._head')
     @yield('style')
 
-    </head>
+</head>
+<body>
 
-    <body>
+@include('partials._nav')
 
-        @include('partials._nav')
+@include('partials._messages')
 
-        @include('partials._messages')
+@yield('content')
 
-        @yield('content')
+@include('partials._footer')
 
-        @include('partials._footer')
+@include('partials._js')
 
-        @include('partials._js')
-
-    </body>
+</body>
 </html>
