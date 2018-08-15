@@ -36,6 +36,12 @@
                     <p>Shops</p>
                 </a>
             </li>
+            <li class="nav-item {{ Request::is('*activities*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('activities.index') }}">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>Activities</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
