@@ -14,6 +14,14 @@ class ShopController extends Controller
         $this->middleware('entrust-gui.admin');
     }
 
+    public function index() {
+
+        $shops = DB::table('shops')->paginate(10);
+
+        return view('admin.shops.index', ['shops' => $shops]);
+
+    }
+
     public function create() {
 
         $shop = new Shop();
@@ -54,14 +62,6 @@ class ShopController extends Controller
 
     }
 
-    public function index() {
-
-        $shops = DB::table('shops')->paginate(10);
-
-        return view('admin.shops.index', ['shops' => $shops]);
-
-    }
-
     public function edit($id) {
 
         $shop = Shop::find($id);
@@ -73,6 +73,10 @@ class ShopController extends Controller
     public function update($id, Request $request) {
 
         $inputs = $request->all();
+
+
+
+
 
         Shop::find($id)->update($inputs);
 

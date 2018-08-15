@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use \App\Shop;
-
+use \App\Event;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +19,28 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/shops', function () {
+
+    return Shop::where('validated', '=', '1')->get();
+
+});
+
+Route::get('/events', function () {
+
+    return Event::all();
+
+});
+
+Route::middleware('auth:api')->group(function () {
+
+
+
+});
+
 Route::middleware('auth:api')->get('/leaderboard/top', 'LeaderboardController@topUser')->name('leaderboard.topUser');
 Route::middleware('auth:api')->get('/leaderboard/me', 'LeaderboardController@userRanking')->name('leaderboard.me');
 Route::middleware('auth:api')->get('/shops/store', 'ShopController@store')->name('shop.store');
 
-Route::get('/shops', function () {
-    return Shop::all();
-});
+//Route::get('/shops', function () {
+//    return Shop::all();
+//});
