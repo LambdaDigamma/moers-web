@@ -6,9 +6,11 @@
         <div class="container">
             <img class="responsive-img" style="" src="{{ URL::asset('/img/hero.png') }}">
             <h3 class="white-text center" style="margin: 0; padding: 0;">MOERS IN DEINER HOSENTASCHE</h3>
-            <h6 class="center white-text" style="font-size: 1.25em; margin-top: 20px;">
-                Suche Moerser Geschäfte & Parkplätze mit Live-Daten und bewege Dich mit interaktiven 360° Panoramen durch die Stadt!
-            </h6>
+            <p class="center white-text" style="font-size: 1.25em; margin-top: 20px;">
+                Suche Moerser Geschäfte & Parkplätze mit Live-Daten und bewege Dich mit interaktiven 360° Panoramen durch die Stadt!<br>
+                Finde tolle Veranstaltungen in Moers und Umgebung und vergleiche die aktuellen Kraftstoffpreise.<br>
+                Der straßen-basierte Abfallkalendar den Überblick über Leerungstermine zu behalten und kann am Vorabend an die Leerungstermine erinnern.
+            </p>
             <div class="center">
                 <a id="appstore" href="https://itunes.apple.com/de/app/mein-moers/id1305862555?mt=8" class="center" style="margin-top: 20px; margin-left: 20px;"></a>
             </div>
