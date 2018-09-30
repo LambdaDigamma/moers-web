@@ -18,7 +18,7 @@ class CreateShopsTable extends Migration
             $table->double('lat');
             $table->double('lng');
             $table->string('name');
-            $table->string('quarter');
+            $table->string('quarter')->nullable();
             $table->string('street');
             $table->string('house_number');
             $table->string('postcode');
@@ -36,25 +36,6 @@ class CreateShopsTable extends Migration
             $table->string('other')->nullable();
             $table->integer('creator_id')->default(1);
             $table->boolean('validated')->default(false);
-            // Deprecated
-            $table->string('monday_from');
-            $table->string('monday_till');
-            $table->string('monday_break')->nullable();
-            $table->string('tuesday_from');
-            $table->string('tuesday_till');
-            $table->string('tuesday_break')->nullable();
-            $table->string('wednesday_from');
-            $table->string('wednesday_till');
-            $table->string('wednesday_break')->nullable();
-            $table->string('thursday_from');
-            $table->string('thursday_till');
-            $table->string('thursday_break')->nullable();
-            $table->string('friday_from');
-            $table->string('friday_till');
-            $table->string('friday_break')->nullable();
-            $table->string('saturday_from');
-            $table->string('saturday_till');
-            $table->string('saturday_break')->nullable();
             $table->timestamps();
         });
     }
