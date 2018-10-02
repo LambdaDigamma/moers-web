@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Acoustep\EntrustGui\Contracts\HashMethodInterface;
 use Esensi\Model\Contracts\HashingModelInterface;
 use Esensi\Model\Contracts\ValidatingModelInterface;
 use Esensi\Model\Traits\HashingModelTrait;
@@ -15,9 +16,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract, ValidatingModelInterface, HashingModelInterface
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HashingModelInterface
 {
-    use Authenticatable, CanResetPassword, ValidatingModelTrait, EntrustUserTrait, HashingModelTrait;
+    use Authenticatable, CanResetPassword, EntrustUserTrait, HashingModelTrait;
 
     use Notifiable, HasApiTokens;
 

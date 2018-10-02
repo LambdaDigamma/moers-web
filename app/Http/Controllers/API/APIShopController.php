@@ -19,31 +19,38 @@ class APIShopController extends Controller
 
         $inputs = $request->all();
 
-        $shop = new Shop();
+        if ($inputs['secret'] == "tzVQl34i6SrYSzAGSkBh") {
 
-        $shop->name = $inputs['name'];
-        $shop->branch = $inputs['branch'];
-        $shop->street = $inputs['street'];
-        $shop->house_number = $inputs['house_number'];
-        $shop->postcode = $inputs['postcode'];
-        $shop->place = $inputs['place'];
-        $shop->lat = $inputs['lat'];
-        $shop->lng = $inputs['lng'];
-        $shop->url = $inputs['url'];
-        $shop->phone = $inputs['phone'];
-        $shop->monday = $inputs['monday'];
-        $shop->tuesday = $inputs['tuesday'];
-        $shop->wednesday = $inputs['wednesday'];
-        $shop->thursday = $inputs['thursday'];
-        $shop->friday = $inputs['friday'];
-        $shop->saturday = $inputs['saturday'];
-        $shop->sunday = $inputs['sunday'];
-        $shop->other = $inputs['other'];
+            $shop = new Shop();
 
-        $shop->creator_id = $request->user()->id;
-        $shop->save();
+            $shop->name = $inputs['name'];
+            $shop->branch = $inputs['branch'];
+            $shop->street = $inputs['street'];
+            $shop->house_number = $inputs['house_number'];
+            $shop->postcode = $inputs['postcode'];
+            $shop->place = $inputs['place'];
+            $shop->lat = $inputs['lat'];
+            $shop->lng = $inputs['lng'];
+            $shop->url = $inputs['url'];
+            $shop->phone = $inputs['phone'];
+            $shop->monday = $inputs['monday'];
+            $shop->tuesday = $inputs['tuesday'];
+            $shop->wednesday = $inputs['wednesday'];
+            $shop->thursday = $inputs['thursday'];
+            $shop->friday = $inputs['friday'];
+            $shop->saturday = $inputs['saturday'];
+            $shop->sunday = $inputs['sunday'];
+            $shop->other = $inputs['other'];
 
-        return response()->json($shop, 201);
+//            $shop->creator_id = $request->user()->id;
+            $shop->save();
+
+            return response()->json($shop, 201);
+
+
+        } else {
+            return response()->json(["success" => false], 401);
+        }
 
     }
 

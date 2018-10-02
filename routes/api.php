@@ -20,8 +20,6 @@ use \App\Event;
 Route::group(['middleware' => ['auth:api'],
               'prefix' => '/v1'], function() {
 
-    Route::get('/shops', 'API\APIShopController@getShops')->name('api.v1.shops.getShops');
-    Route::post('/shops', 'API\APIShopController@store')->name('api.v1.shops.store');
     Route::get('/user', 'API\APIUserController@getUser')->name('api.v1.user.getUser');
     Route::get('/leaderboard/top', 'LeaderboardController@topUser')->name('api.v1.leaderboard.topUser');
     Route::get('/leaderboard/me', 'LeaderboardController@userRanking')->name('api.v1.leaderboard.me');
@@ -34,7 +32,10 @@ Route::group(['middleware' => ['auth:api'],
 
 Route::group(['prefix' => '/v1'], function () {
 
+//    Route::post('/register', 'API\APIUserController@register')->name('api.v1.user.register');
     Route::get('/events', 'API\APIEventController@getEvents')->name('api.v1.events.get');
+    Route::get('/shops', 'API\APIShopController@getShops')->name('api.v1.shops.getShops');
+    Route::post('/shops', 'API\APIShopController@store')->name('api.v1.shops.store');
 
 });
 
