@@ -17,7 +17,12 @@ class APIEntryController extends Controller
 
             $tags = explode(', ', $entry->tags);
 
-            $entry->tags = $tags;
+            if ($tags != [""]) {
+                $entry->tags = $tags;
+            } else {
+                $entry->tags = array();
+            }
+
             $entry->is_validated = $entry->is_validated == 1 ? true : false;
 
         }
