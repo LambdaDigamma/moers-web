@@ -38,6 +38,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::post('/shops', 'API\APIShopController@store')->name('api.v1.shops.store');
     Route::get('/restaurants', 'API\APIRestaurantController@getRestaurants')->name('api.v1.restaurants.getRestaurants');
     Route::get('/entries', 'API\APIEntryController@get')->name('api.v1.entries.get');
+    Route::post('/entries', 'API\APIEntryController@store')->name('api.v1.entries.store');
 
 });
 
