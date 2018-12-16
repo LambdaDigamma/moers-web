@@ -19,7 +19,7 @@ class Organisation extends Model
     }
 
     public function entry() {
-        return $this->hasOne('App\Entry');
+        return $this->belongsTo('App\Entry');
     }
 
 }

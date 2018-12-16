@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use \App\Shop;
 use \App\Event;
 
@@ -14,6 +15,56 @@ use \App\Event;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::group(['prefix' => '/v2'], function () {
+
+    // Organisations
+
+    Route::get('/organisations', 'API\APIOrganisationController@get')
+        ->name('api.v2.organisations.get');
+
+    Route::get('/organisations/{id}', 'API\APIOrganisationController@show')
+        ->name('api.v2.organisations.show');
+
+    Route::post('/organisations', 'API\APIOrganisationController@store')
+        ->name('api.v2.organisations.store');
+
+    Route::put('/organisations/{organisation}', 'API\APIOrganisationController@update')
+        ->name('api.v2.organisations.update');
+
+    Route::delete('/organisations/{organisation}','API\APIOrganisationController@delete')
+        ->name('api.v2.organisations.delete');
+
+
+    // Events
+    /// CREATE
+    /// READ
+    /// UPDATE
+    /// DELETE
+
+
+    // Entries
+    /// CREATE
+    /// READ
+    /// UPDATE
+    /// DELETE
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ---- Auth Required ---- */
 
