@@ -34,6 +34,7 @@ class CreateEntriesTable extends Migration
             $table->string('other')->nullable();
             $table->integer('creator_id')->default(1);
             $table->boolean('is_validated')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
