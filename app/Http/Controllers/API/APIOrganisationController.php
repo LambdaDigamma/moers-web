@@ -6,6 +6,7 @@ use App\Organisation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class APIOrganisationController extends Controller
 {
@@ -51,6 +52,34 @@ class APIOrganisationController extends Controller
         } catch (Exception $e) {}
 
         return response()->json(null, 204);
+
+    }
+
+    public function join(Request $request, $id) {
+
+        $userID = $request->user()->id;
+
+        $organisation = Organisation::findOrFail($id);
+
+        $organisation->users()->attach($userID);
+
+        $organisation = Organisation::with(['users', 'entry'])->findOrFail($id);
+
+        return response()->json($organisation, 200);
+
+    }
+
+    public function leave(Request $request, $id) {
+
+        $userID = $request->user()->id;
+
+        $organisation = Organisation::findOrFail($id);
+
+        $organisation->users()->detach($userID);
+
+        $organisation = Organisation::with(['users', 'entry'])->findOrFail($id);
+
+        return response()->json($organisation, 200);
 
     }
 

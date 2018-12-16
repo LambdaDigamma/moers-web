@@ -24,6 +24,7 @@ Route::group(['prefix' => '/v2'], function () {
         ->name('api.v2.organisations.get');
 
     Route::get('/organisations/{id}', 'API\APIOrganisationController@show')
+        ->where('id', '[1-9][0-9]*')
         ->name('api.v2.organisations.show');
 
     Route::post('/organisations', 'API\APIOrganisationController@store')
@@ -35,6 +36,13 @@ Route::group(['prefix' => '/v2'], function () {
     Route::delete('/organisations/{organisation}','API\APIOrganisationController@delete')
         ->name('api.v2.organisations.delete');
 
+    Route::post('/organisations/{id}/join', 'API\APIOrganisationController@join')
+        ->where('id', '[1-9][0-9]*')
+        ->name('api.v2.organisations.join');
+
+    Route::post('/organisations/{id}/leave', 'API\APIOrganisationController@leave')
+        ->where('id', '[1-9][0-9]*')
+        ->name('api.v2.organisations.leave');
 
     // Events
     /// CREATE
