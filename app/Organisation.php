@@ -15,11 +15,15 @@ class Organisation extends Model
     protected $fillable = ['name', 'description'];
 
     public function users() {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User')->withPivot('organisation_id', 'user_id', 'role');
     }
 
     public function entry() {
         return $this->belongsTo('App\Entry');
+    }
+
+    public function events() {
+        return $this->hasMany('App\Event');
     }
 
 }

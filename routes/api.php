@@ -18,7 +18,7 @@ use \App\Event;
 
 Route::group(['prefix' => '/v2'], function () {
 
-    // Organisations
+    /* Basic */
 
     Route::get('/organisations', 'API\APIOrganisationController@get')
         ->name('api.v2.organisations.get');
@@ -36,13 +36,47 @@ Route::group(['prefix' => '/v2'], function () {
     Route::delete('/organisations/{organisation}','API\APIOrganisationController@delete')
         ->name('api.v2.organisations.delete');
 
-    Route::post('/organisations/{id}/join', 'API\APIOrganisationController@join')
-        ->where('id', '[1-9][0-9]*')
+    /* Users */
+
+    Route::get('/organisations/{organisation}/users', 'API\APIOrganisationController@getUsers')
+        ->name('api.v2.organisations.users');
+
+    Route::post('/organisations/{organisation}/join', 'API\APIOrganisationController@join')
         ->name('api.v2.organisations.join');
 
-    Route::post('/organisations/{id}/leave', 'API\APIOrganisationController@leave')
-        ->where('id', '[1-9][0-9]*')
+    Route::post('/organisations/{organisation}/leave', 'API\APIOrganisationController@leave')
         ->name('api.v2.organisations.leave');
+
+    Route::post('/organisations/{organisation}/makeAdmin', 'API\APIOrganisationController@makeAdmin')
+        ->name('api.v2.organisations.makeAdmin');
+
+    Route::post('/organisations/{organisation}/makeMember', 'API\APIOrganisationController@makeMember')
+        ->name('api.v2.organisations.makeMember');
+
+    /* Events */
+
+    Route::get('/organisations/{organisation}/events', 'API\APIOrganisationController@getEvents')
+        ->name('api.v2.organisations.events');
+
+    Route::post('/organisations/{organisation}/events', 'API\APIOrganisationController@storeEvent')
+        ->name('api.v2.organisations.events.store');
+
+    Route::delete('/organisations/{oID}/events/{eID}', 'API\APIOrganisationController@deleteEvent')
+        ->name('api.v2.organisations.events.delete');
+    //->where('id', '[1-9][0-9]*')
+
+    /* Entry */
+
+    Route::get('/organisations/{organisation}/entry', 'API\APIOrganisationController@getEntry')
+        ->name('api.v2.organisations.entry');
+
+    Route::post('/organisations/{organisation}/entry', 'API\APIOrganisationController@associateEntry')
+        ->name('api.v2.organisations.entry.associate');
+
+    Route::delete('/organisations/{organisation}/entry', 'API\APIOrganisationController@detachEntry')
+        ->name('api.v2.organisations.entry.detach');
+
+
 
     // Events
     /// CREATE

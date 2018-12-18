@@ -9,14 +9,10 @@
 namespace App;
 
 
-use Esensi\Model\Contracts\ValidatingModelInterface;
-use Esensi\Model\Traits\ValidatingModelTrait;
 use Zizaco\Entrust\EntrustPermission;
 
-class Permission extends EntrustPermission implements ValidatingModelInterface
+class Permission extends EntrustPermission
 {
-
-    use ValidatingModelTrait;
 
     protected $throwValidationExceptions = true;
 

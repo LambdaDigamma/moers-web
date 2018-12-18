@@ -29,15 +29,14 @@ class CreateOrganisationsTable extends Migration
         Schema::create('organisation_user', function (Blueprint $table) {
             $table->integer('organisation_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->foreign('organisation_id')->references('id')->on('users')
+            $table->foreign('user_id')->references('id')->on('users')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('organisations')
+            $table->foreign('organisation_id')->references('id')->on('organisations')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
             $table->index(['organisation_id', 'user_id'])->unique();
         });
-
     }
 
     /**

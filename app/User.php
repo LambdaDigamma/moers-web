@@ -2,12 +2,7 @@
 
 namespace App;
 
-use Acoustep\EntrustGui\Contracts\HashMethodInterface;
-use Esensi\Model\Contracts\HashingModelInterface;
-use Esensi\Model\Contracts\ValidatingModelInterface;
-use Esensi\Model\Traits\HashingModelTrait;
-use Esensi\Model\Traits\ValidatingModelTrait;
-use Illuminate\Auth\Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
@@ -16,11 +11,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HashingModelInterface
+class User extends Authenticatable implements AuthenticatableContract, CanResetPasswordContract
 {
-    use Authenticatable, CanResetPassword, EntrustUserTrait, HashingModelTrait;
-
-    use Notifiable, HasApiTokens;
+    use Notifiable, HasApiTokens, CanResetPassword, EntrustUserTrait;
 
     protected $throwValidationExceptions = true;
 
@@ -61,7 +54,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     ];
 
     public function organisations() {
-        return $this->belongsToMany('App\Organisation');
+        return $this->belongsToMany('App\Organisation')->withPivot('organisation_id', 'user_id', 'role');
+    }
+
+    public function organisationRole($organisationID) {
+        return $this->organisations()->findOrFail($organisationID)->pivot->role;
+    }
+
+    public function isMember($organisation) {
+        return $this->organisations()->find($organisation->id) != null;
+    }
+
+    public function isOrganisationAdmin($organisation) {
+        return $this->organisationRole($organisation->id) == 'admin';
     }
 
 }
