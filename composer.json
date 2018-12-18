@@ -6,7 +6,6 @@
     "type": "project",
     "require": {
         "php": "^7.1.3",
-        "acoustep/entrust-gui": "5.2.x-dev",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.6.*",
