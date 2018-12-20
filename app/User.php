@@ -61,12 +61,51 @@ class User extends Authenticatable implements AuthenticatableContract, CanResetP
         return $this->organisations()->findOrFail($organisationID)->pivot->role;
     }
 
-    public function isMember($organisation) {
-        return $this->organisations()->find($organisation->id) != null;
+    public function isMember($id) {
+        return $this->organisations()->find($id) != null;
     }
 
     public function isOrganisationAdmin($organisation) {
         return $this->organisationRole($organisation->id) == 'admin';
+    }
+
+    public function makeAdmin($id) {
+
+        $pivot = $this->organisations()->findOrFail($id)->pivot;
+
+        $pivot->role = 'admin';
+        $pivot->save();
+
+        return $pivot;
+
+    }
+
+    public function makeMember($id) {
+
+        $pivot = $this->organisations()->findOrFail($id)->pivot;
+
+        $pivot->role = 'member';
+        $pivot->save();
+
+        return $pivot;
+
+    }
+
+    public function join($id) {
+
+        if (!$this->isMember($id)) {
+
+            $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($id);
+            $organisation->users()->attach($this->id);
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+
     }
 
 }

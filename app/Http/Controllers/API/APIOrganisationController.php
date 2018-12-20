@@ -37,17 +37,30 @@ class APIOrganisationController extends Controller
 
     public function store(Request $request) {
 
+        $request->validate([
+            'name' => 'required|unique:organisations|max:255',
+            'description' => 'required|max:500',
+            'entry_id' => 'sometimes|nullable|integer|exists:entries,id'
+        ]);
+
         $organisation = Organisation::create($request->all());
 
-        $id = $organisation->id;
+        $request->user()->join($organisation->id);
+        $request->user()->makeAdmin($organisation->id);
 
-        $this->join($request, $id);
+        $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
 
         return response()->json($organisation, 201);
 
     }
 
     public function update(Request $request, Organisation $organisation) {
+
+        $request->validate([
+            'name' => 'required|unique:organisations|max:255',
+            'description' => 'required|max:500',
+            'entry_id' => 'sometimes|nullable|integer|exists:entries,id'
+        ]);
 
         if ($request->user()->organisationRole($organisation->id) == 'admin') {
 
@@ -85,7 +98,7 @@ class APIOrganisationController extends Controller
 
     public function getUsers(Request $request, Organisation $organisation) {
 
-        if ($request->user()->isMember($organisation)) {
+        if ($request->user()->isMember($organisation->id)) {
 
             $users = $organisation->users()->select(['id', 'name', 'created_at', 'updated_at'])->get();
 
@@ -103,13 +116,12 @@ class APIOrganisationController extends Controller
 
         $user = $request->user();
 
-        if (!$user->isMember($organisation)) {
-
-            $organisation->users()->attach($user->id);
+        if ($user->join($organisation->id)) {
 
             $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
 
             return response()->json($organisation, 200);
+
 
         } else {
 
@@ -121,9 +133,9 @@ class APIOrganisationController extends Controller
 
     public function leave(Request $request, Organisation $organisation) {
 
-        $userID = $request->user()->id;
+        $user = $request->user();
 
-        $organisation->users()->detach($userID);
+        $organisation->users()->detach($user->id);
 
         $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
 
@@ -131,31 +143,71 @@ class APIOrganisationController extends Controller
 
     }
 
-    public function makeAdmin(Request $request, Organisation $organisation) {
+    public function addUser(Request $request, Organisation $organisation) {
 
-        $user = User::find($request->input('userID'));
+        if ($request->user()->isOrganisationAdmin($organisation)) {
 
-        if ($user != null) {
+            $request->validate([
+                'user_id' => 'required|integer|exists:users,id'
+            ]);
 
-            if ($request->user()->isOrganisationAdmin($organisation) &&
-                $user->id != $request->user()->id) {
+            $userID = $request->input('user_id');
 
-                $pivot = $user->organisations()->findOrFail($organisation->id)->pivot;
+            $organisation->users()->attach($userID);
 
-                $pivot->role = 'admin';
-                $pivot->save();
+            $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
 
-                return response()->json($pivot, 201);
-
-            } else {
-
-                return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
-
-            }
+            return response()->json($organisation, 200);
 
         } else {
 
-            return response()->json(['error' => 'This user does not exist. Check your payload.'], 403);
+            return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
+
+        }
+
+    }
+
+    public function removeUser(Request $request, Organisation $organisation) {
+
+        if ($request->user()->isOrganisationAdmin($organisation)) {
+
+            $request->validate([
+                'user_id' => 'required|integer|exists:users,id'
+            ]);
+
+            $userID = $request->input('user_id');
+
+            $organisation->users()->detach($userID);
+
+            $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
+
+            return response()->json($organisation, 200);
+
+        } else {
+
+            return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
+
+        }
+
+    }
+
+    public function makeAdmin(Request $request, Organisation $organisation) {
+
+        if ($request->user()->isOrganisationAdmin($organisation)) {
+
+            $request->validate([
+                'user_id' => 'required|integer|exists:users,id'
+            ]);
+
+            $user = User::find($request->input('user_id'));
+
+            $pivot = $user->makeAdmin();
+
+            return response()->json($pivot, 201);
+
+        } else {
+
+            return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
 
         }
 
@@ -163,29 +215,21 @@ class APIOrganisationController extends Controller
 
     public function makeMember(Request $request, Organisation $organisation) {
 
-        $user = User::find($request->input('userID'));
+        if ($request->user()->isOrganisationAdmin($organisation)) {
 
-        if ($user != null) {
+            $request->validate([
+                'user_id' => 'required|integer|exists:users,id'
+            ]);
 
-            if ($request->user()->isOrganisationAdmin($organisation) &&
-                $user->id != $request->user()->id) {
+            $user = User::find($request->input('user_id'));
 
-                $pivot = $user->organisations()->findOrFail($organisation->id)->pivot;
+            $pivot = $user->makeMember();
 
-                $pivot->role = 'member';
-                $pivot->save();
-
-                return response()->json($pivot, 201);
-
-            } else {
-
-                return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
-
-            }
+            return response()->json($pivot, 201);
 
         } else {
 
-            return response()->json(['error' => 'This user does not exist. Check your payload.'], 403);
+            return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
 
         }
 

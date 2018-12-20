@@ -53,6 +53,12 @@ Route::group(['prefix' => '/v2'], function () {
     Route::post('/organisations/{organisation}/makeMember', 'API\APIOrganisationController@makeMember')
         ->name('api.v2.organisations.makeMember');
 
+    Route::post('/organisations/{organisation}/addUser', 'API\APIOrganisationController@addUser')
+        ->name('api.v2.organisations.addUser');
+
+    Route::post('/organisations/{organisation}/removeUser', 'API\APIOrganisationController@removeUser')
+        ->name('api.v2.organisations.removeUser');
+
     /* Events */
 
     Route::get('/organisations/{organisation}/events', 'API\APIOrganisationController@getEvents')
@@ -62,8 +68,9 @@ Route::group(['prefix' => '/v2'], function () {
         ->name('api.v2.organisations.events.store');
 
     Route::delete('/organisations/{oID}/events/{eID}', 'API\APIOrganisationController@deleteEvent')
+        ->where('oID', '[1-9][0-9]*')
+        ->where('eID', '[1-9][0-9]*')
         ->name('api.v2.organisations.events.delete');
-    //->where('id', '[1-9][0-9]*')
 
     /* Entry */
 
