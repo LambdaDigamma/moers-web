@@ -247,6 +247,26 @@ class APIOrganisationController extends Controller
 
     public function storeEvent(Request $request, Organisation $organisation) {
 
+        $request->validate([
+            'name' => 'required|max:255',
+            'date' => 'required|date|date_format:d.m.Y|after:yesterday',
+            'time_start' => [
+                'required',
+                'regex:/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/i'
+            ],
+            'time_end' => [
+                'sometimes',
+                'nullable',
+                'regex:/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/i'
+            ],
+            'description' => 'sometimes|nullable|string',
+            'url' => 'sometimes|nullable|url',
+            'category' => 'sometimes|nullable|string|max:255',
+            'organisation_id' => 'sometimes|nullable|integer|exists:organisations,id',
+            'entry_id' => 'sometimes|nullable|integer|exists:entries,id',
+            'extras' => 'sometimes|nullable|json'
+        ]);
+
         if ($request->user()->isOrganisationAdmin($organisation)) {
 
             $event = Event::create($request->all());
@@ -307,9 +327,13 @@ class APIOrganisationController extends Controller
 
     public function associateEntry(Request $request, Organisation $organisation) {
 
+        $request->validate([
+            'entry_id' => 'required|integer|exists:entries,id',
+        ]);
+
         if ($request->user()->isOrganisationAdmin($organisation)) {
 
-            $id = $request->input('entryID');
+            $id = $request->input('entry_id');
 
             if ($id != null && Entry::find($id) != null) {
 
@@ -322,7 +346,7 @@ class APIOrganisationController extends Controller
 
             } else {
 
-                return response()->json(['error' => 'Entry not found. Check the payload and provide a valid entryID.'], 403);
+                return response()->json(['error' => 'Entry not found. Check the payload and provide a valid entry_id.'], 403);
 
             }
 
