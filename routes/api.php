@@ -16,6 +16,8 @@ use \App\Event;
 |
 */
 
+/* Organisations */
+
 Route::group(['prefix' => '/v2'], function () {
 
     /* Basic */

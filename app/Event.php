@@ -16,11 +16,11 @@ class Event extends Model
                            'description', 'url', 'category',
                            'organisation_id', 'entry_id', 'extras'];
 
-    public function organisationOrNull() {
+    public function organisation() {
         return $this->belongsTo('App\Organisation');
     }
 
-    public function entryOrNull() {
+    public function entry() {
         return $this->belongsTo('App\Entry');
     }
 

@@ -62,7 +62,7 @@ class APIOrganisationController extends Controller
             'entry_id' => 'sometimes|nullable|integer|exists:entries,id'
         ]);
 
-        if ($request->user()->organisationRole($organisation->id) == 'admin') {
+        if ($request->user()->isOrganisationAdmin($organisation)) {
 
             $organisation->update($request->all());
 

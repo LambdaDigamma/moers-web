@@ -22,6 +22,7 @@ class CreateEntriesTable extends Migration
             $table->string('street');
             $table->string('house_number');
             $table->string('postcode');
+            $table->string('place');
             $table->string('url')->nullable();
             $table->string('phone')->nullable();
             $table->string('monday')->nullable();
