@@ -85,15 +85,6 @@ Route::group(['prefix' => '/v2'], function () {
     Route::delete('/organisations/{organisation}/entry', 'API\APIOrganisationController@detachEntry')
         ->name('api.v2.organisations.entry.detach');
 
-
-
-    // Events
-    /// CREATE
-    /// READ
-    /// UPDATE
-    /// DELETE
-
-
     // Entries
     /// CREATE
     /// READ
@@ -102,9 +93,38 @@ Route::group(['prefix' => '/v2'], function () {
 
 });
 
+/* Events */
 
+Route::group(['prefix' => '/v2'], function () {
 
+    Route::get('/events', 'API\APIEventController@get')
+        ->name('api.v2.events.get');
 
+    Route::get('/events/{id}', 'API\APIEventController@show')
+        ->where('id', '[1-9][0-9]*')
+        ->name('api.v2.events.show');
+
+    Route::post('/events', 'API\APIEventController@store')
+        ->name('api.v2.events.store');
+
+    Route::put('/events/{event}', 'API\APIEventController@update')
+        ->name('api.v2.events.update');
+
+    Route::delete('/organisations/{event}','API\APIEventController@delete')
+        ->name('api.v2.events.delete');
+
+});
+
+/* Entries */
+
+Route::group(['prefix' => '/v2'], function () {
+
+    Route::get('/entries', 'API\APIEntryController@get')
+        ->name('api.v2.entries.get');
+
+    Route::post('/entries', 'API\APIEntryController@store');
+
+});
 
 
 
@@ -140,6 +160,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::post('/shops', 'API\APIShopController@store')->name('api.v1.shops.store');
     Route::get('/entries', 'API\APIEntryController@get')->name('api.v1.entries.get');
     Route::post('/entries', 'API\APIEntryController@store')->name('api.v1.entries.store');
+    Route::put('/entries/{entry}', 'API\APIEntryController@update')->name('api.v1.entries.update');
 
 });
 
