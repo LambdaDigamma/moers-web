@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 class APIEntryController extends Controller
 {
 
+    public function __construct() {
+
+    }
+
+    /* Basic */
+
     public function get() {
 
         $entries = Entry::all();
@@ -33,44 +39,48 @@ class APIEntryController extends Controller
 
     public function store(Request $request) {
 
-        $inputs = $request->all();
+        // TODO: Add Lat / Lng Validator
+        $request->validate([
+            'lat' => [
+                'required',
+                'numeric'
+            ],
+            'lng' => [
+                'required',
+                'numeric'
+            ],
+            'name' => 'required|max:255',
+            'tags' => 'required|max:1000',
+            'street' => 'required|max:255',
+            'house_number' => 'required|max:255',
+            'postcode' => 'required|digits:5',
+            'place' => 'required|max:255',
+            'url' => 'sometimes|nullable|url',
+            'phone' => 'sometimes|nullable|max:255',
+            'monday' => 'sometimes|nullable|max:255',
+            'tuesday' => 'sometimes|nullable|max:255',
+            'wednesday' => 'sometimes|nullable|max:255',
+            'thursday' => 'sometimes|nullable|max:255',
+            'friday' => 'sometimes|nullable|max:255',
+            'saturday' => 'sometimes|nullable|max:255',
+            'sunday' => 'sometimes|nullable|max:255',
+            'other' => 'sometimes|nullable|max:255',
+        ]);
 
         $isAllowed = true;
 
         if (!$isAllowed) {
-            return response()->json(["success" => false], 401);
+            return response()->json(['error' => 'Not allowed. Inserting entries is temporarily not allowed.'], 401);
         }
 
-        if ($inputs['secret'] == "tzVQl34i6SrYSzAGSkBh") {
+        if ($request->get('secret') == 'tzVQl34i6SrYSzAGSkBh') {
 
-            $entry = new Entry();
-
-            $entry->name = $inputs['name'];
-            $entry->street = $inputs['street'];
-            $entry->tags = $inputs['tags'];
-            $entry->house_number = $inputs['house_number'];
-            $entry->postcode = $inputs['postcode'];
-            $entry->place = $inputs['place'];
-            $entry->lat = $inputs['lat'];
-            $entry->lng = $inputs['lng'];
-            $entry->url = $inputs['url'];
-            $entry->phone = $inputs['phone'];
-            $entry->monday = $inputs['monday'];
-            $entry->tuesday = $inputs['tuesday'];
-            $entry->wednesday = $inputs['wednesday'];
-            $entry->thursday = $inputs['thursday'];
-            $entry->friday = $inputs['friday'];
-            $entry->saturday = $inputs['saturday'];
-            $entry->sunday = $inputs['sunday'];
-            $entry->other = $inputs['other'];
-
-
-            $entry->save();
+            $entry = Entry::create($request->all());
 
             return response()->json($entry, 201);
 
         } else {
-            return response()->json(["success" => false], 401);
+            return response()->json(['error' => 'Not authorized. Client secret is not valid.'], 403);
         }
 
     }
