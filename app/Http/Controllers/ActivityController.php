@@ -10,7 +10,7 @@ class ActivityController extends Controller
 
     public function __construct()
     {
-        $this->middleware('entrust-gui.admin');
+
     }
 
     public function index()

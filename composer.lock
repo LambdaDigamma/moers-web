@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0f120248eb6df6b80573c6ba8a45f35",
+    "content-hash": "a652798e13d7c17530641ae8b44684a5",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -1829,16 +1829,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.36.1",
+            "version": "1.36.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "63da8cdf89d7a5efe43aabc794365f6e7b7b8983"
+                "reference": "cd324b98bc30290f233dd0e75e6ce49f7ab2a6c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/63da8cdf89d7a5efe43aabc794365f6e7b7b8983",
-                "reference": "63da8cdf89d7a5efe43aabc794365f6e7b7b8983",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/cd324b98bc30290f233dd0e75e6ce49f7ab2a6c9",
+                "reference": "cd324b98bc30290f233dd0e75e6ce49f7ab2a6c9",
                 "shasum": ""
             },
             "require": {
@@ -1883,7 +1883,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-11-22T18:23:02+00:00"
+            "time": "2018-12-28T10:07:33+00:00"
         },
         {
             "name": "nexmo/client",
@@ -4026,74 +4026,6 @@
                 "psr-7"
             ],
             "time": "2018-09-05T19:29:37+00:00"
-        },
-        {
-            "name": "zizaco/entrust",
-            "version": "5.2.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Zizaco/entrust.git",
-                "reference": "3623cc052937d9e62543402b50f24065720d44b9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Zizaco/entrust/zipball/3623cc052937d9e62543402b50f24065720d44b9",
-                "reference": "3623cc052937d9e62543402b50f24065720d44b9",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/cache": "~5.0",
-                "illuminate/console": "~5.0",
-                "illuminate/support": "~5.0",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "illuminate/database": "~5.0",
-                "mockery/mockery": "dev-master",
-                "phpunit/phpunit": "~4.1",
-                "sami/sami": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/commands"
-                ],
-                "psr-4": {
-                    "Zizaco\\Entrust\\": "src/Entrust/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andrew Elkins",
-                    "homepage": "http://andrewelkins.com"
-                },
-                {
-                    "name": "Zizaco Zizuini",
-                    "email": "zizaco@gmail.com"
-                },
-                {
-                    "name": "Ben Batschelet",
-                    "homepage": "http://github.com/bbatsche"
-                },
-                {
-                    "name": "Michele Angioni",
-                    "email": "michele.angioni@gmail.com"
-                }
-            ],
-            "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
-            "keywords": [
-                "acl",
-                "auth",
-                "illuminate",
-                "laravel",
-                "permission",
-                "roles"
-            ],
-            "time": "2016-12-29T06:25:06+00:00"
         }
     ],
     "packages-dev": [
@@ -5797,9 +5729,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "zizaco/entrust": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

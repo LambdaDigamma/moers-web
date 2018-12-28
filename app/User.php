@@ -3,19 +3,12 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class User extends Authenticatable implements AuthenticatableContract, CanResetPasswordContract
+class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, CanResetPassword, EntrustUserTrait;
-
-    protected $throwValidationExceptions = true;
+    use Notifiable, HasApiTokens;
 
     /**
      * The database table used by the model.
@@ -39,19 +32,6 @@ class User extends Authenticatable implements AuthenticatableContract, CanResetP
     protected $hidden = ['password', 'remember_token'];
 
     protected $hashable = ['password'];
-
-    protected $rulesets = [
-
-        'creating' => [
-            'email'      => 'required|email|unique:users',
-            'password'   => 'required',
-        ],
-
-        'updating' => [
-            'email'      => 'required|email|unique:users',
-            'password'   => '',
-        ],
-    ];
 
     public function organisations() {
         return $this->belongsToMany('App\Organisation')->withPivot('organisation_id', 'user_id', 'role');
