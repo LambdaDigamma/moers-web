@@ -154,6 +154,7 @@ return [
          */
 
         Silber\Bouncer\BouncerServiceProvider::class,
+        OwenIt\Auditing\AuditingServiceProvider::class,
 
         /*
          * Application Service Providers...
