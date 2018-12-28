@@ -153,6 +153,8 @@ return [
          * Package Service Providers...
          */
 
+        Silber\Bouncer\BouncerServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -212,6 +214,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        'Bouncer' => Silber\Bouncer\BouncerFacade::class,
 
     ],
 
