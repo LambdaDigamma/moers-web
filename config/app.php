@@ -119,6 +119,8 @@ return [
     |
     */
 
+    'faker_locale' => 'de_DE',
+
     'providers' => [
 
         /*
