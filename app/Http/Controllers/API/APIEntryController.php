@@ -91,29 +91,27 @@ class APIEntryController extends Controller
         // TODO: Add Lat / Lng Validator
         $request->validate([
             'lat' => [
-                'required',
                 'numeric'
             ],
             'lng' => [
-                'required',
                 'numeric'
             ],
-            'name' => 'required|max:255',
-            'tags' => 'required|max:1000',
-            'street' => 'required|max:255',
-            'house_number' => 'required|max:255',
-            'postcode' => 'required|digits:5',
-            'place' => 'required|max:255',
-            'url' => 'sometimes|nullable|url',
-            'phone' => 'sometimes|nullable|max:255',
-            'monday' => 'sometimes|nullable|max:255',
-            'tuesday' => 'sometimes|nullable|max:255',
-            'wednesday' => 'sometimes|nullable|max:255',
-            'thursday' => 'sometimes|nullable|max:255',
-            'friday' => 'sometimes|nullable|max:255',
-            'saturday' => 'sometimes|nullable|max:255',
-            'sunday' => 'sometimes|nullable|max:255',
-            'other' => 'sometimes|nullable|max:255',
+            'name' => 'max:255',
+            'tags' => 'max:1000',
+            'street' => 'max:255',
+            'house_number' => 'max:255',
+            'postcode' => 'digits:5',
+            'place' => 'max:255',
+            'url' => 'nullable|url',
+            'phone' => 'nullable|max:255',
+            'monday' => 'nullable|max:255',
+            'tuesday' => 'nullable|max:255',
+            'wednesday' => 'nullable|max:255',
+            'thursday' => 'nullable|max:255',
+            'friday' => 'nullable|max:255',
+            'saturday' => 'nullable|max:255',
+            'sunday' => 'nullable|max:255',
+            'other' => 'nullable|max:255',
         ]);
 
         $isAllowed = true;
@@ -125,6 +123,9 @@ class APIEntryController extends Controller
         if ($request->get('secret') == 'tzVQl34i6SrYSzAGSkBh') {
 
             $entry->update($request->all());
+            $entry->save();
+
+            $entry = Entry::findOrFail($entry->id);
 
             return response()->json($entry, 201);
 
@@ -137,7 +138,7 @@ class APIEntryController extends Controller
     public function delete(Request $request, Entry $entry) {
 
         try {
-            $organisation->delete();
+            $entry->delete();
         } catch (Exception $e) {}
 
         return response()->json(null, 204);
