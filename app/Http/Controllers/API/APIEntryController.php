@@ -120,12 +120,25 @@ class APIEntryController extends Controller
             return response()->json(['error' => 'Not allowed. Inserting entries is temporarily not allowed.'], 401);
         }
 
-        if ($request->get('secret') == 'tzVQl34i6SrYSzAGSkBh') {
+        $data = $request->json()->all();
+        $secret = $data['secret'];
 
-            $entry->update($request->all());
+        if ($secret == 'tzVQl34i6SrYSzAGSkBh') {
+
+            $entry->update($data);
             $entry->save();
 
             $entry = Entry::findOrFail($entry->id);
+
+            $tags = explode(', ', $entry->tags);
+
+            if ($tags != [""]) {
+                $entry->tags = $tags;
+            } else {
+                $entry->tags = array();
+            }
+
+            $entry->is_validated = $entry->is_validated == 1 ? true : false;
 
             return response()->json($entry, 201);
 
