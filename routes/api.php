@@ -155,7 +155,7 @@ Route::group(['middleware' => ['auth:api'],
 Route::group(['prefix' => '/v1'], function () {
 
 //    Route::post('/register', 'API\APIUserController@register')->name('api.v1.user.register');
-    Route::get('/events', 'API\APIEventController@getEvents')->name('api.v1.events.get');
+    Route::get('/events', 'API\APIEventController@get')->name('api.v1.events.get');
     Route::get('/shops', 'API\APIShopController@getShops')->name('api.v1.shops.getShops');
     Route::post('/shops', 'API\APIShopController@store')->name('api.v1.shops.store');
     Route::get('/entries', 'API\APIEntryController@get')->name('api.v1.entries.get');
