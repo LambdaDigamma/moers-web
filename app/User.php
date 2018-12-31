@@ -2,27 +2,14 @@
 
 namespace App;
 
-use Acoustep\EntrustGui\Contracts\HashMethodInterface;
-use Esensi\Model\Contracts\HashingModelInterface;
-use Esensi\Model\Contracts\ValidatingModelInterface;
-use Esensi\Model\Traits\HashingModelTrait;
-use Esensi\Model\Traits\ValidatingModelTrait;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Silber\Bouncer\Database\HasRolesAndAbilities;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HashingModelInterface
+class User extends Authenticatable
 {
-    use Authenticatable, CanResetPassword, EntrustUserTrait, HashingModelTrait;
-
-    use Notifiable, HasApiTokens;
-
-    protected $throwValidationExceptions = true;
+    use Notifiable, HasApiTokens, HasRolesAndAbilities;
 
     /**
      * The database table used by the model.
@@ -47,17 +34,59 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     protected $hashable = ['password'];
 
-    protected $rulesets = [
+    public function organisations() {
+        return $this->belongsToMany('App\Organisation')->withPivot('organisation_id', 'user_id', 'role');
+    }
 
-        'creating' => [
-            'email'      => 'required|email|unique:users',
-            'password'   => 'required',
-        ],
+    public function organisationRole($organisationID) {
+        return $this->organisations()->findOrFail($organisationID)->pivot->role;
+    }
 
-        'updating' => [
-            'email'      => 'required|email|unique:users',
-            'password'   => '',
-        ],
-    ];
+    public function isMember($id) {
+        return $this->organisations()->find($id) != null;
+    }
+
+    public function isOrganisationAdmin($organisation) {
+        return $this->organisationRole($organisation->id) == 'admin';
+    }
+
+    public function makeAdmin($id) {
+
+        $pivot = $this->organisations()->findOrFail($id)->pivot;
+
+        $pivot->role = 'admin';
+        $pivot->save();
+
+        return $pivot;
+
+    }
+
+    public function makeMember($id) {
+
+        $pivot = $this->organisations()->findOrFail($id)->pivot;
+
+        $pivot->role = 'member';
+        $pivot->save();
+
+        return $pivot;
+
+    }
+
+    public function join($id) {
+
+        if (!$this->isMember($id)) {
+
+            $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($id);
+            $organisation->users()->attach($this->id);
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+
+    }
 
 }

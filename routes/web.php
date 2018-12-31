@@ -11,8 +11,6 @@
 |
 */
 
-Auth::routes();
-
 Route::get('/', function () {
     return view('legacy.index');
 })->name('index');
@@ -42,3 +40,5 @@ Route::get('/portal', 'PortalController@index')->name('portal.index');
 Route::get('/shops/create', 'ShopController@create')->name('shops.create');
 //Route::get('/shops/store', 'ShopController@store')->name('shops.store');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
