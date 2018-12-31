@@ -150,11 +150,17 @@ class APIEntryController extends Controller
 
     public function delete(Request $request, Entry $entry) {
 
-        try {
-            $entry->delete();
-        } catch (Exception $e) {}
+//        try {
+//            $entry->delete();
+//        } catch (Exception $e) {}
+//
+//        return response()->json(null, 204);
 
-        return response()->json(null, 204);
+    }
+
+    public function getHistory(Entry $entry) {
+
+        return $entry->audits()->select('id', 'event', 'old_values', 'new_values', 'created_at', 'updated_at')->get();
 
     }
 
