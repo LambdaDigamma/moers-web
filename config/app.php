@@ -155,6 +155,7 @@ return [
 
         Silber\Bouncer\BouncerServiceProvider::class,
         OwenIt\Auditing\AuditingServiceProvider::class,
+        Orchestra\Parser\XmlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -216,6 +217,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,
+        'XmlParser' => Orchestra\Parser\Xml\Facade::class,
 
     ],
 
