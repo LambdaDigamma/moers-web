@@ -31,8 +31,6 @@ Route::post('admin/shops/{id}/reject', 'ShopController@reject')->name('shops.rej
 
 /* Admin - Activities */
 
-Route::get('admin/activities', 'ActivityController@index')->name('activities.index');
-
 /* Portal */
 
 Route::get('/portal/menu', 'PortalController@menu')->name('portal.menu');
