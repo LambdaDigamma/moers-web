@@ -7,13 +7,8 @@ use \App\Event;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| API Routes v2
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
 */
 
 /* Organisations */
@@ -85,12 +80,12 @@ Route::group(['prefix' => '/v2'], function () {
     Route::delete('/organisations/{organisation}/entry', 'API\APIOrganisationController@detachEntry')
         ->name('api.v2.organisations.entry.detach');
 
-    // Entries
-    /// CREATE
-    /// READ
-    /// UPDATE
-    /// DELETE
 
+    /* moers festival */
+
+    Route::get('/moers-festival/events', 'MoersFestivalController@getEvents')
+        ->name('api.v2.moersfestival.get');
+    
 });
 
 /* Events */

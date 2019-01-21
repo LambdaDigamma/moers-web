@@ -23,7 +23,7 @@ class Organisation extends Model
     }
 
     public function events() {
-        return $this->hasMany('App\Event');
+        return $this->hasMany('App\AdvEvent');
     }
 
 }
