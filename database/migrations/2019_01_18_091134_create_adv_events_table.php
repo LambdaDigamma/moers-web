@@ -20,7 +20,7 @@ class CreateAdvEventsTable extends Migration
             $table->dateTime('end_date')->nullable();
             $table->longText('description')->nullable();
             $table->string('url')->nullable();
-            $table->string('image_url')->nullable();
+            $table->string('image_path')->nullable();
             $table->string('category')->nullable();
             $table->integer('organisation_id')->unsigned()->nullable();
             $table->integer('entry_id')->unsigned()->nullable();

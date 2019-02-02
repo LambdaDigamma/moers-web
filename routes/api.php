@@ -122,17 +122,43 @@ Route::group(['prefix' => '/v2'], function () {
 });
 
 
+/*
+|--------------------------------------------------------------------------
+| API Routes v1
+|--------------------------------------------------------------------------
+*/
+
+Route::group(['prefix' => '/v1'], function () {
+
+    /* User */
+
+    Route::post('/login', 'UserController@login');
+    Route::post('/register', 'UserController@register');
+
+    /* Events */
+
+    Route::get('/events', 'API\APIEventController@get')->name('api.v1.events.get');
+
+    /* Shops */
+
+    Route::get('/shops', 'API\APIShopController@getShops')->name('api.v1.shops.getShops');
+    Route::post('/shops', 'API\APIShopController@store')->name('api.v1.shops.store');
+
+    /* Entries */
+
+    Route::get('/entries', 'API\APIEntryController@get')->name('api.v1.entries.get');
+    Route::post('/entries', 'API\APIEntryController@store')->name('api.v1.entries.store');
+    Route::put('/entries/{entry}', 'API\APIEntryController@update')->name('api.v1.entries.update');
+    Route::get('/entries/{entry}/history', 'API\APIEntryController@getHistory')->name('api.v1.entries.history.get');
+
+});
 
 
-
-
-
-
-
-
-
-
-/* ---- Auth Required ---- */
+/*
+|--------------------------------------------------------------------------
+| API Routes Deprecated
+|--------------------------------------------------------------------------
+*/
 
 Route::group(['middleware' => ['auth:api'],
               'prefix' => '/v1'], function() {
@@ -143,31 +169,6 @@ Route::group(['middleware' => ['auth:api'],
 
 });
 
-
-
-/* ---- Common ---- */
-
-Route::group(['prefix' => '/v1'], function () {
-
-//    Route::post('/register', 'API\APIUserController@register')->name('api.v1.user.register');
-    Route::get('/events', 'API\APIEventController@get')->name('api.v1.events.get');
-    Route::get('/shops', 'API\APIShopController@getShops')->name('api.v1.shops.getShops');
-    Route::post('/shops', 'API\APIShopController@store')->name('api.v1.shops.store');
-    Route::get('/entries', 'API\APIEntryController@get')->name('api.v1.entries.get');
-    Route::post('/entries', 'API\APIEntryController@store')->name('api.v1.entries.store');
-    Route::put('/entries/{entry}', 'API\APIEntryController@update')->name('api.v1.entries.update');
-    Route::get('/entries/{entry}/history', 'API\APIEntryController@getHistory')->name('api.v1.entries.history.get');
-
-});
-
-
-
-/* ---- Deprecated ---- */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::get('/shops', function () {
     return Shop::where('validated', '=', '1')->get();
 });
@@ -175,7 +176,3 @@ Route::get('/shops', function () {
 Route::get('/events', function () {
     return Event::all();
 });
-
-Route::middleware('auth:api')->get('/leaderboard/top', 'LeaderboardController@topUser')->name('leaderboard.topUser');
-Route::middleware('auth:api')->get('/leaderboard/me', 'LeaderboardController@userRanking')->name('leaderboard.me');
-Route::middleware('auth:api')->post('/shops/store', 'ShopController@store')->name('shop.store');
