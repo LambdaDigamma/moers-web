@@ -14,7 +14,7 @@ class APIOrganisationController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth:api')->except('get', 'show', 'getEvents', 'getEntry');
+        $this->middleware('auth:api')->except('get', 'show', 'getEvents', 'getEntry', 'store', 'update');
 //        $this->middleware('permission:create-organisation')->only('store');
 //        $this->middleware('permission:edit-organisation')->only('update', 'storeEvent',
 //                                                                                  'deleteEvent', 'associateEntry',
@@ -62,17 +62,17 @@ class APIOrganisationController extends Controller
             'entry_id' => 'sometimes|nullable|integer|exists:entries,id'
         ]);
 
-        if ($request->user()->isOrganisationAdmin($organisation)) {
+//        if ($request->user()->isOrganisationAdmin($organisation)) {
 
             $organisation->update($request->all());
 
             return response()->json($organisation, 200);
 
-        } else {
-
-            return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
-
-        }
+//        } else {
+//
+//            return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
+//
+//        }
 
     }
 
