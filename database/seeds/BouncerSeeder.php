@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Silber\Bouncer\Bouncer;
 use App\User;
 
 class BouncerSeeder extends Seeder
