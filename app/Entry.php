@@ -29,6 +29,22 @@ class Entry extends Model implements AuditableContract
         'friday', 'saturday', 'sunday', 'other'
     ];
 
+    public function getTagsAttribute($value) {
+
+        $tags = explode(', ', $value);
+
+        if ($tags != [""]) {
+            return $tags;
+        } else {
+            return array();
+        }
+
+    }
+
+    public function getIsValidatedAttribute($value) {
+        return $value == 1 ? true : false;
+    }
+
     public function events() {
         return $this->hasMany('App\Event');
     }

@@ -20,20 +20,6 @@ class APIEntryController extends Controller
 
         $entries = Entry::all();
 
-        foreach ($entries as $key => $entry) {
-
-            $tags = explode(', ', $entry->tags);
-
-            if ($tags != [""]) {
-                $entry->tags = $tags;
-            } else {
-                $entry->tags = array();
-            }
-
-            $entry->is_validated = $entry->is_validated == 1 ? true : false;
-
-        }
-
         return $entries;
 
     }
@@ -129,16 +115,6 @@ class APIEntryController extends Controller
             $entry->save();
 
             $entry = Entry::findOrFail($entry->id);
-
-            $tags = explode(', ', $entry->tags);
-
-            if ($tags != [""]) {
-                $entry->tags = $tags;
-            } else {
-                $entry->tags = array();
-            }
-
-            $entry->is_validated = $entry->is_validated == 1 ? true : false;
 
             return response()->json($entry, 201);
 
