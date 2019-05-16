@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Organisation;
-use Illuminate\Http\Request;
 
 class MoersFestivalController extends Controller
 {
