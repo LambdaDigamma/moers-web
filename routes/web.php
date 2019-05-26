@@ -13,7 +13,7 @@
 
 
 Route::get('/{any}', function() {
-    return view('layout');
+    return view('app');
 })->where('any', '.*');
 
 
