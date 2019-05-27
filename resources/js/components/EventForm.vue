@@ -1,6 +1,6 @@
 <template>
 
-    <b-form>
+    <b-form @submit="onSubmit">
 
         <!-- Name -->
         <b-form-group
@@ -69,6 +69,7 @@
                 <b-col sm="6">
                     <b-form-input
                             id="start_date"
+                            v-model="startDate"
                             :disabled="!isEditingEvents || isStartUnknown"
                             :type="'date'">
 
@@ -77,6 +78,7 @@
                 <b-col sm="6">
                     <b-form-input
                             id="start_time"
+                            v-model="startTime"
                             :disabled="!isEditingEvents || isStartUnknown"
                             :type="'time'">
 
@@ -106,6 +108,7 @@
                 <b-col sm="6">
                     <b-form-input date
                                   id="end_date"
+                                  v-model="endDate"
                                   :disabled="!isEditingEvents || isEndUnknown"
                                   :type="'date'">
 
@@ -114,6 +117,7 @@
                 <b-col sm="6">
                     <b-form-input time
                                   id="end_time"
+                                  v-model="endTime"
                                   :disabled="!isEditingEvents || isEndUnknown"
                                   :type="'time'">
 
@@ -179,6 +183,7 @@
                             id="image_url"
                             type="url"
                             placeholder="URL des Header-Bildes"
+                            v-model="imagePath"
                             :disabled="!isEditingEvents">
 
                     </b-form-input>
@@ -188,6 +193,7 @@
                             id="icon_url"
                             type="url"
                             placeholder="URL des Icons"
+                            v-model="iconURL"
                             :disabled="!isEditingEvents">
 
                     </b-form-input>
@@ -208,6 +214,7 @@
                     id="url"
                     type="url"
                     placeholder="URL"
+                    v-model="url"
                     :disabled="!isEditingEvents">
 
             </b-form-input>
@@ -216,6 +223,8 @@
 
         <!-- Organisation -->
         <!-- TODO: Add this -->
+
+        <b-button type="submit" variant="success">Speichern</b-button>
 
     </b-form>
 
@@ -228,15 +237,12 @@
         name: "EventForm",
         data() {
             return {
-                isEditing: false,
-                ticket: null,
                 ticketOptions: [
                     { value: null, text: 'Noch nicht festgelegt...' },
                     { value: 'Festival-Ticket', text: 'Festival-Ticket' },
                     { value: 'Both', text: 'Mörzz-Ticket oder Festival-Ticket' },
                     { value: 'Free', text: 'Free' }
                 ],
-                color: null,
                 colorOptions: [
                     { value: null, text: 'Keine festgelegt' },
                     { value: 'yellow', text: 'mœrsify (Gelb)' },
@@ -246,18 +252,28 @@
                     { value: 'magenta', text: 'Festivaldorf (Magenta)' },
                     { value: 'green', text: 'Park (Grün)' }
                 ],
-                entryID: null,
             }
         },
         computed: {
-            ...mapState(['events', 'entries', 'isEditingEvents']),
+            ...mapState(['events', 'entries', 'isEditingEvents', 'eventForm']),
             ...mapGetters(['getEventById', 'getEvent']),
             ...mapFields({
                 name: 'eventForm.name',
-                descriptionDE: 'eventForm.descriptionDE',
-                descriptionEN: 'eventForm.descriptionEN',
+                descriptionDE: 'eventForm.description',
+                descriptionEN: 'eventForm.extras.descriptionEN',
+                entryID: 'eventForm.entry_id',
+                ticket: 'eventForm.extras.ticket',
+                color: 'eventForm.color',
+                url: 'eventForm.url',
+                imagePath: 'eventForm.image_path',
+                iconURL: 'eventForm.extras.iconURL',
                 isStartUnknown: 'eventForm.startUnknown',
+                startTime: 'eventForm.startTime',
+                startDate: 'eventForm.startDate',
                 isEndUnknown: 'eventForm.endUnknown',
+                endTime: 'eventForm.endTime',
+                endDate: 'eventForm.endDate',
+
             }),
             entriesOptions() {
                 let options = this.entries.map(entry => {
@@ -271,7 +287,11 @@
             ...mapActions([
                 "getEntries",
                 "getEvents"
-            ])
+            ]),
+            onSubmit(evt) {
+                evt.preventDefault()
+                this.$emit('submit')
+            },
         }
     }
 </script>

@@ -28,6 +28,9 @@ export default {
                 commit('SET_ENTRIES', entries)
             })
     },
+    resetEventForm({ commit }) {
+        commit('RESET_EVENT_FORM')
+    },
     enableEventEditMode({ commit }) {
         commit('SET_EVENT_EDITING', true)
     },

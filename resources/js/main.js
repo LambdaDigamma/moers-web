@@ -23,6 +23,19 @@ if (token) {
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+router.beforeEach((to, from, next) => {
+
+    const publicPages = ['/login', '/'];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = localStorage.getItem('user');
+
+    if (authRequired && !loggedIn) {
+        return next('/login');
+    }
+
+    next();
+})
+
 new Vue({
     router,
     store,

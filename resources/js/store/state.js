@@ -4,15 +4,22 @@ export default {
     isEditingEvents: false,
     eventForm: {
         name: '',
-        descriptionDE: '',
-        descriptionEN: '',
+        description: '',
         startUnknown: true,
         startDate: null,
         startTime: null,
         endUnknown: true,
         endDate: null,
-        endTime: null
-
+        endTime: null,
+        entry_id: null,
+        url: null,
+        image_path: null,
+        extras: {
+            descriptionEN: null,
+            ticket: null,
+            color: null,
+            iconURL: null
+        }
     }
 
 }
