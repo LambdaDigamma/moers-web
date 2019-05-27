@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\AdvEvent;
 use App\Organisation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MoersFestivalController extends Controller
 {
+
+    public $mfOrganisationID = 1;
 
     public function getEvents() {
 
@@ -16,6 +21,41 @@ class MoersFestivalController extends Controller
         $events = $organisation->events()->with('entry', 'organisation')->where('is_published', 1)->get();
 
         return response()->json($events, 200);
+
+    }
+
+    public function store(Request $request) {
+
+        $validator = Validator::make($request->json()->all(), [
+            'name' => 'required|max:255',
+            'description' => 'sometimes|nullable|string',
+            'start_date' => 'sometimes|nullable|date_format:Y-m-d H:i:s',
+            'end_date' => 'sometimes|nullable|date_format:Y-m-d H:i:s',
+            'url' => 'sometimes|nullable|url',
+            'image_path' => 'sometimes|nullable|url',
+            'entry_id' => 'sometimes|nullable|integer|exists:entries,id',
+            'organisation_id' => 'sometimes|nullable|integer|exists:organisations,id',
+            'extras.needsFestivalTicket' => 'sometimes|nullable|boolean',
+            'extras.isFree' => 'sometimes|nullable|boolean',
+            'extras.visitWithExtraTicket' => 'sometimes|nullable|boolean',
+            'extras.color' => 'sometimes|nullable|string',
+            'extras.descriptionEN' => 'sometimes|nullable|string',
+            'extras.iconURL' => 'sometimes|nullable|url'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        } else {
+
+            $event = AdvEvent::create($request->json()->all());
+
+            $event->organisation_id = $this->mfOrganisationID;
+
+            $event->save();
+
+            return response()->json($event, 201);
+
+        }
 
     }
 

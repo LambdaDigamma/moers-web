@@ -85,7 +85,11 @@ Route::group(['prefix' => '/v2'], function () {
 
     Route::get('/moers-festival/events', 'MoersFestivalController@getEvents')
         ->name('api.v2.moersfestival.get');
-    
+
+    Route::post('/moers-festival/events', 'MoersFestivalController@store')
+        ->middleware('auth:api')
+        ->name('api.v2.moersfestival.store');
+
 });
 
 /* Events */
