@@ -43,6 +43,8 @@
         mounted() {
             this.isLoggedIn = localStorage.getItem('jwt');
             this.name = localStorage.getItem('user');
+            this.$store.dispatch('getEvents')
+            this.$store.dispatch('getEntries')
         }
     }
 </script>

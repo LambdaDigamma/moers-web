@@ -5,9 +5,9 @@
         <div class="card-header d-flex align-items-center justify-content-between">
             <h5>Veranstaltungen</h5>
             <div class="d-flex align-items-end w-50">
-                <button class="btn btn-success text-white mr-3 w-25" title="Add Event">
+                <router-link class="btn btn-success text-white mr-3 w-25" :to="{ 'name': 'event-add' }" title="Add Event">
                     <b class="text-white">Hinzufügen</b>
-                </button>
+                </router-link>
 
                 <div class="input-group w-75">
                     <input type="text" class="form-control" placeholder="Veranstaltung suchen" aria-label="Suchbegriff" v-model="searchTerm">
@@ -19,8 +19,7 @@
         </div>
         <div class="card-body">
             <b-table striped bordered hover
-                     :busy="isBusy"
-                     :items="filteredEvents"
+                     :items="events"
                      :primary-key="'id'"
                      :fields="fields"
                      @row-clicked="showDetails">
@@ -36,7 +35,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
+    import { mapState } from 'vuex'
     export default {
         name: "Events",
         data() {
@@ -58,48 +57,19 @@
                         sortable: true
                     }
                 ],
-                events: [],
                 searchTerm: "",
             }
         },
         mounted() {
-            axios.get('/api/v2/moers-festival/events', {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }).then(response => {
-                this.events = []
-                response.data.forEach((data) => {
-                    this.events.push(data);
-                })
-                this.isBusy = false
-            })
+            // this.$store.dispatch('getEvents')
         },
         computed: {
-            filteredEvents: function() {
-
-                let filterEvents = this.events;
-                let search = this.searchTerm;
-
-                if(!search) {
-                    return filterEvents;
-                }
-
-                search = search.trim().toLowerCase();
-
-                filterEvents = filterEvents.filter(function (event) {
-                    if (event.name.toLowerCase().indexOf(search) !== -1) {
-                        return event;
-                    }
-                });
-
-                return filterEvents;
-
-            }
+            ...mapState([
+             'events',
+            ])
         },
         methods: {
             showDetails(item) {
-                console.log(item.id)
                 this.$router.push({ name: 'event-detail', params: { id: item.id } })
             },
         }

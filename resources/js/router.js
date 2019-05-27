@@ -7,6 +7,7 @@ import Events from './views/Events.vue'
 import EventDetail from './views/EventDetail.vue'
 import Organisations from './views/Organisations.vue'
 import OrganisationsDetail from './views/OrganisationsDetail.vue'
+import AddEvent from "./views/AddEvent";
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ export default new Router({
             path: '/organisations',
             name: 'organisations',
             component: Organisations
+        },
+        {
+            path: '/events/add',
+            name: 'event-add',
+            component: AddEvent
         },
         {
             path: '/events/:id',
