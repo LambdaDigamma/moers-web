@@ -15,7 +15,8 @@
         "orchestra/parser": "~3.0",
         "owen-it/laravel-auditing": "^9.0",
         "silber/bouncer": "v1.0.0-rc.5",
-        "spatie/laravel-newsletter": "^4.2"
+        "spatie/laravel-newsletter": "^4.2",
+        "tymon/jwt-auth": "dev-develop"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
