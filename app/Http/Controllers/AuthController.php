@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -28,7 +29,10 @@ class AuthController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        return response()->json(['status' => 'success'], 200);
+        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+        $response = ['token' => $token];
+
+        return response($response, 200);
 
     }
 
@@ -37,19 +41,36 @@ class AuthController extends Controller
         $email = $request->json()->get('email');
         $password = $request->json()->get('password');
 
-        if ($token = $this->guard()->attempt(['email' => $email, 'password' => $password])) {
-            return response()->json(['status' => 'success'], 200)->header('Authorization', $token);
+
+
+        $user = User::where('email', $email)->first();
+
+        if ($user) {
+
+            if (Hash::check($password, $user->password)) {
+                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                $response = ['token' => $token];
+                return response($response, 200)->header('Authorization', $token);
+            } else {
+                $response = "Password missmatch";
+                return response($response, 422);
+            }
+
+        } else {
+            $response = 'User does not exist';
+            return response($response, 422);
         }
 
-        return response()->json(['error' => 'Login failed.'], 401);
     }
 
-    public function logout() {
-        $this->guard()->logout();
-        return response()->json([
-            'status' => 'success',
-            'msg' => 'Logged out successfully.'
-        ], 200);
+    public function logout(Request $request) {
+
+        $token = $request->user()->token();
+        $token->revoke();
+
+        $response = 'You have been succesfully logged out!';
+        return response($response, 200);
+
     }
 
     public function user(Request $request) {

@@ -6,9 +6,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use Notifiable, HasApiTokens, HasRolesAndAbilities;
 
@@ -34,14 +33,6 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = ['password', 'remember_token'];
 
     protected $hashable = ['password'];
-
-    public function getJWTIdentifier() {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims() {
-        return [];
-    }
 
     public function organisations() {
         return $this->belongsToMany('App\Organisation')->withPivot('organisation_id', 'user_id', 'role');

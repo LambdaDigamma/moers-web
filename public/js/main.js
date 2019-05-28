@@ -2213,6 +2213,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_EventForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../components/EventForm.vue */ "./resources/js/components/EventForm.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services */ "./resources/js/services/index.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2238,6 +2239,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'EventAdd',
   components: {
@@ -2246,7 +2248,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['events', 'entries', 'isEditingEvents', 'eventForm'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['enableEventEditMode']), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['getCurrentEventPayload']), {
     onSubmit: function onSubmit() {
-      alert("Testing");
       var event = this.eventForm;
 
       if (event.extras.ticket !== null) {
@@ -2267,7 +2268,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         start = event.startDate;
 
         if (event.startTime !== null) {
-          start += ' ' + event.startTime;
+          start += ' ' + event.startTime + ':00';
         } else {
           start += ' 00:00:00';
         }
@@ -2276,7 +2277,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           end = event.endDate;
 
           if (event.endTime !== null) {
-            end += ' ' + event.endTime;
+            end += ' ' + event.endTime + ':00';
           } else {
             end += ' 00:00:00';
           }
@@ -2289,7 +2290,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       delete event.endDate;
       delete event.endTime;
       delete event.endUnknown;
-      alert(JSON.stringify(event));
+      event.start_date = start;
+      event.end_date = end;
+      _services__WEBPACK_IMPORTED_MODULE_2__["eventService"].store(event).then(function (response) {
+        console.log(response.data);
+        console.log(response);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   }),
   mounted: function mounted() {
@@ -54034,6 +54042,19 @@ if (token) {
 }
 
 axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios__WEBPACK_IMPORTED_MODULE_2___default.a.interceptors.request.use(function (config) {
+  var user = JSON.parse(localStorage.getItem('user'));
+
+  if (user && user.token) {
+    config.headers['Authorization'] = "Bearer ".concat(user.token);
+  }
+
+  config.headers['Accept'] = 'application/json';
+  config.headers['Content-Type'] = 'application/json';
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
 _router__WEBPACK_IMPORTED_MODULE_6__["default"].beforeEach(function (to, from, next) {
   var publicPages = ['/login', '/'];
   var authRequired = !publicPages.includes(to.path);
@@ -54126,17 +54147,48 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
+/***/ "./resources/js/services/event.service.js":
+/*!************************************************!*\
+  !*** ./resources/js/services/event.service.js ***!
+  \************************************************/
+/*! exports provided: eventService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eventService", function() { return eventService; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var eventService = {
+  store: store
+};
+
+function store(event) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'POST',
+    url: '/api/v2/moers-festival/events',
+    data: event
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/services/index.js":
 /*!****************************************!*\
   !*** ./resources/js/services/index.js ***!
   \****************************************/
-/*! exports provided: userService */
+/*! exports provided: userService, eventService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user.service */ "./resources/js/services/user.service.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "userService", function() { return _user_service__WEBPACK_IMPORTED_MODULE_0__["userService"]; });
+
+/* harmony import */ var _event_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./event.service */ "./resources/js/services/event.service.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "eventService", function() { return _event_service__WEBPACK_IMPORTED_MODULE_1__["eventService"]; });
+
 
 
 
@@ -54167,7 +54219,7 @@ function login(email, password) {
   };
   return axios__WEBPACK_IMPORTED_MODULE_0___default()({
     method: 'POST',
-    url: 'api/v2/auth/login',
+    url: '/api/v2/auth/login',
     data: data,
     config: {
       headers: {
@@ -54202,7 +54254,12 @@ function login(email, password) {
 }
 
 function logout() {
-  localStorage.removeItem('user');
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'POST',
+    url: '/api/v2/auth/logout'
+  }).then(function (response) {
+    localStorage.removeItem('user');
+  });
 }
 
 /***/ }),

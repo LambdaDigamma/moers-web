@@ -23,6 +23,26 @@ if (token) {
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+axios.interceptors.request.use(
+    (config) => {
+
+        let user = JSON.parse(localStorage.getItem('user'))
+
+        if (user && user.token) {
+            config.headers['Authorization'] = `Bearer ${ user.token }`;
+        }
+
+        config.headers['Accept'] = 'application/json';
+        config.headers['Content-Type'] = 'application/json';
+
+        return config;
+    },
+
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 router.beforeEach((to, from, next) => {
 
     const publicPages = ['/login', '/'];

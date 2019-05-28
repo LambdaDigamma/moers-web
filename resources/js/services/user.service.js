@@ -14,7 +14,7 @@ function login(email, password) {
 
     return axios({
         method: 'POST',
-        url: 'api/v2/auth/login',
+        url: '/api/v2/auth/login',
         data: data,
         config: { headers: { 'Content-Type': 'application/json' } }
     })
@@ -56,5 +56,12 @@ function login(email, password) {
 }
 
 function logout() {
-    localStorage.removeItem('user');
+
+    return axios({
+        method: 'POST',
+        url: '/api/v2/auth/logout',
+    }).then(response => {
+        localStorage.removeItem('user');
+    })
+
 }

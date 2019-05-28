@@ -26,9 +26,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-//        Gate::define('update-entry', )
-
-
         Passport::routes();
     }
 }
