@@ -10,9 +10,9 @@
                 </router-link>
 
                 <div class="input-group w-75">
-                    <input type="text" class="form-control" placeholder="Veranstaltung suchen" aria-label="Suchbegriff" v-model="searchTerm">
+                    <input type="text" class="form-control" :disabled="true" placeholder="Veranstaltung suchen" aria-label="Suchbegriff" v-model="searchTerm">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="button">Suchen</button>
+                        <button class="btn btn-outline-primary" :disabled="true" type="button">Suchen</button>
                     </div>
                 </div>
             </div>
@@ -55,13 +55,17 @@
                         key: 'start_date',
                         label: 'Start',
                         sortable: true
+                    },
+                    {
+                        key: 'actions',
+                        label: 'Aktionen'
                     }
                 ],
                 searchTerm: "",
             }
         },
         mounted() {
-            // this.$store.dispatch('getEvents')
+            this.$store.dispatch('getEvents')
         },
         computed: {
             ...mapState([

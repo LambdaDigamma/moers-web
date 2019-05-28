@@ -1,15 +1,25 @@
 import axios from 'axios';
 
 export const eventService = {
-    store,
+    storeEvent,
+    deleteEvent
 };
 
-function store(event) {
+function storeEvent(event) {
 
     return axios({
         method: 'POST',
         url: '/api/v2/moers-festival/events',
         data: event,
+    })
+
+}
+
+function deleteEvent(eventID) {
+
+    return axios({
+        method: 'DELETE',
+        url: 'api/v2/moers-festival/event/' + eventID,
     })
 
 }

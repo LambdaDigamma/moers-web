@@ -2225,12 +2225,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       delete event.endUnknown;
       event.start_date = start;
       event.end_date = end;
-      _services__WEBPACK_IMPORTED_MODULE_2__["eventService"].store(event).then(function (response) {
-        console.log(response.data);
-        console.log(response);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      var dispatch = this.$store.dispatch;
+
+      if (event) {
+        dispatch('event/storeEvent', event);
+      } // eventService.storeEvent(event).then(response => {
+      //
+      //     console.log(response.data)
+      //     console.log(response)
+      //
+      // }).catch(err => {
+      //     console.log(err)
+      // })
+
     }
   }),
   mounted: function mounted() {
@@ -2362,11 +2369,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         key: 'start_date',
         label: 'Start',
         sortable: true
+      }, {
+        key: 'actions',
+        label: 'Aktionen'
       }],
       searchTerm: ""
     };
   },
-  mounted: function mounted() {// this.$store.dispatch('getEvents')
+  mounted: function mounted() {
+    this.$store.dispatch('getEvents');
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['events'])),
   methods: {
@@ -4081,6 +4092,7 @@ var render = function() {
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
+                    disabled: true,
                     placeholder: "Veranstaltung suchen",
                     "aria-label": "Suchbegriff"
                   },
@@ -4095,7 +4107,16 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticClass: "input-group-append" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-primary",
+                      attrs: { disabled: true, type: "button" }
+                    },
+                    [_vm._v("Suchen")]
+                  )
+                ])
               ])
             ],
             1
@@ -4143,20 +4164,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-outline-primary", attrs: { type: "button" } },
-        [_vm._v("Suchen")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -21273,14 +21281,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var eventService = {
-  store: store
+  storeEvent: storeEvent,
+  deleteEvent: deleteEvent
 };
 
-function store(event) {
+function storeEvent(event) {
   return axios__WEBPACK_IMPORTED_MODULE_0___default()({
     method: 'POST',
     url: '/api/v2/moers-festival/events',
     data: event
+  });
+}
+
+function deleteEvent(eventID) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'DELETE',
+    url: 'api/v2/moers-festival/event/' + eventID
   });
 }
 
@@ -21290,7 +21306,7 @@ function store(event) {
 /*!****************************************!*\
   !*** ./resources/js/services/index.js ***!
   \****************************************/
-/*! exports provided: eventService, userService */
+/*! exports provided: userService, eventService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

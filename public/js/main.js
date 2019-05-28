@@ -2292,12 +2292,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       delete event.endUnknown;
       event.start_date = start;
       event.end_date = end;
-      _services__WEBPACK_IMPORTED_MODULE_2__["eventService"].store(event).then(function (response) {
-        console.log(response.data);
-        console.log(response);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      var dispatch = this.$store.dispatch;
+
+      if (event) {
+        dispatch('event/storeEvent', event);
+      } // eventService.storeEvent(event).then(response => {
+      //
+      //     console.log(response.data)
+      //     console.log(response)
+      //
+      // }).catch(err => {
+      //     console.log(err)
+      // })
+
     }
   }),
   mounted: function mounted() {
@@ -2429,11 +2436,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         key: 'start_date',
         label: 'Start',
         sortable: true
+      }, {
+        key: 'actions',
+        label: 'Aktionen'
       }],
       searchTerm: ""
     };
   },
-  mounted: function mounted() {// this.$store.dispatch('getEvents')
+  mounted: function mounted() {
+    this.$store.dispatch('getEvents');
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['events'])),
   methods: {
@@ -36046,7 +36057,7 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  !this.$store.state.isLoggedIn
+                  this.$store.state.authentication.user !== null
                     ? _c(
                         "b-button",
                         {
@@ -36825,6 +36836,7 @@ var render = function() {
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
+                    disabled: true,
                     placeholder: "Veranstaltung suchen",
                     "aria-label": "Suchbegriff"
                   },
@@ -36839,7 +36851,16 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticClass: "input-group-append" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-primary",
+                      attrs: { disabled: true, type: "button" }
+                    },
+                    [_vm._v("Suchen")]
+                  )
+                ])
               ])
             ],
             1
@@ -36887,20 +36908,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-outline-primary", attrs: { type: "button" } },
-        [_vm._v("Suchen")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -54161,14 +54169,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var eventService = {
-  store: store
+  storeEvent: storeEvent,
+  deleteEvent: deleteEvent
 };
 
-function store(event) {
+function storeEvent(event) {
   return axios__WEBPACK_IMPORTED_MODULE_0___default()({
     method: 'POST',
     url: '/api/v2/moers-festival/events',
     data: event
+  });
+}
+
+function deleteEvent(eventID) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'DELETE',
+    url: 'api/v2/moers-festival/event/' + eventID
   });
 }
 
@@ -54447,6 +54463,54 @@ var authentication = {
 
 /***/ }),
 
+/***/ "./resources/js/store/event.module.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/event.module.js ***!
+  \********************************************/
+/*! exports provided: event */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "event", function() { return event; });
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services */ "./resources/js/services/index.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../router */ "./resources/js/router.js");
+
+
+var event = {
+  namespaced: true,
+  actions: {
+    storeEvent: function storeEvent(_ref, event) {
+      var dispatch = _ref.dispatch,
+          commit = _ref.commit;
+      _services__WEBPACK_IMPORTED_MODULE_0__["eventService"].storeEvent(event).then(function (data) {
+        // TODO: Fix this
+        // dispatch('/alert/success', 'Veranstaltung wurde erfolgreich hinzugefügt.', { root: true })
+        _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/events');
+      }, function (error) {
+        dispatch('alert/error', error, {
+          root: true
+        });
+      });
+    },
+    deleteEvent: function deleteEvent(_ref2, eventID) {
+      var dispatch = _ref2.dispatch,
+          commit = _ref2.commit;
+      _services__WEBPACK_IMPORTED_MODULE_0__["eventService"].deleteEvent(eventID).then(function (data) {}, function (error) {
+        dispatch('alert/error', error, {
+          root: true
+        });
+      });
+    }
+  },
+  mutations: {
+    storeEventSuccess: function storeEventSuccess(state, user) {},
+    storeEventFailure: function storeEventFailure(state) {}
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/store/getters.js":
 /*!***************************************!*\
   !*** ./resources/js/store/getters.js ***!
@@ -54492,10 +54556,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _alert_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./alert.module */ "./resources/js/store/alert.module.js");
 /* harmony import */ var _authentication_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./authentication.module */ "./resources/js/store/authentication.module.js");
-/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./state */ "./resources/js/store/state.js");
-/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/mutations.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./actions */ "./resources/js/store/actions.js");
-/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./getters */ "./resources/js/store/getters.js");
+/* harmony import */ var _event_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./event.module */ "./resources/js/store/event.module.js");
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./state */ "./resources/js/store/state.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./actions */ "./resources/js/store/actions.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./getters */ "./resources/js/store/getters.js");
+
 
 
 
@@ -54508,12 +54574,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
     alert: _alert_module__WEBPACK_IMPORTED_MODULE_2__["alert"],
-    authentication: _authentication_module__WEBPACK_IMPORTED_MODULE_3__["authentication"]
+    authentication: _authentication_module__WEBPACK_IMPORTED_MODULE_3__["authentication"],
+    event: _event_module__WEBPACK_IMPORTED_MODULE_4__["event"]
   },
-  state: _state__WEBPACK_IMPORTED_MODULE_4__["default"],
-  mutations: _mutations__WEBPACK_IMPORTED_MODULE_5__["default"],
-  actions: _actions__WEBPACK_IMPORTED_MODULE_6__["default"],
-  getters: _getters__WEBPACK_IMPORTED_MODULE_7__["default"]
+  state: _state__WEBPACK_IMPORTED_MODULE_5__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_6__["default"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_7__["default"],
+  getters: _getters__WEBPACK_IMPORTED_MODULE_8__["default"]
 }));
 
 /***/ }),

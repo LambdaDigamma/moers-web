@@ -19,7 +19,7 @@
                     <b-button to="/login" size="sm" class="my-2 my-sm-0" right v-if="!this.$store.state.authentication.status.loggedIn">
                         Anmelden
                     </b-button>
-                    <b-button size="sm" class="my-2 my-sm-0" to="/login" right v-if="!this.$store.state.isLoggedIn">
+                    <b-button size="sm" class="my-2 my-sm-0" to="/login" right v-if="this.$store.state.authentication.user !== null">
                         Abmelden
                     </b-button>
 

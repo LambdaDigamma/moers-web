@@ -82,14 +82,19 @@
                 event.start_date = start
                 event.end_date = end
 
-                eventService.store(event).then(response => {
+                const { dispatch } = this.$store;
+                if (event) {
+                    dispatch('event/storeEvent', event);
+                }
 
-                    console.log(response.data)
-                    console.log(response)
-
-                }).catch(err => {
-                    console.log(err)
-                })
+                // eventService.storeEvent(event).then(response => {
+                //
+                //     console.log(response.data)
+                //     console.log(response)
+                //
+                // }).catch(err => {
+                //     console.log(err)
+                // })
 
             }
         },
