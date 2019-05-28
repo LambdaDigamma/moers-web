@@ -2050,7 +2050,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     descriptionEN: 'eventForm.extras.descriptionEN',
     entryID: 'eventForm.entry_id',
     ticket: 'eventForm.extras.ticket',
-    color: 'eventForm.color',
+    color: 'eventForm.extras.color',
     url: 'eventForm.url',
     imagePath: 'eventForm.image_path',
     iconURL: 'eventForm.extras.iconURL',

@@ -13,7 +13,7 @@ class AdvEvent extends Model
     protected $table = 'adv_events';
 
     protected $fillable = ['name', 'date', 'start_date', 'end_date',
-        'description', 'url', 'image_url', 'category',
+        'description', 'url', 'image_path', 'category',
         'organisation_id', 'entry_id', 'extras', 'is_published'];
 
     protected $casts = [
