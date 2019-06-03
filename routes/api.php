@@ -125,6 +125,15 @@ Route::group(['prefix' => '/v2'], function () {
 
 });
 
+/* Tracker */
+
+Route::group(['prefix' => '/v2'], function () {
+
+    Route::get('/tracker', 'API\APITrackerController@get')
+        ->name('api.v2.tracker.get');
+    
+});
+
 /* Auth */
 
 Route::group(['prefix' => '/v2'], function () {
