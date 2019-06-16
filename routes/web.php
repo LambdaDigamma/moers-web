@@ -11,15 +11,15 @@
 |
 */
 
+Route::get('/', function () {
+    return view('legacy.index');
+})->name('index');
 
 Route::get('/{any}', function() {
     return view('app');
 })->where('any', '.*');
 
 
-Route::get('/', function () {
-    return view('legacy.index');
-})->name('index');
 
 
 Route::post('/mailinglist/subscribe', 'MailingListController@subscribe')->name('mailinglist.subscribe');
