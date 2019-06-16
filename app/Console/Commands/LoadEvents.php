@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Event;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Orchestra\Parser\Xml\Facade as XmlParser;
 
 class LoadEvents extends Command
@@ -89,4 +88,5 @@ class LoadEvents extends Command
 
         $this->info('Successfully loaded new events.');
     }
+
 }
