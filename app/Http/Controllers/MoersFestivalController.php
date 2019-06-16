@@ -14,9 +14,7 @@ class MoersFestivalController extends Controller
 
     public function getEvents() {
 
-        $mfID = 1;
-
-        $organisation = Organisation::find($mfID);
+        $organisation = Organisation::where('name', '=', 'moers festival')->firstOrFail();
 
         $events = $organisation->events()->with('entry', 'organisation')->where('is_published', 1)->get();
 
@@ -47,10 +45,10 @@ class MoersFestivalController extends Controller
             return response()->json($validator->messages(), 422);
         } else {
 
+            $organisation = Organisation::where('name', '=', 'moers festival')->firstOrFail();
+
             $event = AdvEvent::create($request->json()->all());
-
-            $event->organisation_id = $this->mfOrganisationID;
-
+            $event->organisation_id = $organisation->id;
             $event->save();
 
             return response()->json($event, 201);

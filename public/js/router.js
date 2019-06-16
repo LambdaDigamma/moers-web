@@ -2411,6 +2411,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home"
 });
@@ -4187,9 +4208,50 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "container" },
-    [_c("b-jumbotron", { attrs: { header: "Mein Moers", lead: "" } })],
+    "b-container",
+    { staticClass: "mt-4" },
+    [
+      _c("b-jumbotron", { attrs: { header: "Mein Moers" } }),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            { attrs: { sm: "4" } },
+            [_c("center", [_vm._v("Geschäfte: Die wichtigsten Daten")])],
+            1
+          ),
+          _vm._v(" "),
+          _c("b-col", { attrs: { sm: "4" } }, [
+            _vm._v("\n            Test\n        ")
+          ]),
+          _vm._v(" "),
+          _c("b-col", { attrs: { sm: "4" } }, [
+            _vm._v("\n            Test\n        ")
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c("b-col", { attrs: { sm: "4" } }, [
+            _vm._v("\n            Test\n        ")
+          ]),
+          _vm._v(" "),
+          _c("b-col", { attrs: { sm: "4" } }, [
+            _vm._v("\n            Test\n        ")
+          ]),
+          _vm._v(" "),
+          _c("b-col", { attrs: { sm: "4" } }, [
+            _vm._v("\n            Test\n        ")
+          ])
+        ],
+        1
+      )
+    ],
     1
   )
 }

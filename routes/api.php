@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use \App\Shop;
 use \App\Event;
 
 /*
@@ -172,11 +170,6 @@ Route::group(['prefix' => '/v1'], function () {
 
     Route::get('/events', 'API\APIEventController@get')->name('api.v1.events.get');
 
-    /* Shops */
-
-    Route::get('/shops', 'API\APIShopController@getShops')->name('api.v1.shops.getShops');
-    Route::post('/shops', 'API\APIShopController@store')->name('api.v1.shops.store');
-
     /* Entries */
 
     Route::get('/entries', 'API\APIEntryController@get')->name('api.v1.entries.get');
@@ -200,10 +193,6 @@ Route::group(['middleware' => ['auth:api'],
     Route::get('/leaderboard/top', 'LeaderboardController@topUser')->name('api.v1.leaderboard.topUser');
     Route::get('/leaderboard/me', 'LeaderboardController@userRanking')->name('api.v1.leaderboard.me');
 
-});
-
-Route::get('/shops', function () {
-    return Shop::where('validated', '=', '1')->get();
 });
 
 Route::get('/events', function () {

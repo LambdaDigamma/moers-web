@@ -13,6 +13,9 @@
 
     </head>
     <body>
+        <noscript>
+            <strong>We're sorry but Mein Moers doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+        </noscript>
         <div id="app" v-cloak></div>
         <script src="{{ asset('js/main.js') }}"></script>
     </body>
