@@ -110,6 +110,9 @@ Route::group(['prefix' => '/v2'], function () {
     Route::delete('/organisations/{event}','API\APIEventController@delete')
         ->name('api.v2.events.delete');
 
+    Route::get('/advEvents', 'API\APIEventController@getAdvEvents')
+        ->name('api.v2.advEvents.get');
+
 });
 
 /* Entries */

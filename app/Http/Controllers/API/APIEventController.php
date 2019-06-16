@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\AdvEvent;
 use App\Event;
 use App\Organisation;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,7 +14,7 @@ class APIEventController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth:api')->except('get', 'show');
+        $this->middleware('auth:api')->except('get', 'show', 'getAdvEvents');
     }
 
     public function get() {
@@ -101,10 +103,21 @@ class APIEventController extends Controller
         }
 
         try {
-            $organisation->delete();
+            $event->delete();
         } catch (Exception $e) {}
 
         return response()->json(null, 204);
+
+    }
+
+    /* Advanced Events */
+
+    public function getAdvEvents() {
+
+        return AdvEvent::whereDate('start_date', '>', Carbon::yesterday()->toDateString())
+            ->orWhereDate('end_date', '>', Carbon::yesterday()->toDateString())
+            ->orderBy('start_date', 'asc')
+            ->get();
 
     }
 

@@ -25,7 +25,7 @@ class LoadAdvEvents extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Load All Advanced Events For The Next Month From Moers Backend.';
 
     protected $unids;
     protected $currentUnid;
