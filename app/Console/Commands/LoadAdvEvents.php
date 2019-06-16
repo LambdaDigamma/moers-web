@@ -91,6 +91,11 @@ class LoadAdvEvents extends Command
                 $docName = $data->get('DocNameWeb');
                 $description = $data->get('Content_1');
                 $eventType = $data->get('EventType');
+                $location = $data->get('LocationName');
+                $street = $data->get('LocationStreetAddress');
+                $postcode = $data->get('LocationZIP');
+                $city = $data->get('LocationCity');
+                $organizer = $data->get('VeranstalterName');
 
                 $finalStart = null;
                 $finalEnd = null;
@@ -154,7 +159,13 @@ class LoadAdvEvents extends Command
                 $newEvent->url = $url;
                 $newEvent->description = $description;
                 $newEvent->category = $category;
-                $newEvent->extras = array('unid' => $this->currentUnid);
+                $newEvent->extras = array(
+                    'unid' => $this->currentUnid,
+                    'location' => $location,
+                    'street' => $street,
+                    'postcode' => $postcode,
+                    'city' => $city,
+                    'organizer' => $organizer);
 
                 $newEvent->save();
 
