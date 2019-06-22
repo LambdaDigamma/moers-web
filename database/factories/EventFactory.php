@@ -1,8 +1,12 @@
 <?php
 
-use Faker\Generator as Faker;
+/* @var $factory Factory */
 
-$factory->define(App\Event::class, function (Faker $faker) {
+use App\Event as Event;
+use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factory;
+
+$factory->define(Event::class, function (Faker $faker) {
     return [
         'name' => $faker->sentence(3),
         'date' => $faker->date('d.m.Y'),

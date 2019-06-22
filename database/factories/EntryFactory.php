@@ -1,12 +1,16 @@
 <?php
 
-use Faker\Generator as Faker;
+/* @var $factory Factory */
 
-$factory->define(App\Entry::class, function (Faker $faker) {
+use App\Entry as Entry;
+use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factory;
+
+$factory->define(Entry::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
-        'lat' => $faker->latitude,
-        'lng' => $faker->longitude,
+        'lat' => $faker->latitude(6.5851, 6.5851),
+        'lng' => $faker->longitude(51.4283, 51.4916),
         'tags' => implode(", ", $faker->words(3)),
         'street' => $faker->streetName,
         'house_number' => $faker->buildingNumber,
@@ -14,6 +18,7 @@ $factory->define(App\Entry::class, function (Faker $faker) {
         'place' => $faker->city,
         'url' => $faker->url,
         'phone' => $faker->phoneNumber,
+        'is_validated' => $faker->boolean(75),
         'monday' => "09:00 - 17:00",
         'tuesday' => "09:00 - 17:00",
         'wednesday' => "09:00 - 17:00",
