@@ -10,14 +10,16 @@ php:
   - '7.2'
 
 services:
-  sqlite:
-    adapter: sqlite3
-    database: ":memory:"
-    timeout: 500
+  - docker
 
 cache:
   directories:
     - $HOME/.composer/cache
+
+before_install:
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 before_script:
   - cp .env.travis .env
