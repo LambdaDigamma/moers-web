@@ -1,8 +1,12 @@
 <?php
 
-use Faker\Generator as Faker;
+/* @var $factory Factory */
 
-$factory->define(App\Entry::class, function (Faker $faker) {
+use App\Entry as Entry;
+use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factory;
+
+$factory->define(Entry::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
         'lat' => $faker->latitude(6.5851, 6.5851),

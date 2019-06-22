@@ -6,8 +6,8 @@ use Tests\TestCase;
 
 class EntryAPITest extends TestCase {
 
-    public function testGetAllEntriesEndpoint()
-    {
+    public function testGetAllEntriesValidatedEndpoint() {
+
         $response = $this->get('/api/v2/entries');
 
         $response->assertStatus(200)
@@ -36,6 +36,9 @@ class EntryAPITest extends TestCase {
                      'deleted_at',
                      'created_at',
                      'updated_at',
+                 ]])
+                 ->assertJson([[
+                     'is_validated' => true
                  ]]);
 
     }
