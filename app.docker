@@ -1,5 +1,7 @@
 FROM php:7.3.5-fpm-stretch
- 
+
+WORKDIR /var/www
+
 RUN apt-get update
 RUN apt-get install -y libmcrypt-dev
 RUN apt-get install -y mysql-client
