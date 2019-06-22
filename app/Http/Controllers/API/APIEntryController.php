@@ -18,7 +18,7 @@ class APIEntryController extends Controller
 
     public function get() {
 
-        $entries = Entry::all();
+        $entries = Entry::where('is_validated', '=', 1)->get();
 
         return $entries;
 

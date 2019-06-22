@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         // Create Admin User
         $this->call(UserTableSeeder::class);
 
+        $this->call(EntrySeeder::class);
+
         Model::reguard();
 
     }
