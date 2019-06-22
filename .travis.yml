@@ -19,6 +19,11 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+before_install:
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
 before_script:
   - cp .env.travis .env
   - composer self-update
@@ -29,9 +34,17 @@ before_script:
   - npm install npm@latest -g
   - npm install -g jshint
   - npm install
-  
+
+install:
+  - sudo apt-get update
+  - docker-compose build
+  - docker-compose up -d
+
 script:
   - docker-compose exec app vendor/bin/phpunit
   - phpcs --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php app/Http/Controllers
   - npm run production
-  - jshint resources/assets/js/modules/*
+
+after_script:
+  - docker-compose stop
+  - docker-compose rm -f
