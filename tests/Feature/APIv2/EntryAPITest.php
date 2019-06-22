@@ -2,9 +2,24 @@
 
 namespace Tests\Feature\APIv2;
 
+use EntrySeeder;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class EntryAPITest extends TestCase {
+
+    use DatabaseMigrations;
+    use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $seeder = new EntrySeeder();
+        $seeder->run();
+
+    }
 
     public function testGetAllEntriesValidatedEndpoint() {
 

@@ -31,7 +31,9 @@ class AddForeignKeysAdvEvents extends Migration
     public function down()
     {
         Schema::table('adv_events', function(Blueprint $table) {
-            $table->dropForeign(['entry_id', 'organisation_id']);
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign(['entry_id', 'organisation_id']);
+            }
         });
     }
 }

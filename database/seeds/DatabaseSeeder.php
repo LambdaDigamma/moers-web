@@ -15,10 +15,8 @@ class DatabaseSeeder extends Seeder
 
         Model::unguard();
 
-        // Create Abilities and Roles
         $this->call(BouncerSeeder::class);
 
-        // Create Admin User
         $this->call(UserTableSeeder::class);
 
         $this->call(EntrySeeder::class);
