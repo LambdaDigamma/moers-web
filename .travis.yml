@@ -9,6 +9,12 @@ language: php
 php:
   - '7.2'
 
+services:
+  sqlite:
+    adapter: sqlite3
+    database: ":memory:"
+    timeout: 500
+
 before_install:
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
@@ -20,9 +26,9 @@ cache:
     - $HOME/.composer/cache
 
 before_script:
+  - cp .env.travis .env
   - composer self-update
   - composer install --no-interaction
-  - cp .env.travis .env
   - pear install pear/PHP_CodeSniffer
   - phpenv rehash
   - nvm install 7.7.1
