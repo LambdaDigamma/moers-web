@@ -38,7 +38,6 @@ script:
   - docker-compose exec app php artisan passport:install
   - docker-compose exec app php artisan db:seed
   - docker-compose exec app vendor/bin/phpunit
-  - phpcs --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php app/Http/Controllers
   - npm run production
 
 after_script:
