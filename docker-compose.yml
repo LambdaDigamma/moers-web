@@ -10,14 +10,18 @@ services:
             - "8080:80"
         links:
             - app
+        tty: true
     app:
         build:
             context: ./
             dockerfile: app.docker
         volumes:
             - ./:/var/www
+            - ./local.ini:/usr/local/etc/php/conf.d/local.ini
+
         links:
             - database
+        tty: true
         environment:
             - "DB_PORT=3306"
             - "DB_HOST=database"
@@ -28,3 +32,4 @@ services:
             - "MYSQL_DATABASE=dockerApp"
         ports:
             - "33061:3306"
+        tty: true

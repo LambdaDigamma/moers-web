@@ -21,7 +21,8 @@ class EntryAPITest extends TestCase {
 
     }
 
-    public function testGetAllEntriesValidatedEndpoint() {
+    public function testGetAllEntriesValidatedEndpoint()
+    {
 
         $response = $this->get('/api/v2/entries');
 
