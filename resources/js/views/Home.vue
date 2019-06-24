@@ -23,12 +23,12 @@
         <hr class="mt-4">
 
         <b-row class="mb-5">
-            <b-col lg="6" sm="12">
+            <b-col sm="12" lg="6" class="mt-3">
                 <b-row>
-                    <b-col sm="12" lg="4">
+                    <b-col cols="4">
                         <b-img src="/img/cfn.png" fluid-grow></b-img>
                     </b-col>
-                    <b-col sm="12" lg="8">
+                    <b-col cols="8">
                         <h5>Code for Niederrhein</h5>
                         <p>Code for Niederhein ist eine lokale Entwicklergruppe.</p>
                         <b-link href="https://twitter.com/codefornrn">@CodeForNRN</b-link>
@@ -36,12 +36,12 @@
                 </b-row>
             </b-col>
 
-            <b-col sm="12" lg="6">
+            <b-col sm="12" lg="6" class="mt-3">
                 <b-row>
-                    <b-col sm="12" lg="4">
+                    <b-col cols="4">
                         <b-img src="/img/avatar.png" fluid-grow></b-img>
                     </b-col>
-                    <b-col sm="12" lg="8">
+                    <b-col cols="8">
                         <h5>Lennart Fischer</h5>
                         <p>Software-Entwickler, Code for Niederrhein Co-Lead, OpenData-Verfechter</p>
                         <b-link href="https://twitter.com/lambdadigamma">@LambdaDigamma</b-link><br>
