@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Base from './base';
 import axios from 'axios';
-import Routes from './routes';
+import Routes from './router';
 import VueRouter from 'vue-router'
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
@@ -19,6 +19,7 @@ const router = new VueRouter({
     mode: 'history',
 });
 
+Vue.component('home', require('./views/Home'));
 Vue.component('organisations', require('./views/Organisations'));
 Vue.component('events', require('./views/Events'));
 Vue.component('login', require('./views/Login'));

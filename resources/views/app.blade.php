@@ -11,6 +11,23 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}">
 
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96">
+        <link rel="icon" type="image/svg+xml" href="svg/mm.svg" sizes="any">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+        <meta name="apple-itunes-app" content="app-id=1305862555">
+
+        <meta name="twitter:app:name:iphone" content="Mein Moers">
+        <meta name="twitter:app:id:iphone" content="1305862555">
+        <meta name="twitter:app:name:ipad" content="Mein Moers">
+        <meta name="twitter:app:id:ipad" content="1305862555">
+
+        <meta property="al:ios:app_name" content="Mein Moers">
+        <meta property="al:ios:app_store_id" content="1305862555">
+        <meta property="al:ios:url" content="https://apps.apple.com/de/app/mein-moers/id1305862555">
+
     </head>
     <body>
         <noscript>
