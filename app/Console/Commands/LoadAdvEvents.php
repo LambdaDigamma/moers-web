@@ -164,7 +164,7 @@ class LoadAdvEvents extends Command
                     'location' => $location,
                     'street' => $street,
                     'postcode' => $postcode,
-                    'city' => $city,
+                    'place' => $city,
                     'organizer' => $organizer);
 
                 $newEvent->save();
