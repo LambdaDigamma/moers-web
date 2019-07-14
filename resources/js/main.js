@@ -1,60 +1,27 @@
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
-import axios from 'axios';
-
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import ApiService from "./common/api.service"
+import { CHECK_AUTH } from "./store/actions.type";
 
-Vue.use(BootstrapVue)
+import DateFilter from "./common/date.filter"
+import ErrorFilter from "./common/error.filter"
+
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false
+Vue.use(BootstrapVue)
+Vue.filter("date", DateFilter)
+Vue.filter("error", ErrorFilter)
 
-let token = document.head.querySelector('meta[name="csrf-token"]');
+ApiService.init()
 
-if (token) {
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
-
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-axios.interceptors.request.use(
-    (config) => {
-
-        let user = JSON.parse(localStorage.getItem('user'))
-
-        if (user && user.token) {
-            config.headers['Authorization'] = `Bearer ${ user.token }`;
-        }
-
-        config.headers['Accept'] = 'application/json';
-        config.headers['Content-Type'] = 'application/json';
-
-        return config;
-    },
-
-    (error) => {
-        return Promise.reject(error);
-    }
-);
-
-router.beforeEach((to, from, next) => {
-
-    const publicPages = ['/login', '/home', '/'];
-    const authRequired = !publicPages.includes(to.path);
-    const loggedIn = localStorage.getItem('user');
-
-    if (authRequired && !loggedIn) {
-        return next('/login');
-    }
-
-    next();
-})
+router.beforeEach((to, from, next) =>
+    Promise.all([store.dispatch(CHECK_AUTH)]).then(next)
+)
 
 new Vue({
     router,
