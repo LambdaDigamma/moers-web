@@ -88,6 +88,15 @@ Route::group(['prefix' => '/v2'], function () {
         ->middleware('auth:api')
         ->name('api.v2.moersfestival.store');
 
+    /* Poll */
+
+    Route::get('/polls', 'API\APIPollController@get')
+        ->name('api.v2.polls.get');
+
+    Route::get('/polls/{id}', 'API\APIPollController@show')
+        ->where('id', '[1-9][0-9]*')
+        ->name('api.v2.polls.show');
+
 });
 
 /* Events */
