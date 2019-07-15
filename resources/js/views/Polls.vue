@@ -1,12 +1,27 @@
 <template>
 
-    <div class="mt-1">
+    <div class="mt-4">
 
-        <b-card title="Sollen Frau Meyering und Herr Tenhaven bei unserem Abstimmungen ebenfalls eine Stimme haben?" sub-title="Erstellt von Lennart Fischer am 07.02.2019 um 19:00 Uhr">
+        <div class="mb-4">
+            <hr>
+            <h3>Aktive Abstimmungen</h3>
+            <b-button variant="secondary">Ergebnisse</b-button>
+            <hr>
+        </div>
+
+        <div class="d-flex justify-content-center m-5" v-if="isLoadingPolls">
+            <b-spinner label="Lädt..."></b-spinner>
+        </div>
+
+        <b-card 
+            v-for="(poll, index) in polls" 
+            :title="poll.question" 
+            :key="index" 
+            class="mb-2">
+
             <b-card-text>
-                <strong>30</strong> Schülerinnen und Schüler haben schon abgestimmt.
+                
             </b-card-text>
-
             <b-button href="#" variant="primary">Abstimmen</b-button>
         </b-card>
 
@@ -15,7 +30,17 @@
 </template>
 
 <script>
-    export default {
-        name: "Polls",
+import { mapGetters } from "vuex";
+import { FETCH_POLLS } from '../store/actions.type';
+
+export default {
+    name: "Polls",
+    mounted() {
+        this.$store.dispatch(FETCH_POLLS)
+    },
+    computed: {
+        ...mapGetters(["isAuthenticated", "isLoadingPolls", "polls"])
     }
+}
+
 </script>

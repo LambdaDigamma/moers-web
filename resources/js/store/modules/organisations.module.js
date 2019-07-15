@@ -20,10 +20,10 @@ const actions = {
     [FETCH_ORGANISATIONS]({ commit }) {
         return OrganisationService.get()
             .then(({ data }) => {
-                commit(SET_ORGANISATIONS, data);
+                commit(SET_ORGANISATIONS, data)
             })
             .catch(error => {
-                throw new Error(error);
+                throw new Error(error)
             })
     }
 }

@@ -18,7 +18,7 @@ export default {
                 relativeTime: {
                     future: "in %s",
                     past: "%s ago",
-                    s: number=>number + "s ago",
+                    s: number => number + "s ago",
                     ss: '%ds ago',
                     m: "1m ago",
                     mm: "%dm ago",
@@ -70,36 +70,5 @@ export default {
          */
         debouncer: _.debounce(callback => callback(), 500),
 
-
-        /**
-         * Show an error message.
-         */
-        alertError(message) {
-            this.$root.alert.type = 'error';
-            this.$root.alert.autoClose = false;
-            this.$root.alert.message = message;
-        },
-
-
-        /**
-         * Show a success message.
-         */
-        alertSuccess(message, autoClose) {
-            this.$root.alert.type = 'success';
-            this.$root.alert.autoClose = autoClose;
-            this.$root.alert.message = message;
-        },
-
-
-        /**
-         * Show confirmation message.
-         */
-        alertConfirm(message, success, failure) {
-            this.$root.alert.type = 'confirmation';
-            this.$root.alert.autoClose = false;
-            this.$root.alert.message = message;
-            this.$root.alert.confirmationProceed = success;
-            this.$root.alert.confirmationCancel = failure;
-        },
     }
 };

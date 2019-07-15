@@ -74,6 +74,9 @@ export const OrganisationService = {
 export const PollService = {
     get() {
         return ApiService.get('polls')
+    },
+    get(id) {
+        return ApiService.get("polls", id);
     }
 }
 

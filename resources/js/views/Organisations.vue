@@ -2,7 +2,15 @@
 
     <div class="mt-4">
 
-        <h3 class="mb-4">Organisationen</h3>
+        <div class="mb-4">
+            <hr>
+            <h3>Organisationen</h3>
+            <hr>
+        </div>        
+
+        <div class="d-flex justify-content-center m-5" v-if="isLoading">
+            <b-spinner label="Lädt..."></b-spinner>
+        </div>
 
         <b-card-group deck>
             <b-card v-for="(organisation, index) in organisations" :title="organisation.name" :key="index">
@@ -26,7 +34,7 @@ export default {
         this.$store.dispatch(FETCH_ORGANISATIONS)
     },
     computed: {
-    ...mapGetters(["isAuthenticated", "organisations"])
+        ...mapGetters(["isAuthenticated", "isLoading", "organisations"])
     }
 }
 
