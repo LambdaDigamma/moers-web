@@ -12,10 +12,17 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faUserSecret)
+
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.filter("date", DateFilter)
 Vue.filter("error", ErrorFilter)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 ApiService.init()
 
