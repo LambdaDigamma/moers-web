@@ -12,14 +12,18 @@
             <b-spinner label="Lädt..."></b-spinner>
         </div>
 
-        <b-card-group deck>
-            <b-card v-for="(organisation, index) in organisations" :title="organisation.name" :key="index">
-                <b-card-text>
+        <b-card v-for="organisation in organisations" :key="organisation.id" class="organisation-card mb-3" @click="showOrganisation(organisation.id)">
+            <b-media vertical-align="center">
+                <b-img slot="aside" :src="organisation.logo_url" width="150" alt="placeholder" rounded></b-img>
+
+                <h5 class="mt-0">{{ organisation.name }}</h5>
+                <p>
                     {{ organisation.description }}
-                </b-card-text>
-                <b-button v-if="isAuthenticated" href="#" variant="primary">Folgen</b-button>
-            </b-card>
-        </b-card-group>
+                </p>
+                <router-link tag="b-button" :to="{ name: 'organisation', params: { id: organisation.id } }">Mehr erfahren</router-link>
+            </b-media>
+        </b-card>
+
     </div>
 
 </template>
@@ -35,11 +39,22 @@ export default {
     },
     computed: {
         ...mapGetters(["isAuthenticated", "isLoading", "organisations"])
+    },
+    methods: {
+        showOrganisation(id) {
+            console.log("Testingt")
+            this.$router.push({ name: "organisation", params: { id: id } })
+        }
     }
 }
 
 </script>
 
 <style scoped>
+
+    .organisation-card:hover {
+        cursor: pointer;
+        background-color: #d3d3d338;
+    }
 
 </style>

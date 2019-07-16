@@ -31,6 +31,32 @@ export default new Router({
                 import ('../views/Organisations')
         },
         {
+            name: 'organisation',
+            path: '/organisations/:id',
+            component: () =>
+                import ('../views/Organisation'),
+            props: castRouteParams,
+            children: [{
+                    name: 'organisation-news',
+                    path: '/organisations/:id/news',
+                    component: () =>
+                        import ('../views/OrganisationNews')
+                },
+                {
+                    name: 'organisation-events',
+                    path: '/organisations/:id/events',
+                    component: () =>
+                        import ('../views/OrganisationEvents')
+                },
+                {
+                    name: 'organisation-entry',
+                    path: '/organisation/:id/entry',
+                    component: () =>
+                        import ('../views/OrganisationEntry')
+                }
+            ]
+        },
+        {
             name: 'events',
             path: '/events',
             component: () =>
@@ -46,7 +72,7 @@ export default new Router({
             name: "poll",
             path: "/polls/:id",
             component: () =>
-                import ("../views/Poll"),
+                import ('../views/Poll'),
             props: castRouteParams
         },
     ],

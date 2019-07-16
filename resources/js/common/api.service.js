@@ -68,6 +68,9 @@ export default ApiService
 export const OrganisationService = {
     get() {
         return ApiService.get("organisations");
+    },
+    get(id) {
+        return ApiService.get("organisations", id);
     }
 }
 

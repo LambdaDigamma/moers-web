@@ -3,7 +3,7 @@ import axios from 'axios'
 export default {
     getEvents({ commit }) {
         axios
-            .get('/api/v2/moers-festival/events', {
+            .get('/api/v2/advEvents', {
                 headers: {
                     'Content-Type': 'application/json',
                 }

@@ -9,6 +9,9 @@ export const UPDATE_USER = "updateUser"
 export const FETCH_ORGANISATIONS = "fetchOrganisations"
 export const FETCH_EVENTS = "fetchEvents"
 
+/* Module: Organisation */
+export const FETCH_ORGANISATION = "fetchOrganisation"
+
 /* Module: Polls */
 export const FETCH_POLLS = "fetchPolls"
 

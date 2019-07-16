@@ -6,8 +6,10 @@
             <b-spinner label="Lädt..."></b-spinner>
         </div>
 
-        <h4>{{ poll.question }}</h4>
-        <p>{{ poll.description }}</p>
+        <PollVote
+            :poll='poll'>
+
+        </PollVote>
 
     </div>
 
@@ -16,11 +18,15 @@
 <script>
 
 import store from "../store"
+import PollVote from "../components/PollVote"
 import { mapGetters } from "vuex"
 import { FETCH_POLL } from "../store/actions.type"
 
 export default {
     name: "Poll",
+    components: {
+        PollVote
+    },
     props: {
         id: {
             type: Number,

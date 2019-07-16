@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import auth from './modules/auth.module'
 import organisations from './modules/organisations.module'
+import organisation from './modules/organisation.module'
 import polls from './modules/polls.module'
 import poll from './modules/poll.module'
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     modules: {
         auth,
         organisations,
+        organisation,
         polls,
         poll
     }
