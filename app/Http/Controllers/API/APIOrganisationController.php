@@ -30,7 +30,7 @@ class APIOrganisationController extends Controller
 
     public function show($id) {
 
-        $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($id);
+        $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry', 'events'])->findOrFail($id);
 
         return $organisation;
     }
