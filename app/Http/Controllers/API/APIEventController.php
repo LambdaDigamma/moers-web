@@ -14,7 +14,7 @@ class APIEventController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth:api')->except('get', 'show', 'getAdvEvents');
+        $this->middleware('auth:api')->except('get', 'show', 'getAdvEvents', 'getAdvEventsKeyed');
     }
 
     public function get() {
@@ -114,10 +114,35 @@ class APIEventController extends Controller
 
     public function getAdvEvents() {
 
-        return AdvEvent::whereDate('start_date', '>', Carbon::yesterday()->toDateString())
+        return AdvEvent::with(['organisation', 'entry'])
+            ->whereDate('start_date', '>', Carbon::yesterday()->toDateString())
             ->orWhereDate('end_date', '>', Carbon::yesterday()->toDateString())
             ->orderBy('start_date', 'asc')
             ->get();
+
+    }
+
+    public function getAdvEventsKeyed() {
+
+        $events = AdvEvent::with(['organisation', 'entry'])
+            ->whereDate('start_date', '>', Carbon::yesterday()->toDateString())
+            ->orWhereDate('end_date', '>', Carbon::yesterday()->toDateString())
+            ->orderBy('start_date', 'asc')
+            ->get();
+
+        $events->each(function ($item, $key) {
+
+            $start_date = $item->start_date;
+
+            if ($start_date !== null) {
+                $item->day = Carbon::parse($start_date)->format('d.m.Y');
+            } else {
+                $item->day = "Unknown";
+            }
+
+        });
+
+        return $events->groupBy('day')->all();
 
     }
 
