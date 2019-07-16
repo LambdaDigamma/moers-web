@@ -122,6 +122,9 @@ Route::group(['prefix' => '/v2'], function () {
     Route::get('/advEvents', 'API\APIEventController@getAdvEvents')
         ->name('api.v2.advEvents.get');
 
+    Route::get('/advEvents/keyed', 'API\APIEventController@getAdvEventsKeyed')
+        ->name('api.v2.advEvents.get.keyed');
+
 });
 
 /* Entries */

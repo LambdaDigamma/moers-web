@@ -9,6 +9,7 @@ import DateFilter from "./common/date.filter"
 import ErrorFilter from "./common/error.filter"
 
 import BootstrapVue from 'bootstrap-vue'
+import VueMoment from 'vue-moment'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -20,6 +21,7 @@ library.add(faUserSecret)
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
+Vue.use(VueMoment)
 Vue.filter("date", DateFilter)
 Vue.filter("error", ErrorFilter)
 Vue.component('font-awesome-icon', FontAwesomeIcon)

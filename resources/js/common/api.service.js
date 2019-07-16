@@ -1,8 +1,8 @@
-import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-import AuthService from './auth.service';
-import { API_URL } from "./config";
+import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import AuthService from './auth.service'
+import { API_URL } from "./config"
 
 const ApiService = {
 
@@ -52,12 +52,12 @@ const ApiService = {
     },
 
     put(resource, params) {
-        return Vue.axios.put(`${resource}`, params);
+        return Vue.axios.put(`${resource}`, params)
     },
 
     delete(resource) {
         return Vue.axios.delete(resource).catch(error => {
-            throw new Error(`[MM] ApiService ${error}`);
+            throw new Error(`[MM] ApiService ${error}`)
         });
     }
 
@@ -67,24 +67,24 @@ export default ApiService
 
 export const OrganisationService = {
     get() {
-        return ApiService.get("organisations");
+        return ApiService.get("organisations")
     },
     get(id) {
-        return ApiService.get("organisations", id);
-    }
-}
-
-export const PollService = {
-    get() {
-        return ApiService.get('polls')
-    },
-    get(id) {
-        return ApiService.get("polls", id);
+        return ApiService.get("organisations", id)
     }
 }
 
 export const EventService = {
     get() {
-        return ApiService.get('advEvents')
+        return ApiService.get("advEvents/keyed")
+    }
+}
+
+export const PollService = {
+    get() {
+        return ApiService.get("polls")
+    },
+    get(id) {
+        return ApiService.get("polls", id)
     }
 }

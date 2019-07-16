@@ -7,10 +7,12 @@ export const UPDATE_USER = "updateUser"
 
 /* Module: Organisations */
 export const FETCH_ORGANISATIONS = "fetchOrganisations"
-export const FETCH_EVENTS = "fetchEvents"
 
 /* Module: Organisation */
 export const FETCH_ORGANISATION = "fetchOrganisation"
+
+/* Module: Events */
+export const FETCH_EVENTS = "fetchEvents"
 
 /* Module: Polls */
 export const FETCH_POLLS = "fetchPolls"

@@ -1,33 +1,18 @@
 <template>
 
-    <div class="card" style="margin-top: 2em">
+    <div class="mt-4">
 
-        <div class="card-header d-flex align-items-center justify-content-between">
-            <h5>Veranstaltungen</h5>
-            <div class="d-flex align-items-end w-50">
-                <router-link class="btn btn-success text-white mr-3 w-25" :to="{ 'name': 'event-add' }" title="Add Event">
-                    <b class="text-white">Hinzufügen</b>
-                </router-link>
+        <b-card bg-variant="secondary" text-variant="white">
+            <h3 class="m-0">Veranstaltungen</h3>
+        </b-card>
 
-                <div class="input-group w-75">
-                    <input type="text" class="form-control" :disabled="true" placeholder="Veranstaltung suchen" aria-label="Suchbegriff" v-model="searchTerm">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-primary" :disabled="true" type="button">Suchen</button>
-                    </div>
-                </div>
-            </div>
+        <div class="d-flex justify-content-center m-5" v-if="isLoadingEvents">
+            <b-spinner label="Lädt..."></b-spinner>
         </div>
-        <div class="card-body">
-            <b-table striped bordered hover
-                     :items="events"
-                     :primary-key="'id'"
-                     :fields="fields"
-                     @row-clicked="showDetails">
-                <div slot="table-busy" class="text-center text-danger my-2">
-                    <b-spinner class="align-middle"></b-spinner>
-                    <strong>Loading...</strong>
-                </div>
-            </b-table>
+
+        <div v-for="(events, day) in events" :key="day">
+            <h5 class="mt-4 ml-1">{{ [ day, "DD.MM.YYYY" ] | moment('dddd, MMMM Do YYYY') }}</h5>
+            <EventItem v-for="event in events" :key="event.id" :event='event'></EventItem>
         </div>
 
     </div>
@@ -35,52 +20,22 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
-    export default {
-        name: "Events",
-        data() {
-            return {
-                isBusy: true,
-                fields: [
-                    {
-                        key: 'id',
-                        label: 'ID',
-                        sortable: true
-                    },
-                    {
-                        key: 'name',
-                        sortable: true
-                    },
-                    {
-                        key: 'start_date',
-                        label: 'Start',
-                        sortable: true
-                    },
-                    {
-                        key: 'actions',
-                        label: 'Aktionen'
-                    }
-                ],
-                searchTerm: "",
-            }
-        },
-        mounted() {
-            this.$store.dispatch('getEvents')
-        },
-        computed: {
-            ...mapState([
-             'events',
-            ])
-        },
-        methods: {
-            showDetails(item) {
-                this.$router.push({ name: 'event-detail', params: { id: item.id } })
-            },
-        }
+
+import EventItem from "../components/EventItem"
+import { mapGetters } from "vuex";
+import { FETCH_EVENTS } from '../store/actions.type';
+
+export default {
+    name: "Events",
+    components: {
+        EventItem
+    },
+    mounted() {
+        this.$store.dispatch(FETCH_EVENTS)
+    },
+    computed: {
+        ...mapGetters(["isAuthenticated", "isLoadingEvents", "events"])
     }
+}
 
 </script>
-
-<style scoped>
-
-</style>
