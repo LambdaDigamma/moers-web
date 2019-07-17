@@ -50,7 +50,7 @@ export default new Router({
                 },
                 {
                     name: 'organisation-entry',
-                    path: '/organisation/:id/entry',
+                    path: '/organisations/:id/entry',
                     component: () =>
                         import ('../views/OrganisationEntry')
                 }

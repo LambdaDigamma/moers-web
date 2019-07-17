@@ -31,11 +31,11 @@ export default {
                     return this.event.extras.organizer
                 }
             }
-            if (this.organisation !== undefined && this.organizer !== null) {
+            // if (this.organisation !== undefined && this.organizer !== null) {
+            //     return this.organisation.name
+            // }
+            if (this.organisation !== undefined && this.organisation !== null) {
                 return this.organisation.name
-            }
-            if (this.event.organisation !== undefined && this.event.organisation !== null) {
-                return this.event.organisation.name
             }
             return "Organisator nicht bekannt"
         },

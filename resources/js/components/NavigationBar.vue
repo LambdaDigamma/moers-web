@@ -12,10 +12,10 @@
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
             <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-nav v-if="isAuthenticated">
-                    <router-link tag="b-nav-item" active-class="active" :to="{ name: 'organisations' }" exact>Organisationen</router-link>
-                    <router-link tag="b-nav-item" active-class="active" :to="{ name: 'events' }" exact>Veranstaltungen</router-link>
-                    <router-link tag="b-nav-item" active-class="active" :to="{ name: 'polls' }" exact>Abstimmungen</router-link>
+                <b-navbar-nav>
+                    <router-link tag="b-nav-item" :to="{ name: 'organisations' }" exact>Organisationen</router-link>
+                    <router-link tag="b-nav-item" :to="{ name: 'events' }" exact>Veranstaltungen</router-link>
+                    <router-link tag="b-nav-item" v-if="isAuthenticated" :to="{ name: 'polls' }" exact>Abstimmungen</router-link>
                     <!-- 
                     <b-nav-item :to="{ name: 'organisations' }">Organisationen</b-nav-item>
                     <b-nav-item :to="{ name: 'events' }">Veranstaltungen</b-nav-item>

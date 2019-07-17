@@ -9,7 +9,7 @@
             <b-col cols="9">
                 <h1>{{ organisation.name }}</h1>
                 <p class="text-muted">{{ organisation.description }}</p>
-                <b-button variant="success">Folgen</b-button>
+                <b-button variant="success" v-if="isAuthenticated">Folgen</b-button>
             </b-col>
         </b-row>
         <div class="mt-4">
