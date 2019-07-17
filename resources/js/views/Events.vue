@@ -12,7 +12,7 @@
 
         <div v-for="(events, day) in events" :key="day">
             <h5 class="mt-4 ml-1">{{ [ day, "DD.MM.YYYY" ] | moment('dddd, MMMM Do YYYY') }}</h5>
-            <EventItem v-for="event in events" :key="event.id" :event='event'></EventItem>
+            <EventItem v-for="event in events" :key="event.id" :event='event' :organisation="event.organisation"></EventItem>
         </div>
 
     </div>

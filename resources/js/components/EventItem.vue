@@ -31,9 +31,6 @@ export default {
                     return this.event.extras.organizer
                 }
             }
-            // if (this.organisation !== undefined && this.organizer !== null) {
-            //     return this.organisation.name
-            // }
             if (this.organisation !== undefined && this.organisation !== null) {
                 return this.organisation.name
             }
