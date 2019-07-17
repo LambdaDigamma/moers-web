@@ -6,7 +6,8 @@ Vue.use(Router)
 export default new Router({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes: [{
+    routes: [
+        {
             name: 'home',
             path: '/',
             component: () =>
@@ -22,7 +23,27 @@ export default new Router({
             name: 'profile',
             path: '/profile',
             component: () =>
-                import ('../views/Home')
+                import ('../views/Profile'),
+            children: [
+                {
+                    name: 'profile-organisations',
+                    path: '/profile/organisations',
+                    component: () =>
+                        import ('../views/Profile/ProfileOrganisations')
+                },
+                {
+                    name: 'profile-events',
+                    path: '/profile/events',
+                    component: () =>
+                        import ('../views/Profile/ProfileEvents')
+                },
+                {
+                    name: 'profile-settings',
+                    path: '/profile/settings',
+                    component: () =>
+                        import ('../views/Profile/ProfileSettings')
+                }
+            ]
         },
         {
             name: 'organisations',
@@ -36,23 +57,24 @@ export default new Router({
             component: () =>
                 import ('../views/Organisation'),
             props: castRouteParams,
-            children: [{
+            children: [
+                {
                     name: 'organisation-news',
                     path: '/organisations/:id/news',
                     component: () =>
-                        import ('../views/OrganisationNews')
+                        import ('../views/Organisation/OrganisationNews')
                 },
                 {
                     name: 'organisation-events',
                     path: '/organisations/:id/events',
                     component: () =>
-                        import ('../views/OrganisationEvents')
+                        import ('../views/Organisation/OrganisationEvents')
                 },
                 {
                     name: 'organisation-entry',
                     path: '/organisations/:id/entry',
                     component: () =>
-                        import ('../views/OrganisationEntry')
+                        import ('../views/Organisation/OrganisationEntry')
                 }
             ]
         },

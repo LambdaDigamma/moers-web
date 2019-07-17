@@ -68,7 +68,17 @@
             onSubmit(email, password) {
                 this.$store
                     .dispatch(LOGIN, { email, password })
-                    .then(() => this.$router.push({ name: "home" }));
+                    .then(() => {
+                        this.makeToast('success');
+                        this.$router.push({ name: "home" });
+                    })
+            },
+            makeToast(variant = null) {
+                this.$bvToast.toast('Ihre Anmeldung war erfolgreich. Viel Spaß!', {
+                    title: `Anmeldung erfolgreich!`,
+                    variant: variant,
+                    solid: true
+                })
             }
         },
     }

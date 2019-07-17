@@ -52,3 +52,11 @@ export default {
 }
 
 </script>
+
+<style scoped>
+
+    a {
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+</style>

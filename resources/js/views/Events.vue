@@ -22,8 +22,8 @@
 <script>
 
 import EventItem from "../components/EventItem"
-import { mapGetters } from "vuex";
-import { FETCH_EVENTS } from '../store/actions.type';
+import { mapGetters } from "vuex"
+import { FETCH_EVENTS } from '../store/actions.type'
 
 export default {
     name: "Events",

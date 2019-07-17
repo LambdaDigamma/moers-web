@@ -8,7 +8,7 @@
 
 <script>
 
-import EventItem from "../components/EventItem"
+import EventItem from "../../components/EventItem"
 import { mapGetters } from "vuex"
 
 export default {
