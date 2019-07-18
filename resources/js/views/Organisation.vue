@@ -55,7 +55,7 @@ export default {
 
 <style scoped>
 
-    a {
+    .nav-item > a {
         color: rgba(0, 0, 0, 0.5);
     }
 
