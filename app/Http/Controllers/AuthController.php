@@ -68,7 +68,7 @@ class AuthController extends Controller
         $token = $request->user()->token();
         $token->revoke();
 
-        $response = 'You have been succesfully logged out!';
+        $response = 'You have been successfully logged out!';
         return response($response, 200);
 
     }

@@ -14,6 +14,12 @@ class APIPollController extends Controller
         $this->middleware('auth:api')->except('get', 'show');
     }
 
+    public function vote() {
+
+
+
+    }
+
     public function get() {
 
         $polls = Poll::with(['options'])->get();
