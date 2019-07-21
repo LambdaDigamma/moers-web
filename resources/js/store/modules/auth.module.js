@@ -21,14 +21,15 @@ const getters = {
 
 const actions = {
     [LOGIN](context, credentials) {
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
             ApiService.post("auth/login", credentials)
                 .then(({ data }) => {
                     context.commit(SET_AUTH, data)
                     resolve(data)
                 })
                 .catch(({ response }) => {
-                    context.commit(SET_ERROR, response.data)
+                    context.commit(SET_ERROR, response.data.errors)
+                    reject(response.data.errors)
                 })
         });
     },

@@ -213,3 +213,11 @@ Route::group(['middleware' => ['auth:api'],
 Route::get('/events', function () {
     return Event::all();
 });
+
+
+
+Route::fallback(function() {
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact info@website.com'
+    ], 404);
+});

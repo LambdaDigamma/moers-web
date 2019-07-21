@@ -7,6 +7,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
+/**
+ * @property mixed email
+ * @property mixed name
+ * @property string password
+ */
 class User extends Authenticatable
 {
     use Notifiable, HasApiTokens, HasRolesAndAbilities;
