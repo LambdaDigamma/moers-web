@@ -176,11 +176,6 @@ Route::group(['prefix' => '/v2'], function () {
 
 Route::group(['prefix' => '/v1'], function () {
 
-    /* User */
-
-    Route::post('/login', 'UserController@login');
-    Route::post('/register', 'UserController@register');
-
     /* Events */
 
     Route::get('/events', 'API\APIEventController@get')->name('api.v1.events.get');
@@ -201,20 +196,10 @@ Route::group(['prefix' => '/v1'], function () {
 |--------------------------------------------------------------------------
 */
 
-Route::group(['middleware' => ['auth:api'],
-              'prefix' => '/v1'], function() {
-
-    Route::get('/user', 'API\APIUserController@getUser')->name('api.v1.user.getUser');
-    Route::get('/leaderboard/top', 'LeaderboardController@topUser')->name('api.v1.leaderboard.topUser');
-    Route::get('/leaderboard/me', 'LeaderboardController@userRanking')->name('api.v1.leaderboard.me');
-
-});
 
 Route::get('/events', function () {
     return Event::all();
 });
-
-
 
 Route::fallback(function() {
     return response()->json([
