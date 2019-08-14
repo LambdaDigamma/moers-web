@@ -68900,6 +68900,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/Poll */ "./resources/js/views/Poll.vue"));
     },
     props: castRouteParams
+  }, {
+    name: "admin",
+    path: "/admin",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/Admin/AdminDashboard */ "./resources/js/views/Admin/AdminDashboard.vue"));
+    }
+  }, {
+    name: "admin.users",
+    path: "/admin/users",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/Admin/Users */ "./resources/js/views/Admin/Users.vue"));
+    }
   }],
   linkActiveClass: "active"
 }));

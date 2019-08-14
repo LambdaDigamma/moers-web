@@ -97,6 +97,18 @@ export default new Router({
                 import ('../views/Poll'),
             props: castRouteParams
         },
+        {
+            name: "admin",
+            path: "/admin",
+            component: () =>
+                import('../views/Admin/AdminDashboard')
+        },
+        {
+            name: "admin.users",
+            path: "/admin/users",
+            component: () =>
+                import('../views/Admin/Users')
+        }
     ],
     linkActiveClass: "active"
 })
