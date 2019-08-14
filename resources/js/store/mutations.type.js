@@ -21,3 +21,6 @@ export const SET_POLLS = "setPolls"
 
 /* Module: Poll */
 export const SET_POLL = "setPoll"
+
+/* Module: Users */
+export const SET_USERS = "setUsers"

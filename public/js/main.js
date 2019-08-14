@@ -12318,11 +12318,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47795,6 +47790,14 @@ var render = function() {
                             [_vm._v("Profil")]
                           ),
                           _vm._v(" "),
+                          _vm.$can("access-admin")
+                            ? _c(
+                                "b-dropdown-item",
+                                { attrs: { to: { name: "admin" } } },
+                                [_vm._v("Admin")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c("b-dropdown-item", { on: { click: _vm.logout } }, [
                             _vm._v("Abmelden")
                           ])
@@ -68471,16 +68474,60 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./resources/js/abilities/index.js ***!
   \*****************************************/
-/*! exports provided: default */
+/*! exports provided: ability, abilityPlugin */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ability", function() { return ability; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "abilityPlugin", function() { return abilityPlugin; });
 /* harmony import */ var _casl_ability__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @casl/ability */ "./node_modules/@casl/ability/dist/es5m/index.js");
+/* harmony import */ var _store_mutations_type__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/mutations.type */ "./resources/js/store/mutations.type.js");
 
-/* harmony default export */ __webpack_exports__["default"] = (_casl_ability__WEBPACK_IMPORTED_MODULE_0__["AbilityBuilder"].define(function (can) {
-  can('read', 'all');
-}));
+
+var ability = new _casl_ability__WEBPACK_IMPORTED_MODULE_0__["Ability"]();
+var abilityPlugin = function abilityPlugin(store) {
+  ability.update(store.state.rules);
+  return store.subscribe(function (mutation) {
+    switch (mutation.type) {
+      case _store_mutations_type__WEBPACK_IMPORTED_MODULE_1__["SET_USER"]:
+        var rules = [];
+        mutation.payload.abilities.forEach(function (ability) {
+          var name = ability.name.toLowerCase();
+          var subject = 'all';
+          var conditions = {};
+
+          if (ability.entity_type != null) {
+            subject = ability.entity_type.split('App\\').join("");
+          }
+
+          if (ability.entity_id != null) {
+            conditions = {
+              'id': ability.entity_id
+            };
+          }
+
+          rules.push({
+            actions: name,
+            subject: subject,
+            conditions: conditions
+          });
+        });
+        ability.update(rules);
+        break;
+
+      case _store_mutations_type__WEBPACK_IMPORTED_MODULE_1__["PURGE_AUTH"]:
+        ability.update([{
+          actions: 'read',
+          subject: 'event'
+        }, {
+          actions: 'read',
+          subject: 'organisations'
+        }]);
+        break;
+    }
+  });
+};
 
 /***/ }),
 
@@ -68488,7 +68535,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/js/common/api.service.js ***!
   \********************************************/
-/*! exports provided: default, OrganisationService, EventService, PollService */
+/*! exports provided: default, OrganisationService, EventService, PollService, UserService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68496,6 +68543,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrganisationService", function() { return OrganisationService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventService", function() { return EventService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PollService", function() { return PollService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -68579,6 +68627,11 @@ var PollService = _defineProperty({
 }, "get", function get(id) {
   return ApiService.get("polls", id);
 });
+var UserService = {
+  get: function get() {
+    return ApiService.get("users");
+  }
+};
 
 /***/ }),
 
@@ -68751,10 +68804,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_date_filter__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./common/date.filter */ "./resources/js/common/date.filter.js");
 /* harmony import */ var _common_error_filter__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./common/error.filter */ "./resources/js/common/error.filter.js");
 /* harmony import */ var _casl_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @casl/vue */ "./node_modules/@casl/vue/dist/es5m/index.js");
-/* harmony import */ var _abilities__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./abilities */ "./resources/js/abilities/index.js");
-/* harmony import */ var _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "./node_modules/@fortawesome/fontawesome-svg-core/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-/* harmony import */ var _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @fortawesome/vue-fontawesome */ "./node_modules/@fortawesome/vue-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "./node_modules/@fortawesome/fontawesome-svg-core/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @fortawesome/vue-fontawesome */ "./node_modules/@fortawesome/vue-fontawesome/index.es.js");
 
 
 
@@ -68768,18 +68820,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_casl_vue__WEBPACK_IMPORTED_MODULE_10__["abilitiesPlugin"], _abilities__WEBPACK_IMPORTED_MODULE_11__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_casl_vue__WEBPACK_IMPORTED_MODULE_10__["abilitiesPlugin"], _store__WEBPACK_IMPORTED_MODULE_3__["ability"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('can', _casl_vue__WEBPACK_IMPORTED_MODULE_10__["Can"]);
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_12__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_13__["faUserSecret"]);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_11__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_12__["faUserSecret"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_moment__WEBPACK_IMPORTED_MODULE_6___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("date", _common_date_filter__WEBPACK_IMPORTED_MODULE_8__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("error", _common_error_filter__WEBPACK_IMPORTED_MODULE_9__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('font-awesome-icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_14__["FontAwesomeIcon"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('font-awesome-icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_13__["FontAwesomeIcon"]);
 _common_api_service__WEBPACK_IMPORTED_MODULE_4__["default"].init();
 _router__WEBPACK_IMPORTED_MODULE_2__["default"].beforeEach(function (to, from, next) {
   return Promise.all([_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch(_store_actions_type__WEBPACK_IMPORTED_MODULE_7__["CHECK_AUTH"])]).then(next);
@@ -68929,7 +68981,7 @@ function castRouteParams(route) {
 /*!********************************************!*\
   !*** ./resources/js/store/actions.type.js ***!
   \********************************************/
-/*! exports provided: CHECK_AUTH, LOGIN, LOGOUT, REGISTER, UPDATE_USER, FETCH_ORGANISATIONS, FETCH_ORGANISATION, FETCH_EVENTS, FETCH_POLLS, FETCH_POLL */
+/*! exports provided: CHECK_AUTH, LOGIN, LOGOUT, REGISTER, UPDATE_USER, FETCH_ORGANISATIONS, FETCH_ORGANISATION, FETCH_EVENTS, FETCH_POLLS, FETCH_POLL, FETCH_USERS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68944,6 +68996,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_EVENTS", function() { return FETCH_EVENTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_POLLS", function() { return FETCH_POLLS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_POLL", function() { return FETCH_POLL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_USERS", function() { return FETCH_USERS; });
 /* Module: Auth */
 var CHECK_AUTH = "checkAuth";
 var LOGIN = "login";
@@ -68965,6 +69018,9 @@ var FETCH_POLLS = "fetchPolls";
 /* Module: Poll */
 
 var FETCH_POLL = "fetchPoll";
+/* Module: Users */
+
+var FETCH_USERS = "fetchUsers";
 
 /***/ }),
 
@@ -68972,20 +69028,25 @@ var FETCH_POLL = "fetchPoll";
 /*!*************************************!*\
   !*** ./resources/js/store/index.js ***!
   \*************************************/
-/*! exports provided: default */
+/*! exports provided: ability, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ability", function() { return ability; });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _modules_auth_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/auth.module */ "./resources/js/store/modules/auth.module.js");
-/* harmony import */ var _modules_organisations_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/organisations.module */ "./resources/js/store/modules/organisations.module.js");
-/* harmony import */ var _modules_organisation_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/organisation.module */ "./resources/js/store/modules/organisation.module.js");
-/* harmony import */ var _modules_events_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/events.module */ "./resources/js/store/modules/events.module.js");
-/* harmony import */ var _modules_polls_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/polls.module */ "./resources/js/store/modules/polls.module.js");
-/* harmony import */ var _modules_poll_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/poll.module */ "./resources/js/store/modules/poll.module.js");
+/* harmony import */ var _abilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../abilities */ "./resources/js/abilities/index.js");
+/* harmony import */ var _modules_auth_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/auth.module */ "./resources/js/store/modules/auth.module.js");
+/* harmony import */ var _modules_organisations_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/organisations.module */ "./resources/js/store/modules/organisations.module.js");
+/* harmony import */ var _modules_organisation_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/organisation.module */ "./resources/js/store/modules/organisation.module.js");
+/* harmony import */ var _modules_events_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/events.module */ "./resources/js/store/modules/events.module.js");
+/* harmony import */ var _modules_polls_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/polls.module */ "./resources/js/store/modules/polls.module.js");
+/* harmony import */ var _modules_poll_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/poll.module */ "./resources/js/store/modules/poll.module.js");
+/* harmony import */ var _modules_users_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/users.module */ "./resources/js/store/modules/users.module.js");
+
+
 
 
 
@@ -68995,14 +69056,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+var ability = _abilities__WEBPACK_IMPORTED_MODULE_2__["ability"];
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  plugins: [_abilities__WEBPACK_IMPORTED_MODULE_2__["abilityPlugin"]],
   modules: {
-    auth: _modules_auth_module__WEBPACK_IMPORTED_MODULE_2__["default"],
-    organisations: _modules_organisations_module__WEBPACK_IMPORTED_MODULE_3__["default"],
-    organisation: _modules_organisation_module__WEBPACK_IMPORTED_MODULE_4__["default"],
-    events: _modules_events_module__WEBPACK_IMPORTED_MODULE_5__["default"],
-    polls: _modules_polls_module__WEBPACK_IMPORTED_MODULE_6__["default"],
-    poll: _modules_poll_module__WEBPACK_IMPORTED_MODULE_7__["default"]
+    auth: _modules_auth_module__WEBPACK_IMPORTED_MODULE_3__["default"],
+    organisations: _modules_organisations_module__WEBPACK_IMPORTED_MODULE_4__["default"],
+    organisation: _modules_organisation_module__WEBPACK_IMPORTED_MODULE_5__["default"],
+    events: _modules_events_module__WEBPACK_IMPORTED_MODULE_6__["default"],
+    polls: _modules_polls_module__WEBPACK_IMPORTED_MODULE_7__["default"],
+    poll: _modules_poll_module__WEBPACK_IMPORTED_MODULE_8__["default"],
+    users: _modules_users_module__WEBPACK_IMPORTED_MODULE_9__["default"]
   }
 }));
 
@@ -69452,11 +69516,65 @@ var mutations = _defineProperty({}, _mutations_type__WEBPACK_IMPORTED_MODULE_2__
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/users.module.js":
+/*!****************************************************!*\
+  !*** ./resources/js/store/modules/users.module.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _common_api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/api.service */ "./resources/js/common/api.service.js");
+/* harmony import */ var _actions_type__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions.type */ "./resources/js/store/actions.type.js");
+/* harmony import */ var _mutations_type__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mutations.type */ "./resources/js/store/mutations.type.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var state = {
+  users: [],
+  isLoadingUsers: true
+};
+var getters = {
+  users: function users(state) {
+    return state.users;
+  },
+  isLoadingUsers: function isLoadingUsers(state) {
+    return state.isLoadingUsers;
+  }
+};
+
+var actions = _defineProperty({}, _actions_type__WEBPACK_IMPORTED_MODULE_1__["FETCH_USERS"], function (_ref) {
+  var commit = _ref.commit;
+  return _common_api_service__WEBPACK_IMPORTED_MODULE_0__["UserService"].get().then(function (_ref2) {
+    var data = _ref2.data;
+    commit(_mutations_type__WEBPACK_IMPORTED_MODULE_2__["SET_USERS"], data);
+  })["catch"](function (error) {
+    throw new Error(error);
+  });
+});
+
+var mutations = _defineProperty({}, _mutations_type__WEBPACK_IMPORTED_MODULE_2__["SET_USERS"], function (state, users) {
+  state.users = users;
+  state.isLoadingUsers = false;
+});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/mutations.type.js":
 /*!**********************************************!*\
   !*** ./resources/js/store/mutations.type.js ***!
   \**********************************************/
-/*! exports provided: RESET_STATE, SET_ERROR, FETCH_EVENTS_START, PURGE_AUTH, SET_AUTH, SET_USER, SET_ORGANISATIONS, SET_ORGANISATION, SET_EVENTS, SET_POLLS, SET_POLL */
+/*! exports provided: RESET_STATE, SET_ERROR, FETCH_EVENTS_START, PURGE_AUTH, SET_AUTH, SET_USER, SET_ORGANISATIONS, SET_ORGANISATION, SET_EVENTS, SET_POLLS, SET_POLL, SET_USERS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69472,6 +69590,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_EVENTS", function() { return SET_EVENTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_POLLS", function() { return SET_POLLS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_POLL", function() { return SET_POLL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_USERS", function() { return SET_USERS; });
 var RESET_STATE = "resetModuleState";
 var SET_ERROR = "setError";
 var FETCH_EVENTS_START = "setLoading";
@@ -69495,6 +69614,9 @@ var SET_POLLS = "setPolls";
 /* Module: Poll */
 
 var SET_POLL = "setPoll";
+/* Module: Users */
+
+var SET_USERS = "setUsers";
 
 /***/ }),
 

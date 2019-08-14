@@ -12,7 +12,7 @@ import ErrorFilter from "./common/error.filter"
 
 import { abilitiesPlugin } from '@casl/vue'
 import { Can } from '@casl/vue'
-import ability from './abilities'
+import { ability } from './store'
 
 Vue.use(abilitiesPlugin, ability)
 Vue.component('can', Can)

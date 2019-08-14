@@ -88,3 +88,9 @@ export const PollService = {
         return ApiService.get("polls", id)
     }
 }
+
+export const UserService = {
+    get() {
+        return ApiService.get("users")
+    }
+}

@@ -16,17 +16,12 @@
                     <router-link tag="b-nav-item" :to="{ name: 'organisations' }" exact>Organisationen</router-link>
                     <router-link tag="b-nav-item" :to="{ name: 'events' }" exact>Veranstaltungen</router-link>
                     <router-link tag="b-nav-item" v-if="isAuthenticated" :to="{ name: 'polls' }" exact>Abstimmungen</router-link>
-                    <!-- 
-                    <b-nav-item :to="{ name: 'organisations' }">Organisationen</b-nav-item>
-                    <b-nav-item :to="{ name: 'events' }">Veranstaltungen</b-nav-item>
-                    <b-nav-item :to="{ name: 'polls' }">Abstimmungen</b-nav-item> 
-                    -->
                 </b-navbar-nav>
                 <b-navbar-nav class="ml-auto" v-if="isAuthenticated">
                     <b-nav-item-dropdown right>
                         <template slot="button-content">{{ currentUser.name }}</template>
                         <b-dropdown-item :to="{ name: 'profile' }">Profil</b-dropdown-item>
-                        <!-- <b-dropdown-item :to="{ name: 'profile' }">Profil</b-dropdown-item> -->
+                        <b-dropdown-item :to="{ name: 'admin' }" v-if="$can('access-admin')">Admin</b-dropdown-item>
                         <b-dropdown-item @click="logout">Abmelden</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>

@@ -13,13 +13,13 @@ class UserTableSeeder extends Seeder
     public function run()
     {
 
-        $admin = factory(User::class)->create([
+        $superadmin = factory(User::class)->create([
             'name' => 'Admin',
             'email' => 'admin@lambdadigamma.com',
             'password' => bcrypt('secret')
         ]);
 
-        $admin->assign('admin');
+        $superadmin->assign('superadmin');
 
         factory(User::class, 50)->create();
 

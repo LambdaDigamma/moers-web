@@ -167,6 +167,15 @@ Route::group(['prefix' => '/v2'], function () {
 
 });
 
+/* Admin */
+
+Route::group(['prefix' => '/v2'], function () {
+
+    Route::get('/users', 'API\APIUserController@index')
+        ->middleware(['auth:api', 'can:read-user'])
+        ->name('api.v2.users');
+
+});
 
 /*
 |--------------------------------------------------------------------------

@@ -9,6 +9,12 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store_actions_type__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../store/actions.type */ "./resources/js/store/actions.type.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -23,27 +29,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Users",
+  mounted: function mounted() {
+    this.$store.dispatch(_store_actions_type__WEBPACK_IMPORTED_MODULE_0__["FETCH_USERS"]);
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(["isAuthenticated", "isLoadingUsers", "users"])),
   data: function data() {
     return {
-      items: [{
-        age: 40,
-        first_name: 'Dickerson',
-        last_name: 'Macdonald'
-      }, {
-        age: 21,
-        first_name: 'Larsen',
-        last_name: 'Shaw'
-      }, {
-        age: 89,
-        first_name: 'Geneva',
-        last_name: 'Wilson'
-      }, {
-        age: 38,
-        first_name: 'Jami',
-        last_name: 'Carney'
-      }]
+      fields: {
+        name: {
+          label: 'Name'
+        },
+        email: {
+          label: 'Email'
+        }
+      }
     };
   }
 });
@@ -70,16 +80,57 @@ var render = function() {
     { staticClass: "mt-4" },
     [
       _c(
-        "b-card",
-        { attrs: { "bg-variant": "secondary", "text-variant": "black" } },
-        [_c("h3", { staticClass: "m-0" }, [_vm._v("Users")])]
-      ),
-      _vm._v(" "),
-      _c(
-        "b-card",
-        { staticClass: "mt-3", attrs: { "bg-variant": "light" } },
+        "can",
+        { attrs: { I: "read-user", a: "User" } },
         [
-          _c("b-table", { attrs: { striped: "", hover: "", items: _vm.items } })
+          _c(
+            "b-card",
+            { attrs: { "bg-variant": "secondary", "text-variant": "black" } },
+            [
+              _c(
+                "div",
+                { staticClass: "d-flex justify-content-between" },
+                [
+                  _c("h3", { staticClass: "m-0" }, [_vm._v("Users")]),
+                  _vm._v(" "),
+                  _c(
+                    "can",
+                    { attrs: { I: "create-user", a: "User" } },
+                    [
+                      _c("b-button", { attrs: { variant: "success" } }, [
+                        _vm._v("Hinzufügen")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.isLoadingUsers
+            ? _c(
+                "div",
+                { staticClass: "d-flex justify-content-center m-5" },
+                [_c("b-spinner", { attrs: { label: "Lädt..." } })],
+                1
+              )
+            : _c(
+                "b-card",
+                { staticClass: "mt-3", attrs: { "bg-variant": "light" } },
+                [
+                  _c("b-table", {
+                    attrs: {
+                      hover: "",
+                      outlined: "",
+                      items: _vm.users,
+                      fields: _vm.fields
+                    }
+                  })
+                ],
+                1
+              )
         ],
         1
       )

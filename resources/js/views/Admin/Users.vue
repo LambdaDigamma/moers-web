@@ -1,28 +1,46 @@
 <template>
     <div class="mt-4">
-
-        <b-card bg-variant="secondary" text-variant="black">
-            <h3 class="m-0">Users</h3>
-        </b-card>
-
-        <b-card bg-variant="light" class="mt-3">
-            <b-table striped hover :items="items"></b-table>
-        </b-card>
-
+        <can I="read-user" a="User">
+            <b-card bg-variant="secondary" text-variant="black">
+                <div class="d-flex justify-content-between">
+                    <h3 class="m-0">Users</h3>
+                    <can I="create-user" a="User">
+                        <b-button variant="success">Hinzufügen</b-button>
+                    </can>
+                </div>
+            </b-card>
+            <div class="d-flex justify-content-center m-5" v-if="isLoadingUsers">
+                <b-spinner label="Lädt..."></b-spinner>
+            </div>
+            <b-card bg-variant="light" class="mt-3" v-else>
+                <b-table hover outlined :items="users" :fields="fields"></b-table>
+            </b-card>
+        </can>
     </div>
 </template>
 
 <script>
+    import { FETCH_USERS } from "../../store/actions.type";
+    import { mapGetters } from "vuex";
+
     export default {
         name: "Users",
+        mounted() {
+            this.$store.dispatch(FETCH_USERS)
+        },
+        computed: {
+            ...mapGetters(["isAuthenticated", "isLoadingUsers", "users"])
+        },
         data() {
             return {
-                items: [
-                    { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-                    { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-                    { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-                    { age: 38, first_name: 'Jami', last_name: 'Carney' }
-                ]
+                fields: {
+                    name: {
+                        label: 'Name'
+                    },
+                    email: {
+                        label: 'Email'
+                    },
+                }
             }
         }
     }
