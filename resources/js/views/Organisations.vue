@@ -2,7 +2,7 @@
 
     <div class="mt-4">
 
-        <b-card bg-variant="secondary" text-variant="white">
+        <b-card bg-variant="secondary" text-variant="black">
             <h3 class="m-0">Organisationen</h3>
         </b-card>      
 

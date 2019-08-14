@@ -1,1 +1,194 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[17],{79:function(e,t,r){"use strict";r.r(t);var n=r(5);function i(e,t,r){return t in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r,e}var a={name:"ProfileSettings",computed:function(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{},n=Object.keys(r);"function"==typeof Object.getOwnPropertySymbols&&(n=n.concat(Object.getOwnPropertySymbols(r).filter(function(e){return Object.getOwnPropertyDescriptor(r,e).enumerable}))),n.forEach(function(t){i(e,t,r[t])})}return e}({},Object(n.b)(["currentUser"]))},s=r(1),l=Object(s.a)(a,function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"mt-5"},[r("hr",{staticClass:"my-4"}),e._v(" "),r("h3",[e._v("Profil")]),e._v(" "),r("div",{staticClass:"my-4"},[r("b-form",[r("b-form-group",{attrs:{id:"input-group-1",label:"Name:","label-for":"input-1","label-cols":"2"}},[r("b-form-input",{attrs:{id:"input-1",required:"",placeholder:"Namen eingeben"},model:{value:e.currentUser.name,callback:function(t){e.$set(e.currentUser,"name",t)},expression:"currentUser.name"}})],1),e._v(" "),r("b-form-group",{attrs:{id:"input-group-2",label:"Bio:","label-for":"input-2","label-cols":"2"}},[r("b-form-input",{attrs:{id:"input-2",required:"",placeholder:"Bio eingeben"},model:{value:e.currentUser.description,callback:function(t){e.$set(e.currentUser,"description",t)},expression:"currentUser.description"}})],1),e._v(" "),r("div",{staticClass:"d-flex justify-content-end"},[r("b-button",{attrs:{type:"submit",variant:"primary"}},[e._v("Speichern")])],1)],1)],1),e._v(" "),r("hr",{staticClass:"my-4"}),e._v(" "),r("h3",[e._v("Benutzerkonto")]),e._v(" "),r("div",{staticClass:"my-4"},[r("b-form",[r("b-form-group",{attrs:{id:"input-group-1",label:"E-Mail:","label-for":"input-1","label-cols":"2",description:"Deine E-Mail Adresse dient nur Verifikationszwecken. Sie wird nicht mit Dritten geteilt oder zu Werbezwecken genutzt."}},[r("b-form-input",{attrs:{id:"input-1",type:"email",required:"",placeholder:"E-Mail eingeben"},model:{value:e.currentUser.email,callback:function(t){e.$set(e.currentUser,"email",t)},expression:"currentUser.email"}})],1),e._v(" "),r("div",{staticClass:"d-flex justify-content-end"},[r("b-button",{attrs:{type:"submit",variant:"primary"}},[e._v("Speichern")])],1)],1),e._v(" "),r("b-form",{staticClass:"mt-4"},[r("b-form-group",{attrs:{id:"input-group-2",label:"Neues Passwort:","label-for":"input-2","label-cols":"2"}},[r("b-form-input",{attrs:{id:"input-2",type:"password",required:"",placeholder:"Passwort"}})],1),e._v(" "),r("b-form-group",{attrs:{id:"input-group-3",label:"","label-for":"input-3","label-cols":"2"}},[r("b-form-input",{attrs:{id:"input-3",type:"password",required:"",placeholder:"Passwort bestätigen"}})],1),e._v(" "),r("div",{staticClass:"d-flex justify-content-end"},[r("b-button",{attrs:{type:"submit",variant:"warning"}},[e._v("Ändern")])],1)],1)],1),e._v(" "),r("hr",{staticClass:"my-4"}),e._v(" "),r("h3",[e._v("Gefahrenbereich")]),e._v(" "),r("div",{staticClass:"mt-4"},[r("h5",[e._v("Konto löschen")]),e._v(" "),r("p",{staticClass:"text-muted my-2 mb-4"},[e._v("Du möchtest Dein Benutzerkonto und somit auch alle Deine Daten endgültig löschen?")]),e._v(" "),r("b-button",{attrs:{variant:"danger",block:""}},[e._v("Benutzerkonto löschen")])],1)])},[],!1,null,"d823b5f8",null);t.default=l.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[17],{
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Organisation/OrganisationNews.vue?vue&type=template&id=0a511c1a&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Organisation/OrganisationNews.vue?vue&type=template&id=0a511c1a& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("p", [_vm._v("News")])])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ "./resources/js/views/Organisation/OrganisationNews.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/views/Organisation/OrganisationNews.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OrganisationNews_vue_vue_type_template_id_0a511c1a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OrganisationNews.vue?vue&type=template&id=0a511c1a& */ "./resources/js/views/Organisation/OrganisationNews.vue?vue&type=template&id=0a511c1a&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _OrganisationNews_vue_vue_type_template_id_0a511c1a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _OrganisationNews_vue_vue_type_template_id_0a511c1a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/Organisation/OrganisationNews.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/Organisation/OrganisationNews.vue?vue&type=template&id=0a511c1a&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/views/Organisation/OrganisationNews.vue?vue&type=template&id=0a511c1a& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrganisationNews_vue_vue_type_template_id_0a511c1a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./OrganisationNews.vue?vue&type=template&id=0a511c1a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Organisation/OrganisationNews.vue?vue&type=template&id=0a511c1a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrganisationNews_vue_vue_type_template_id_0a511c1a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrganisationNews_vue_vue_type_template_id_0a511c1a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

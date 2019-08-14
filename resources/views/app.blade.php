@@ -9,7 +9,6 @@
         <title>Mein Moers</title>
 
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}">
 
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32">

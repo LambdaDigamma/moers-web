@@ -1,1 +1,87 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[12],{1:function(e,t,r){"use strict";function n(e,t,r,n,s,a,i,o){var l,c="function"==typeof e?e.options:e;if(t&&(c.render=t,c.staticRenderFns=r,c._compiled=!0),n&&(c.functional=!0),a&&(c._scopeId="data-v-"+a),i?(l=function(e){(e=e||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(e=__VUE_SSR_CONTEXT__),s&&s.call(this,e),e&&e._registeredComponents&&e._registeredComponents.add(i)},c._ssrRegister=l):s&&(l=o?function(){s.call(this,this.$root.$options.shadowRoot)}:s),l)if(c.functional){c._injectStyles=l;var d=c.render;c.render=function(e,t){return l.call(t),d(e,t)}}else{var m=c.beforeCreate;c.beforeCreate=m?[].concat(m,l):[l]}return{exports:e,options:c}}r.d(t,"a",function(){return n})},72:function(e,t,r){"use strict";r.r(t);var n={name:"Footer"},s=r(1),a={name:"Home",components:{Footer:Object(s.a)(n,function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",[r("div",{staticStyle:{height:"200px"}}),e._v(" "),r("hr",{staticClass:"mt-4"}),e._v(" "),r("b-row",{staticClass:"mb-5"},[r("b-col",{staticClass:"mt-3",attrs:{sm:"12",lg:"6"}},[r("b-row",[r("b-col",{attrs:{cols:"4"}},[r("b-img",{attrs:{src:"/img/cfn.png","fluid-grow":""}})],1),e._v(" "),r("b-col",{attrs:{cols:"8"}},[r("h5",[e._v("Code for Niederrhein")]),e._v(" "),r("p",[e._v("Code for Niederhein ist eine lokale Entwicklergruppe.")]),e._v(" "),r("b-link",{attrs:{href:"https://twitter.com/codefornrn"}},[e._v("@CodeForNRN")])],1)],1)],1),e._v(" "),r("b-col",{staticClass:"mt-3",attrs:{sm:"12",lg:"6"}},[r("b-row",[r("b-col",{attrs:{cols:"4"}},[r("b-img",{attrs:{src:"/img/avatar.png","fluid-grow":""}})],1),e._v(" "),r("b-col",{attrs:{cols:"8"}},[r("h5",[e._v("Lennart Fischer")]),e._v(" "),r("p",[e._v("Software-Entwickler, Code for Niederrhein Co-Lead, OpenData-Verfechter")]),e._v(" "),r("b-link",{attrs:{href:"https://twitter.com/lambdadigamma"}},[e._v("@LambdaDigamma")]),r("br"),e._v(" "),r("b-link",{attrs:{href:"https://lambdadigamma.com"}},[e._v("lambdadigamma.com")])],1)],1)],1)],1)],1)},[],!1,null,null,null).exports}},i=Object(s.a)(a,function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("b-container",{staticClass:"mt-0"},[r("b-img",{attrs:{src:"img/hero.png",fluid:"",alt:"Responsive image"}}),e._v(" "),r("h1",{staticClass:"text-center"},[e._v("\n        Mein Moers.\n        Dein Moers.\n        Unser Moers!\n    ")]),e._v(" "),r("b-row",{staticClass:"mt-4"},[r("a",{staticClass:"mx-auto",staticStyle:{display:"inline-block",overflow:"hidden",background:"url(https://linkmaker.itunes.apple.com/de-de/badge-lrg.svg?releaseDate=2018-02-19&kind=iossoftware&bubble=ios_apps) no-repeat",width:"135px",height:"40px"},attrs:{href:"https://apps.apple.com/de/app/mein-moers/id1305862555?mt=8"}})]),e._v(" "),r("hr",{staticClass:"mt-4"}),e._v(" "),r("b-row",{staticClass:"mt-5"},[r("p",{staticClass:"text-justify"},[e._v("\n            Suche Moerser Geschäfte & Parkplätze mit Live-Daten und bewege Dich mit interaktiven 360° Panoramen durch die Stadt!"),r("br"),e._v("\n            Finde tolle Veranstaltungen in Moers und Umgebung und vergleiche die aktuellen Kraftstoffpreise."),r("br"),e._v("\n            Der straßen-basierte Abfallkalendar den Überblick über Leerungstermine zu behalten und kann am Vorabend an die Leerungstermine erinnern.\n        ")])]),e._v(" "),r("Footer")],1)},[],!1,null,"4af12428",null);t.default=i.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Organisation/OrganisationEntry.vue?vue&type=template&id=34321d02&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Organisation/OrganisationEntry.vue?vue&type=template&id=34321d02& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("p", [_vm._v("Entry")])])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/Organisation/OrganisationEntry.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/views/Organisation/OrganisationEntry.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OrganisationEntry_vue_vue_type_template_id_34321d02___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OrganisationEntry.vue?vue&type=template&id=34321d02& */ "./resources/js/views/Organisation/OrganisationEntry.vue?vue&type=template&id=34321d02&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _OrganisationEntry_vue_vue_type_template_id_34321d02___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _OrganisationEntry_vue_vue_type_template_id_34321d02___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/Organisation/OrganisationEntry.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/Organisation/OrganisationEntry.vue?vue&type=template&id=34321d02&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/views/Organisation/OrganisationEntry.vue?vue&type=template&id=34321d02& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrganisationEntry_vue_vue_type_template_id_34321d02___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./OrganisationEntry.vue?vue&type=template&id=34321d02& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Organisation/OrganisationEntry.vue?vue&type=template&id=34321d02&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrganisationEntry_vue_vue_type_template_id_34321d02___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrganisationEntry_vue_vue_type_template_id_34321d02___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

@@ -21,7 +21,7 @@ class CreateAdvEventsTable extends Migration
             $table->longText('description')->nullable();
             $table->string('url')->nullable();
             $table->string('image_path')->nullable();
-            $table->string('category')->nullable();
+            $table->string('category', 1000)->nullable();
             $table->integer('organisation_id')->unsigned()->nullable();
             $table->integer('entry_id')->unsigned()->nullable();
             $table->boolean('is_published')->default(1);

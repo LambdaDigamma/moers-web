@@ -3,15 +3,19 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ApiService from "./common/api.service"
-import { CHECK_AUTH } from "./store/actions.type";
+import BootstrapVue from 'bootstrap-vue'
+import VueMoment from 'vue-moment'
 
+import { CHECK_AUTH } from "./store/actions.type";
 import DateFilter from "./common/date.filter"
 import ErrorFilter from "./common/error.filter"
 
-import BootstrapVue from 'bootstrap-vue'
-import VueMoment from 'vue-moment'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { abilitiesPlugin } from '@casl/vue'
+import { Can } from '@casl/vue'
+import ability from './abilities'
+
+Vue.use(abilitiesPlugin, ability)
+Vue.component('can', Can)
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'

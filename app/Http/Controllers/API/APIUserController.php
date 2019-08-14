@@ -14,7 +14,12 @@ class APIUserController extends Controller
 
     public function getUser(Request $request) {
 
-        return $request->user();
+        $user = $request->user();
+
+        $user->roles = $user->getRoles();
+        $user->abilities = $user->getAbilities();
+
+        return $user;
 
     }
 
