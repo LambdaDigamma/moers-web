@@ -1,12 +1,6 @@
 <template>
 
     <div>
-        <div>
-            <hr>
-            <h3>Abstimmung</h3>
-            <hr>
-        </div>
-
         <div class="mt-4">
             <h4>{{ poll.question }}</h4>
             <p>{{ poll.description }}</p>
@@ -46,7 +40,7 @@ export default {
             required: true
         }
     },
-    data: {
+    data() {
 
     },
     methods: {

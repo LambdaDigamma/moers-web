@@ -177,6 +177,13 @@ Route::group(['prefix' => '/v2'], function () {
 
 });
 
+Route::group(['prefix' => '/v2'], function () {
+
+    Route::get('/polls', 'API\APIPollController@index')
+        ->name('api.v2.polls');
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | API Routes v1

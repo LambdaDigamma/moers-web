@@ -5,14 +5,29 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Poll;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class APIPollController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('get', 'show');
+        $this->middleware(['auth:api', 'can:read-poll']);
+//        $this->middleware('auth:api')->except('get', 'show');
     }
+
+
+    /**
+     * Returns all Polls for the authenticated User.
+     *
+     * @param Request $request
+     * @return Collection
+     */
+    public function index(Request $request) {
+        return $request->user()->polls();
+    }
+
+
 
     public function vote() {
 

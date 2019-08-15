@@ -1,8 +1,12 @@
 <template>
     
-    <div class="mt-5">
-        
-        <div class="d-flex justify-content-center m-5" v-if="isLoading">
+    <div>
+
+        <b-card bg-variant="secondary" text-variant="black" class="my-4">
+            <h3 class="m-0">Abstimmung</h3>
+        </b-card>
+
+        <div class="d-flex justify-content-center m-5" v-if="isLoadingPoll">
             <b-spinner label="Lädt..."></b-spinner>
         </div>
 

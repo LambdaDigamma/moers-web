@@ -39,12 +39,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PollVote",
   props: {
@@ -53,7 +47,7 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  data: {},
+  data: function data() {},
   methods: {}
 });
 
@@ -76,6 +70,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -185,8 +183,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._m(0),
-      _vm._v(" "),
       _c("div", { staticClass: "mt-4" }, [
         _c("h4", [_vm._v(_vm._s(_vm.poll.question))]),
         _vm._v(" "),
@@ -241,20 +237,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("hr"),
-      _vm._v(" "),
-      _c("h3", [_vm._v("Abstimmung")]),
-      _vm._v(" "),
-      _c("hr")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -278,9 +261,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "mt-5" },
     [
-      _vm.isLoading
+      _c(
+        "b-card",
+        {
+          staticClass: "my-4",
+          attrs: { "bg-variant": "secondary", "text-variant": "black" }
+        },
+        [_c("h3", { staticClass: "m-0" }, [_vm._v("Abstimmung")])]
+      ),
+      _vm._v(" "),
+      _vm.isLoadingPoll
         ? _c(
             "div",
             { staticClass: "d-flex justify-content-center m-5" },

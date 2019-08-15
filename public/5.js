@@ -55,7 +55,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["isAuthenticated", "isLoading", "organisations"])),
   methods: {
     showOrganisation: function showOrganisation(id) {
-      console.log("Testingt");
       this.$router.push({
         name: "organisation",
         params: {

@@ -42,7 +42,6 @@ export default {
     },
     methods: {
         showOrganisation(id) {
-            console.log("Testingt")
             this.$router.push({ name: "organisation", params: { id: id } })
         }
     }
