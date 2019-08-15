@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property mixed can_visitors_vote
@@ -18,9 +19,19 @@ class Poll extends Model
     protected $table = 'polls';
     protected $guarded = [''];
 
+    /**
+     * Returns the Group that this Poll belongs to.
+     *
+     * @return BelongsTo
+     */
+    public function group()
+    {
+        return $this->belongsTo('App\Group');
+    }
+
     public function options()
     {
-        return $this->hasMany(PollOption::class);
+        return $this->hasMany('App\PollOption');
     }
 
     public function canGuestVote()

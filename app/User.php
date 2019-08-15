@@ -2,8 +2,10 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Laravel\Passport\HasApiTokens;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
@@ -93,5 +95,37 @@ class User extends Authenticatable
         }
 
     }
+
+    /**
+     * Returns all Groups that the User belongs to.
+     *
+     * @return BelongsToMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group');
+    }
+
+    /**
+     * Returns a collection of all Polls that the User is allowed to see and answer.
+     * The Polls also include their PollOptions.
+     *
+     * @return Collection
+     */
+    public function polls()
+    {
+        $groups = $this->groups()->get();
+
+        $polls = collect([]);
+
+        foreach($groups as $group) {
+            foreach($group->polls()->get() as $poll) {
+                $polls->push($poll);
+            }
+        }
+
+        return $polls;
+    }
+
 
 }
