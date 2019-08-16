@@ -1,5 +1,6 @@
 <?php
 
+use App\Poll;
 use Illuminate\Database\Seeder;
 use App\User;
 
@@ -20,6 +21,8 @@ class BouncerSeeder extends Seeder
         Bouncer::allow('superadmin')->to('read-user', User::class);
         Bouncer::allow('superadmin')->to('update-user', User::class);
         Bouncer::allow('superadmin')->to('delete-user', User::class);
+        Bouncer::allow('superadmin')->to('create-poll', Poll::class);
+        Bouncer::allow('superadmin')->to('read-poll', Poll::class);
 
         Bouncer::allow('admin')->everything();
         Bouncer::forbid('admin')->toManage(User::class);

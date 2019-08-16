@@ -91,6 +91,12 @@ export default new Router({
                 import ('../views/Polls')
         },
         {
+            name: "polls.create",
+            path: "/polls/create",
+            component: () =>
+                import('../views/Poll/CreatePoll')
+        },
+        {
             name: "polls.poll",
             path: "/polls/:id",
             component: () =>

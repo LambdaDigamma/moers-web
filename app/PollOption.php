@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class PollOption extends Model
 {
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'poll_id'];
     protected $table = 'poll_options';
 
     public function poll()

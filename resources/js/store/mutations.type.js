@@ -21,6 +21,7 @@ export const SET_POLLS = "setPolls"
 
 /* Module: Poll */
 export const SET_POLL = "setPoll"
+export const STORED_POLL = "storedPoll"
 
 /* Module: Users */
 export const SET_USERS = "setUsers"

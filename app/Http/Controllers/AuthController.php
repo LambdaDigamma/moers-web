@@ -90,6 +90,7 @@ class AuthController extends Controller
 
         $user->roles = $user->getRoles();
         $user->abilities = $user->getAbilities();
+        $user->groups = $user->groups()->get();
 
         return response()->json($user);
 

@@ -31719,7 +31719,7 @@ var VBTooltip = {
 /*!*************************************************!*\
   !*** ./node_modules/bootstrap-vue/esm/index.js ***!
   \*************************************************/
-/*! exports provided: BVConfigPlugin, BVConfig, BootstrapVue, install, setConfig, default, componentsPlugin, BVModalPlugin, BVToastPlugin, AlertPlugin, BAlert, BadgePlugin, BBadge, BreadcrumbPlugin, BBreadcrumb, BBreadcrumbItem, ButtonPlugin, BButton, BButtonClose, ButtonGroupPlugin, BButtonGroup, ButtonToolbarPlugin, BButtonToolbar, CardPlugin, BCard, BCardBody, BCardFooter, BCardGroup, BCardHeader, BCardImg, BCardImgLazy, BCardSubTitle, BCardText, BCardTitle, CarouselPlugin, BCarousel, BCarouselSlide, CollapsePlugin, BCollapse, DropdownPlugin, BDropdown, BDropdownItem, BDropdownItemButton, BDropdownDivider, BDropdownForm, BDropdownGroup, BDropdownHeader, BDropdownText, EmbedPlugin, BEmbed, FormPlugin, BForm, BFormDatalist, BFormText, BFormInvalidFeedback, BFormValidFeedback, FormCheckboxPlugin, BFormCheckbox, BFormCheckboxGroup, FormFilePlugin, BFormFile, FormGroupPlugin, BFormGroup, FormInputPlugin, BFormInput, FormRadioPlugin, BFormRadio, BFormRadioGroup, FormSelectPlugin, BFormSelect, FormTextareaPlugin, BFormTextarea, ImagePlugin, BImg, BImgLazy, InputGroupPlugin, BInputGroup, BInputGroupAddon, BInputGroupAppend, BInputGroupPrepend, BInputGroupText, JumbotronPlugin, BJumbotron, LayoutPlugin, BContainer, BRow, BCol, BFormRow, LinkPlugin, BLink, ListGroupPlugin, BListGroup, BListGroupItem, MediaPlugin, BMedia, BMediaAside, BMediaBody, ModalPlugin, BModal, NavPlugin, BNav, BNavForm, BNavItem, BNavItemDropdown, BNavText, NavbarPlugin, BNavbar, BNavbarBrand, BNavbarNav, BNavbarToggle, PaginationPlugin, BPagination, PaginationNavPlugin, BPaginationNav, PopoverPlugin, BPopover, ProgressPlugin, BProgress, BProgressBar, SpinnerPlugin, BSpinner, TablePlugin, BTable, BTableLite, TabsPlugin, BTabs, BTab, ToastPlugin, BToast, BToaster, TooltipPlugin, BTooltip, directivesPlugin, VBModalPlugin, VBModal, VBPopoverPlugin, VBPopover, VBScrollspyPlugin, VBScrollspy, VBTogglePlugin, VBToggle, VBTooltipPlugin, VBTooltip */
+/*! exports provided: componentsPlugin, BVModalPlugin, BVToastPlugin, AlertPlugin, BAlert, BadgePlugin, BBadge, BreadcrumbPlugin, BBreadcrumb, BBreadcrumbItem, ButtonPlugin, BButton, BButtonClose, ButtonGroupPlugin, BButtonGroup, ButtonToolbarPlugin, BButtonToolbar, CardPlugin, BCard, BCardBody, BCardFooter, BCardGroup, BCardHeader, BCardImg, BCardImgLazy, BCardSubTitle, BCardText, BCardTitle, CarouselPlugin, BCarousel, BCarouselSlide, CollapsePlugin, BCollapse, DropdownPlugin, BDropdown, BDropdownItem, BDropdownItemButton, BDropdownDivider, BDropdownForm, BDropdownGroup, BDropdownHeader, BDropdownText, EmbedPlugin, BEmbed, FormPlugin, BForm, BFormDatalist, BFormText, BFormInvalidFeedback, BFormValidFeedback, FormCheckboxPlugin, BFormCheckbox, BFormCheckboxGroup, FormFilePlugin, BFormFile, FormGroupPlugin, BFormGroup, FormInputPlugin, BFormInput, FormRadioPlugin, BFormRadio, BFormRadioGroup, FormSelectPlugin, BFormSelect, FormTextareaPlugin, BFormTextarea, ImagePlugin, BImg, BImgLazy, InputGroupPlugin, BInputGroup, BInputGroupAddon, BInputGroupAppend, BInputGroupPrepend, BInputGroupText, JumbotronPlugin, BJumbotron, LayoutPlugin, BContainer, BRow, BCol, BFormRow, LinkPlugin, BLink, ListGroupPlugin, BListGroup, BListGroupItem, MediaPlugin, BMedia, BMediaAside, BMediaBody, ModalPlugin, BModal, NavPlugin, BNav, BNavForm, BNavItem, BNavItemDropdown, BNavText, NavbarPlugin, BNavbar, BNavbarBrand, BNavbarNav, BNavbarToggle, PaginationPlugin, BPagination, PaginationNavPlugin, BPaginationNav, PopoverPlugin, BPopover, ProgressPlugin, BProgress, BProgressBar, SpinnerPlugin, BSpinner, TablePlugin, BTable, BTableLite, TabsPlugin, BTabs, BTab, ToastPlugin, BToast, BToaster, TooltipPlugin, BTooltip, directivesPlugin, VBModalPlugin, VBModal, VBPopoverPlugin, VBPopover, VBScrollspyPlugin, VBScrollspy, VBTogglePlugin, VBToggle, VBTooltipPlugin, VBTooltip, BVConfigPlugin, BVConfig, BootstrapVue, install, setConfig, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68892,19 +68892,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       name: 'profile-organisations',
       path: '/profile/organisations',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../views/Profile/ProfileOrganisations */ "./resources/js/views/Profile/ProfileOrganisations.vue"));
+        return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/Profile/ProfileOrganisations */ "./resources/js/views/Profile/ProfileOrganisations.vue"));
       }
     }, {
       name: 'profile-events',
       path: '/profile/events',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/Profile/ProfileEvents */ "./resources/js/views/Profile/ProfileEvents.vue"));
+        return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../views/Profile/ProfileEvents */ "./resources/js/views/Profile/ProfileEvents.vue"));
       }
     }, {
       name: 'profile-settings',
       path: '/profile/settings',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/Profile/ProfileSettings */ "./resources/js/views/Profile/ProfileSettings.vue"));
+        return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/Profile/ProfileSettings */ "./resources/js/views/Profile/ProfileSettings.vue"));
       }
     }]
   }, {
@@ -68924,7 +68924,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       name: 'organisation-news',
       path: '/organisations/:id/news',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/Organisation/OrganisationNews */ "./resources/js/views/Organisation/OrganisationNews.vue"));
+        return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../views/Organisation/OrganisationNews */ "./resources/js/views/Organisation/OrganisationNews.vue"));
       }
     }, {
       name: 'organisation-events',
@@ -68936,7 +68936,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       name: 'organisation-entry',
       path: '/organisations/:id/entry',
       component: function component() {
-        return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/Organisation/OrganisationEntry */ "./resources/js/views/Organisation/OrganisationEntry.vue"));
+        return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/Organisation/OrganisationEntry */ "./resources/js/views/Organisation/OrganisationEntry.vue"));
       }
     }]
   }, {
@@ -68949,7 +68949,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: 'polls',
     path: '/polls',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/Polls */ "./resources/js/views/Polls.vue"));
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/Polls */ "./resources/js/views/Polls.vue"));
+    }
+  }, {
+    name: "polls.create",
+    path: "/polls/create",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/Poll/CreatePoll */ "./resources/js/views/Poll/CreatePoll.vue"));
     }
   }, {
     name: "polls.poll",
@@ -68962,13 +68968,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: "admin",
     path: "/admin",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/Admin/AdminDashboard */ "./resources/js/views/Admin/AdminDashboard.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Admin/AdminDashboard */ "./resources/js/views/Admin/AdminDashboard.vue"));
     }
   }, {
     name: "admin.users",
     path: "/admin/users",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Admin/Users */ "./resources/js/views/Admin/Users.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/Admin/Users */ "./resources/js/views/Admin/Users.vue"));
     }
   }],
   linkActiveClass: "active"
@@ -68987,7 +68993,7 @@ function castRouteParams(route) {
 /*!********************************************!*\
   !*** ./resources/js/store/actions.type.js ***!
   \********************************************/
-/*! exports provided: CHECK_AUTH, LOGIN, LOGOUT, REGISTER, UPDATE_USER, FETCH_ORGANISATIONS, FETCH_ORGANISATION, FETCH_EVENTS, FETCH_POLLS, FETCH_POLL, FETCH_USERS */
+/*! exports provided: CHECK_AUTH, LOGIN, LOGOUT, REGISTER, UPDATE_USER, FETCH_ORGANISATIONS, FETCH_ORGANISATION, FETCH_EVENTS, FETCH_POLLS, FETCH_POLL, STORE_POLL, FETCH_USERS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69002,6 +69008,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_EVENTS", function() { return FETCH_EVENTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_POLLS", function() { return FETCH_POLLS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_POLL", function() { return FETCH_POLL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STORE_POLL", function() { return STORE_POLL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_USERS", function() { return FETCH_USERS; });
 /* Module: Auth */
 var CHECK_AUTH = "checkAuth";
@@ -69024,6 +69031,7 @@ var FETCH_POLLS = "fetchPolls";
 /* Module: Poll */
 
 var FETCH_POLL = "fetchPoll";
+var STORE_POLL = "storePoll";
 /* Module: Users */
 
 var FETCH_USERS = "fetchUsers";
@@ -69400,6 +69408,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mutations_type__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mutations.type */ "./resources/js/store/mutations.type.js");
 
 
+var _actions, _mutations;
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -69421,8 +69431,7 @@ var getters = {
     return state.isLoadingPoll;
   }
 };
-
-var actions = _defineProperty({}, _actions_type__WEBPACK_IMPORTED_MODULE_2__["FETCH_POLL"], function () {
+var actions = (_actions = {}, _defineProperty(_actions, _actions_type__WEBPACK_IMPORTED_MODULE_2__["FETCH_POLL"], function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(context, id) {
@@ -69452,13 +69461,22 @@ var actions = _defineProperty({}, _actions_type__WEBPACK_IMPORTED_MODULE_2__["FE
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
-}());
-
-var mutations = _defineProperty({}, _mutations_type__WEBPACK_IMPORTED_MODULE_3__["SET_POLL"], function (state, poll) {
+}()), _defineProperty(_actions, _actions_type__WEBPACK_IMPORTED_MODULE_2__["STORE_POLL"], function (context, data) {
+  return new Promise(function (resolve, reject) {
+    _common_api_service__WEBPACK_IMPORTED_MODULE_1__["default"].post("polls", data).then(function (_ref3) {
+      var data = _ref3.data;
+      context.commit(_mutations_type__WEBPACK_IMPORTED_MODULE_3__["STORED_POLL"], data);
+      resolve(data);
+    })["catch"](function (_ref4) {
+      var response = _ref4.response;
+      reject(response.data.errors);
+    });
+  });
+}), _actions);
+var mutations = (_mutations = {}, _defineProperty(_mutations, _mutations_type__WEBPACK_IMPORTED_MODULE_3__["SET_POLL"], function (state, poll) {
   state.isLoadingPoll = false;
   state.poll = poll;
-});
-
+}), _defineProperty(_mutations, _mutations_type__WEBPACK_IMPORTED_MODULE_3__["STORED_POLL"], function (state, poll) {}), _mutations);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
   getters: getters,
@@ -69590,7 +69608,7 @@ var mutations = _defineProperty({}, _mutations_type__WEBPACK_IMPORTED_MODULE_2__
 /*!**********************************************!*\
   !*** ./resources/js/store/mutations.type.js ***!
   \**********************************************/
-/*! exports provided: RESET_STATE, SET_ERROR, FETCH_EVENTS_START, PURGE_AUTH, SET_AUTH, SET_USER, SET_ORGANISATIONS, SET_ORGANISATION, SET_EVENTS, SET_POLLS, SET_POLL, SET_USERS */
+/*! exports provided: RESET_STATE, SET_ERROR, FETCH_EVENTS_START, PURGE_AUTH, SET_AUTH, SET_USER, SET_ORGANISATIONS, SET_ORGANISATION, SET_EVENTS, SET_POLLS, SET_POLL, STORED_POLL, SET_USERS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69606,6 +69624,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_EVENTS", function() { return SET_EVENTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_POLLS", function() { return SET_POLLS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_POLL", function() { return SET_POLL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STORED_POLL", function() { return STORED_POLL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_USERS", function() { return SET_USERS; });
 var RESET_STATE = "resetModuleState";
 var SET_ERROR = "setError";
@@ -69630,6 +69649,7 @@ var SET_POLLS = "setPolls";
 /* Module: Poll */
 
 var SET_POLL = "setPoll";
+var STORED_POLL = "storedPoll";
 /* Module: Users */
 
 var SET_USERS = "setUsers";

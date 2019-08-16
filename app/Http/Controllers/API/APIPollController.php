@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Group;
 use App\Http\Controllers\Controller;
 use App\Poll;
+use App\PollOption;
+use Bouncer;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Validator;
 
 class APIPollController extends Controller
 {
@@ -55,6 +62,57 @@ class APIPollController extends Controller
             return !$poll->hasUserVote();
         });
     }
+
+    /**
+     * Validates and Stores a Poll based on the given inputs.
+     * Returns the stored Poll or errors if validation or authentication failed.
+     *
+     * @param Request $request
+     * @return ResponseFactory|JsonResponse|Response
+     */
+    public function store(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'question' => 'required|string|min:3|max:500',
+            'description' => 'required|string|min:3',
+            'group_id' => 'required|integer|exists:groups,id',
+            'options' => 'required|array|min:2|max:255',
+            'options.*' => 'required|string|min:1',
+            'max_check' => 'required|integer|min:1' // TODO: Make working! 'lt:options'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $group = Group::findOrFail($request->json()->get('group_id'));
+
+        if (Bouncer::can('create-poll-group', $group)) {
+
+            $poll = Poll::create($request->json()->all());
+
+            $options = $request->json()->get('options');
+
+            foreach ($options as $option) {
+                $option = PollOption::create(['name' => $option, 'poll_id' => $poll->id]);
+                $poll->options()->save($option);
+            }
+
+            return response()->json($poll);
+
+        } else {
+            return $this->errorResponse("You are not allowed to create a Poll for this Group.", 403);
+        }
+
+    }
+
+    private function errorResponse($message, $status) {
+        return response(['errors' => ['common' => [$message]]], $status);
+    }
+
+
+
 
 
 

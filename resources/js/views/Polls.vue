@@ -3,7 +3,12 @@
     <div>
 
         <b-card bg-variant="secondary" text-variant="black" class="my-4">
-            <h3 class="m-0">Unbeantwortete Abstimmungen</h3>
+            <div class="d-flex justify-content-between">
+                <h3 class="m-0">Unbeantwortete Abstimmungen</h3>
+                <can I="create-poll" a="Poll">
+                    <b-button variant="success" :to="{ name: 'polls.create' }">Hinzufügen</b-button>
+                </can>
+            </div>
         </b-card>
 
         <div class="d-flex justify-content-center m-5" v-if="isLoadingPolls">

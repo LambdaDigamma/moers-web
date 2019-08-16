@@ -182,6 +182,10 @@ Route::group(['prefix' => '/v2'], function () {
     Route::get('/polls', 'API\APIPollController@index')
         ->name('api.v2.polls');
 
+    Route::post('/polls', 'API\APIPollController@store')
+        ->middleware('can:create-poll')
+        ->name('api.v2.polls.store');
+
     Route::get('/polls/unanswered', 'API\APIPollController@unansweredPolls')
         ->name('api.v2.polls.unanswered');
 

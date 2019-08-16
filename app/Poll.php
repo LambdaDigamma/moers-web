@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 class Poll extends Model
 {
 
-    protected $fillable = ['question', 'can_visitors_vote', 'can_voter_see_result'];
+    protected $fillable = ['question', 'description', 'max_check', 'group_id', 'can_visitors_vote', 'can_voter_see_result'];
     protected $table = 'polls';
     protected $guarded = [''];
     protected $appends = ['has_user_vote', 'is_radio', 'is_locked', 'is_open', 'show_results_enabled', 'is_running', 'has_started', 'is_coming_soon', 'results'];
