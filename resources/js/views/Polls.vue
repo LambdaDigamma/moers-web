@@ -35,7 +35,12 @@
                 class="mb-2">
             <h4>{{ poll.question }}<small class="ml-2 text-muted"><br>gestellt von <b>{{ poll.group.name }}</b></small></h4>
             <b-card-text>
-                {{ poll.description }}
+                <div v-if="poll.results.total === 1">
+                    {{ poll.results.total }} Benutzer hat abgestimmt.
+                </div>
+                <div v-else>
+                    {{ poll.results.total }} Benutzer haben abgestimmt.
+                </div>
             </b-card-text>
             <b-button :to="{ name: 'polls.poll', params: { id: poll.id } }" variant="primary">Ergebnisse ansehen</b-button>
         </b-card>

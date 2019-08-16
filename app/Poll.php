@@ -21,7 +21,7 @@ class Poll extends Model
     protected $fillable = ['question', 'can_visitors_vote', 'can_voter_see_result'];
     protected $table = 'polls';
     protected $guarded = [''];
-    protected $appends = ['has_user_vote', 'is_radio', 'is_locked', 'is_open', 'show_results_enabled', 'is_running', 'has_started', 'is_coming_soon'];
+    protected $appends = ['has_user_vote', 'is_radio', 'is_locked', 'is_open', 'show_results_enabled', 'is_running', 'has_started', 'is_coming_soon', 'results'];
 
     /**
      * Returns the Group that this Poll belongs to.
@@ -189,6 +189,23 @@ class Poll extends Model
     public function getIsComingSoonAttribute()
     {
         return $this->isComingSoon();
+    }
+
+    public function getResultsAttribute()
+    {
+        if ($this->hasUserVote()) {
+
+            $votes = $this->options()->select(['id', 'name', 'votes'])->get();
+
+            $total = $votes->reduce(function ($carry, $vote) {
+                return $carry + $vote->votes;
+            });
+
+            return ['votes' => $votes, 'total' => $total];
+
+        } else {
+            return null;
+        }
     }
 
 }

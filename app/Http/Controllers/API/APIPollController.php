@@ -28,6 +28,12 @@ class APIPollController extends Controller
         return $request->user()->polls();
     }
 
+    /**
+     * Returns all answered Polls for the authenticated User.
+     *
+     * @param Request $request
+     * @return Collection
+     */
     public function answeredPolls(Request $request)
     {
         $user = $request->user();
@@ -36,6 +42,12 @@ class APIPollController extends Controller
         });
     }
 
+    /**
+     * Returns all unanswered Polls for the authenticated User.
+     *
+     * @param Request $request
+     * @return Collection
+     */
     public function unansweredPolls(Request $request)
     {
         $user = $request->user();

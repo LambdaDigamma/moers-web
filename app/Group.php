@@ -40,13 +40,13 @@ class Group extends Model
     }
 
     /**
-     * Returns all Polls registered for this Group.
+     * Returns all Polls registered for this Group with their corresponding PollOptions.
      *
      * @return HasMany
      */
     public function polls()
     {
-        return $this->hasMany('App\Poll')->with('options');
+        return $this->hasMany('App\Poll')->with('options:id,name,poll_id,created_at,updated_at');
     }
 
 }

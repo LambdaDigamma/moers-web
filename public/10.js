@@ -62,6 +62,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -184,7 +189,21 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("b-card-text", [
-              _vm._v("\n            " + _vm._s(poll.description) + "\n        ")
+              poll.results.total === 1
+                ? _c("div", [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(poll.results.total) +
+                        " Benutzer hat abgestimmt.\n            "
+                    )
+                  ])
+                : _c("div", [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(poll.results.total) +
+                        " Benutzer haben abgestimmt.\n            "
+                    )
+                  ])
             ]),
             _vm._v(" "),
             _c(
