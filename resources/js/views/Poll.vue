@@ -10,10 +10,12 @@
             <b-spinner label="Lädt..."></b-spinner>
         </div>
 
-        <PollVote
-            :poll='poll'>
+        <PollVote v-if="poll.results === null" :poll='poll'>
 
         </PollVote>
+        <PollResult v-else :poll='poll'>
+
+        </PollResult>
 
     </div>
 
@@ -25,11 +27,13 @@ import store from "../store"
 import PollVote from "../components/PollVote"
 import { mapGetters } from "vuex"
 import { FETCH_POLL } from "../store/actions.type"
+import PollResult from "../components/Poll/PollResult";
 
 export default {
     name: "Poll",
     components: {
-        PollVote
+        PollVote,
+        PollResult
     },
     props: {
         id: {

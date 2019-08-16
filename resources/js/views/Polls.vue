@@ -12,7 +12,7 @@
 
         <b-card 
             v-for="(poll, index) in unansweredPolls"
-            :key="index" 
+            :key="poll.id"
             class="mb-2">
             <h4>{{ poll.question }}<small class="ml-2 text-muted"><br>gestellt von <b>{{ poll.group.name }}</b></small></h4>
             <b-card-text>
@@ -31,7 +31,7 @@
 
         <b-card
                 v-for="(poll, index) in answeredPolls"
-                :key="index"
+                :key="poll.id"
                 class="mb-2">
             <h4>{{ poll.question }}<small class="ml-2 text-muted"><br>gestellt von <b>{{ poll.group.name }}</b></small></h4>
             <b-card-text>
