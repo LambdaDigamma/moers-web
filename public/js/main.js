@@ -68993,7 +68993,7 @@ function castRouteParams(route) {
 /*!********************************************!*\
   !*** ./resources/js/store/actions.type.js ***!
   \********************************************/
-/*! exports provided: CHECK_AUTH, LOGIN, LOGOUT, REGISTER, UPDATE_USER, FETCH_ORGANISATIONS, FETCH_ORGANISATION, FETCH_EVENTS, FETCH_POLLS, FETCH_POLL, STORE_POLL, FETCH_USERS */
+/*! exports provided: CHECK_AUTH, LOGIN, LOGOUT, REGISTER, UPDATE_USER, FETCH_ORGANISATIONS, FETCH_ORGANISATION, FETCH_EVENTS, FETCH_POLLS, FETCH_POLL, STORE_POLL, ABSTAIN_POLL, FETCH_USERS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69009,6 +69009,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_POLLS", function() { return FETCH_POLLS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_POLL", function() { return FETCH_POLL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STORE_POLL", function() { return STORE_POLL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ABSTAIN_POLL", function() { return ABSTAIN_POLL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_USERS", function() { return FETCH_USERS; });
 /* Module: Auth */
 var CHECK_AUTH = "checkAuth";
@@ -69032,6 +69033,7 @@ var FETCH_POLLS = "fetchPolls";
 
 var FETCH_POLL = "fetchPoll";
 var STORE_POLL = "storePoll";
+var ABSTAIN_POLL = "abstainPoll";
 /* Module: Users */
 
 var FETCH_USERS = "fetchUsers";
@@ -69469,6 +69471,17 @@ var actions = (_actions = {}, _defineProperty(_actions, _actions_type__WEBPACK_I
       resolve(data);
     })["catch"](function (_ref4) {
       var response = _ref4.response;
+      reject(response.data.errors);
+    });
+  });
+}), _defineProperty(_actions, _actions_type__WEBPACK_IMPORTED_MODULE_2__["ABSTAIN_POLL"], function (context, poll_id) {
+  return new Promise(function (resolve, reject) {
+    _common_api_service__WEBPACK_IMPORTED_MODULE_1__["default"].post("polls/".concat(poll_id, "/abstain"), {}).then(function (_ref5) {
+      var data = _ref5.data;
+      context.commit(_mutations_type__WEBPACK_IMPORTED_MODULE_3__["SET_POLL"], data);
+      resolve(data);
+    })["catch"](function (_ref6) {
+      var response = _ref6.response;
       reject(response.data.errors);
     });
   });

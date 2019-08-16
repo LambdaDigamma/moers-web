@@ -6,6 +6,7 @@ use App\Group;
 use App\Http\Controllers\Controller;
 use App\Poll;
 use App\PollOption;
+use App\Vote;
 use Bouncer;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
@@ -103,6 +104,36 @@ class APIPollController extends Controller
 
         } else {
             return $this->errorResponse("You are not allowed to create a Poll for this Group.", 403);
+        }
+
+    }
+
+    /**
+     * Marks the given Poll as abstained. Returns an error if User is not allowed to vote for this poll.
+     *
+     * @param Request $request
+     * @param Poll $poll
+     * @return ResponseFactory|JsonResponse|Response
+     */
+    public function abstain(Request $request, Poll $poll)
+    {
+
+        if ($poll->canUserVote()) {
+
+            $user_id = $request->user()->id;
+
+            if (Vote::where([['poll_id', $poll->id], ['user_id', $user_id]])->count() == 0) {
+
+                $vote = new Vote(['poll_id' => $poll->id, 'user_id' => $user_id]);
+                $vote->save();
+
+                return response()->json($vote);
+            } else {
+                return $this->errorResponse("You already voted for this poll.", 403);
+            }
+
+        } else {
+            return $this->errorResponse("You are not a member of this group.", 403);
         }
 
     }

@@ -14,7 +14,7 @@
                     {{ poll.results.total }} Personen haben schon abgestimmt.
                 </p>
             </b-list-group-item>
-            <b-list-group-item class="d-flex align-items-center" v-for="(vote, index) in poll.results.votes"  :key="vote.id">
+            <b-list-group-item class="d-flex align-items-center" v-for="(vote, index) in poll.results.votes"  :key="index">
                 <b-container>
                     <b-row>
                         <b-col cols="2">

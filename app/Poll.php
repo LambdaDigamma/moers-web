@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
  * @property mixed max_check
  * @property mixed can_voter_see_result
  * @property mixed starts_at
+ * @property mixed group
  */
 class Poll extends Model
 {
@@ -21,7 +22,8 @@ class Poll extends Model
     protected $fillable = ['question', 'description', 'max_check', 'group_id', 'can_visitors_vote', 'can_voter_see_result'];
     protected $table = 'polls';
     protected $guarded = [''];
-    protected $appends = ['has_user_vote', 'is_radio', 'is_locked', 'is_open', 'show_results_enabled', 'is_running', 'has_started', 'is_coming_soon', 'results'];
+    protected $appends = ['has_user_vote', 'is_radio', 'is_locked', 'is_open', 'show_results_enabled', 'is_running',
+                          'has_started', 'is_coming_soon', 'results'];
 
     /**
      * Returns the Group that this Poll belongs to.
@@ -43,6 +45,11 @@ class Poll extends Model
         return $this->hasMany('App\PollOption');
     }
 
+    public function votes()
+    {
+        return $this->hasMany('App\Vote');
+    }
+
     /**
      * Return whether the currently authenticated User has already answered this Poll.
      *
@@ -55,6 +62,16 @@ class Poll extends Model
             ['user_id', $user_id],
             ['poll_id', $this->id]
         ])->count() == 1;
+    }
+
+    /**
+     * Returns whether the currently authenticated User has access to the group to answer this Poll.
+     *
+     * @return bool
+     */
+    public function canUserVote()
+    {
+        return $this->group->users->contains(Auth::user());
     }
 
     /**
@@ -149,6 +166,30 @@ class Poll extends Model
         return $this->isOpen() && now() < $this->starts_at;
     }
 
+    /**
+     * Returns the number of total votes by Users.
+     *
+     * @return int
+     */
+    public function totalVotes()
+    {
+        return $this->votes()->count();
+    }
+
+    /**
+     * Returns the number of total abstentions.
+     *
+     * @return int
+     */
+    public function totalAbstentions()
+    {
+        $realVotes = $this->options()->get()->reduce(function ($carry, $item) {
+            return $carry + $item->votes;
+        }, 0);
+
+        return $this->totalVotes() - $realVotes;
+    }
+
     /* Attributes */
 
     public function getHasUserVoteAttribute()
@@ -196,12 +237,16 @@ class Poll extends Model
         if ($this->hasUserVote()) {
 
             $votes = $this->options()->select(['id', 'name', 'votes'])->get();
+            $total = $this->totalVotes();
+            $totalAbstentions = $this->totalAbstentions();
 
-            $total = $votes->reduce(function ($carry, $vote) {
-                return $carry + $vote->votes;
-            });
+            $votes->push(['name' => 'Enthaltung', 'votes' => $totalAbstentions]);
 
-            return ['votes' => $votes, 'total' => $total];
+            return [
+                'votes' => $votes,
+                'total' => $total,
+                'totalAbstentions' => $this->totalAbstentions()
+            ];
 
         } else {
             return null;

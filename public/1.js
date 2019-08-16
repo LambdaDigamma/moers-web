@@ -50,8 +50,7 @@ __webpack_require__.r(__webpack_exports__);
             display: true,
             position: "bottom",
             labels: {
-              fontColor: "#333",
-              fontSize: 16
+              fontColor: "#333"
             }
           },
           tooltips: {
@@ -169,6 +168,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store_actions_type__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store/actions.type */ "./resources/js/store/actions.type.js");
 //
 //
 //
@@ -199,6 +199,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PollVote",
   props: {
@@ -208,7 +209,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   data: function data() {},
-  methods: {}
+  methods: {
+    abstain: function abstain() {
+      this.$store.dispatch(_store_actions_type__WEBPACK_IMPORTED_MODULE_0__["ABSTAIN_POLL"], this.poll.id);
+    }
+  }
 });
 
 /***/ }),
@@ -704,7 +709,7 @@ var render = function() {
           _vm._l(_vm.poll.results.votes, function(vote, index) {
             return _c(
               "b-list-group-item",
-              { key: vote.id, staticClass: "d-flex align-items-center" },
+              { key: index, staticClass: "d-flex align-items-center" },
               [
                 _c(
                   "b-container",
@@ -816,9 +821,18 @@ var render = function() {
         "div",
         { staticClass: "mt-2" },
         [
-          _c("b-link", { attrs: { href: "#" } }, [
-            _vm._v("Ich möchte mich enthalten.")
-          ])
+          _c(
+            "b-link",
+            {
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.abstain($event)
+                }
+              }
+            },
+            [_vm._v("Ich möchte mich enthalten.")]
+          )
         ],
         1
       )

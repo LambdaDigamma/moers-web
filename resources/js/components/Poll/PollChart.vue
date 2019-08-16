@@ -48,7 +48,6 @@
                             position: "bottom",
                             labels: {
                                 fontColor: "#333",
-                                fontSize: 16
                             }
                         },
                         tooltips: {

@@ -21,7 +21,7 @@
         <b-button block variant="success" size="lg" :disabled="true">Abstimmen</b-button>
 
         <div class="mt-2">
-            <b-link href="#">Ich möchte mich enthalten.</b-link>
+            <b-link @click.prevent="abstain">Ich möchte mich enthalten.</b-link>
         </div>
 
     </div>
@@ -29,8 +29,7 @@
 </template>
 
 <script>
-
-
+import { ABSTAIN_POLL } from "../store/actions.type";
 
 export default {
     name: "PollVote",
@@ -44,7 +43,9 @@ export default {
 
     },
     methods: {
-        
+        abstain() {
+            this.$store.dispatch(ABSTAIN_POLL, this.poll.id)
+        }
     }
 }
 
