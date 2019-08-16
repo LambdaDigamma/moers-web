@@ -23,9 +23,27 @@ class APIPollController extends Controller
      * @param Request $request
      * @return Collection
      */
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         return $request->user()->polls();
     }
+
+    public function answeredPolls(Request $request)
+    {
+        $user = $request->user();
+        return $user->polls()->filter(function ($poll) {
+            return $poll->hasUserVote();
+        });
+    }
+
+    public function unansweredPolls(Request $request)
+    {
+        $user = $request->user();
+        return $user->polls()->filter(function ($poll) {
+            return !$poll->hasUserVote();
+        });
+    }
+
 
 
 

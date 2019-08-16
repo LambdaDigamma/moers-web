@@ -84,6 +84,12 @@ export const PollService = {
     get() {
         return ApiService.get("polls")
     },
+    getAnsweredPolls() {
+        return ApiService.get("polls/answered")
+    },
+    getUnansweredPolls() {
+        return ApiService.get("polls/unanswered")
+    },
     get(id) {
         return ApiService.get("polls", id)
     }

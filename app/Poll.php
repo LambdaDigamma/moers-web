@@ -5,8 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 /**
+ * @property mixed id
  * @property mixed can_visitors_vote
  * @property mixed is_closed
  * @property mixed max_check
@@ -19,6 +21,7 @@ class Poll extends Model
     protected $fillable = ['question', 'can_visitors_vote', 'can_voter_see_result'];
     protected $table = 'polls';
     protected $guarded = [''];
+    protected $appends = ['has_user_vote', 'is_radio', 'is_locked', 'is_open', 'show_results_enabled', 'is_running', 'has_started', 'is_coming_soon'];
 
     /**
      * Returns the Group that this Poll belongs to.
@@ -38,6 +41,20 @@ class Poll extends Model
     public function options()
     {
         return $this->hasMany('App\PollOption');
+    }
+
+    /**
+     * Return whether the currently authenticated User has already answered this Poll.
+     *
+     * @return bool
+     */
+    public function hasUserVote()
+    {
+        $user_id = Auth::user()->id;
+        return Vote::where([
+            ['user_id', $user_id],
+            ['poll_id', $this->id]
+        ])->count() == 1;
     }
 
     /**
@@ -130,6 +147,48 @@ class Poll extends Model
     public function isComingSoon()
     {
         return $this->isOpen() && now() < $this->starts_at;
+    }
+
+    /* Attributes */
+
+    public function getHasUserVoteAttribute()
+    {
+        return $this->hasUserVote();
+    }
+
+    public function getIsRadioAttribute()
+    {
+        return $this->isRadio();
+    }
+
+    public function getIsLockedAttribute()
+    {
+        return $this->isLocked();
+    }
+
+    public function getIsOpenAttribute()
+    {
+        return $this->isOpen();
+    }
+
+    public function getShowResultsEnabledAttribute()
+    {
+        return $this->showResultsEnabled();
+    }
+
+    public function getIsRunningAttribute()
+    {
+        return $this->isRunning();
+    }
+
+    public function getHasStartedAttribute()
+    {
+        return $this->hasStarted();
+    }
+
+    public function getIsComingSoonAttribute()
+    {
+        return $this->isComingSoon();
     }
 
 }

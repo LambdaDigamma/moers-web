@@ -42,6 +42,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -49,7 +69,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.$store.dispatch(_store_actions_type__WEBPACK_IMPORTED_MODULE_1__["FETCH_POLLS"]);
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["isAuthenticated", "isLoadingPolls", "polls"]))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["isAuthenticated", "isLoadingPolls", "polls", "unansweredPolls", "answeredPolls"]))
 });
 
 /***/ }),
@@ -78,7 +98,11 @@ var render = function() {
           staticClass: "my-4",
           attrs: { "bg-variant": "secondary", "text-variant": "black" }
         },
-        [_c("h3", { staticClass: "m-0" }, [_vm._v("Abstimmungen")])]
+        [
+          _c("h3", { staticClass: "m-0" }, [
+            _vm._v("Unbeantwortete Abstimmungen")
+          ])
+        ]
       ),
       _vm._v(" "),
       _vm.isLoadingPolls
@@ -90,7 +114,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm._l(_vm.polls, function(poll, index) {
+      _vm._l(_vm.unansweredPolls, function(poll, index) {
         return _c(
           "b-card",
           { key: index, staticClass: "mb-2" },
@@ -117,6 +141,61 @@ var render = function() {
                 }
               },
               [_vm._v("Abstimmen")]
+            )
+          ],
+          1
+        )
+      }),
+      _vm._v(" "),
+      _c(
+        "b-card",
+        {
+          staticClass: "my-4",
+          attrs: { "bg-variant": "secondary", "text-variant": "black" }
+        },
+        [
+          _c("h3", { staticClass: "m-0" }, [
+            _vm._v("Beantwortete Abstimmungen")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _vm.isLoadingPolls
+        ? _c(
+            "div",
+            { staticClass: "d-flex justify-content-center m-5" },
+            [_c("b-spinner", { attrs: { label: "Lädt..." } })],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.answeredPolls, function(poll, index) {
+        return _c(
+          "b-card",
+          { key: index, staticClass: "mb-2" },
+          [
+            _c("h4", [
+              _vm._v(_vm._s(poll.question)),
+              _c("small", { staticClass: "ml-2 text-muted" }, [
+                _c("br"),
+                _vm._v("gestellt von "),
+                _c("b", [_vm._v(_vm._s(poll.group.name))])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("b-card-text", [
+              _vm._v("\n            " + _vm._s(poll.description) + "\n        ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                attrs: {
+                  to: { name: "polls.poll", params: { id: poll.id } },
+                  variant: "primary"
+                }
+              },
+              [_vm._v("Ergebnisse ansehen")]
             )
           ],
           1

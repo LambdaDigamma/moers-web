@@ -182,6 +182,12 @@ Route::group(['prefix' => '/v2'], function () {
     Route::get('/polls', 'API\APIPollController@index')
         ->name('api.v2.polls');
 
+    Route::get('/polls/unanswered', 'API\APIPollController@unansweredPolls')
+        ->name('api.v2.polls.unanswered');
+
+    Route::get('/polls/answered', 'API\APIPollController@answeredPolls')
+        ->name('api.v2.polls.answered');
+
 });
 
 /*

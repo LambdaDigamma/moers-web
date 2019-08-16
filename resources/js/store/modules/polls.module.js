@@ -11,6 +11,12 @@ const getters = {
     polls(state) {
         return state.polls
     },
+    answeredPolls(state) {
+        return state.polls.filter(poll => poll.has_user_vote)
+    },
+    unansweredPolls(state) {
+        return state.polls.filter(poll => !poll.has_user_vote)
+    },
     isLoadingPolls(state) {
         return state.isLoadingPolls
     }
