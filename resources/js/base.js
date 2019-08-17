@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import moment from 'moment-timezone';
 
 export default {
     computed: {
@@ -8,15 +7,7 @@ export default {
         }
     },
 
-
     methods: {
-        /**
-         * Show the time in local time.
-         */
-        localTime(time) {
-            return moment(time + ' Z').utc().local().format('MMMM Do YYYY, h:mm:ss A');
-        },
-
 
         /**
          * Truncate the given string.
