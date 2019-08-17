@@ -88,15 +88,6 @@ Route::group(['prefix' => '/v2'], function () {
         ->middleware('auth:api')
         ->name('api.v2.moersfestival.store');
 
-    /* Poll */
-
-    Route::get('/polls', 'API\APIPollController@get')
-        ->name('api.v2.polls.get');
-
-    Route::get('/polls/{id}', 'API\APIPollController@show')
-        ->where('id', '[1-9][0-9]*')
-        ->name('api.v2.polls.show');
-
 });
 
 /* Events */
@@ -182,6 +173,10 @@ Route::group(['prefix' => '/v2'], function () {
     Route::get('/polls', 'API\APIPollController@index')
         ->name('api.v2.polls');
 
+    Route::get('/polls/{id}', 'API\APIPollController@show')
+        ->where('id', '[1-9][0-9]*')
+        ->name('api.v2.polls.show');
+
     Route::get('/polls/unanswered', 'API\APIPollController@unansweredPolls')
         ->name('api.v2.polls.unanswered');
 
@@ -194,6 +189,9 @@ Route::group(['prefix' => '/v2'], function () {
 
     Route::post('polls/{poll}/abstain', 'API\APIPollController@abstain') // TODO: Add Ability Middleware for Voting
         ->name('api.v2.poll.abstain');
+
+    Route::post('polls/{poll}/vote', 'API\APIPollController@vote') // TODO: Add Ability Middleware for Voting
+        ->name('api.v2.poll.vote');
 
 });
 

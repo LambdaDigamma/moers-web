@@ -12318,6 +12318,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47754,19 +47756,26 @@ var render = function() {
                     [_vm._v("Veranstaltungen")]
                   ),
                   _vm._v(" "),
-                  _vm.isAuthenticated
-                    ? _c(
-                        "router-link",
-                        {
-                          attrs: {
-                            tag: "b-nav-item",
-                            to: { name: "polls" },
-                            exact: ""
-                          }
-                        },
-                        [_vm._v("Abstimmungen")]
-                      )
-                    : _vm._e()
+                  _c(
+                    "can",
+                    { attrs: { I: "read-poll", a: "Poll" } },
+                    [
+                      _vm.isAuthenticated
+                        ? _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                tag: "b-nav-item",
+                                to: { name: "polls" },
+                                exact: ""
+                              }
+                            },
+                            [_vm._v("Abstimmungen")]
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 ],
                 1
               ),
@@ -68993,7 +69002,7 @@ function castRouteParams(route) {
 /*!********************************************!*\
   !*** ./resources/js/store/actions.type.js ***!
   \********************************************/
-/*! exports provided: CHECK_AUTH, LOGIN, LOGOUT, REGISTER, UPDATE_USER, FETCH_ORGANISATIONS, FETCH_ORGANISATION, FETCH_EVENTS, FETCH_POLLS, FETCH_POLL, STORE_POLL, ABSTAIN_POLL, FETCH_USERS */
+/*! exports provided: CHECK_AUTH, LOGIN, LOGOUT, REGISTER, UPDATE_USER, FETCH_ORGANISATIONS, FETCH_ORGANISATION, FETCH_EVENTS, FETCH_POLLS, FETCH_POLL, STORE_POLL, VOTE_POLL, ABSTAIN_POLL, FETCH_USERS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69009,6 +69018,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_POLLS", function() { return FETCH_POLLS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_POLL", function() { return FETCH_POLL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STORE_POLL", function() { return STORE_POLL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VOTE_POLL", function() { return VOTE_POLL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ABSTAIN_POLL", function() { return ABSTAIN_POLL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_USERS", function() { return FETCH_USERS; });
 /* Module: Auth */
@@ -69033,6 +69043,7 @@ var FETCH_POLLS = "fetchPolls";
 
 var FETCH_POLL = "fetchPoll";
 var STORE_POLL = "storePoll";
+var VOTE_POLL = "votePoll";
 var ABSTAIN_POLL = "abstainPoll";
 /* Module: Users */
 
@@ -69474,14 +69485,25 @@ var actions = (_actions = {}, _defineProperty(_actions, _actions_type__WEBPACK_I
       reject(response.data.errors);
     });
   });
-}), _defineProperty(_actions, _actions_type__WEBPACK_IMPORTED_MODULE_2__["ABSTAIN_POLL"], function (context, poll_id) {
+}), _defineProperty(_actions, _actions_type__WEBPACK_IMPORTED_MODULE_2__["VOTE_POLL"], function (context, data) {
   return new Promise(function (resolve, reject) {
-    _common_api_service__WEBPACK_IMPORTED_MODULE_1__["default"].post("polls/".concat(poll_id, "/abstain"), {}).then(function (_ref5) {
+    _common_api_service__WEBPACK_IMPORTED_MODULE_1__["default"].post("polls/".concat(data.poll_id, "/vote"), data).then(function (_ref5) {
       var data = _ref5.data;
-      context.commit(_mutations_type__WEBPACK_IMPORTED_MODULE_3__["SET_POLL"], data);
+      context.commit(_mutations_type__WEBPACK_IMPORTED_MODULE_3__["STORED_POLL"], data.poll);
       resolve(data);
     })["catch"](function (_ref6) {
       var response = _ref6.response;
+      reject(response.data.errors);
+    });
+  });
+}), _defineProperty(_actions, _actions_type__WEBPACK_IMPORTED_MODULE_2__["ABSTAIN_POLL"], function (context, poll_id) {
+  return new Promise(function (resolve, reject) {
+    _common_api_service__WEBPACK_IMPORTED_MODULE_1__["default"].post("polls/".concat(poll_id, "/abstain"), {}).then(function (_ref7) {
+      var data = _ref7.data;
+      context.commit(_mutations_type__WEBPACK_IMPORTED_MODULE_3__["SET_POLL"], data.poll);
+      resolve(data);
+    })["catch"](function (_ref8) {
+      var response = _ref8.response;
       reject(response.data.errors);
     });
   });

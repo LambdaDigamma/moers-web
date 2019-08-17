@@ -10,12 +10,14 @@
             <b-spinner label="Lädt..."></b-spinner>
         </div>
 
-        <PollVote v-if="poll.results === null" :poll='poll'>
+        <div v-if="poll">
+            <PollVote v-if="poll.results === null" :poll='poll'>
 
-        </PollVote>
-        <PollResult v-else :poll='poll'>
+            </PollVote>
+            <PollResult v-else :poll='poll'>
 
-        </PollResult>
+            </PollResult>
+        </div>
 
     </div>
 

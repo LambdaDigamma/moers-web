@@ -199,6 +199,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PollVote",
@@ -208,8 +209,35 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  data: function data() {},
+  data: function data() {
+    return {
+      selectionIndex: [],
+      test: {}
+    };
+  },
   methods: {
+    clickedOption: function clickedOption(id) {
+      if (this.poll.is_radio) {
+        this.selectionIndex = [];
+        this.selectionIndex.push(id);
+      } else {
+        if (this.selectionIndex.includes(id)) {
+          var index = this.selectionIndex.indexOf(id);
+          this.selectionIndex.splice(index, 1);
+        } else {
+          if (this.selectionIndex.length < this.poll.max_check) {
+            this.selectionIndex.push(id);
+          }
+        }
+      }
+    },
+    vote: function vote() {
+      var payload = {
+        poll_id: this.poll.id,
+        options: this.selectionIndex
+      };
+      this.$store.dispatch(_store_actions_type__WEBPACK_IMPORTED_MODULE_0__["VOTE_POLL"], payload);
+    },
     abstain: function abstain() {
       this.$store.dispatch(_store_actions_type__WEBPACK_IMPORTED_MODULE_0__["ABSTAIN_POLL"], this.poll.id);
     }
@@ -236,6 +264,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -789,11 +819,30 @@ var render = function() {
           _c(
             "b-list-group",
             _vm._l(_vm.poll.options, function(option) {
-              return _c("b-list-group-item", { key: option.id }, [
-                _vm._v(
-                  "\n                " + _vm._s(option.name) + "\n            "
-                )
-              ])
+              return _c(
+                "b-list-group-item",
+                {
+                  key: option.id,
+                  on: {
+                    click: function($event) {
+                      return _vm.clickedOption(option.id)
+                    }
+                  }
+                },
+                [
+                  _vm.selectionIndex.includes(option.id)
+                    ? _c("b-badge", { attrs: { variant: "success" } }, [
+                        _vm._v("Ausgewählt")
+                      ])
+                    : _vm._e(),
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(option.name) +
+                      "\n            "
+                  )
+                ],
+                1
+              )
             }),
             1
           ),
@@ -801,7 +850,10 @@ var render = function() {
           _c("p", { staticClass: "text-muted mt-2 ml-2" }, [
             _c("em", [
               _vm._v(
-                "0/" + _vm._s(_vm.poll.max_check) + " Antworten ausgewählt"
+                _vm._s(_vm.selectionIndex.length) +
+                  "/" +
+                  _vm._s(_vm.poll.max_check) +
+                  " Antworten ausgewählt"
               )
             ])
           ])
@@ -812,7 +864,13 @@ var render = function() {
       _c(
         "b-button",
         {
-          attrs: { block: "", variant: "success", size: "lg", disabled: true }
+          attrs: {
+            disabled: !(_vm.selectionIndex.length === _vm.poll.max_check),
+            block: "",
+            variant: "success",
+            size: "lg"
+          },
+          on: { click: _vm.vote }
         },
         [_vm._v("Abstimmen")]
       ),
@@ -883,9 +941,17 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.poll.results === null
-        ? _c("PollVote", { attrs: { poll: _vm.poll } })
-        : _c("PollResult", { attrs: { poll: _vm.poll } })
+      _vm.poll
+        ? _c(
+            "div",
+            [
+              _vm.poll.results === null
+                ? _c("PollVote", { attrs: { poll: _vm.poll } })
+                : _c("PollResult", { attrs: { poll: _vm.poll } })
+            ],
+            1
+          )
+        : _vm._e()
     ],
     1
   )

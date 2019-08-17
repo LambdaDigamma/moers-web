@@ -185,7 +185,7 @@ class Poll extends Model
     {
         $realVotes = $this->options()->get()->reduce(function ($carry, $item) {
             return $carry + $item->votes;
-        }, 0);
+        }, 0) / $this->max_check;
 
         return $this->totalVotes() - $realVotes;
     }

@@ -20,6 +20,7 @@ export const FETCH_POLLS = "fetchPolls"
 /* Module: Poll */
 export const FETCH_POLL = "fetchPoll"
 export const STORE_POLL = "storePoll"
+export const VOTE_POLL = "votePoll"
 export const ABSTAIN_POLL = "abstainPoll"
 
 /* Module: Users */

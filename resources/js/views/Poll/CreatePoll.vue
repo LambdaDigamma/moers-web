@@ -8,7 +8,7 @@
                 </div>
             </b-card>
             <b-card class="mt-3">
-                <b-form @submit.prevent="submit()">
+                <b-form @submit.prevent="submit()" @keydown="form.errors.clear($event.target.name)">
                     <b-form-group
                             id="question-group"
                             label="Frage:"
@@ -77,7 +77,7 @@
                     </b-form-group>
                     <b-alert class="mt-2 mb-4" :show="form.errors.has('common')" variant="danger" v-text="form.errors.get('common')">
                     </b-alert>
-                    <b-button type="submit" :disabled="!isSubmitEnabled" block variant="success" size="lg">Abstimmung veröffentlichen</b-button>
+                    <b-button type="submit" :disabled="!isSubmitEnabled || form.errors.any()" block variant="success" size="lg">Abstimmung veröffentlichen</b-button>
                 </b-form>
             </b-card>
         </can>

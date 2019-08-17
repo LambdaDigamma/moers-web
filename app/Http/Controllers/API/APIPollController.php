@@ -6,6 +6,8 @@ use App\Group;
 use App\Http\Controllers\Controller;
 use App\Poll;
 use App\PollOption;
+use App\Rules\CheckPollHasOption;
+use App\Rules\SatisfiesPollOptionsMaxCheck;
 use App\Vote;
 use Bouncer;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -18,12 +20,14 @@ use Validator;
 class APIPollController extends Controller
 {
 
+    /**
+     * APIPollController constructor.
+     * Adds a middleware.
+     */
     public function __construct()
     {
         $this->middleware(['auth:api', 'can:read-poll']);
-//        $this->middleware('auth:api')->except('get', 'show');
     }
-
 
     /**
      * Returns all Polls for the authenticated User.
@@ -34,6 +38,16 @@ class APIPollController extends Controller
     public function index(Request $request)
     {
         return $request->user()->polls();
+    }
+
+    /**
+     * Returns the Poll with its related options. Returns an error if no Poll exists for the given $id.
+     *
+     * @param $id
+     * @return Poll
+     */
+    public function show($id) {
+        return Poll::with(['options'])->findOrFail($id);
     }
 
     /**
@@ -78,8 +92,8 @@ class APIPollController extends Controller
             'question' => 'required|string|min:3|max:500',
             'description' => 'required|string|min:3',
             'group_id' => 'required|integer|exists:groups,id',
-            'options' => 'required|array|min:2|max:255',
-            'options.*' => 'required|string|min:1',
+            'options' => 'required|array|min:2|30',
+            'options.*' => 'required|string|min:1|max:255',
             'max_check' => 'required|integer|min:1' // TODO: Make working! 'lt:options'
         ]);
 
@@ -127,7 +141,7 @@ class APIPollController extends Controller
                 $vote = new Vote(['poll_id' => $poll->id, 'user_id' => $user_id]);
                 $vote->save();
 
-                return response()->json($vote);
+                return response()->json(['vote' => $vote, 'poll' => $poll]);
             } else {
                 return $this->errorResponse("You already voted for this poll.", 403);
             }
@@ -138,36 +152,60 @@ class APIPollController extends Controller
 
     }
 
+    /**
+     * Increments the votes of the selected options provided in the request.
+     * Returns the created Vote for the User and the Poll with result or
+     * returns an error if the authenticated User is not allowed to vote for this poll.
+     *
+     * @param Request $request
+     * @param Poll $poll
+     * @return ResponseFactory|JsonResponse|Response
+     */
+    public function vote(Request $request, Poll $poll)
+    {
+
+        if ($poll->canUserVote()) {
+
+            $user_id = $request->user()->id;
+
+            if (Vote::where([['poll_id', $poll->id], ['user_id', $user_id]])->count() == 0) {
+
+                $validator = Validator::make($request->all(), [
+                    'options' => ['required', 'array', 'min:1', new SatisfiesPollOptionsMaxCheck($poll)],
+                    'options.*' => ['required', 'integer', 'exists:poll_options,id', new CheckPollHasOption($poll)]
+                ]);
+
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
+                }
+
+                $option_ids = $request->json()->get('options');
+
+                PollOption::whereIn('id', $option_ids)->increment('votes');
+
+                $vote = new Vote(['poll_id' => $poll->id, 'user_id' => $user_id]);
+                $vote->save();
+
+                return response()->json(['vote' => $vote, 'poll' => $poll]);
+            } else {
+                return $this->errorResponse("You already voted for this poll.", 403);
+            }
+
+        } else {
+            return $this->errorResponse("You are not a member of this group.", 403);
+        }
+
+    }
+
+    /**
+     * Creates JSON Response in a common error format. The $message will be returned as a common error.
+     *
+     * @param $message
+     * @param $status
+     * @return ResponseFactory|Response
+     */
     private function errorResponse($message, $status) {
         return response(['errors' => ['common' => [$message]]], $status);
-    }
-
-
-
-
-
-
-
-    public function vote() {
-
-
-
-    }
-
-    public function get() {
-
-        $polls = Poll::with(['options'])->get();
-
-        return response()->json($polls);
-
-    }
-
-    public function show($id) {
-        
-        $poll = Poll::with(['options'])->findOrFail($id);
-
-        return $poll;
-
     }
 
 }

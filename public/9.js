@@ -237,6 +237,9 @@ var render = function() {
                     submit: function($event) {
                       $event.preventDefault()
                       return _vm.submit()
+                    },
+                    keydown: function($event) {
+                      return _vm.form.errors.clear($event.target.name)
                     }
                   }
                 },
@@ -484,7 +487,7 @@ var render = function() {
                     {
                       attrs: {
                         type: "submit",
-                        disabled: !_vm.isSubmitEnabled,
+                        disabled: !_vm.isSubmitEnabled || _vm.form.errors.any(),
                         block: "",
                         variant: "success",
                         size: "lg"

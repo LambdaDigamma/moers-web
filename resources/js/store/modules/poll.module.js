@@ -1,5 +1,5 @@
 import ApiService, { PollService } from "../../common/api.service"
-import { ABSTAIN_POLL, FETCH_POLL, STORE_POLL } from "../actions.type"
+import { ABSTAIN_POLL, FETCH_POLL, STORE_POLL, VOTE_POLL } from "../actions.type"
 import { SET_POLL, STORED_POLL} from "../mutations.type"
 
 const state = {
@@ -34,11 +34,23 @@ const actions = {
                 })
         });
     },
+    [VOTE_POLL](context, data) {
+        return new Promise((resolve, reject) => {
+            ApiService.post(`polls/${data.poll_id}/vote`, data)
+                .then(({ data }) => {
+                    context.commit(STORED_POLL, data.poll)
+                    resolve(data)
+                })
+                .catch(({ response }) => {
+                    reject(response.data.errors)
+                })
+        });
+    },
     [ABSTAIN_POLL](context, poll_id) {
         return new Promise((resolve, reject) => {
             ApiService.post(`polls/${poll_id}/abstain`, {})
                 .then(({ data }) => {
-                    context.commit(SET_POLL, data)
+                    context.commit(SET_POLL, data.poll)
                     resolve(data)
                 })
                 .catch(({ response }) => {
