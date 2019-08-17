@@ -37,6 +37,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -166,8 +167,12 @@ var render = function() {
           _c(
             "b-nav-item",
             { attrs: { to: { name: "profile-organisations" } } },
-            [_vm._v("Du folgst")]
+            [_vm._v("Deine Organisationen")]
           ),
+          _vm._v(" "),
+          _c("b-nav-item", { attrs: { to: { name: "profile-groups" } } }, [
+            _vm._v("Deine Gruppen")
+          ]),
           _vm._v(" "),
           _c("b-nav-item", { attrs: { to: { name: "profile-events" } } }, [
             _vm._v("Deine Favoriten")

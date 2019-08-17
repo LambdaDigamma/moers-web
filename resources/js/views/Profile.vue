@@ -8,7 +8,8 @@
             <b-button class="mt-4" @click="logout" variant="danger">Abmelden</b-button>
         </div>
         <b-nav tabs justified>
-            <b-nav-item :to="{ name: 'profile-organisations' }">Du folgst</b-nav-item>
+            <b-nav-item :to="{ name: 'profile-organisations' }">Deine Organisationen</b-nav-item>
+            <b-nav-item :to="{ name: 'profile-groups' }">Deine Gruppen</b-nav-item>
             <b-nav-item :to="{ name: 'profile-events' }">Deine Favoriten</b-nav-item>
             <b-nav-item :to="{ name: 'profile-settings' }">Einstellungen</b-nav-item>
         </b-nav>

@@ -15,6 +15,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProfileOrganisations"
 });
@@ -43,7 +45,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("Organisations")])])
+    return _c("div", { staticClass: "mt-5" }, [
+      _c("div", { staticClass: "d-flex justify-content-center" }, [
+        _c("p", { staticClass: "text-muted" }, [
+          _vm._v("Hier gibt es leider noch nichts zu sehen.")
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true

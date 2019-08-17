@@ -68906,6 +68906,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
         return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/Profile/ProfileOrganisations */ "./resources/js/views/Profile/ProfileOrganisations.vue"));
       }
     }, {
+      name: 'profile-groups',
+      path: '/profile/groups',
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../views/Profile/ProfileGroups */ "./resources/js/views/Profile/ProfileGroups.vue"));
+      }
+    }, {
       name: 'profile-events',
       path: '/profile/events',
       component: function component() {

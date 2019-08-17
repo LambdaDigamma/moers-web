@@ -32,6 +32,12 @@ export default new Router({
                         import ('../views/Profile/ProfileOrganisations')
                 },
                 {
+                    name: 'profile-groups',
+                    path: '/profile/groups',
+                    component: () =>
+                        import ('../views/Profile/ProfileGroups')
+                },
+                {
                     name: 'profile-events',
                     path: '/profile/events',
                     component: () =>
