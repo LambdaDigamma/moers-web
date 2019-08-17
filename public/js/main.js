@@ -47795,7 +47795,9 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "b-dropdown-item",
-                            { attrs: { to: { name: "profile" } } },
+                            {
+                              attrs: { to: { name: "profile-organisations" } }
+                            },
                             [_vm._v("Profil")]
                           ),
                           _vm._v(" "),

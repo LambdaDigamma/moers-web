@@ -22,7 +22,7 @@
                 <b-navbar-nav class="ml-auto" v-if="isAuthenticated">
                     <b-nav-item-dropdown right>
                         <template slot="button-content">{{ currentUser.name }}</template>
-                        <b-dropdown-item :to="{ name: 'profile' }">Profil</b-dropdown-item>
+                        <b-dropdown-item :to="{ name: 'profile-organisations' }">Profil</b-dropdown-item>
                         <b-dropdown-item :to="{ name: 'admin' }" v-if="$can('access-admin')">Admin</b-dropdown-item>
                         <b-dropdown-item @click="logout">Abmelden</b-dropdown-item>
                     </b-nav-item-dropdown>

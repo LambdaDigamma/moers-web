@@ -154,16 +154,16 @@ var render = function() {
               "b-form-group",
               {
                 attrs: {
-                  id: "input-group-1",
+                  id: "input-group-name",
                   label: "Name:",
-                  "label-for": "input-1",
+                  "label-for": "name",
                   "label-cols": "2"
                 }
               },
               [
                 _c("b-form-input", {
                   attrs: {
-                    id: "input-1",
+                    id: "name",
                     required: "",
                     placeholder: "Namen eingeben"
                   },
@@ -183,16 +183,16 @@ var render = function() {
               "b-form-group",
               {
                 attrs: {
-                  id: "input-group-2",
+                  id: "input-group-bio",
                   label: "Bio:",
-                  "label-for": "input-2",
+                  "label-for": "bio",
                   "label-cols": "2"
                 }
               },
               [
                 _c("b-form-input", {
                   attrs: {
-                    id: "input-2",
+                    id: "bio",
                     required: "",
                     placeholder: "Bio eingeben"
                   },
@@ -242,9 +242,9 @@ var render = function() {
               "b-form-group",
               {
                 attrs: {
-                  id: "input-group-1",
+                  id: "input-group-email",
                   label: "E-Mail:",
-                  "label-for": "input-1",
+                  "label-for": "email",
                   "label-cols": "2",
                   description:
                     "Deine E-Mail Adresse dient nur Verifikationszwecken. Sie wird nicht mit Dritten geteilt oder zu Werbezwecken genutzt."
@@ -253,7 +253,7 @@ var render = function() {
               [
                 _c("b-form-input", {
                   attrs: {
-                    id: "input-1",
+                    id: "email",
                     type: "email",
                     required: "",
                     placeholder: "E-Mail eingeben"
@@ -294,16 +294,16 @@ var render = function() {
               "b-form-group",
               {
                 attrs: {
-                  id: "input-group-2",
+                  id: "input-group-password-1",
                   label: "Neues Passwort:",
-                  "label-for": "input-2",
+                  "label-for": "password-1",
                   "label-cols": "2"
                 }
               },
               [
                 _c("b-form-input", {
                   attrs: {
-                    id: "input-2",
+                    id: "password-1",
                     type: "password",
                     required: "",
                     placeholder: "Passwort"
@@ -317,16 +317,16 @@ var render = function() {
               "b-form-group",
               {
                 attrs: {
-                  id: "input-group-3",
+                  id: "input-group-password-2",
                   label: "",
-                  "label-for": "input-3",
+                  "label-for": "password-2",
                   "label-cols": "2"
                 }
               },
               [
                 _c("b-form-input", {
                   attrs: {
-                    id: "input-3",
+                    id: "password-2",
                     type: "password",
                     required: "",
                     placeholder: "Passwort bestätigen"

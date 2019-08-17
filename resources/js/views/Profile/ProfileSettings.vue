@@ -7,23 +7,23 @@
         <div class="my-4">
             <b-form>
                 <b-form-group
-                        id="input-group-1"
+                        id="input-group-name"
                         label="Name:"
-                        label-for="input-1"
+                        label-for="name"
                         label-cols="2">
                     <b-form-input
-                            id="input-1"
+                            id="name"
                             required
                             v-model="currentUser.name"
                             placeholder="Namen eingeben"></b-form-input>
                 </b-form-group>
                 <b-form-group
-                        id="input-group-2"
+                        id="input-group-bio"
                         label="Bio:"
-                        label-for="input-2"
+                        label-for="bio"
                         label-cols="2">
                     <b-form-input
-                            id="input-2"
+                            id="bio"
                             required
                             v-model="currentUser.description"
                             placeholder="Bio eingeben"></b-form-input>
@@ -41,13 +41,13 @@
         <div class="my-4">
             <b-form>
                 <b-form-group
-                        id="input-group-1"
+                        id="input-group-email"
                         label="E-Mail:"
-                        label-for="input-1"
+                        label-for="email"
                         label-cols="2"
                         description="Deine E-Mail Adresse dient nur Verifikationszwecken. Sie wird nicht mit Dritten geteilt oder zu Werbezwecken genutzt.">
                     <b-form-input
-                            id="input-1"
+                            id="email"
                             type="email"
                             required
                             v-model="currentUser.email"
@@ -59,23 +59,23 @@
             </b-form>
             <b-form class="mt-4">
                 <b-form-group
-                        id="input-group-2"
+                        id="input-group-password-1"
                         label="Neues Passwort:"
-                        label-for="input-2"
+                        label-for="password-1"
                         label-cols="2">
                     <b-form-input
-                            id="input-2"
+                            id="password-1"
                             type="password"
                             required
                             placeholder="Passwort"></b-form-input>
                 </b-form-group>
                 <b-form-group
-                        id="input-group-3"
+                        id="input-group-password-2"
                         label=""
-                        label-for="input-3"
+                        label-for="password-2"
                         label-cols="2">
                     <b-form-input
-                            id="input-3"
+                            id="password-2"
                             type="password"
                             required
                             placeholder="Passwort bestätigen"></b-form-input>
