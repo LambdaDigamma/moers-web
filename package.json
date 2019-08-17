@@ -27,6 +27,7 @@
         "lint-staged": "^9.2.1",
         "lodash": "^4.17.15",
         "marked": "^0.7.0",
+        "moment-locales-webpack-plugin": "^1.1.0",
         "node-sass": "^4.12.0",
         "popper.js": "^1.14.7",
         "register-service-worker": "^1.6.2",
