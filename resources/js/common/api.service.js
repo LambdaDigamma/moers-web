@@ -23,6 +23,7 @@ const ApiService = {
 
         if (authToken && authToken !== "") {
             Vue.axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
+            Vue.axios.defaults.headers.common['MMAuthorization'] = `Bearer ${authToken}`
         }
 
         Vue.axios.defaults.headers.common['Accept'] = 'application/json'

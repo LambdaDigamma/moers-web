@@ -68,7 +68,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
+             ->middleware(['auth.safari', 'api'])
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
     }
@@ -76,7 +76,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiV2Routes()
     {
         Route::prefix('api/v2')
-            ->middleware('api')
+            ->middleware(['auth.safari', 'api'])
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v2/index.php'));
     }

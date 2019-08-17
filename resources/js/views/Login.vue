@@ -2,7 +2,7 @@
 
     <div class="auth-page">
         <b-row align-h="center" class="mt-5">
-            <b-col cols="8">
+            <b-col sm="12" md="8">
                 <b-card header="Sign in" header-bg-variant="dark" header-text-variant="white">
                     <b-form @submit.prevent="onSubmit()" @keydown="form.errors.clear($event.target.name)">
                         <b-form-group
@@ -38,9 +38,11 @@
                         <b-alert class="mt-2 mb-4" :show="form.errors.has('common')" variant="danger" v-text="form.errors.get('common')">
 
                         </b-alert>
-                        <div class="d-flex justify-content-between">
-                            <b-button type="submit" variant="success" :disabled="form.errors.any()">Anmelden</b-button>
-                            <b-button variant="link" :to="{ name: 'register' }">Benötigen Sie ein Account?</b-button>
+                        <div>
+                            <b-button block type="submit" variant="success" :disabled="form.errors.any()">Anmelden</b-button>
+                        </div>
+                        <div class="mt-2">
+                            <b-link :to="{ name: 'register' }">Benötigen Sie ein Account?</b-link>
                         </div>
 
 <!--                        <b-form-invalid-feedback tag="p" style="font-size: 100%;" :force-show="form.errors.has('common')" v-text="form.errors.get('common')">-->

@@ -26,7 +26,7 @@ class APIPollController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth:api', 'can:read-poll']);
+        $this->middleware(['auth:api', 'can:read-poll,App\Poll']);
     }
 
     /**
@@ -92,7 +92,7 @@ class APIPollController extends Controller
             'question' => 'required|string|min:3|max:500',
             'description' => 'required|string|min:3',
             'group_id' => 'required|integer|exists:groups,id',
-            'options' => 'required|array|min:2|30',
+            'options' => 'required|array|min:2|max:30',
             'options.*' => 'required|string|min:1|max:255',
             'max_check' => 'required|integer|min:1' // TODO: Make working! 'lt:options'
         ]);
