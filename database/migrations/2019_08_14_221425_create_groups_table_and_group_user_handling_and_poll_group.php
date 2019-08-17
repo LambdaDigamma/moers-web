@@ -40,16 +40,10 @@ class CreateGroupsTableAndGroupUserHandlingAndPollGroup extends Migration
 
         Schema::table('organisations', function (Blueprint $table) {
             $table->bigInteger('group_id')->unsigned()->nullable()->after('entry_id');
-            $table->foreign('group_id')->references('id')->on('groups')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
         });
 
         Schema::table('polls', function (Blueprint $table) {
             $table->bigInteger('group_id')->unsigned()->after('description');
-            $table->foreign('group_id')->references('id')->on('groups')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
         });
     }
 
@@ -70,7 +64,6 @@ class CreateGroupsTableAndGroupUserHandlingAndPollGroup extends Migration
             $table->dropColumn(['group_id']);
         });
         Schema::table('polls', function (Blueprint $table) {
-            $table->dropForeign('group_id');
             $table->dropColumn('group_id');
         });
         Schema::dropIfExists('groups');
