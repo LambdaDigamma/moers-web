@@ -33,4 +33,29 @@ class APIUserController extends Controller
         return User::where('id', $id)->with('groups')->first();
     }
 
+    /**
+     * Associates the given User with the provided Group.
+     * Also checks that the relation did not exist before.
+     *
+     * @param int $userID
+     * @param Request $request
+     * @return User
+     */
+    public function joinGroup($userID, Request $request)
+    {
+        $user = User::findOrFail($userID);
+
+        $validatedData = $request->validate([
+            'group_id' => 'required|integer|exists:groups,id'
+        ]);
+
+        $groupID = $validatedData['group_id'];
+
+        if (!$user->groups->contains($groupID)) {
+            $user->groups()->attach($groupID);
+        }
+
+        return $user->load('groups');
+    }
+
 }

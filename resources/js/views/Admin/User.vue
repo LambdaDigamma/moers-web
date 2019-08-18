@@ -62,7 +62,7 @@
                                 </b-form-select>
                             </b-col>
                             <b-col class="mt-1 mt-md-0" cols="12" md="2">
-                                <b-button block @click="addUserGroup" :disabled="!selected">Hinzufügen</b-button>
+                                <b-button block @click.prevent="addUserGroup" :disabled="!selected">Hinzufügen</b-button>
                             </b-col>
                         </b-row>
                     </div>
@@ -77,7 +77,7 @@
 
 <script>
     import store from "../../store"
-    import { ADMIN_FETCH_GROUPS, FETCH_USER } from "../../store/actions.type";
+    import {ADMIN_FETCH_GROUPS, ADMIN_JOIN_GROUP, FETCH_USER} from "../../store/actions.type";
     import { mapGetters } from "vuex";
 
     export default {
@@ -109,6 +109,8 @@
         },
         methods: {
             addUserGroup() {
+                store.dispatch(ADMIN_JOIN_GROUP, { user_id: this.id, group_id: this.selected })
+                console.log("Test")
                 this.selected = null
             }
         },

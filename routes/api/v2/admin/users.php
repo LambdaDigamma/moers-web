@@ -10,3 +10,8 @@ Route::get('/users/{id}', 'API\APIUserController@get')
     ->where('id', '[1-9][0-9]*')
     ->middleware('can:read-user,App\User')
     ->name('api.v2.admin.user');
+
+Route::post('/users/{id}/join', 'API\APIUserController@joinGroup')
+    ->where('id', '[1-9][0-9]*')
+    ->middleware('can:read-user,App\User')
+    ->name('api.v2.admin.user.join');
