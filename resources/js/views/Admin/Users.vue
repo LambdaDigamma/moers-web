@@ -3,7 +3,7 @@
         <can I="read-user" a="User">
             <b-card bg-variant="secondary" text-variant="black">
                 <div class="d-flex justify-content-between">
-                    <h3 class="m-0">Users</h3>
+                    <h3 class="m-0">Benutzer</h3>
                     <can I="create-user" a="User">
                         <b-button variant="success">Hinzufügen</b-button>
                     </can>

@@ -17,8 +17,8 @@ Route::get('/{any}', function() {
     return view('app');
 })->where('any', '.*');
 
-Route::get('/', function () {
-    return view('legacy.index');
-})->name('index');
+//Route::get('/', function () {
+//    return view('legacy.index');
+//})->name('index');
 
 

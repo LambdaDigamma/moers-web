@@ -5,6 +5,7 @@ import store from './store'
 import ApiService from "./common/api.service"
 import BootstrapVue from 'bootstrap-vue'
 import VueMoment from 'vue-moment'
+import PortalVue from 'portal-vue'
 
 import { CHECK_AUTH } from "./store/actions.type";
 import DateFilter from "./common/date.filter"
@@ -26,6 +27,7 @@ library.add(faUserSecret)
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueMoment)
+Vue.use(PortalVue)
 Vue.filter("date", DateFilter)
 Vue.filter("error", ErrorFilter)
 Vue.component('font-awesome-icon', FontAwesomeIcon)

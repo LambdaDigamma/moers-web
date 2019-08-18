@@ -162,14 +162,6 @@ Route::group(['prefix' => '/v2'], function () {
 
 Route::group(['prefix' => '/v2'], function () {
 
-    Route::get('/users', 'API\APIUserController@index')
-        ->middleware(['auth:api', 'can:read-user,App\User'])
-        ->name('api.v2.users');
-
-});
-
-Route::group(['prefix' => '/v2'], function () {
-
     Route::get('/polls', 'API\APIPollController@index')
         ->name('api.v2.polls');
 

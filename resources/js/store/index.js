@@ -10,6 +10,7 @@ import events from './modules/events.module'
 import polls from './modules/polls.module'
 import poll from './modules/poll.module'
 import users from './modules/users.module'
+import admin from './modules/admin.module'
 
 Vue.use(Vuex)
 
@@ -26,6 +27,7 @@ export default new Vuex.Store({
         events,
         polls,
         poll,
-        users
+        users,
+        admin
     }
 });

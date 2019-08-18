@@ -30,4 +30,9 @@ class APIGroupController extends Controller
         return Auth::user()->groups;
     }
 
+    public function all()
+    {
+        return Group::all();
+    }
+
 }

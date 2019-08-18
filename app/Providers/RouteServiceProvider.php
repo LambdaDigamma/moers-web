@@ -37,9 +37,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
-        $this->mapWebRoutes();
-
         $this->mapApiV2Routes();
+
+        $this->mapWebRoutes();
 
         //
     }
@@ -68,7 +68,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware(['auth.safari', 'api'])
+             ->middleware(['transfer-auth-token', 'api'])
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
     }
@@ -76,7 +76,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiV2Routes()
     {
         Route::prefix('api/v2')
-            ->middleware(['auth.safari', 'api'])
+            ->middleware(['transfer-auth-token', 'api'])
             ->namespace($this->namespace)
             ->group(base_path('routes/api/v2/index.php'));
     }

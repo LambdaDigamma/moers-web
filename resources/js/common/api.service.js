@@ -98,6 +98,15 @@ export const PollService = {
 
 export const UserService = {
     get() {
-        return ApiService.get("users")
+        return ApiService.get("admin/users")
+    },
+    getDetail(id) {
+        return ApiService.get("admin/users", id)
+    }
+}
+
+export const AdminService = {
+    getGroups() {
+        return ApiService.get("admin/groups")
     }
 }

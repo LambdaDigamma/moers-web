@@ -13,14 +13,24 @@ use App\Http\Controllers\Controller;
 class APIUserController extends Controller
 {
 
-
     /**
      * Returns all Users.
      * @return User[]|Collection
      */
-    public function index()
+    public function all()
     {
         return User::all();
+    }
+
+    /**
+     * Returns the User for the given $id with its associated Groups.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function get($id)
+    {
+        return User::where('id', $id)->with('groups')->first();
     }
 
 }

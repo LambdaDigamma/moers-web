@@ -25,3 +25,7 @@ export const STORED_POLL = "storedPoll"
 
 /* Module: Users */
 export const SET_USERS = "setUsers"
+export const ADMIN_SET_USER = "adminSetUser"
+
+/* Module: Admin */
+export const ADMIN_SET_GROUPS = "adminSetGroups"

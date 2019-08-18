@@ -120,6 +120,19 @@ export default new Router({
             path: "/admin/users",
             component: () =>
                 import('../views/Admin/Users')
+        },
+        {
+            name: "admin.user",
+            path: "/admin/users/:id",
+            component: () =>
+                import('../views/Admin/User'),
+            props: castRouteParams
+        },
+        {
+            name: "admin.organisations",
+            path: "/admin/organisations",
+            component: () =>
+                import('../views/Admin/Organisations')
         }
     ],
     linkActiveClass: "active"

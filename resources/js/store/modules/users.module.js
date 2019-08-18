@@ -1,9 +1,10 @@
-import { UserService} from "../../common/api.service"
-import { FETCH_USERS } from "../actions.type";
-import { SET_USERS } from "../mutations.type";
+import { UserService } from "../../common/api.service"
+import { FETCH_USERS, FETCH_USER } from "../actions.type";
+import { ADMIN_SET_USER, SET_USERS } from "../mutations.type";
 
 const state = {
     users: [],
+    user: {},
     isLoadingUsers: true
 }
 
@@ -13,6 +14,9 @@ const getters = {
     },
     isLoadingUsers(state) {
         return state.isLoadingUsers
+    },
+    user(state) {
+        return state.user
     }
 }
 
@@ -25,6 +29,11 @@ const actions = {
             .catch(error => {
                 throw new Error(error)
             })
+    },
+    async [FETCH_USER](context, id) {
+        const { data } = await UserService.getDetail(id)
+        context.commit(ADMIN_SET_USER, data)
+        return data
     }
 }
 
@@ -32,6 +41,9 @@ const mutations = {
     [SET_USERS](state, users) {
         state.users = users
         state.isLoadingUsers = false
+    },
+    [ADMIN_SET_USER](state, user) {
+        state.user = user
     }
 }
 
