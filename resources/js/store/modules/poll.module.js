@@ -38,7 +38,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             ApiService.post(`polls/${data.poll_id}/vote`, data)
                 .then(({ data }) => {
-                    context.commit(STORED_POLL, data.poll)
+                    context.commit(SET_POLL, data.poll)
                     resolve(data)
                 })
                 .catch(({ response }) => {
