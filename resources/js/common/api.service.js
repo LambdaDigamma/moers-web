@@ -109,6 +109,9 @@ export const AdminService = {
     getGroups() {
         return ApiService.get("admin/groups")
     },
+    updateUser(user_id, data) {
+        return ApiService.update("admin/users", user_id, data)
+    },
     joinGroup(user_id, data) {
         return ApiService.post(`admin/users/${user_id}/join`, data)
     },

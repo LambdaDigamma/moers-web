@@ -34,6 +34,28 @@ class APIUserController extends Controller
     }
 
     /**
+     * Updates Name, Email and Description of the given User using the provided Request.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return User
+     */
+    public function update(Request $request, User $user)
+    {
+
+        $request->validate([
+            'name' => 'required|string|min:5|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+        ]);
+
+        $data = $request->json()->all();
+
+        $user->update($data);
+
+        return $user->load('groups');
+    }
+
+    /**
      * Associates the given User with the provided Group.
      * Also checks that the relation did not exist before.
      * Returns the User with its groups.

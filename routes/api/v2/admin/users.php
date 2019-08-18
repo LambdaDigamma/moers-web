@@ -11,6 +11,10 @@ Route::get('/users/{id}', 'API\APIUserController@get')
     ->middleware('can:read-user,App\User')
     ->name('api.v2.admin.user');
 
+Route::put('/users/{user}', 'API\APIUserController@update')
+    ->middleware(['can:read-user,App\User', 'can:update-user,App\User'])
+    ->name('api.v2.admin.user.update');
+
 Route::post('/users/{id}/join', 'API\APIUserController@joinGroup')
     ->where('id', '[1-9][0-9]*')
     ->middleware('can:read-user,App\User')

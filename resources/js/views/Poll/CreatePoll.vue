@@ -69,7 +69,7 @@
                                 <b-button v-if="canDelete" @click="deletePollOption(index)" variant="danger" class="ml-3">Löschen</b-button>
                             </div>
                         </b-card>
-                        <b-form-invalid-feedback :force-show="form.errors.has('options')" v-text="form.errors.get('questions')">
+                        <b-form-invalid-feedback :force-show="form.errors.has('options')" v-text="form.errors.get('options')">
                         </b-form-invalid-feedback>
                         <div class="d-flex justify-content-end mt-4">
                             <b-button @click="addPollOption" variant="primary">Weitere Antwortmöglichkeit hinzufügen</b-button>

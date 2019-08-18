@@ -27,7 +27,10 @@ export const ABSTAIN_POLL = "abstainPoll"
 export const FETCH_USERS = "fetchUsers"
 export const FETCH_USER = "fetchUser"
 
-/* Module: Groups */
+/* Module: Group */
 export const ADMIN_FETCH_GROUPS = "adminFetchGroups"
+
+/* Module: Admin */
 export const ADMIN_JOIN_GROUP = "adminJoinGroup"
 export const ADMIN_LEAVE_GROUP = "adminLeaveGroup"
+export const ADMIN_UPDATE_USER = "adminUpdateUser"

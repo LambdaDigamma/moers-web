@@ -1,5 +1,5 @@
 import { AdminService } from "../../common/api.service"
-import { ADMIN_FETCH_GROUPS, ADMIN_JOIN_GROUP, ADMIN_LEAVE_GROUP } from "../actions.type";
+import {ADMIN_FETCH_GROUPS, ADMIN_JOIN_GROUP, ADMIN_LEAVE_GROUP, ADMIN_UPDATE_USER} from "../actions.type";
 import { ADMIN_SET_GROUPS, ADMIN_SET_USER } from "../mutations.type";
 
 const state = {
@@ -21,6 +21,18 @@ const actions = {
             .catch(error => {
                 throw new Error(error)
             })
+    },
+    [ADMIN_UPDATE_USER](context, data) {
+        return new Promise((resolve, reject) => {
+            return AdminService.updateUser(data.user_id, data)
+                .then(({ data }) => {
+                    context.commit(ADMIN_SET_USER, data)
+                    resolve(data)
+                })
+                .catch(({ response }) => {
+                    reject(response.data.errors)
+                })
+        });
     },
     [ADMIN_JOIN_GROUP](context, data) {
         return new Promise((resolve, reject) => {

@@ -13,7 +13,7 @@
                 <b-spinner label="Lädt..."></b-spinner>
             </div>
             <b-card bg-variant="light" class="mt-3" v-else>
-                <b-table hover outlined :items="users" :fields="fields"></b-table>
+                <b-table hover outlined :items="users" :fields="fields" @row-clicked="showDetail"></b-table>
             </b-card>
         </can>
     </div>
@@ -30,6 +30,11 @@
         },
         computed: {
             ...mapGetters(["isAuthenticated", "isLoadingUsers", "users"])
+        },
+        methods: {
+            showDetail(item) {
+                this.$router.push({ name: 'admin.user', params: { id: item.id } })
+            }
         },
         data() {
             return {

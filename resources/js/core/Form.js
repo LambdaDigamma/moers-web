@@ -8,6 +8,11 @@ class Form {
      * @param {object} data
      */
     constructor(data) {
+        this.update(data);
+        this.shouldReset = false;
+    }
+
+    update(data) {
         this.originalData = data;
         for (let field in data) {
             this[field] = data[field];
@@ -57,7 +62,9 @@ class Form {
      * @param {object} data
      */
     onSuccess(data) {
-        this.reset();
+        if (this.shouldReset) {
+            this.reset();
+        }
     }
 
     /**
