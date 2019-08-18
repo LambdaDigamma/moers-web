@@ -45,7 +45,7 @@
                                 <p>{{ group.description }}</p>
                             </b-col>
                             <b-col class="d-flex justify-content-end align-items-end" sm="12" md="4">
-                                <b-button to="#" variant="danger">Benutzer entfernen</b-button>
+                                <b-button @click.prevent="removeUserGroup(group.id)" variant="danger">Benutzer entfernen</b-button>
                             </b-col>
                         </b-row>
                     </b-card>
@@ -77,7 +77,7 @@
 
 <script>
     import store from "../../store"
-    import {ADMIN_FETCH_GROUPS, ADMIN_JOIN_GROUP, FETCH_USER} from "../../store/actions.type";
+    import { ADMIN_FETCH_GROUPS, ADMIN_JOIN_GROUP, ADMIN_LEAVE_GROUP, FETCH_USER } from "../../store/actions.type";
     import { mapGetters } from "vuex";
 
     export default {
@@ -110,8 +110,10 @@
         methods: {
             addUserGroup() {
                 store.dispatch(ADMIN_JOIN_GROUP, { user_id: this.id, group_id: this.selected })
-                console.log("Test")
                 this.selected = null
+            },
+            removeUserGroup(group_id) {
+                store.dispatch(ADMIN_LEAVE_GROUP, { user_id: this.id, group_id: group_id })
             }
         },
         beforeRouteEnter(to, from, next) {

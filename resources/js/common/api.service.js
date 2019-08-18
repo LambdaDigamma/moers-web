@@ -111,5 +111,8 @@ export const AdminService = {
     },
     joinGroup(user_id, data) {
         return ApiService.post(`admin/users/${user_id}/join`, data)
+    },
+    leaveGroup(user_id, data) {
+        return ApiService.post(`admin/users/${user_id}/leave`, data)
     }
 }

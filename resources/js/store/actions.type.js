@@ -30,3 +30,4 @@ export const FETCH_USER = "fetchUser"
 /* Module: Groups */
 export const ADMIN_FETCH_GROUPS = "adminFetchGroups"
 export const ADMIN_JOIN_GROUP = "adminJoinGroup"
+export const ADMIN_LEAVE_GROUP = "adminLeaveGroup"

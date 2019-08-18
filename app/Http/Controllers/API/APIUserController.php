@@ -36,6 +36,7 @@ class APIUserController extends Controller
     /**
      * Associates the given User with the provided Group.
      * Also checks that the relation did not exist before.
+     * Returns the User with its groups.
      *
      * @param int $userID
      * @param Request $request
@@ -53,6 +54,31 @@ class APIUserController extends Controller
 
         if (!$user->groups->contains($groupID)) {
             $user->groups()->attach($groupID);
+        }
+
+        return $user->load('groups');
+    }
+
+    /**
+     * Detaches the given User from the provided Group.
+     * Returns the User with its groups.
+     *
+     * @param int $userID
+     * @param Request $request
+     * @return User
+     */
+    public function leaveGroup($userID, Request $request)
+    {
+        $user = User::findOrFail($userID);
+
+        $validatedData = $request->validate([
+            'group_id' => 'required|integer|exists:groups,id'
+        ]);
+
+        $groupID = $validatedData['group_id'];
+
+        if ($user->groups->contains($groupID)) {
+            $user->groups()->detach($groupID);
         }
 
         return $user->load('groups');
