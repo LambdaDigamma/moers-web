@@ -14,17 +14,11 @@
                     {{ poll.results.total }} Personen haben schon abgestimmt.
                 </p>
             </b-list-group-item>
-            <b-list-group-item class="d-flex align-items-center" v-for="(vote, index) in poll.results.votes"  :key="index">
-                <b-container>
-                    <b-row>
-                        <b-col cols="2">
-                            <b-badge variant="secondary" >Stimmen: {{ vote.votes }}</b-badge>
-                        </b-col>
-                        <b-col cols="10">
-                            {{ vote.name }}
-                        </b-col>
-                    </b-row>
-                </b-container>
+            <b-list-group-item v-for="(vote, index) in poll.results.votes" :key="index">
+                <div class="d-flex flex-sm-row flex-column justify-content-start">
+                    <b-badge variant="secondary" class="mt-2 mt-sm-0">Stimmen: {{ vote.votes }}</b-badge>
+                    <div class="text-center text-sm-left text-justify ml-sm-2 mt-2 mt-sm-0">{{ vote.name }}</div>
+                </div>
             </b-list-group-item>
         </b-list-group>
     </b-card>

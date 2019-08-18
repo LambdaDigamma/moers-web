@@ -1,6 +1,6 @@
 <template>
 
-    <div class="mt-4">
+    <div class="mt-0 mt-sm-1 mt-md-2">
 
         <b-card bg-variant="secondary" text-variant="black">
             <h3 class="m-0">Veranstaltungen</h3>

@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-4">
+    <div class="mt-0 mt-sm-1 mt-md-2">
         <can I="read-user" a="User">
             <b-card bg-variant="secondary" text-variant="black">
                 <div class="d-flex justify-content-between">

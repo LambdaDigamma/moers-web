@@ -10,7 +10,7 @@
                         id="input-group-name"
                         label="Name:"
                         label-for="name"
-                        label-cols="2">
+                        label-cols-sm="2">
                     <b-form-input
                             id="name"
                             required
@@ -21,7 +21,8 @@
                         id="input-group-bio"
                         label="Bio:"
                         label-for="bio"
-                        label-cols="2">
+                        label-cols="12"
+                        label-cols-sm="2">
                     <b-form-input
                             id="bio"
                             required
@@ -44,7 +45,7 @@
                         id="input-group-email"
                         label="E-Mail:"
                         label-for="email"
-                        label-cols="2"
+                        label-cols-sm="2"
                         description="Deine E-Mail Adresse dient nur Verifikationszwecken. Sie wird nicht mit Dritten geteilt oder zu Werbezwecken genutzt.">
                     <b-form-input
                             id="email"
@@ -62,7 +63,7 @@
                         id="input-group-password-1"
                         label="Neues Passwort:"
                         label-for="password-1"
-                        label-cols="2">
+                        label-cols-sm="2">
                     <b-form-input
                             id="password-1"
                             type="password"
@@ -73,7 +74,7 @@
                         id="input-group-password-2"
                         label=""
                         label-for="password-2"
-                        label-cols="2">
+                        label-cols-sm="2">
                     <b-form-input
                             id="password-2"
                             type="password"

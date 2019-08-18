@@ -127,12 +127,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PollResult",
@@ -453,43 +447,35 @@ var render = function() {
           ),
           _vm._v(" "),
           _vm._l(_vm.poll.results.votes, function(vote, index) {
-            return _c(
-              "b-list-group-item",
-              { key: index, staticClass: "d-flex align-items-center" },
-              [
-                _c(
-                  "b-container",
-                  [
-                    _c(
-                      "b-row",
-                      [
-                        _c(
-                          "b-col",
-                          { attrs: { cols: "2" } },
-                          [
-                            _c("b-badge", { attrs: { variant: "secondary" } }, [
-                              _vm._v("Stimmen: " + _vm._s(vote.votes))
-                            ])
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("b-col", { attrs: { cols: "10" } }, [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(vote.name) +
-                              "\n                    "
-                          )
-                        ])
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
+            return _c("b-list-group-item", { key: index }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "d-flex flex-sm-row flex-column justify-content-start"
+                },
+                [
+                  _c(
+                    "b-badge",
+                    {
+                      staticClass: "mt-2 mt-sm-0",
+                      attrs: { variant: "secondary" }
+                    },
+                    [_vm._v("Stimmen: " + _vm._s(vote.votes))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "text-center text-sm-left text-justify ml-sm-2 mt-2 mt-sm-0"
+                    },
+                    [_vm._v(_vm._s(vote.name))]
+                  )
+                ],
+                1
+              )
+            ])
           })
         ],
         2

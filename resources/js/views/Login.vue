@@ -2,7 +2,7 @@
 
     <div class="auth-page">
         <b-row align-h="center" class="mt-5">
-            <b-col sm="12" md="8">
+            <b-col cols="12" md="8">
                 <b-card header="Sign in" header-bg-variant="dark" header-text-variant="white">
                     <b-form @submit.prevent="onSubmit()" @keydown="form.errors.clear($event.target.name)">
                         <b-form-group

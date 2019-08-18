@@ -1,6 +1,6 @@
 <template>
 
-    <div class="mt-5">
+    <div class="mt-0 mt-sm-1 mt-md-2">
 
         <b-row>
             <b-col cols="3">

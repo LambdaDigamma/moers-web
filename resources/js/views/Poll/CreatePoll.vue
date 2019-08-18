@@ -64,15 +64,15 @@
                     <b-form-group
                             label="Antwortmöglichkeiten:">
                         <b-card v-for="(option, index) in form.options" :key="index" class="mb-2" bg-variant="secondary">
-                            <div class="d-flex">
+                            <div class="d-flex flex-column flex-sm-row">
                                 <b-input placeholder="Titel der Antwortmöglichkeit eingeben." v-model="form.options[index]"></b-input>
-                                <b-button v-if="canDelete" @click="deletePollOption(index)" variant="danger" class="ml-3">Löschen</b-button>
+                                <b-button v-if="canDelete" @click="deletePollOption(index)" variant="danger" class="ml-0 ml-sm-3 mt-2 mt-sm-0">Löschen</b-button>
                             </div>
                         </b-card>
                         <b-form-invalid-feedback :force-show="form.errors.has('options')" v-text="form.errors.get('options')">
                         </b-form-invalid-feedback>
                         <div class="d-flex justify-content-end mt-4">
-                            <b-button @click="addPollOption" variant="primary">Weitere Antwortmöglichkeit hinzufügen</b-button>
+                            <b-button @click="addPollOption" variant="primary" class="flex-fill flex-sm-grow-0">Weitere Antwortmöglichkeit hinzufügen</b-button>
                         </div>
                     </b-form-group>
                     <b-alert class="mt-2 mb-4" :show="form.errors.has('common')" variant="danger" v-text="form.errors.get('common')">

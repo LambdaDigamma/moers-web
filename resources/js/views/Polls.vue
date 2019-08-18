@@ -1,12 +1,12 @@
 <template>
 
-    <div>
+    <div class="mt-0 mt-sm-1 mt-md-2">
 
-        <b-card bg-variant="secondary" text-variant="black" class="my-4">
-            <div class="d-flex justify-content-between">
+        <b-card bg-variant="secondary" text-variant="black" class="mb-4">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-stretch">
                 <h3 class="m-0">Unbeantwortete Abstimmungen</h3>
                 <can I="create-poll" a="Poll">
-                    <b-button variant="success" :to="{ name: 'polls.create' }">Hinzufügen</b-button>
+                    <b-button variant="success" :to="{ name: 'polls.create' }" class="mt-2 mt-sm-0">Hinzufügen</b-button>
                 </can>
             </div>
         </b-card>

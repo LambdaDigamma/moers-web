@@ -1,6 +1,6 @@
 <template>
 
-    <div class="mt-4">
+    <div class="mt-0 mt-sm-1 mt-md-2">
 
         <b-card bg-variant="secondary" text-variant="black">
             <h3 class="m-0">Organisationen</h3>
@@ -13,7 +13,7 @@
         <div class="mt-4">
             <b-card v-for="organisation in organisations" :key="organisation.id" class="organisation-card mb-3" @click="showOrganisation(organisation.id)">
                 <b-media vertical-align="center">
-                    <b-img slot="aside" :src="organisation.logo_url" width="150" alt="placeholder" rounded></b-img>
+                    <b-img slot="aside" :src="organisation.logo_url" alt="placeholder" class="d-none" rounded></b-img> <!-- TODO: Fix this image bug. -->
 
                     <h5 class="mt-0">{{ organisation.name }}</h5>
                     <p>
