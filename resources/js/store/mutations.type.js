@@ -29,3 +29,4 @@ export const ADMIN_SET_USER = "adminSetUser"
 
 /* Module: Admin */
 export const ADMIN_SET_GROUPS = "adminSetGroups"
+export const ADMIN_SET_GROUP = "adminSetGroup"

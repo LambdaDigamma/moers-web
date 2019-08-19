@@ -70,7 +70,7 @@
                     </b-card>
 
                     <div class="mt-3">
-                        <div cols="12">
+                        <div>
                             Benutzer zu einer Gruppe hinzufügen:
                         </div>
 

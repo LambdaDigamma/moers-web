@@ -133,6 +133,19 @@ export default new Router({
             path: "/admin/organisations",
             component: () =>
                 import('../views/Admin/Organisations')
+        },
+        {
+            name: "admin.groups",
+            path: "/admin/groups",
+            component: () =>
+                import('../views/Admin/Groups')
+        },
+        {
+            name: "admin.group",
+            path: "/admin/groups/:id",
+            component: () =>
+                import('../views/Admin/Group'),
+            props: castRouteParams
         }
     ],
     linkActiveClass: "active"

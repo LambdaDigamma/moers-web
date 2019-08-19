@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Group;
 use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Collection;
@@ -62,7 +63,7 @@ class APIUserController extends Controller
      *
      * @param int $userID
      * @param Request $request
-     * @return User
+     * @return array
      */
     public function joinGroup($userID, Request $request)
     {
@@ -78,7 +79,13 @@ class APIUserController extends Controller
             $user->groups()->attach($groupID);
         }
 
-        return $user->load('groups');
+        $group = Group::with('users')->findOrFail($groupID);
+
+        return [
+            'group' => $group,
+            'user' => $user->load('groups')
+        ];
+
     }
 
     /**
@@ -87,7 +94,7 @@ class APIUserController extends Controller
      *
      * @param int $userID
      * @param Request $request
-     * @return User
+     * @return array
      */
     public function leaveGroup($userID, Request $request)
     {
@@ -103,7 +110,13 @@ class APIUserController extends Controller
             $user->groups()->detach($groupID);
         }
 
-        return $user->load('groups');
+        $group = Group::with('users')->findOrFail($groupID);
+
+        return [
+            'group' => $group,
+            'user' => $user->load('groups')
+        ];
+
     }
 
 }

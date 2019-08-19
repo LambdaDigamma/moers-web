@@ -109,6 +109,12 @@ export const AdminService = {
     getGroups() {
         return ApiService.get("admin/groups")
     },
+    getGroup(id) {
+        return ApiService.get("admin/groups", id)
+    },
+    updateGroup(group_id, data) {
+        return ApiService.update("admin/groups", group_id, data)
+    },
     updateUser(user_id, data) {
         return ApiService.update("admin/users", user_id, data)
     },

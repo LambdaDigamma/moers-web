@@ -15,6 +15,11 @@
             <router-link :to="{ name: 'admin.organisations' }" tag="b-button">Zeige und bearbeite alle Organisationen.</router-link>
         </b-card>
 
+        <b-card bg-variant="light" class="mt-3">
+            <h2>Gruppen</h2>
+            <router-link :to="{ name: 'admin.groups' }" tag="b-button">Zeige und bearbeite alle Gruppen.</router-link>
+        </b-card>
+
     </div>
 </template>
 

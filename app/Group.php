@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Group extends Model
 {
 
+    protected $fillable = ['name', 'description', 'organisation_id'];
+
     use SoftDeletes;
 
     /**
