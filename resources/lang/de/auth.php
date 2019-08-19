@@ -13,12 +13,12 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'reset-password' => 'Reset Password',
-    'email' => 'E-Mail Address',
-    'password' => 'Password',
-    'password-confirm' => 'Confirm password',
-    'send-link' => 'Send Password Reset Link'
+    'failed' => 'Diese Zugangsdaten konnten nicht in unserer Datenbank gefunden werden.',
+    'throttle' => 'Zu viele Anmeldeversuche. Bitte versuchen Sie es in :seconds Sekunde erneut.',
+    'reset-password' => 'Passwort zurücksetzen',
+    'email' => 'E-Mail Addresse',
+    'password' => 'Passwort',
+    'password-confirm' => 'Password bestätigen',
+    'send-link' => 'Zurücksetzungs-Link senden'
 
 ];

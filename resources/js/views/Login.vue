@@ -42,12 +42,9 @@
                             <b-button block type="submit" variant="success" :disabled="form.errors.any()">Anmelden</b-button>
                         </div>
                         <div class="mt-2">
-                            <b-link :to="{ name: 'register' }">Benötigen Sie ein Account?</b-link>
+                            <b-link href="/password/reset">Passwort vergessen?</b-link>
+<!--                            <b-link :to="{ name: 'register' }">Benötigen sie einen Account?</b-link>-->
                         </div>
-
-<!--                        <b-form-invalid-feedback tag="p" style="font-size: 100%;" :force-show="form.errors.has('common')" v-text="form.errors.get('common')">-->
-
-<!--                        </b-form-invalid-feedback>-->
                     </b-form>
                 </b-card>
             </b-col>
