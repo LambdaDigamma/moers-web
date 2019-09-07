@@ -1,5 +1,6 @@
 import { AdminService } from "../../common/api.service"
 import {
+    ADMIN_ALLOW_CREATE_POLL, ADMIN_ALLOW_CREATE_POLL_GROUP, ADMIN_DISALLOW_CREATE_POLL, ADMIN_DISALLOW_CREATE_POLL_GROUP,
     ADMIN_FETCH_GROUP,
     ADMIN_FETCH_GROUPS,
     ADMIN_JOIN_GROUP,
@@ -90,7 +91,51 @@ const actions = {
                     reject(response.data.errors)
                 })
         });
-    }
+    },
+    [ADMIN_ALLOW_CREATE_POLL](context, user_id) {
+        return new Promise((resolve, reject) => {
+            return AdminService.allowCreatePoll(user_id)
+                .then(({ data }) => {
+                    resolve(data)
+                })
+                .catch(({ response }) => {
+                    reject(response.data.errors)
+                })
+        });
+    },
+    [ADMIN_DISALLOW_CREATE_POLL](context, user_id) {
+        return new Promise((resolve, reject) => {
+            return AdminService.disallowCreatePoll(user_id)
+                .then(({ data }) => {
+                    resolve(data)
+                })
+                .catch(({ response }) => {
+                    reject(response.data.errors)
+                })
+        });
+    },
+    [ADMIN_ALLOW_CREATE_POLL_GROUP](context, data) {
+        return new Promise((resolve, reject) => {
+            return AdminService.allowCreatePollGroup(data)
+                .then(({ data }) => {
+                    resolve(data)
+                })
+                .catch(({ response }) => {
+                    reject(response.data.errors)
+                })
+        });
+    },
+    [ADMIN_DISALLOW_CREATE_POLL_GROUP](context, data) {
+        return new Promise((resolve, reject) => {
+            return AdminService.disallowCreatePollGroup(data)
+                .then(({ data }) => {
+                    resolve(data)
+                })
+                .catch(({ response }) => {
+                    reject(response.data.errors)
+                })
+        });
+    },
 }
 
 const mutations = {

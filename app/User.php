@@ -13,6 +13,7 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
  * @property mixed email
  * @property mixed name
  * @property string password
+ * @method static findOrFail($get)
  */
 class User extends Authenticatable
 {

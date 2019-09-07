@@ -30,5 +30,7 @@ class BouncerSeeder extends Seeder
         Bouncer::allow('admin')->everything();
         Bouncer::forbid('admin')->toManage(User::class);
 
+        Bouncer::allow('student')->to('read-poll', Poll::class);
+
     }
 }

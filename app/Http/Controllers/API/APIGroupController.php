@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Group;
 use App\Http\Controllers\Controller;
+use App\User;
 use Auth;
+use Bouncer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -79,6 +81,36 @@ class APIGroupController extends Controller
         $group->update($data);
 
         return $group->load('users');
+    }
+
+    /**
+     * Allow the provided User to create a Poll for this group.
+     *
+     * @param Request $request
+     * @param Group $group
+     *
+     * @return Group
+     */
+    public function allowCreatePoll(Request $request, Group $group)
+    {
+        $user = User::findOrFail($request->get('user_id'));
+        Bouncer::allow($user)->to('create-poll-group', $group);
+        return $group;
+    }
+
+    /**
+     * Disallow the provided User to create a Poll for this group.
+     *
+     * @param Request $request
+     * @param Group $group
+     *
+     * @return Group
+     */
+    public function disallowCreatePoll(Request $request, Group $group)
+    {
+        $user = User::findOrFail($request->get('user_id'));
+        Bouncer::disallow($user)->to('create-poll-group', $group);
+        return $group;
     }
 
 }
