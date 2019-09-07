@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Group;
+use App\Poll;
 use App\User;
+use Bouncer;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
@@ -117,6 +119,33 @@ class APIUserController extends Controller
             'user' => $user->load('groups')
         ];
 
+    }
+
+    /**
+     * Allow the provided User to create Polls.
+     *
+     * @param $userID
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function allowCreatePoll($userID) {
+        $user = User::findOrFail($userID);
+        Bouncer::allow($user)->to('create-poll', Poll::class);
+        return $user;
+    }
+
+    /**
+     * Disallow the provided User to create Polls.
+     *
+     * @param $userID
+     *
+     * @return mixed
+     */
+    public function disallowCreatePoll($userID) {
+        $user = User::findOrFail($userID);
+        Bouncer::disallow($user)->to('create-poll', Poll::class);
+        return $user;
     }
 
 }
