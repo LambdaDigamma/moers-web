@@ -56,14 +56,16 @@
 
                     <h4>Benutzer</h4>
                     <b-card class="mt-2" v-for="user in group.users" :key="user.id">
-                        <b-row>
-                            <b-col sm="12" md="8">
-                                <h4>{{ user.name }}</h4>
-                            </b-col>
-                            <b-col class="d-flex justify-content-end align-items-end" sm="12" md="4">
+                        <div class="d-flex flex-row justify-content-between">
+                            <h4>{{ user.name }}</h4>
+                            <div class="d-flex flex-row">
+                                <b-button @click.prevent="allowCreatePoll(user.id)" variant="secondary" class="mr-2">Allg. Schreiben</b-button>
+                                <b-button @click.prevent="disallowCreatePoll(user.id)" variant="warning" class="mr-2">Allg. Schreiben</b-button>
+                                <b-button @click.prevent="allowCreatePollGroup(user.id)" variant="secondary" class="mr-2">Spez. Schreiben</b-button>
+                                <b-button @click.prevent="disallowCreatePollGroup(user.id)" variant="warning" class="mr-2">Spez. Schreiben</b-button>
                                 <b-button @click.prevent="removeUserGroup(user.id)" variant="danger">Benutzer entfernen</b-button>
-                            </b-col>
-                        </b-row>
+                            </div>
+                        </div>
                     </b-card>
 
                     <div class="mt-3">
@@ -94,6 +96,7 @@
     import {mapGetters} from "vuex";
     import Form from "../../core/Form";
     import {
+        ADMIN_ALLOW_CREATE_POLL, ADMIN_ALLOW_CREATE_POLL_GROUP, ADMIN_DISALLOW_CREATE_POLL, ADMIN_DISALLOW_CREATE_POLL_GROUP,
         ADMIN_FETCH_GROUP,
         ADMIN_JOIN_GROUP,
         ADMIN_LEAVE_GROUP, ADMIN_UPDATE_GROUP,
@@ -170,6 +173,18 @@
             removeUserGroup(id) {
                 store.dispatch(ADMIN_LEAVE_GROUP, {user_id: id, group_id: this.id})
             },
+            allowCreatePoll(user_id) {
+                store.dispatch(ADMIN_ALLOW_CREATE_POLL, user_id)
+            },
+            disallowCreatePoll(user_id) {
+                store.dispatch(ADMIN_DISALLOW_CREATE_POLL, user_id)
+            },
+            allowCreatePollGroup(user_id) {
+                store.dispatch(ADMIN_ALLOW_CREATE_POLL_GROUP, { user_id: user_id, group_id: this.id })
+            },
+            disallowCreatePollGroup(user_id) {
+                store.dispatch(ADMIN_DISALLOW_CREATE_POLL_GROUP, { user_id: user_id, group_id: this.id })
+            }
         },
         data() {
             return {

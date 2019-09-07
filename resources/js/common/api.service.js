@@ -123,5 +123,17 @@ export const AdminService = {
     },
     leaveGroup(user_id, data) {
         return ApiService.post(`admin/users/${user_id}/leave`, data)
+    },
+    allowCreatePoll(user_id) {
+        return ApiService.post(`admin/users/${user_id}/allow/createPoll`, {})
+    },
+    disallowCreatePoll(user_id) {
+        return ApiService.post(`admin/users/${user_id}/disallow/createPoll`, {})
+    },
+    allowCreatePollGroup(data) {
+        return ApiService.post(`admin/groups/${data.group_id}/allowCreatePoll`, data)
+    },
+    disallowCreatePollGroup(data) {
+        return ApiService.post(`admin/groups/${data.group_id}/disallowCreatePoll`, data)
     }
 }
