@@ -13,11 +13,11 @@
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
-                    <router-link tag="b-nav-item" :to="{ name: 'organisations' }" exact>Organisationen</router-link>
-                    <router-link tag="b-nav-item" :to="{ name: 'events' }" exact>Veranstaltungen</router-link>
                     <can I="read-poll" a="Poll">
                         <router-link tag="b-nav-item" v-if="isAuthenticated" :to="{ name: 'polls' }" exact>Abstimmungen</router-link>
                     </can>
+                    <router-link tag="b-nav-item" :to="{ name: 'organisations' }" exact>Organisationen</router-link>
+                    <router-link tag="b-nav-item" :to="{ name: 'events' }" exact>Veranstaltungen</router-link>
                 </b-navbar-nav>
                 <b-navbar-nav class="ml-auto" v-if="isAuthenticated">
                     <b-nav-item-dropdown right>

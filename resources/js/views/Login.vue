@@ -3,7 +3,7 @@
     <div class="auth-page">
         <b-row align-h="center" class="mt-5">
             <b-col cols="12" md="8">
-                <b-card header="Sign in" header-bg-variant="dark" header-text-variant="white">
+                <b-card header="Anmeldung" header-bg-variant="dark" header-text-variant="white">
                     <b-form @submit.prevent="onSubmit()" @keydown="form.errors.clear($event.target.name)">
                         <b-form-group
                                 id="input-group-email"
@@ -13,7 +13,7 @@
                                     v-model="form.email"
                                     type="email"
                                     required
-                                    placeholder="Email">
+                                    placeholder="E-Mail">
 
                             </b-form-input>
                             <b-form-invalid-feedback :force-show="form.errors.has('email')" v-text="form.errors.get('email')">
@@ -28,7 +28,7 @@
                                     v-model="form.password"
                                     type="password"
                                     required
-                                    placeholder="Password">
+                                    placeholder="Passwort">
 
                             </b-form-input>
                             <b-form-invalid-feedback :force-show="form.errors.has('password')" v-text="form.errors.get('password')">
@@ -80,7 +80,7 @@
 
                 login.then(() => {
                     this.makeToast('success');
-                    this.$router.push({ name: "home" });
+                    this.$router.push({ name: "polls" });
                 })
 
                 this.form.submit(login)
