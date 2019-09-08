@@ -26,7 +26,7 @@ class APIPollController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth:api', 'can:read-poll,App\Poll']);
+        $this->middleware(['auth:api']);
     }
 
     /**
