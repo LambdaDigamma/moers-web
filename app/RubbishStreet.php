@@ -8,32 +8,48 @@ use Illuminate\Database\Eloquent\Model;
 class RubbishStreet extends Model
 {
 
+    public function pickupItems() {
 
+        $items = RubbishScheduleItem::upcoming()->get();
 
-    public function scheduleItems() {
-
-        return RubbishScheduleItem::all()->filter(function ($item) {
-
-            if ($item->residual_tours->contains($this->residual_tour)) {
-                $item->
-                return true;
-            }
-            if ($item->organic_tours->contains($this->organic_tour)) {
-                return true;
-            }
-            if ($item->paper_tours->contains($this->paper_tour)) {
-                return true;
-            }
-            if ($item->plastic_tours->contains($this->plastic_tour)) {
-                return true;
-            }
-            if ($item->cuttings_tours->contains($this->cuttings_tour)) {
-                return true;
-            }
-
-            return false;
-
+        $residual = $items->filter(function ($item) {
+            return $item->residual_tours->contains($this->residual_tour);
+        })->map(function ($item) {
+            return new RubbishPickupItem(['date' => $item->date, 'type' => 'residual']);
         });
+
+        $organic = $items->filter(function ($item) {
+            return $item->organic_tours->contains($this->organic_tour);
+        })->map(function ($item) {
+            return new RubbishPickupItem(['date' => $item->date, 'type' => 'organic']);
+        });
+
+        $paper = $items->filter(function ($item) {
+            return $item->paper_tours->contains($this->paper_tour);
+        })->map(function ($item) {
+            return new RubbishPickupItem(['date' => $item->date, 'type' => 'paper']);
+        });
+
+        $plastic = $items->filter(function ($item) {
+            return $item->plastic_tours->contains($this->plastic_tour);
+        })->map(function ($item) {
+            return new RubbishPickupItem(['date' => $item->date, 'type' => 'plastic']);
+        });
+
+        $cuttings = $items->filter(function ($item) {
+            return $item->cuttings_tours->contains($this->cutting_tour);
+        })->map(function ($item) {
+            return new RubbishPickupItem(['date' => $item->date, 'type' => 'cuttings']);
+        });
+
+        $pickupItems = collect();
+        $pickupItems = $pickupItems->merge($residual);
+        $pickupItems = $pickupItems->merge($organic);
+        $pickupItems = $pickupItems->merge($paper);
+        $pickupItems = $pickupItems->merge($plastic);
+        $pickupItems = $pickupItems->merge($cuttings);
+
+        return $pickupItems;
 
     }
 

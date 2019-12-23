@@ -80,7 +80,7 @@ class RubbishStreetTest extends TestCase
             'cuttings_tour' => $cuttings,
         ]);
 
-        $this->assertCount(2, $rubbishStreet->scheduleItems());
+        $this->assertCount(2, $rubbishStreet->pickupItems());
 
     }
 
