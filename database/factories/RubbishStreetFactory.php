@@ -19,3 +19,9 @@ $factory->define(RubbishStreet::class, function (Faker $faker) {
         'year' => Carbon::now()->year
     ];
 });
+
+$factory->state(RubbishStreet::class, 'old', function (Faker $faker) {
+    return [
+        'year' => Carbon::now()->subYears($faker->numberBetween(1, 10))
+    ];
+});
