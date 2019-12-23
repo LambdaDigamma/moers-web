@@ -20,8 +20,8 @@ class CreateRubbishStreetsTable extends Migration
             $table->integer('residual_tour');
             $table->integer('organic_tour');
             $table->integer('paper_tour');
-            $table->integer('yellow_bag_tour');
-            $table->integer('green_cut_tour');
+            $table->integer('plastic_tour');
+            $table->integer('cuttings_tour');
             $table->year('year');
             $table->timestamps();
         });

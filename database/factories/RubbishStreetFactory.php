@@ -14,8 +14,8 @@ $factory->define(RubbishStreet::class, function (Faker $faker) {
         'residual_tour' => $faker->numberBetween(1, 10),
         'organic_tour' => $faker->numberBetween(1, 10),
         'paper_tour' => $faker->numberBetween(1, 10),
-        'yellow_bag_tour' => $faker->numberBetween(1, 10),
-        'green_cut_tour' => $faker->numberBetween(1, 10),
+        'plastic_tour' => $faker->numberBetween(1, 10),
+        'cuttings_tour' => $faker->numberBetween(1, 10),
         'year' => Carbon::now()->year
     ];
 });
