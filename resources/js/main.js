@@ -18,11 +18,12 @@ import { ability } from './store'
 Vue.use(abilitiesPlugin, ability)
 Vue.component('can', Can)
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faFontAwesome } from '@fortawesome/free-brands-svg-icons'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faUserSecret)
+library.add(faFontAwesome)
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)

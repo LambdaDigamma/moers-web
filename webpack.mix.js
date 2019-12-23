@@ -1,5 +1,6 @@
 let mix = require('laravel-mix');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+require('laravel-mix-polyfill');
 
 /*
  |--------------------------------------------------------------------------
@@ -19,4 +20,9 @@ mix
         plugins: [
             new MomentLocalesPlugin(),
         ],
+    })
+    .polyfill({
+        enabled: true,
+        useBuiltIns: "usage",
+        targets: {"firefox": "50", "ie": 11}
     });
