@@ -43,7 +43,7 @@ class CreateGroupsTableAndGroupUserHandlingAndPollGroup extends Migration
         });
 
         Schema::table('polls', function (Blueprint $table) {
-            $table->bigInteger('group_id')->unsigned()->default('')->after('description');
+            $table->bigInteger('group_id')->unsigned()->nullable()->after('description');
         });
     }
 

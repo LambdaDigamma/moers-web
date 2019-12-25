@@ -41,11 +41,20 @@ class RubbishScheduleItemTest extends TestCase
                 ]
             );
 
+        $item2 = factory(RubbishScheduleItem::class)
+            ->create(
+                [
+                    'residual_tours' => 2,
+                ]
+            );
+
         $this->assertTrue($item->residual_tours == collect([2, 5]));
         $this->assertTrue($item->organic_tours == collect([1, 2]));
         $this->assertTrue($item->paper_tours == collect([6, 9]));
         $this->assertTrue($item->plastic_tours == collect([3, 4]));
         $this->assertTrue($item->cuttings_tours == collect([8, 7]));
+
+        $this->assertTrue($item2->residual_tours == collect([2]));
 
     }
 

@@ -67,7 +67,7 @@ class RubbishStreetTest extends TestCase
         ]);
         factory(RubbishScheduleItem::class)->create([
             'residual_tours' => 31,
-            'organic_tours' => $organic,
+            'organic_tours' => [$organic, 35],
             'paper_tours' => 32,
             'plastic_tours' => 33,
             'cuttings_tours' => 34,

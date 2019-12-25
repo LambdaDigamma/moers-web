@@ -16,11 +16,11 @@ class CreateRubbishScheduleItemsTable extends Migration
         Schema::create('rubbish_schedule_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('date');
-            $table->string('residual_tours');
-            $table->string('organic_tours');
-            $table->string('paper_tours');
-            $table->string('plastic_tours');
-            $table->string('cuttings_tours');
+            $table->string('residual_tours')->nullable();
+            $table->string('organic_tours')->nullable();
+            $table->string('paper_tours')->nullable();
+            $table->string('plastic_tours')->nullable();
+            $table->string('cuttings_tours')->nullable();
             $table->timestamps();
         });
     }
