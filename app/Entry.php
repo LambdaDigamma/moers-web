@@ -14,7 +14,7 @@ class Entry extends Model implements AuditableContract
 
     protected $table = 'entries';
 
-    protected $fillable = ['lat', 'lng', 'name', 'tags', 'street', 'house_number', 'postcode',
+    protected $fillable = ['lat', 'lng', 'name', 'tags', 'street', 'house_number', 'postcode', 'place',
                            'url', 'phone', 'monday', 'tuesday', 'wednesday', 'thursday',
                            'friday', 'saturday', 'sunday', 'other'];
 
@@ -24,7 +24,7 @@ class Entry extends Model implements AuditableContract
      * @var array
      */
     protected $auditInclude = [
-        'lat', 'lng', 'name', 'tags', 'street', 'house_number', 'postcode',
+        'lat', 'lng', 'name', 'tags', 'street', 'house_number', 'postcode', 'place',
         'url', 'phone', 'monday', 'tuesday', 'wednesday', 'thursday',
         'friday', 'saturday', 'sunday', 'other'
     ];
