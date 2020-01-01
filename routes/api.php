@@ -127,6 +127,9 @@ Route::group(['prefix' => '/v2'], function () {
 
     Route::post('/entries', 'API\APIEntryController@store');
 
+    Route::get('/entries/{entry}/history', 'API\APIEntryController@getHistory')
+         ->name('api.v2.entries.history');
+
 });
 
 /* Tracker */
