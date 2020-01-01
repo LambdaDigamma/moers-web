@@ -62,7 +62,9 @@ class APIEntryController extends Controller
 
         if ($request->get('secret') == 'tzVQl34i6SrYSzAGSkBh') {
 
-            $entry = Entry::create($request->all());
+            $entry = Entry::make($request->all());
+            $entry->is_validated = false;
+            $entry->save();
 
             return response()->json($entry, 201);
 
