@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
 /**
+ * App\Poll
+ *
  * @property mixed id
  * @property mixed can_visitors_vote
  * @property mixed is_closed
@@ -15,6 +17,48 @@ use Illuminate\Support\Facades\Auth;
  * @property mixed can_voter_see_result
  * @property mixed starts_at
  * @property mixed group
+ * @property int $id
+ * @property string $question
+ * @property string $description
+ * @property int|null $group_id
+ * @property int $max_check
+ * @property int $can_visitors_vote
+ * @property int $can_voter_see_result
+ * @property string|null $is_closed
+ * @property string|null $starts_at
+ * @property string|null $ends_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $has_started
+ * @property-read mixed $has_user_vote
+ * @property-read mixed $is_coming_soon
+ * @property-read mixed $is_locked
+ * @property-read mixed $is_open
+ * @property-read mixed $is_radio
+ * @property-read mixed $is_running
+ * @property-read mixed $results
+ * @property-read mixed $show_results_enabled
+ * @property-read \App\Group|null $group
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\PollOption[] $options
+ * @property-read int|null $options_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Vote[] $votes
+ * @property-read int|null $votes_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereCanVisitorsVote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereCanVoterSeeResult($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereEndsAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereGroupId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereIsClosed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereMaxCheck($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereQuestion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereStartsAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Poll extends Model
 {

@@ -5,6 +5,33 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\RubbishScheduleItem
+ *
+ * @property int $id
+ * @property string $date
+ * @property array $residual_tours
+ * @property array $organic_tours
+ * @property array $paper_tours
+ * @property array $plastic_tours
+ * @property array $cuttings_tours
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem upcoming()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereCuttingsTours($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereOrganicTours($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem wherePaperTours($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem wherePlasticTours($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereResidualTours($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class RubbishScheduleItem extends Model
 {
 

@@ -5,6 +5,37 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\RubbishStreet
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $street_addition
+ * @property int $residual_tour
+ * @property int $organic_tour
+ * @property int $paper_tour
+ * @property int $plastic_tour
+ * @property int $cuttings_tour
+ * @property string $year
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet current()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereCuttingsTour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereOrganicTour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet wherePaperTour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet wherePlasticTour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereResidualTour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereStreetAddition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereYear($value)
+ * @mixin \Eloquent
+ */
 class RubbishStreet extends Model
 {
 

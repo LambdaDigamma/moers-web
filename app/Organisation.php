@@ -8,7 +8,43 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * App\Organisation
+ *
  * @property integer|null group_id
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property int|null $entry_id
+ * @property int|null $group_id
+ * @property string|null $tags
+ * @property string|null $logo_url
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Entry|null $entry
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\AdvEvent[] $events
+ * @property-read int|null $events_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read int|null $users_count
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Organisation onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereEntryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereGroupId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereLogoUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereTags($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Organisation withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Organisation withoutTrashed()
+ * @mixin \Eloquent
  */
 class Organisation extends Model
 {
