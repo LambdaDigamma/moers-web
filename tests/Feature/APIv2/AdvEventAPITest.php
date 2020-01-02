@@ -17,9 +17,8 @@ class AdvEventAPITest extends TestCase
     {
         parent::setUp();
 
-        //$seeder = new AdvEventSeeder();
-        //
-        //$seeder->run();
+//        $seeder = new AdvEventSeeder();
+//        $seeder->run();
 
     }
 
@@ -29,15 +28,12 @@ class AdvEventAPITest extends TestCase
      *
      * @return void
      */
-    //public function testGetAdvEvents()
-    //{
-    //    $response = $this->get('/api/v2/advEvents');
-    //
-    //    $response->assertStatus(200)
-    //             ->assertJsonStructure([[
-    //                ''
-    //             ]]);
-    //
-    //
-    //}
+    public function testGetAdvEvents()
+    {
+        $response = $this->get('/api/v2/advEvents');
+
+        $response->assertStatus(200);
+
+    }
+
 }

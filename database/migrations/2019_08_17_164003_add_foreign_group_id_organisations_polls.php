@@ -34,10 +34,14 @@ class AddForeignGroupIdOrganisationsPolls extends Migration
     public function down()
     {
         Schema::table('organisations', function (Blueprint $table) {
-            $table->dropForeign('group_id');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('group_id');
+            }
         });
         Schema::table('polls', function (Blueprint $table) {
-            $table->dropForeign('group_id');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('group_id');
+            }
         });
     }
 }

@@ -11,7 +11,7 @@ $factory->define(Entry::class, function (Faker $faker) {
         'name' => $faker->company,
         'lat' => $faker->latitude(6.5851, 6.5851),
         'lng' => $faker->longitude(51.4283, 51.4916),
-        'tags' => implode(", ", $faker->words(3)),
+        'tags' => "", //implode(", ", $faker->words(3)),
         'street' => $faker->streetName,
         'house_number' => $faker->buildingNumber,
         'postcode' => $faker->postcode,
