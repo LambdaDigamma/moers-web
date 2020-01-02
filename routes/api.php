@@ -125,7 +125,11 @@ Route::group(['prefix' => '/v2'], function () {
     Route::get('/entries', 'API\APIEntryController@get')
         ->name('api.v2.entries.get');
 
-    Route::post('/entries', 'API\APIEntryController@store');
+    Route::post('/entries', 'API\APIEntryController@store')
+        ->name('api.v2.entries.store');
+
+    Route::put('/entries/{entry}', 'API\APIEntryController@update')
+        ->name('api.v2.entries.update');
 
     Route::get('/entries/{entry}/history', 'API\APIEntryController@getHistory')
          ->name('api.v2.entries.history');
