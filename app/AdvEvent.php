@@ -2,8 +2,11 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\AdvEvent
@@ -20,35 +23,35 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $entry_id
  * @property int $is_published
  * @property array|null $extras
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read \App\Entry|null $entry
- * @property-read \App\Organisation|null $organisation
+ * @property-read Organisation|null $organisation
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\AdvEvent onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent query()
+ * @method static Builder|AdvEvent newModelQuery()
+ * @method static Builder|AdvEvent newQuery()
+ * @method static \Illuminate\Database\Query\Builder|AdvEvent onlyTrashed()
+ * @method static Builder|AdvEvent query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereCategory($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereEndDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereEntryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereExtras($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereImagePath($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereIsPublished($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereOrganisationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereStartDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereUrl($value)
- * @method static \Illuminate\Database\Query\Builder|\App\AdvEvent withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\AdvEvent withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|AdvEvent whereCategory($value)
+ * @method static Builder|AdvEvent whereCreatedAt($value)
+ * @method static Builder|AdvEvent whereDeletedAt($value)
+ * @method static Builder|AdvEvent whereDescription($value)
+ * @method static Builder|AdvEvent whereEndDate($value)
+ * @method static Builder|AdvEvent whereEntryId($value)
+ * @method static Builder|AdvEvent whereExtras($value)
+ * @method static Builder|AdvEvent whereId($value)
+ * @method static Builder|AdvEvent whereImagePath($value)
+ * @method static Builder|AdvEvent whereIsPublished($value)
+ * @method static Builder|AdvEvent whereName($value)
+ * @method static Builder|AdvEvent whereOrganisationId($value)
+ * @method static Builder|AdvEvent whereStartDate($value)
+ * @method static Builder|AdvEvent whereUpdatedAt($value)
+ * @method static Builder|AdvEvent whereUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|AdvEvent withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|AdvEvent withoutTrashed()
+ * @mixin Eloquent
  */
 class AdvEvent extends Model
 {

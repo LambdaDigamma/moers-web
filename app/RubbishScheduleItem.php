@@ -2,8 +2,10 @@
 
 namespace App;
 
-use Carbon\Carbon;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\RubbishScheduleItem
@@ -15,22 +17,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property array $paper_tours
  * @property array $plastic_tours
  * @property array $cuttings_tours
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem upcoming()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereCuttingsTours($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereOrganicTours($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem wherePaperTours($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem wherePlasticTours($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereResidualTours($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishScheduleItem whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|RubbishScheduleItem newModelQuery()
+ * @method static Builder|RubbishScheduleItem newQuery()
+ * @method static Builder|RubbishScheduleItem query()
+ * @method static Builder|RubbishScheduleItem upcoming()
+ * @method static Builder|RubbishScheduleItem whereCreatedAt($value)
+ * @method static Builder|RubbishScheduleItem whereCuttingsTours($value)
+ * @method static Builder|RubbishScheduleItem whereDate($value)
+ * @method static Builder|RubbishScheduleItem whereId($value)
+ * @method static Builder|RubbishScheduleItem whereOrganicTours($value)
+ * @method static Builder|RubbishScheduleItem wherePaperTours($value)
+ * @method static Builder|RubbishScheduleItem wherePlasticTours($value)
+ * @method static Builder|RubbishScheduleItem whereResidualTours($value)
+ * @method static Builder|RubbishScheduleItem whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class RubbishScheduleItem extends Model
 {

@@ -2,11 +2,15 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Group
@@ -16,29 +20,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $description
  * @property int|null $organisation_id
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Poll[] $polls
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Poll[] $polls
  * @property-read int|null $polls_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read Collection|User[] $users
  * @property-read int|null $users_count
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Group newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Group newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Group onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Group query()
+ * @method static Builder|Group newModelQuery()
+ * @method static Builder|Group newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Group onlyTrashed()
+ * @method static Builder|Group query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Group whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Group whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Group whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Group whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Group whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Group whereOrganisationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Group whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Group withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Group withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|Group whereCreatedAt($value)
+ * @method static Builder|Group whereDeletedAt($value)
+ * @method static Builder|Group whereDescription($value)
+ * @method static Builder|Group whereId($value)
+ * @method static Builder|Group whereName($value)
+ * @method static Builder|Group whereOrganisationId($value)
+ * @method static Builder|Group whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Group withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Group withoutTrashed()
+ * @mixin Eloquent
  */
 class Group extends Model
 {

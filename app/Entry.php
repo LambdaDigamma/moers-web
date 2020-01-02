@@ -2,10 +2,15 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Models\Audit;
 
 /**
  * App\Entry
@@ -31,48 +36,48 @@ use OwenIt\Auditing\Auditable;
  * @property string|null $other
  * @property int|null $user_id
  * @property int $is_validated
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\OwenIt\Auditing\Models\Audit[] $audits
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Audit[] $audits
  * @property-read int|null $audits_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $events
+ * @property-read Collection|Event[] $events
  * @property-read int|null $events_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Organisation[] $organisations
+ * @property-read Collection|Organisation[] $organisations
  * @property-read int|null $organisations_count
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Entry onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry query()
+ * @method static Builder|Entry newModelQuery()
+ * @method static Builder|Entry newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Entry onlyTrashed()
+ * @method static Builder|Entry query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereFriday($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereHouseNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereIsValidated($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereLat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereLng($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereMonday($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereOther($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry wherePlace($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry wherePostcode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereSaturday($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereStreet($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereSunday($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereTags($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereThursday($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereTuesday($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereWednesday($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entry withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Entry withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|Entry whereCreatedAt($value)
+ * @method static Builder|Entry whereDeletedAt($value)
+ * @method static Builder|Entry whereFriday($value)
+ * @method static Builder|Entry whereHouseNumber($value)
+ * @method static Builder|Entry whereId($value)
+ * @method static Builder|Entry whereIsValidated($value)
+ * @method static Builder|Entry whereLat($value)
+ * @method static Builder|Entry whereLng($value)
+ * @method static Builder|Entry whereMonday($value)
+ * @method static Builder|Entry whereName($value)
+ * @method static Builder|Entry whereOther($value)
+ * @method static Builder|Entry wherePhone($value)
+ * @method static Builder|Entry wherePlace($value)
+ * @method static Builder|Entry wherePostcode($value)
+ * @method static Builder|Entry whereSaturday($value)
+ * @method static Builder|Entry whereStreet($value)
+ * @method static Builder|Entry whereSunday($value)
+ * @method static Builder|Entry whereTags($value)
+ * @method static Builder|Entry whereThursday($value)
+ * @method static Builder|Entry whereTuesday($value)
+ * @method static Builder|Entry whereUpdatedAt($value)
+ * @method static Builder|Entry whereUrl($value)
+ * @method static Builder|Entry whereUserId($value)
+ * @method static Builder|Entry whereWednesday($value)
+ * @method static \Illuminate\Database\Query\Builder|Entry withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Entry withoutTrashed()
+ * @mixin Eloquent
  */
 class Entry extends Model implements AuditableContract
 {

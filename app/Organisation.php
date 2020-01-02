@@ -2,10 +2,13 @@
 
 namespace App;
 
-use Carbon\Carbon;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Organisation
@@ -18,33 +21,33 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $group_id
  * @property string|null $tags
  * @property string|null $logo_url
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Entry|null $entry
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\AdvEvent[] $events
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Entry|null $entry
+ * @property-read Collection|AdvEvent[] $events
  * @property-read int|null $events_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read Collection|User[] $users
  * @property-read int|null $users_count
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Organisation onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation query()
+ * @method static Builder|Organisation newModelQuery()
+ * @method static Builder|Organisation newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Organisation onlyTrashed()
+ * @method static Builder|Organisation query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereEntryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereGroupId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereLogoUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereTags($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Organisation withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Organisation withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|Organisation whereCreatedAt($value)
+ * @method static Builder|Organisation whereDeletedAt($value)
+ * @method static Builder|Organisation whereDescription($value)
+ * @method static Builder|Organisation whereEntryId($value)
+ * @method static Builder|Organisation whereGroupId($value)
+ * @method static Builder|Organisation whereId($value)
+ * @method static Builder|Organisation whereLogoUrl($value)
+ * @method static Builder|Organisation whereName($value)
+ * @method static Builder|Organisation whereTags($value)
+ * @method static Builder|Organisation whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Organisation withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Organisation withoutTrashed()
+ * @mixin Eloquent
  */
 class Organisation extends Model
 {

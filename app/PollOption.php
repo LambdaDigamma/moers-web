@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\PollOption
@@ -12,19 +15,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property int $poll_id
  * @property int $votes
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Poll $poll
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PollOption newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PollOption newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PollOption query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PollOption whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PollOption whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PollOption whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PollOption wherePollId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PollOption whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PollOption whereVotes($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Poll $poll
+ * @method static Builder|PollOption newModelQuery()
+ * @method static Builder|PollOption newQuery()
+ * @method static Builder|PollOption query()
+ * @method static Builder|PollOption whereCreatedAt($value)
+ * @method static Builder|PollOption whereId($value)
+ * @method static Builder|PollOption whereName($value)
+ * @method static Builder|PollOption wherePollId($value)
+ * @method static Builder|PollOption whereUpdatedAt($value)
+ * @method static Builder|PollOption whereVotes($value)
+ * @mixin Eloquent
  */
 class PollOption extends Model
 {

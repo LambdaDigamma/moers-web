@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Tracker
@@ -13,20 +16,20 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $description
  * @property bool $is_enabled
  * @property string|null $type
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker whereDeviceId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker whereIsEnabled($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Tracker whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Tracker newModelQuery()
+ * @method static Builder|Tracker newQuery()
+ * @method static Builder|Tracker query()
+ * @method static Builder|Tracker whereCreatedAt($value)
+ * @method static Builder|Tracker whereDescription($value)
+ * @method static Builder|Tracker whereDeviceId($value)
+ * @method static Builder|Tracker whereId($value)
+ * @method static Builder|Tracker whereIsEnabled($value)
+ * @method static Builder|Tracker whereName($value)
+ * @method static Builder|Tracker whereType($value)
+ * @method static Builder|Tracker whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Tracker extends Model
 {

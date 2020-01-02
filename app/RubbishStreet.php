@@ -3,6 +3,8 @@
 namespace App;
 
 use Carbon\Carbon;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,22 +21,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $year
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet current()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereCuttingsTour($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereOrganicTour($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet wherePaperTour($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet wherePlasticTour($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereResidualTour($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereStreetAddition($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\RubbishStreet whereYear($value)
- * @mixin \Eloquent
+ * @method static Builder|RubbishStreet current()
+ * @method static Builder|RubbishStreet newModelQuery()
+ * @method static Builder|RubbishStreet newQuery()
+ * @method static Builder|RubbishStreet query()
+ * @method static Builder|RubbishStreet whereCreatedAt($value)
+ * @method static Builder|RubbishStreet whereCuttingsTour($value)
+ * @method static Builder|RubbishStreet whereId($value)
+ * @method static Builder|RubbishStreet whereName($value)
+ * @method static Builder|RubbishStreet whereOrganicTour($value)
+ * @method static Builder|RubbishStreet wherePaperTour($value)
+ * @method static Builder|RubbishStreet wherePlasticTour($value)
+ * @method static Builder|RubbishStreet whereResidualTour($value)
+ * @method static Builder|RubbishStreet whereStreetAddition($value)
+ * @method static Builder|RubbishStreet whereUpdatedAt($value)
+ * @method static Builder|RubbishStreet whereYear($value)
+ * @mixin Eloquent
  */
 class RubbishStreet extends Model
 {

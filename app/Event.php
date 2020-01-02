@@ -2,8 +2,11 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Event
@@ -19,34 +22,34 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $organisation_id
  * @property int|null $entry_id
  * @property mixed|null $extras
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Entry|null $entry
- * @property-read \App\Organisation|null $organisation
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Entry|null $entry
+ * @property-read Organisation|null $organisation
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Event onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event query()
+ * @method static Builder|Event newModelQuery()
+ * @method static Builder|Event newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Event onlyTrashed()
+ * @method static Builder|Event query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereCategory($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereEntryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereExtras($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereOrganisationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereTimeEnd($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereTimeStart($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereUrl($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Event withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|Event whereCategory($value)
+ * @method static Builder|Event whereCreatedAt($value)
+ * @method static Builder|Event whereDate($value)
+ * @method static Builder|Event whereDeletedAt($value)
+ * @method static Builder|Event whereDescription($value)
+ * @method static Builder|Event whereEntryId($value)
+ * @method static Builder|Event whereExtras($value)
+ * @method static Builder|Event whereId($value)
+ * @method static Builder|Event whereName($value)
+ * @method static Builder|Event whereOrganisationId($value)
+ * @method static Builder|Event whereTimeEnd($value)
+ * @method static Builder|Event whereTimeStart($value)
+ * @method static Builder|Event whereUpdatedAt($value)
+ * @method static Builder|Event whereUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|Event withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Event withoutTrashed()
+ * @mixin Eloquent
  */
 class Event extends Model
 {

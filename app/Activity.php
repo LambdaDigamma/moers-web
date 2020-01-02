@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Activity
@@ -15,22 +18,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $new_value
  * @property int $reward
  * @property string $description
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity whereAssociatedObjectIndex($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity whereAssociatedTableName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity whereNewValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity whereOriginValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity whereReward($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Activity whereUserId($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Activity newModelQuery()
+ * @method static Builder|Activity newQuery()
+ * @method static Builder|Activity query()
+ * @method static Builder|Activity whereAssociatedObjectIndex($value)
+ * @method static Builder|Activity whereAssociatedTableName($value)
+ * @method static Builder|Activity whereCreatedAt($value)
+ * @method static Builder|Activity whereDescription($value)
+ * @method static Builder|Activity whereId($value)
+ * @method static Builder|Activity whereNewValue($value)
+ * @method static Builder|Activity whereOriginValue($value)
+ * @method static Builder|Activity whereReward($value)
+ * @method static Builder|Activity whereUpdatedAt($value)
+ * @method static Builder|Activity whereUserId($value)
+ * @mixin Eloquent
  */
 class Activity extends Model
 {
