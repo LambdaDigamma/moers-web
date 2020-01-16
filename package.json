@@ -25,6 +25,8 @@
         "jquery": "^3.4.1",
         "laravel-mix": "^4.1.4",
         "laravel-mix-polyfill": "^1.1.0",
+        "laravel-mix-purgecss": "^4.1",
+        "laravel-mix-tailwind": "^0.1.0",
         "lint-staged": "^9.2.5",
         "lodash": "^4.17.15",
         "marked": "^0.7.0",
@@ -37,10 +39,24 @@
         "sass-loader": "^7.3.1",
         "vue": "^2.6.10",
         "vue-axios": "^2.1.4",
-        "vue-moment": "^4.0.0",
+        "vue-moment": "^4.1.0",
         "vue-router": "^3.1.3",
         "vue-template-compiler": "^2.6.10",
         "vuex": "^3.1.1",
-        "vuex-map-fields": "^1.3.5"
+        "vuex-map-fields": "^1.3.5",
+        "portal-vue": "latest"
+    },
+    "dependencies": {
+        "@fortawesome/free-brands-svg-icons": "^5.12.0",
+        "@fullhuman/postcss-purgecss": "^1.3.0",
+        "@inertiajs/inertia": "^0.1.7",
+        "@inertiajs/inertia-vue": "^0.1.2",
+        "moment": "^2.24.0",
+        "postcss-import": "^12.0.1",
+        "postcss-nesting": "^7.0.1",
+        "postcss-purgecss": "^1.0.0",
+        "tailwindcss": "^1.1.4",
+        "tailwindcss-dark-mode": "^1.1.1",
+        "vue-meta": "^2.3.2"
     }
 }

@@ -1,6 +1,8 @@
-let mix = require('laravel-mix');
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-require('laravel-mix-polyfill');
+const mix = require('laravel-mix')
+const path = require('path')
+
+require('laravel-mix-tailwind')
+require('tailwindcss')
 
 /*
  |--------------------------------------------------------------------------
@@ -13,16 +15,17 @@ require('laravel-mix-polyfill');
  |
  */
 
-mix
-    .js('resources/js/main.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
+mix.js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/main.scss', 'public/css')
+    .tailwind('./tailwind.config.js')
     .webpackConfig({
-        plugins: [
-            new MomentLocalesPlugin(),
-        ],
+        output: {chunkFilename: 'js/[name].js?id=[chunkhash]'},
+        resolve: {
+            alias: {
+                'vue$': 'vue/dist/vue.runtime.esm.js',
+                '@': path.resolve('resources/js'),
+            },
+        },
     })
-    .polyfill({
-        enabled: true,
-        useBuiltIns: "usage",
-        targets: {"firefox": "50", "ie": 11}
-    });
+    .version()
+    .sourceMaps()

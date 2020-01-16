@@ -11,6 +11,13 @@
 |
 */
 
+Route::get('/')->name('landingPage')->uses('LandingPageController');
+
+Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
+Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
+
+//Route::get('/login')->name('login')->
+
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
@@ -18,9 +25,9 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 
 Route::post('/mailinglist/subscribe', 'MailingListController@subscribe')->name('mailinglist.subscribe');
 
-Route::get('/{any}', function() {
-    return view('app');
-})->where('any', '.*');
+//Route::get('/{any}', function() {
+//    return view('app');
+//})->where('any', '.*');
 
 //Route::get('/', function () {
 //    return view('legacy.index');
