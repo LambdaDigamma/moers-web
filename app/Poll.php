@@ -20,16 +20,9 @@ use Illuminate\Support\Facades\Auth;
  * @property mixed max_check
  * @property mixed can_voter_see_result
  * @property mixed starts_at
- * @property mixed group
- * @property int $id
  * @property string $question
  * @property string $description
  * @property int|null $group_id
- * @property int $max_check
- * @property int $can_visitors_vote
- * @property int $can_voter_see_result
- * @property string|null $is_closed
- * @property string|null $starts_at
  * @property string|null $ends_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -236,6 +229,19 @@ class Poll extends Model
         }, 0) / $this->max_check;
 
         return $this->totalVotes() - $realVotes;
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where('question', 'like', '%'.$search.'%');
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
     }
 
     /* Attributes */

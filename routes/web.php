@@ -13,6 +13,9 @@
 
 Route::get('/')->name('landingPage')->uses('LandingPageController');
 
+Route::get('/admin/dashboard')->name('admin.dashboard')->uses('AdminDashboardController')->middleware('auth');
+Route::get('/admin/polls')->name('admin.polls.index')->uses('AdminPollsController@index')->middleware('auth');
+
 Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
 Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
 

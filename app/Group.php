@@ -67,11 +67,7 @@ class Group extends Model
      */
     public function organisation()
     {
-        if ($this->organisation_id != null) {
-            return $this->belongsTo('App\Organisation');
-        } else {
-            return null;
-        }
+        return $this->belongsTo('App\Organisation');
     }
 
     /**
