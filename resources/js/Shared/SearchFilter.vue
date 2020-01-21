@@ -16,10 +16,10 @@
                     <slot/>
                 </div>
             </dropdown>
-            <input class="relative w-full px-6 py-3 rounded-r focus:shadow-outline dark:bg-gray-600" autocomplete="off" type="text"
+            <input class="px-2 py-3 rounded-r focus:shadow-outline dark:text-white dark:bg-gray-600" autocomplete="off" type="text"
                    name="search" placeholder="Suche…" :value="value" @input="$emit('input', $event.target.value)">
         </div>
-        <button class="ml-10 text-sm text-gray-600 hover:text-gray-600 focus:text-yellow-500" type="button"
+        <button class="ml-4 text-sm text-gray-600 hover:text-gray-600 focus:text-yellow-500" type="button"
                 @click="$emit('reset')">
             Zurücksetzen
         </button>

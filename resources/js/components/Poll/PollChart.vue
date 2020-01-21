@@ -47,7 +47,7 @@
                             display: true,
                             position: "bottom",
                             labels: {
-                                fontColor: "#333",
+                                fontColor: "#ffffff",
                             }
                         },
                         tooltips: {

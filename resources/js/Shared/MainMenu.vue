@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div class="mb-4">
+        <div class="md:mb-4">
             <inertia-link class="py-2 flex items-center group hover:no-underline" :href="route('admin.dashboard')">
-                <icon name="dashboard" class="w-4 h-4 mr-2" :class="isUrl('admin/dashboard') ? 'fill-white' : 'fill-gray-600 group-hover:fill-white'" />
-                <div :class="isUrl('admin/dashboard') ? 'text-white' : 'text-gray-600 group-hover:text-white'">Dashboard</div>
+                <icon name="dashboard" class="w-4 h-4 mr-2" :class="isUrl('admin/dashboard') ? 'fill-white' : 'fill-gray-700 md:fill-gray-600 group-hover:fill-white'" />
+                <div :class="isUrl('admin/dashboard') ? 'text-white' : 'text-gray-700 md:text-gray-600 group-hover:text-white'">Dashboard</div>
             </inertia-link>
         </div>
-        <div class="mb-4">
+        <div class="md:mb-4">
             <inertia-link class="py-2 flex items-center group hover:no-underline" :href="route('admin.polls.index')">
-                <icon name="users" class="w-4 h-4 mr-2" :class="isUrl('admin/polls') ? 'fill-white' : 'fill-gray-600 group-hover:fill-white'" />
-                <div :class="isUrl('admin/polls') ? 'text-white' : 'text-gray-600 group-hover:text-white'">Abstimmungen</div>
+                <icon name="users" class="w-4 h-4 mr-2" :class="isUrl('admin/polls') ? 'fill-white' : 'fill-gray-700 fill-gray-600 group-hover:fill-white'" />
+                <div :class="isUrl('admin/polls') ? 'text-white' : 'text-gray-700 md:text-gray-600 group-hover:text-white'">Abstimmungen</div>
             </inertia-link>
         </div>
 
