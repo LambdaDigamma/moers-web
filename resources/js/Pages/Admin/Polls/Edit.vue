@@ -1,11 +1,12 @@
 <template>
 
     <div>
-        <h1 class="mb-8 font-bold text-xl md:text-3xl dark:text-white">
-            <inertia-link class="dark:text-yellow-500 dark-hover:text-yellow-600 hover:no-underline" :href="route('admin.polls.index')">Abstimmungen</inertia-link>
-            <span class="text-yellow-500 font-medium">/</span>
-            {{ form.question }}
-        </h1>
+        <Header
+                :href="route('admin.polls.index')"
+                previousTitle="Abstimmungen"
+                class="mb-8">
+            {{ poll.question }}
+        </Header>
         <div class="flex flex-wrap">
             <div class="lg:w-1/2">
                 <form class="md:mr-4 bg-white dark:bg-gray-700 rounded shadow" @submit.prevent="submit">
@@ -36,10 +37,17 @@
     import LoadingButton from "@/Shared/LoadingButton";
     import TextareaInput from "@/Shared/TextareaInput";
     import PollResult from "@/Shared/PollResult";
+    import Header from "@/Shared/Admin/Header";
 
     export default {
         name: "Edit",
-        components: {PollResult, TextareaInput, TextInput, LoadingButton},
+        components: {
+            PollResult,
+            TextareaInput,
+            TextInput,
+            LoadingButton,
+            Header
+        },
         layout: LayoutAdmin,
         props: {
             poll: Object,

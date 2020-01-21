@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center">
-        <div class="flex w-full bg-white dark:bg-gray-700 shadow rounded">
+        <div class="flex bg-white dark:bg-gray-700 shadow rounded">
             <dropdown :auto-close="false"
                       class="px-4 md:px-6 rounded-l border-r dark:border-black dark-hover:bg-gray-600 focus:border-yellow-500 focus:shadow-outline focus:z-10"
                       placement="bottom-start">
@@ -16,10 +16,16 @@
                     <slot/>
                 </div>
             </dropdown>
-            <input class="px-2 py-3 rounded-r focus:shadow-outline dark:text-white dark:bg-gray-600" autocomplete="off" type="text"
-                   name="search" placeholder="Suche…" :value="value" @input="$emit('input', $event.target.value)">
+            <input class="w-full px-2 py-2 md:px-2 md:py-3 rounded-r focus:shadow-outline dark:text-white dark:bg-gray-600"
+                   autocomplete="off"
+                   type="text"
+                   name="search"
+                   placeholder="Suche…"
+                   :value="value"
+                   @input="$emit('input', $event.target.value)">
         </div>
-        <button class="ml-4 text-sm text-gray-600 hover:text-gray-600 focus:text-yellow-500" type="button"
+        <button class="ml-4 hidden md:flex text-sm text-gray-600 hover:text-gray-600 focus:text-yellow-500"
+                type="button"
                 @click="$emit('reset')">
             Zurücksetzen
         </button>
