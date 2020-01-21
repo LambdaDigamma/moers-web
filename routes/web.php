@@ -16,6 +16,7 @@ Route::get('/')->name('landingPage')->uses('LandingPageController');
 Route::get('/admin/dashboard')->name('admin.dashboard')->uses('AdminDashboardController')->middleware('auth');
 Route::get('/admin/polls')->name('admin.polls.index')->uses('AdminPollsController@index')->middleware('auth');
 Route::get('/admin/polls/create')->name('admin.polls.create')->uses('AdminPollsController@create')->middleware('auth');
+Route::post('/admin/polls')->name('admin.polls.store')->uses('AdminPollsController@store')->middleware('auth');
 Route::get('/admin/polls/{poll}')->name('admin.polls.edit')->uses('AdminPollsController@edit')->middleware('auth');
 Route::put('/admin/polls/{poll}')->name('admin.polls.update')->uses('AdminPollsController@update')->middleware('auth');
 

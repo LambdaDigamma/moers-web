@@ -16,8 +16,12 @@ class StorePoll extends FormRequest
      */
     public function authorize()
     {
-        $group = Group::find(Request::get('group_id'))->first();
-        return Bouncer::can('create-poll', $group);
+        if (Request::get('group_id') != null) {
+            $group = Group::find(Request::get('group_id'))->firstOrFail();
+            return Bouncer::can('create-poll', $group);
+        } else {
+            return false;
+        }
     }
 
     /**

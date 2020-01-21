@@ -8,6 +8,7 @@
                    :value="value"
                    :placeholder="placeholder"
                    :type="type"
+                   :min="min"
                    v-bind="$attrs"
                    @update="$emit('input', $event)"
                    @input="$emit('input', $event.target.value)"
@@ -22,6 +23,7 @@
                    :value="value"
                    :placeholder="placeholder"
                    :type="type"
+                   :min="min"
                    v-bind="$attrs"
                    @update="$emit('input', $event)"
                    @input="$emit('input', $event.target.value)"
@@ -43,14 +45,22 @@
             id: {
                 type: String,
                 default() {
-                    return `text-input-${this._uid}`
+                    return `number-input-${this._uid}`
                 },
             },
             type: {
                 type: String,
-                default: 'text',
+                default: 'number',
             },
-            value: String,
+            min: {
+                type: Number,
+                default: 0
+            },
+            max: {
+                type: Number,
+                default: null
+            },
+            value: Number,
             label: String,
             placeholder: String,
             errors: {
