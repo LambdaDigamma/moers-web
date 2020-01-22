@@ -24,7 +24,9 @@ class PollController extends Controller
     {
         return Inertia::render('Polls/Index', [
             'filters' => Request::all('search'),
-            'polls' => Poll::with(['group', 'group.organisation'])
+            'polls' => Auth::user()
+                ->polls()
+                ->unanswered()
                 ->filter(Request::only('search'))
                 ->paginate()
         ]);

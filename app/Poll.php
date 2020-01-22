@@ -266,6 +266,26 @@ class Poll extends Model
         });
     }
 
+    public function scopeAnswered($query)
+    {
+        $query->whereHas('votes', function ($query) {
+            $query->whereHas('user', function ($query) {
+                $query->where('id', Auth::user()->id);
+            });
+        });
+    }
+
+    public function scopeUnanswered($query)
+    {
+
+        $query->whereDoesntHave('votes', function ($query) {
+            $query->whereHas('user', function ($query) {
+                $query->where('id', Auth::user()->id);
+            });
+        });
+
+    }
+
     /* Attributes */
 
     public function getHasUserVoteAttribute()

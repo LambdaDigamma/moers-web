@@ -45,7 +45,7 @@
                 </div>
                 <!--                <b-button :to="{ name: 'polls.poll', params: { id: poll.id } }" variant="primary">Ergebnisse ansehen</b-button>-->
             </div>
-            
+
         </div>
 
         <div class="p-0">

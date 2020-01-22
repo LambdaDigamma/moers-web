@@ -20,6 +20,7 @@
         "laravelcollective/html": "^6.0",
         "orchestra/parser": "~4.0",
         "owen-it/laravel-auditing": "^9.0",
+        "reinink/advanced-eloquent": "^0.2.0",
         "reinink/remember-query-strings": "^0.1.0",
         "silber/bouncer": "v1.0.0-rc.6",
         "spatie/laravel-newsletter": "^4.2",

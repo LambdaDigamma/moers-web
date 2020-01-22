@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -158,24 +159,19 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns a collection of all Polls that the User is allowed to see and answer.
+     * Returns a Query Builder of all Polls that the User is allowed to see and answer.
      * The Polls also include their PollOptions.
      *
-     * @return Collection
+     * @return Builder
      */
     public function polls()
     {
-        $groups = $this->groups()->get();
-
-        $polls = collect([]);
-
-        foreach($groups as $group) {
-            foreach($group->polls()->with(['group', 'group.organisation'])->get() as $poll) {
-                $polls->push($poll);
-            }
-        }
-
-        return $polls;
+        return Poll::with(['group', 'group.organisation'])
+            ->whereHas('group', function ($query) {
+                $query->whereHas('users', function ($query) {
+                    $query->where('id', Auth::user()->id);
+                });
+            });
     }
 
 
