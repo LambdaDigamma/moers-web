@@ -13,10 +13,10 @@
                         {{ this.results.total }} Personen haben schon abgestimmt.
                     </p>
                 </div>
-                <div v-for="(vote, index) in this.votes" :key="index">
+                <div v-for="(vote, index) in this.results.votes" :key="index">
                     <div class="flex flex-col sm:flex-row justify-start items-center">
-                        <div class="mt-2 sm:mt-0 px-2 py-1 rounded dark:bg-yellow-500 dark:text-gray-900">Stimmen: {{ vote.votes }}</div>
-                        <div class="text-center sm:text-left sm:ml-2 mt-2 sm:mt-0">{{ vote.name }}</div>
+                        <div class="w-32 mt-2 sm:mt-0 px-2 py-1 font-semibold rounded dark:bg-yellow-500 dark:text-gray-900 text-center">Stimmen: {{ vote.votes }}</div>
+                        <div class="sm:text-left sm:ml-2 mt-2 sm:mt-0 text-center font-medium">{{ vote.name }}</div>
                     </div>
                 </div>
             </div>
@@ -39,8 +39,8 @@
         },
         data() {
             return {
-                chartData: this.votes.map(vote => vote.votes),
-                chartLabels: this.votes.map(vote => vote.name),
+                chartData: this.results.votes.map(vote => vote.votes),
+                chartLabels: this.results.votes.map(vote => vote.name),
             }
         }
     }

@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Poll;
-use App\Rules\CheckPollHasOption;
-use App\Rules\SatisfiesPollOptionsMaxCheck;
 use Illuminate\Foundation\Http\FormRequest;
 
-class VotePoll extends FormRequest
+class AbstainPoll extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +24,8 @@ class VotePoll extends FormRequest
      */
     public function rules()
     {
-        $poll = $this->route('poll');
         return [
-            'options' => ['required', 'array', 'min:1', new SatisfiesPollOptionsMaxCheck($poll)],
-            'options.*' => ['required', 'integer', 'exists:poll_options,id', new CheckPollHasOption($poll)]
+
         ];
     }
 }

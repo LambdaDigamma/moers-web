@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="flex flex-grow overflow-hidden">
-                    <main-menu :url="url()" class="bg-gray-900 flex-no-shrink w-56 p-8 hidden md:block overflow-y-auto" />
+                    <MainMenuGeneral :url="url()" class="bg-gray-900 flex-no-shrink w-56 p-8 hidden md:block overflow-y-auto" />
                     <div class="w-full overflow-hidden px-4 py-8 md:p-12 overflow-y-auto" scroll-region>
                         <flash-messages />
                         <slot />
@@ -48,11 +48,12 @@
 </template>
 
 <script>
-    import Dropdown from "./Dropdown";
-    import FlashMessages from "./FlashMessages";
+    import Dropdown from "@/Shared/Dropdown";
+    import FlashMessages from "@/Shared/FlashMessages";
+    import MainMenuGeneral from "@/Shared/MainMenuGeneral";
     export default {
         name: "LayoutAdmin",
-        components: {Dropdown, FlashMessages},
+        components: {MainMenuGeneral, Dropdown, FlashMessages},
         data() {
             return {
                 showUserMenu: false,

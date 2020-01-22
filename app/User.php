@@ -170,7 +170,7 @@ class User extends Authenticatable
         $polls = collect([]);
 
         foreach($groups as $group) {
-            foreach($group->polls()->with('group')->get() as $poll) {
+            foreach($group->polls()->with(['group', 'group.organisation'])->get() as $poll) {
                 $polls->push($poll);
             }
         }
