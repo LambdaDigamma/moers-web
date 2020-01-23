@@ -9,9 +9,17 @@
         <form @submit.prevent="vote">
             <div class="mt-2">
 
+                <div class="my-3 flex items-stretch">
+                    <div class="flex items-center rounded-l pl-1 dark:bg-gray-800">
+                        <icon name="search" class="h-4 w-4 m-2 dark:fill-white"></icon>
+                    </div>
+                    <input v-model="query" placeholder="Suchen…" type="text" class="px-2 py-2 md:px-2 md:py-3 rounded-r focus:shadow-outline dark:text-white dark:bg-gray-600" />
+                </div>
+
+
                 <div class="">
                     <div class="border-4 border-transparent dark:bg-gray-600 mt-1 rounded flex justify-between "
-                         v-for="option in poll.options" :key="option.id"
+                         v-for="option in filteredOptions" :key="option.id"
                          @click="clickedOption(option.id)"
                          :class="{ 'border-green-700' : selectionIndex.includes(option.id) }">
 
@@ -54,10 +62,11 @@
 <script>
 import { ABSTAIN_POLL, VOTE_POLL } from "../store/actions.type";
 import LoadingButton from "../Shared/LoadingButton";
+import Icon from "../Shared/Icon";
 
 export default {
     name: "PollVote",
-    components: {LoadingButton},
+    components: {Icon, LoadingButton},
     props: {
         poll: {
             type: Object,
@@ -67,6 +76,7 @@ export default {
     data() {
         return {
             selectionIndex: [],
+            query: "",
             sending: false,
         }
     },
@@ -99,6 +109,18 @@ export default {
                 }
             }
 
+        }
+    },
+    computed: {
+        filteredOptions() {
+            if (this.query === "") {
+                return this.poll.options
+            } else {
+                let query = this.query
+                return this.poll.options.filter(function(option) {
+                    return option.name.includes(query);
+                })
+            }
         }
     }
 }

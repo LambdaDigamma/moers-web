@@ -17,11 +17,12 @@
 <!--            </inertia-link>-->
 <!--        </div>-->
 
-        <div>
+        <div class="mt-3">
 
-            <div v-for="(poll, index) in polls.data"
-                 :key="poll.id"
-                 class="mb-3 p-2 px-3 rounded-lg dark:bg-gray-700 dark:text-white">
+            <inertia-link v-for="(poll, index) in polls.data"
+                          :key="poll.id"
+                          :href="route('polls.show', poll.id)"
+                          class="block mb-3 p-2 px-3 rounded-lg dark:bg-gray-700 dark:text-white dark-hover:bg-gray-600 hover:no-underline cursor-pointer">
 
                 <h3 class="mb-1 text-xs font-semibold uppercase leading-normal tracking-normal dark:text-yellow-500"
                     v-if="poll.group && poll.group.organisation">
@@ -43,8 +44,8 @@
                         {{ poll.results.total }} Benutzer haben abgestimmt.
                     </div>
                 </div>
-                <!--                <b-button :to="{ name: 'polls.poll', params: { id: poll.id } }" variant="primary">Ergebnisse ansehen</b-button>-->
-            </div>
+
+            </inertia-link>
 
         </div>
 
