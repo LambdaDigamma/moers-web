@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <h1 class="font-bold text-4xl dark:text-white">Abstimmungen</h1>
+        <h1 class="font-bold text-xl md:text-4xl dark:text-white">Unbeantwortete Abstimmungen</h1>
 
 <!--        <div class="mt-3 mb-6 flex flex-col md:flex-row justify-between items-center">-->
 <!--            <search-filter v-model="form.search" class="w-full max-w-sm mr-4" @reset="reset">-->
@@ -32,7 +32,7 @@
                     Unbekannte Gruppe
                 </h3>
 
-                <h4 class="font-bold text-2xl">
+                <h4 class="font-bold text-lg md:text-2xl">
                     {{ poll.question }}
                 </h4>
 

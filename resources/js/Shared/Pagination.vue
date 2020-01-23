@@ -2,7 +2,7 @@
 
     <div class="flex flex-wrap">
         <template v-for="(link, key) in links">
-            <button v-if="link.url === null" :key="key" class="mr-3 mb-2 dark:text-gray-600" :class="{ 'ml-auto': link.label === 'Nächste' }" :disabled="true">
+            <button v-if="link.url === null" :key="key" class="mr-3 mb-2 text-sm sm:text-base dark:text-gray-600" :class="{ 'ml-auto': link.label === 'Nächste' }" :disabled="true">
                 {{ link.label }}
             </button>
             <button v-else

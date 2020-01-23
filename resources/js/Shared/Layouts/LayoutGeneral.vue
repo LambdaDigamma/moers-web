@@ -16,7 +16,7 @@
                             </div>
                         </dropdown>
                     </div>
-                    <div class="dark:bg-gray-700 border-b border-yellow-500 w-full p-3 md:py-0 md:px-12 text-sm md:text-base flex justify-end items-center">
+                    <div class="dark:bg-gray-700 border-b border-yellow-500 w-full px-3 py-2 md:p-3 md:py-0 md:px-12 text-sm md:text-base flex justify-end items-center">
                         <dropdown class="mt-1" placement="bottom-end">
                             <div class="flex items-center cursor-pointer select-none group">
                                 <div class="dark:text-white group-hover:text-gray-600 focus:text-gray-600 mr-1 whitespace-no-wrap">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="flex flex-grow overflow-hidden">
                     <MainMenuGeneral :url="url()" class="bg-gray-900 flex-no-shrink w-56 p-8 hidden md:block overflow-y-auto" />
-                    <div class="w-full overflow-hidden px-4 py-8 md:p-12 overflow-y-auto" scroll-region>
+                    <div class="w-full px-4 pt-8 pb-0 md:p-12 md:pb-0 overflow-y-auto" scroll-region>
                         <flash-messages />
                         <slot />
                     </div>

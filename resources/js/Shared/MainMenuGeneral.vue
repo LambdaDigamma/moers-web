@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="md:mb-4">
-            <inertia-link class="py-2 flex items-center group hover:no-underline" :href="route('admin.dashboard')">
+            <inertia-link class="py-2 flex items-center group hover:no-underline" :href="route('dashboard')">
                 <icon name="dashboard" class="w-4 h-4 mr-2" :class="isUrl('dashboard') ? 'fill-white' : 'fill-gray-700 md:fill-gray-600 group-hover:fill-white'" />
-                <div :class="isUrl('dashboard') ? 'text-white' : 'text-gray-700 md:text-gray-600 group-hover:text-white'">Dashboard</div>
+                <div :class="isUrl('dashboard') ? 'text-white' : 'text-gray-700 md:text-gray-600 group-hover:text-white'">Übersicht</div>
             </inertia-link>
         </div>
         <div class="md:mb-4">

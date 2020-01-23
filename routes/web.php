@@ -13,6 +13,7 @@
 
 Route::get('/')->name('landingPage')->uses('LandingPageController');
 
+Route::get('/dashboard')->name('dashboard')->uses('DashboardController');
 
 /*
  * Poll Routes
