@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <h1 class="mb-8 font-bold text-xl md:text-3xl dark:text-white">
+        <h1 class="mb-3 md:mb-8 font-bold text-xl md:text-3xl dark:text-white">
             <inertia-link
                     class="dark:text-yellow-500 dark-hover:text-yellow-600 hover:no-underline"
                     :href="href">

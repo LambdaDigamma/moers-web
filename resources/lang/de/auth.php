@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Diese Zugangsdaten konnten nicht in unserer Datenbank gefunden werden.',
+    'failed' => 'Diese E-Mail- & Passwort-Kombination konnten nicht in unserer Datenbank gefunden werden.',
     'throttle' => 'Zu viele Anmeldeversuche. Bitte versuchen Sie es in :seconds Sekunde erneut.',
     'reset-password' => 'Passwort zurücksetzen',
     'email' => 'E-Mail Addresse',

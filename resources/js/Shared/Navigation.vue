@@ -16,9 +16,9 @@
         </div>
         <nav class="sm:flex sm" :class="{ 'hidden': !isOpen, 'flex': isOpen }">
             <div class="sm:flex sm:items-center sm:justify-center">
-                <div class="px-2 pt-2 pb-2 sm:flex">
-                    <a href="#" class="text-white no-underline dark-hover:bg-gray-700">Organisationen</a>
-                </div>
+<!--                <div class="px-2 pt-2 pb-2 sm:flex">-->
+<!--                    <a href="#" class="text-white no-underline dark-hover:bg-gray-700">Organisationen</a>-->
+<!--                </div>-->
 
                 <div v-if="$page.auth.user !== null">
                     {{ $page.auth.user.name }}

@@ -12,7 +12,7 @@
                         <dropdown class="md:hidden" placement="bottom-end">
                             <svg class="fill-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
                             <div slot="dropdown" class="mt-2 px-8 py-4 shadow-lg bg-gray-600 dark:text-white rounded">
-                                <main-menu :url="url()" />
+                                <MainMenuGeneral :url="url()" />
                             </div>
                         </dropdown>
                     </div>
@@ -29,14 +29,14 @@
                                               :href="route('landingPage', $page.auth.user.id)">
                                     Mein Profil
                                 </inertia-link>
-<!--                                <inertia-link class="block px-6 py-2 hover:bg-indigo hover:text-white" :href="route('logout')" method="post">Logout</inertia-link>-->
+                                <inertia-link class="block px-6 py-2 hover:no-underline dark:text-gray-900 hover:bg-gray-700 dark-hover:text-white" :href="route('logout')" method="post">Abmelden</inertia-link>
                             </div>
                         </dropdown>
                     </div>
                 </div>
                 <div class="flex flex-grow overflow-hidden">
                     <MainMenuGeneral :url="url()" class="bg-gray-900 flex-no-shrink w-56 p-8 hidden md:block overflow-y-auto" />
-                    <div class="w-full px-4 pt-8 pb-0 md:p-12 md:pb-0 overflow-y-auto" scroll-region>
+                    <div class="w-full px-4 pt-3 md:pt-8 pb-0 md:p-12 md:pb-0 overflow-y-auto" scroll-region>
                         <flash-messages />
                         <slot />
                     </div>

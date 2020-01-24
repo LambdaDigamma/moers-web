@@ -41,6 +41,7 @@ Route::put('/admin/polls/{poll}')->name('admin.polls.update')->uses('AdminPollsC
 
 Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
 Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
+Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
 
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');

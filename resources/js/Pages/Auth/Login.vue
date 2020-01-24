@@ -2,27 +2,33 @@
 
     <div>
         <Navigation></Navigation>
-        <div class="m-4">
-            <div class="w-full max-w-xs mx-auto z-10">
+        <div class="">
+            <div class="w-full max-w-sm mx-auto z-10">
                 <form class="bg-gray-100 dark:bg-gray-700 shadow-md rounded px-4 pt-4 pb-8 mb-4" @submit.prevent="submit">
                     <h1 class="dark:text-gray-100 font-semibold text-center">Anmelden</h1>
                     <div class="mt-4 mb-2">
-                        <label class="block text-gray-700 text-sm font-bold mb-2 dark:text-white" for="email">
-                            E-Mail:
-                        </label>
-                        <input class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-600 dark:text-white focus:text-white" id="email" type="text" placeholder="E-Mail" v-model="form.email">
+                        <TextInput
+                            class="shadow appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white focus:text-white"
+                            label="E-Mail"
+                            placeholder="E-Mail"
+                            type="email"
+                            :errors="$page.errors.email"
+                            v-model="form.email" />
                     </div>
                     <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2 dark:text-white" for="password">
-                            Passwort:
-                        </label>
-                        <input class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-600 dark:text-white focus:text-white" id="password" type="password" placeholder="Passwort" v-model="form.password">
+                        <TextInput
+                                class="shadow appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white focus:text-white"
+                                label="Passwort"
+                                placeholder="Passwort"
+                                type="password"
+                                :errors="$page.errors.password"
+                                v-model="form.password" />
                     </div>
                     <div class="flex flex-col">
                         <LoadingButton :loading="sending" :disabled="formDisabled" class="h-10 bg-blue-500 hover:bg-blue-700 text-gray-100 dark:text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:bg-yellow-500 dark-hover:bg-yellow-600">
                             Anmelden
                         </LoadingButton>
-                        <a class="mt-3 inline-block align-baseline font-semibold text-sm text-gray-200 hover:text-gray-200" href="#">
+                        <a class="mt-3 inline-block align-baseline font-semibold text-sm text-gray-200 hover:text-gray-200" href="/password/reset">
                             Passwort vergessen?
                         </a>
                     </div>
