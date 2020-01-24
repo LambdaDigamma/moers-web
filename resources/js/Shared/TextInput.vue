@@ -3,7 +3,7 @@
     <div>
 
         <div v-if="label" class="flex flex-col">
-            <label :for="id" class="block text-sm font-bold mb-2 dark:text-white">{{ label + ':' }}</label>
+            <label :for="id" class="block text-sm font-semibold mb-2 dark:text-white">{{ label + ':' }}</label>
             <input :id="id"
                    :value="value"
                    :placeholder="placeholder"

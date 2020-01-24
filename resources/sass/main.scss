@@ -61,15 +61,19 @@
  * @import "utilities/skew-transforms";
  */
 
-@import url('https://rsms.me/inter/inter.css');
-html {
-  font-family: 'Inter', sans-serif;
-}
+//@import url('https://rsms.me/inter/inter.css');
+//html {
+//  font-family: 'Inter', sans-serif !important;
+//}
+//
+//@supports (font-variation-settings: normal) {
+//  html {
+//    font-family: 'Inter var', sans-serif !important;
+//  }
+//}
 
-@supports (font-variation-settings: normal) {
-  html {
-    font-family: 'Inter var', sans-serif;
-  }
+a:hover {
+  text-decoration: none !important;
 }
 
 .btn-spinner,

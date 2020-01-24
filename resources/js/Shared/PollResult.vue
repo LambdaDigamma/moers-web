@@ -6,10 +6,10 @@
             <PollChart :chartData="chartData" :chartLabels="chartLabels"  />
             <div class="mt-4 rounded dark:text-white">
                 <div class="flex align-items-center">
-                    <p v-if="this.results.total === 1" class="m-0 font-bold">
+                    <p v-if="this.results.total === 1" class="m-0 font-semibold">
                         Eine Person hat schon abgestimmt.
                     </p>
-                    <p v-else class="m-0 font-bold">
+                    <p v-else class="m-0 font-semibold">
                         {{ this.results.total }} Personen haben schon abgestimmt.
                     </p>
                 </div>

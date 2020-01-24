@@ -221,6 +221,7 @@ module.exports = {
         },
         fontFamily: {
             sans: [
+                'Inter',
                 '-apple-system',
                 'BlinkMacSystemFont',
                 '"Segoe UI"',
@@ -488,6 +489,7 @@ module.exports = {
     },
     corePlugins: {},
     plugins: [
-        require('tailwindcss-dark-mode')()
+        require('tailwindcss-dark-mode')(),
+        require('tailwindcss-font-inter')()
     ],
 }

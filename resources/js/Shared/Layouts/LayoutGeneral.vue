@@ -6,7 +6,7 @@
             <div class="h-screen flex flex-col" @click="hideDropdownMenus">
                 <div class="md:flex">
                     <div class="bg-gray-900 md:flex-no-shrink md:w-56 px-3 md:px-6 py-3 flex items-center justify-between md:justify-center">
-                        <inertia-link class="mt-1" href="/">
+                        <inertia-link class="mt-1 hover:no-underline" href="/">
                             <span class="dark:text-yellow-500 font-semibold">Mein Moers</span>
                         </inertia-link>
                         <dropdown class="md:hidden" placement="bottom-end">

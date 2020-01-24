@@ -38,6 +38,7 @@
         "resolve-url-loader": "3.1.0",
         "sass": "^1.22.12",
         "sass-loader": "^7.3.1",
+        "tailwindcss-font-inter": "^1.0.8",
         "vue": "^2.6.10",
         "vue-axios": "^2.1.4",
         "vue-moment": "^4.1.0",
@@ -55,7 +56,7 @@
         "postcss-import": "^12.0.1",
         "postcss-nesting": "^7.0.1",
         "postcss-purgecss": "^1.0.0",
-        "tailwindcss": "^1.1.4",
+        "tailwindcss": "^1.2.0-canary.5",
         "tailwindcss-dark-mode": "^1.1.1",
         "vue-meta": "^2.3.2"
     }
