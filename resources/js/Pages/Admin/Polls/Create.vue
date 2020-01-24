@@ -65,7 +65,7 @@
                 </div>
                 <div class="px-6 py-3 bg-gray-700 border-t border-grey-500 flex items-center rounded-b-lg dark:border-gray-600">
                     <LoadingButton
-                            class="px-3 py-2 rounded-lg font-bold text-base dark:bg-green-600 dark:text-white"
+                            class="px-3 py-2 rounded-lg font-semibold text-base dark:bg-green-600 dark:text-white"
                             type="submit"
                             :disabled="!isSubmitEnabled || $page.errors === null"
                             :loading="sending">

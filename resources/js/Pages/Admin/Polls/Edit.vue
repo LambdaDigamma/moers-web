@@ -16,9 +16,9 @@
                         <TextareaInput v-model="form.description" :errors="$page.errors.description" class="mt-3 w-full" label="Beschreibung" />
                     </div>
                     <div class="flex flex-col items-stretch md:flex-row px-6 py-3 md:items-center bg-gray-700 border-t border-grey-500 rounded-b-lg dark:border-gray-600">
-                        <button v-if="!poll.is_closed" class="px-3 py-2 rounded-lg font-bold dark:bg-orange-600 dark:text-white" tabindex="-1" type="button" >Abstimmung beenden</button>
-                        <button v-if="!poll.deleted_at" class="px-3 py-2 md:ml-3 mt-3 md:mt-0 rounded-lg font-bold dark:bg-red-600 dark:text-white" tabindex="-1" type="button" @click="destroy">Abstimmung löschen</button>
-                        <loading-button :loading="sending" class="md:ml-auto mt-3 md:mt-0 px-3 py-2 rounded-lg font-bold text-base dark:text-gray-800 dark:bg-yellow-500" type="submit">Speichern</loading-button>
+                        <button v-if="!poll.is_closed" class="px-3 py-2 rounded-lg font-semibold dark:bg-orange-600 dark:text-white" tabindex="-1" type="button" >Abstimmung beenden</button>
+                        <button v-if="!poll.deleted_at" class="px-3 py-2 md:ml-3 mt-3 md:mt-0 rounded-lg font-semibold dark:bg-red-600 dark:text-white" tabindex="-1" type="button" @click="destroy">Abstimmung löschen</button>
+                        <loading-button :loading="sending" class="md:ml-auto mt-3 md:mt-0 px-3 py-2 rounded-lg font-semibold text-base dark:text-gray-800 dark:bg-yellow-500" type="submit">Speichern</loading-button>
                     </div>
                 </form>
             </div>

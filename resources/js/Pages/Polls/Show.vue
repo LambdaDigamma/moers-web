@@ -30,6 +30,9 @@
         layout: LayoutGeneral,
         props: {
             poll: Object
+        },
+        created() {
+            this.$root.$emit('newTitle', 'Details')
         }
     }
 </script>

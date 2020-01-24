@@ -18,6 +18,7 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         return Inertia::render('Dashboard', [
+            'title' => 'Übersicht',
             'unansweredPolls' => Auth::user()
                 ->polls()
                 ->unanswered()

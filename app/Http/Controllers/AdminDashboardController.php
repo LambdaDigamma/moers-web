@@ -8,6 +8,12 @@ use Inertia\Response;
 
 class AdminDashboardController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:access-admin');
+    }
+
     /**
      * Handle the incoming request.
      *

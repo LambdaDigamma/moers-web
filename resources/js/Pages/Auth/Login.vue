@@ -25,7 +25,7 @@
                                 v-model="form.password" />
                     </div>
                     <div class="flex flex-col">
-                        <LoadingButton :loading="sending" :disabled="formDisabled" class="h-10 bg-blue-500 hover:bg-blue-700 text-gray-100 dark:text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:bg-yellow-500 dark-hover:bg-yellow-600">
+                        <LoadingButton :loading="sending" :disabled="formDisabled" class="h-10 bg-blue-500 hover:bg-blue-700 text-gray-100 dark:text-gray-800 font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:bg-yellow-500 dark-hover:bg-yellow-600">
                             Anmelden
                         </LoadingButton>
                         <a class="mt-3 inline-block align-baseline font-semibold text-sm text-gray-200 hover:text-gray-200" href="/password/reset">

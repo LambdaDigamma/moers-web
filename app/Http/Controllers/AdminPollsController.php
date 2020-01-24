@@ -16,7 +16,7 @@ class AdminPollsController extends Controller
 
     public function __construct()
     {
-//        $this->middleware('can:access-admin');
+        $this->middleware('can:access-admin');
         $this->middleware('remember')->only('index');
     }
 
