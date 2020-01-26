@@ -8,7 +8,7 @@
             <button v-else
                       class="btn mr-3 mb-2"
                       :key="key"
-                      :class="{ 'dark:bg-yellow-500': link.active, 'dark:bg-gray-700' : !link.active, 'ml-auto': link.label === 'Nächste' }"
+                      :class="{ 'dark:bg-yellow-500': link.active, 'dark:bg-gray-700 dark:text-gray-200' : !link.active, 'ml-auto': link.label === 'Nächste' }"
                       @click="selectedButton(link.url)">
                 {{ link.label }}
             </button>

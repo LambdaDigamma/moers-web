@@ -3,9 +3,9 @@
     <div>
         <portal-target name="dropdown" slim />
         <div class="flex flex-col">
-            <div class="h-screen flex flex-col" @click="hideDropdownMenus">
+            <div class="md:h-screen flex flex-col" @click="hideDropdownMenus">
                 <div class="md:flex">
-                    <div class="bg-gray-900 md:flex-no-shrink md:w-56 px-3 md:px-6 py-3 flex items-center justify-between md:justify-center">
+                    <div class="bg-gray-900 md:flex-shrink-0 md:w-56 px-3 md:px-6 py-3 flex items-center justify-between md:justify-center">
                         <inertia-link class="mt-1 hover:no-underline" href="/">
                             <span class="dark:text-yellow-500 font-semibold">Mein Moers</span>
                         </inertia-link>
@@ -41,8 +41,8 @@
                     </div>
                 </div>
                 <div class="flex flex-grow overflow-hidden">
-                    <MainMenuGeneral :url="url()" class="bg-gray-900 flex-no-shrink w-56 p-8 hidden md:block overflow-y-auto" />
-                    <div class="w-full px-3 pt-3 md:pt-8 pb-0 md:p-12 md:pb-0 overflow-y-auto" scroll-region>
+                    <MainMenuGeneral :url="url()" class="bg-gray-900 flex-shrink-0 w-56 p-8 hidden md:block overflow-y-auto" />
+                    <div class="w-full px-3 pt-3 md:pt-8 pb-0 md:p-12 md:pb-0 md:overflow-y-auto" scroll-region>
                         <flash-messages />
                         <slot />
                     </div>

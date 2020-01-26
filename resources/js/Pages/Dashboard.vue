@@ -22,7 +22,7 @@
                             <PollItem :poll="poll" />
                         </inertia-link>
                     </div>
-                    <div class="px-3 py-2 rounded-t-lg dark:bg-gray-900">
+                    <div class="px-3 py-2 rounded-b-lg dark:bg-gray-900">
                         <inertia-link :href="route('polls.index')" class="flex items-center font-normal text-sm dark:text-white dark-hover:text-yellow-500">
                             <span>Alle anzeigen</span>
                             <icon name="cheveron-right" class="h-4 w-4 ml-0 dark:fill-current"></icon>
@@ -47,7 +47,7 @@
                             <PollItem :poll="poll" />
                         </inertia-link>
                     </div>
-                    <div class="px-3 py-2 rounded-t-lg dark:bg-gray-900">
+                    <div class="px-3 py-2 rounded-b-lg dark:bg-gray-900">
                         <inertia-link :href="route('polls.index.answered')" class="flex items-center font-normal text-sm dark:text-white dark-hover:text-yellow-500">
                             <span>Alle anzeigen</span>
                             <icon name="cheveron-right" class="h-4 w-4 ml-0 dark:fill-current"></icon>

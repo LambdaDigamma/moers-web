@@ -13,7 +13,7 @@
                     <div class="flex items-center rounded-l pl-1 dark:bg-gray-800">
                         <icon name="search" class="h-4 w-4 m-2 dark:fill-white"></icon>
                     </div>
-                    <input v-model="query" placeholder="Suchen…" type="text" class="w-full px-2 py-2 md:px-2 md:py-3 rounded-r focus:shadow-outline dark:text-white dark:bg-gray-600" />
+                    <input @keydown.enter.prevent="" v-model="query" placeholder="Suchen…" type="text" class="w-full px-2 py-2 md:px-2 md:py-3 rounded-r focus:shadow-outline dark:text-white dark:bg-gray-600" />
                 </div>
 
 
