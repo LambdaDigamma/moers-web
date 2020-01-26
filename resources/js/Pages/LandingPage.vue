@@ -17,7 +17,7 @@
 
             <div class="absolute inset-x-0 top-0 overflow-x-hidden">
                 <div class="relative px-3 py-3 md:px-4 md:py-4">
-                    <div class="w-full md:max-w-6xl md:mx-auto md:flex md:items-center md:justify-between">
+                    <div class="w-full md:max-w-6xl md:mx-auto flex items-center md:items-center justify-between">
 
                         <div>
                             <a href="#" class="inline-block py-1 md:py-2 text-2xl font-bold text-gray-800 dark:text-white">Mein Moers</a>
@@ -44,13 +44,13 @@
 <!--                        </div>-->
 <!--                    </div>-->
 
-                        <div class="hidden md:block">
+                        <div class="">
                             <inertia-link :href="route('dashboard')"
-                                          class="inline-block py-1 md:py-4 mr-6 text-gray-500 hover:text-gray-600 dark:text-gray-600">
+                                          class="inline-block py-1 md:py-4 md:mr-6 text-gray-500 hover:text-gray-600 dark:text-gray-600">
                                 Zum Portal
                             </inertia-link>
                             <a href="https://apps.apple.com/de/app/mein-moers/id1305862555?mt=8" target="_blank"
-                                          class="inline-block py-2 px-4 text-gray-700 rounded-lg bg-white hover:bg-gray-100 dark:bg-yellow-500 dark:text-gray-900 dark-hover:bg-yellow-600">
+                                          class="hidden md:inline-block py-2 px-4 text-gray-700 rounded-lg bg-white hover:bg-gray-100 dark:bg-yellow-500 dark:text-gray-900 dark-hover:bg-yellow-600">
                                 Herunterladen
                             </a>
                         </div>

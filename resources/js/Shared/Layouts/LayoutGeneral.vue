@@ -27,11 +27,15 @@
                                 <icon class="w-5 h-5 dark-group-hover:fill-gray-600 fill-white focus:fill-gray-600" name="cheveron-down" />
                             </div>
                             <div slot="dropdown" class="mt-2 py-2 shadow-lg bg-white rounded text-sm">
+<!--                                <inertia-link class="block px-6 py-2 hover:no-underline dark:text-gray-900 hover:bg-gray-700 dark-hover:text-white"-->
+<!--                                              :href="route('landingPage', $page.auth.user.id)">-->
+<!--                                    Mein Profil-->
+<!--                                </inertia-link>-->
                                 <inertia-link class="block px-6 py-2 hover:no-underline dark:text-gray-900 hover:bg-gray-700 dark-hover:text-white"
-                                              :href="route('landingPage', $page.auth.user.id)">
-                                    Mein Profil
+                                              method="post"
+                                              :href="route('logout')">
+                                    Abmelden
                                 </inertia-link>
-                                <inertia-link class="block px-6 py-2 hover:no-underline dark:text-gray-900 hover:bg-gray-700 dark-hover:text-white" :href="route('logout')" method="post">Abmelden</inertia-link>
                             </div>
                         </dropdown>
                     </div>
