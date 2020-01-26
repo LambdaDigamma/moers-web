@@ -148,6 +148,9 @@ module.exports = {
             '48': '12rem',
             '56': '14rem',
             '64': '16rem',
+            '72': '18rem',
+            '80': '20rem',
+            '88': '22rem',
         },
         backgroundColor: theme => theme('colors'),
         backgroundPosition: {
@@ -279,6 +282,7 @@ module.exports = {
             ...theme('spacing'),
             full: '100%',
             screen: '100vh',
+            'half-screen': '50vh'
         }),
         inset: {
             '0': '0',
@@ -325,6 +329,8 @@ module.exports = {
             '4xl': '56rem',
             '5xl': '64rem',
             '6xl': '72rem',
+            '7xl': '80rem',
+            '8xl': '88rem',
             full: '100%',
         },
         minHeight: {

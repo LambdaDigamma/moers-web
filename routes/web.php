@@ -13,13 +13,14 @@
 
 Route::get('/')->name('landingPage')->uses('LandingPageController');
 
-Route::get('/dashboard')->name('dashboard')->uses('DashboardController');
+Route::get('/dashboard')->name('dashboard')->uses('DashboardController')->middleware('auth');
 
 /*
  * Poll Routes
  */
 
 Route::get('/polls')->name('polls.index')->uses('PollController@index')->middleware('auth');
+Route::get('/polls/answered')->name('polls.index.answered')->uses('PollController@indexAnswered')->middleware('auth');
 Route::get('/polls/{poll}')->name('polls.show')->uses('PollController@show')->middleware('auth');
 Route::post('/polls/{poll}/vote')->name('polls.vote')->uses('PollController@vote')->middleware('auth');
 Route::post('/polls/{poll}/abstain')->name('polls.abstain')->uses('PollController@abstain')->middleware('auth');

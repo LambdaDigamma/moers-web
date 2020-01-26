@@ -12,6 +12,9 @@
                             Unbeantwortete Abstimmungen
                         </h2>
                     </div>
+                    <div v-if="unansweredPolls.length === 0" class="block p-2 px-3 dark:border-gray-900 text-sm dark:text-gray-600">
+                        Keine unbeantworteten Abstimmungen.
+                    </div>
                     <div class="dark:bg-gray-700 rounded-b-lg">
                         <inertia-link v-for="poll in unansweredPolls"
                                       :key="poll.id" :href="route('polls.show', poll.id)"
@@ -20,22 +23,22 @@
                         </inertia-link>
                     </div>
                     <div class="px-3 py-2 rounded-t-lg dark:bg-gray-900">
-                        <inertia-link :href="route('polls.index')" class="flex items-center font-normal text-base dark:text-white dark-hover:text-yellow-500">
+                        <inertia-link :href="route('polls.index')" class="flex items-center font-normal text-sm dark:text-white dark-hover:text-yellow-500">
                             <span>Alle anzeigen</span>
-                            <icon name="cheveron-right" class="h-4 w-4 ml-0 mt-1 dark:fill-current"></icon>
+                            <icon name="cheveron-right" class="h-4 w-4 ml-0 dark:fill-current"></icon>
                         </inertia-link>
                     </div>
                 </div>
-
             </div>
-
-
             <div class="w-full sm:w-1/2 lg:w-1/3 sm:pr-2 pt-3 md:pt-0">
                 <div class="rounded-lg">
                     <div class="flex items-center px-3 py-1 pt-2 rounded-t-lg dark:bg-gray-900">
                         <h2 class="font-semibold text-lg md:text-2xl dark:text-white">
                             Beantwortete Abstimmungen
                         </h2>
+                    </div>
+                    <div v-if="answeredPolls.length === 0" class="block p-2 px-3 dark:border-gray-900 text-sm dark:text-gray-600">
+                        Keine beantworteten Abstimmungen.
                     </div>
                     <div class="dark:bg-gray-700 rounded-b-lg">
                         <inertia-link v-for="poll in answeredPolls"
@@ -45,9 +48,9 @@
                         </inertia-link>
                     </div>
                     <div class="px-3 py-2 rounded-t-lg dark:bg-gray-900">
-                        <inertia-link :href="route('polls.index')" class="flex items-center font-normal text-base dark:text-white dark-hover:text-yellow-500">
+                        <inertia-link :href="route('polls.index.answered')" class="flex items-center font-normal text-sm dark:text-white dark-hover:text-yellow-500">
                             <span>Alle anzeigen</span>
-                            <icon name="cheveron-right" class="h-4 w-4 ml-0 mt-1 dark:fill-current"></icon>
+                            <icon name="cheveron-right" class="h-4 w-4 ml-0 dark:fill-current"></icon>
                         </inertia-link>
                     </div>
                 </div>

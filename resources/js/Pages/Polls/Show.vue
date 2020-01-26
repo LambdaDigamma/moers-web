@@ -5,13 +5,17 @@
             Details
         </Header>
 
-        <div class="p-3 rounded-lg dark:bg-gray-700">
+        <div class="p-3 rounded-lg shadow-lg dark:bg-gray-700 mb-6">
             <PollVote v-if="poll.results === null" :poll='poll'>
 
             </PollVote>
-            <PollResult v-else :results="this.poll.results">
+            <div v-else>
+                <h1 class="font-bold text-xl md:text-3xl dark:text-white">{{ poll.question }}</h1>
+                <p class="text-base dark:text-white">{{ poll.description }}</p>
+                <PollResult :results="this.poll.results">
 
-            </PollResult>
+                </PollResult>
+            </div>
         </div>
 
 

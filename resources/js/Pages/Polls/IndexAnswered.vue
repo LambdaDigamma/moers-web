@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <h1 class="mt-2 font-semibold text-2xl md:text-4xl dark:text-white hidden md:block">Unbeantwortete Abstimmungen</h1>
+        <h1 class="mt-2 font-semibold text-2xl md:text-4xl dark:text-white hidden md:block">Beantwortete Abstimmungen</h1>
 
 <!--        <div class="mt-3 mb-6 flex flex-col md:flex-row justify-between items-center">-->
 <!--            <search-filter v-model="form.search" class="w-full max-w-sm mr-4" @reset="reset">-->
@@ -74,7 +74,7 @@
             },
         },
         created() {
-            this.$root.$emit('newTitle', 'Unbeantwortete Abstimmungen')
+            this.$root.$emit('newTitle', 'Beantwortete Abstimmungen')
         }
     }
 </script>

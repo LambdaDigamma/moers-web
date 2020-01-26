@@ -99,7 +99,7 @@ class Poll extends Model
 
     public function results()
     {
-        $votes = $this->options()->select(['id', 'name', 'votes'])->get();
+        $votes = $this->options()->select(['id', 'name', 'votes'])->orderByDesc('votes')->get();
         $total = $this->totalVotes();
         $totalAbstentions = $this->totalAbstentions();
 

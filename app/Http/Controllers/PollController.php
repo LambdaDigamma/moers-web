@@ -39,6 +39,18 @@ class PollController extends Controller
         ]);
     }
 
+    public function indexAnswered()
+    {
+        return Inertia::render('Polls/IndexAnswered', [
+            'filters' => Request::all('search'),
+            'polls' => Auth::user()
+                ->polls()
+                ->answered()
+                ->filter(Request::only('search'))
+                ->paginate()
+        ]);
+    }
+
     /*
      * Actions
      */
