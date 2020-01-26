@@ -23,6 +23,7 @@ use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Reinink\RememberQueryStrings;
 
 class Kernel extends HttpKernel
 {
@@ -80,6 +81,7 @@ class Kernel extends HttpKernel
         'guest' => RedirectIfAuthenticated::class,
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
-        'localization' => LocalizeAPI::class
+        'localization' => LocalizeAPI::class,
+        'remember' => RememberQueryStrings::class,
     ];
 }

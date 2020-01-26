@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class LoginController extends Controller
 {
@@ -25,7 +28,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+
+    protected function guard() {
+        return Auth::guard('web');
+    }
 
     /**
      * Create a new controller instance.
@@ -36,4 +43,10 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function showLoginForm()
+    {
+        return Inertia::render('Auth/Login');
+    }
+
 }
