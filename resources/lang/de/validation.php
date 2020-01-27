@@ -172,7 +172,21 @@ return [
         'time'                  => 'Uhrzeit',
         'available'             => 'verfügbar',
         'size'                  => 'Größe',
-        'url'                   => 'Internet-Adresse'
+        'url'                   => 'Internet-Adresse',
+        'nickname'              => 'Spitzname',
+        'birthday'              => 'Geburtsdatum',
+        'slogan'                => 'Redewendung',
+        'motto'                 => 'Motto',
+        'strengths'             => 'Stärken',
+        'weaknesses'            => 'Schwächen',
+        'lkA'                   => 'LK (A)',
+        'lkB'                   => 'LK (B)',
+        'highlight'             => 'Highlight',
+        'soundtrack'            => 'Soundtrack',
+        'miss_least'            => 'Am wenigsten vermissen',
+        'miss_most'             => 'Am meisten vermissen',
+        'photo_old'             => 'Bild (früher)',
+        'photo_new'             => 'Bild (jetzt)',
     ],
 
 ];
