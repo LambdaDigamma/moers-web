@@ -5,91 +5,91 @@
             <h1 class="font-bold text-xl md:text-3xl dark:text-white">Steckbrief Abizeitung</h1>
             <form @submit.prevent="submit">
                 <TextInput
-                    v-model="this.form.name"
+                    v-model="form.name"
                     label="Name"
                     class="w-full"
                     :errors="$page.errors.name">
 
                 </TextInput>
                 <TextInput
-                        v-model="this.form.nickname"
+                        v-model="form.nickname"
                         label="a.k.a."
                         class="mt-2 w-full"
                         :errors="$page.errors.nickname">
 
                 </TextInput>
                 <TextInput
-                    v-model="this.form.birthday"
+                    v-model="form.birthday"
                     label="Geburtsdatum (dd.MM.yyyy)"
                     class="mt-2 w-full"
                     :errors="$page.errors.birthday">
 
                 </TextInput>
                 <TextInput
-                    v-model="this.form.slogan"
+                    v-model="form.slogan"
                     label="Meine Redewendung (100 Zeichen)"
                     class="mt-2 w-full"
                     :errors="$page.errors.slogan">
 
                 </TextInput>
                 <TextInput
-                    v-model="this.form.motto"
+                    v-model="form.motto"
                     label="Lebensmotto (100 Zeichen)"
                     class="mt-2 w-full"
                     :errors="$page.errors.motto">
 
                 </TextInput>
                 <TextInput
-                        v-model="this.form.strengths"
+                        v-model="form.strengths"
                         label="Stärken (100 Zeichen)"
                         class="mt-2 w-full"
                         :errors="$page.errors.strengths">
 
                 </TextInput>
                 <TextInput
-                        v-model="this.form.weaknesses"
+                        v-model="form.weaknesses"
                         label="Schwächen (100 Zeichen)"
                         class="mt-2 w-full"
                         :errors="$page.errors.weaknesses">
 
                 </TextInput>
                 <TextInput
-                    v-model="this.form.lkA"
+                    v-model="form.lkA"
                     label="LK A (Fach + Nachname Lehrer)"
                     class="mt-2 w-full"
                     :errors="$page.errors.lkA">
 
                 </TextInput>
                 <TextInput
-                    v-model="this.form.lkB"
+                    v-model="form.lkB"
                     class="mt-2 w-full"
                     label="LK B (Fach + Nachname Lehrer)"
                     :errors="$page.errors.lkB">
 
                 </TextInput>
                 <TextareaInput
-                    v-model="this.form.highlight"
+                    v-model="form.highlight"
                     class="mt-2 w-full"
                     label="Mein Schulhighlight (400 Zeichen)"
                     :errors="$page.errors.highlight">
 
                 </TextareaInput>
                 <TextInput
-                        v-model="this.form.soundtrack"
+                        v-model="form.soundtrack"
                         class="mt-2 w-full"
                         label="Soundtrack des Lebens"
                         :errors="$page.errors.soundtrack">
 
                 </TextInput>
                 <TextInput
-                        v-model="this.form.miss_least"
+                        v-model="form.miss_least"
                         class="mt-2 w-full"
                         label="Was werde ich am wenigsten vermissen"
                         :errors="$page.errors.miss_least">
 
                 </TextInput>
                 <TextInput
-                        v-model="this.form.miss_most"
+                        v-model="form.miss_most"
                         class="mt-2 w-full"
                         label="Was werde ich am meisten vermissen"
                         :errors="$page.errors.miss_most">
