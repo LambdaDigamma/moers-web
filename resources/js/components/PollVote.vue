@@ -116,9 +116,9 @@ export default {
             if (this.query === "") {
                 return this.poll.options
             } else {
-                let query = this.query
+                let query = this.query.toLowerCase()
                 return this.poll.options.filter(function(option) {
-                    return option.name.includes(query);
+                    return option.name.toLowerCase().includes(query);
                 })
             }
         }

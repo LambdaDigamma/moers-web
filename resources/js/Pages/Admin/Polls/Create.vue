@@ -229,7 +229,7 @@
                     "Nick Oppen",
                     "Karim Sawalha",
                     "Mathis Schoonhoven",
-                    "Marvin Schulz",
+                    "Lou Schulz",
                     "Cenk Atalay",
                     "Emilia Bozkurt",
                     "Antonia Foit",

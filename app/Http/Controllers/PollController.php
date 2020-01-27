@@ -36,10 +36,10 @@ class PollController extends Controller
     {
         return Inertia::render('Polls/Show', [
             'poll' => $poll->load('options'),
-            'nextPollId' => Auth::user()
+            'nextPoll' => Auth::user()
                 ->polls()
                 ->unanswered()
-                ->first()->id
+                ->first()
         ]);
     }
 
