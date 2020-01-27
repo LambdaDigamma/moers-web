@@ -5,6 +5,13 @@
             Details
         </Header>
 
+        <div class="my-3 flex flex-row" v-if="nextPollId && poll.results !== null">
+            <inertia-link :href="route('polls.show', nextPollId)" class="block px-3 py-2 rounded-lg font-semibold text-base dark:bg-yellow-500 dark:text-black">
+                Zur nächsten Abstimmung
+            </inertia-link>
+        </div>
+
+
         <div class="p-3 rounded-lg shadow-lg dark:bg-gray-700 mb-6">
             <PollVote v-if="poll.results === null" :poll='poll'>
 
@@ -33,7 +40,8 @@
         components: {PollResult, PollVote, Header},
         layout: LayoutGeneral,
         props: {
-            poll: Object
+            poll: Object,
+            nextPollId: Number
         },
         created() {
             this.$root.$emit('newTitle', 'Details')
