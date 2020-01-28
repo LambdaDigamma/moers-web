@@ -37,6 +37,8 @@ Route::post('/forms/students')->name('forms.student.save')->uses('FormController
  */
 
 Route::get('/admin/dashboard')->name('admin.dashboard')->uses('AdminDashboardController')->middleware('auth');
+Route::get('/admin/organisations')->name('admin.organisations.index')->uses('AdminOrganisationController@index')->middleware('auth');
+Route::get('/admin/organisations/{organisation}')->name('admin.organisations.edit')->uses('AdminOrganisationController@edit')->middleware('auth');
 Route::get('/admin/polls')->name('admin.polls.index')->uses('AdminPollsController@index')->middleware('auth');
 Route::get('/admin/polls/create')->name('admin.polls.create')->uses('AdminPollsController@create')->middleware('auth');
 Route::post('/admin/polls')->name('admin.polls.store')->uses('AdminPollsController@store')->middleware('auth');

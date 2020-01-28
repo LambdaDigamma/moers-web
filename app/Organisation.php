@@ -77,11 +77,22 @@ class Organisation extends Model
      */
     public function mainGroup()
     {
-        if ($this->group_id != null) {
-            return $this->hasOne('App\Group');
-        } else {
-            return null;
-        }
+        return $this->hasOne('App\Group');
+    }
+
+    /* Custom Scopes */
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where('name', 'like', '%'.$search.'%');
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
     }
 
 }

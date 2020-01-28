@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Entry;
+use App\Organisation;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -22,6 +24,9 @@ class AdminDashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Dashboard', [
+            'numberOfEntries' => Entry::all()->count(),
+            'numberOfOrganisations' => Organisation::all()->count()
+        ]);
     }
 }
