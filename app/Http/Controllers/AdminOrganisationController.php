@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Organisation;
 use Inertia\Inertia;
+use Redirect;
 use Request;
 
 class AdminOrganisationController extends Controller
@@ -30,8 +31,22 @@ class AdminOrganisationController extends Controller
     {
         return Inertia::render('Admin/Organisations/Edit', [
             'organisation' => $organisation,
-            'events' => $organisation->events()->get()
+            'events' => $organisation->events()->take(3)->get()
         ]);
+    }
+
+    public function destroy(Organisation $organisation)
+    {
+        $organisation->delete();
+
+        return Redirect::back()->with('success', 'Organisation gelöscht.');
+    }
+
+    public function restore(Organisation $organisation)
+    {
+        $organisation->restore();
+
+        return Redirect::back()->with('success', 'Organisation wiederhergestellt.');
     }
 
 }

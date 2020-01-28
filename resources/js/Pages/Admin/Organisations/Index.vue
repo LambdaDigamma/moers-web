@@ -24,8 +24,9 @@
         </div>
 
         <div>
-            <inertia-link v-for="(organisation, index) in organisations.data"
+            <inertia-link v-for="organisation in organisations.data"
                           :key="organisation.id"
+                          :href="route('admin.organisations.edit', organisation.id)"
                           class="block mb-3 p-3 px-4 rounded-lg dark:bg-gray-700 dark:text-white">
 
                 <h1 class="font-bold text-2xl">
