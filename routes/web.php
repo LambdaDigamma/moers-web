@@ -26,6 +26,13 @@ Route::post('/polls/{poll}/vote')->name('polls.vote')->uses('PollController@vote
 Route::post('/polls/{poll}/abstain')->name('polls.abstain')->uses('PollController@abstain')->middleware('auth');
 
 /*
+ * Forms
+ */
+
+Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
+Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
+
+/*
  * Admin Routes
  */
 
