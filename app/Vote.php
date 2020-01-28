@@ -31,5 +31,14 @@ class Vote extends Model
     protected $table = 'votes';
     protected $fillable = ['poll_id', 'user_id'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function poll()
+    {
+        return $this->belongsTo(Poll::class);
+    }
 
 }

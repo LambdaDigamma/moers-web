@@ -5,7 +5,6 @@ namespace App;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -20,16 +19,9 @@ use Illuminate\Support\Facades\Auth;
  * @property mixed max_check
  * @property mixed can_voter_see_result
  * @property mixed starts_at
- * @property mixed group
- * @property int $id
  * @property string $question
  * @property string $description
  * @property int|null $group_id
- * @property int $max_check
- * @property int $can_visitors_vote
- * @property int $can_voter_see_result
- * @property string|null $is_closed
- * @property string|null $starts_at
  * @property string|null $ends_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -67,7 +59,14 @@ use Illuminate\Support\Facades\Auth;
 class Poll extends Model
 {
 
-    protected $fillable = ['question', 'description', 'max_check', 'group_id', 'can_visitors_vote', 'can_voter_see_result'];
+    protected $fillable = [
+        'question',
+        'description',
+        'max_check',
+        'group_id',
+        'can_visitors_vote',
+        'can_voter_see_result'
+    ];
     protected $table = 'polls';
     protected $guarded = [''];
     protected $appends = ['has_user_vote', 'is_radio', 'is_locked', 'is_open', 'show_results_enabled', 'is_running',
@@ -96,6 +95,21 @@ class Poll extends Model
     public function votes()
     {
         return $this->hasMany('App\Vote');
+    }
+
+    public function results()
+    {
+        $votes = $this->options()->select(['id', 'name', 'votes'])->orderByDesc('votes')->get();
+        $total = $this->totalVotes();
+        $totalAbstentions = $this->totalAbstentions();
+
+        $votes->push(['name' => 'Enthaltung', 'votes' => $totalAbstentions]);
+
+        return collect([
+            'votes' => $votes,
+            'total' => $total,
+            'totalAbstentions' => $this->totalAbstentions()
+        ]);
     }
 
     /**
@@ -238,6 +252,39 @@ class Poll extends Model
         return $this->totalVotes() - $realVotes;
     }
 
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where('question', 'like', '%'.$search.'%');
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
+    }
+
+    public function scopeAnswered($query)
+    {
+        $query->whereHas('votes', function ($query) {
+            $query->whereHas('user', function ($query) {
+                $query->where('id', Auth::user()->id);
+            });
+        });
+    }
+
+    public function scopeUnanswered($query)
+    {
+
+        $query->whereDoesntHave('votes', function ($query) {
+            $query->whereHas('user', function ($query) {
+                $query->where('id', Auth::user()->id);
+            });
+        });
+
+    }
+
     /* Attributes */
 
     public function getHasUserVoteAttribute()
@@ -283,19 +330,7 @@ class Poll extends Model
     public function getResultsAttribute()
     {
         if ($this->hasUserVote()) {
-
-            $votes = $this->options()->select(['id', 'name', 'votes'])->get();
-            $total = $this->totalVotes();
-            $totalAbstentions = $this->totalAbstentions();
-
-            $votes->push(['name' => 'Enthaltung', 'votes' => $totalAbstentions]);
-
-            return [
-                'votes' => $votes,
-                'total' => $total,
-                'totalAbstentions' => $this->totalAbstentions()
-            ];
-
+            return $this->results();
         } else {
             return null;
         }
