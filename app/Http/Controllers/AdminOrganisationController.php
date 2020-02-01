@@ -35,6 +35,11 @@ class AdminOrganisationController extends Controller
         ]);
     }
 
+    public function createEvent()
+    {
+        return Inertia::render('Admin/Organisations/CreateEvent');
+    }
+
     public function destroy(Organisation $organisation)
     {
         $organisation->delete();

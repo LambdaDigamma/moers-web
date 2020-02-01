@@ -57,7 +57,9 @@
                             <h1 class="text-xl md:text-2xl font-semibold dark:text-white">
                                 Nächste Veranstaltungen
                             </h1>
-                            <inertia-link class="block px-3 py-2 bg-green-700 rounded-lg text-white font-semibold text-lg hover:no-underline">
+                            <inertia-link
+                                    class="block px-3 py-2 bg-green-700 rounded-lg text-white font-semibold text-lg hover:no-underline"
+                                    :href="route('admin.organisations.events.create', organisation.id)">
                                 Erstellen
                             </inertia-link>
                         </div>

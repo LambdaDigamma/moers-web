@@ -41,6 +41,8 @@ Route::get('/admin/organisations')->name('admin.organisations.index')->uses('Adm
 Route::get('/admin/organisations/{organisation}')->name('admin.organisations.edit')->uses('AdminOrganisationController@edit')->middleware('auth');
 Route::delete('/admin/organisations/{organisation}')->name('admin.organisations.destroy')->uses('AdminOrganisationController@destroy')->middleware('auth');
 Route::put('/admin/organisations/{organisation}/restore')->name('admin.organisations.restore')->uses('AdminOrganisationController@restore')->middleware('auth');
+Route::get('/admin/organisations/{organisation}/events/create')->name('admin.organisations.events.create')->uses('AdminOrganisationController@createEvent')->middleware('auth');
+
 Route::get('/admin/polls')->name('admin.polls.index')->uses('AdminPollsController@index')->middleware('auth');
 Route::get('/admin/polls/create')->name('admin.polls.create')->uses('AdminPollsController@create')->middleware('auth');
 Route::post('/admin/polls')->name('admin.polls.store')->uses('AdminPollsController@store')->middleware('auth');

@@ -58,6 +58,7 @@
         "postcss-purgecss": "^1.0.0",
         "tailwindcss": "^1.2.0-canary.5",
         "tailwindcss-dark-mode": "^1.1.1",
-        "vue-meta": "^2.3.2"
+        "vue-meta": "^2.3.2",
+        "vuedraggable": "^2.23.2"
     }
 }
