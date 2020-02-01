@@ -74,20 +74,7 @@
         data() {
             return {
                 query: null,
-                blocks: [
-                    {
-                        "type": "markdown",
-                        "name": "Text",
-                        "description": "Füge einen Textblock hinzu.",
-                        "icon": "paragraph"
-                    },
-                    {
-                        "type": "soundcloud",
-                        "name": "SoundCloud",
-                        "description": "Füge einen SoundCloud Track hinzu.",
-                        "icon": "paragraph"
-                    },
-                ],
+                blocks: [],
                 presets: [
                     {
                         "type": "markdown",
