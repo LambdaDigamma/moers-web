@@ -4,11 +4,15 @@
         <div class="flex flex-col items-center w-40">
             <slot name="pre" />
             <div class="mt-3 flex flex-row flex-wrap justify-start">
-                <button class="px-3 py-2 font-semibold text-sm rounded-lg dark:bg-blue-600 dark-hover:bg-blue-700 dark:text-white">
+                <button class="px-3 py-2 font-semibold text-sm rounded-lg dark:bg-blue-600 dark-hover:bg-blue-700 dark:text-white"
+                        id="duplicate"
+                        @click="duplicateBlock">
                     <Icon name="duplicate" class="fill-current h-3 w-3" />
                 </button>
                 <button class="ml-2 px-3 py-2 font-semibold text-sm rounded-lg dark:bg-red-600 dark-hover:bg-red-700 dark:text-white"
-                        @click.prevent="$parent.$emit('delete-block')">
+                        aria-label="delete"
+                        id="delete"
+                        @click.prevent="deleteBlock">
                     <Icon name="trash" class="fill-current h-3 w-3" />
                 </button>
             </div>
@@ -29,6 +33,20 @@
             border: {
                 type: Boolean,
                 default: () => true
+            }
+        },
+        methods: {
+            duplicateBlock() {
+                this.$emit('duplicated')
+                if (this.$parent) {
+                    this.$parent.$emit('duplicated')
+                }
+            },
+            deleteBlock() {
+                this.$emit('deleted')
+                if (this.$parent) {
+                    this.$parent.$emit('deleted')
+                }
             }
         }
     }

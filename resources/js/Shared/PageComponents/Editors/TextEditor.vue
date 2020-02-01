@@ -11,6 +11,7 @@
         </template>
         <template v-slot:default>
             <TextareaInput
+                    v-model="block.data.text"
                     label="Text"
                     class="w-full" />
         </template>

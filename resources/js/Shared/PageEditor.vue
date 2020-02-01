@@ -5,22 +5,27 @@
             <CardContainer class="lg:mr-2" :show-action-bar="false">
                 <template v-slot:header>
                     <h1 class="font-semibold text-2xl dark:text-white">
-                        Beschreibungsseite
+                        {{ title }}
                     </h1>
                 </template>
                 <div class="rounded-lg" :class="{ 'border dark:border-gray-600' : blocks.length === 0 }">
                     <div>
                         <draggable :list="blocks" group="blocks">
-                            <div v-for="(block, index) in blocks" :key="index" class="flex flex-row items-center dark:text-white">
+                            <div v-for="(block, index) in blocks"
+                                 :key="index"
+                                 class="flex flex-row items-center dark:text-white">
 
                                 <TextEditor
                                         v-if="block.type === 'markdown'"
-                                        @delete-block="deleteBlock(index)" />
+                                        :block="block"
+                                        @duplicated="duplicateBlock(index)"
+                                        @deleted="deleteBlock(index)" />
                                 <SoundCloudEditor
                                         v-else-if="block.type === 'soundcloud'"
-                                        @delete-block="deleteBlock(index)" />
+                                        @duplicated="duplicateBlock(index)"
+                                        @deleted="deleteBlock(index)" />
 
-                                <div v-else>
+                                <div v-else class="py-3 w-full  flex flex-row items-center justify-center dark:text-white">
                                     Dieser Baustein wird leider noch nicht unterstützt.
                                 </div>
                             </div>
@@ -41,7 +46,10 @@
 <!--                       type="text"-->
 <!--                       class="w-full px-2 py-2 md:px-2 md:py-3 rounded focus:shadow-outline dark:text-white dark:bg-gray-600" />-->
                 <div class="pt-3 px-3">
-                    <draggable :list="presets" :group="{ name: 'blocks', pull: 'clone' }">
+                    <draggable
+                            :list="presets"
+                            :group="{ name: 'blocks', pull: 'clone' }"
+                            :clone="clone">
                         <div v-for="(preset, index) in presets"
                              :key="index"
                              class="py-2 flex flex-row items-center dark:text-white">
@@ -71,6 +79,12 @@
     export default {
         name: "PageEditor",
         components: {SoundCloudEditor, TextEditor, Icon, CardContainer, draggable},
+        props: {
+            title: {
+                type: String,
+                default: () => "Beschreibungsseite"
+            },
+        },
         data() {
             return {
                 query: null,
@@ -87,13 +101,26 @@
                         "name": "Bild",
                         "description": "Füge ein Bild hinzu.",
                         "icon": "dashboard"
+                    },
+                    {
+                        "type": "soundcloud",
+                        "name": "Soundcloud Track",
+                        "description": "Füge einen Soundcloud Track hinzu.",
+                        "icon": "dashboard"
                     }
                 ]
             }
         },
         methods: {
             clone(obj) {
-                return obj
+                return {
+                    type: obj.type,
+                    data: {}
+                }
+            },
+            duplicateBlock(index) {
+                const block = this.blocks[index]
+                this.blocks.splice(index, 0, block)
             },
             deleteBlock(index) {
                 this.blocks.splice(index, 1)

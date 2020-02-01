@@ -14,4 +14,8 @@ describe('PageEditor', () => {
         expect(wrapper.vm.blocks.length).toBe(0)
     });
 
+    it('should have preset blocks', function () {
+        expect(wrapper.vm.presets.length).toBeGreaterThan(1)
+    });
+
 })
