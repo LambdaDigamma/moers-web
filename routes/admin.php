@@ -19,6 +19,10 @@ Route::group([
     Route::get('/polls/{poll}')->name('admin.polls.edit')->uses('AdminPollsController@edit');
     Route::put('/polls/{poll}')->name('admin.polls.update')->uses('AdminPollsController@update');
 
+    Route::get('/pages')->name('admin.pages.index')->uses('PageController@index');
+    Route::get('/pages/{page}')->name('admin.pages.edit')->uses('PageController@edit');
+    Route::put('/pages/{page}')->name('admin.pages.update')->uses('PageController@update');
+
 });
 
 

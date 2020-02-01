@@ -64,6 +64,14 @@
 
 
             </CardContainer>
+            <CardContainer class="mt-4 lg:ml-2">
+                <div class="flex flex-col">
+                    <button class="px-3 py-2 font-semibold text-lg rounded-lg dark:bg-yellow-500 dark:text-gray-900 dark-hover:bg-yellow-600"
+                            @click="save">
+                        Speichern
+                    </button>
+                </div>
+            </CardContainer>
         </div>
     </div>
 
@@ -84,11 +92,15 @@
                 type: String,
                 default: () => "Beschreibungsseite"
             },
+            initialBlocks: {
+                type: Array,
+                default: () => []
+            }
         },
         data() {
             return {
                 query: null,
-                blocks: [],
+                blocks: this.initialBlocks,
                 presets: [
                     {
                         "type": "markdown",
@@ -100,7 +112,7 @@
                         "type": "image",
                         "name": "Bild",
                         "description": "Füge ein Bild hinzu.",
-                        "icon": "dashboard"
+                        "icon": "image"
                     },
                     {
                         "type": "soundcloud",
@@ -124,6 +136,9 @@
             },
             deleteBlock(index) {
                 this.blocks.splice(index, 1)
+            },
+            save() {
+                this.$emit('save', this.blocks)
             }
         }
     }
