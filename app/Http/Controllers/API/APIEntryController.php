@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Entry;
+use App\Http\Requests\StoreEntry;
+use App\Http\Requests\UpdateEntry;
+use App\Repositories\EntryRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,49 +13,19 @@ use App\Http\Controllers\Controller;
 class APIEntryController extends Controller
 {
 
-    public function __construct() {
+    private $entryRepository;
 
+    public function __construct(EntryRepositoryInterface $entryRepository) {
+        $this->entryRepository = $entryRepository;
     }
-
-    /* Basic */
 
     public function get() {
-
-        $entries = Entry::where('is_validated', '=', 1)->get();
-
-        return $entries;
-
+        return $this->entryRepository->all();
     }
 
-    public function store(Request $request) {
+    public function store(StoreEntry $request) {
 
-        // TODO: Add Lat / Lng Validator
-        $request->validate([
-            'lat' => [
-                'required',
-                'numeric'
-            ],
-            'lng' => [
-                'required',
-                'numeric'
-            ],
-            'name' => 'required|max:255',
-            'tags' => 'required|max:1000',
-            'street' => 'required|max:255',
-            'house_number' => 'required|max:255',
-            'postcode' => 'required|digits:5',
-            'place' => 'required|max:255',
-            'url' => 'sometimes|nullable|url',
-            'phone' => 'sometimes|nullable|max:255',
-            'monday' => 'sometimes|nullable|max:255',
-            'tuesday' => 'sometimes|nullable|max:255',
-            'wednesday' => 'sometimes|nullable|max:255',
-            'thursday' => 'sometimes|nullable|max:255',
-            'friday' => 'sometimes|nullable|max:255',
-            'saturday' => 'sometimes|nullable|max:255',
-            'sunday' => 'sometimes|nullable|max:255',
-            'other' => 'sometimes|nullable|max:255',
-        ]);
+        $data = $request->validated();
 
         $isAllowed = true;
 
@@ -62,9 +35,7 @@ class APIEntryController extends Controller
 
         if ($request->get('secret') == 'tzVQl34i6SrYSzAGSkBh') {
 
-            $entry = Entry::make($request->all());
-            $entry->is_validated = true;
-            $entry->save();
+            $entry = $this->entryRepository->store($data);
 
             return response()->json($entry, 201);
 
@@ -74,33 +45,9 @@ class APIEntryController extends Controller
 
     }
 
-    public function update(Request $request, Entry $entry) {
+    public function update(UpdateEntry $request, Entry $entry) {
 
-        // TODO: Add Lat / Lng Validator
-        $request->validate([
-            'lat' => [
-                'numeric'
-            ],
-            'lng' => [
-                'numeric'
-            ],
-            'name' => 'max:255',
-            'tags' => 'max:1000',
-            'street' => 'max:255',
-            'house_number' => 'max:255',
-            'postcode' => 'digits:5',
-            'place' => 'max:255',
-            'url' => 'nullable|url',
-            'phone' => 'nullable|max:255',
-            'monday' => 'nullable|max:255',
-            'tuesday' => 'nullable|max:255',
-            'wednesday' => 'nullable|max:255',
-            'thursday' => 'nullable|max:255',
-            'friday' => 'nullable|max:255',
-            'saturday' => 'nullable|max:255',
-            'sunday' => 'nullable|max:255',
-            'other' => 'nullable|max:255',
-        ]);
+        $data = $request->validated();
 
         $isAllowed = true;
 
@@ -108,15 +55,11 @@ class APIEntryController extends Controller
             return response()->json(['error' => 'Not allowed. Inserting entries is temporarily not allowed.'], 401);
         }
 
-        $data = $request->json()->all();
-        $secret = $data['secret'];
+        $secret = $request->get('secret');
 
         if ($secret == 'tzVQl34i6SrYSzAGSkBh') {
 
-            $entry->update($data);
-            $entry->save();
-
-            $entry = Entry::findOrFail($entry->id);
+            $entry = $this->entryRepository->update($entry->id, $data);
 
             return response()->json($entry, 201);
 
