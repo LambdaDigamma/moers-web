@@ -11,32 +11,6 @@
 |
 */
 
-Route::get('/')->name('landingPage')->uses('LandingPageController');
-
-Route::get('/dashboard')->name('dashboard')->uses('DashboardController')->middleware('auth');
-
-/*
- * Poll Routes
- */
-
-Route::get('/polls')->name('polls.index')->uses('PollController@index')->middleware('auth');
-Route::get('/polls/answered')->name('polls.index.answered')->uses('PollController@indexAnswered')->middleware('auth');
-Route::get('/polls/{poll}')->name('polls.show')->uses('PollController@show')->middleware('auth');
-Route::post('/polls/{poll}/vote')->name('polls.vote')->uses('PollController@vote')->middleware('auth');
-Route::post('/polls/{poll}/abstain')->name('polls.abstain')->uses('PollController@abstain')->middleware('auth');
-
-/*
- * Forms
- */
-
-Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
-Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
-
-
-/*
- * Auth Routes
- */
-
 Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
 Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
 Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
@@ -45,5 +19,23 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
+Route::group([
+    'namespace' => 'Web',
+], function () {
+
+    Route::get('/')->name('landingPage')->uses('LandingPageController');
+    Route::get('/dashboard')->name('dashboard')->uses('DashboardController')->middleware('auth');
+
+    Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
+    Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
+
+    Route::get('/polls')->name('polls.index')->uses('PollController@index')->middleware('auth');
+    Route::get('/polls/answered')->name('polls.index.answered')->uses('PollController@indexAnswered')->middleware('auth');
+    Route::get('/polls/{poll}')->name('polls.show')->uses('PollController@show')->middleware('auth');
+    Route::post('/polls/{poll}/vote')->name('polls.vote')->uses('PollController@vote')->middleware('auth');
+    Route::post('/polls/{poll}/abstain')->name('polls.abstain')->uses('PollController@abstain')->middleware('auth');
+
+});
 
 Route::post('/mailinglist/subscribe', 'MailingListController@subscribe')->name('mailinglist.subscribe');
