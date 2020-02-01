@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Entry;
+use App\Http\Controllers\Controller;
 use App\Organisation;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

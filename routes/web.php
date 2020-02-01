@@ -32,22 +32,6 @@ Route::post('/polls/{poll}/abstain')->name('polls.abstain')->uses('PollControlle
 Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
 Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
 
-/*
- * Admin Routes
- */
-
-Route::get('/admin/dashboard')->name('admin.dashboard')->uses('AdminDashboardController')->middleware('auth');
-Route::get('/admin/organisations')->name('admin.organisations.index')->uses('AdminOrganisationController@index')->middleware('auth');
-Route::get('/admin/organisations/{organisation}')->name('admin.organisations.edit')->uses('AdminOrganisationController@edit')->middleware('auth');
-Route::delete('/admin/organisations/{organisation}')->name('admin.organisations.destroy')->uses('AdminOrganisationController@destroy')->middleware('auth');
-Route::put('/admin/organisations/{organisation}/restore')->name('admin.organisations.restore')->uses('AdminOrganisationController@restore')->middleware('auth');
-Route::get('/admin/organisations/{organisation}/events/create')->name('admin.organisations.events.create')->uses('AdminOrganisationController@createEvent')->middleware('auth');
-
-Route::get('/admin/polls')->name('admin.polls.index')->uses('AdminPollsController@index')->middleware('auth');
-Route::get('/admin/polls/create')->name('admin.polls.create')->uses('AdminPollsController@create')->middleware('auth');
-Route::post('/admin/polls')->name('admin.polls.store')->uses('AdminPollsController@store')->middleware('auth');
-Route::get('/admin/polls/{poll}')->name('admin.polls.edit')->uses('AdminPollsController@edit')->middleware('auth');
-Route::put('/admin/polls/{poll}')->name('admin.polls.update')->uses('AdminPollsController@update')->middleware('auth');
 
 /*
  * Auth Routes
@@ -63,13 +47,3 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 Route::post('/mailinglist/subscribe', 'MailingListController@subscribe')->name('mailinglist.subscribe');
-
-//Route::get('/{any}', function() {
-//    return view('app');
-//})->where('any', '.*');
-
-//Route::get('/', function () {
-//    return view('legacy.index');
-//})->name('index');
-
-
