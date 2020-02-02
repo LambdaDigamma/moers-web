@@ -9,6 +9,17 @@
  */
 
 /*!
+ * Sizzle CSS Selector Engine v2.3.4
+ * https://sizzlejs.com/
+ *
+ * Copyright JS Foundation and other contributors
+ * Released under the MIT license
+ * https://js.foundation/
+ *
+ * Date: 2019-04-08
+ */
+
+/*!
  * Vue.js v2.6.11
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
@@ -21,6 +32,34 @@
  * Released under the MIT license
  */
 
+/*!
+ * jQuery JavaScript Library v3.4.1
+ * https://jquery.com/
+ *
+ * Includes Sizzle.js
+ * https://sizzlejs.com/
+ *
+ * Copyright JS Foundation and other contributors
+ * Released under the MIT license
+ * https://jquery.org/license
+ *
+ * Date: 2019-05-01T21:04Z
+ */
+
+/*!
+ * tui-code-snippet.js
+ * @version 1.5.2
+ * @author NHN. FE Development Lab <dl_javascript@nhn.com>
+ * @license MIT
+ */
+
+/*!
+ * tui-editor
+ * @version 1.4.10
+ * @author NHN FE Development Lab <dl_javascript@nhn.com> (https://nhn.github.io/tui.editor/)
+ * @license MIT
+ */
+
 /*! 
   * portal-vue © Thorsten Lünborg, 2019 
   * 
@@ -31,6 +70,8 @@
   * https://github.com/linusborg/portal-vue
   * 
  */
+
+/*! https://mths.be/punycode v1.4.1 by @mathias */
 
 /**
  * @license
