@@ -28,6 +28,7 @@ class UpdatePage extends FormRequest
             'blocks' => 'required',
             'blocks.*.type' => 'required|in:markdown,image,soundcloud',
             'blocks.*.page_id' => 'sometimes|exists:pages,id',
+            'blocks.*.order' => 'required|integer|min:0',
         ];
     }
 }

@@ -10,7 +10,10 @@
                 </template>
                 <div class="rounded-lg" :class="{ 'border dark:border-gray-600' : blocks.length === 0 }">
                     <div>
-                        <draggable :list="blocks" group="blocks">
+                        <draggable
+                                :list="blocks"
+                                group="blocks"
+                                @change="updateOrder">
                             <div v-for="(block, index) in blocks"
                                  :key="index"
                                  class="flex flex-row items-center dark:text-white">
@@ -133,12 +136,20 @@
             duplicateBlock(index) {
                 const block = this.blocks[index]
                 this.blocks.splice(index, 0, block)
+                this.updateOrder()
             },
             deleteBlock(index) {
                 this.blocks.splice(index, 1)
+                this.updateOrder()
             },
             save() {
+                this.updateOrder()
                 this.$emit('save', this.blocks)
+            },
+            updateOrder() {
+                _.forEach(this.blocks, function(block, i) {
+                    block.order = i
+                });
             }
         }
     }

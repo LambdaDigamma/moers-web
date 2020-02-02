@@ -7,7 +7,7 @@
                 class="mb-8">
             {{ page.title }}
         </Header>
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap pb-6">
 
             <PageEditor
                     class="w-full"

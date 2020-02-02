@@ -10,7 +10,9 @@ class Page extends Model
 
     public function blocks()
     {
-        return $this->hasMany(PageBlock::class, 'page_id', 'id');
+        return $this
+            ->hasMany(PageBlock::class, 'page_id', 'id')
+            ->orderBy('order');
     }
 
     public function scopeFilter($query, array $filters)
