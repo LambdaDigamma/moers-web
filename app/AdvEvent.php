@@ -68,12 +68,21 @@ class AdvEvent extends Model
         'extras' => 'array'
     ];
 
-    public function organisation() {
+    public function organisation()
+    {
         return $this->belongsTo('App\Organisation');
     }
 
-    public function entry() {
+    public function entry()
+    {
         return $this->belongsTo('App\Entry');
+    }
+
+    public function page()
+    {
+        return $this
+            ->belongsTo(Page::class, 'page_id', 'id')
+            ->with('blocks');
     }
 
 }

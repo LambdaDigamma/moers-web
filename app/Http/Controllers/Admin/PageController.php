@@ -37,6 +37,14 @@ class PageController extends Controller
         ]);
     }
 
+    public function preview(Page $page)
+    {
+        $page->load('blocks');
+        return Inertia::render('Admin/Pages/Preview', [
+            'page' => $page,
+        ]);
+    }
+
     public function update(UpdatePage $request, Page $page)
     {
 
