@@ -21,6 +21,7 @@ Route::group([
 
     Route::get('/pages')->name('admin.pages.index')->uses('PageController@index');
     Route::get('/pages/{page}')->name('admin.pages.edit')->uses('PageController@edit');
+    Route::get('/pages/{page}/preview')->name('admin.pages.preview')->uses('PageController@preview');
     Route::put('/pages/{page}')->name('admin.pages.update')->uses('PageController@update');
 
 });

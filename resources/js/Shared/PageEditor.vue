@@ -69,7 +69,7 @@
             </CardContainer>
             <CardContainer class="mt-4 lg:ml-2">
                 <div class="flex flex-col">
-                    <button class="px-3 py-2 font-semibold text-lg rounded-lg dark:bg-yellow-500 dark:text-gray-900 dark-hover:bg-yellow-600"
+                    <button class="mt-3 px-3 py-2 font-semibold text-lg rounded-lg dark:bg-yellow-500 dark:text-gray-900 dark-hover:bg-yellow-600"
                             @click="save">
                         Speichern
                     </button>
@@ -133,6 +133,11 @@
                     data: {}
                 }
             },
+            updateOrder() {
+                _.forEach(this.blocks, function(block, i) {
+                    block.order = i
+                });
+            },
             duplicateBlock(index) {
                 const block = this.blocks[index]
                 this.blocks.splice(index, 0, block)
@@ -145,11 +150,6 @@
             save() {
                 this.updateOrder()
                 this.$emit('save', this.blocks)
-            },
-            updateOrder() {
-                _.forEach(this.blocks, function(block, i) {
-                    block.order = i
-                });
             }
         }
     }
