@@ -19,9 +19,15 @@
             <div v-else>
                 <h1 class="font-bold text-xl md:text-3xl dark:text-white">{{ poll.question }}</h1>
                 <p class="text-base dark:text-white">{{ poll.description }}</p>
-                <PollResult :results="this.poll.results">
 
-                </PollResult>
+                <h2 class="mt-3 mb-0 font-semibold text-lg dark:text-white">Ergebnisse:</h2>
+                <p class="mt-2 dark:text-white font-medium">
+                    Die Ergebnisse werden auf Wunsch bis auf weiteres versteckt gehalten.
+                </p>
+
+<!--                <PollResult :results="this.poll.results">-->
+
+<!--                </PollResult>-->
             </div>
         </div>
 

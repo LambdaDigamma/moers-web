@@ -25,9 +25,9 @@
     @routes
 
     <link href="{{ mix('/css/main.css') }}" rel="stylesheet" />
+    <script src="{{ mix('/js/manifest.js') }}" defer></script>
+    <script src="{{ mix('/js/vendor.js') }}" defer></script>
     <script src="{{ mix('/js/app.js') }}" defer></script>
-
-
 
 </head>
 <body class="font-sans leading-none text-grey-100 bg-white dark:bg-gray-800 antialiased pb-0">
