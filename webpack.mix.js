@@ -2,7 +2,8 @@ const mix = require('laravel-mix')
 const path = require('path')
 
 require('laravel-mix-tailwind')
-require('tailwindcss')
+require('laravel-mix-purgecss');
+const tailwindcss = require('tailwindcss')
 
 /*
  |--------------------------------------------------------------------------
@@ -17,9 +18,15 @@ require('tailwindcss')
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/main.scss', 'public/css')
-    .tailwind('./tailwind.config.js')
+    .options({
+        processCssUrls: false,
+        postCss: [tailwindcss('./tailwind.config.js')]
+    })
+    .purgeCss({
+        enabled: true,
+    })
     .webpackConfig({
-        output: {chunkFilename: 'js/[name].js?id=[chunkhash]'},
+        output: {chunkFilename: '[name].js?id=[chunkhash]'},
         resolve: {
             alias: {
                 'vue$': 'vue/dist/vue.runtime.esm.js',
@@ -28,3 +35,4 @@ mix.js('resources/js/app.js', 'public/js')
         }
     })
     .sourceMaps()
+    .extract()

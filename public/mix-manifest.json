@@ -1,5 +1,9 @@
 {
-    "/js/app.js": "/js/app.js",
+    "/js/app.js": "/js/app.js?id=f0acd48241bb4fbc908c",
     "/css/main.css": "/css/main.css",
-    "/js/app.js.map": "/js/app.js.map"
+    "/js/app.js.map": "/js/app.js.map?id=f0acd48241bb4fbc908c",
+    "/js/manifest.js": "/js/manifest.js",
+    "/js/manifest.js.map": "/js/manifest.js.map",
+    "/js/vendor.js": "/js/vendor.js?id=c43879f7df34ad107f0a",
+    "/js/vendor.js.map": "/js/vendor.js.map?id=c43879f7df34ad107f0a"
 }
