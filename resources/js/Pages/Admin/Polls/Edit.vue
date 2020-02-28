@@ -66,7 +66,7 @@
         methods: {
             submit() {
                 this.$inertia
-                    .put(this.route('admin.polls.update', this.poll.id), this.form)
+                    .put(this.route('admin.polls.update', this.poll.id).url(), this.form)
                     .then(() => this.sending = false)
             },
             destroy() {

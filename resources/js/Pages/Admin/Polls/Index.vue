@@ -109,7 +109,7 @@
             form: {
                 handler: throttle(function () {
                     let query = pickBy(this.form)
-                    this.$inertia.replace(this.route('admin.polls.index', Object.keys(query).length ? query : {remember: 'forget'}))
+                    this.$inertia.replace(this.route('admin.polls.index', Object.keys(query).length ? query : {remember: 'forget'}).url())
                 }, 150),
                 deep: true,
             },

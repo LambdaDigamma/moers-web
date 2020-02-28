@@ -108,7 +108,7 @@
         methods: {
             submit() {
                 this.sending = true
-                this.$inertia.post(this.route('login.attempt'), {
+                this.$inertia.post(this.route('login.attempt').url(), {
                     email: this.form.email,
                     password: this.form.password,
                     remember: true

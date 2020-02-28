@@ -181,7 +181,7 @@
                 data.append('photo_old', this.form.photo_old || '')
                 data.append('photo_new', this.form.photo_new || '')
 
-                this.$inertia.post(this.route('forms.student.save'), data)
+                this.$inertia.post(this.route('forms.student.save').url(), data)
                     .then(() => this.sending = false)
             }
         }
