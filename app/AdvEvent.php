@@ -57,6 +57,7 @@ use Spatie\Translatable\HasTranslations;
 class AdvEvent extends Model
 {
 
+    use HasTranslations;
 
     protected $table = 'adv_events';
 
@@ -77,6 +78,11 @@ class AdvEvent extends Model
     public function entry()
     {
         return $this->belongsTo('App\Entry');
+    }
+
+    public function page()
+    {
+        return $this->belongsTo('App\Page');
     }
 
     public function toArray()
