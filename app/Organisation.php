@@ -65,8 +65,9 @@ class Organisation extends Model
         return $this->belongsTo('App\Entry');
     }
 
+    // TODO: Only show next events
     public function events() {
-        return $this->hasMany('App\AdvEvent')->whereDate('start_date', '>', Carbon::yesterday()->toDateString());
+        return $this->hasMany('App\AdvEvent');
     }
 
     /**

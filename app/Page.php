@@ -3,10 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class Page extends Model
 {
     use SoftDeletes;
+    use HasTranslations;
+
+    public $translatable = ['title', 'slug'];
 
     public function blocks()
     {
@@ -27,6 +31,17 @@ class Page extends Model
                 $query->onlyTrashed();
             }
         });
+    }
+
+    public function toArray()
+    {
+        $attributes = parent::toArray();
+
+        foreach ($this->getTranslatableAttributes() as $name) {
+            $attributes[$name] = $this->getTranslation($name, app()->getLocale());
+        }
+
+        return $attributes;
     }
 
 }

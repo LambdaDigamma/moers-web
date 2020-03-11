@@ -16,7 +16,7 @@ class MoersFestivalController extends Controller
 
         $organisation = Organisation::where('name', '=', 'moers festival')->firstOrFail();
 
-        $events = $organisation->events()->with('entry', 'organisation')->where('is_published', 1)->get();
+        $events = $organisation->events()->with('entry', 'organisation', 'page', 'page.blocks')->where('is_published', 1)->get();
 
         return response()->json($events, 200);
 
