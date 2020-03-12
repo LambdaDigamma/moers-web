@@ -5,7 +5,6 @@ namespace App;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -66,8 +65,9 @@ class Organisation extends Model
         return $this->belongsTo('App\Entry');
     }
 
+    // TODO: Only show next events
     public function events() {
-        return $this->hasMany('App\AdvEvent')->whereDate('start_date', '>', Carbon::yesterday()->toDateString());
+        return $this->hasMany('App\AdvEvent');
     }
 
     /**
@@ -77,11 +77,22 @@ class Organisation extends Model
      */
     public function mainGroup()
     {
-        if ($this->group_id != null) {
-            return $this->hasOne('App\Group');
-        } else {
-            return null;
-        }
+        return $this->hasOne('App\Group');
+    }
+
+    /* Custom Scopes */
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where('name', 'like', '%'.$search.'%');
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
     }
 
 }

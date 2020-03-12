@@ -114,7 +114,7 @@ class APIEventController extends Controller
 
     public function getAdvEvents() {
 
-        return AdvEvent::with(['organisation', 'entry'])
+        return AdvEvent::with(['organisation', 'entry', 'page', 'page.blocks'])
             ->whereDate('start_date', '>', Carbon::yesterday()->toDateString())
             ->orWhereDate('end_date', '>', Carbon::yesterday()->toDateString())
             ->orderBy('start_date', 'asc')

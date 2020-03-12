@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * App\AdvEvent
@@ -56,7 +57,7 @@ use Illuminate\Support\Carbon;
 class AdvEvent extends Model
 {
 
-    use SoftDeletes;
+    use HasTranslations;
 
     protected $table = 'adv_events';
 
@@ -68,12 +69,31 @@ class AdvEvent extends Model
         'extras' => 'array'
     ];
 
+    public $translatable = ['name', 'description', 'category'];
+
     public function organisation() {
         return $this->belongsTo('App\Organisation');
     }
 
-    public function entry() {
+    public function entry()
+    {
         return $this->belongsTo('App\Entry');
+    }
+
+    public function page()
+    {
+        return $this->belongsTo('App\Page');
+    }
+
+    public function toArray()
+    {
+        $attributes = parent::toArray();
+
+        foreach ($this->getTranslatableAttributes() as $name) {
+            $attributes[$name] = $this->getTranslation($name, app()->getLocale());
+        }
+
+        return $attributes;
     }
 
 }

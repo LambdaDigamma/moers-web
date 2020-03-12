@@ -19,9 +19,10 @@
 
         <div>
 
-            <div v-for="(poll, index) in polls.data"
+            <inertia-link v-for="(poll, index) in polls.data"
                  :key="poll.id"
-                 class="mb-3 p-3 px-4 rounded-lg dark:bg-gray-700 dark:text-white">
+                 :href="route('admin.polls.edit', poll.id)"
+                 class="block mb-3 p-3 px-4 rounded-lg dark:bg-gray-700 dark:text-white">
 
                 <h3 class="text-xs font-semibold uppercase leading-relaxed tracking-normal dark:text-yellow-500"
                     v-if="poll.group && poll.group.organisation">
@@ -44,38 +45,12 @@
                         {{ poll.results.total }} Benutzer haben abgestimmt.
                     </div>
                 </div>
-                <!--                <b-button :to="{ name: 'polls.poll', params: { id: poll.id } }" variant="primary">Ergebnisse ansehen</b-button>-->
-            </div>
-
+            </inertia-link>
 
         </div>
 
 
         <div class="p-0">
-            <!--            <table class="table-auto dark:text-white">-->
-            <!--                <thead>-->
-            <!--                <tr class="text-left font-bold">-->
-            <!--                    <th class="py-3 font-bold">Name</th>-->
-            <!--                    <th class="py-3 font-bold"></th>-->
-            <!--                </tr>-->
-            <!--                </thead>-->
-            <!--                <tbody>-->
-            <!--                <tr class="" v-for="(poll, key) in polls.data" :key="key">-->
-            <!--                    <td>-->
-            <!--                        <div class="flex items-center dark:text-white">-->
-            <!--                            <div class="">{{ poll.question }}</div>-->
-            <!--                        </div>-->
-            <!--                    </td>-->
-            <!--                    <td class="d-flex justify-content-end align-items-center">-->
-            <!--&lt;!&ndash;                        <font-awesome-icon :icon="['fas', 'chevron-right']" class="text-muted" />&ndash;&gt;-->
-            <!--                    </td>-->
-            <!--                </tr>-->
-            <!--                <tr v-if="polls.data.length === 0">-->
-            <!--                    <td class="py-3">Keine Abstimmungen.</td>-->
-            <!--                </tr>-->
-            <!--                </tbody>-->
-            <!--            </table>-->
-
             <Pagination :links="polls.links" class="my-2 my-md-4"></Pagination>
         </div>
 
