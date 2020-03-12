@@ -14,9 +14,6 @@ class MakeTranslatablePagesTable extends Migration
     public function up()
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->dropUnique('pages_slug_unique');
-        });
-        Schema::table('pages', function (Blueprint $table) {
             $table->json('title')->change();
             $table->json('slug')->change();
         });
