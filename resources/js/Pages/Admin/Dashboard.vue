@@ -1,24 +1,28 @@
 <template>
 
     <div>
-        <div class="w-full flex flex-wrap">
-            <div class="w-full sm:w-1/2 lg:w-1/3">
-                <inertia-link :href="route('landingPage')" class="m-2 px-4 py-3 block rounded-lg dark:bg-gray-700 hover:no-underline">
-                    <h1 class="mb-0 text-lg font-semibold leading-none dark:text-white">Einträge</h1>
-                    <div class="mt-3 font-semibold rounded-lg w-20 px-3 py-2 dark:bg-yellow-500 dark:text-black">
-                        {{ numberOfEntries }}
-                    </div>
-                </inertia-link>
-            </div>
-            <div class="w-full sm:w-1/2 lg:w-1/3">
-                <inertia-link :href="route('landingPage')" class="m-2 px-4 py-3 block rounded-lg dark:bg-gray-700 hover:no-underline">
-                    <h1 class="mb-0 text-lg font-semibold leading-none dark:text-white">Organisationen</h1>
-                    <div class="mt-3 font-semibold rounded-lg w-20 px-3 py-2 dark:bg-yellow-500 dark:text-black">
-                        {{ numberOfOrganisations }}
-                    </div>
-                </inertia-link>
-            </div>
-        </div>
+
+        <h1 class="text-2xl font-semibold text-gray-900">Dashboard</h1>
+
+
+<!--        <div class="w-full flex flex-wrap">-->
+<!--            <div class="w-full sm:w-1/2 lg:w-1/3">-->
+<!--                <inertia-link :href="route('landingPage')" class="m-2 px-4 py-3 block rounded-lg dark:bg-gray-700 hover:no-underline">-->
+<!--                    <h1 class="mb-0 text-lg font-semibold leading-none dark:text-white">Einträge</h1>-->
+<!--                    <div class="mt-3 font-semibold rounded-lg w-20 px-3 py-2 dark:bg-yellow-500 dark:text-black">-->
+<!--                        {{ numberOfEntries }}-->
+<!--                    </div>-->
+<!--                </inertia-link>-->
+<!--            </div>-->
+<!--            <div class="w-full sm:w-1/2 lg:w-1/3">-->
+<!--                <inertia-link :href="route('landingPage')" class="m-2 px-4 py-3 block rounded-lg dark:bg-gray-700 hover:no-underline">-->
+<!--                    <h1 class="mb-0 text-lg font-semibold leading-none dark:text-white">Organisationen</h1>-->
+<!--                    <div class="mt-3 font-semibold rounded-lg w-20 px-3 py-2 dark:bg-yellow-500 dark:text-black">-->
+<!--                        {{ numberOfOrganisations }}-->
+<!--                    </div>-->
+<!--                </inertia-link>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
 </template>

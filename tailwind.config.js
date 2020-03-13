@@ -1,3 +1,6 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
+
 let colors = {
     transparent: 'transparent',
 
@@ -117,6 +120,21 @@ let colors = {
 }
 
 module.exports = {
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+            },
+        },
+    },
+    plugins: [
+        require('@tailwindcss/ui')(),
+        require('tailwindcss-dark-mode')(),
+        require('tailwindcss-font-inter')()
+    ]
+}
+
+/*module.exports = {
     prefix: '',
     important: true,
     separator: ':',
@@ -498,4 +516,4 @@ module.exports = {
         require('tailwindcss-dark-mode')(),
         require('tailwindcss-font-inter')()
     ],
-}
+}*/
