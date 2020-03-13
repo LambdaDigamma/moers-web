@@ -26,7 +26,7 @@ class UpdatePage extends FormRequest
         return [
             'title' => 'required|min:3|max:255',
             'blocks' => 'required',
-            'blocks.*.type' => 'required|in:markdown,image,soundcloud',
+            'blocks.*.type' => 'required|in:markdown,image,soundcloud,externalLink',
             'blocks.*.page_id' => 'sometimes|exists:pages,id',
             'blocks.*.order' => 'required|integer|min:0',
         ];

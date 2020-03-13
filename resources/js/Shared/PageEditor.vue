@@ -28,6 +28,13 @@
                                         @duplicated="duplicateBlock(index)"
                                         @deleted="deleteBlock(index)" />
 
+                                <ExternalLinkEditor
+                                        v-else-if="block.type === 'externalLink'"
+                                        :block="block"
+                                        @duplicated="duplicateBlock(index)"
+                                        @deleted="deleteBlock(index)" />
+
+
                                 <div v-else class="py-3 w-full  flex flex-row items-center justify-center dark:text-white">
                                     Dieser Baustein wird leider noch nicht unterstützt.
                                 </div>
@@ -86,10 +93,11 @@
     import draggable from 'vuedraggable';
     import TextEditor from "./PageComponents/Editors/TextEditor";
     import SoundCloudEditor from "./PageComponents/Editors/SoundCloudEditor";
+    import ExternalLinkEditor from "./PageComponents/Editors/ExternalLinkEditor";
 
     export default {
         name: "PageEditor",
-        components: {SoundCloudEditor, TextEditor, Icon, CardContainer, draggable},
+        components: {ExternalLinkEditor, SoundCloudEditor, TextEditor, Icon, CardContainer, draggable},
         props: {
             title: {
                 type: String,
