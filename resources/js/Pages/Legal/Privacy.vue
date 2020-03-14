@@ -1,16 +1,16 @@
 <template>
 
-    <div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <inertia-link :href="route('landingPage')" class="block py-6 font-bold text-4xl text-center mx-auto">Mein Moers</inertia-link>
 
         <header class="mt-6">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold leading-tight text-gray-900">
-                    Datenschutz
-                </h2>
-            </div>
+            <h2 class="text-3xl font-bold leading-tight text-gray-900">
+                Datenschutz
+            </h2>
         </header>
 
-        <main class="py-5 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <main>
 
             <h2 class="my-4 font-semibold text-2xl">Allgemeines</h2>
 
@@ -22,13 +22,13 @@
             </p>
             <p class="mt-2">
                 Wenn Sie sich dafür entscheiden, meinen Service zu nutzen, stimmen Sie der Sammlung und Nutzung von Informationen im Zusammenhang mit diesen Richtlinien zu. Die von mir gesammelten persönlichen Daten werden für die Bereitstellung und Verbesserung des Dienstes verwendet. Ich werde Ihre Daten nicht verwenden oder an Dritte weitergeben, außer wie in dieser Datenschutzerklärung beschrieben.
-                Die in dieser Datenschutzerklärung verwendeten Begriffe haben die gleiche Bedeutung wie in unseren Allgemeinen Geschäftsbedingungen, die bei Mein Moers zugänglich sind, sofern in dieser Datenschutzerklärung nicht anders definiert.
+                Die in dieser Datenschutzerklärung verwendeten Begriffe haben die gleiche Bedeutung wie in den Allgemeinen Geschäftsbedingungen, die bei Mein Moers zugänglich sind, sofern in dieser Datenschutzerklärung nicht anders definiert.
             </p>
 
             <h2 class="my-4 font-semibold text-2xl">Sammlung und Verwendung von Daten</h2>
 
             <p class="mt-2">
-                Für eine bessere Erfahrung bei der Nutzung unseres Dienstes kann ich von Ihnen verlangen, dass Sie uns bestimmte personenbezogene Daten zur Verfügung stellen, einschließlich, aber nicht beschränkt auf den Standort. Die von mir angeforderten Informationen werden auf Ihrem Gerät gespeichert und von mir in keiner Weise erfasst.
+                Für eine bessere Erfahrung bei der Nutzung des Dienstes kann ich von Ihnen verlangen, dass Sie bestimmte personenbezogene Daten zur Verfügung stellen, einschließlich, aber nicht beschränkt auf den Standort. Die von mir angeforderten Informationen werden auf Ihrem Gerät gespeichert und von mir in keiner Weise erfasst.
             </p>
             <p class="mt-2">
                 Die App nutzt Dienste von Drittanbietern, die möglicherweise Informationen sammeln, um Sie zu identifizieren.
@@ -50,7 +50,7 @@
             <h2 class="my-4 font-semibold text-2xl">Protokolldaten</h2>
 
             <p class="mt-2">
-                Ich möchte Sie darüber informieren, dass ich im Falle eines Fehlers in der Anwendung Daten und Informationen (über Produkte von Drittanbietern) auf Ihrem Telefon Protokolldaten sammle, wann immer Sie meinen Service nutzen. Diese Protokolldaten können Informationen wie die IP-Adresse Ihres Geräts, den Gerätenamen, die Version des Betriebssystems, die Konfiguration der Anwendung bei der Nutzung meines Dienstes, die Uhrzeit und das Datum Ihrer Nutzung des Dienstes und andere Statistiken enthalten.
+                Ich möchte Sie darüber informieren, dass ich im Falle eines Fehlers in der Anwendung Daten und Informationen (über Produkte von Drittanbietern) auf Ihrem Gerät Protokolldaten sammle, wann immer Sie meinen Service nutzen. Diese Protokolldaten können Informationen wie die IP-Adresse Ihres Geräts, den Gerätenamen, die Version des Betriebssystems, die Konfiguration der Anwendung bei der Nutzung meines Dienstes, die Uhrzeit und das Datum Ihrer Nutzung des Dienstes und andere Statistiken enthalten.
             </p>
 
             <h2 class="my-4 font-semibold text-2xl">Dienstleister</h2>
@@ -75,11 +75,11 @@
 
             <h2 class="my-4 font-semibold text-2xl">Datenschutzhinweis für Kinder</h2>
 
-                Diese Dienste richten sich nicht an Personen unter 13 Jahren und ich sammle nicht wissentlich personenbezogene Daten von Kindern unter 13 Jahren. Sollte ich feststellen, dass mir ein Kind unter 13 Jahren persönliche Daten zur Verfügung gestellt hat, lösche ich diese sofort von unseren Servern. Wenn Sie ein Elternteil oder Erziehungsberechtigter sind und Sie wissen, dass Ihr Kind uns persönliche Daten zur Verfügung gestellt hat, kontaktieren Sie mich bitte, damit ich die notwendigen Maßnahmen ergreifen kann.
+                Diese Dienste richten sich nicht an Personen unter 13 Jahren und ich sammle nicht wissentlich personenbezogene Daten von Kindern unter 13 Jahren. Sollte ich feststellen, dass mir ein Kind unter 13 Jahren persönliche Daten zur Verfügung gestellt hat, lösche ich diese sofort von unseren Servern. Wenn Sie ein Elternteil oder Erziehungsberechtigter sind und Sie wissen, dass Ihr Kind mir persönliche Daten zur Verfügung gestellt hat, kontaktieren Sie mich bitte, damit ich die notwendigen Maßnahmen ergreifen kann.
 
             <h2 class="my-4 font-semibold text-2xl">Änderungen dieser Datenschutzerklärung</h2>
 
-                Ich kann unsere Datenschutzerklärung von Zeit zu Zeit aktualisieren. Wir empfehlen Ihnen daher, diese Seite regelmäßig auf Änderungen zu überprüfen. Ich werde Sie über alle Änderungen informieren, indem ich die neue Datenschutzerklärung auf dieser Seite veröffentliche. Diese Änderungen werden sofort nach ihrer Veröffentlichung auf dieser Seite wirksam.
+                Ich kann die Datenschutzerklärung von Zeit zu Zeit aktualisieren. Ich empfehlen Ihnen daher, diese Seite regelmäßig auf Änderungen zu überprüfen. Ich werde Sie über alle Änderungen informieren, indem ich die neue Datenschutzerklärung auf dieser Seite veröffentliche. Diese Änderungen werden sofort nach ihrer Veröffentlichung auf dieser Seite wirksam.
 
             <h2 class="my-4 font-semibold text-2xl">Kontaktieren Sie mich</h2>
 
