@@ -28,6 +28,11 @@ Route::group([
 ], function () {
 
     Route::get('/')->name('landingPage')->uses('LandingPageController');
+
+    Route::get('/legal/privacy')->name('legal.privacy')->uses('LegalController@privacy');
+    Route::get('/legal/imprint')->name('legal.imprint')->uses('LegalController@imprint');
+    Route::get('/legal/tac')->name('legal.tac')->uses('LegalController@tac');
+
     Route::get('/dashboard')->name('dashboard')->uses('DashboardController')->middleware('auth');
 
     Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
