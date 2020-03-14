@@ -1,40 +1,117 @@
 <template>
 
-    <div>
-<!--        <Navigation></Navigation>-->
-        <div class="mt-4">
-            <div class="w-full max-w-sm mx-auto z-10">
-                <form class="bg-gray-100 dark:bg-gray-700 shadow-md rounded px-4 pt-4 pb-8 mb-4" @submit.prevent="submit">
-                    <h1 class="dark:text-gray-100 font-semibold text-center">Anmelden</h1>
-                    <div class="mt-4 mb-2">
-                        <TextInput
-                            class="shadow appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white focus:text-white"
-                            label="E-Mail"
-                            placeholder="E-Mail"
-                            type="email"
-                            :errors="$page.errors.email"
-                            v-model="form.email" />
+
+
+
+    <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full">
+            <div>
+                <img class="mx-auto h-64" src="/img/icon.png" alt="Mein Moers Icon" />
+                <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
+                    Melde dich mit deinem Account an
+                </h2>
+                <p class="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
+                    oder
+                    <a href="#" class="font-medium text-red-600 hover:text-red-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                        erstelle deinen neuen Account
+                    </a>
+                </p>
+            </div>
+            <form class="mt-8" @submit.prevent="submit">
+                <input type="hidden" name="remember" value="true" />
+                <div class="rounded-md shadow-sm">
+                    <div>
+                        <input aria-label="E-Mail Adresse"
+                               name="email"
+                               type="email"
+                               v-model="form.email"
+                               required
+                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                               placeholder="E-Mail Adresse" />
                     </div>
-                    <div class="mb-6">
-                        <TextInput
-                                class="shadow appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white focus:text-white"
-                                label="Passwort"
-                                placeholder="Passwort"
-                                type="password"
-                                :errors="$page.errors.password"
-                                v-model="form.password" />
+                    <div class="-mt-px">
+                        <input aria-label="Password"
+                               name="password"
+                               type="password"
+                               v-model="form.password"
+                               required
+                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                               placeholder="Passwort" />
                     </div>
-                    <div class="flex flex-col">
-                        <LoadingButton :loading="sending" :disabled="formDisabled" class="h-10 bg-blue-500 hover:bg-blue-700 text-gray-100 dark:text-gray-800 font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:bg-yellow-500 dark-hover:bg-yellow-600">
-                            Anmelden
-                        </LoadingButton>
-                        <a class="mt-3 inline-block align-baseline font-semibold text-sm text-gray-200 hover:text-gray-200" href="/password/reset">
+                </div>
+
+                <div class="mt-6 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember_me" type="checkbox" class="form-checkbox h-4 w-4 text-red-600 transition duration-150 ease-in-out" />
+                        <label for="remember_me" class="ml-2 block text-sm leading-5 text-gray-900">
+                            Angemeldet bleiben
+                        </label>
+                    </div>
+
+                    <div class="text-sm leading-5">
+                        <a href="#" class="font-medium text-red-600 hover:text-red-500 focus:outline-none focus:underline transition ease-in-out duration-150">
                             Passwort vergessen?
                         </a>
                     </div>
-                </form>
-            </div>
+                </div>
+
+                <div class="mt-6">
+                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition duration-150 ease-in-out">
+                        <span class="absolute left-0 inset-y pl-3">
+                            <svg class="h-5 w-5 text-red-400 group-hover:text-red-300 transition ease-in-out duration-150" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        Anmelden
+                    </button>
+                </div>
+
+                <div v-if="$page.errors" class="mt-3 text-red-500 font-semibold">
+                    <span v-if="$page.errors.email">{{ $page.errors.email[0] }}</span>
+                    <span v-if="$page.errors.password">{{ $page.errors.password[0] }}</span>
+                </div>
+
+            </form>
         </div>
+    </div>
+
+
+
+    <!--    <div>-->
+<!--        <Navigation></Navigation>-->
+<!--        <div class="mt-4">-->
+<!--            <div class="w-full max-w-sm mx-auto z-10">-->
+<!--                <form class="bg-gray-100 dark:bg-gray-700 shadow-md rounded px-4 pt-4 pb-8 mb-4" @submit.prevent="submit">-->
+<!--                    <h1 class="dark:text-gray-100 font-semibold text-center">Anmelden</h1>-->
+<!--                    <div class="mt-4 mb-2">-->
+<!--                        <TextInput-->
+<!--                            class="shadow appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white focus:text-white"-->
+<!--                            label="E-Mail"-->
+<!--                            placeholder="E-Mail"-->
+<!--                            type="email"-->
+<!--                            :errors="$page.errors.email"-->
+<!--                            v-model="form.email" />-->
+<!--                    </div>-->
+<!--                    <div class="mb-6">-->
+<!--                        <TextInput-->
+<!--                                class="shadow appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white focus:text-white"-->
+<!--                                label="Passwort"-->
+<!--                                placeholder="Passwort"-->
+<!--                                type="password"-->
+<!--                                :errors="$page.errors.password"-->
+<!--                                v-model="form.password" />-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col">-->
+<!--                        <LoadingButton :loading="sending" :disabled="formDisabled" class="h-10 bg-blue-500 hover:bg-blue-700 text-gray-100 dark:text-gray-800 font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:bg-yellow-500 dark-hover:bg-yellow-600">-->
+<!--                            Anmelden-->
+<!--                        </LoadingButton>-->
+<!--                        <a class="mt-3 inline-block align-baseline font-semibold text-sm text-gray-200 hover:text-gray-200" href="/password/reset">-->
+<!--                            Passwort vergessen?-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
 <!--        <div class="absolute fill-current z-0 text-gray-600 mb-0 bottom-0 w-full">-->
 <!--            <svg class="w-full fill-current" viewBox="0 0 3840 2160" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5">-->
 <!--                <path fill="none" d="M0 0h3840v2160H0z"/>-->
@@ -53,7 +130,7 @@
 <!--                </g>-->
 <!--            </svg>-->
 <!--        </div>-->
-    </div>
+<!--    </div>-->
 
 
 
