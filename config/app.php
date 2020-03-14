@@ -168,7 +168,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // Laravel IDE helper
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 
@@ -222,6 +224,7 @@ return [
         'HTML' => Collective\Html\HtmlFacade::class,
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,
         'XmlParser' => Orchestra\Parser\Xml\Facade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

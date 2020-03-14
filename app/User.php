@@ -27,9 +27,6 @@ use Silber\Bouncer\Database\Role;
  * @property string password
  * @method static findOrFail($get)
  * @property int $id
- * @property string $name
- * @property string $email
- * @property string $password
  * @property string|null $description
  * @property int $points
  * @property string|null $remember_token
@@ -82,7 +79,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'description'];
+    protected $fillable = ['name', 'email', 'description', 'provider_id', 'provider'];
 
     /**
      * The attributes excluded from the model's JSON form.
