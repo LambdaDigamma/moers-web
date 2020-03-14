@@ -29,6 +29,8 @@ Route::group([
 
     Route::get('/')->name('landingPage')->uses('LandingPageController');
 
+    Route::get('/profile')->name('profile')->uses('ProfileController@details');
+
     Route::get('/legal/privacy')->name('legal.privacy')->uses('LegalController@privacy');
     Route::get('/legal/imprint')->name('legal.imprint')->uses('LegalController@imprint');
     Route::get('/legal/tac')->name('legal.tac')->uses('LegalController@tac');

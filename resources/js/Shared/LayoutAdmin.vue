@@ -170,7 +170,10 @@
                                         leave-to-class="transform opacity-0 scale-95">
                                     <div v-show="open" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                                         <div class="py-1 rounded-md bg-white shadow-xs">
-                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">Your Profile</a>
+                                            <inertia-link :href="route('profile')"
+                                                          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">
+                                                Dein Profil
+                                            </inertia-link>
                                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">Settings</a>
                                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">Sign out</a>
                                         </div>

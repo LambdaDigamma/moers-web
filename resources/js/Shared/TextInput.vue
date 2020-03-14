@@ -1,38 +1,29 @@
 <template>
 
     <div>
-
-        <div v-if="label" class="flex flex-col">
-            <label :for="id" class="block text-sm font-semibold mb-2 dark:text-white">{{ label + ':' }}</label>
+        <div class="flex" :class="{ 'justify-between' : isOptional, 'justify-start' : !isOptional }">
+            <label :for="id" class="block text-sm font-medium leading-5 text-gray-700">{{ label }}</label>
+            <span class="text-sm leading-5 text-gray-500" v-if="isOptional">Optional</span>
+        </div>
+        <div class="mt-1 relative rounded-md shadow-sm">
             <input :id="id"
                    :value="value"
                    :placeholder="placeholder"
                    :type="type"
                    v-bind="$attrs"
+                   :class="{ 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : this.hasError, 'focus:border-blue-500 focus:shadow-outline-blue' : !this.hasError }"
+                   class="form-input block w-full pr-10 sm:text-sm sm:leading-5"
                    @update="$emit('input', $event)"
                    @input="$emit('input', $event.target.value)"
                    @keydown.enter.prevent=""
-                   ref="input"
-                   class="shadow appearance-none border dark:border-gray-700 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark-focus:border-gray-500 dark-focus:shadow-none dark:bg-gray-600 dark:text-white" />
-            <div v-if="errors.length" class="form-error">{{ errors[0] }}</div>
-            <slot/>
+                   ref="input" />
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none" v-if="errors.length">
+                <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+            </div>
         </div>
-
-        <div v-else>
-            <input :id="id"
-                   :value="value"
-                   :placeholder="placeholder"
-                   :type="type"
-                   v-bind="$attrs"
-                   @update="$emit('input', $event)"
-                   @input="$emit('input', $event.target.value)"
-                   @keydown.enter.prevent=""
-                   class="shadow appearance-none border dark:border-gray-700 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark-focus:border-gray-500 dark-focus:shadow-none dark:bg-gray-600 dark:text-white"
-                   ref="input"/>
-            <div v-if="errors.length" class="form-error">{{ errors[0] }}</div>
-            <slot/>
-        </div>
-
+        <p v-if="errors.length" class="mt-2 text-sm text-red-600">{{ errors[0] }}</p>
     </div>
 
 </template>
@@ -48,6 +39,10 @@
                     return `text-input-${this._uid}`
                 },
             },
+            isOptional: {
+                type: Boolean,
+                default: false
+            },
             type: {
                 type: String,
                 default: 'text',
@@ -59,10 +54,6 @@
                 type: Array,
                 default: () => [],
             },
-            size: {
-                type: String,
-                default: () => 'md'
-            }
         },
         methods: {
             focus() {
@@ -75,6 +66,11 @@
                 this.$refs.input.setSelectionRange(start, end)
             },
         },
+        computed: {
+            hasError() {
+                return this.errors.length !== 0
+            }
+        }
     }
 </script>
 
