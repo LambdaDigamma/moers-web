@@ -33,9 +33,11 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        if (DB::getDriverName() !== 'sqlite') {
-            $table->dropForeign('creator_id');
-        }
+        Schema::table('pages', function (Blueprint $table) {
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('pages_creator_id_foreign');
+            }
+        });
         Schema::dropIfExists('pages');
     }
 }
