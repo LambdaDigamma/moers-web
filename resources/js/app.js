@@ -3,14 +3,19 @@ import VueMeta from 'vue-meta'
 import PortalVue from 'portal-vue'
 import { InertiaApp } from '@inertiajs/inertia-vue'
 
+const moment = require('moment')
+require('moment/locale/de')
+
 Vue.config.productionTip = false
 Vue.mixin({ methods: { route: window.route } })
 Vue.use(InertiaApp)
 Vue.use(PortalVue)
 Vue.use(VueMeta)
+Vue.use(require('vue-moment'), {
+    moment
+})
 
 window.axios = require('axios');
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

@@ -16,8 +16,8 @@ class ProfileController extends Controller
 
     public function notifications()
     {
-        $unreadNotifications = Auth::user()->unreadNotifications()->orderByDesc('updated_at')->get();
-        $readNotifications = Auth::user()->readNotifications()->orderByDesc('updated_at')->get();
+        $unreadNotifications = Auth::user()->unreadNotifications()->orderByDesc('created_at')->get();
+        $readNotifications = Auth::user()->readNotifications()->orderByDesc('created_at')->get();
 
         Auth::user()->unreadNotifications->markAsRead();
 

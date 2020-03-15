@@ -18,7 +18,7 @@
                             </h1>
                             <div class="text-sm leading-5 text-gray-700">
                                 erhalten am
-                                <time datetime="2020-01-07">7. Januar 2020</time>
+                                <time :datetime="notification.created_at">{{ notification.created_at | moment("dddd, Do MMM [um] H:m") }}</time>
                             </div>
                         </div>
                         <div class="mt-1 flex items-center text-sm leading-5 text-gray-500">

@@ -1,34 +1,24 @@
 <template>
 
     <div>
-        <h1 class="mt-2 font-semibold text-2xl md:text-4xl dark:text-white hidden md:block">Unbeantwortete Abstimmungen</h1>
 
-<!--        <div class="mt-3 mb-6 flex flex-col md:flex-row justify-between items-center">-->
-<!--            <search-filter v-model="form.search" class="w-full max-w-sm mr-4" @reset="reset">-->
-<!--                <label class="block text-grey-darkest">Gelöschte:</label>-->
-<!--                <select v-model="form.trashed" class="mt-1 w-full form-select">-->
-<!--                    <option :value="null"/>-->
-<!--                    <option value="with">inklusive gelöschten</option>-->
-<!--                    <option value="only">nur gelöschte</option>-->
-<!--                </select>-->
-<!--            </search-filter>-->
-<!--            <inertia-link :href="route('admin.polls.create')" class="px-3 py-2 bg-green-700 rounded-lg text-white font-semibold text-lg hover:no-underline">-->
-<!--                <span>Erstellen</span>-->
-<!--            </inertia-link>-->
-<!--        </div>-->
+        <header>
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold leading-tight text-gray-900">
+                    Unbeantwortete Abstimmungen
+                </h2>
+            </div>
+        </header>
 
-        <div class="mt-2 md:mt-3">
-
-            <inertia-link v-for="poll in polls.data"
-                          :key="poll.id"
-                          :href="route('polls.show', poll.id)"
-                          class="block mb-3 p-2 px-3 rounded-lg dark:bg-gray-700 dark:text-white dark-hover:bg-gray-800 hover:no-underline cursor-pointer">
-                <PollItem :poll="poll" />
-            </inertia-link>
-
+        <div class="mt-6 bg-white overflow-hidden shadow rounded-lg">
+            <ul>
+                <li class="border-t border-gray-200" v-for="poll in polls.data" :key="poll.id">
+                    <PollItem :poll="poll" />
+                </li>
+            </ul>
         </div>
 
-        <div class="p-0">
+        <div class="mt-6">
             <Pagination :links="polls.links" class="my-2 my-md-4"></Pagination>
         </div>
 
