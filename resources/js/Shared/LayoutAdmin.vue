@@ -174,8 +174,10 @@
                                                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">
                                                 Dein Profil
                                             </inertia-link>
-                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">Settings</a>
-                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">Sign out</a>
+                                            <inertia-link :href="route('logout')" method="POST"
+                                                          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">
+                                                Abmelden
+                                            </inertia-link>
                                         </div>
                                     </div>
                                 </transition>
@@ -190,16 +192,6 @@
                         <slot />
 
                     </div>
-
-<!--                    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">-->
-<!--                        <flash-messages />-->
-<!--                        <slot />-->
-<!--                        &lt;!&ndash; Replace with your content &ndash;&gt;-->
-<!--                        <div class="py-4">-->
-<!--                            <div class="border-4 border-dashed border-gray-200 rounded-lg h-96"></div>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash; /End replace &ndash;&gt;-->
-<!--                    </div>-->
                 </main>
             </div>
         </div>

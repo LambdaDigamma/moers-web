@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateProfile;
 use Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -24,6 +25,13 @@ class ProfileController extends Controller
                 'canChangeEmail' => $user->provider_id !== null
             ]
         ]);
+    }
+
+    public function updateInformation(UpdateProfile $request)
+    {
+        $user = Auth::user();
+        $user->update($request->validated());
+        return Redirect::route('profile')->with('success', 'Die Informationen wurden gespeichert.');
     }
 
     public function deleteAccount()

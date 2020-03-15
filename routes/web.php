@@ -14,6 +14,7 @@
 Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
 Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
 Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
+Route::get('logout')->name('logout.seamless')->uses('Auth\LoginController@logout');
 
 Route::get('/login/apple', 'SiwaController@login');
 Route::post('/login/apple/callback', 'SiwaController@callback');
@@ -30,6 +31,7 @@ Route::group([
     Route::get('/')->name('landingPage')->uses('LandingPageController');
 
     Route::get('/profile')->name('profile')->uses('ProfileController@details');
+    Route::put('/profile')->name('profile.update')->uses('ProfileController@updateInformation');
     Route::post('/profile/export')->name('profile.export')->uses('ProfileController@exportData');
 
     Route::get('/legal/privacy')->name('legal.privacy')->uses('LegalController@privacy');

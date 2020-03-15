@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="mt-5 md:mt-0 md:col-span-2">
-                    <form action="#" method="POST">
+                    <form @submit.prevent="submit">
                         <div class="shadow sm:rounded-md sm:overflow-hidden">
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <div class="grid grid-cols-3 gap-6">
@@ -97,7 +97,7 @@
                         </div>
                     </form>
                     <form action="#" method="POST" class="mt-6">
-                        <div class="shadow sm:rounded-md sm:overflow-hidden">
+                        <div class="shadow sm:rounded-md sm:overflow-hidden opacity-50">
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                                     Lösche dein Benutzerkonto
@@ -149,6 +149,12 @@
                 },
             }
         },
+        methods: {
+            submit() {
+                this.$inertia
+                    .put(this.route('profile.update').url(), this.form)
+            }
+        }
     }
 </script>
 
