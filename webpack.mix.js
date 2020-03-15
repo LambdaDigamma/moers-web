@@ -24,7 +24,7 @@ mix.js('resources/js/app.js', 'public/js')
     })
     .purgeCss({
         enabled: true,
-        // defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || []
+        defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || []
     })
     .webpackConfig({
         output: {chunkFilename: '[name].js?id=[chunkhash]'},

@@ -20,16 +20,16 @@ class DashboardController extends Controller
     {
         return Inertia::render('Dashboard', [
             'title' => 'Übersicht',
-            'unansweredPolls' => Auth::user()
-                ->polls()
-                ->unanswered()
-                ->take(3)
-                ->get(),
-            'answeredPolls' => Auth::user()
-                ->polls()
-                ->answered()
-                ->take(3)
-                ->get()
+//            'unansweredPolls' => Auth::user()
+//                ->polls()
+//                ->unanswered()
+//                ->take(3)
+//                ->get(),
+//            'answeredPolls' => Auth::user()
+//                ->polls()
+//                ->answered()
+//                ->take(3)
+//                ->get()
         ]);
     }
 }

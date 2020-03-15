@@ -26,8 +26,6 @@
                 </div>
             </div>
 
-
-
             <h2 class="text-3xl font-bold leading-tight text-gray-900">
                 Alte Benachrichtigungen
             </h2>

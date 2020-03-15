@@ -1,6 +1,6 @@
 <template>
 
-    <inertia-link :href="route"
+    <inertia-link :href="href"
                   class="group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md focus:outline-none transition ease-in-out duration-150"
                   :class="active ? 'bg-gray-900 focus:bg-gray-700 text-white' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white focus:bg-gray-700'">
         <svg class="mr-4 h-6 w-6 transition ease-in-out duration-150" stroke="currentColor" fill="none" viewBox="0 0 24 24"
@@ -20,7 +20,7 @@
             title: {
                 type: String
             },
-            route: {
+            href: {
                 type: String
             },
             active: {

@@ -30,16 +30,20 @@ Route::group([
 
     Route::get('/')->name('landingPage')->uses('LandingPageController');
 
-    Route::get('/notifications')->name('notifications')->uses('ProfileController@notifications');
-    Route::get('/profile')->name('profile')->uses('ProfileController@details');
-    Route::put('/profile')->name('profile.update')->uses('ProfileController@updateInformation');
-    Route::post('/profile/export')->name('profile.export')->uses('ProfileController@exportData');
+    Route::get('/notifications')->name('notifications')->uses('ProfileController@notifications')->middleware('auth');
+    Route::get('/profile')->name('profile')->uses('ProfileController@details')->middleware('auth');
+    Route::put('/profile')->name('profile.update')->uses('ProfileController@updateInformation')->middleware('auth');
+    Route::post('/profile/export')->name('profile.export')->uses('ProfileController@exportData')->middleware('auth');
 
     Route::get('/legal/privacy')->name('legal.privacy')->uses('LegalController@privacy');
     Route::get('/legal/imprint')->name('legal.imprint')->uses('LegalController@imprint');
     Route::get('/legal/tac')->name('legal.tac')->uses('LegalController@tac');
 
-    Route::get('/dashboard')->name('dashboard')->uses('DashboardController')->middleware('auth');
+    Route::get('/dashboard')->name('dashboard')->uses('DashboardController');
+
+    Route::get('/help')->name('help.index')->uses('HelpController@index');
+    Route::get('/help/serve')->name('help.serve')->uses('HelpController@serve');
+    Route::get('/help/need')->name('help.need')->uses('HelpController@want');
 
     Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
     Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
