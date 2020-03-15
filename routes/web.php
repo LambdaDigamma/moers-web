@@ -30,6 +30,7 @@ Route::group([
 
     Route::get('/')->name('landingPage')->uses('LandingPageController');
 
+    Route::get('/notifications')->name('notifications')->uses('ProfileController@notifications');
     Route::get('/profile')->name('profile')->uses('ProfileController@details');
     Route::put('/profile')->name('profile.update')->uses('ProfileController@updateInformation');
     Route::post('/profile/export')->name('profile.export')->uses('ProfileController@exportData');

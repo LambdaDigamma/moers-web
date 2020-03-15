@@ -14,6 +14,19 @@ use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 class ProfileController extends Controller
 {
 
+    public function notifications()
+    {
+        $unreadNotifications = Auth::user()->unreadNotifications()->orderByDesc('updated_at')->get();
+        $readNotifications = Auth::user()->readNotifications()->orderByDesc('updated_at')->get();
+
+        Auth::user()->unreadNotifications->markAsRead();
+
+        return Inertia::render('Profile/Notifications', [
+            'unreadNotifications' => $unreadNotifications,
+            'readNotifications' => $readNotifications
+        ]);
+    }
+
     public function details()
     {
         $user = Auth::user();

@@ -54,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
                         'id' => Auth::user()->id,
                         'name' => Auth::user()->name,
                         'email' => Auth::user()->email,
+                        'notifications_count' => Auth::user()->unreadNotifications()->count()
                     ] : null,
                 ];
             },
