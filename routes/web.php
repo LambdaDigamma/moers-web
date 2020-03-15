@@ -30,6 +30,7 @@ Route::group([
     Route::get('/')->name('landingPage')->uses('LandingPageController');
 
     Route::get('/profile')->name('profile')->uses('ProfileController@details');
+    Route::post('/profile/export')->name('profile.export')->uses('ProfileController@exportData');
 
     Route::get('/legal/privacy')->name('legal.privacy')->uses('LegalController@privacy');
     Route::get('/legal/imprint')->name('legal.imprint')->uses('LegalController@imprint');
@@ -45,6 +46,8 @@ Route::group([
     Route::get('/polls/{poll}')->name('polls.show')->uses('PollController@show')->middleware('auth');
     Route::post('/polls/{poll}/vote')->name('polls.vote')->uses('PollController@vote')->middleware('auth');
     Route::post('/polls/{poll}/abstain')->name('polls.abstain')->uses('PollController@abstain')->middleware('auth');
+
+    Route::personalDataExports('personal-data-exports');
 
 });
 

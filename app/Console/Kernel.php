@@ -28,6 +28,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('events:loadAdv')
                  ->daily();
 
+        $schedule->command('personal-data-export:clean')->daily();
+
     }
 
     /**

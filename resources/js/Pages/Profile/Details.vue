@@ -82,13 +82,15 @@
                                 </h3>
                                 <div class="mt-2 max-w-xl text-sm leading-5 text-gray-500">
                                     <p>
-                                        Du kannst alle personenbezogenen Daten als komprimierte ZIP Datei exportieren.
+                                        Du kannst alle personenbezogenen Daten anfordern und erhälst diese dann per E-Mail.
                                     </p>
                                 </div>
                                 <div class="mt-5">
-                                    <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                                        Daten exportieren
-                                    </button>
+                                    <inertia-link
+                                            method="POST" :href="route('profile.export')"
+                                            class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                        Daten anfordern
+                                    </inertia-link>
                                 </div>
                             </div>
 

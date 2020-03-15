@@ -11,13 +11,16 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Laravel\Passport\Client;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Passport\Token;
+use OwenIt\Auditing\Models\Audit;
 use Silber\Bouncer\Database\Ability;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Silber\Bouncer\Database\Role;
+use Spatie\PersonalDataExport\ExportsPersonalData;
+use Spatie\PersonalDataExport\PersonalDataSelection;
 
 /**
  * App\User
@@ -63,7 +66,7 @@ use Silber\Bouncer\Database\Role;
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements ExportsPersonalData
 {
     use Notifiable, HasApiTokens, HasRolesAndAbilities;
 
@@ -171,5 +174,34 @@ class User extends Authenticatable
             });
     }
 
+    public function selectPersonalData($personalDataSelection): void
+    {
+        $user_id = Auth::user()->id;
+        $personalDataSelection
+            ->add('user.json', [
+                'name' => $this->name,
+                'email' => $this->email,
+                'description' => $this->description,
+                'points' => $this->points
+            ])
+            ->add('audits.json',
+                Audit::where('user_id', $user_id)->get())
+            ->add('votes.json',
+                Vote::with('poll')
+                    ->without('poll.votes')
+                    ->where('user_id', $user_id)
+                    ->get())
+            ->add('student_information.json',
+                StudentInformation::where('user_id', $user_id)->get())
+            ->add('created_pages.json',
+                Page::where('creator_id', $user_id)->get())
+            ->add('group_members.json',
+                Auth::user()->groups()->get());
+    }
 
+    public function personalDataExportName(): string
+    {
+        $userName = Str::slug($this->name);
+        return "personal-data-{$userName}.zip";
+    }
 }
