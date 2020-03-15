@@ -124,14 +124,14 @@
 </template>
 
 <script>
-    import LayoutAdmin from "../../Shared/LayoutAdmin";
     import TextInput from "../../Shared/TextInput";
     import TextareaInput from "../../Shared/TextareaInput";
+    import LayoutGeneral from "../../Shared/Layouts/LayoutGeneral";
 
     export default {
         name: "Details",
         components: {TextareaInput, TextInput},
-        layout: LayoutAdmin,
+        layout: LayoutGeneral,
         metaInfo: {
             title: 'Profil'
         },

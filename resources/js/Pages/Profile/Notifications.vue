@@ -49,13 +49,13 @@
 </template>
 
 <script>
-    import LayoutAdmin from "../../Shared/LayoutAdmin";
     import NotificationItem from "./NotificationItem";
+    import LayoutGeneral from "../../Shared/Layouts/LayoutGeneral";
 
     export default {
         name: "Notifications",
         components: {NotificationItem},
-        layout: LayoutAdmin,
+        layout: LayoutGeneral,
         props: {
             unreadNotifications: {
                 type: Array
