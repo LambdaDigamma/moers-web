@@ -10,8 +10,13 @@
                    :value="value"
                    :placeholder="placeholder"
                    :type="type"
+                   :disabled="disabled"
                    v-bind="$attrs"
-                   :class="{ 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : this.hasError, 'focus:border-blue-500 focus:shadow-outline-blue' : !this.hasError }"
+                   :class="{
+                       'border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : this.hasError,
+                       'focus:border-blue-500 focus:shadow-outline-blue' : !this.hasError,
+                       'opacity-50' : disabled
+                   }"
                    class="form-input block w-full pr-10 sm:text-sm sm:leading-5"
                    @update="$emit('input', $event)"
                    @input="$emit('input', $event.target.value)"
@@ -54,6 +59,10 @@
                 type: Array,
                 default: () => [],
             },
+            disabled: {
+                type: Boolean,
+                default: false
+            }
         },
         methods: {
             focus() {
