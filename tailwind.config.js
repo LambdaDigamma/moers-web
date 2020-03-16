@@ -128,7 +128,9 @@ module.exports = {
         },
     },
     plugins: [
-        require('@tailwindcss/ui')(),
+        require('@tailwindcss/ui')({
+            layout: 'sidebar',
+        }),
         require('tailwindcss-dark-mode')(),
         require('tailwindcss-font-inter')()
     ]

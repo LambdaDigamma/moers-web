@@ -174,6 +174,11 @@ class User extends Authenticatable implements ExportsPersonalData
             });
     }
 
+    public function helpRequests()
+    {
+        return $this->hasMany(HelpRequest::class, 'creator_id', 'id');
+    }
+
     public function selectPersonalData($personalDataSelection): void
     {
         $user_id = Auth::user()->id;

@@ -43,7 +43,9 @@ Route::group([
 
     Route::get('/help')->name('help.index')->uses('HelpController@index');
     Route::get('/help/serve')->name('help.serve')->uses('HelpController@serve');
-    Route::get('/help/need')->name('help.need')->uses('HelpController@want');
+    Route::get('/help/need')->name('help.need')->uses('HelpController@need')->middleware('auth');
+    Route::post('/help/need')->name('help.need.store')->uses('HelpController@sendHelpRequest')->middleware('auth');
+
 
     Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
     Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
