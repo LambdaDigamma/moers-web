@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\HelpRequest;
 use Auth;
+use Bouncer;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
@@ -36,6 +38,8 @@ class AppServiceProvider extends ServiceProvider
                 return $value;
             });
         });
+
+        Bouncer::ownedVia(HelpRequest::class, 'creator_id');
 
     }
 

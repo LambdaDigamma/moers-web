@@ -5,6 +5,32 @@
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    Kontakt
+                </h3>
+                <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+                    Biete deine Hilfe an, nimm Kontakt auf und kläre Genaueres.
+                </p>
+            </div>
+            <div class="px-4 py-5 sm:p-6">
+
+
+
+                <div id="start-contact-container" v-if="!isCreator">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150">
+                        Nimm Kontakt auf
+                    </button>
+                    <p class="mt-2 max-w-xl text-sm leading-5 text-gray-500">
+                        Wenn du den Kontakt aufnimmst, kann der Hilfesuchende deinen Namen sehen und dir schreiben.
+                        Danach wird diese Hilfesuche nicht mehr öffentlich angezeigt und ihr beide befindet euch in einem privaten Raum.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
+            <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
                     Informationen zur Hilfesuche
                 </h3>
                 <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
@@ -49,6 +75,27 @@
             </div>
         </div>
 
+        <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-lg" v-if="isCreator">
+            <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    Administration
+                </h3>
+                <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+                    Lösche die Hilfesuche und alle damit verbundenen Unterhaltungen.
+                </p>
+            </div>
+            <div class="px-4 py-5 sm:p-6">
+                <div>
+                    <inertia-link :href="route('help.request.delete', request.id)" method="DELETE" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150">
+                        Ziehe die Hilfesuche zurück
+                    </inertia-link>
+                    <p class="mt-2 max-w-xl text-sm leading-5 text-gray-500">
+                        Wenn du diese Hilfesuche zurück ziehst, wird der Helfer gegebenenfalls darüber informiert und alle Daten werden gelöscht.
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </template>
@@ -60,8 +107,9 @@
         name: "HelpRequest",
         layout: LayoutGeneral,
         props: {
-            request: Object
-        }
+            request: Object,
+            isCreator: Boolean
+        },
     }
 </script>
 
