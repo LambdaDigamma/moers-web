@@ -57,9 +57,12 @@ class HelpController extends Controller
 
     }
 
-    public function helpRequest()
+    public function helpRequest(HelpRequest $helpRequest)
     {
-        return Inertia::render('Help/HelpRequest');
+        $helpRequest->load('quarter');
+        return Inertia::render('Help/HelpRequest', [
+            'request' => $helpRequest
+        ]);
     }
 
 }
