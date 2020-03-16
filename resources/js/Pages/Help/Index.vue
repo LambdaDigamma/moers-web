@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <div class="mt-4 md:mt-8">
+        <div class="mt-4 md:mt-8 pb-48">
 
             <div class="bg-gray-200 overflow-hidden rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
@@ -70,7 +70,20 @@
                 </div>
             </div>
 
+            <div v-if="ownHelpRequests !== null" class="mt-6">
 
+                <h2 class="text-3xl font-bold leading-tight text-gray-900">
+                    Du hast Hilfe gesucht:
+                </h2>
+
+                <ul>
+                    <li v-for="(request, index) in ownHelpRequests" :key="index" class="mt-6">
+                        <HelpItem :request="request" />
+                    </li>
+                </ul>
+
+
+            </div>
 
         </div>
 
@@ -81,10 +94,18 @@
 
 <script>
     import LayoutGeneral from "../../Shared/Layouts/LayoutGeneral";
+    import HelpItem from "../../Shared/Help/HelpItem";
 
     export default {
         name: "Index",
-        layout: LayoutGeneral
+        components: {HelpItem},
+        layout: LayoutGeneral,
+        props: {
+            ownHelpRequests: {
+                type: Array,
+                required: false
+            }
+        }
     }
 </script>
 

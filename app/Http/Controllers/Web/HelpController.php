@@ -9,21 +9,34 @@ use App\Quarter;
 use Auth;
 use Inertia\Inertia;
 use Redirect;
+use Request;
 
 class HelpController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('remember')->only('serve');
+    }
+
     public function index()
     {
         return Inertia::render('Help/Index', [
-
+            'ownHelpRequests' => Auth::user() ? Auth::user()
+                ->helpRequests()
+                ->with('quarter')
+                ->get() : null,
         ]);
     }
 
     public function serve()
     {
         return Inertia::render('Help/Serve', [
-            'helpRequests' => HelpRequest::with('quarter')->get()
+            'filters' => Request::all('search'),
+            'helpRequests' => HelpRequest::with('quarter')
+                ->orderByDesc('created_at')
+                ->filter(Request::only('search'))
+                ->paginate()
         ]);
     }
 

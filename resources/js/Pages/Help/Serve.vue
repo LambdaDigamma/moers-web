@@ -2,24 +2,27 @@
 
     <div class="mt-6">
 
+        <h2 class="text-3xl font-bold leading-tight text-gray-900">
+            Hier kannst du helfen:
+        </h2>
 
-        <inertia-link class="mt-6 block bg-white overflow-hidden shadow rounded-lg hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out" v-for="(request, index) in helpRequests" :key="index">
-            <div class="px-4 py-5 sm:p-6">
-                <h1 class="text-xl text-gray-600 font-medium">Jemand in <span class="font-semibold text-gray-900">{{ request.quarter.name }} ({{ request.quarter.postcode }})</span> benötigt Hilfe</h1>
-                <p class="mt-2">
-                    {{ request.request }}
-                </p>
-                <span class="inline-flex rounded-md shadow-sm">
-                    <button type="button" class="mt-3 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
-                        <svg class="-ml-0.5 mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd" />
+        <div class="mt-6">
+            <div class="w-full flex px-4 py-2 sm:p-6 md:py-3 bg-white rounded-lg shadow">
+                <label for="search_field" class="sr-only">Suchen</label>
+                <div class="relative w-full text-gray-400 focus-within:text-gray-600">
+                    <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
                         </svg>
-                        Ich helfe!
-                    </button>
-                </span>
+                    </div>
+                    <input id="search_field" class="block w-full h-full pl-8 pr-3 py-2 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 sm:text-sm" placeholder="Suche nach Stadtteil oder Schlagwort" v-model="form.search" />
+                </div>
             </div>
-        </inertia-link>
+        </div>
 
+        <HelpItem v-for="(request, index) in helpRequests.data" :key="index" :request="request" class="mt-6" />
+
+        <Pagination :links="helpRequests.links" class="mt-4" />
 
     </div>
 
@@ -27,13 +30,39 @@
 
 <script>
     import LayoutGeneral from "../../Shared/Layouts/LayoutGeneral";
+    import HelpItem from "../../Shared/Help/HelpItem";
+    import {mapValues, pickBy, throttle} from "lodash";
+    import Pagination from "../../Shared/Pagination";
 
     export default {
         name: "Serve",
+        components: {Pagination, HelpItem},
         layout: LayoutGeneral,
         props: {
-            helpRequests: Array
-        }
+            helpRequests: Object,
+            filters: Object,
+        },
+        data() {
+            return {
+                form: {
+                    search: this.filters.search,
+                },
+            }
+        },
+        watch: {
+            form: {
+                handler: throttle(function () {
+                    let query = pickBy(this.form)
+                    this.$inertia.replace(this.route('help.serve', Object.keys(query).length ? query : { remember: 'forget' }).url())
+                }, 150),
+                deep: true,
+            },
+        },
+        methods: {
+            reset() {
+                this.form = mapValues(this.form, () => null)
+            },
+        },
     }
 </script>
 
