@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Web;
 use App\Conversation;
 use App\HelpRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SendMessage;
 use App\Http\Requests\StoreHelpRequest;
+use App\Message;
 use App\Notifications\ClosedHelpRequestNotification;
 use App\Quarter;
 use Auth;
@@ -58,18 +60,23 @@ class HelpController extends Controller
         if ($helpRequest->helper == null) {
             return Inertia::render('Help/HelpRequest', [
                 'request' => $helpRequest,
-                'isCreator' => $helpRequest->creator_id === Auth::user()->id
+                'isCreator' => $helpRequest->creator_id === Auth::user()->id,
+                'messages' => null
             ]);
         }
 
         if ($helpRequest->helper->id == Auth::user()->id ||
             $helpRequest->creator->id == Auth::user()->id) {
-            $helpRequest->load(['creator', 'helper']);
+            $helpRequest->load(['creator', 'helper', 'conversation', 'conversation.messages']);
             $helpRequest->creator['name'] = explode(" ", $helpRequest->creator['name'])[0];
             $helpRequest->helper['name'] = explode(" ", $helpRequest->helper['name'])[0];
             return Inertia::render('Help/HelpRequest', [
                 'request' => $helpRequest,
-                'isCreator' => $helpRequest->creator_id === Auth::user()->id
+                'isCreator' => $helpRequest->creator_id === Auth::user()->id,
+                'messages' => function () use ($helpRequest) {
+                    return ($helpRequest->conversation !== null) ? $helpRequest->conversation->messages
+                         : null;
+                },
             ]);
         } else {
             abort(403, 'Du darfst nicht auf diese Seite zugreifen.');
@@ -125,6 +132,17 @@ class HelpController extends Controller
         } else {
             return response('Unauthorized.', 401);
         }
+
+    }
+
+    public function sendMessage(HelpRequest $helpRequest, SendMessage $messageRequest) {
+
+        $message = Message::make($messageRequest->validated());
+        $message->sender()->associate(Auth::user());
+
+        $helpRequest->conversation->messages()->save($message);
+
+        return Redirect::route('help.request.show', $helpRequest->id);
 
     }
 
