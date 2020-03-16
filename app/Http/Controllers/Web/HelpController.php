@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Web;
 use App\HelpRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHelpRequest;
+use App\Notifications\ClosedHelpRequestNotification;
 use App\Quarter;
 use Auth;
 use Bouncer;
+use Carbon\Carbon;
 use Inertia\Inertia;
 use Redirect;
 use Request;
@@ -51,10 +53,27 @@ class HelpController extends Controller
     public function helpRequest(HelpRequest $helpRequest)
     {
         $helpRequest->load('quarter');
-        return Inertia::render('Help/HelpRequest', [
-            'request' => $helpRequest,
-            'isCreator' => $helpRequest->creator_id === Auth::user()->id
-        ]);
+
+        if ($helpRequest->helper == null) {
+            return Inertia::render('Help/HelpRequest', [
+                'request' => $helpRequest,
+                'isCreator' => $helpRequest->creator_id === Auth::user()->id
+            ]);
+        }
+
+        if ($helpRequest->helper->id == Auth::user()->id ||
+            $helpRequest->creator->id == Auth::user()->id) {
+            $helpRequest->load(['creator', 'helper']);
+            $helpRequest->creator['name'] = explode(" ", $helpRequest->creator['name'])[0];
+            $helpRequest->helper['name'] = explode(" ", $helpRequest->helper['name'])[0];
+            return Inertia::render('Help/HelpRequest', [
+                'request' => $helpRequest,
+                'isCreator' => $helpRequest->creator_id === Auth::user()->id
+            ]);
+        } else {
+            abort(403, 'Du darfst nicht auf diese Seite zugreifen.');
+        }
+
     }
 
     public function sendHelpRequest(StoreHelpRequest $request)
@@ -69,12 +88,35 @@ class HelpController extends Controller
 
     }
 
+    public function acceptHelpRequest(HelpRequest $helpRequest)
+    {
+
+        if ($helpRequest->served_on == null) {
+            $helpRequest->helper()->associate(Auth::user());
+            $helpRequest->served_on = Carbon::now();
+            $helpRequest->save();
+            return Redirect::route('help.request.show', $helpRequest->id)
+                ->with('success', 'Du hast den Kontakt aufgebaut und kannst jetzt die Kommunikation beginnen.');
+        } else {
+            return Redirect::route('help.request.show', $helpRequest->id)
+                ->withErrors('Ein anderer Nutzer hilft bereits.');
+        }
+
+    }
+
     public function deleteHelpRequest(HelpRequest $helpRequest)
     {
 
         if (Bouncer::can('delete', $helpRequest)) {
+
+            if (!is_null($helpRequest->helper)) {
+                $helpRequest->helper->notify(new ClosedHelpRequestNotification());
+            }
+
             $helpRequest->delete();
+
             return Redirect::route('help.index')->with('success', 'Die Hilfesuche wurde erfolgreich gelöscht.');
+
         } else {
             return response('Unauthorized.', 401);
         }

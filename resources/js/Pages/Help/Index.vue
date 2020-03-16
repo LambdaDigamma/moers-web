@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <div v-if="ownHelpRequests !== null" class="mt-6">
+            <div v-if="ownHelpRequests !== null && ownHelpRequests.length !== 0" class="mt-6">
 
                 <h2 class="text-3xl font-bold leading-tight text-gray-900">
                     Du hast Hilfe gesucht:

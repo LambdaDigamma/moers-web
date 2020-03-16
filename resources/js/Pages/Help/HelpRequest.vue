@@ -2,10 +2,16 @@
 
     <div>
 
-        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="bg-white shadow overflow-hidden rounded-lg">
             <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                     Kontakt
+                    <span v-if="request.helper">
+                        zu
+                        <span v-if="isCreator">{{ request.helper.name }}</span>
+                        <span v-else>{{ request.creator.name }}</span>
+                    </span>
+
                 </h3>
                 <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
                     Biete deine Hilfe an, nimm Kontakt auf und kläre Genaueres.
@@ -13,12 +19,10 @@
             </div>
             <div class="px-4 py-5 sm:p-6">
 
-
-
-                <div id="start-contact-container" v-if="!isCreator">
-                    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150">
+                <div id="start-contact-container" v-if="!isCreator && request.served_on === null">
+                    <inertia-link :href="route('help.request.accept', request.id)" method="PUT" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150">
                         Nimm Kontakt auf
-                    </button>
+                    </inertia-link>
                     <p class="mt-2 max-w-xl text-sm leading-5 text-gray-500">
                         Wenn du den Kontakt aufnimmst, kann der Hilfesuchende deinen Namen sehen und dir schreiben.
                         Danach wird diese Hilfesuche nicht mehr öffentlich angezeigt und ihr beide befindet euch in einem privaten Raum.
@@ -28,7 +32,7 @@
             </div>
         </div>
 
-        <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="mt-6 bg-white shadow overflow-hidden rounded-lg">
             <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                     Informationen zur Hilfesuche
@@ -39,7 +43,15 @@
             </div>
             <div class="px-4 py-5 sm:p-0">
                 <dl>
-                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5" v-if="request.creator">
+                        <dt class="text-sm leading-5 font-medium text-gray-500">
+                            Hilfesuchende/r
+                        </dt>
+                        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{ request.creator.name }}
+                        </dd>
+                    </div>
+                    <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
                         <dt class="text-sm leading-5 font-medium text-gray-500">
                             Stadtteil
                         </dt>

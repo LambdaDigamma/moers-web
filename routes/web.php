@@ -47,6 +47,7 @@ Route::group([
     Route::post('/help/need')->name('help.need.store')->uses('HelpController@sendHelpRequest')->middleware('auth');
     Route::get('/help/request/{helpRequest}')->name('help.request.show')->uses('HelpController@helpRequest')->middleware('auth');
     Route::delete('/help/request/{helpRequest}')->name('help.request.delete')->uses('HelpController@deleteHelpRequest')->middleware(['auth']);
+    Route::put('/help/request/{helpRequest}/accept')->name('help.request.accept')->uses('HelpController@acceptHelpRequest')->middleware(['auth']);
 
 
     Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
