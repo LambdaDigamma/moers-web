@@ -20,6 +20,11 @@ class HelpRequest extends Model
         return $this->belongsTo(Quarter::class, 'quarter_id', 'id');
     }
 
+    public function conversation()
+    {
+        return $this->belongsTo(Conversation::class, 'conversation_id', 'id');
+    }
+
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {

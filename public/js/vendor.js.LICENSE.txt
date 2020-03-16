@@ -9,6 +9,14 @@
  */
 
 /*!
+ * Pusher JavaScript Library v5.1.1
+ * https://pusher.com/
+ *
+ * Copyright 2017, Pusher
+ * Released under the MIT licence.
+ */
+
+/*!
  * Sizzle CSS Selector Engine v2.3.4
  * https://sizzlejs.com/
  *
@@ -17,6 +25,13 @@
  * https://js.foundation/
  *
  * Date: 2019-04-08
+ */
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
  */
 
 /*!

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueMeta from 'vue-meta'
 import PortalVue from 'portal-vue'
 import { InertiaApp } from '@inertiajs/inertia-vue'
+import Echo from "laravel-echo"
 
 const moment = require('moment')
 require('moment/locale/de')
@@ -31,6 +32,14 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+window.Pusher = require('pusher-js');
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'd6e230a8246cff590289',
+    cluster: 'eu',
+    forceTLS: true
+});
 
 let app = document.getElementById('app')
 

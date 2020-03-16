@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Conversation;
 use App\HelpRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHelpRequest;
@@ -92,8 +93,12 @@ class HelpController extends Controller
     {
 
         if ($helpRequest->served_on == null) {
+
             $helpRequest->helper()->associate(Auth::user());
             $helpRequest->served_on = Carbon::now();
+            $conversation = Conversation::create();
+            $conversation->users()->saveMany([$helpRequest->creator, $helpRequest->helper]);
+            $helpRequest->conversation()->associate($conversation);
             $helpRequest->save();
             return Redirect::route('help.request.show', $helpRequest->id)
                 ->with('success', 'Du hast den Kontakt aufgebaut und kannst jetzt die Kommunikation beginnen.');

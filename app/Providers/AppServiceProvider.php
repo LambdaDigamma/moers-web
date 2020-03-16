@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\HelpRequest;
 use Auth;
 use Bouncer;
+use Chatkit\Chatkit;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
@@ -157,6 +158,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('ChatKit', function() {
+            return new Chatkit([
+                'instance_locator' => config('services.chatkit.locator'),
+                'key' => config('services.chatkit.secret'),
+            ]);
+        });
     }
 }

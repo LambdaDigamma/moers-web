@@ -29,6 +29,8 @@
         "laravelcollective/html": "^6.0",
         "orchestra/parser": "~5.0",
         "owen-it/laravel-auditing": "dev-laravel-7",
+        "pusher/pusher-chatkit-server": "^1.9",
+        "pusher/pusher-php-server": "~4.0",
         "reinink/advanced-eloquent": "^0.2.0",
         "reinink/remember-query-strings": "^0.1.0",
         "silber/bouncer": "v1.0.0-rc.7",
