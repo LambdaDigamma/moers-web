@@ -33,14 +33,29 @@ class HelpController extends Controller
         return Inertia::render('Help/Index', [
             'ownHelpRequests' => Auth::user() ? Auth::user()
                 ->helpRequests()
-                ->with('quarter')
+                ->with(['quarter', 'helper:id', 'creator:id'])
                 ->get() : null,
+            'userActiveHelpRequests' => Auth::user() ?
+                HelpRequest::with('quarter', 'helper:id', 'creator:id')
+                ->userHelps()
+                ->withoutOwn()
+                ->get() : null,
+            'openHelpRequests' => HelpRequest::with('quarter', 'helper:id', 'creator:id')
+                ->withoutOwn()
+                ->notServed()
+                ->orderByDesc('created_at')
+                ->get()
         ]);
     }
 
     public function serve()
     {
         return Inertia::render('Help/Serve', [
+            'activeRequests' => Auth::user() ?
+                HelpRequest::with('quarter', 'helper:id', 'creator:id')
+                    ->userHelps()
+                    ->withoutOwn()
+                    ->get() : null,
             'filters' => Request::all('search'),
             'helpRequests' => HelpRequest::with('quarter', 'helper:id', 'creator:id')
                 ->notServed()
@@ -54,7 +69,11 @@ class HelpController extends Controller
     public function need()
     {
         return Inertia::render('Help/Need', [
-            'quarters' => Quarter::all()
+            'quarters' => Quarter::all(),
+            'activeRequests' => Auth::user() ? Auth::user()
+                ->helpRequests()
+                ->with(['quarter', 'helper:id', 'creator:id'])
+                ->get() : null,
         ]);
     }
 
@@ -130,6 +149,7 @@ class HelpController extends Controller
                 $helpRequest->helper->notify(new ClosedHelpRequestNotification());
             }
 
+            $helpRequest->conversation->delete();
             $helpRequest->delete();
 
             return Redirect::route('help.index')->with('success', 'Die Hilfesuche wurde erfolgreich gelöscht.');
@@ -148,6 +168,7 @@ class HelpController extends Controller
                 $helpRequest->helper->notify(new CompletedHelpRequestNotification());
             }
 
+            $helpRequest->conversation->delete();
             $helpRequest->delete();
 
             return Redirect::route('help.index')->with('success', 'Die Hilfesuche wurde als erledigt markiert.');

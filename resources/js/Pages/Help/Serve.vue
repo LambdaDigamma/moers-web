@@ -2,6 +2,16 @@
 
     <div class="mt-6">
 
+        <div v-if="activeRequests && activeRequests.length !== 0" class="mb-12">
+
+            <h1 class="mb-6 text-3xl font-bold leading-tight text-gray-900">
+                Hier hilfst du gerade:
+            </h1>
+
+            <HelpItem v-for="(request, index) in activeRequests" :key="index" :request="request" class="my-3" />
+
+        </div>
+
         <h2 class="text-3xl font-bold leading-tight text-gray-900">
             Hier kannst du helfen:
         </h2>
@@ -41,6 +51,7 @@
         props: {
             helpRequests: Object,
             filters: Object,
+            activeRequests: Array
         },
         data() {
             return {

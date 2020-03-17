@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div class="pb-20">
         <header>
             <div class="max-w-7xl mx-auto">
                 <h2 class="text-3xl font-bold leading-tight text-gray-900">
@@ -21,12 +21,15 @@
                 </div>
                 <div class="mt-5 md:mt-0 md:col-span-2">
                     <form @submit.prevent="submit">
-                        <div class="shadow sm:rounded-md sm:overflow-hidden">
+                        <div class="shadow rounded-md overflow-hidden">
                             <div class="px-4 py-5 bg-white sm:p-6">
-                                <div class="grid grid-cols-3 gap-6">
-                                    <div class="col-span-3 sm:col-span-2">
-                                        <TextInput label="Name" placeholder="Name" v-model="form.name" :errors="$page.errors.name"
-                                                   hint="Hier wird nur dein Vorname angezeigt." />
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="col-span-2 sm:col-span-1">
+                                        <TextInput label="Vorname" placeholder="Vorname" v-model="form.first_name" :errors="$page.errors.first_name"
+                                                   hint="Nur dein Vorname wird öffentlich angezeigt." />
+                                    </div>
+                                    <div class="col-span-2 sm:col-span-1">
+                                        <TextInput label="Nachname" placeholder="Nachname" v-model="form.last_name" :errors="$page.errors.last_name" />
                                     </div>
                                 </div>
                                 <div class="mt-6 grid grid-cols-3 gap-6">
@@ -76,7 +79,7 @@
                 </div>
                 <div class="mt-5 md:mt-0 md:col-span-2">
                     <form action="#" method="POST">
-                        <div class="shadow sm:rounded-md sm:overflow-hidden">
+                        <div class="shadow rounded-md overflow-hidden">
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                                     Exportiere deine persönlichen Daten
@@ -98,7 +101,7 @@
                         </div>
                     </form>
                     <form action="#" method="POST" class="mt-6">
-                        <div class="shadow sm:rounded-md sm:overflow-hidden opacity-50">
+                        <div class="shadow rounded-md overflow-hidden opacity-50">
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                                     Lösche dein Benutzerkonto
@@ -144,7 +147,8 @@
             return {
                 sending: false,
                 form: {
-                    name: this.personalInformation.name,
+                    first_name: this.personalInformation.first_name,
+                    last_name: this.personalInformation.last_name,
                     email: this.personalInformation.email,
                     description: this.personalInformation.description,
                 },

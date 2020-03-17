@@ -45,13 +45,20 @@ class HelpRequest extends Model
 
     public function scopeNotServed($query)
     {
-        return $query->where('served_on', NULL);
+        return $query->whereNull('served_on');
     }
 
     public function scopeWithoutOwn($query)
     {
         if (!Auth::guest()) {
             return $query->where('creator_id', '!=', Auth::user()->id);
+        }
+    }
+
+    public function scopeUserHelps($query)
+    {
+        if (!Auth::guest()) {
+            return $query->where('helper_id', '=', Auth::user()->id);
         }
     }
 

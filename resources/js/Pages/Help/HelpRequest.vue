@@ -8,8 +8,8 @@
                     Kontakt
                     <span v-if="request.helper">
                         zu
-                        <span v-if="isCreator">{{ request.helper.name }}</span>
-                        <span v-else>{{ request.creator.name }}</span>
+                        <span v-if="isCreator">{{ request.helper.first_name }}</span>
+                        <span v-else>{{ request.creator.first_name }}</span>
                     </span>
 
                 </h3>
@@ -63,7 +63,7 @@
                             Hilfesuchende/r
                         </dt>
                         <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                            {{ request.creator.name }}
+                            {{ request.creator.first_name }}
                         </dd>
                     </div>
                     <div class="sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5" :class="{ 'mt-8' : request.creator }">

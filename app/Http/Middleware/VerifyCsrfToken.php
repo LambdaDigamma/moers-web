@@ -17,16 +17,4 @@ class VerifyCsrfToken extends Middleware
         '/login/apple/callback'
     ];
 
-    public function handle($request, Closure $next)
-    {
-        try {
-            return parent::handle($request, $next);
-        }
-        catch (TokenMismatchException $exception) {
-            return redirect()->back()->withErrors([
-                'message' => 'Deine Sitzung ist abgelaufen. Lade die Seite erneut.',
-            ]);
-        }
-    }
-
 }

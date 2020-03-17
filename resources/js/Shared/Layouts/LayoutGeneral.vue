@@ -259,10 +259,6 @@
         },
         mounted() {
 
-            Pusher.log = function(msg) {
-                console.log(msg);
-            };
-
             if (this.$page.auth.user !== null) {
 
                 Echo.private('App.User.' + this.$page.auth.user.id)
@@ -271,10 +267,6 @@
                         console.log('notification');
                         this.$page.auth.user.notifications_count += 1
                     });
-                    // .notification((notification) => {
-                    //     console.log(notification);
-                    //     this.$page.auth.user.notifications_count += 1
-                    // });
 
             }
 

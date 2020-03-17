@@ -83,20 +83,20 @@ class User extends Authenticatable implements ExportsPersonalData
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'description', 'provider_id', 'provider'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'description', 'provider_id', 'provider'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['email', 'password', 'remember_token'];
+    protected $hidden = ['last_name', 'name', 'email', 'password', 'remember_token'];
 
     protected $hashable = ['password'];
 
-    public function getNameAttribute($value)
+    public function getNameAttribute()
     {
-        return explode(" ", $value)[0];
+        return "{$this->first_name} {$this->last_name}";
     }
 
     public function organisations() {

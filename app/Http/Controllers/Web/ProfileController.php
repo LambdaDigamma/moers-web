@@ -32,7 +32,8 @@ class ProfileController extends Controller
         $user = Auth::user();
         return Inertia::render('Profile/Details', [
             'personalInformation' => [
-                'name' => $user->name,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
                 'email' => $user->email,
                 'description' => $user->description,
                 'canChangeEmail' => $user->provider_id !== null

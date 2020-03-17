@@ -38,6 +38,56 @@
 
             <div class="mt-4 bg-gray-200 overflow-hidden rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
+                    <h2 class="text-3xl font-bold leading-tight text-gray-900">
+                        Wichtige Hinweise
+                    </h2>
+
+                    <div class="mt-6 flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/3 flex flex-col text-center items-center">
+                            <svg viewBox="0 0 20 20" fill="currentColor" class="w-12 h-12 text-gray-900">
+                                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                            </svg>
+                            <h1 class="text-xl leading-9 font-bold text-gray-900 sm:leading-10 text-center">
+                                Hilf lokal!
+                            </h1>
+                            <p class="text-gray-800">
+                                Nachbarschaftshilfe ist in dieser Zeit sehr wichtig.
+                            </p>
+                        </div>
+                        <div class="mt-3 md:mt-0 w-full md:w-1/3 flex flex-col text-center items-center">
+                            <svg viewBox="0 0 20 20" fill="currentColor" class="w-12 h-12 text-gray-900">
+                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
+                            </svg>
+                            <h1 class="text-xl leading-9 font-bold text-gray-900 sm:leading-10 text-center">
+                                Hilf kontinuierlich!
+                            </h1>
+                            <p class="text-gray-800">
+                                Suche dir jemanden und hilf nur ihm.
+                            </p>
+                        </div>
+                        <div class="mt-3 md:mt-0 w-full md:w-1/3 flex flex-col text-center items-center">
+                            <svg viewBox="0 0 20 20" fill="currentColor" class="w-12 h-12 text-gray-900">
+                                <path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd" />
+                            </svg>
+                            <h1 class="text-xl leading-9 font-bold text-gray-900 sm:leading-10 text-center">
+                                Hilf in Distanz!
+                            </h1>
+                            <p class="text-gray-800">
+                                Meidet bei der Hilfe falls möglich und im Sinne der Hilfeleistung erforderlich den direkten Kontakt.
+                            </p>
+                        </div>
+                    </div>
+                    <p class="mt-4 md:mt-6 text-gray-900 text-center font-medium">
+                        Halte dich bei allen Hilfeleistungen bitte an die Empfehlungen und Vorschriften des
+                        <a href="https://www.infektionsschutz.de/coronavirus-sars-cov-2.html" class="font-semibold" target="_blank">BZgA</a>
+                        und des
+                        <a href="https://www.kreis-wesel.de/de/themen/coronavirus/" class="font-semibold" target="_blank">lokalen Gesundheitsamts</a>!
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-4 bg-gray-200 overflow-hidden rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
                     <h2 class="text-2xl leading-9 font-bold text-gray-900 sm:text-2xl sm:leading-10">
                         Häufig gestellte Fragen
                     </h2>
@@ -70,20 +120,47 @@
                 </div>
             </div>
 
-            <div v-if="ownHelpRequests !== null && ownHelpRequests.length !== 0" class="mt-6">
+<!--            <div v-if="ownHelpRequests !== null && ownHelpRequests.length !== 0" class="mt-6">-->
 
-                <h2 class="text-3xl font-bold leading-tight text-gray-900">
-                    Du hast Hilfe gesucht:
-                </h2>
+<!--                <h2 class="text-3xl font-bold leading-tight text-gray-900">-->
+<!--                    Du suchst Hilfe:-->
+<!--                </h2>-->
 
-                <ul>
-                    <li v-for="(request, index) in ownHelpRequests" :key="index" class="mt-6">
-                        <HelpItem :request="request" />
-                    </li>
-                </ul>
+<!--                <ul>-->
+<!--                    <li v-for="(request, index) in ownHelpRequests" :key="index" class="mt-6">-->
+<!--                        <HelpItem :request="request" />-->
+<!--                    </li>-->
+<!--                </ul>-->
 
+<!--            </div>-->
 
-            </div>
+<!--            <div v-if="userActiveHelpRequests !== null && userActiveHelpRequests.length !== 0" class="mt-6">-->
+
+<!--                <h2 class="text-3xl font-bold leading-tight text-gray-900">-->
+<!--                    Du hilfst:-->
+<!--                </h2>-->
+
+<!--                <ul>-->
+<!--                    <li v-for="(request, index) in userActiveHelpRequests" :key="index" class="mt-6">-->
+<!--                        <HelpItem :request="request" />-->
+<!--                    </li>-->
+<!--                </ul>-->
+
+<!--            </div>-->
+
+<!--            <div v-if="openHelpRequests !== null && openHelpRequests.length !== 0" class="mt-6">-->
+
+<!--                <h2 class="text-3xl font-bold leading-tight text-gray-900">-->
+<!--                    Jemand sucht Hilfe:-->
+<!--                </h2>-->
+
+<!--                <ul>-->
+<!--                    <li v-for="(request, index) in openHelpRequests" :key="index" class="mt-6">-->
+<!--                        <HelpItem :request="request" />-->
+<!--                    </li>-->
+<!--                </ul>-->
+
+<!--            </div>-->
 
         </div>
 
@@ -101,10 +178,7 @@
         components: {HelpItem},
         layout: LayoutGeneral,
         props: {
-            ownHelpRequests: {
-                type: Array,
-                required: false
-            }
+
         }
     }
 </script>

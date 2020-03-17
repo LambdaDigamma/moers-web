@@ -32,8 +32,15 @@ class SiwaController extends Controller
         ])->first();
 
         if (!$user) {
+
+            $nameComponents = collect(explode(" ", $appleUser->getName()));
+
+            $lastName = $nameComponents->slice($nameComponents->count() - 1)->first();
+            $firstName = $nameComponents->slice(0, $nameComponents->count() - 1)->implode(" ");
+
             $user = User::create([
-                'name' => $appleUser->getName(),
+                'first_name' => $firstName,
+                'last_name' => $lastName,
                 'email' => $appleUser->getEmail(),
                 'provider_id' => $appleUser->getId(),
                 'provider' => 'apple'

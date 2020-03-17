@@ -14,7 +14,7 @@
         </header>
         <div class="mt-4">
             <form @submit.prevent="submit">
-                <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="shadow rounded-md overflow-hidden">
                     <div class="px-4 py-5 bg-white sm:p-6">
 
                         <div>
@@ -60,6 +60,17 @@
                 </div>
             </form>
         </div>
+
+        <div v-if="activeRequests && activeRequests.length !== 0" class="mt-12">
+
+            <h1 class="mb-6 text-3xl font-bold leading-tight text-gray-900">
+                Hier benötigst du Hilfe:
+            </h1>
+
+            <HelpItem v-for="(request, index) in activeRequests" :key="index" :request="request" class="my-3" />
+
+        </div>
+
     </div>
 
 </template>
@@ -74,7 +85,8 @@
         components: {TextareaInput, TextInput},
         layout: LayoutGeneral,
         props: {
-            quarters: Array
+            quarters: Array,
+            activeRequests: Array
         },
         data() {
             return {
