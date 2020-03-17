@@ -18,7 +18,6 @@
                 </p>
             </div>
             <div class="px-4 py-5 sm:p-6" v-if="!isCreator && request.served_on === null">
-
                 <div id="start-contact-container" >
                     <inertia-link :href="route('help.request.accept', request.id)" method="PUT" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150">
                         Nimm Kontakt auf
@@ -29,7 +28,7 @@
                     </p>
                 </div>
             </div>
-            <ChatBox v-else-if="request.served_on !== null && request.conversation !== null"
+            <ChatBox v-else-if="request.served_on !== null"
                      :conversation="request.conversation"
                      :messages="messages"
                      @send="sendMessage">
@@ -146,6 +145,19 @@
                 })
 
             }
+        },
+        mounted() {
+            
+            Echo.private('conversation.' + this.request.conversation.id)
+                .listen('.user.joined', (e) => {
+                    this.$inertia.reload(this.route('help.request.show', this.request.id), {
+                        replace: false,
+                        preserveState: true,
+                        preserveScroll: true,
+                        only: ['messages'],
+                    })
+                });
+
         },
     }
 </script>

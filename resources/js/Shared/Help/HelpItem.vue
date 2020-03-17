@@ -2,8 +2,17 @@
 
     <inertia-link :href="route('help.request.show', request.id)" class="block bg-white overflow-hidden shadow rounded-lg hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
         <div class="px-4 py-5 sm:p-6">
-            <h1 class="text-xl text-gray-600 font-medium" v-if="$page.auth.user !== null && $page.auth.user.id !== request.creator_id">Jemand in <span class="font-semibold text-gray-900">{{ request.quarter.name }} ({{ request.quarter.postcode }})</span> benötigt Hilfe</h1>
-            <h1 class="text-xl text-gray-600 font-medium" v-else>Du benötigst Hilfe</h1>
+            <h1 class="text-xl text-gray-600 font-medium">
+                <span v-if="$page.auth.user !== null && $page.auth.user.id === request.creator_id">
+                    Du benötigst Hilfe
+                </span>
+                <span v-else-if="$page.auth.user !== null && request.helper && $page.auth.user.id === request.helper.id">
+                    Du willst hier helfen
+                </span>
+                <span v-else>
+                    Jemand in <span class="font-semibold text-gray-900">{{ request.quarter.name }} ({{ request.quarter.postcode }})</span> benötigt Hilfe
+                </span>
+            </h1>
             <p class="mt-2">
                 {{ request.request }}
             </p>

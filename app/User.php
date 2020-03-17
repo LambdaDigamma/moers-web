@@ -5,6 +5,7 @@ namespace App;
 use Auth;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
@@ -35,19 +36,19 @@ use Spatie\PersonalDataExport\PersonalDataSelection;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|Ability[] $abilities
+ * @property-read Collection|Ability[] $abilities
  * @property-read int|null $abilities_count
- * @property-read \Illuminate\Database\Eloquent\Collection|Client[] $clients
+ * @property-read Collection|Client[] $clients
  * @property-read int|null $clients_count
- * @property-read \Illuminate\Database\Eloquent\Collection|Group[] $groups
+ * @property-read Collection|Group[] $groups
  * @property-read int|null $groups_count
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|Organisation[] $organisations
+ * @property-read Collection|Organisation[] $organisations
  * @property-read int|null $organisations_count
- * @property-read \Illuminate\Database\Eloquent\Collection|Role[] $roles
+ * @property-read Collection|Role[] $roles
  * @property-read int|null $roles_count
- * @property-read \Illuminate\Database\Eloquent\Collection|Token[] $tokens
+ * @property-read Collection|Token[] $tokens
  * @property-read int|null $tokens_count
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -89,9 +90,14 @@ class User extends Authenticatable implements ExportsPersonalData
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['email', 'password', 'remember_token'];
 
     protected $hashable = ['password'];
+
+    public function getNameAttribute($value)
+    {
+        return explode(" ", $value)[0];
+    }
 
     public function organisations() {
         return $this->belongsToMany('App\Organisation')->withPivot('organisation_id', 'user_id', 'role');

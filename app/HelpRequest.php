@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Auth;
+
 class HelpRequest extends Model
 {
 
@@ -39,6 +41,18 @@ class HelpRequest extends Model
                 $query->onlyTrashed();
             }
         });
+    }
+
+    public function scopeNotServed($query)
+    {
+        return $query->where('served_on', NULL);
+    }
+
+    public function scopeWithoutOwn($query)
+    {
+        if (!Auth::guest()) {
+            return $query->where('creator_id', '!=', Auth::user()->id);
+        }
     }
 
 }

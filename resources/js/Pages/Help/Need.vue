@@ -32,7 +32,8 @@
                             <TextareaInput
                                 label="Wobei benötigst du Hilfe?"
                                 placeholder="Gib hier kurz an, wie dir eine andere Person helfen kann..."
-                                v-model="form.request">
+                                v-model="form.request"
+                                :errors="$page.errors.request">
 
                             </TextareaInput>
                         </div>

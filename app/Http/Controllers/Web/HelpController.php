@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Conversation;
 use App\Events\MessageWasPosted;
+use App\Events\UserJoinedConversation;
 use App\HelpRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SendMessage;
@@ -40,7 +41,9 @@ class HelpController extends Controller
     {
         return Inertia::render('Help/Serve', [
             'filters' => Request::all('search'),
-            'helpRequests' => HelpRequest::with('quarter')
+            'helpRequests' => HelpRequest::with('quarter', 'helper:id', 'creator:id')
+                ->notServed()
+                ->withoutOwn()
                 ->orderByDesc('created_at')
                 ->filter(Request::only('search'))
                 ->paginate()
@@ -59,6 +62,7 @@ class HelpController extends Controller
         $helpRequest->load('quarter');
 
         if ($helpRequest->helper == null) {
+            $helpRequest->load(['conversation', 'conversation.messages']);
             return Inertia::render('Help/HelpRequest', [
                 'request' => $helpRequest,
                 'isCreator' => $helpRequest->creator_id === Auth::user()->id,
@@ -69,8 +73,6 @@ class HelpController extends Controller
         if ($helpRequest->helper->id == Auth::user()->id ||
             $helpRequest->creator->id == Auth::user()->id) {
             $helpRequest->load(['creator', 'helper', 'conversation', 'conversation.messages']);
-            $helpRequest->creator['name'] = explode(" ", $helpRequest->creator['name'])[0];
-            $helpRequest->helper['name'] = explode(" ", $helpRequest->helper['name'])[0];
             return Inertia::render('Help/HelpRequest', [
                 'request' => $helpRequest,
                 'isCreator' => $helpRequest->creator_id === Auth::user()->id,
@@ -90,6 +92,9 @@ class HelpController extends Controller
         $validated = $request->validated();
 
         $helpRequest = Auth::user()->helpRequests()->create($validated);
+        $conversation = Conversation::create();
+        $helpRequest->conversation()->associate($conversation)->save();
+        $conversation->users()->save($helpRequest->creator);
 
         Bouncer::allow(Auth::user())->to('delete', $helpRequest);
 
@@ -101,13 +106,11 @@ class HelpController extends Controller
     {
 
         if ($helpRequest->served_on == null) {
-
-            $helpRequest->helper()->associate(Auth::user());
             $helpRequest->served_on = Carbon::now();
-            $conversation = Conversation::create();
-            $conversation->users()->saveMany([$helpRequest->creator, $helpRequest->helper]);
-            $helpRequest->conversation()->associate($conversation);
+            $helpRequest->helper()->associate(Auth::user());
+            $helpRequest->conversation->users()->save($helpRequest->helper);
             $helpRequest->save();
+            event(new UserJoinedConversation(Auth::user(), $helpRequest->conversation));
             return Redirect::route('help.request.show', $helpRequest->id)
                 ->with('success', 'Du hast den Kontakt aufgebaut und kannst jetzt die Kommunikation beginnen.');
         } else {

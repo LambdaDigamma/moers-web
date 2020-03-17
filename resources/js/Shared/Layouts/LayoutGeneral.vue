@@ -3,7 +3,7 @@
     <div>
         <portal-target name="dropdown" slim />
 
-        <div class="h-screen flex overflow-hidden bg-gray-100" @keydown.esc="sidebarOpen = false">
+        <div class="h-screen flex overflow-hidden bg-gray-100" @keydown.esc="hideSidebar" tabindex="0">
             <!-- Off-canvas menu for mobile -->
             <div class="md:hidden">
                 <div @click="sidebarOpen = false" class="fixed inset-0 z-30 bg-gray-600 opacity-0 pointer-events-none transition-opacity ease-linear duration-300" :class="{'opacity-75 pointer-events-auto': sidebarOpen, 'opacity-0 pointer-events-none': !sidebarOpen}"></div>
@@ -23,27 +23,31 @@
 
                             <MenuItemMobile title="Übersicht"
                                             :href="route('dashboard')"
-                                            :active="isUrl('dashboard')">
+                                            :active="isUrl('dashboard')"
+                                            v-on:nav="hideSidebar">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/>
                             </MenuItemMobile>
 
                             <MenuItemMobile title="Helfen"
                                              :href="route('help.index')"
-                                             :active="isUrl('help')">
+                                             :active="isUrl('help')"
+                                             v-on:nav="hideSidebar">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </MenuItemMobile>
 
-                            <MenuItemMobile title="Veranstaltungen"
-                                            href="#"
-                                            :active="isUrl('events')">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            </MenuItemMobile>
+<!--                            <MenuItemMobile title="Veranstaltungen"-->
+<!--                                            href="#"-->
+<!--                                            :active="isUrl('events')"-->
+<!--                                            v-on:nav="hideSidebar">-->
+<!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>-->
+<!--                            </MenuItemMobile>-->
 
-                            <MenuItemMobile title="Abstimmungen"
-                                             :href="route('polls.index')"
-                                             :active="isUrl('polls')">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </MenuItemMobile>
+<!--                            <MenuItemMobile title="Abstimmungen"-->
+<!--                                             :href="route('polls.index')"-->
+<!--                                             :active="isUrl('polls')"-->
+<!--                                             v-on:nav="hideSidebar">-->
+<!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />-->
+<!--                            </MenuItemMobile>-->
 
                         </nav>
                     </div>
@@ -72,18 +76,18 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </MenuItemDesktop>
 
-                            <MenuItemDesktop title="Veranstaltungen"
-                                             href="#"
-                                             :active="isUrl('events')">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </MenuItemDesktop>
+<!--                            <MenuItemDesktop title="Veranstaltungen"-->
+<!--                                             href="#"-->
+<!--                                             :active="isUrl('events')">-->
+<!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>-->
+<!--                            </MenuItemDesktop>-->
 
-                            <MenuItemDesktop title="Abstimmungen"
-                                             :href="route('polls.index')"
-                                             :active="isUrl('polls')"
-                                             v-if="$page.auth.user">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </MenuItemDesktop>
+<!--                            <MenuItemDesktop title="Abstimmungen"-->
+<!--                                             :href="route('polls.index')"-->
+<!--                                             :active="isUrl('polls')"-->
+<!--                                             v-if="$page.auth.user">-->
+<!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />-->
+<!--                            </MenuItemDesktop>-->
 
                         </nav>
                     </div>
@@ -98,17 +102,17 @@
                     </button>
                     <div class="flex-1 px-4 flex justify-between">
                         <div class="flex-1 flex">
-                            <div class="w-full flex md:ml-0">
-                                <label for="search_field" class="sr-only">Suchen</label>
-                                <div class="relative w-full text-gray-400 focus-within:text-gray-600">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
-                                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
-                                        </svg>
-                                    </div>
-                                    <input id="search_field" class="block w-full h-full pl-8 pr-3 py-2 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 sm:text-sm" placeholder="Suchen" />
-                                </div>
-                            </div>
+<!--                            <div class="w-full flex md:ml-0">-->
+<!--                                <label for="search_field" class="sr-only">Suchen</label>-->
+<!--                                <div class="relative w-full text-gray-400 focus-within:text-gray-600">-->
+<!--                                    <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">-->
+<!--                                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">-->
+<!--                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />-->
+<!--                                        </svg>-->
+<!--                                    </div>-->
+<!--                                    <input id="search_field" class="block w-full h-full pl-8 pr-3 py-2 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 sm:text-sm" placeholder="Suchen" />-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                         <div class="ml-4 flex items-center md:ml-6" v-if="$page.auth.user">
                             <inertia-link :href="route('notifications')" class="relative p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500">
@@ -119,9 +123,11 @@
                                     <span class="block h-3 w-3 rounded-full bg-red-600 text-sm"></span>
                                 </span>
                             </inertia-link>
-                            <div class="ml-3 relative"> <!--@click.away="open = false"-->
+                            <div class="ml-3 relative">
                                 <div>
-                                    <button @click="open = !open" class="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:shadow-outline">
+                                    <button @click="open = !open" class="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:shadow-outline"
+                                            v-click-outside="hideDropdownMenus"
+                                            @keydown.esc="hideDropdownMenus">
                                         <span class="inline-block h-8 w-8 rounded-full overflow-hidden bg-gray-100">
                                             <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -189,7 +195,7 @@
                                     </div>
                                 </div>
                                 <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-2">
-                                    <button type="button" class="-mr-1 flex p-2 rounded-md hover:bg-red-500 focus:outline-none focus:bg-indigo-500 transition ease-in-out duration-150" @click="showBanner = false">
+                                    <button type="button" class="-mr-1 flex p-2 rounded-md hover:bg-red-500 focus:outline-none focus:bg-red-500 transition ease-in-out duration-150" @click="hideBanner">
                                         <svg class="h-6 w-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                         </svg>
@@ -212,13 +218,12 @@
     import MainMenuGeneral from "@/Shared/MainMenuGeneral";
     import MenuItemDesktop from "./MenuItemDesktop";
     import MenuItemMobile from "./MenuItemMobile";
+    import ClickOutside from 'vue-click-outside'
     export default {
         name: "LayoutGeneral",
         components: {MenuItemMobile, MenuItemDesktop, MainMenuGeneral, Dropdown, FlashMessages},
         data() {
             return {
-                showUserMenu: false,
-                accounts: null,
                 sidebarOpen: false,
                 open: false,
                 showBanner: true
@@ -229,7 +234,14 @@
                 return location.pathname.substr(1)
             },
             hideDropdownMenus() {
-                this.showUserMenu = false
+                this.open = false
+            },
+            hideSidebar() {
+                this.sidebarOpen = false
+            },
+            hideBanner() {
+                this.showBanner = false
+                localStorage.setItem('showHelp', false)
             },
             isUrl(...urls) {
                 if (urls[0] === '') {
@@ -239,6 +251,12 @@
                 return urls.filter(url => this.url().startsWith(url)).length !== 0
             },
         },
+        directives: {
+            ClickOutside
+        },
+        beforeMount() {
+            if (localStorage.getItem('showHelp')) this.showBanner = JSON.parse(localStorage.getItem('showHelp'));
+        }
     }
 </script>
 
