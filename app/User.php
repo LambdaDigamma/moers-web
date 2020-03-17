@@ -187,14 +187,22 @@ class User extends Authenticatable implements ExportsPersonalData
 
     public function selectPersonalData($personalDataSelection): void
     {
+        // TODO: Export Memberships of Conversations?
         $user_id = Auth::user()->id;
         $personalDataSelection
             ->add('user.json', [
-                'name' => $this->name,
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
                 'email' => $this->email,
                 'description' => $this->description,
                 'points' => $this->points
             ])
+            ->add('own_help_requests.json',
+                Auth::user()->helpRequests()->get())
+            ->add('helper_helping_requests.json',
+                HelpRequest::userHelps()->get())
+            ->add('messages.json',
+                Message::where('sender_id', '=', $user_id)->get())
             ->add('audits.json',
                 Audit::where('user_id', $user_id)->get())
             ->add('votes.json',
