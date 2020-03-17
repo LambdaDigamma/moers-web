@@ -50,6 +50,7 @@ Route::group([
     Route::put('/help/request/{helpRequest}/accept')->name('help.request.accept')->uses('HelpController@acceptHelpRequest')->middleware(['auth']);
     Route::post('/help/request/{helpRequest}/messages')->name('help.request.sendMessage')->uses('HelpController@sendMessage')->middleware(['auth']);
     Route::post('/help/request/{helpRequest}/done')->name('help.request.done')->uses('HelpController@done')->middleware(['auth']);
+    Route::post('/help/request/{helpRequest}/quit')->name('help.request.quit')->uses('HelpController@quitHelpRequest')->middleware(['auth']);
 
 
     Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');

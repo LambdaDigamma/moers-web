@@ -31,20 +31,7 @@ class HelpController extends Controller
     public function index()
     {
         return Inertia::render('Help/Index', [
-            'ownHelpRequests' => Auth::user() ? Auth::user()
-                ->helpRequests()
-                ->with(['quarter', 'helper:id', 'creator:id'])
-                ->get() : null,
-            'userActiveHelpRequests' => Auth::user() ?
-                HelpRequest::with('quarter', 'helper:id', 'creator:id')
-                ->userHelps()
-                ->withoutOwn()
-                ->get() : null,
-            'openHelpRequests' => HelpRequest::with('quarter', 'helper:id', 'creator:id')
-                ->withoutOwn()
-                ->notServed()
-                ->orderByDesc('created_at')
-                ->get()
+
         ]);
     }
 
@@ -52,7 +39,7 @@ class HelpController extends Controller
     {
         return Inertia::render('Help/Serve', [
             'activeRequests' => Auth::user() ?
-                HelpRequest::with('quarter', 'helper:id', 'creator:id')
+                HelpRequest::with('quarter', 'helper:id,first_name', 'creator:id')
                     ->userHelps()
                     ->withoutOwn()
                     ->get() : null,
@@ -72,7 +59,7 @@ class HelpController extends Controller
             'quarters' => Quarter::all(),
             'activeRequests' => Auth::user() ? Auth::user()
                 ->helpRequests()
-                ->with(['quarter', 'helper:id', 'creator:id'])
+                ->with(['quarter', 'helper:id,first_name', 'creator:id'])
                 ->get() : null,
         ]);
     }
@@ -85,6 +72,7 @@ class HelpController extends Controller
             $helpRequest->load(['conversation', 'conversation.messages']);
             return Inertia::render('Help/HelpRequest', [
                 'request' => $helpRequest,
+                'isHelper' => false,
                 'isCreator' => $helpRequest->creator_id === Auth::user()->id,
                 'messages' => null
             ]);
@@ -96,6 +84,7 @@ class HelpController extends Controller
             return Inertia::render('Help/HelpRequest', [
                 'request' => $helpRequest,
                 'isCreator' => $helpRequest->creator_id === Auth::user()->id,
+                'isHelper' => $helpRequest->helper_id === Auth::user()->id,
                 'messages' => function () use ($helpRequest) {
                     return ($helpRequest->conversation !== null) ? $helpRequest->conversation->messages
                          : null;
@@ -160,6 +149,26 @@ class HelpController extends Controller
 
     }
 
+    public function quitHelpRequest(HelpRequest $helpRequest)
+    {
+
+        if (!is_null($helpRequest->helper) && $helpRequest->helper->id == Auth::user()->id) {
+
+            $helpRequest->served_on = null;
+            $helpRequest->conversation->delete();
+            $conversation = Conversation::create();
+            $helpRequest->helper()->dissociate();
+            $helpRequest->conversation()->associate($conversation)->save();
+            $helpRequest->save();
+
+            return Redirect::route('help.index')->with('success', 'Du hast die Hilfeleistung für jemand anderen zur Bearbeitung freigegeben.');
+
+        } else {
+            return abort(403, 'Du hilfst hier nicht. Deswegen kannst du die Hilfeleistung nicht verlassen.');
+        }
+
+    }
+
     public function done(HelpRequest $helpRequest)
     {
         if (Bouncer::can('delete', $helpRequest)) {
@@ -174,7 +183,7 @@ class HelpController extends Controller
             return Redirect::route('help.index')->with('success', 'Die Hilfesuche wurde als erledigt markiert.');
 
         } else {
-            abort(403, 'Du darfst nicht auf diese Seite zugreifen.');
+            return abort(403, 'Du darfst nicht auf diese Seite zugreifen.');
         }
 
     }

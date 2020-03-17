@@ -41,8 +41,13 @@
                     <h2 class="text-3xl font-bold leading-tight text-gray-900">
                         Wichtige Hinweise
                     </h2>
-
-                    <div class="mt-6 flex flex-col md:flex-row">
+                    <p class="mt-2 md:mt-4 text-gray-900 font-medium">
+                        Halte dich bei allen Hilfeleistungen bitte an die Empfehlungen und Vorschriften des
+                        <a href="https://www.infektionsschutz.de/coronavirus-sars-cov-2.html" class="font-semibold" target="_blank">BZgA</a>
+                        und des
+                        <a href="https://www.kreis-wesel.de/de/themen/coronavirus/" class="font-semibold" target="_blank">lokalen Gesundheitsamts</a>!
+                    </p>
+                    <div class="mt-8 flex flex-col md:flex-row">
                         <div class="w-full md:w-1/3 flex flex-col text-center items-center">
                             <svg viewBox="0 0 20 20" fill="currentColor" class="w-12 h-12 text-gray-900">
                                 <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
@@ -77,12 +82,6 @@
                             </p>
                         </div>
                     </div>
-                    <p class="mt-4 md:mt-6 text-gray-900 text-center font-medium">
-                        Halte dich bei allen Hilfeleistungen bitte an die Empfehlungen und Vorschriften des
-                        <a href="https://www.infektionsschutz.de/coronavirus-sars-cov-2.html" class="font-semibold" target="_blank">BZgA</a>
-                        und des
-                        <a href="https://www.kreis-wesel.de/de/themen/coronavirus/" class="font-semibold" target="_blank">lokalen Gesundheitsamts</a>!
-                    </p>
                 </div>
             </div>
 
