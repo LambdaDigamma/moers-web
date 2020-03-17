@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Conversation;
+use App\Events\MessageWasPosted;
 use App\HelpRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SendMessage;
@@ -141,6 +142,8 @@ class HelpController extends Controller
         $message->sender()->associate(Auth::user());
 
         $helpRequest->conversation->messages()->save($message);
+
+        event(new MessageWasPosted($message));
 
         return Redirect::route('help.request.show', $helpRequest->id);
 

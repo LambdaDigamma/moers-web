@@ -31,7 +31,7 @@
             </div>
             <div id="message-box" v-else-if="request.served_on !== null && request.conversation !== null">
                 <div class="bg-gray-100 flex flex-col h-64">
-                    <div class="overflow-y-auto py-5 px-4 sm:p-6" scroll-region>
+                    <div class="overflow-y-auto py-5 px-4 sm:p-6" scroll-region id="scroll-container">
                         <div class="flex flex-row mb-3" v-for="message in messages" :class="{ 'justify-end' : message.sender_id === $page.auth.user.id }">
                             <div class="w-1/2 px-3 py-2 text-sm rounded-md" :class="[message.sender_id === $page.auth.user.id ? 'bg-blue-200' : 'bg-red-200' ]">
                                 <p>{{ message.content }}</p>
@@ -174,7 +174,18 @@
             }
         },
         mounted() {
-            Echo.private('')
+
+            if (this.request.conversation) {
+                Echo.private('conversation.' + this.request.conversation.id)
+                    .listen('.message.posted', (e) => {
+                        this.messages.push(e.message)
+                    });
+            }
+
+        },
+        updated() {
+            var container = this.$el.querySelector("#scroll-container");
+            container.scrollTop = container.scrollHeight;
         }
     }
 </script>

@@ -38,7 +38,8 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: 'd6e230a8246cff590289',
     cluster: 'eu',
-    forceTLS: true
+    encrypted: true,
+    forceTLS: true,
 });
 
 let app = document.getElementById('app')
