@@ -11,6 +11,7 @@ use App\Http\Requests\SendMessage;
 use App\Http\Requests\StoreHelpRequest;
 use App\Message;
 use App\Notifications\ClosedHelpRequestNotification;
+use App\Notifications\CompletedHelpRequestNotification;
 use App\Quarter;
 use Auth;
 use Bouncer;
@@ -135,6 +136,24 @@ class HelpController extends Controller
 
         } else {
             return response('Unauthorized.', 401);
+        }
+
+    }
+
+    public function done(HelpRequest $helpRequest)
+    {
+        if (Bouncer::can('delete', $helpRequest)) {
+
+            if (!is_null($helpRequest->helper)) {
+                $helpRequest->helper->notify(new CompletedHelpRequestNotification());
+            }
+
+            $helpRequest->delete();
+
+            return Redirect::route('help.index')->with('success', 'Die Hilfesuche wurde als erledigt markiert.');
+
+        } else {
+            abort(403, 'Du darfst nicht auf diese Seite zugreifen.');
         }
 
     }

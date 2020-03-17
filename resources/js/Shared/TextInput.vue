@@ -28,7 +28,14 @@
                 </svg>
             </div>
         </div>
-        <p v-if="errors.length" class="mt-2 text-sm text-red-600">{{ errors[0] }}</p>
+        <p v-if="hint || errors.length" class="mt-1 text-sm text-gray-500">
+            <span v-if="errors.length" class="text-red-600">
+                {{ errors[0] }}
+            </span>
+            <span v-else-if="hint">
+                {{ hint }}
+            </span>
+        </p>
     </div>
 
 </template>
@@ -62,7 +69,11 @@
             disabled: {
                 type: Boolean,
                 default: false
-            }
+            },
+            hint: {
+                type: String,
+                default: null
+            },
         },
         methods: {
             focus() {

@@ -25,7 +25,8 @@
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <div class="grid grid-cols-3 gap-6">
                                     <div class="col-span-3 sm:col-span-2">
-                                        <TextInput label="Name" placeholder="Name" v-model="form.name" :errors="$page.errors.name" />
+                                        <TextInput label="Name" placeholder="Name" v-model="form.name" :errors="$page.errors.name"
+                                                   hint="Hier wird nur dein Vorname angezeigt." />
                                     </div>
                                 </div>
                                 <div class="mt-6 grid grid-cols-3 gap-6">

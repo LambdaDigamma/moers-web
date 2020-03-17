@@ -4,16 +4,16 @@
 
         <div class="bg-white flex flex-col w-full relative">
 
-            <div class="absolute inset-x-0 top-0 z-0 text-gray-100 dark:text-gray-700">
-                <div class="">
-                    <svg class="hidden sm:block w-full" style="margin-top: -170px;" viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
-                        <path d="M0 0h1440v514.7L1320 536c-120 21.7-360 63.7-600 64-240-.3-480-42.3-600-64L0 514.7V0z" fill="currentColor" />
-                    </svg>
-                    <svg class="block sm:hidden w-full" style="" viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
-                        <path d="M0 0h1440v514.7L1320 536c-120 21.7-360 63.7-600 64-240-.3-480-42.3-600-64L0 514.7V0z" fill="currentColor" />
-                    </svg>
-                </div>
-            </div>
+<!--            <div class="absolute inset-x-0 top-0 z-0 text-gray-100 dark:text-gray-700">-->
+<!--                <div class="">-->
+<!--                    <svg class="hidden sm:block w-full" style="margin-top: -170px;" viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">-->
+<!--                        <path d="M0 0h1440v514.7L1320 536c-120 21.7-360 63.7-600 64-240-.3-480-42.3-600-64L0 514.7V0z" fill="currentColor" />-->
+<!--                    </svg>-->
+<!--                    <svg class="block sm:hidden w-full" style="" viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">-->
+<!--                        <path d="M0 0h1440v514.7L1320 536c-120 21.7-360 63.7-600 64-240-.3-480-42.3-600-64L0 514.7V0z" fill="currentColor" />-->
+<!--                    </svg>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="absolute inset-x-0 top-0 overflow-x-hidden">
                 <div class="relative px-3 py-3 md:px-4 md:py-4">
@@ -55,6 +55,32 @@
                             </a>
                         </div>
                     </div>
+
+
+
+                    <div class="">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="mx-auto text-center sm:px-6 lg:py-16 lg:px-8 bg-gray-50 overflow-hidden rounded-lg overflow-hidden">
+                                <h2 class="text-2xl sm:text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+                                    Hilf mit, die Krise <br />
+                                    <span class="text-red-600">gemeinsam</span> zu bewältigen!
+                                </h2>
+                                <div class="mt-8 flex justify-center">
+                                    <div class="inline-flex rounded-md shadow">
+                                        <inertia-link :href="route('help.serve')" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                                            Jetzt helfen!
+                                        </inertia-link>
+                                    </div>
+                                    <div class="ml-3 inline-flex">
+                                        <inertia-link :href="route('help.index')" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-red-700 bg-red-100 hover:text-red-600 hover:bg-red-50 focus:outline-none focus:shadow-outline focus:border-red-300 transition duration-150 ease-in-out">
+                                            Mehr erfahren
+                                        </inertia-link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="px-4 pt-16 pb-10">
                         <div class="relative w-full md:max-w-2xl md:mx-auto text-center">
 

@@ -7,6 +7,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Redirect;
 
 class DashboardController extends Controller
 {
@@ -18,8 +19,9 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return Inertia::render('Dashboard', [
-            'title' => 'Übersicht',
+        return Redirect::route('help.index');
+//        return Inertia::render('Dashboard', [
+//            'title' => 'Übersicht',
 //            'unansweredPolls' => Auth::user()
 //                ->polls()
 //                ->unanswered()
@@ -30,6 +32,6 @@ class DashboardController extends Controller
 //                ->answered()
 //                ->take(3)
 //                ->get()
-        ]);
+//        ]);
     }
 }

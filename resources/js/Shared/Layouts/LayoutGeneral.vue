@@ -21,12 +21,12 @@
                     <div class="flex-1 h-0 overflow-y-auto">
                         <nav class="px-2 py-4">
 
-                            <MenuItemMobile title="Übersicht"
-                                            :href="route('dashboard')"
-                                            :active="isUrl('dashboard')"
-                                            v-on:nav="hideSidebar">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/>
-                            </MenuItemMobile>
+<!--                            <MenuItemMobile title="Übersicht"-->
+<!--                                            :href="route('dashboard')"-->
+<!--                                            :active="isUrl('dashboard')"-->
+<!--                                            v-on:nav="hideSidebar">-->
+<!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/>-->
+<!--                            </MenuItemMobile>-->
 
                             <MenuItemMobile title="Helfen"
                                              :href="route('help.index')"
@@ -64,11 +64,11 @@
                         <!-- Sidebar component, swap this element with another sidebar if you like -->
                         <nav class="flex-1 px-2 py-4 bg-gray-800">
 
-                            <MenuItemDesktop title="Übersicht"
-                                             :href="route('dashboard')"
-                                             :active="isUrl('dashboard')">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6" />
-                            </MenuItemDesktop>
+<!--                            <MenuItemDesktop title="Übersicht"-->
+<!--                                             :href="route('dashboard')"-->
+<!--                                             :active="isUrl('dashboard')">-->
+<!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6" />-->
+<!--                            </MenuItemDesktop>-->
 
                             <MenuItemDesktop title="Helfen"
                                              :href="route('help.index')"
@@ -119,7 +119,7 @@
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                 </svg>
-                                <span v-if="$page.auth.user.notifications_count !== 0" class="absolute bottom-0 right-0 mb-1 mr-1 transform translate-y-1/2 translate-x-1/2 block border-2 border-white rounded-full">
+                                <span v-if="this.$page.auth.user.notifications_count !== 0" class="absolute bottom-0 right-0 mb-1 mr-1 transform translate-y-1/2 translate-x-1/2 block border-2 border-white rounded-full">
                                     <span class="block h-3 w-3 rounded-full bg-red-600 text-sm"></span>
                                 </span>
                             </inertia-link>
@@ -256,6 +256,28 @@
         },
         beforeMount() {
             if (localStorage.getItem('showHelp')) this.showBanner = JSON.parse(localStorage.getItem('showHelp'));
+        },
+        mounted() {
+
+            Pusher.log = function(msg) {
+                console.log(msg);
+            };
+
+            if (this.$page.auth.user !== null) {
+
+                Echo.private('App.User.' + this.$page.auth.user.id)
+                    .notification((notification) => {
+                        console.log(notification.type);
+                        console.log('notification');
+                        this.$page.auth.user.notifications_count += 1
+                    });
+                    // .notification((notification) => {
+                    //     console.log(notification);
+                    //     this.$page.auth.user.notifications_count += 1
+                    // });
+
+            }
+
         }
     }
 </script>

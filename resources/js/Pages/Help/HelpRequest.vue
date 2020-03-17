@@ -40,6 +40,12 @@
                 </p>
             </div>
         </div>
+        <div class="mt-2 flex flex-row items-center text-gray-400 text-sm" v-if="request.served_on !== null">
+            <svg viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+            <p class="ml-2 sm:ml-1">Lade die Seite neu, falls es beim Chat gibt. Bei Fragen melde dich <a href="mailto:info@lambdadigamma.com" class="text-gray-600">hier.</a></p>
+        </div>
 
         <div class="mt-6 bg-white shadow overflow-hidden rounded-lg">
             <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
@@ -99,14 +105,25 @@
         <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-lg" v-if="isCreator">
             <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
-                    Administration
+                    Aktionen
                 </h3>
                 <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
                     Lösche die Hilfesuche und alle damit verbundenen Unterhaltungen.
                 </p>
             </div>
             <div class="px-4 py-5 sm:p-6">
-                <div>
+                <div v-if="request.served_on !== null">
+                    <inertia-link :href="route('help.request.done', request.id)"
+                                  method="POST"
+                                  class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-50 focus:outline-none focus:border-green-300 focus:shadow-outline-green active:bg-green-200 transition ease-in-out duration-150">
+                        Die Hilfesuche wurde erledigt
+                    </inertia-link>
+                    <p class="mt-2 max-w-xl text-sm leading-5 text-gray-500">
+                        Wenn jemand dir geholfen hat, kannst du hier die Hilfesuche schließen.
+                        Dabei werden alle Informationen komplett gelöscht und der Helfende wird darüber informiert.
+                    </p>
+                </div>
+                <div :class="{ 'mt-6' : request.served_on !== null }">
                     <inertia-link :href="route('help.request.delete', request.id)" method="DELETE" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150">
                         Ziehe die Hilfesuche zurück
                     </inertia-link>
