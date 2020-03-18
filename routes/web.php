@@ -34,6 +34,7 @@ Route::group([
     Route::get('/profile')->name('profile')->uses('ProfileController@details')->middleware('auth');
     Route::put('/profile')->name('profile.update')->uses('ProfileController@updateInformation')->middleware('auth');
     Route::post('/profile/export')->name('profile.export')->uses('ProfileController@exportData')->middleware('auth');
+    Route::delete('/profile')->name('profile.delete')->uses('ProfileController@deleteAccount')->middleware('auth');
 
     Route::get('/legal/privacy')->name('legal.privacy')->uses('LegalController@privacy');
     Route::get('/legal/imprint')->name('legal.imprint')->uses('LegalController@imprint');

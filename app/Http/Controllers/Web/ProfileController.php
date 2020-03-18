@@ -51,6 +51,14 @@ class ProfileController extends Controller
     public function deleteAccount()
     {
 
+        $user = Auth::user();
+
+        $user->notifications()->delete();
+        $user->delete();
+
+        return Redirect::route('landingPage')
+            ->with('success', 'Dein Benutzerkonto wurde geschlossen und alle verknüpften Daten vollständig gelöscht.');
+
     }
 
     public function exportData() {

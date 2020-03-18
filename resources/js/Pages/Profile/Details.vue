@@ -101,7 +101,7 @@
                         </div>
                     </form>
                     <form action="#" method="POST" class="mt-6">
-                        <div class="shadow rounded-md overflow-hidden opacity-50">
+                        <div class="shadow rounded-md overflow-hidden">
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                                     Lösche dein Benutzerkonto
@@ -112,7 +112,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-5">
-                                    <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                    <button type="button" @click="showDeletionModal" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                                         Benutzerkonto löschen
                                     </button>
                                 </div>
@@ -158,6 +158,12 @@
             submit() {
                 this.$inertia
                     .put(this.route('profile.update').url(), this.form)
+            },
+            showDeletionModal() {
+                let r = confirm("Möchtest du dein Benutzerkonto wirklich löschen? Dies kann nicht rückgängig gemacht werden.");
+                if (r === true) {
+                    this.$inertia.delete(this.route('profile.delete'))
+                }
             }
         }
     }
