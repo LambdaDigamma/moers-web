@@ -46,9 +46,9 @@
                     </div>
 
                     <div class="text-sm leading-5">
-                        <a href="#" class="font-medium text-red-600 hover:text-red-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                        <inertia-link :href="route('password.request')" class="font-medium text-red-600 hover:text-red-500 focus:outline-none focus:underline transition ease-in-out duration-150">
                             Passwort vergessen?
-                        </a>
+                        </inertia-link>
                     </div>
                 </div>
 

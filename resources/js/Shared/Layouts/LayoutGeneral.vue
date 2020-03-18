@@ -219,6 +219,7 @@
     import MenuItemDesktop from "./MenuItemDesktop";
     import MenuItemMobile from "./MenuItemMobile";
     import ClickOutside from 'vue-click-outside'
+
     export default {
         name: "LayoutGeneral",
         components: {MenuItemMobile, MenuItemDesktop, MainMenuGeneral, Dropdown, FlashMessages},
