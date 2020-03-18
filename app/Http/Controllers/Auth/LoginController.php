@@ -48,7 +48,8 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return Inertia::render('Auth/Login', [
-            'endpoint' => config('services.sign_in_with_apple.login')
+            'endpoint' => config('services.sign_in_with_apple.login'),
+            'googleEndpoint' => '/login/google'
         ]);
     }
 

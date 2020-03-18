@@ -30,6 +30,14 @@
             </div>
         </div>
 
+        <div class="mt-6 bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <p class="max-w-4xl">
+                    Momentan benötigt hier niemand deine Hilfe. Aber schaue in der nächsten Zeit noch mal nach!
+                </p>
+            </div>
+        </div>
+
         <HelpItem v-for="(request, index) in helpRequests.data" :key="index" :request="request" class="mt-6" />
 
         <Pagination :links="helpRequests.links" class="mt-4" />

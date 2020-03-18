@@ -100,6 +100,17 @@
                     </span>
                 </div>
 
+                <div class="mt-4" id="google-signin">
+                    <span class="block w-full rounded-md shadow-sm">
+                        <a :href="this.googleEndpoint" class="w-full flex justify-center items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                            <svg class="-ml-1 mr-3 h-5 w-5" fill="currentColor" viewBox="0 0 488 512">
+                                <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
+                            </svg>
+                            Anmelden mit Google
+                        </a>
+                    </span>
+                </div>
+
             </form>
         </div>
     </div>
@@ -116,6 +127,7 @@
         props: {
             errors: Object,
             endpoint: String,
+            googleEndpoint: String
         },
         data() {
             return {

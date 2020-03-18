@@ -24,6 +24,9 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::get('/login/apple', 'SiwaController@login');
 Route::post('/login/apple/callback', 'SiwaController@callback');
 
+Route::get('/login/google', 'Auth\GoogleController@login');
+Route::post('/login/google/callback', 'Auth\GoogleController@callback');
+
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('/register', 'Auth\RegisterController@register')->name('register.attempt');
 

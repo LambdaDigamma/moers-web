@@ -53,7 +53,8 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         return Inertia::render('Auth/Register', [
-            'endpoint' => config('services.sign_in_with_apple.login')
+            'endpoint' => config('services.sign_in_with_apple.login'),
+            'googleEndpoint' => '/login/google'
         ]);
     }
 
