@@ -75,6 +75,12 @@
  * @license MIT
  */
 
+/*!
+ * vue-cookie-law v1.12.0
+ * (c) 2020 Jakub Juszczak <jakub@posteo.de>
+ * 
+ */
+
 /*! 
   * portal-vue © Thorsten Lünborg, 2019 
   * 
