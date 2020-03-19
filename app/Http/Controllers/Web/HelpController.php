@@ -81,6 +81,10 @@ class HelpController extends Controller
         if ($helpRequest->helper->id == Auth::user()->id ||
             $helpRequest->creator->id == Auth::user()->id) {
             $helpRequest->load(['creator', 'helper', 'conversation', 'conversation.messages']);
+            $helpRequest->conversation->users()->updateExistingPivot(Auth::id(), [
+                'last_active' => Carbon::now(),
+                'is_unread' => false
+            ]);
             return Inertia::render('Help/HelpRequest', [
                 'request' => $helpRequest,
                 'isCreator' => $helpRequest->creator_id === Auth::user()->id,
