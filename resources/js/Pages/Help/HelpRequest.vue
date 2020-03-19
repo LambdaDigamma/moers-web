@@ -14,7 +14,7 @@
 
                 </h3>
                 <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-                    Biete deine Hilfe an, nimm Kontakt auf und kläre Genaueres.
+                    Nehmt Kontakt auf und tauscht eure Kontaktdaten aus.
                 </p>
             </div>
             <div class="px-4 py-5 sm:p-6" v-if="!isCreator && request.served_on === null">
@@ -116,7 +116,7 @@
                     <inertia-link :href="route('help.request.done', request.id)"
                                   method="POST"
                                   class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-50 focus:outline-none focus:border-green-300 focus:shadow-outline-green active:bg-green-200 transition ease-in-out duration-150">
-                        Die Hilfesuche wurde erledigt
+                        Ich habe einen Helfer gefunden
                     </inertia-link>
                     <p class="mt-2 max-w-xl text-sm leading-5 text-gray-500">
                         Wenn jemand dir geholfen hat, kannst du hier die Hilfesuche schließen.

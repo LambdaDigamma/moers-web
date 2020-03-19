@@ -99,6 +99,16 @@ class User extends Authenticatable implements ExportsPersonalData
         return "{$this->first_name} {$this->last_name}";
     }
 
+    /**
+     * Conversations associated with this user.
+     *
+     * @return BelongsToMany
+     */
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class)->withPivot('last_active', 'is_unread')->withTimestamps();
+    }
+
     public function organisations() {
         return $this->belongsToMany('App\Organisation')->withPivot('organisation_id', 'user_id', 'role');
     }

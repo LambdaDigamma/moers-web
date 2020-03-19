@@ -87,7 +87,7 @@ class HelpController extends Controller
                 'isHelper' => $helpRequest->helper_id === Auth::user()->id,
                 'messages' => function () use ($helpRequest) {
                     return ($helpRequest->conversation !== null) ? $helpRequest->conversation->messages
-                         : null;
+                        : null;
                 },
             ]);
         } else {
@@ -188,14 +188,16 @@ class HelpController extends Controller
 
     }
 
-    public function sendMessage(HelpRequest $helpRequest, SendMessage $messageRequest) {
+    public function sendMessage(HelpRequest $helpRequest, SendMessage $messageRequest)
+    {
 
         $message = Message::make($messageRequest->validated());
         $message->sender()->associate(Auth::user());
 
         $helpRequest->conversation->messages()->save($message);
+        $helpRequest->conversation->users()->updateExistingPivot(Auth::id(), ['last_active' => Carbon::now(), 'is_unread' => false]);
 
-        event(new MessageWasPosted($message));
+        broadcast(new MessageWasPosted($message))->toOthers();
 
         return Redirect::route('help.request.show', $helpRequest->id);
 

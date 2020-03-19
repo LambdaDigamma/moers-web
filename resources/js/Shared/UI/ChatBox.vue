@@ -64,6 +64,9 @@
             Echo.private('conversation.' + this.conversation.id)
                 .listen('.message.posted', (e) => {
                     this.messages.push(e.message)
+                    axios.post(this.route('conversations.readMessage', this.conversation.id)).then(response => {
+                        console.log(response.data);
+                    });
                 });
 
         },
