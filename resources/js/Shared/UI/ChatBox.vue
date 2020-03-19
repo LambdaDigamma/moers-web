@@ -9,6 +9,10 @@
                     <div class="w-1/2 px-3 py-2 text-sm rounded-md"
                          :class="[message.sender_id === $page.auth.user.id ? 'bg-blue-200' : 'bg-red-200' ]">
                         <p>{{ message.content }}</p>
+                        <small class="text-xs font-medium"
+                               :class="[message.sender_id === $page.auth.user.id ? 'text-blue-500' : 'text-red-500' ]">
+                            {{ message.created_at | moment('[um] hh:mm [am] DD.MM.') }}
+                        </small>
                     </div>
                 </div>
             </div>
