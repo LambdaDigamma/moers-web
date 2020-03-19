@@ -106,7 +106,9 @@ class User extends Authenticatable implements ExportsPersonalData
      */
     public function conversations()
     {
-        return $this->belongsToMany(Conversation::class)->withPivot('last_active', 'is_unread')->withTimestamps();
+        return $this->belongsToMany(Conversation::class)
+            ->withPivot('last_active', 'is_unread')
+            ->withTimestamps();
     }
 
     public function organisations() {
@@ -195,7 +197,7 @@ class User extends Authenticatable implements ExportsPersonalData
         return $this->hasMany(HelpRequest::class, 'creator_id', 'id');
     }
 
-    public function selectPersonalData($personalDataSelection): void
+    public function selectPersonalData(PersonalDataSelection $personalDataSelection): void
     {
         // TODO: Export Memberships of Conversations?
         $user_id = Auth::user()->id;
