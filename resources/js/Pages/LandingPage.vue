@@ -16,7 +16,7 @@
 <!--            </div>-->
 
             <div class="absolute inset-x-0 top-0 overflow-x-hidden">
-                <div class="relative px-3 py-3 md:px-4 md:py-4">
+                <div class="relative px-4 py-3 md:px-4 md:py-4">
                     <div class="w-full md:max-w-6xl md:mx-auto flex items-center md:items-center justify-between">
 
                         <div>
@@ -59,20 +59,20 @@
 
 
                     <div class="">
-                        <div class="px-4 py-5 sm:p-6">
-                            <div class="mx-auto text-center sm:px-6 lg:py-16 lg:px-8 bg-gray-50 overflow-hidden rounded-lg overflow-hidden">
-                                <h2 class="text-2xl sm:text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+                        <div class="mt-4">
+                            <div class="max-w-3xl mx-auto text-center py-4 sm:px-6 lg:py-8 lg:px-8 bg-red-50 overflow-hidden rounded-lg overflow-hidden">
+                                <h2 class="text-xl sm:text-3xl md:text-4xl md:leading-9 font-extrabold tracking-tight text-gray-900 sm:leading-10">
                                     Hilf mit, die Krise <br />
                                     <span class="text-red-600">gemeinsam</span> zu bewältigen!
                                 </h2>
-                                <div class="mt-8 flex justify-center">
+                                <div class="mt-8 mx-4 flex flex-col sm:flex-row justify-center">
                                     <div class="inline-flex rounded-md shadow">
-                                        <inertia-link :href="route('help.serve')" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                                        <inertia-link :href="route('help.serve')" class="w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
                                             Jetzt helfen!
                                         </inertia-link>
                                     </div>
-                                    <div class="ml-3 inline-flex">
-                                        <inertia-link :href="route('help.index')" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-red-700 bg-red-100 hover:text-red-600 hover:bg-red-50 focus:outline-none focus:shadow-outline focus:border-red-300 transition duration-150 ease-in-out">
+                                    <div class="mt-2 sm:mt-0 sm:ml-3 inline-flex">
+                                        <inertia-link :href="route('help.index')" class="w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-red-700 bg-red-100 hover:text-red-600 hover:bg-red-200 focus:outline-none focus:shadow-outline focus:border-red-300 transition duration-150 ease-in-out">
                                             Mehr erfahren
                                         </inertia-link>
                                     </div>
@@ -88,8 +88,8 @@
                                 <img src="img/header.png" alt="Mein Moers App" />
                             </div>
 
-                            <h1 class="mb-6 font-bold text-xl sm:text-2xl md:text-5xl leading-tight text-gray-700 dark:text-white">
-                                Digitale Bürgerinformation auf Basis von <span class="text-red-500 dark:text-yellow-500">offenen Daten</span>
+                            <h1 class="mb-6 font-bold text-xl sm:text-2xl md:text-5xl leading-tight text-gray-900 dark:text-white">
+                                Digitale Bürgerinformation auf Basis von <span class="text-red-600 dark:text-yellow-500">offenen Daten</span>
                             </h1>
 
                             <p class="md:text-xl md:px-18 leading-relaxed text-gray-600 dark:text-white">
@@ -100,7 +100,7 @@
 
                             <!-- Circles -->
                             <div class="hidden md:block h-32 w-32 rounded-full absolute right-0 bottom-0 -mb-64 -mr-88 bg-gray-600"></div>
-                            <div class="hidden md:block h-5 w-5 rounded-full absolute top-0 right-0 -mr-40 mt-32 bg-red-500 dark:bg-yellow-500"></div>
+                            <div class="hidden md:block h-5 w-5 rounded-full absolute top-0 right-0 -mr-40 mt-32 bg-red-600 dark:bg-yellow-500"></div>
                         </div>
                     </div>
                     <div>
@@ -108,7 +108,7 @@
 
                             <img src="img/header.png" alt="Mein Moers App" />
 
-                            <div class="h-20 w-20 rounded-full absolute top-0 left-0 -ml-16 -mt-16 bg-red-500 dark:bg-yellow-500"
+                            <div class="h-20 w-20 rounded-full absolute top-0 left-0 -ml-16 -mt-16 bg-red-600 dark:bg-yellow-500"
                                  style="z-index: -1;">
                             </div>
 

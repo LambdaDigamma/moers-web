@@ -63,14 +63,14 @@ Route::group([
 
     Route::post('/conversations/{conversation}/readMessage')->name('conversations.readMessage')->uses('ConversationController@sendReadMessage')->middleware(['auth']);
 
-    Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
-    Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
-
-    Route::get('/polls')->name('polls.index')->uses('PollController@index')->middleware('auth');
-    Route::get('/polls/answered')->name('polls.index.answered')->uses('PollController@indexAnswered')->middleware('auth');
-    Route::get('/polls/{poll}')->name('polls.show')->uses('PollController@show')->middleware('auth');
-    Route::post('/polls/{poll}/vote')->name('polls.vote')->uses('PollController@vote')->middleware('auth');
-    Route::post('/polls/{poll}/abstain')->name('polls.abstain')->uses('PollController@abstain')->middleware('auth');
+//    Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
+//    Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
+//
+//    Route::get('/polls')->name('polls.index')->uses('PollController@index')->middleware('auth');
+//    Route::get('/polls/answered')->name('polls.index.answered')->uses('PollController@indexAnswered')->middleware('auth');
+//    Route::get('/polls/{poll}')->name('polls.show')->uses('PollController@show')->middleware('auth');
+//    Route::post('/polls/{poll}/vote')->name('polls.vote')->uses('PollController@vote')->middleware('auth');
+//    Route::post('/polls/{poll}/abstain')->name('polls.abstain')->uses('PollController@abstain')->middleware('auth');
 
     Route::personalDataExports('personal-data-exports');
 
