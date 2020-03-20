@@ -4553,16 +4553,16 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "8.0.2",
+            "version": "8.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "0467473fdbbaea5346056fbd861fef8b795f67e6"
+                "reference": "af698ec0ee87bb2131cfe3d31bf25fd0c54526a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/0467473fdbbaea5346056fbd861fef8b795f67e6",
-                "reference": "0467473fdbbaea5346056fbd861fef8b795f67e6",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/af698ec0ee87bb2131cfe3d31bf25fd0c54526a7",
+                "reference": "af698ec0ee87bb2131cfe3d31bf25fd0c54526a7",
                 "shasum": ""
             },
             "require": {
@@ -4639,7 +4639,7 @@
                 "media",
                 "spatie"
             ],
-            "time": "2020-03-14T10:52:41+00:00"
+            "time": "2020-03-18T19:05:27+00:00"
         },
         {
             "name": "spatie/laravel-newsletter",

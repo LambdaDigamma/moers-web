@@ -59,6 +59,8 @@ Route::group([
     Route::post('/help/request/{helpRequest}/done')->name('help.request.done')->uses('HelpController@done')->middleware(['auth']);
     Route::post('/help/request/{helpRequest}/quit')->name('help.request.quit')->uses('HelpController@quitHelpRequest')->middleware(['auth']);
 
+    Route::get('/organisations/{organisation}')->name('organisations.show')->uses('OrganisationController@show');
+
     Route::post('/conversations/{conversation}/readMessage')->name('conversations.readMessage')->uses('ConversationController@sendReadMessage')->middleware(['auth']);
 
     Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');

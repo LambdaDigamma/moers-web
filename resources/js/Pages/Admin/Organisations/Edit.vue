@@ -12,6 +12,23 @@
             Die Organisation wurde gelöscht.
         </TrashedMessage>
 
+
+
+        <div class="mt-6">
+
+            <h1>Moers </h1>
+
+            <div class="h-64 w-full relative overflow-hidden rounded-lg shadow-md">
+                <img class="absolute object-center object-cover w-full h-full"
+                     :src="organisation.header_path" />
+            </div>
+
+
+
+
+        </div>
+
+
         <div class="flex flex-wrap">
             <div class="lg:w-1/2">
 

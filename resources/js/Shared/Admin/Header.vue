@@ -1,9 +1,9 @@
 <template>
 
     <div>
-        <h1 class="mb-3 md:mb-8 font-semibold text-xl md:text-3xl dark:text-white">
+        <h1 class="mb-3 md:mb-8 font-semibold text-xl md:text-3xl text-gray-900 dark:text-white">
             <inertia-link
-                    class="dark:text-yellow-500 dark-hover:text-yellow-600 hover:no-underline"
+                    class="text-red-600 dark:text-yellow-500 dark-hover:text-yellow-600 hover:no-underline"
                     :href="href">
                 {{ previousTitle }}
             </inertia-link>

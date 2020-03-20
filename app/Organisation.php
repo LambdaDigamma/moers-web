@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * App\Organisation
@@ -17,7 +19,6 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string $description
  * @property int|null $entry_id
- * @property int|null $group_id
  * @property string|null $tags
  * @property string|null $logo_url
  * @property Carbon|null $deleted_at
@@ -48,14 +49,31 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Organisation withoutTrashed()
  * @mixin Eloquent
  */
-class Organisation extends Model
+class Organisation extends Model implements HasMedia
 {
 
     use SoftDeletes;
+    use InteractsWithMedia;
 
     protected $table = 'organisations';
 
     protected $fillable = ['name', 'description'];
+
+    protected $appends = ['header_path', 'logo_path'];
+
+    public function getHeaderPathAttribute()
+    {
+        if (!is_null($this->getFirstMedia('header'))) {
+            return $this->getFirstMedia('header')->getUrl();
+        }
+    }
+
+    public function getLogoPathAttribute()
+    {
+        if (!is_null($this->getFirstMedia('logo'))) {
+            return $this->getFirstMedia('logo')->getUrl();
+        }
+    }
 
     public function users() {
         return $this->belongsToMany('App\User')->withPivot('organisation_id', 'user_id', 'role');

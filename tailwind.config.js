@@ -127,6 +127,10 @@ module.exports = {
             },
         },
     },
+    variants: {
+        objectFit: ['responsive'],
+        objectPosition: ['responsive'],
+    },
     plugins: [
         require('@tailwindcss/ui')({
             layout: 'sidebar',
