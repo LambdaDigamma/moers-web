@@ -36,8 +36,7 @@ class AddProvidersUsersTable extends Migration
             $table->string('password')->nullable(false)->change();
         });
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('provider_id');
-            $table->dropColumn('provider');
+            $table->dropColumn(['provider_id', 'provider']);
         });
     }
 }

@@ -27,8 +27,7 @@ class AddUnreadLastActiveConversationUserTable extends Migration
     public function down()
     {
         Schema::table('conversation_user', function (Blueprint $table) {
-            $table->dropColumn('is_unread');
-            $table->dropColumn('last_active');
+            $table->dropColumn(['is_unread', 'last_active']);
         });
     }
 }

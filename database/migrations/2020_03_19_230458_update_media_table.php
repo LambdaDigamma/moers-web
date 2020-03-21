@@ -19,8 +19,7 @@ class UpdateMediaTable extends Migration
     public function down()
     {
         Schema::table('media', function (Blueprint $table) {
-            $table->dropColumn('uuid');
-            $table->dropColumn('conversions_disk');
+            $table->dropColumn(['uuid', 'conversions_disk']);
         });
     }
 
