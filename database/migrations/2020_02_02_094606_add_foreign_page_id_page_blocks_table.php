@@ -28,7 +28,9 @@ class AddForeignPageIdPageBlocksTable extends Migration
     public function down()
     {
         Schema::table('page_blocks', function (Blueprint $table) {
-            $table->dropForeign('page_id');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('page_blocks_page_id_foreign');
+            }
         });
     }
 }

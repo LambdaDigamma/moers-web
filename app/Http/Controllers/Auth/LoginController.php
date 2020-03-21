@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Inertia\Inertia;
+use Redirect;
 
 class LoginController extends Controller
 {
@@ -20,7 +22,6 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
 
     /**
@@ -46,7 +47,33 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return Inertia::render('Auth/Login');
+        return Inertia::render('Auth/Login', [
+            'endpoint' => config('services.sign_in_with_apple.login'),
+            'googleEndpoint' => '/login/google'
+        ]);
+    }
+
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
+            return $response;
+        }
+
+        // TODO: Look for a better way of doing this.
+        // Feels kind of hacky. Doing this to prevent missing auth token for web push.
+
+        return $request->wantsJson()
+            ? new Response('', 204)
+            : $this->redirectWithoutInertia(Redirect::intended($this->redirectPath())->getTargetUrl());
+    }
+
+    function redirectWithoutInertia(string $url)
+    {
+        return response('', Response::HTTP_CONFLICT)->header('x-inertia-location', $url);
     }
 
 }

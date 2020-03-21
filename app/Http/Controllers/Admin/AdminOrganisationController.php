@@ -21,11 +21,16 @@ class AdminOrganisationController extends Controller
     {
         return Inertia::render('Admin/Organisations/Index', [
             'filters' => Request::all('search'),
-            'organisations' => Organisation::with(['mainGroup'])
+            'organisations' => Organisation::with(['mainGroup', 'entry'])
                 ->orderByDesc('name')
                 ->filter(Request::only('search'))
                 ->paginate()
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Admin/Organisations/Create');
     }
 
     public function edit(Organisation $organisation)

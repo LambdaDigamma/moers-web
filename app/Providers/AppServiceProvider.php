@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\HelpRequest;
 use Auth;
+use Bouncer;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
@@ -37,6 +39,8 @@ class AppServiceProvider extends ServiceProvider
             });
         });
 
+        Bouncer::ownedVia(HelpRequest::class, 'creator_id');
+
     }
 
     private function registerInertia() {
@@ -54,6 +58,7 @@ class AppServiceProvider extends ServiceProvider
                         'id' => Auth::user()->id,
                         'name' => Auth::user()->name,
                         'email' => Auth::user()->email,
+                        'notifications_count' => Auth::user()->unreadNotifications()->count()
                     ] : null,
                 ];
             },
@@ -152,6 +157,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 }

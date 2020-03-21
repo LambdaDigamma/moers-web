@@ -9,6 +9,7 @@ use App\Http\Middleware\SafariFixAuth;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\VerifyCsrfToken;
+use Fruitcake\Cors\HandleCors;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
@@ -23,6 +24,7 @@ use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Laravel\Passport\Http\Middleware\CreateFreshApiToken;
 use Reinink\RememberQueryStrings;
 
 class Kernel extends HttpKernel
@@ -40,6 +42,7 @@ class Kernel extends HttpKernel
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         TrustProxies::class,
+        HandleCors::class,
     ];
 
     /**
@@ -55,6 +58,7 @@ class Kernel extends HttpKernel
             ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
             SubstituteBindings::class,
+            CreateFreshApiToken::class
         ],
 
         'api' => [
@@ -83,5 +87,6 @@ class Kernel extends HttpKernel
         'throttle' => ThrottleRequests::class,
         'localization' => LocalizeAPI::class,
         'remember' => RememberQueryStrings::class,
+        'cors' => HandleCors::class,
     ];
 }

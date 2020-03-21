@@ -2,61 +2,41 @@
 
     <div>
 
-        <h1 class="mt-2 font-semibold text-2xl md:text-4xl dark:text-white hidden md:block">Übersicht</h1>
-
-        <div class="w-full flex flex-wrap">
-            <div class="w-full sm:w-1/2 lg:w-1/3 sm:pr-2">
-                <div class="rounded-lg">
-                    <div class="flex items-center px-3 py-1 pt-2 rounded-t-lg dark:bg-gray-900">
-                        <h2 class="font-semibold text-lg md:text-2xl dark:text-white">
-                            Unbeantwortete Abstimmungen
-                        </h2>
-                    </div>
-                    <div v-if="unansweredPolls.length === 0" class="block p-2 px-3 dark:border-gray-900 text-sm dark:text-gray-600">
-                        Keine unbeantworteten Abstimmungen.
-                    </div>
-                    <div class="dark:bg-gray-700 rounded-b-lg">
-                        <inertia-link v-for="poll in unansweredPolls"
-                                      :key="poll.id" :href="route('polls.show', poll.id)"
-                                      class="block p-2 px-3 border-b-2 last:border-b-0 dark:border-gray-900 hover:no-underline">
-                            <PollItem :poll="poll" />
-                        </inertia-link>
-                    </div>
-                    <div class="px-3 py-2 rounded-b-lg dark:bg-gray-900">
-                        <inertia-link :href="route('polls.index')" class="flex items-center font-normal text-sm dark:text-white dark-hover:text-yellow-500">
-                            <span>Alle anzeigen</span>
-                            <icon name="cheveron-right" class="h-4 w-4 ml-0 dark:fill-current"></icon>
-                        </inertia-link>
-                    </div>
-                </div>
+        <header>
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold leading-tight text-gray-900">
+                    Übersicht
+                </h2>
             </div>
-            <div class="w-full sm:w-1/2 lg:w-1/3 sm:pr-2 pt-3 md:pt-0">
-                <div class="rounded-lg">
-                    <div class="flex items-center px-3 py-1 pt-2 rounded-t-lg dark:bg-gray-900">
-                        <h2 class="font-semibold text-lg md:text-2xl dark:text-white">
-                            Beantwortete Abstimmungen
-                        </h2>
-                    </div>
-                    <div v-if="answeredPolls.length === 0" class="block p-2 px-3 dark:border-gray-900 text-sm dark:text-gray-600">
-                        Keine beantworteten Abstimmungen.
-                    </div>
-                    <div class="dark:bg-gray-700 rounded-b-lg">
-                        <inertia-link v-for="poll in answeredPolls"
-                                      :key="poll.id" :href="route('polls.show', poll.id)"
-                                      class="block p-2 px-3 border-b-2 last:border-b-0 dark:border-gray-900 hover:no-underline">
-                            <PollItem :poll="poll" />
-                        </inertia-link>
-                    </div>
-                    <div class="px-3 py-2 rounded-b-lg dark:bg-gray-900">
-                        <inertia-link :href="route('polls.index.answered')" class="flex items-center font-normal text-sm dark:text-white dark-hover:text-yellow-500">
-                            <span>Alle anzeigen</span>
-                            <icon name="cheveron-right" class="h-4 w-4 ml-0 dark:fill-current"></icon>
-                        </inertia-link>
-                    </div>
-                </div>
+        </header>
 
-            </div>
-        </div>
+
+
+
+        <!--        <div class="mt-4">-->
+
+<!--            <div class="bg-white overflow-hidden shadow rounded-lg">-->
+<!--                <div class="bg-white px-4 py-5 sm:px-6">-->
+<!--                    <h3 class="text-lg leading-6 font-medium text-gray-900">-->
+<!--                        Offene Abstimmungen-->
+<!--                    </h3>-->
+<!--                </div>-->
+<!--                <ul>-->
+<!--                    <li class="border-t border-gray-200" v-for="poll in unansweredPolls">-->
+<!--                        <PollItem :poll="poll" />-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 border-t border-gray-200">-->
+<!--                    <span class="inline-flex rounded-md shadow-sm">-->
+<!--                        <inertia-link :href="route('polls.index')" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out">-->
+<!--                            Alle ansehen-->
+<!--                        </inertia-link>-->
+<!--                    </span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
     </div>
 
 </template>
@@ -71,8 +51,8 @@
         components: {PollItem, Icon},
         layout: LayoutGeneral,
         props: {
-            unansweredPolls: Array,
-            answeredPolls: Array
+            // unansweredPolls: Array,
+            // answeredPolls: Array
         },
         created() {
             this.$root.$emit('newTitle', 'Übersicht')

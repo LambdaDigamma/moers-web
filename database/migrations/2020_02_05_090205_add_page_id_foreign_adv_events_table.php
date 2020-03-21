@@ -28,7 +28,9 @@ class AddPageIdForeignAdvEventsTable extends Migration
     public function down()
     {
         Schema::table('adv_events', function (Blueprint $table) {
-            $table->dropForeign('page_id');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('adv_events_page_id_foreign');
+            }
         });
     }
 }

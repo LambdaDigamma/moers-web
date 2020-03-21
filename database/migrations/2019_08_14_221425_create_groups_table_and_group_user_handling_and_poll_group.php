@@ -56,12 +56,12 @@ class CreateGroupsTableAndGroupUserHandlingAndPollGroup extends Migration
     {
         Schema::table('groups', function (Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
-                $table->dropForeign('organisation_id');
+                $table->dropForeign('groups_organisation_id_foreign');
             }
         });
         Schema::table('group_user', function (Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
-                $table->dropForeign(['user_id', 'group_id']);
+                $table->dropForeign(['group_user_user_id_foreign', 'group_user_group_id_foreign']);
             }
         });
         Schema::table('organisations', function (Blueprint $table) {

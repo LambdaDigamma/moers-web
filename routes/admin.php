@@ -8,6 +8,7 @@ Route::group([
 
     Route::get('/dashboard')->name('admin.dashboard')->uses('AdminDashboardController');
     Route::get('/organisations')->name('admin.organisations.index')->uses('AdminOrganisationController@index');
+    Route::get('/organisations/create')->name('admin.organisations.create')->uses('AdminOrganisationController@create');
     Route::get('/organisations/{organisation}')->name('admin.organisations.edit')->uses('AdminOrganisationController@edit');
     Route::delete('/organisations/{organisation}')->name('admin.organisations.destroy')->uses('AdminOrganisationController@destroy');
     Route::put('/organisations/{organisation}/restore')->name('admin.organisations.restore')->uses('AdminOrganisationController@restore');
