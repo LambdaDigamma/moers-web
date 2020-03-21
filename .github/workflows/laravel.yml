@@ -31,5 +31,5 @@ jobs:
       env:
         APP_ENV: testing
         DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
+        DB_DATABASE: database/test.sqlite
       run: vendor/bin/phpunit
