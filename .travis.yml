@@ -7,7 +7,7 @@ env:
 language: php
 
 php:
-  - '7.2'
+  - '7.4'
 
 services:
   - docker
