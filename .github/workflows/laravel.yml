@@ -26,10 +26,12 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Setup Database
-      run: php artisan migrate:install
+      run: php artisan migrate:install --env=testing
+    - name: Clear Config
+      run: php artisan config:clear
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         APP_ENV: testing
         DB_CONNECTION: sqlite
         DB_DATABASE: database/test.sqlite
-      run: vendor/bin/phpunit
+      run: php artisan test
