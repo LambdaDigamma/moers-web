@@ -38,7 +38,7 @@ class CreatePollOptionsTable extends Migration
 
         Schema::table('poll_options', function(Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
-                $table->dropForeign(['poll_options_poll_id_foreign']);
+                $table->dropForeign(['poll_id']);
             }
         });
 

@@ -14,7 +14,7 @@ class AddOrderPageBlocksTable extends Migration
     public function up()
     {
         Schema::table('page_blocks', function (Blueprint $table) {
-            $table->unsignedInteger('order')->after('data');
+            $table->unsignedInteger('order')->after('data')->nullable();
         });
     }
 

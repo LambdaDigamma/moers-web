@@ -46,6 +46,17 @@ class CreateOrganisationsTable extends Migration
      */
     public function down()
     {
+        Schema::table('organisation_user', function(Blueprint $table) {
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign(['user_id']);
+                $table->dropForeign(['organisation_id']);
+            }
+        });
+        Schema::table('organisations', function(Blueprint $table) {
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign(['entry_id']);
+            }
+        });
         Schema::dropIfExists('organisations');
         Schema::dropIfExists('organisation_user');
     }

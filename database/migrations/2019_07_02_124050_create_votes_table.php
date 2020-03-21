@@ -41,8 +41,8 @@ class CreateVotesTable extends Migration
 
         Schema::table('votes', function(Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
-                $table->dropForeign(['votes_user_id_foreign']);
-                $table->dropForeign(['votes_poll_id_foreign']);
+                $table->dropForeign(['user_id']);
+                $table->dropForeign(['poll_id']);
             }
         });
 

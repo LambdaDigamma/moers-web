@@ -14,7 +14,8 @@ class UserTableSeeder extends Seeder
     {
 
         $superadmin = factory(User::class)->create([
-            'name' => 'Admin',
+            'first_name' => 'Super',
+            'last_name' => 'Admin',
             'email' => 'admin@lambdadigamma.com',
             'password' => bcrypt('secret')
         ]);
