@@ -60,6 +60,7 @@ Route::group([
     Route::post('/help/request/{helpRequest}/quit')->name('help.request.quit')->uses('HelpController@quitHelpRequest')->middleware(['auth']);
 
     Route::get('/organisations/{organisation}')->name('organisations.show')->uses('OrganisationController@show');
+    Route::get('/organisations/{organisation}/events/{event}')->name('organisations.event.show')->uses('OrganisationController@event');
 
     Route::post('/conversations/{conversation}/readMessage')->name('conversations.readMessage')->uses('ConversationController@sendReadMessage')->middleware(['auth']);
 

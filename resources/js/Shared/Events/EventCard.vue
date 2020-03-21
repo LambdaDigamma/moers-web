@@ -1,6 +1,6 @@
 <template>
 
-    <inertia-link class="block group" href="#">
+    <inertia-link class="block group" :href="href">
         <div class="relative h-64 pb-5/6">
             <img class="absolute inset-0 h-full w-full rounded-lg shadow-md object-cover group-hover:filter-brightness-90"
                  :src="event.header_url" alt="">
@@ -36,7 +36,8 @@
     export default {
         name: "EventCard",
         props: {
-            event: Object
+            event: Object,
+            href: String
         },
         computed: {
             prettifiedDate() {

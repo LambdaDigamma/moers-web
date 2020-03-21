@@ -41,7 +41,7 @@
                 <div class="sm:inline-flex sm:pt-2 sm:pb-8">
 
                     <div v-for="(event, i) in organisation.events" :class="{'mt-10 sm:ml-4': i > 0 }" class="sm:mt-0 sm:w-88 sm:flex-shrink-0">
-                        <EventCard :event="event" />
+                        <EventCard :event="event" :href="route('organisations.event.show', [organisation.id, event.id])" />
                     </div>
                 </div>
             </div>
