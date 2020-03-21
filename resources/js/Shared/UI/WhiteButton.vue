@@ -2,7 +2,7 @@
 
     <span class="inline-flex rounded-md shadow-sm">
         <component
-                class="inline-flex items-center border border-gray-300 font-medium text-gray-700 bg-white transition ease-in-out duration-150"
+                class="w-full inline-flex justify-center items-center border border-gray-300 font-medium text-gray-700 bg-white transition ease-in-out duration-150"
                 :is="type"
                 :href="href"
                 :type="buttonType"

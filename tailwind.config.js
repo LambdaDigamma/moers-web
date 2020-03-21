@@ -125,18 +125,51 @@ module.exports = {
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
+            spacing: {
+                '72': '18rem',
+                '80': '20rem',
+                '88': '22rem',
+                '96': '24rem',
+            },
+            padding: {
+                '5/6': '83.3333333%'
+            },
+            filter: {
+                'none': 'none',
+                'grayscale': 'grayscale(1)',
+                'invert': 'invert(1)',
+                'sepia': 'sepia(1)',
+                'blur': 'blur(1px)',
+                'brightness-10': 'brightness(10%)',
+                'brightness-20': 'brightness(20%)',
+                'brightness-30': 'brightness(30%)',
+                'brightness-40': 'brightness(40%)',
+                'brightness-50': 'brightness(50%)',
+                'brightness-60': 'brightness(60%)',
+                'brightness-70': 'brightness(70%)',
+                'brightness-80': 'brightness(80%)',
+                'brightness-90': 'brightness(90%)',
+            },
+            backdropFilter: {
+                'none': 'none',
+                'blur': 'blur(20px)',
+            },
         },
     },
     variants: {
         objectFit: ['responsive'],
         objectPosition: ['responsive'],
+        textColor: ['responsive', 'hover', 'focus', 'group-hover'],
+        backgroundColor: ['responsive', 'hover', 'focus', 'group-hover'],
+        filter: ['responsive', 'group-hover']
     },
     plugins: [
         require('@tailwindcss/ui')({
             layout: 'sidebar',
         }),
         require('tailwindcss-dark-mode')(),
-        require('tailwindcss-font-inter')()
+        require('tailwindcss-font-inter')(),
+        require('tailwindcss-filters'),
     ]
 }
 

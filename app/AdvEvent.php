@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -54,10 +56,11 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Query\Builder|AdvEvent withoutTrashed()
  * @mixin Eloquent
  */
-class AdvEvent extends Model
+class AdvEvent extends Model implements HasMedia
 {
 
     use HasTranslations;
+    use InteractsWithMedia;
 
     protected $table = 'adv_events';
 
@@ -69,7 +72,16 @@ class AdvEvent extends Model
         'extras' => 'array'
     ];
 
+    protected $appends = ['header_url'];
+
     public $translatable = ['name', 'description', 'category'];
+
+    public function getHeaderUrlAttribute()
+    {
+        if (!is_null($this->getFirstMedia('header'))) {
+            return $this->getFirstMedia('header')->getUrl();
+        }
+    }
 
     public function organisation() {
         return $this->belongsTo('App\Organisation');
