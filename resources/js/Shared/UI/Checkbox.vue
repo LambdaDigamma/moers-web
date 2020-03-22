@@ -11,7 +11,6 @@
             <label :for="id" class="font-medium text-gray-700">{{ label }}</label>
             <p class="text-gray-500" v-if="hint">
                 {{ hint }}
-                Das Datum ist noch nicht bekannt und wird erst später veröffentlicht.
             </p>
         </div>
     </div>

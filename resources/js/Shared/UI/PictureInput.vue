@@ -392,6 +392,7 @@
                         this.$emit('change', this.image)
                     }
                 }
+                this.$emit('fileChanged', files[0])
             },
             onError (error) {
                 if (this.alertOnError) {

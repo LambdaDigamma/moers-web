@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AdvEvent;
 use App\Entry;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateEvent;
 use App\Organisation;
 use Inertia\Inertia;
 use Redirect;
@@ -42,11 +44,54 @@ class AdminOrganisationController extends Controller
         ]);
     }
 
-    public function createEvent()
+    public function createEvent(Organisation $organisation)
     {
         return Inertia::render('Admin/Organisations/CreateEvent', [
-            'entries' => Entry::all()
+            'organisation' => $organisation,
+            'entries' => Entry::all(),
         ]);
+    }
+
+    public function storeEvent(Organisation $organisation, UpdateEvent $request)
+    {
+
+        $validated = $request->validated();
+
+        $event = AdvEvent::create($validated);
+
+        if (Request::has('header_image')) {
+            $event->addMediaFromRequest('header_image')
+                  ->toMediaCollection('header');
+        }
+
+        $organisation->events()->save($event);
+
+        return Redirect::route('admin.organisations.events.edit', [$organisation->id, $event->id]);
+
+    }
+
+    public function editEvent(Organisation $organisation, AdvEvent $event)
+    {
+        return Inertia::render('Admin/Organisations/EditEvent', [
+            'organisation' => $organisation,
+            'event' => $event
+        ]);
+    }
+
+    public function updateEvent(Organisation $organisation, AdvEvent $event, UpdateEvent $request)
+    {
+
+        $validated = $request->validated();
+        $event->update($validated);
+
+        if (Request::has('header_image')) {
+            $event->clearMediaCollection('header');
+            $event->addMediaFromRequest('header_image')
+                  ->toMediaCollection('header');
+        }
+
+        return Redirect::route('admin.organisations.events.edit', [$organisation->id, $event->id]);
+
     }
 
     public function destroy(Organisation $organisation)
