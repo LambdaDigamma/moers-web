@@ -26,8 +26,8 @@ class UpdateEvent extends FormRequest
         return [
             'name' => 'required|string|min:3|max:255',
             'header_image' => 'nullable|sometimes|image',
-            'start_date' => 'nullable|sometimes|date',
-            'end_date' => 'nullable|sometimes|date|after_or_equal:start_date'
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date'
         ];
     }
 }

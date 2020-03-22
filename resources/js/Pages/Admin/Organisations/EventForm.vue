@@ -27,7 +27,8 @@
 
                         <PictureInput class="mt-4"
                                       label="Titelbild"
-                                      @fileChanged="fileChanged" />
+                                      @fileChanged="fileChanged"
+                                      :errors="$page.errors.header_image" />
 
 
                     </div>
@@ -41,7 +42,7 @@
         </div>
 
         <div class="mt-6 bg-white shadow rounded-lg">
-            <form action="#" method="POST">
+            <form @submit.prevent="submit">
                 <div class="px-4 py-5 sm:p-6 md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">Datum</h3>
@@ -58,7 +59,10 @@
                                         id="startDate"
                                         label="Anfangsdatum"
                                         placeholder="Anfangsdatum"
-                                        :disabled="form.noDate">
+                                        v-model="form.startDate"
+                                        :date="form.startDate"
+                                        :disabled="form.noDate"
+                                        :errors="$page.errors.start_date">
 
                                 </DatePicker>
 
@@ -78,6 +82,7 @@
                                         label="Anfangszeit"
                                         placeholder="Anfangszeit"
                                         v-model="form.startTime"
+                                        :time="form.startTime"
                                         :disabled="form.noDate || form.startWholeDay">
 
                                 </TimePicker>
@@ -87,6 +92,7 @@
                                         id="endDate"
                                         label="Enddatum"
                                         placeholder="Enddatum"
+                                        v-model="form.endDate"
                                         :disabled="form.noDate">
 
                                 </DatePicker>
@@ -107,6 +113,7 @@
                                         label="Endzeit"
                                         placeholder="Endzeit"
                                         v-model="form.endTime"
+                                        :time="form.endTime"
                                         :disabled="form.noDate || form.endWholeDay">
 
                                 </TimePicker>
@@ -228,6 +235,7 @@
     import LoadingButton from "../../../Shared/LoadingButton";
     import CardContainer from "../../../Shared/UI/CardContainer";
     import {de} from "vuejs-datepicker/dist/locale";
+    import moment from 'moment';
 
     export default {
         name: "EventForm",
@@ -246,7 +254,10 @@
             entries: Array,
             event: {
                 type: Object,
-                default: {}
+                default: {
+                    start_date: null,
+                    end_date: null
+                }
             }
         },
         methods: {
@@ -267,17 +278,111 @@
             },
         },
         computed: {
+
+            startDate() {
+
+                if (this.form.startDate && !this.form.noDate) {
+                    let startDate = moment(this.form.startDate)
+                    if (this.form.startTime) {
+                        let timeComponents = this.form.startTime.split(":")
+                        startDate.hours(parseInt(timeComponents[0]))
+                        startDate.minutes(parseInt(timeComponents[1]))
+                        startDate.seconds(0)
+                    } else {
+                        startDate.hours(0)
+                        startDate.minutes(0)
+                        startDate.seconds(0)
+                    }
+                    return startDate
+                } else {
+                    return null
+                }
+
+            },
+
+            endDate() {
+
+                if (this.form.endDate && !this.form.noDate) {
+                    let endDate = moment(this.form.endDate)
+                    if (this.form.endDate) {
+                        let timeComponents = this.form.endTime.split(":")
+                        endDate.hours(parseInt(timeComponents[0]))
+                        endDate.minutes(parseInt(timeComponents[1]))
+                        endDate.seconds(0)
+                    } else {
+                        endDate.hours(0)
+                        endDate.minutes(0)
+                        endDate.seconds(0)
+                    }
+                    return endDate
+                } else {
+                    return null
+                }
+
+            },
+
+
             formData() {
+
                 let data = new FormData()
                 data.append('name', this.form.name || '')
                 data.append('header_image', this.form.header_image || '')
 
-
-                if (this.form.noDate) {
-
+                if (this.startDate !== null) {
+                    data.append('start_date', this.startDate.format('YYYY-MM-DD HH:mm:ss'))
+                } else {
+                    data.append('start_date', "")
                 }
 
+                if (this.endDate !== null) {
+                    data.append('end_date', this.endDate.format('YYYY-MM-DD HH:mm:ss'))
+                } else {
+                    data.append('end_date', "")
+                }
 
+                // if (!this.form.noDate) {
+                //
+                //     if (this.form.startDate) {
+                //
+                //         const startDate = moment(this.form.startDate)
+                //
+                //         if (this.form.startTime && !this.form.startWholeDay) {
+                //             let timeComponents = this.form.startTime.split(":")
+                //             startDate.hours(timeComponents[0])
+                //             startDate.minutes(timeComponents[1])
+                //             startDate.seconds(0)
+                //         } else {
+                //             startDate.hours(0)
+                //             startDate.minutes(0)
+                //             startDate.seconds(0)
+                //         }
+                //
+                //         data.append('start_date', startDate.format('YYYY-MM-DD HH:mm:ss'))
+                //
+                //         if (this.form.endDate) {
+                //
+                //             const endDate = moment(this.form.endDate)
+                //
+                //             if (this.form.endTime && !this.form.endWholeDay) {
+                //                 let timeComponents = this.form.endTime.split(":")
+                //                 endDate.hours(timeComponents[0])
+                //                 endDate.minutes(timeComponents[1])
+                //                 endDate.seconds(0)
+                //             } else {
+                //                 endDate.hours(0)
+                //                 endDate.minutes(0)
+                //                 endDate.seconds(0)
+                //             }
+                //
+                //             data.append('end_date', endDate.format('YYYY-MM-DD HH:mm:ss'))
+                //         }
+                //
+                //     } else {
+                //         data.append('start_date', "")
+                //         data.append('end_date', "")
+                //     }
+                //
+                // }
 
 
                 return data
@@ -288,7 +393,6 @@
         },
         watch: {
             startWholeDay(startWholeDay) {
-                console.log(startWholeDay)
                 if (startWholeDay) {
                     this.form.startTime = null
                 }
@@ -300,17 +404,17 @@
                 form: {
                     name: this.event.name,
                     header_image: null,
-                    startDate: null,
-                    startTime: null,
-                    startWholeDay: true,
-                    endDate: null,
-                    endTime: null,
-                    endWholeDay: true,
+                    startDate: this.event.start_date !== null ? moment(this.event.start_date).toDate() : null,
+                    startTime: this.event.start_date !== null ? moment(this.event.start_date).format("HH:mm") : null,
+                    startWholeDay: this.event.start_date !== null ? moment(this.event.start_date).format("HH:mm") === "00:00" : false,
+                    endDate: this.event.end_date !== null ? moment(this.event.end_date).toDate() : null,
+                    endTime: this.event.end_date !== null ? moment(this.event.end_date).format("HH:mm") : null,
+                    endWholeDay: this.event.end_date !== null ? moment(this.event.end_date).format("HH:mm") === "00:00" : false,
                     useTempLocation: false,
                     noDate: false
                 },
             }
-        }
+        },
     }
 </script>
 

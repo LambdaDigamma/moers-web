@@ -46,6 +46,7 @@
                 type: Boolean,
                 default: false
             },
+            time: String
         },
         methods: {
             focus() {
@@ -58,11 +59,11 @@
                 this.$refs.input.setSelectionRange(start, end)
             },
         },
-        data() {
-            return {
-                time: null
-            }
-        }
+        // data() {
+        //     return {
+        //         time: this.time
+        //     }
+        // }
     }
 </script>
 

@@ -55,71 +55,14 @@
             <input ref="fileInput" type="file" :name="name" :id="id" :accept="accept" @change="onFileChange">
         </div>
 
-
-
-
-
-
-
-
-
-<!--        <div ref="container" id="picture-input"-->
-<!--             class="w-full flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">-->
-<!--            <div v-if="!supportsUpload" v-html="strings.upload"></div>-->
-<!--            <div v-else-if="supportsPreview" class="w-full">-->
-<!--                <div class="relative preview-container w-full h-64">-->
-<!--                    <canvas ref="previewCanvas"-->
-<!--                            class="w-full absolute inset-0 z-40"-->
-<!--                            tabindex="0"-->
-<!--                            :class="computedClasses"-->
-<!--                            @drag.stop.prevent=""-->
-<!--                            @dragover.stop.prevent=""-->
-<!--                            @dragstart.stop.prevent=""-->
-<!--                            @dragend.stop.prevent=""-->
-<!--                            @dragenter.stop.prevent="onDragEnter"-->
-<!--                            @dragleave.stop.prevent="onDragLeave"-->
-<!--                            @drop.stop.prevent="onFileDrop"-->
-<!--                            @click.prevent="onClick"-->
-<!--                            @keyup.enter="onClick">-->
-<!--                    </canvas>-->
-
-<!--                    <div v-if="!imageSelected && !plain" class="relative z-20 text-center">-->
-<!--                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">-->
-<!--                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />-->
-<!--                        </svg>-->
-<!--                        <p class="mt-1 text-sm text-gray-600">-->
-<!--                            <button type="button"-->
-<!--                                    class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition duration-150 ease-in-out">-->
-<!--                                Lade ein Foto hoch-->
-<!--                            </button>-->
-<!--                            oder per Drag & Drop-->
-<!--                        </p>-->
-<!--                        <p class="mt-1 text-xs text-gray-500">-->
-<!--                            PNG, JPG, GIF bis zu 10MB-->
-<!--                        </p>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash;                <div v-if="!imageSelected && !plain"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                     class="picture-inner"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                     :style="{top: -previewHeight + 'px', marginBottom: -previewHeight + 'px', fontSize: fontSize, borderRadius: radius + '%', zIndex: zIndex + 2}">&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    <span v-if="supportsDragAndDrop" class="picture-inner-text" v-html="strings.drag"></span>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    <span v-else class="picture-inner-text" v-html="strings.tap"></span>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                </div>&ndash;&gt;-->
-<!--                </div>-->
-<!--                <button v-if="imageSelected && !hideChangeButton" @click.prevent="selectImage" :class="buttonClass" type="button">{{ strings.change }}</button>-->
-<!--                <button v-if="imageSelected && removable" @click.prevent="removeImage" :class="removeButtonClass" type="button">{{ strings.remove }}</button>-->
-<!--                <button v-if="imageSelected && toggleAspectRatio && width !== height" @click.prevent="rotateImage" :class="aspectButtonClass" type="button">{{ strings.aspect }}</button>-->
-<!--            </div>-->
-<!--            <div v-else>-->
-<!--                <button v-if="!imageSelected" @click.prevent="selectImage" :class="buttonClass" type="button">{{ strings.select }}</button>-->
-<!--                <div v-else>-->
-<!--                    <div v-html="strings.selected"></div>-->
-<!--                    <button v-if="!hideChangeButton" @click.prevent="selectImage" :class="buttonClass" type="button">{{ strings.change }}</button>-->
-<!--                    <button v-if="removable" @click.prevent="removeImage" :class="removeButtonClass" type="button">{{ strings.remove }}</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <input ref="fileInput" type="file" :name="name" :id="id" :accept="accept" @change="onFileChange" :capture="capture" />-->
-<!--        </div>-->
+        <p v-if="hint || errors.length" class="mt-1 text-sm text-gray-500">
+            <span v-if="errors.length" class="text-red-600">
+                {{ errors[0] }}
+            </span>
+            <span v-else-if="hint">
+                {{ hint }}
+            </span>
+        </p>
 
     </div>
 
@@ -136,6 +79,14 @@
                 },
             },
             label: String,
+            errors: {
+                type: Array,
+                default: () => [],
+            },
+            hint: {
+                type: String,
+                default: null
+            },
             width: {
                 type: [String, Number],
                 default: Number.MAX_SAFE_INTEGER

@@ -23,12 +23,18 @@
                           format="D dd.MM.yyyy"
                           v-bind="$attrs"
                           v-model="date"
-                          :value="value"
+                          :value="date"
                           :full-month-name="true"
                           :language="de"
                           :placeholder="placeholder"
                           :disabled="disabled"
                           @input="$emit('input', $event)" />
+
+        <p v-if="errors.length" class="mt-1 text-sm text-gray-500">
+            <span v-if="errors.length" class="text-red-600">
+                {{ errors[0] }}
+            </span>
+        </p>
 
     </div>
 
@@ -59,12 +65,16 @@
                 type: Boolean,
                 default: false
             },
-            value: Date
+            value: Date,
+            errors: {
+                type: Array,
+                default: () => [],
+            },
         },
         data() {
             return {
                 de: de,
-                date: null,
+                date: this.value,
             }
         },
         methods: {

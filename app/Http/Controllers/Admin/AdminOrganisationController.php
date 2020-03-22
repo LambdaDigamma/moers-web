@@ -84,7 +84,7 @@ class AdminOrganisationController extends Controller
         $validated = $request->validated();
         $event->update($validated);
 
-        if (Request::has('header_image')) {
+        if (Request::has('header_image') && Request::get('header_image') !== null) {
             $event->clearMediaCollection('header');
             $event->addMediaFromRequest('header_image')
                   ->toMediaCollection('header');
