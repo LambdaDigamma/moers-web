@@ -72,207 +72,207 @@
 //  }
 //}
 
-a:hover {
-  text-decoration: none !important;
-}
-
-.btn-spinner,
-.btn-spinner:after {
-  border-radius: 50%;
-  width: 1.5em;
-  height: 1.5em;
-}
-
-.btn-spinner {
-  font-size: 10px;
-  position: relative;
-  text-indent: -9999em;
-  border-top: .2em solid black;
-  border-right: .2em solid black;
-  border-bottom: .2em solid black;
-  border-left: .2em solid transparent;
-  transform: translateZ(0);
-  animation: spinning 1s infinite linear;
-}
-
-@keyframes spinning {
-  0% {
-    transform: rotate(0deg)
-  }
-  100% {
-    transform: rotate(360deg)
-  }
-}
-
-
-@variants responsive {
-
-  .origin-center {
-    transform-origin: center;
-  }
-
-  .origin-top {
-    transform-origin: top;
-  }
-
-  .origin-right {
-    transform-origin: right;
-  }
-
-  .origin-bottom {
-    transform-origin: bottom;
-  }
-
-  .origin-left {
-    transform-origin: left;
-  }
-
-  .origin-top-right {
-    transform-origin: top right;
-  }
-
-  .origin-bottom-right {
-    transform-origin: bottom right;
-  }
-
-  .origin-bottom-left {
-    transform-origin: bottom left;
-  }
-
-  .origin-top-left {
-    transform-origin: top left;
-  }
-
-  .transition-none {
-    transition-property: none;
-  }
-
-  .transition-all {
-    transition-property: all;
-  }
-
-  .transition {
-    transition-property: background-color, border-color, color, opacity, transform;
-  }
-
-  .transition-colors {
-    transition-property: background-color, border-color, color;
-  }
-
-  .transition-opacity {
-    transition-property: opacity;
-  }
-
-  .transition-transform {
-    transition-property: transform;
-  }
-
-  .ease-linear {
-    transition-timing-function: linear;
-  }
-
-  .ease-in {
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  }
-
-  .ease-out {
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
-
-  .ease-in-out {
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .transition-fastest {
-    transition-duration: 75ms;
-  }
-
-  .transition-faster {
-    transition-duration: 100ms;
-  }
-
-  .transition-fast {
-    transition-duration: 150ms;
-  }
-
-  .transition-medium {
-    transition-duration: 200ms;
-  }
-
-  .transition-slow {
-    transition-duration: 300ms;
-  }
-
-  .transition-slower {
-    transition-duration: 500ms;
-  }
-
-  .transition-slowest {
-    transition-duration: 700ms;
-  }
-
-}
-
-@variants group-hover {
-  .scale-0 {
-    transform: scale(0);
-  }
-
-  .scale-1 {
-    transform: scale(1);
-  }
-
-  .scale-1-1 {
-    transform: scale(1.1);
-  }
-}
-
-.form-label {
-  @apply .mb-2 .block .text-gray-900 .select-none;
-}
-
-.form-input,
-.form-textarea,
-.form-select {
-  @apply .p-2 .leading-normal .block .w-full .border .text-gray-900 .bg-white .font-sans .rounded .text-left .appearance-none .relative;
-
-  &:focus,
-  &.focus {
-    @apply .border-yellow-500;
-    box-shadow: 0 0 0 1px config('colors.yellow');
-  }
-
-  &::placeholder {
-    @apply .text-gray-700 .opacity-100;
-  }
-}
-
-.form-select {
-  @apply .pr-6;
-
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAQCAYAAAAMJL+VAAAABGdBTUEAALGPC/xhBQAAAQtJREFUOBG1lEEOgjAQRalbGj2OG9caOACn4ALGtfEuHACiazceR1PWOH/CNA3aMiTaBDpt/7zPdBKy7M/DCL9pGkvxxVp7KsvyJftL5rZt1865M+Ucq6pyyF3hNcI7Cuu+728QYn/JQA5yKaempxuZmQngOwEaYx55nu+1lQh8GIatMGi+01NwBcEmhxBqK4nAPZJ78K0KKFAJmR3oPp8+Iwgob0Oa6+TLoeCvRx+mTUYf/FVBGTPRwDkfLxnaSrRwcH0FWhNOmrkWYbE2XEicqgSa1J0LQ+aPCuQgZiLnwewbGuz5MGoAhcIkCQcjaTBjMgtXGURMVHC1wcQEy0J+Zlj8bKAnY1/UzDe2dbAVqfXn6wAAAABJRU5ErkJggg==');
-  background-size: 0.7rem;
-  background-repeat: no-repeat;
-  background-position: right 0.7rem center;
-
-  &::-ms-expand {
-    @apply .opacity-0;
-  }
-}
-
-.form-error {
-  @apply .text-red-500 .mt-2 .text-sm;
-}
-
-.form-input.error,
-.form-textarea.error,
-.form-select.error {
-  @apply .border-red-300;
-
-  &:focus {
-    box-shadow: 0 0 0 1px config('colors.red');
-  }
-}
+//a:hover {
+//  text-decoration: none !important;
+//}
+//
+//.btn-spinner,
+//.btn-spinner:after {
+//  border-radius: 50%;
+//  width: 1.5em;
+//  height: 1.5em;
+//}
+//
+//.btn-spinner {
+//  font-size: 10px;
+//  position: relative;
+//  text-indent: -9999em;
+//  border-top: .2em solid black;
+//  border-right: .2em solid black;
+//  border-bottom: .2em solid black;
+//  border-left: .2em solid transparent;
+//  transform: translateZ(0);
+//  animation: spinning 1s infinite linear;
+//}
+//
+//@keyframes spinning {
+//  0% {
+//    transform: rotate(0deg)
+//  }
+//  100% {
+//    transform: rotate(360deg)
+//  }
+//}
+//
+//
+//@variants responsive {
+//
+//  .origin-center {
+//    transform-origin: center;
+//  }
+//
+//  .origin-top {
+//    transform-origin: top;
+//  }
+//
+//  .origin-right {
+//    transform-origin: right;
+//  }
+//
+//  .origin-bottom {
+//    transform-origin: bottom;
+//  }
+//
+//  .origin-left {
+//    transform-origin: left;
+//  }
+//
+//  .origin-top-right {
+//    transform-origin: top right;
+//  }
+//
+//  .origin-bottom-right {
+//    transform-origin: bottom right;
+//  }
+//
+//  .origin-bottom-left {
+//    transform-origin: bottom left;
+//  }
+//
+//  .origin-top-left {
+//    transform-origin: top left;
+//  }
+//
+//  .transition-none {
+//    transition-property: none;
+//  }
+//
+//  .transition-all {
+//    transition-property: all;
+//  }
+//
+//  .transition {
+//    transition-property: background-color, border-color, color, opacity, transform;
+//  }
+//
+//  .transition-colors {
+//    transition-property: background-color, border-color, color;
+//  }
+//
+//  .transition-opacity {
+//    transition-property: opacity;
+//  }
+//
+//  .transition-transform {
+//    transition-property: transform;
+//  }
+//
+//  .ease-linear {
+//    transition-timing-function: linear;
+//  }
+//
+//  .ease-in {
+//    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+//  }
+//
+//  .ease-out {
+//    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+//  }
+//
+//  .ease-in-out {
+//    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+//  }
+//
+//  .transition-fastest {
+//    transition-duration: 75ms;
+//  }
+//
+//  .transition-faster {
+//    transition-duration: 100ms;
+//  }
+//
+//  .transition-fast {
+//    transition-duration: 150ms;
+//  }
+//
+//  .transition-medium {
+//    transition-duration: 200ms;
+//  }
+//
+//  .transition-slow {
+//    transition-duration: 300ms;
+//  }
+//
+//  .transition-slower {
+//    transition-duration: 500ms;
+//  }
+//
+//  .transition-slowest {
+//    transition-duration: 700ms;
+//  }
+//
+//}
+//
+//@variants group-hover {
+//  .scale-0 {
+//    transform: scale(0);
+//  }
+//
+//  .scale-1 {
+//    transform: scale(1);
+//  }
+//
+//  .scale-1-1 {
+//    transform: scale(1.1);
+//  }
+//}
+//
+//.form-label {
+//  @apply .mb-2 .block .text-gray-900 .select-none;
+//}
+//
+//.form-input,
+//.form-textarea,
+//.form-select {
+//  @apply .p-2 .leading-normal .block .w-full .border .text-gray-900 .bg-white .font-sans .rounded .text-left .appearance-none .relative;
+//
+//  &:focus,
+//  &.focus {
+//    @apply .border-yellow-500;
+//    box-shadow: 0 0 0 1px config('colors.yellow');
+//  }
+//
+//  &::placeholder {
+//    @apply .text-gray-700 .opacity-100;
+//  }
+//}
+//
+//.form-select {
+//  @apply .pr-6;
+//
+//  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAQCAYAAAAMJL+VAAAABGdBTUEAALGPC/xhBQAAAQtJREFUOBG1lEEOgjAQRalbGj2OG9caOACn4ALGtfEuHACiazceR1PWOH/CNA3aMiTaBDpt/7zPdBKy7M/DCL9pGkvxxVp7KsvyJftL5rZt1865M+Ucq6pyyF3hNcI7Cuu+728QYn/JQA5yKaempxuZmQngOwEaYx55nu+1lQh8GIatMGi+01NwBcEmhxBqK4nAPZJ78K0KKFAJmR3oPp8+Iwgob0Oa6+TLoeCvRx+mTUYf/FVBGTPRwDkfLxnaSrRwcH0FWhNOmrkWYbE2XEicqgSa1J0LQ+aPCuQgZiLnwewbGuz5MGoAhcIkCQcjaTBjMgtXGURMVHC1wcQEy0J+Zlj8bKAnY1/UzDe2dbAVqfXn6wAAAABJRU5ErkJggg==');
+//  background-size: 0.7rem;
+//  background-repeat: no-repeat;
+//  background-position: right 0.7rem center;
+//
+//  &::-ms-expand {
+//    @apply .opacity-0;
+//  }
+//}
+//
+//.form-error {
+//  @apply .text-red-500 .mt-2 .text-sm;
+//}
+//
+//.form-input.error,
+//.form-textarea.error,
+//.form-select.error {
+//  @apply .border-red-300;
+//
+//  &:focus {
+//    box-shadow: 0 0 0 1px config('colors.red');
+//  }
+//}
 
 /* Markdown Editor */
 

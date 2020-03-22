@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entry;
 use App\Http\Controllers\Controller;
 use App\Organisation;
 use Inertia\Inertia;
@@ -43,7 +44,9 @@ class AdminOrganisationController extends Controller
 
     public function createEvent()
     {
-        return Inertia::render('Admin/Organisations/CreateEvent');
+        return Inertia::render('Admin/Organisations/CreateEvent', [
+            'entries' => Entry::all()
+        ]);
     }
 
     public function destroy(Organisation $organisation)
