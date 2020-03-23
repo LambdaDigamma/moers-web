@@ -217,6 +217,7 @@
         </div>
 
         <PageEditor
+                v-if="showPageEditor"
                 class="mt-6"
                 :initial-blocks="page.blocks"
                 @save="submitPage">
@@ -278,6 +279,10 @@
                 default() {
                     return {}
                 }
+            },
+            showPageEditor: {
+                type: Boolean,
+                default: true
             }
         },
         methods: {

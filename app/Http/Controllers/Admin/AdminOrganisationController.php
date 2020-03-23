@@ -67,7 +67,7 @@ class AdminOrganisationController extends Controller
 
         $event = AdvEvent::create($validated);
 
-        if (Request::has('header_image') && Request::get('header_image') !== null) {
+        if (Request::has('header_image') && Request::hasFile('header_image')) {
             $event->addMediaFromRequest('header_image')
                   ->toMediaCollection('header');
         }
@@ -113,7 +113,7 @@ class AdminOrganisationController extends Controller
             $event->update($validated);
         }
 
-        if (Request::has('header_image') && Request::get('header_image') !== null) {
+        if (Request::has('header_image') && Request::hasFile('header_image')) {
             $event->clearMediaCollection('header');
             $event->addMediaFromRequest('header_image')
                   ->toMediaCollection('header');

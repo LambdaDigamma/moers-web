@@ -8,10 +8,11 @@
                 <h3 class="text-gray-900 text-3xl font-bold">Neue Veranstaltung erstellen</h3>
                 <p class="text-gray-600">Erstelle eine neue Veranstaltung für diese Organisation.</p>
             </div>
-            <LanguagePicker class="mt-4 md:mt-0" />
+<!--            <LanguagePicker class="mt-4 md:mt-0" />-->
         </div>
 
         <EventForm
+                :show-page-editor="false"
                 :organisation="organisation"
                 :entries="entries"
                 @changed="changed"
