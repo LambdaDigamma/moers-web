@@ -11,12 +11,14 @@
         </div>
 
         <EventForm
+                :languageCode="lang"
                 :organisation="organisation"
                 :entries="entries"
                 :event="event"
-                :languageCode="lang"
+                :page="page"
                 @changed="changed"
-                @submit="submit">
+                @submit="submit"
+                @page-change="submitPage">
 
         </EventForm>
 
@@ -36,7 +38,13 @@
             event: Object,
             organisation: Object,
             entries: Array,
-            lang: String
+            lang: String,
+            page: {
+                type: Object,
+                default() {
+                    return {}
+                }
+            }
         },
         remember: 'form',
         data() {
@@ -76,7 +84,19 @@
                     preserveScroll: true,
                     only: [],
                 })
-            }
+            },
+            submitPage(blocks) {
+
+                let data = this.page
+                data.blocks = blocks
+
+                this.$inertia.put(this.route('admin.organisations.events.page.update', [this.organisation.id, this.event.id, this.lang]), data, {
+                    replace: false,
+                    preserveState: false,
+                    preserveScroll: true,
+                    only: [],
+                })
+            },
         }
     }
 </script>

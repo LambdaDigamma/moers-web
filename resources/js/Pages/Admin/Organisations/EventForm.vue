@@ -216,6 +216,13 @@
             </div>
         </div>
 
+        <PageEditor
+                class="mt-6"
+                :initial-blocks="page.blocks"
+                @save="submitPage">
+
+        </PageEditor>
+
     </div>
 
 </template>
@@ -251,18 +258,26 @@
             LanguagePicker, PageEditor, TextareaInput, TextInput, LoadingButton, CardContainer
         },
         props: {
+            languageCode: {
+                type: String,
+                default: 'de'
+            },
             organisation: Object,
             entries: Array,
             event: {
                 type: Object,
-                default: {
-                    start_date: null,
-                    end_date: null
+                default() {
+                    return {
+                        start_date: null,
+                        end_date: null
+                    }
                 }
             },
-            languageCode: {
-                type: String,
-                default: 'de'
+            page: {
+                type: Object,
+                default() {
+                    return {}
+                }
             }
         },
         methods: {
@@ -281,6 +296,9 @@
             changed() {
                 this.$emit('changed', this.formData)
             },
+            submitPage(page) {
+                this.$emit('page-change', page)
+            }
         },
         computed: {
             startDate() {

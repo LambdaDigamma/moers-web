@@ -1,6 +1,6 @@
 <template>
 
-    <span class="inline-flex rounded-md shadow-sm">
+    <span class="inline-flex rounded-md shadow-sm" :class="{ 'w-full justify-center': block }">
         <component
                 class="inline-flex items-center border border-transparent font-medium text-white bg-blue-600 transition ease-in-out duration-150"
                 :is="type"
@@ -13,7 +13,8 @@
                 'px-4 py-2 text-base leading-6 rounded-md' : size === 'lg',
                 'px-6 py-3 text-base leading-6 rounded-md' : size === 'xl',
                 'hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700' : !disabled,
-                'opacity-50' : disabled
+                'opacity-50' : disabled,
+                'w-full justify-center': block
                 }"
                 @click="clickedButton($event)">
             <slot></slot>
@@ -45,6 +46,10 @@
                 required: false
             },
             disabled: {
+                type: Boolean,
+                default: false
+            },
+            block: {
                 type: Boolean,
                 default: false
             }

@@ -6,7 +6,13 @@ use App\AdvEvent;
 use App\Entry;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateEvent;
+use App\Http\Requests\UpdatePage;
 use App\Organisation;
+use App\Page;
+use App\Repositories\PageRepository;
+use App\Repositories\PageRepositoryInterface;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Redirect;
 use Request;
@@ -14,10 +20,12 @@ use Request;
 class AdminOrganisationController extends Controller
 {
 
-    public function __construct()
-    {
+    private $pageRepository;
+
+    public function __construct(PageRepositoryInterface $pageRepository) {
         $this->middleware('can:access-admin');
         $this->middleware('remember')->only('index');
+        $this->pageRepository = $pageRepository;
     }
 
     public function index()
@@ -59,12 +67,17 @@ class AdminOrganisationController extends Controller
 
         $event = AdvEvent::create($validated);
 
-        if (Request::has('header_image')) {
+        if (Request::has('header_image') && Request::get('header_image') !== null) {
             $event->addMediaFromRequest('header_image')
                   ->toMediaCollection('header');
         }
 
         $organisation->events()->save($event);
+
+        $page = $this->createPage($event->name);
+
+        $event->page()->associate($page);
+        $event->save();
 
         return Redirect::route('admin.organisations.events.edit', [$organisation->id, $event->id]);
 
@@ -75,10 +88,13 @@ class AdminOrganisationController extends Controller
 
         app()->setLocale($lang);
 
+        $event->load('page', 'page.blocks');
+
         return Inertia::render('Admin/Organisations/EditEvent', [
+            'lang' => $lang,
             'organisation' => $organisation,
             'event' => $event,
-            'lang' => $lang
+            'page' => $event->page
         ]);
     }
 
@@ -107,6 +123,22 @@ class AdminOrganisationController extends Controller
 
     }
 
+    public function updatePage(Organisation $organisation, AdvEvent $event, UpdatePage $request, string $lang = "de")
+    {
+        app()->setLocale($lang);
+
+        if (is_null($event->page)) {
+            $page = $this->createPage($event->name);
+            $event->page()->associate($page);
+            $event->save();
+        }
+
+        $this->pageRepository->update(Page::find($event->page->id), $request->validated(), $lang);
+
+        return Redirect::route('admin.organisations.events.edit', [$organisation->id, $event->id, $lang]);
+
+    }
+
     public function destroy(Organisation $organisation)
     {
         $organisation->delete();
@@ -119,6 +151,21 @@ class AdminOrganisationController extends Controller
         $organisation->restore();
 
         return Redirect::back()->with('success', 'Organisation wiederhergestellt.');
+    }
+
+    public function createPage($eventName): Page
+    {
+
+        $slug = Str::of($eventName)
+            ->slug('-')
+            ->append('-')
+            ->append(Carbon::now()->format('mdyHis'))->__toString();
+
+        return Page::create([
+            'title' => $eventName,
+            'slug' => $slug
+        ]);
+
     }
 
 }
