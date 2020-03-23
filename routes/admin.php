@@ -14,8 +14,8 @@ Route::group([
     Route::put('/organisations/{organisation}/restore')->name('admin.organisations.restore')->uses('AdminOrganisationController@restore');
     Route::get('/organisations/{organisation}/events/create')->name('admin.organisations.events.create')->uses('AdminOrganisationController@createEvent');
     Route::post('/organisations/{organisation}/events')->name('admin.organisations.events.store')->uses('AdminOrganisationController@storeEvent');
-    Route::get('/organisations/{organisation}/events/{event}')->name('admin.organisations.events.edit')->uses('AdminOrganisationController@editEvent');
-    Route::put('/organisations/{organisation}/events/{event}')->name('admin.organisations.events.update')->uses('AdminOrganisationController@updateEvent');
+    Route::get('/organisations/{organisation}/events/{event}/{lang?}')->name('admin.organisations.events.edit')->uses('AdminOrganisationController@editEvent');
+    Route::put('/organisations/{organisation}/events/{event}/{lang?}')->name('admin.organisations.events.update')->uses('AdminOrganisationController@updateEvent');
 
     Route::get('/polls')->name('admin.polls.index')->uses('AdminPollsController@index');
     Route::get('/polls/create')->name('admin.polls.create')->uses('AdminPollsController@create');

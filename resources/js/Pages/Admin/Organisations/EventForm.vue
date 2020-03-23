@@ -12,7 +12,6 @@
                     </div>
                     <div class="mt-5 md:mt-0 md:col-span-2">
 
-
                         <div class="sm:col-span-4">
                             <TextInput
                                     id="name"
@@ -29,7 +28,6 @@
                                       label="Titelbild"
                                       @fileChanged="fileChanged"
                                       :errors="$page.errors.header_image" />
-
 
                     </div>
                 </div>
@@ -61,7 +59,7 @@
                                         placeholder="Anfangsdatum"
                                         v-model="form.startDate"
                                         :date="form.startDate"
-                                        :disabled="form.noDate"
+                                        :disabled="form.noDate || isTranslation"
                                         :errors="$page.errors.start_date">
 
                                 </DatePicker>
@@ -72,7 +70,7 @@
                                         label="Ganztägig?"
                                         hint="Startet diese Veranstaltung zu einer bestimmten Uhrzeit?"
                                         v-model="form.startWholeDay"
-                                        :disabled="form.noDate">
+                                        :disabled="form.noDate  || isTranslation">
 
                                 </Checkbox>
 
@@ -83,7 +81,7 @@
                                         placeholder="Anfangszeit"
                                         v-model="form.startTime"
                                         :time="form.startTime"
-                                        :disabled="form.noDate || form.startWholeDay">
+                                        :disabled="form.noDate || form.startWholeDay  || isTranslation">
 
                                 </TimePicker>
 
@@ -93,7 +91,8 @@
                                         label="Enddatum"
                                         placeholder="Enddatum"
                                         v-model="form.endDate"
-                                        :disabled="form.noDate">
+                                        :disabled="form.noDate || isTranslation"
+                                        :errors="$page.errors.end_date">
 
                                 </DatePicker>
 
@@ -103,7 +102,7 @@
                                         label="Ganztägig?"
                                         hint="Endet diese Veranstaltung zu einer bestimmten Uhrzeit?"
                                         v-model="form.endWholeDay"
-                                        :disabled="form.noDate">
+                                        :disabled="form.noDate || isTranslation">
 
                                 </Checkbox>
 
@@ -114,7 +113,7 @@
                                         placeholder="Endzeit"
                                         v-model="form.endTime"
                                         :time="form.endTime"
-                                        :disabled="form.noDate || form.endWholeDay">
+                                        :disabled="form.noDate || form.endWholeDay || isTranslation">
 
                                 </TimePicker>
 
@@ -125,7 +124,8 @@
                                     id="no-date"
                                     label="Datum unbekannt"
                                     hint="Das Datum ist noch nicht bekannt und wird erst später veröffentlicht."
-                                    v-model="form.noDate">
+                                    v-model="form.noDate"
+                                    :disabled="isTranslation">
 
                             </Checkbox>
 
@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-lg">
-                    <PrimaryButton>
+                    <PrimaryButton :disabled="isTranslation">
                         Speichern
                     </PrimaryButton>
                 </div>
@@ -215,6 +215,7 @@
                 </PrimaryButton>
             </div>
         </div>
+
     </div>
 
 </template>
@@ -258,6 +259,10 @@
                     start_date: null,
                     end_date: null
                 }
+            },
+            languageCode: {
+                type: String,
+                default: 'de'
             }
         },
         methods: {
@@ -278,7 +283,6 @@
             },
         },
         computed: {
-
             startDate() {
 
                 if (this.form.startDate && !this.form.noDate) {
@@ -299,7 +303,6 @@
                 }
 
             },
-
             endDate() {
 
                 if (this.form.endDate && !this.form.noDate) {
@@ -320,8 +323,6 @@
                 }
 
             },
-
-
             formData() {
 
                 let data = new FormData()
@@ -340,55 +341,16 @@
                     data.append('end_date', "")
                 }
 
-                // if (!this.form.noDate) {
-                //
-                //     if (this.form.startDate) {
-                //
-                //         const startDate = moment(this.form.startDate)
-                //
-                //         if (this.form.startTime && !this.form.startWholeDay) {
-                //             let timeComponents = this.form.startTime.split(":")
-                //             startDate.hours(timeComponents[0])
-                //             startDate.minutes(timeComponents[1])
-                //             startDate.seconds(0)
-                //         } else {
-                //             startDate.hours(0)
-                //             startDate.minutes(0)
-                //             startDate.seconds(0)
-                //         }
-                //
-                //         data.append('start_date', startDate.format('YYYY-MM-DD HH:mm:ss'))
-                //
-                //         if (this.form.endDate) {
-                //
-                //             const endDate = moment(this.form.endDate)
-                //
-                //             if (this.form.endTime && !this.form.endWholeDay) {
-                //                 let timeComponents = this.form.endTime.split(":")
-                //                 endDate.hours(timeComponents[0])
-                //                 endDate.minutes(timeComponents[1])
-                //                 endDate.seconds(0)
-                //             } else {
-                //                 endDate.hours(0)
-                //                 endDate.minutes(0)
-                //                 endDate.seconds(0)
-                //             }
-                //
-                //             data.append('end_date', endDate.format('YYYY-MM-DD HH:mm:ss'))
-                //         }
-                //
-                //     } else {
-                //         data.append('start_date', "")
-                //         data.append('end_date', "")
-                //     }
-                //
-                // }
-
-
                 return data
             },
             startWholeDay() {
                 return this.form.startWholeDay;
+            },
+            endWholeDay() {
+                return this.form.endWholeDay;
+            },
+            isTranslation() {
+                return this.languageCode !== this.standardCode
             }
         },
         watch: {
@@ -396,11 +358,17 @@
                 if (startWholeDay) {
                     this.form.startTime = null
                 }
+            },
+            endWholeDay(endWholeDay) {
+                if (endWholeDay) {
+                    this.form.endTime = null
+                }
             }
         },
         data() {
             return {
                 de: de,
+                standardCode: "de",
                 form: {
                     name: this.event.name,
                     header_image: null,

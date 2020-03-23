@@ -70,19 +70,32 @@ class AdminOrganisationController extends Controller
 
     }
 
-    public function editEvent(Organisation $organisation, AdvEvent $event)
+    public function editEvent(Organisation $organisation, AdvEvent $event, string $lang = "de")
     {
+
+        app()->setLocale($lang);
+
         return Inertia::render('Admin/Organisations/EditEvent', [
             'organisation' => $organisation,
-            'event' => $event
+            'event' => $event,
+            'lang' => $lang
         ]);
     }
 
-    public function updateEvent(Organisation $organisation, AdvEvent $event, UpdateEvent $request)
+    public function updateEvent(Organisation $organisation, AdvEvent $event, UpdateEvent $request, string $lang = "de")
     {
 
-        $validated = $request->validated();
-        $event->update($validated);
+        app()->setLocale($lang);
+
+        if ($lang != "de") {
+            $event->setTranslation('name', $lang, $request->get('name'));
+            $event->setTranslation('description', $lang, $request->get('description'));
+            $event->setTranslation('category', $lang, $request->get('category'));
+            $event->save();
+        } else {
+            $validated = $request->validated();
+            $event->update($validated);
+        }
 
         if (Request::has('header_image') && Request::get('header_image') !== null) {
             $event->clearMediaCollection('header');
@@ -90,7 +103,7 @@ class AdminOrganisationController extends Controller
                   ->toMediaCollection('header');
         }
 
-        return Redirect::route('admin.organisations.events.edit', [$organisation->id, $event->id]);
+        return Redirect::route('admin.organisations.events.edit', [$organisation->id, $event->id, $lang]);
 
     }
 

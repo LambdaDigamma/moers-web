@@ -23,12 +23,11 @@
 
 <script>
     import TextInput from "../TextInput";
-    import VueTimepicker from 'vue2-timepicker';
 
     export default {
         name: "TimePicker",
         inheritAttrs: false,
-        components: {TextInput, VueTimepicker},
+        components: {TextInput},
         props: {
             id: {
                 type: String,

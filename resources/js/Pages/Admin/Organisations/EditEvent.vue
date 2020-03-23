@@ -7,13 +7,14 @@
                 <h3 class="text-gray-900 text-3xl font-bold">Veranstaltung bearbeiten</h3>
                 <p class="text-gray-600">Bearbeite die Veranstaltung für diese Organisation.</p>
             </div>
-            <LanguagePicker class="mt-4 md:mt-0" />
+            <LanguagePicker :languageCode="lang" class="mt-4 md:mt-0" @change="languageChanged" />
         </div>
 
         <EventForm
                 :organisation="organisation"
                 :entries="entries"
                 :event="event"
+                :languageCode="lang"
                 @changed="changed"
                 @submit="submit">
 
@@ -34,11 +35,13 @@
         props: {
             event: Object,
             organisation: Object,
-            entries: Array
+            entries: Array,
+            lang: String
         },
         remember: 'form',
         data() {
             return {
+                languageCode: this.lang,
                 sending: false,
                 form: null
             }
@@ -60,9 +63,20 @@
             submit(formData) {
                 formData.append('_method', 'put')
                 this.$inertia
-                    .post(this.route('admin.organisations.events.update', [this.organisation.id, this.event.id]), formData)
+                    .post(this.route('admin.organisations.events.update', [this.organisation.id, this.event.id, this.languageCode]), formData)
                     .then(() => this.sending = false)
             },
+            languageChanged(languageCode) {
+                this.languageCode = languageCode
+                this.$inertia.visit(this.route('admin.organisations.events.edit',
+                    [this.organisation.id, this.event.id, languageCode]), {
+                    method: 'get',
+                    data: {},
+                    preserveState: false,
+                    preserveScroll: true,
+                    only: [],
+                })
+            }
         }
     }
 </script>
