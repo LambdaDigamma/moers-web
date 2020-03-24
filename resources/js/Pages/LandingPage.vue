@@ -45,10 +45,10 @@
 <!--                    </div>-->
 
                         <div class="">
-                            <inertia-link :href="route('dashboard')"
-                                          class="inline-block py-1 md:py-4 md:mr-6 text-gray-500 hover:text-gray-600 dark:text-gray-600">
-                                Zum Portal
-                            </inertia-link>
+<!--                            <inertia-link :href="route('dashboard')"-->
+<!--                                          class="inline-block py-1 md:py-4 md:mr-6 text-gray-500 hover:text-gray-600 dark:text-gray-600">-->
+<!--                                Zum Portal-->
+<!--                            </inertia-link>-->
                             <a href="https://apps.apple.com/de/app/mein-moers/id1305862555?mt=8" target="_blank"
                                           class="hidden md:inline-block py-2 px-4 text-gray-700 rounded-lg bg-white hover:bg-gray-100 dark:bg-yellow-500 dark:text-gray-900 dark-hover:bg-yellow-600">
                                 Herunterladen
@@ -58,28 +58,28 @@
 
 
 
-                    <div class="">
-                        <div class="mt-4">
-                            <div class="max-w-3xl mx-auto text-center py-4 sm:px-6 lg:py-8 lg:px-8 bg-red-50 overflow-hidden rounded-lg overflow-hidden">
-                                <h2 class="text-xl sm:text-3xl md:text-4xl md:leading-9 font-extrabold tracking-tight text-gray-900 sm:leading-10">
-                                    Hilf mit, die Krise <br />
-                                    <span class="text-red-600">gemeinsam</span> zu bewältigen!
-                                </h2>
-                                <div class="mt-8 mx-4 flex flex-col sm:flex-row justify-center">
-                                    <div class="inline-flex rounded-md shadow">
-                                        <inertia-link :href="route('help.serve')" class="w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-                                            Jetzt helfen!
-                                        </inertia-link>
-                                    </div>
-                                    <div class="mt-2 sm:mt-0 sm:ml-3 inline-flex">
-                                        <inertia-link :href="route('help.index')" class="w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-red-700 bg-red-100 hover:text-red-600 hover:bg-red-200 focus:outline-none focus:shadow-outline focus:border-red-300 transition duration-150 ease-in-out">
-                                            Mehr erfahren
-                                        </inertia-link>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--                    <div class="">-->
+<!--                        <div class="mt-4">-->
+<!--                            <div class="max-w-3xl mx-auto text-center py-4 sm:px-6 lg:py-8 lg:px-8 bg-red-50 overflow-hidden rounded-lg overflow-hidden">-->
+<!--                                <h2 class="text-xl sm:text-3xl md:text-4xl md:leading-9 font-extrabold tracking-tight text-gray-900 sm:leading-10">-->
+<!--                                    Hilf mit, die Krise <br />-->
+<!--                                    <span class="text-red-600">gemeinsam</span> zu bewältigen!-->
+<!--                                </h2>-->
+<!--                                <div class="mt-8 mx-4 flex flex-col sm:flex-row justify-center">-->
+<!--                                    <div class="inline-flex rounded-md shadow">-->
+<!--                                        <inertia-link :href="route('help.serve')" class="w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">-->
+<!--                                            Jetzt helfen!-->
+<!--                                        </inertia-link>-->
+<!--                                    </div>-->
+<!--                                    <div class="mt-2 sm:mt-0 sm:ml-3 inline-flex">-->
+<!--                                        <inertia-link :href="route('help.index')" class="w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-red-700 bg-red-100 hover:text-red-600 hover:bg-red-200 focus:outline-none focus:shadow-outline focus:border-red-300 transition duration-150 ease-in-out">-->
+<!--                                            Mehr erfahren-->
+<!--                                        </inertia-link>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                     <div class="px-4 pt-16 pb-10">
                         <div class="relative w-full md:max-w-2xl md:mx-auto text-center">
@@ -132,11 +132,11 @@
                 <div class="bg-white">
                     <div class="max-w-screen-xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
                         <nav class="-my-2 flex flex-wrap justify-center">
-                            <div class="px-5 py-2">
-                                <inertia-link :href="route('dashboard')" class="text-base leading-6 text-gray-500 hover:text-gray-900">
-                                    Portal
-                                </inertia-link>
-                            </div>
+<!--                            <div class="px-5 py-2">-->
+<!--                                <inertia-link :href="route('dashboard')" class="text-base leading-6 text-gray-500 hover:text-gray-900">-->
+<!--                                    Portal-->
+<!--                                </inertia-link>-->
+<!--                            </div>-->
                             <div class="px-5 py-2">
                                 <inertia-link :href="route('legal.privacy')" class="text-base leading-6 text-gray-500 hover:text-gray-900">
                                     Datenschutz
