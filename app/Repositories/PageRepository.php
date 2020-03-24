@@ -60,7 +60,7 @@ class PageRepository implements PageRepositoryInterface
         });
 
         // Diffing already existing blocks to the new blocks and deleting those that where deleted.
-        $toDelete = $previousBlockIds->diff($newBlockIds);
+        $toDelete = $previousBlockIds->toBase()->diff($newBlockIds);
         $toDelete->each(function ($block_id) {
             PageBlock::find($block_id)->delete();
         });

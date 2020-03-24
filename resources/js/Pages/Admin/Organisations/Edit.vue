@@ -92,6 +92,20 @@
                 </CardContainer>
             </div>
         </div>
+
+        <div class="grid grid-cols-3 gap-6">
+<!--            <div v-for="(event, i) in organisation.events" :class="{'mt-10 sm:ml-4': i > 0 }" class="sm:mt-0 sm:w-88 sm:flex-shrink-0">-->
+            <EventCard
+                    v-for="(event, i) in events"
+                    :event="event"
+                    :key="event.id"
+                    class="col-span-1">
+
+            </EventCard>
+
+        </div>
+
+
     </div>
 
 </template>
@@ -105,10 +119,12 @@
     import Header from "@/Shared/Admin/Header";
     import TrashedMessage from "../../../Shared/TrashedMessage";
     import CardContainer from "../../../Shared/UI/CardContainer";
+    import EventCard from "../../../Shared/Events/EventCard";
 
     export default {
         name: "Edit",
         components: {
+            EventCard,
             CardContainer,
             TrashedMessage,
             TextareaInput,

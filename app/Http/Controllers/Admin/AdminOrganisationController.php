@@ -48,7 +48,7 @@ class AdminOrganisationController extends Controller
     {
         return Inertia::render('Admin/Organisations/Edit', [
             'organisation' => $organisation,
-            'events' => $organisation->events()->take(3)->get()
+            'events' => $organisation->events()->get()
         ]);
     }
 
