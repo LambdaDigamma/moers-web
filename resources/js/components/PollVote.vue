@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import { ABSTAIN_POLL, VOTE_POLL } from "../store/actions.type";
 import LoadingButton from "../Shared/LoadingButton";
 import Icon from "../Shared/Icon";
 
