@@ -94,7 +94,7 @@
 <script>
     import store from "../../store"
     import {mapGetters} from "vuex";
-    import Form from "../../core/Form";
+    import Form from "../../Core/Form";
     import {
         ADMIN_ALLOW_CREATE_POLL, ADMIN_ALLOW_CREATE_POLL_GROUP, ADMIN_DISALLOW_CREATE_POLL, ADMIN_DISALLOW_CREATE_POLL_GROUP,
         ADMIN_FETCH_GROUP,

@@ -133,14 +133,14 @@
                     </div>
                 </div>
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-lg">
-                    <PrimaryButton :disabled="isTranslation">
+                    <PrimaryButton type="submit" :disabled="isTranslation">
                         Speichern
                     </PrimaryButton>
                 </div>
             </form>
         </div>
 
-        <div class="mt-6 bg-white shadow rounded-lg overflow-hidden">
+        <div class="mt-6 bg-white shadow rounded-lg overflow-hidden opacity-50">
             <div class="px-4 py-5 sm:p-6 md:grid md:grid-cols-3 md:gap-6">
                 <div class="md:col-span-1">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Veranstaltungsort</h3>
@@ -223,6 +223,61 @@
                 @save="submitPage">
 
         </PageEditor>
+
+        <div class="mt-6 bg-white shadow rounded-lg">
+            <form @submit.prevent="submit">
+                <div class="px-4 py-5 sm:p-6 md:grid md:grid-cols-3 md:gap-6">
+                    <div class="md:col-span-1">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">Veröffentlichungsstatus</h3>
+                        <p class="mt-1 text-sm leading-5 text-gray-500">
+                            Wähle einen Zeitpunkt aus, an dem die Veranstaltung veröffentlicht werden soll.
+                        </p>
+                    </div>
+                    <div class="mt-5 md:mt-0 md:col-span-2">
+                            <Checkbox id="publish_now"
+                                      label="Veranstaltung veröffentlichen."
+                                      hint="Stelle ein, ob die Veranstaltung schon veröffentlich sein soll."
+                                      v-model="form.publishNow"
+                                      :disabled="isTranslation">
+
+                            </Checkbox>
+
+                            <div class="mt-4 grid grid-cols-6 gap-6" v-if="!form.publishNow">
+
+                                <DatePicker
+                                        class="col-span-6 sm:col-span-3"
+                                        id="startDate"
+                                        label="Veröffentlichungsdatum"
+                                        placeholder="Veröffentlichungsdatum"
+                                        v-model="form.scheduledAt"
+                                        :date="form.scheduledAt"
+                                        :disabled="form.publishNow || isTranslation">
+
+                                </DatePicker>
+
+                                <TimePicker
+                                        class="col-span-6 sm:col-span-3"
+                                        id="startTime"
+                                        label="Veröffentlichungszeit"
+                                        placeholder="Zeit"
+                                        v-model="form.scheduledTime"
+                                        :time="form.scheduledTime"
+                                        :disabled="form.publishNow || isTranslation">
+
+                                </TimePicker>
+
+                            </div>
+
+
+                    </div>
+                </div>
+                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-lg">
+                    <PrimaryButton type="submit" :disabled="isTranslation">
+                        Speichern
+                    </PrimaryButton>
+                </div>
+            </form>
+        </div>
 
     </div>
 
@@ -330,7 +385,7 @@
 
                 if (this.form.endDate && !this.form.noDate) {
                     let endDate = moment(this.form.endDate)
-                    if (this.form.endDate) {
+                    if (this.form.endTime) {
                         let timeComponents = this.form.endTime.split(":")
                         endDate.hours(parseInt(timeComponents[0]))
                         endDate.minutes(parseInt(timeComponents[1]))
@@ -341,6 +396,26 @@
                         endDate.seconds(0)
                     }
                     return endDate
+                } else {
+                    return null
+                }
+
+            },
+            scheduledDate() {
+
+                if (!this.form.publishNow) {
+                    let scheduleDate = moment(this.form.scheduledAt)
+                    if (this.form.scheduledTime) {
+                        let timeComponents = this.form.scheduledTime.split(":")
+                        scheduleDate.hours(parseInt(timeComponents[0]))
+                        scheduleDate.minutes(parseInt(timeComponents[1]))
+                        scheduleDate.seconds(0)
+                    } else {
+                        scheduleDate.hours(0)
+                        scheduleDate.minutes(0)
+                        scheduleDate.seconds(0)
+                    }
+                    return scheduleDate
                 } else {
                     return null
                 }
@@ -362,6 +437,12 @@
                     data.append('end_date', this.endDate.format('YYYY-MM-DD HH:mm:ss'))
                 } else {
                     data.append('end_date', "")
+                }
+
+                if (this.scheduledDate !== null) {
+                    data.append('scheduled_at', this.scheduledDate.format('YYYY-MM-DD HH:mm:ss'))
+                } else {
+                    data.append('scheduled_at', "")
                 }
 
                 return data
@@ -402,7 +483,10 @@
                     endTime: this.event.end_date !== null ? moment(this.event.end_date).format("HH:mm") : null,
                     endWholeDay: this.event.end_date !== null ? moment(this.event.end_date).format("HH:mm") === "00:00" : false,
                     useTempLocation: false,
-                    noDate: false
+                    noDate: false,
+                    scheduledAt: this.event.scheduled_at !== null ? moment(this.event.scheduled_at).toDate() : null,
+                    scheduledTime: this.event.scheduled_at !== null ? moment(this.event.scheduled_at).format("HH:mm") : null,
+                    publishNow: this.event.scheduled_at !== null ? this.event.scheduledAt === null : true,
                 },
             }
         },

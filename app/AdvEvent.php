@@ -66,7 +66,7 @@ class AdvEvent extends Model implements HasMedia
 
     protected $fillable = ['name', 'start_date', 'end_date',
         'description', 'url', 'image_path', 'category',
-        'organisation_id', 'entry_id', 'extras', 'is_published'];
+        'organisation_id', 'entry_id', 'extras', 'is_published', 'scheduled_at'];
 
     protected $casts = [
         'extras' => 'array'
