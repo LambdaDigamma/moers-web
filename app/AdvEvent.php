@@ -55,6 +55,16 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Query\Builder|AdvEvent withTrashed()
  * @method static \Illuminate\Database\Query\Builder|AdvEvent withoutTrashed()
  * @mixin Eloquent
+ * @property int|null $page_id
+ * @property string|null $scheduled_at
+ * @property-read mixed $header_url
+ * @property-read mixed $translations
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \App\Page|null $page
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent published()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent wherePageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereScheduledAt($value)
  */
 class AdvEvent extends Model implements HasMedia
 {

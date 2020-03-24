@@ -4,6 +4,40 @@ namespace App;
 
 use Auth;
 
+/**
+ * App\HelpRequest
+ *
+ * @property int $id
+ * @property string $request
+ * @property int $quarter_id
+ * @property int $creator_id
+ * @property int|null $helper_id
+ * @property string|null $served_on
+ * @property int|null $conversation_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Conversation|null $conversation
+ * @property-read \App\User $creator
+ * @property-read \App\User|null $helper
+ * @property-read \App\Quarter $quarter
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest filter($filters)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest notServed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest userHelps()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereConversationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereCreatorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereHelperId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereQuarterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereRequest($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereServedOn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest withoutOwn()
+ * @mixin \Eloquent
+ */
 class HelpRequest extends Model
 {
 

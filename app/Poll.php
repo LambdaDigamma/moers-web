@@ -55,6 +55,15 @@ use Illuminate\Support\Facades\Auth;
  * @method static Builder|Poll whereStartsAt($value)
  * @method static Builder|Poll whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property int $id
+ * @property int $max_check
+ * @property int $can_visitors_vote
+ * @property int $can_voter_see_result
+ * @property string|null $is_closed
+ * @property string|null $starts_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll answered()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll filter($filters)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll unanswered()
  */
 class Poll extends Model
 {

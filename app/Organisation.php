@@ -48,6 +48,15 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Query\Builder|Organisation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Organisation withoutTrashed()
  * @mixin Eloquent
+ * @property int|null $group_id
+ * @property-read mixed $header_path
+ * @property-read mixed $logo_path
+ * @property-read \App\Group $mainGroup
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\AdvEvent[] $publishedEvents
+ * @property-read int|null $published_events_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation filter($filters)
  */
 class Organisation extends Model implements HasMedia
 {

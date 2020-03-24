@@ -66,6 +66,21 @@ use Spatie\PersonalDataExport\PersonalDataSelection;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property string|null $first_name
+ * @property string|null $last_name
+ * @property string $email
+ * @property string|null $password
+ * @property string|null $provider_id
+ * @property string|null $provider
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Conversation[] $conversations
+ * @property-read int|null $conversations_count
+ * @property-read mixed $name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\HelpRequest[] $helpRequests
+ * @property-read int|null $help_requests_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProviderId($value)
  */
 class User extends Authenticatable implements ExportsPersonalData
 {
