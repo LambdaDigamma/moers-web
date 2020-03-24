@@ -64,9 +64,9 @@ class AdvEvent extends Model implements HasMedia
 
     protected $table = 'adv_events';
 
-    protected $fillable = ['name', 'date', 'start_date', 'end_date',
+    protected $fillable = ['name', 'start_date', 'end_date',
         'description', 'url', 'image_path', 'category',
-        'organisation_id', 'entry_id', 'extras', 'is_published'];
+        'organisation_id', 'entry_id', 'extras', 'is_published', 'scheduled_at'];
 
     protected $casts = [
         'extras' => 'array'
@@ -106,6 +106,13 @@ class AdvEvent extends Model implements HasMedia
         }
 
         return $attributes;
+    }
+
+    public function scopePublished($query)
+    {
+        return $query
+            ->where('scheduled_at', '<=', Carbon::now()->toDateTimeString())
+            ->orWhere('scheduled_at', '=', null);
     }
 
 }

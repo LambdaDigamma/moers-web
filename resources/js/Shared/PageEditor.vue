@@ -4,9 +4,12 @@
         <div class="lg:w-3/4">
             <CardContainer class="lg:mr-2" :show-action-bar="false">
                 <template v-slot:header>
-                    <h1 class="font-semibold text-2xl dark:text-white">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
                         {{ title }}
-                    </h1>
+                    </h3>
+                    <p class="mt-1 text-sm leading-5 text-gray-500">
+                        Editiere die Details, die für diese Veranstaltung angezeigt werden
+                    </p>
                 </template>
                 <div class="rounded-lg" :class="{ 'border dark:border-gray-600' : blocks.length === 0 }">
                     <div>
@@ -39,7 +42,7 @@
                                     Dieser Baustein wird leider noch nicht unterstützt.
                                 </div>
                             </div>
-                            <div v-if="blocks.length === 0" class="py-3 flex flex-row items-center justify-center dark:text-white">
+                            <div v-if="blocks.length === 0" class="py-3 flex flex-row items-center justify-center text-sm text-gray-600 dark:text-white">
                                 Ziehe die gewünschten Inhalte aus dem Kasten rechts in die Bearbeitungsfläche.
                             </div>
                         </draggable>
@@ -55,7 +58,7 @@
 <!--                       placeholder="Suchen…"-->
 <!--                       type="text"-->
 <!--                       class="w-full px-2 py-2 md:px-2 md:py-3 rounded focus:shadow-outline dark:text-white dark:bg-gray-600" />-->
-                <div class="pt-3 px-3">
+                <div class="pt-3 px-3 sm:px-6">
                     <draggable
                             :list="presets"
                             :group="{ name: 'blocks', pull: 'clone' }"
@@ -63,9 +66,9 @@
                         <div v-for="(preset, index) in presets"
                              :key="index"
                              class="py-2 flex flex-row items-center dark:text-white">
-                            <Icon :name="preset.icon" class="h-10 w-10 pr-2 fill-current" />
+                            <Icon :name="preset.icon" class="h-10 w-10 mr-2 fill-current" />
                             <div>
-                                <h1 class="mb-1 font-semibold text-lg">{{ preset.name }}</h1>
+                                <h1 class="font-semibold text-base">{{ preset.name }}</h1>
                                 <p class="mb-0 font-normal text-sm">{{ preset.description }}</p>
                             </div>
                         </div>
@@ -76,10 +79,9 @@
             </CardContainer>
             <CardContainer class="mt-4 lg:ml-2">
                 <div class="flex flex-col">
-                    <button class="mt-3 px-3 py-2 font-semibold text-lg rounded-lg dark:bg-yellow-500 dark:text-gray-900 dark-hover:bg-yellow-600"
-                            @click="save">
+                    <PrimaryButton @click="save" size="lg" block>
                         Speichern
-                    </button>
+                    </PrimaryButton>
                 </div>
             </CardContainer>
         </div>
@@ -94,10 +96,11 @@
     import TextEditor from "./PageComponents/Editors/TextEditor";
     import SoundCloudEditor from "./PageComponents/Editors/SoundCloudEditor";
     import ExternalLinkEditor from "./PageComponents/Editors/ExternalLinkEditor";
+    import PrimaryButton from "./UI/PrimaryButton";
 
     export default {
         name: "PageEditor",
-        components: {ExternalLinkEditor, SoundCloudEditor, TextEditor, Icon, CardContainer, draggable},
+        components: {PrimaryButton, ExternalLinkEditor, SoundCloudEditor, TextEditor, Icon, CardContainer, draggable},
         props: {
             title: {
                 type: String,
@@ -111,7 +114,7 @@
         data() {
             return {
                 query: null,
-                blocks: this.initialBlocks,
+                blocks: this.sanitize(this.initialBlocks),
                 presets: [
                     {
                         "type": "markdown",
@@ -158,8 +161,21 @@
             save() {
                 this.updateOrder()
                 this.$emit('save', this.blocks)
+            },
+            sanitize(blocks) {
+
+                let newBlocks = blocks
+
+                newBlocks.forEach(function (value, index) {
+                    if (value.data === "") {
+                        newBlocks[index].data = {}
+                    }
+                })
+
+                return newBlocks
+
             }
-        }
+        },
     }
 </script>
 

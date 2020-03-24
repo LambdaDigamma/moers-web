@@ -56,7 +56,7 @@
 <script>
 
     import { LOGIN } from "../store/actions.type";
-    import Form from "../core/Form";
+    import Form from "../Core/Form";
 
     export default {
         name: "Login",

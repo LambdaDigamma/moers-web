@@ -2,8 +2,8 @@
 
     <EditorPreset>
         <template v-slot:pre>
-            <div class="rounded-full w-10 h-10 flex items-center justify-center dark:bg-yellow-500">
-                <Icon name="paragraph" class="h-8 w-8 fill-gray-900" />
+            <div class="rounded-full w-10 h-10 flex items-center justify-center bg-blue-500 text-gray-50 dark:bg-yellow-800">
+                <Icon name="paragraph" class="h-8 w-8 fill-current" />
             </div>
             <span class="mt-2 text-xs font-medium text-center">
                 Text
@@ -13,7 +13,8 @@
             <Editor mode="markdown"
                     :options="editorOptions"
                     v-model="block.data.text"
-                    preview-style="vertical">
+                    preview-style="vertical"
+                    class="w-full">
 
             </Editor>
 <!--            <TextareaInput-->

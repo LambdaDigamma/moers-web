@@ -88,7 +88,7 @@
 <script>
     import { mapGetters } from "vuex";
     import { ability } from "../../store";
-    import Form from "../../core/Form";
+    import Form from "../../Core/Form";
     import {STORE_POLL} from "../../store/actions.type";
 
     export default {

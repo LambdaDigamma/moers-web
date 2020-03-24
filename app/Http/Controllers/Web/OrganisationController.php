@@ -15,7 +15,7 @@ class OrganisationController extends Controller
     public function show(Organisation $organisation)
     {
         return Inertia::render('Organisations/Show', [
-            'organisation' => $organisation->load(['events', 'events.organisation', 'events.entry'])
+            'organisation' => $organisation->load(['publishedEvents', 'publishedEvents.organisation', 'publishedEvents.entry'])
         ]);
     }
 

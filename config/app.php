@@ -165,6 +165,7 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
+        App\Providers\PageServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         // Laravel IDE helper

@@ -1,39 +1,24 @@
 <template>
 
-    <div class="pb-12">
-        <div class="lg:w-1/2">
-            <CardContainer class="md:mr-2" show-action-bar>
-                <template v-slot:header>
-                    <h1 class="text-xl md:text-2xl font-semibold dark:text-white">
-                        Allgemeine Informationen
-                    </h1>
-                </template>
-                <div>
-                    <form @submit.prevent="submit">
-                        <div class="flex flex-wrap">
-                            <TextInput v-model="form.name" :errors="$page.errors.name" label="Name" class="w-full" />
-                            <TextareaInput v-model="form.description" :errors="$page.errors.description" class="mt-3 w-full" label="Beschreibung" />
-                        </div>
-                    </form>
-                </div>
-                <template v-slot:actions>
-                    <div class="flex flex-col items-stretch md:flex-row md:items-center bg-gray-700">
-                        <LoadingButton
-                                :loading="sending"
-                                class="md:ml-auto md:mt-0 px-3 py-2 rounded-lg font-semibold text-base dark:text-gray-800 dark:bg-yellow-500"
-                                type="submit">
-                            Speichern
-                        </LoadingButton>
-                    </div>
-                </template>
-            </CardContainer>
+
+    <div class="pb-32">
+
+        <div class="flex flex-col md:flex-row justify-between">
+            <div>
+                <h3 class="text-gray-900 text-3xl font-bold">Neue Veranstaltung erstellen</h3>
+                <p class="text-gray-600">Erstelle eine neue Veranstaltung für diese Organisation.</p>
+            </div>
+<!--            <LanguagePicker class="mt-4 md:mt-0" />-->
         </div>
 
-        <div class="mt-4 w-full">
-            <PageEditor>
+        <EventForm
+                :show-page-editor="false"
+                :organisation="organisation"
+                :entries="entries"
+                @changed="changed"
+                @submit="submit">
 
-            </PageEditor>
-        </div>
+        </EventForm>
 
     </div>
 
@@ -46,29 +31,60 @@
     import TextInput from "../../../Shared/TextInput";
     import TextareaInput from "../../../Shared/TextareaInput";
     import PageEditor from "../../../Shared/PageEditor";
+    import LanguagePicker from "../../../Shared/UI/LanguagePicker";
+    import ImagePreviewInput from "../../../Shared/UI/ImagePreviewInput";
+    import PictureInput from "../../../Shared/UI/PictureInput";
+    import SelectInput from "../../../Shared/UI/SelectInput";
+    import PrimaryButton from "../../../Shared/UI/PrimaryButton";
+    import vuejsDatepicker from 'vuejs-datepicker';
+    import {de} from 'vuejs-datepicker/dist/locale'
+    import DatePicker from "../../../Shared/UI/DatePicker";
+    import TimePicker from "../../../Shared/UI/TimePicker";
+    import Checkbox from "../../../Shared/UI/Checkbox";
+    import EventForm from "../../../Pages/Admin/Organisations/EventForm";
 
     export default {
         name: "CreateEvent",
-        components: {PageEditor, TextareaInput, TextInput, LoadingButton, CardContainer},
+        components: {
+            EventForm,
+            Checkbox,
+            TimePicker,
+            DatePicker,
+            PrimaryButton,
+            SelectInput,
+            vuejsDatepicker,
+            ImagePreviewInput, PictureInput,
+            LanguagePicker, PageEditor, TextareaInput, TextInput, LoadingButton, CardContainer},
         layout: LayoutAdmin,
         props: {
-
+            organisation: Object,
+            entries: Array
         },
         remember: 'form',
         data() {
             return {
                 sending: false,
-                form: {
-                    name: null,
-                    description: null
-                },
+                form: null
             }
         },
         methods: {
-            submit() {
-                // this.$inertia
-                //     .put(this.route('admin.polls.update', this.poll.id), this.form)
-                //     .then(() => this.sending = false)
+            fileChanged(image) {
+                console.log(image)
+                console.log('New picture selected!')
+                if (image) {
+                    console.log('Picture loaded.')
+                    this.form.header_image = image
+                } else {
+                    console.log('FileReader API not supported: use the , Luke!')
+                }
+            },
+            changed(formData) {
+                this.form = formData
+            },
+            submit(formData) {
+                this.$inertia
+                    .post(this.route('admin.organisations.events.store', this.organisation.id), formData)
+                    .then(() => this.sending = false)
             },
         }
     }

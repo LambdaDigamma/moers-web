@@ -88,6 +88,11 @@ class Organisation extends Model implements HasMedia
         return $this->hasMany('App\AdvEvent');
     }
 
+    public function publishedEvents()
+    {
+        return $this->hasMany(AdvEvent::class)->published();
+    }
+
     /**
      * Returns the Main Group or null if none is set.
      *

@@ -1,14 +1,14 @@
 <template>
 
-    <div class="rounded shadow dark:bg-gray-700">
+    <div class="bg-white overflow-hidden shadow rounded-lg">
 
         <!-- Header -->
-        <div class="px-4 py-3">
+        <div class="px-4 py-5 sm:p-6">
             <slot name="header" />
         </div>
 
         <!-- Container -->
-        <div class="pb-4" :class="{ 'px-4' : insetContainer }">
+        <div class="pb-4" :class="{ 'px-4 sm:px-6' : insetContainer }">
             <slot />
         </div>
 

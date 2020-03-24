@@ -104,7 +104,7 @@
         FETCH_USER
     } from "../../store/actions.type";
     import { mapGetters } from "vuex";
-    import Form from "../../core/Form";
+    import Form from "../../Core/Form";
     import { ADMIN_SET_USER } from "../../store/mutations.type";
 
     export default {
