@@ -108,4 +108,11 @@ class AdvEvent extends Model implements HasMedia
         return $attributes;
     }
 
+    public function scopePublished($query)
+    {
+        return $query
+            ->where('scheduled_at', '<=', Carbon::now()->toDateTimeString())
+            ->orWhere('scheduled_at', '=', null);
+    }
+
 }
