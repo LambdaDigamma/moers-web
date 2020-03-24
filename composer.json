@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.4.0",
         "ext-json": "*",
         "doctrine/dbal": "^2.10",
         "facade/ignition": "^2.0",
