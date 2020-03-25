@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -16,5 +17,10 @@ abstract class Model extends Eloquent
         return in_array(SoftDeletes::class, class_uses($this))
             ? $this->where($this->getRouteKeyName(), $value)->withTrashed()->first()
             : parent::resolveRouteBinding($value);
+    }
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
     }
 }

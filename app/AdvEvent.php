@@ -4,7 +4,6 @@ namespace App;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
@@ -69,6 +68,7 @@ use Spatie\Translatable\HasTranslations;
 class AdvEvent extends Model implements HasMedia
 {
 
+    use SoftDeletes;
     use HasTranslations;
     use InteractsWithMedia;
 

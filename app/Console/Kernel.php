@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\LoadAdvEvents;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,8 +14,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\LoadEvents',
-        'App\Console\Commands\SendEmailUserHasUnreadConversations'
+        'App\Console\Commands\SendEmailUserHasUnreadConversations',
+        LoadAdvEvents::class
     ];
 
     /**
@@ -29,8 +30,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('events:loadAdv')
                  ->daily();
 
-        $schedule->command('emails:send-unread')
-                 ->cron('0 */4 * * *');
+//        $schedule->command('emails:send-unread')
+//                 ->cron('0 */4 * * *');
 
         $schedule->command('personal-data-export:clean')->daily();
 
