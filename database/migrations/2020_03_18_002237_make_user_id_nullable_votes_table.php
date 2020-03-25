@@ -14,12 +14,12 @@ class MakeUserIdNullableVotesTable extends Migration
     public function up()
     {
         Schema::table('votes', function (Blueprint $table) {
-            $table->unsignedInteger('user_id')->nullable()->change();
-        });
-        Schema::table('votes', function (Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
                 $table->dropForeign('votes_user_id_foreign');
             }
+        });
+        Schema::table('votes', function (Blueprint $table) {
+            $table->unsignedInteger('user_id')->nullable()->change();
         });
         Schema::table('votes', function(Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')
