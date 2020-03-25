@@ -42,7 +42,9 @@
             page: {
                 type: Object,
                 default() {
-                    return {}
+                    return {
+                        blocks: []
+                    }
                 }
             }
         },

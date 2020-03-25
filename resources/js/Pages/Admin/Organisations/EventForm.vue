@@ -329,10 +329,12 @@
                     }
                 }
             },
-            page: {
+            initialPage: {
                 type: Object,
                 default() {
-                    return {}
+                    return {
+                        blocks: []
+                    }
                 }
             },
             showPageEditor: {
@@ -488,6 +490,7 @@
                     scheduledTime: this.event.scheduled_at !== null ? moment(this.event.scheduled_at).format("HH:mm") : null,
                     publishNow: this.event.scheduled_at !== null ? this.event.scheduledAt === null : true,
                 },
+                page: this.initialPage !== null ? this.initialPage : { blocks: [] }
             }
         },
     }
