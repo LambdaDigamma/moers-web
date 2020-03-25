@@ -93,6 +93,13 @@ class AdvEvent extends Model implements HasMedia
         }
     }
 
+    public function getImagePathAttribute()
+    {
+        if (!is_null($this->getFirstMedia('header'))) {
+            return $this->getFirstMedia('header')->getUrl();
+        }
+    }
+
     public function organisation() {
         return $this->belongsTo('App\Organisation');
     }
