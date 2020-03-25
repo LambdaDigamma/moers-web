@@ -13,11 +13,11 @@ class FixUserIdForeignStudentInformationTable extends Migration
      */
     public function up()
     {
-        Schema::table('student_information', function (Blueprint $table) {
-            if (DB::getDriverName() !== 'sqlite') {
-                $table->dropForeign(['user_id']);
-            }
-        });
+//        Schema::table('student_information', function (Blueprint $table) {
+//            if (DB::getDriverName() !== 'sqlite') {
+//                $table->dropForeign(['user_id']);
+//            }
+//        });
         Schema::table('student_information', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')
