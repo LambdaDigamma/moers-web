@@ -132,4 +132,24 @@ class AdvEvent extends Model implements HasMedia
             ->orWhere('scheduled_at', '=', null);
     }
 
+    public function scopeActive($query)
+    {
+        $now = Carbon::now()->toDateTimeString();
+        $deadline = Carbon::now()->addMinutes(-30)->toDateTimeString();
+
+        return $query
+            ->where(function ($query) use ($now, $deadline) {
+                $query
+                    ->where('end_date', '=', null)
+                    ->where('start_date', '!=', null)
+                    ->where('start_date', '<=', $now)
+                    ->where('start_date', '>=', $deadline);
+            })
+            ->orWhere(function ($query) use ($now) {
+                $query
+                    ->where('end_date', '>=', $now)
+                    ->where('start_date', '<=', $now);
+            });
+    }
+
 }

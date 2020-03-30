@@ -64,6 +64,8 @@ Route::group([
 
     Route::post('/conversations/{conversation}/readMessage')->name('conversations.readMessage')->uses('ConversationController@sendReadMessage')->middleware(['auth']);
 
+    Route::get('/events')->name('events.index')->uses('EventController@index');
+
 //    Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
 //    Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
 //

@@ -23,7 +23,7 @@ mix.js('resources/js/app.js', 'public/js')
         postCss: [tailwindcss('./tailwind.config.js')]
     })
     .purgeCss({
-        enabled: true,
+        enabled: mix.inProduction(),
         defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || []
     })
     .webpackConfig({
