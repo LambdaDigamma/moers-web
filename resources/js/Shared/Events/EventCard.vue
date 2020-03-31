@@ -13,7 +13,7 @@
                         {{ subtitle }}
                     </div>
                 </div>
-                <h4 class="mt-0 text-gray-900 font-semibold text-lg leading-6">{{ event.name }}</h4>
+                <h4 class="mt-0 text-gray-900 font-semibold text-base lg:text-lg leading-6">{{ event.name }}</h4>
                 <div class="mt-0">
                     <span class="text-sm text-gray-500 font-medium">{{ prettifiedDate }}</span>
 <!--                    <span class="text-sm text-gray-500 font-medium">Mo, 23.06. 20:00 - 22:00</span>-->

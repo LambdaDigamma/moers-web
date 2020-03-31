@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -150,6 +151,35 @@ class AdvEvent extends Model implements HasMedia
                     ->where('end_date', '>=', $now)
                     ->where('start_date', '<=', $now);
             });
+    }
+
+    public function scopeToday(Builder $query)
+    {
+        $now = Carbon::now()->toDateTimeString();
+        $today = Carbon::now()->toDateString();
+        return $query
+            ->whereDate('start_date', '=', $today)
+            ->orWhereDate('end_date', '=', $today)
+            ->orWhere(function (Builder $query) use ($now) {
+                $query
+                    ->where('end_date', '>=', $now)
+                    ->where('start_date', '<=', $now);
+            });
+    }
+
+    public function scopeUpcoming(Builder $query)
+    {
+        $now = Carbon::now()->toDateTimeString();
+        return $query
+            ->where('start_date', '>', $now)
+            ->orWhere('start_date', '=', null);
+    }
+
+    public function scopeNextDays(Builder $query)
+    {
+        $today = Carbon::now()->toDateString();
+        return $query
+            ->whereDate('start_date', '>', $today);
     }
 
 }

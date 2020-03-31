@@ -20,7 +20,9 @@ class EventController extends Controller
     {
 
         return Inertia::render('Event/Index', [
-            'todayEvents' => AdvEvent::published()->active()->get()
+            'todayEvents' => AdvEvent::with('organisation')->published()->active()->get(),
+            'todayUpcoming' => AdvEvent::with('organisation')->today()->upcoming()->get(),
+            'nextUpcoming' => AdvEvent::with('organisation')->nextDays()->get()
         ]);
 
     }

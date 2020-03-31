@@ -4,7 +4,10 @@ namespace App\Providers;
 
 use App\HelpRequest;
 use Auth;
+use Bluemmb\Faker\PicsumPhotosProvider;
 use Bouncer;
+use Faker\Generator;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
@@ -21,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @return void
+     * @throws BindingResolutionException
      */
     public function boot()
     {
@@ -40,6 +44,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Bouncer::ownedVia(HelpRequest::class, 'creator_id');
+
+        $faker = $this->app->make(Generator::class);
+        $faker->addProvider(new PicsumPhotosProvider($faker));
 
     }
 
