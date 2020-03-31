@@ -38,7 +38,7 @@
 
         <div v-if="nextUpcoming.length !== 0">
             <div class="mt-8">
-                <h3 class="text-gray-900 text-xl md:text-3xl font-bold">Nächste Veranstaltungen</h3>
+                <h3 class="text-gray-900 text-xl md:text-3xl font-bold">In den nächsten Tagen</h3>
                 <p class="text-gray-600">Sieh dir alle nächsten Veranstaltungen an.</p>
             </div>
 

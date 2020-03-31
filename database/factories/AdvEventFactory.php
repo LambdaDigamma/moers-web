@@ -31,6 +31,8 @@ $factory->define(AdvEvent::class, function (Faker $faker) {
 
 });
 
+// ----- Time and Date -----
+
 $factory->state(AdvEvent::class, 'active_start_end', function (Faker $faker) {
     return [
         'start_date' => Carbon::now()->subRealMinutes($faker->numberBetween(1, 29))->toDateTimeString(),
@@ -64,6 +66,8 @@ $factory->state(AdvEvent::class, 'upcoming_today', function (Faker $faker) {
     ];
 });
 
+// ----- Header ------
+
 $factory->state(AdvEvent::class, 'has_header', function (Faker $faker) {
     return [];
 });
@@ -72,4 +76,20 @@ $factory->afterMakingState(AdvEvent::class, 'has_header', function (AdvEvent $ev
     $event
         ->addMediaFromUrl($faker->imageUrl(640, 480))
         ->toMediaCollection('header');
+});
+
+// ----- Publishing Status -----
+
+$factory->state(AdvEvent::class, 'published', function (Faker $faker) {
+    return [
+        'is_published' => true,
+        'scheduled_at' => null
+    ];
+});
+
+$factory->state(AdvEvent::class, 'not_published', function (Faker $faker) {
+    return [
+        'is_published' => false,
+        'scheduled_at' => $faker->dateTimeInInterval('tomorrow', '+ 10 days')
+    ];
 });

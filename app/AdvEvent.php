@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -167,7 +168,7 @@ class AdvEvent extends Model implements HasMedia
             });
     }
 
-    public function scopeUpcoming(Builder $query)
+    public function scopeUpcomingToday(Builder $query)
     {
         $now = Carbon::now()->toDateTimeString();
         return $query
@@ -179,7 +180,13 @@ class AdvEvent extends Model implements HasMedia
     {
         $today = Carbon::now()->toDateString();
         return $query
-            ->whereDate('start_date', '>', $today);
+            ->whereDate('start_date', '>', $today)
+            ->orWhere('start_date', '=', null);
+    }
+
+    public function scopeChronological(Builder $query)
+    {
+        return $query->orderByRaw('-start_date DESC');
     }
 
 }

@@ -13,11 +13,11 @@ class FixDeletionForeignCreatorPagesTable extends Migration
      */
     public function up()
     {
-//        Schema::table('pages', function (Blueprint $table) {
-//            if (DB::getDriverName() !== 'sqlite') {
-//                $table->dropForeign('pages_creator_id_foreign');
-//            }
-//        });
+        Schema::table('pages', function (Blueprint $table) {
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('pages_creator_id_foreign');
+            }
+        });
         Schema::table('pages', function (Blueprint $table) {
             $table->foreign('creator_id')->references('id')->on('users')
                 ->onUpdate('cascade')

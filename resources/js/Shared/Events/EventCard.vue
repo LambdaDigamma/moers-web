@@ -1,7 +1,7 @@
 <template>
 
     <inertia-link class="block group" :href="href">
-        <div class="relative h-64 pb-5/6">
+        <div class="relative h-64 pb-4/6">
             <img class="absolute inset-0 h-full w-full rounded-lg shadow-md object-cover group-hover:filter-brightness-90"
                  :src="event.header_url" alt="">
         </div>
@@ -15,7 +15,7 @@
                 </div>
                 <h4 class="mt-0 text-gray-900 font-semibold text-base lg:text-lg leading-6">{{ event.name }}</h4>
                 <div class="mt-0">
-                    <span class="text-sm text-gray-500 font-medium">{{ prettifiedDate }}</span>
+                    <span class="text-xs md:text-sm text-gray-500 font-medium">{{ prettifiedDate }}</span>
 <!--                    <span class="text-sm text-gray-500 font-medium">Mo, 23.06. 20:00 - 22:00</span>-->
                 </div>
 <!--                <div class="mt-2 flex items-center text-sm text-gray-600">-->
