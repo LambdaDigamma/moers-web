@@ -51,6 +51,7 @@ class AdminOrganisationController extends Controller
             'organisation' => $organisation,
             'events' => $organisation->events()
                 ->whereDate('start_date', '>=', now()->toDateString())
+                ->orWhere('start_date', '=', null)
                 ->chronological()->get()
         ]);
     }
