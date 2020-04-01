@@ -89,8 +89,14 @@
             },
             submitPage(blocks) {
 
-                let data = this.page
-                data.blocks = blocks
+                let data = {
+                    blocks: blocks
+                }
+
+                if (this.page !== null) {
+                    data = this.page
+                    data.blocks = blocks
+                }
 
                 this.$inertia.put(this.route('admin.organisations.events.page.update', [this.organisation.id, this.event.id, this.lang]), data, {
                     replace: false,
