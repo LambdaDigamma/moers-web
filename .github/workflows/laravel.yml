@@ -26,7 +26,9 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Clear Config
-      run: php artisan config:clear
+      run: |
+        php artisan config:clear --env=testing
+        php artisan config:cache --env=testing
     - name: Setup Database
       run: |
         php artisan migrate:install --env=testing
