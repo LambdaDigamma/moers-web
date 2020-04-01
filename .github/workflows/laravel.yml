@@ -34,7 +34,7 @@ jobs:
         php artisan migrate:install --env=testing
         php artisan migrate --env=testing
     - name: Set up Laravel Passport
-      run: php artisan passport:install
+      run: php artisan passport:install --env=testing
     - name: Execute tests (Unit and Feature tests)
       env:
         APP_ENV: testing
