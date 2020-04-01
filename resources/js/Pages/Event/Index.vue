@@ -12,7 +12,7 @@
                 <div class="inline-flex pt-2 pb-8 sm:pt-0 sm:pb-6 sm:grid md:grid-cols-3 sm:gap-6 sm:grid-cols-2">
 
                     <div v-for="(event, i) in todayEvents" :class="{'ml-4 sm:ml-0': i > 0 }" class="mt-0 w-64 flex-shrink-0 sm:col-span-1 sm:w-full">
-                        <EventCard :event="event" />
+                        <EventCard :event="event" :href="route('events.show', event.id)" />
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="inline-flex pt-2 pb-8 sm:pt-0 sm:pb-6 sm:grid md:grid-cols-3 sm:gap-6 sm:grid-cols-2">
 
                     <div v-for="(event, i) in todayUpcoming" :class="{'ml-4 sm:ml-0': i > 0 }" class="mt-0 w-64 flex-shrink-0 sm:col-span-1 sm:w-full">
-                        <EventCard :event="event" />
+                        <EventCard :event="event" :href="route('events.show', event.id)" />
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="inline-flex pt-2 pb-8 sm:pt-0 sm:pb-6 sm:grid md:grid-cols-3 sm:gap-6 sm:grid-cols-2">
 
                     <div v-for="(event, i) in nextUpcoming" :class="{'ml-4 sm:ml-0': i > 0 }" class="mt-0 w-64 flex-shrink-0 sm:col-span-1 sm:w-full">
-                        <EventCard :event="event" />
+                        <EventCard :event="event" :href="route('events.show', event.id)" />
                     </div>
                 </div>
             </div>

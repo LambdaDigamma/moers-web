@@ -3,6 +3,7 @@
 /* @var $factory Factory */
 
 use App\AdvEvent;
+use App\Page;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
@@ -91,5 +92,13 @@ $factory->state(AdvEvent::class, 'not_published', function (Faker $faker) {
     return [
         'is_published' => false,
         'scheduled_at' => $faker->dateTimeInInterval('tomorrow', '+ 10 days')
+    ];
+});
+
+$factory->state(AdvEvent::class, 'page', function (Faker $faker) {
+    return [
+        'page_id' => function() {
+            return factory(Page::class)->create()->id;
+        }
     ];
 });

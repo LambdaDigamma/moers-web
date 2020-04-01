@@ -27,4 +27,12 @@ class EventController extends Controller
 
     }
 
+    public function show(AdvEvent $event)
+    {
+        $event->load(['organisation', 'page', 'page.blocks', 'entry']);
+        return Inertia::render('Event/Show', [
+            'event' => $event
+        ]);
+    }
+
 }

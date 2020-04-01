@@ -170,6 +170,14 @@ module.exports = {
                 '21/9': [21, 9],
             },
         },
+        truncate: {
+            lines: {
+                2: '2',
+                3: '3',
+                5: '5',
+                8: '8',
+            }
+        }
     },
     variants: {
         aspectRatio: ['responsive'],
@@ -189,5 +197,6 @@ module.exports = {
         require('tailwindcss-filters'),
         require('tailwindcss-aspect-ratio'),
         require('@tailwindcss/custom-forms'),
+        require('tailwindcss-truncate-multiline')(),
     ]
 }
