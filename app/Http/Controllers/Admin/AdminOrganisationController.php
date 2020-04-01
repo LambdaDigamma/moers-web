@@ -49,7 +49,9 @@ class AdminOrganisationController extends Controller
     {
         return Inertia::render('Admin/Organisations/Edit', [
             'organisation' => $organisation,
-            'events' => $organisation->events()->get()
+            'events' => $organisation->events()
+                ->whereDate('start_date', '>=', now()->toDateString())
+                ->chronological()->get()
         ]);
     }
 

@@ -113,6 +113,7 @@
                     v-for="(event, i) in events"
                     :event="event"
                     :key="event.id"
+                    :href="route('admin.organisations.events.edit', [organisation.id, event.id])"
                     class="col-span-1">
 
             </EventCard>
