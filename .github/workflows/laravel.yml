@@ -22,7 +22,7 @@ jobs:
         mkdir -p database
         touch database/test.sqlite
     - name: Generate key
-      run: php artisan key:generate
+      run: php artisan key:generate --env=testing
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Clear Config

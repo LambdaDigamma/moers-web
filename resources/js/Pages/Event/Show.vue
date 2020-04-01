@@ -21,7 +21,7 @@
                             <span class="text-xs md:text-sm text-gray-500 font-medium">{{ prettifiedDate }}</span>
                         </div>
                     </div>
-                    <div class="border-t border-gray-200">
+                    <div class="border-t border-gray-200" v-if="event.page">
                         <div class="px-4 py-5 sm:p-6">
                             <div v-for="block in event.page.blocks">
 

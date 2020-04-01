@@ -15,7 +15,14 @@ class OrganisationController extends Controller
     public function show(Organisation $organisation)
     {
         return Inertia::render('Organisations/Show', [
-            'organisation' => $organisation->load(['publishedEvents', 'publishedEvents.organisation', 'publishedEvents.entry'])
+            'organisation' => $organisation->load([
+                'publishedEvents',
+                'publishedEvents.organisation',
+                'publishedEvents.entry'
+            ]),
+            'todayEvents' => $organisation->events()->published()->active()->chronological()->get(),
+            'todayUpcoming' => $organisation->events()->published()->today()->chronological()->upcomingToday()->get(),
+            'nextUpcoming' => $organisation->events()->published()->nextDays()->chronological()->get()
         ]);
     }
 
