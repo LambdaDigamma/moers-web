@@ -35,7 +35,7 @@
             </div>
 
             <div class="flex-shrink-0 w-80 ml-8">
-                <div class="flex flex-col justify-end">
+                <div class="flex flex-col justify-end" v-if="event.organisation">
                     <div class="bg-white shadow rounded-lg">
                         <div class="relative h-40" v-if="event.organisation && event.organisation.header_url">
                             <img class="absolute rounded-t-lg inset-0 h-full w-full object-cover"
@@ -65,10 +65,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-12 flex flex-col justify-end">
+                <div class="mt-12 flex flex-col justify-end" v-if="event.entry">
                     <div class="bg-white shadow rounded-lg">
 
-                        <div class="relative h-40">
+                        <div class="relative h-40" v-if="event.entry && event.entry.header_url">
                             <img class="absolute rounded-t-lg inset-0 h-full w-full object-cover"
                                  :src="event.entry.header_url" alt="">
                         </div>
