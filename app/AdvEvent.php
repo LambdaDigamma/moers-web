@@ -189,4 +189,10 @@ class AdvEvent extends Model implements HasMedia
         return $query->orderByRaw('-start_date DESC');
     }
 
+    public function scopeFuture(Builder $query)
+    {
+        return $query->whereDate('start_date', '>=', now()->toDateString())
+            ->orWhere('start_date', '=', null);
+    }
+
 }
