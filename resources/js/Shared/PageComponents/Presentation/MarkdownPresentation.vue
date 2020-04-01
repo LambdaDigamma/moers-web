@@ -19,6 +19,9 @@
         },
         computed: {
             parsedMarkdown() {
+                marked.setOptions({
+                    breaks: true
+                })
                 return marked(this.block.data.text);
             }
         }
