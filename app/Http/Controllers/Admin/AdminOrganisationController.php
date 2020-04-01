@@ -6,6 +6,7 @@ use App\AdvEvent;
 use App\Entry;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateEvent;
+use App\Http\Requests\UpdateEventPage;
 use App\Http\Requests\UpdatePage;
 use App\Organisation;
 use App\Page;
@@ -123,7 +124,7 @@ class AdminOrganisationController extends Controller
 
     }
 
-    public function updatePage(Organisation $organisation, AdvEvent $event, UpdatePage $request, string $lang = "de")
+    public function updatePage(Organisation $organisation, AdvEvent $event, UpdateEventPage $request, string $lang = "de")
     {
         app()->setLocale($lang);
 

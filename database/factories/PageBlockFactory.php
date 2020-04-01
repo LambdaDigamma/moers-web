@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(PageBlock::class, function (Faker $faker) {
     return [
-        'de' => [
-            'type' => 'markdown',
-            'data' => [
+        'type' => 'markdown',
+        'data' => [
+            'de' => [
                 'text' => $faker->paragraph(8)
             ]
         ]

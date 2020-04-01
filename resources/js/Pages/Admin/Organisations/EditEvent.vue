@@ -15,7 +15,7 @@
                 :organisation="organisation"
                 :entries="entries"
                 :event="event"
-                :page="page"
+                :initial-page="page"
                 @changed="changed"
                 @submit="submit"
                 @page-change="submitPage">
