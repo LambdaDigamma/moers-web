@@ -48,25 +48,33 @@
                             </div>
                         </div>
                     </div>
-                    <div class="px-4 py-5 sm:p-6 pl-6 sm:pl-8 flex flex-col border-t border-gray-300">
-                        <div class="relative">
-                            <span class="text-sm leading-5 font-medium text-gray-500 truncate">Veranstaltungsort</span>
-                            <h1 class="mt-0 text-xl font-semibold">
-                                {{ event.entry.name }}
-                            </h1>
-                            <span class="text-sm leading-5 text-gray-700">
+                    <div class="border-t border-gray-300">
+
+                        <div class="relative h-48">
+                            <img class="absolute inset-0 h-full w-full object-cover"
+                                 :src="event.entry.header_url" alt="">
+                        </div>
+
+                        <div class="px-4 py-5 sm:p-6 pl-6 sm:pl-8 flex flex-col">
+                            <div class="relative">
+                                <span class="text-sm leading-5 font-medium text-gray-500 truncate">Veranstaltungsort</span>
+                                <h1 class="mt-0 text-xl font-semibold">
+                                    {{ event.entry.name }}
+                                </h1>
+                                <span class="text-sm leading-5 text-gray-700">
                                 {{ event.entry.street }} {{ event.entry.house_number }}<br />
                                 {{ event.entry.postcode }} {{ event.entry.place }}
                             </span>
-                            <PrimaryButton class="mt-3" block>
-                                Anzeigen
-                            </PrimaryButton>
-                            <div class="absolute z-40 left-0 top-0 -ml-16">
-                                <div class="bg-blue-600 rounded-md p-3">
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6 text-white">
-                                        <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
+                                <PrimaryButton class="mt-3" block>
+                                    Anzeigen
+                                </PrimaryButton>
+                                <div class="absolute z-40 left-0 top-0 -ml-16">
+                                    <div class="bg-blue-600 rounded-md p-3">
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6 text-white">
+                                            <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>

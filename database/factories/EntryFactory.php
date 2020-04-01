@@ -29,3 +29,15 @@ $factory->define(Entry::class, function (Faker $faker) {
         'other' => "09:00 - 17:00",
     ];
 });
+
+// ----- Header ------
+
+$factory->state(Entry::class, 'has_header', function (Faker $faker) {
+    return [];
+});
+
+$factory->afterMakingState(Entry::class, 'has_header', function (Entry $event, Faker $faker) {
+    $event
+        ->addMediaFromUrl($faker->imageUrl(640, 200))
+        ->toMediaCollection('header');
+});

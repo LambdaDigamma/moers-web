@@ -10,6 +10,8 @@ use Illuminate\Support\Carbon;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Models\Audit;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * App\Entry
@@ -78,10 +80,10 @@ use OwenIt\Auditing\Models\Audit;
  * @method static \Illuminate\Database\Query\Builder|Entry withoutTrashed()
  * @mixin Eloquent
  */
-class Entry extends Model implements AuditableContract
+class Entry extends Model implements AuditableContract, HasMedia
 {
 
-    use SoftDeletes, Auditable;
+    use SoftDeletes, Auditable, InteractsWithMedia;
 
     protected $table = 'entries';
 
@@ -99,6 +101,15 @@ class Entry extends Model implements AuditableContract
         'url', 'phone', 'monday', 'tuesday', 'wednesday', 'thursday',
         'friday', 'saturday', 'sunday', 'other'
     ];
+
+    protected $appends = ['header_url'];
+
+    public function getHeaderUrlAttribute()
+    {
+        if (!is_null($this->getFirstMedia('header'))) {
+            return $this->getFirstMedia('header')->getUrl();
+        }
+    }
 
     public function getTagsAttribute($value) {
 
