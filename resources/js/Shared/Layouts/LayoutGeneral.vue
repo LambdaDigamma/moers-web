@@ -28,12 +28,12 @@
 <!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/>-->
 <!--                            </MenuItemMobile>-->
 
-                            <MenuItemMobile title="Helfen"
-                                             :href="route('help.index')"
-                                             :active="isUrl('help')"
-                                             v-on:nav="hideSidebar">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </MenuItemMobile>
+<!--                            <MenuItemMobile title="Helfen"-->
+<!--                                             :href="route('help.index')"-->
+<!--                                             :active="isUrl('help')"-->
+<!--                                             v-on:nav="hideSidebar">-->
+<!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />-->
+<!--                            </MenuItemMobile>-->
 
 <!--                            <MenuItemMobile title="Veranstaltungen"-->
 <!--                                            href="#"-->
@@ -70,17 +70,17 @@
 <!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6" />-->
 <!--                            </MenuItemDesktop>-->
 
-                            <MenuItemDesktop title="Helfen"
-                                             :href="route('help.index')"
-                                             :active="isUrl('help')">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </MenuItemDesktop>
+<!--                            <MenuItemDesktop title="Helfen"-->
+<!--                                             :href="route('help.index')"-->
+<!--                                             :active="isUrl('help')">-->
+<!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />-->
+<!--                            </MenuItemDesktop>-->
 
-                            <MenuItemDesktop title="Veranstaltungen"
-                                             :href="route('events.index')"
-                                             :active="isUrl('events')">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </MenuItemDesktop>
+<!--                            <MenuItemDesktop title="Veranstaltungen"-->
+<!--                                             :href="route('events.index')"-->
+<!--                                             :active="isUrl('events')">-->
+<!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>-->
+<!--                            </MenuItemDesktop>-->
 
 <!--                            <MenuItemDesktop title="Abstimmungen"-->
 <!--                                             :href="route('polls.index')"-->

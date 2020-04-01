@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Web;
 use App\AdvEvent;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
+use Redirect;
 
 class EventController extends Controller
 {
@@ -29,10 +30,16 @@ class EventController extends Controller
 
     public function show(AdvEvent $event)
     {
+
+        if ($event->scheduled_at != null && $event->scheduled_at > now()->toDateTimeString()) {
+            return Redirect::route('events.index');
+        }
+
         $event->load(['organisation', 'page', 'page.blocks', 'entry']);
         return Inertia::render('Event/Show', [
             'event' => $event
         ]);
+
     }
 
 }
