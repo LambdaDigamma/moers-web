@@ -1,8 +1,8 @@
 <template>
 
-    <span class="inline-flex rounded-md shadow-sm">
+    <span class="inline-flex rounded-md shadow-sm" :class="{ 'w-full justify-center': block }">
         <component
-                class="w-full inline-flex justify-center items-center border border-gray-300 font-medium text-gray-700 bg-white transition ease-in-out duration-150"
+                class="inline-flex items-center border border-gray-300 font-medium text-gray-700 bg-white transition ease-in-out duration-150"
                 :is="type"
                 :href="href"
                 :type="buttonType"
@@ -13,7 +13,8 @@
                 'px-4 py-2 text-base leading-6 rounded-md' : size === 'lg',
                 'px-6 py-3 text-base leading-6 rounded-md' : size === 'xl',
                 'hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50' : !disabled,
-                'opacity-50' : disabled
+                'opacity-50' : disabled,
+                'w-full justify-center': block
                 }"
                 @click="clickedButton($event)">
             <slot></slot>
@@ -45,6 +46,10 @@
                 required: false
             },
             disabled: {
+                type: Boolean,
+                default: false
+            },
+            block: {
                 type: Boolean,
                 default: false
             }

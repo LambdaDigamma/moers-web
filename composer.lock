@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4f30c690823400e9192e5cff2c69f64",
+    "content-hash": "733fefcee1098df023d529a0a4264e8a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1639,6 +1639,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -1685,6 +1686,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -6907,6 +6909,50 @@
                 }
             ],
             "time": "2018-12-13T10:34:14+00:00"
+        },
+        {
+            "name": "beyondcode/tinkerwell-helper",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beyondcode/tinkerwell-helper.git",
+                "reference": "1993c888ef64b76a24804b8493421cb7c9b5bd43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beyondcode/tinkerwell-helper/zipball/1993c888ef64b76a24804b8493421cb7c9b5bd43",
+                "reference": "1993c888ef64b76a24804b8493421cb7c9b5bd43",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0|^7.0",
+                "php": "^7.2"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helper.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "marcel@beyondco.de",
+                    "homepage": "https://beyondcode.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Open Tinkerwell from your Laravel project.",
+            "homepage": "https://github.com/beyondcode/tinkerwell-helper",
+            "keywords": [
+                "beyondcode",
+                "tinkerwell-helper"
+            ],
+            "time": "2020-03-07T11:29:05+00:00"
         },
         {
             "name": "composer/ca-bundle",

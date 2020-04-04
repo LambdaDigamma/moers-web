@@ -67,6 +67,7 @@ Route::group([
     Route::get('/events')->name('events.index')->uses('EventController@index');
     Route::get('/events/{event}')->name('events.show')->uses('EventController@show');
 
+    Route::get('/entries')->name('entries.index')->uses('EntryController@index');
 //    Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
 //    Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
 //

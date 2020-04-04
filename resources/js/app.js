@@ -3,6 +3,7 @@ import VueMeta from 'vue-meta'
 import PortalVue from 'portal-vue'
 import { InertiaApp } from '@inertiajs/inertia-vue'
 import Echo from "laravel-echo"
+import 'leaflet/dist/leaflet.css';
 
 const moment = require('moment')
 require('moment/locale/de')
@@ -40,6 +41,15 @@ window.Echo = new Echo({
     cluster: 'eu',
     encrypted: true,
     forceTLS: true,
+});
+
+import { Icon } from 'leaflet';
+
+delete Icon.Default.prototype._getIconUrl;
+Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
 let app = document.getElementById('app')
