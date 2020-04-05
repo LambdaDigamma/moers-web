@@ -12,29 +12,27 @@
             Die Organisation wurde gelöscht.
         </TrashedMessage>
 
-
-
-        <div class="mt-6 shadow rounded-lg overflow-hidden">
-            <div class="h-64 w-full relative overflow-hidden rounded-t-lg " v-if="organisation.header_path">
-                <img class="absolute object-center object-cover w-full h-full"
+        <div class="mt-6 overflow-hidden rounded-lg shadow">
+            <div class="relative w-full h-64 overflow-hidden rounded-t-lg" v-if="organisation.header_path">
+                <img class="absolute object-cover object-center w-full h-full"
                      :src="organisation.header_path" />
             </div>
-            <div class="bg-white px-4 py-5 sm:px-6 overflow-hidden">
-                <div class="-ml-4 -mt-2 flex justify-between flex-wrap sm:flex-no-wrap">
-                    <div class="ml-4 mt-2 flex-shrink-0 w-32 flex flex-col items-center justify-center">
-                        <img class="w-32 h-auto object-center object-scale-down"
+            <div class="px-4 py-5 overflow-hidden bg-white sm:px-6">
+                <div class="flex flex-wrap justify-between -mt-2 -ml-4 sm:flex-no-wrap">
+                    <div class="flex flex-col items-center justify-center flex-shrink-0 w-32 mt-2 ml-4">
+                        <img class="object-scale-down object-center w-32 h-auto"
                              :src="organisation.logo_path"
                              alt="" />
                     </div>
-                    <div class="ml-4 mt-2">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    <div class="mt-2 ml-4">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">
                             {{ organisation.name }}
                         </h3>
                         <p class="text-sm leading-5 text-gray-500">
                             {{ organisation.description }}
                         </p>
                     </div>
-                    <div class="ml-4 mt-2 flex-shrink-0 w-32 flex flex-col justify-center">
+                    <div class="flex flex-col justify-center flex-shrink-0 w-32 mt-2 ml-4">
                         <WhiteButton>Folgen</WhiteButton>
                         <WhiteButton class="mt-2">Beitreten</WhiteButton>
                     </div>
@@ -42,7 +40,7 @@
             </div>
         </div>
 
-        <div class="mt-6 grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mt-6">
 
             <EventCard
                     v-for="(event, i) in events"

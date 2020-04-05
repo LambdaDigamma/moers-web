@@ -5,23 +5,23 @@
             Details
         </Header>
 
-        <div class="my-3 flex flex-row" v-if="nextPoll && poll.results !== null">
-            <inertia-link :href="route('polls.show', nextPoll.id)" class="block px-3 py-2 rounded-lg font-semibold text-base dark:bg-yellow-500 dark:text-black">
+        <div class="flex flex-row my-3" v-if="nextPoll && poll.results !== null">
+            <inertia-link :href="route('polls.show', nextPoll.id)" class="block px-3 py-2 text-base font-semibold rounded-lg dark:bg-yellow-500 dark:text-black">
                 Zur nächsten Abstimmung
             </inertia-link>
         </div>
 
 
-        <div class="p-3 rounded-lg shadow-lg dark:bg-gray-700 mb-6">
+        <div class="p-3 mb-6 rounded-lg shadow-lg dark:bg-gray-700">
             <PollVote v-if="poll.results === null" :poll='poll'>
 
             </PollVote>
             <div v-else>
-                <h1 class="font-bold text-xl md:text-3xl dark:text-white">{{ poll.question }}</h1>
+                <h1 class="text-xl font-bold md:text-3xl dark:text-white">{{ poll.question }}</h1>
                 <p class="text-base dark:text-white">{{ poll.description }}</p>
 
-                <h2 class="mt-3 mb-0 font-semibold text-lg dark:text-white">Ergebnisse:</h2>
-                <p class="mt-2 dark:text-white font-medium">
+                <h2 class="mt-3 mb-0 text-lg font-semibold dark:text-white">Ergebnisse:</h2>
+                <p class="mt-2 font-medium dark:text-white">
                     Die Ergebnisse werden auf Wunsch bis auf weiteres versteckt gehalten.
                 </p>
 

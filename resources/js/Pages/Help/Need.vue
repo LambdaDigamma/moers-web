@@ -2,11 +2,11 @@
 
     <div>
         <header>
-            <div class="max-w-7xl mx-auto">
+            <div class="mx-auto max-w-7xl">
                 <h2 class="text-3xl font-bold leading-tight text-gray-900">
                     Ich benötige Hilfe!
                 </h2>
-                <p class="mt-2 text-gray-700 text-sm">
+                <p class="mt-2 text-sm text-gray-700">
                     Wenn du hier nach Hilfe suchst, wird den anderen Nutzern nur angezeigt, in welchem Stadtteil die Hilfe benötigt wird und wie dir geholfen werden kann.<br />
                     Nach der Abwicklung werden alle erhobenen Daten direkt wieder vollständig gelöscht. Lediglich die gesamte Zahl der Hilfen wird anonym gespeichert.
                 </p>
@@ -14,7 +14,7 @@
         </header>
         <div class="mt-4">
             <form @submit.prevent="submit">
-                <div class="shadow rounded-md overflow-hidden">
+                <div class="overflow-hidden rounded-md shadow">
                     <div class="px-4 py-5 bg-white sm:p-6">
 
                         <div>
@@ -22,7 +22,7 @@
                                 Stadtteil
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <select id="quarter" class="form-select block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" v-model="form.quarter_id">
+                                <select id="quarter" class="block w-full transition duration-150 ease-in-out form-select sm:text-sm sm:leading-5" v-model="form.quarter_id">
                                     <option v-for="quarter in quarters" :value="quarter.id" :key="quarter.id">{{ quarter.name }} ({{ quarter.postcode }})</option>
                                 </select>
                             </div>
@@ -38,10 +38,10 @@
                             </TextareaInput>
                         </div>
 
-                        <div class="mt-4 flex items-center">
-                            <input id="consent" type="checkbox" v-model="form.consent" class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out" />
+                        <div class="flex items-center mt-4">
+                            <input id="consent" type="checkbox" v-model="form.consent" class="w-4 h-4 text-blue-600 transition duration-150 ease-in-out form-checkbox" />
                             <label for="consent" class="ml-3">
-                                <span class="block text-sm leading-5 font-medium text-gray-700">
+                                <span class="block text-sm font-medium leading-5 text-gray-700">
                                     Ich bin damit einverstanden, dass ich kontaktiert werden kann, wenn mir jemand aktiv helfen will.
                                 </span>
                             </label>
@@ -49,10 +49,10 @@
 
 
                     </div>
-                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                    <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                         <span class="inline-flex rounded-md shadow-sm">
                             <button type="submit" :disabled="!form.consent" :class="{ 'opacity-50' : !form.consent }"
-                                    class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out">
+                                    class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700">
                                 Hilfe suchen
                             </button>
                         </span>

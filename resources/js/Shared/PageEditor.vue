@@ -38,11 +38,11 @@
                                         @deleted="deleteBlock(index)" />
 
 
-                                <div v-else class="py-3 w-full  flex flex-row items-center justify-center dark:text-white">
+                                <div v-else class="flex flex-row items-center justify-center w-full py-3  dark:text-white">
                                     Dieser Baustein wird leider noch nicht unterstützt.
                                 </div>
                             </div>
-                            <div v-if="blocks.length === 0" class="py-3 flex flex-row items-center justify-center text-sm text-gray-600 dark:text-white">
+                            <div v-if="blocks.length === 0" class="flex flex-row items-center justify-center py-3 text-sm text-gray-600 dark:text-white">
                                 Ziehe die gewünschten Inhalte aus dem Kasten rechts in die Bearbeitungsfläche.
                             </div>
                         </draggable>
@@ -57,19 +57,19 @@
 <!--                       v-model="query"-->
 <!--                       placeholder="Suchen…"-->
 <!--                       type="text"-->
-<!--                       class="w-full px-2 py-2 md:px-2 md:py-3 rounded focus:shadow-outline dark:text-white dark:bg-gray-600" />-->
-                <div class="pt-3 px-3 sm:px-6">
+<!--                       class="w-full px-2 py-2 rounded md:px-2 md:py-3 focus:shadow-outline dark:text-white dark:bg-gray-600" />-->
+                <div class="px-3 pt-3 sm:px-6">
                     <draggable
                             :list="presets"
                             :group="{ name: 'blocks', pull: 'clone' }"
                             :clone="clone">
                         <div v-for="(preset, index) in presets"
                              :key="index"
-                             class="py-2 flex flex-row items-center dark:text-white">
-                            <Icon :name="preset.icon" class="h-10 w-10 mr-2 fill-current" />
+                             class="flex flex-row items-center py-2 dark:text-white">
+                            <Icon :name="preset.icon" class="w-10 h-10 mr-2 fill-current" />
                             <div>
-                                <h1 class="font-semibold text-base">{{ preset.name }}</h1>
-                                <p class="mb-0 font-normal text-sm">{{ preset.description }}</p>
+                                <h1 class="text-base font-semibold">{{ preset.name }}</h1>
+                                <p class="mb-0 text-sm font-normal">{{ preset.description }}</p>
                             </div>
                         </div>
                     </draggable>

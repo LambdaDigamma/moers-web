@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label v-if="label" class="form-label font-semibold dark:text-white" :for="id">{{ label }}:</label>
+        <label v-if="label" class="font-semibold form-label dark:text-white" :for="id">{{ label }}:</label>
         <select :id="id" ref="input" v-model="selected" v-bind="$attrs" class="form-select dark:bg-gray-600 dark:text-white"
                 :class="{ error: errors.length }">
             <slot/>

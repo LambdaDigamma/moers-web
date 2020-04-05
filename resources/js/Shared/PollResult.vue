@@ -12,16 +12,16 @@
                         {{ this.results.total }} Personen haben schon abgestimmt.
                     </p>
                 </div>
-                <h2 class="mt-3 mb-0 font-semibold text-lg dark:text-white">Ergebnisse:</h2>
+                <h2 class="mt-3 mb-0 text-lg font-semibold dark:text-white">Ergebnisse:</h2>
                 <div v-for="(vote, index) in this.results.votes" :key="index">
-                    <div class="flex flex-row justify-start items-center">
-                        <div class="w-32 mt-2 sm:mt-0 px-2 py-1 font-semibold rounded dark:bg-yellow-500 dark:text-gray-900 text-center">Stimmen: {{ vote.votes }}</div>
-                        <div class="sm:text-left ml-2 mt-2 sm:mt-0 text-center font-medium">{{ vote.name }}</div>
+                    <div class="flex flex-row items-center justify-start">
+                        <div class="w-32 px-2 py-1 mt-2 font-semibold text-center rounded sm:mt-0 dark:bg-yellow-500 dark:text-gray-900">Stimmen: {{ vote.votes }}</div>
+                        <div class="mt-2 ml-2 font-medium text-center sm:text-left sm:mt-0">{{ vote.name }}</div>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-else class="font-semibold text-lg dark:text-white">
+        <div v-else class="text-lg font-semibold dark:text-white">
             Noch keine Ergebnisse verfügbar.
         </div>
     </div>

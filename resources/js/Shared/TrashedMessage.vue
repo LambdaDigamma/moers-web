@@ -1,7 +1,7 @@
 <template>
-    <div class="p-4 bg-red-600 rounded flex items-center justify-between max-w-3xl">
+    <div class="flex items-center justify-between max-w-3xl p-4 bg-red-600 rounded">
         <div class="flex items-center">
-            <icon name="trash" class="flex-shrink-0 w-4 h-4 fill-white mr-2" />
+            <icon name="trash" class="flex-shrink-0 w-4 h-4 mr-2 fill-white" />
             <div class="text-white">
                 <slot />
             </div>

@@ -7,7 +7,7 @@
                 class="mb-8">
             <div class="inline-flex flex-row items-center">
                 {{ page.title }}
-                <span class="ml-3 px-2 py-2 font-semibold text-base rounded-lg dark:bg-gray-600 dark:text-gray-800">Vorschau</span>
+                <span class="px-2 py-2 ml-3 text-base font-semibold rounded-lg dark:bg-gray-600 dark:text-gray-800">Vorschau</span>
             </div>
         </Header>
 

@@ -1,8 +1,8 @@
 <template>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-        <inertia-link :href="route('landingPage')" class="block py-6 font-bold text-4xl text-center mx-auto">Mein Moers</inertia-link>
+        <inertia-link :href="route('landingPage')" class="block py-6 mx-auto text-4xl font-bold text-center">Mein Moers</inertia-link>
 
         <header class="mt-6">
             <h2 class="text-3xl font-bold leading-tight text-gray-900">

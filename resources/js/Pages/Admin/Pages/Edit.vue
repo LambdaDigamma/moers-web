@@ -7,7 +7,7 @@
                 class="mb-8">
             <div class="inline-flex flex-row items-center">
                 {{ page.title }}
-                <button class="ml-3 px-2 py-1 font-semibold text-sm rounded-lg dark:bg-blue-500 dark:text-white dark-hover:bg-blue-600"
+                <button class="px-2 py-1 ml-3 text-sm font-semibold rounded-lg dark:bg-blue-500 dark:text-white dark-hover:bg-blue-600"
                         @click="preview">
                     Vorschau anzeigen
                 </button>

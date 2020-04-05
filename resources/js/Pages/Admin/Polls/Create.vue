@@ -6,9 +6,9 @@
                 class="mb-8">
             Erstellen
         </Header>
-        <div class="rounded shadow bg-white dark:bg-gray-700 max-w-4xl">
+        <div class="max-w-4xl bg-white rounded shadow dark:bg-gray-700">
             <form @submit.prevent="submit">
-                <div class="p-6 flex flex-wrap">
+                <div class="flex flex-wrap p-6">
                     <TextInput
                             v-model="form.question"
                             label="Frage"
@@ -17,11 +17,11 @@
                     <TextareaInput
                             v-model="form.description"
                             label="Beschreibung"
-                            class="mt-3 w-full"
+                            class="w-full mt-3"
                             :errors="$page.errors.description" />
                     <SelectInput
                             v-model="form.group_id"
-                            class="mt-3 w-full"
+                            class="w-full mt-3"
                             label="Gruppe"
                             :errors="$page.errors.group_id">
                         <option v-for="group in this.groups" :value="group.id" :key="group.id">
@@ -31,21 +31,21 @@
                     <NumberInput
                             v-model="form.max_check"
                             label="Anzahl der auswählbaren Antworten"
-                            class="mt-3 w-full"
+                            class="w-full mt-3"
                             :min="1"
                             :errors="$page.errors.max_check" />
-                    <div class="mt-3 w-full">
+                    <div class="w-full mt-3">
                         <span class="font-semibold dark:text-white">Antwortmöglichkeiten:</span>
 
                         <div v-for="(option, index) in form.options"
-                             :key="index" class="mt-2 p-2 w-full flex items-stretch rounded dark:bg-gray-800">
+                             :key="index" class="flex items-stretch w-full p-2 mt-2 rounded dark:bg-gray-800">
 
                             <TextInput placeholder="Titel der Antwortmöglichkeit eingeben."
                                        v-model="form.options[index]"
                                        class="flex-grow-1" />
 
                             <button v-if="canDelete"
-                                    class="flex-grow-0 ml-2 font-semibold text-sm px-2 py-1 rounded dark:bg-red-600 dark:text-white"
+                                    class="flex-grow-0 px-2 py-1 ml-2 text-sm font-semibold rounded dark:bg-red-600 dark:text-white"
                                     @click="deletePollOption(index)">
                                     Löschen
                             </button>
@@ -58,27 +58,27 @@
                         </span>
 
                         <button @click.prevent="addPollOption"
-                                class="flex-grow-1 flex-md-grow-0 px-3 py-2 mt-3 ml-1 md:ml-0 rounded font-semibold text-base dark:bg-yellow-500 dark:text-gray-800">
+                                class="px-3 py-2 mt-3 ml-1 text-base font-semibold rounded flex-grow-1 flex-md-grow-0 md:ml-0 dark:bg-yellow-500 dark:text-gray-800">
                             Weitere Antwortmöglichkeit hinzufügen
                         </button>
 
                         <div class="mt-3">
                             <button @click.prevent="addStudentOptions"
-                                    class="px-3 py-2 mt-3 ml-1 md:ml-0 rounded font-semibold text-base dark:bg-yellow-500 dark:text-gray-800">
+                                    class="px-3 py-2 mt-3 ml-1 text-base font-semibold rounded md:ml-0 dark:bg-yellow-500 dark:text-gray-800">
                                 Schüler einfügen
                             </button>
 
                             <button @click.prevent="addTeacherOptions"
-                                    class="px-3 py-2 mt-3 ml-1 md:ml-0 rounded font-semibold text-base dark:bg-yellow-500 dark:text-gray-800">
+                                    class="px-3 py-2 mt-3 ml-1 text-base font-semibold rounded md:ml-0 dark:bg-yellow-500 dark:text-gray-800">
                                 Lehrer einfügen
                             </button>
                         </div>
 
                     </div>
                 </div>
-                <div class="px-6 py-3 bg-gray-700 border-t border-grey-500 flex items-center rounded-b-lg dark:border-gray-600">
+                <div class="flex items-center px-6 py-3 bg-gray-700 border-t rounded-b-lg border-grey-500 dark:border-gray-600">
                     <LoadingButton
-                            class="px-3 py-2 rounded-lg font-semibold text-base dark:bg-green-600 dark:text-white"
+                            class="px-3 py-2 text-base font-semibold rounded-lg dark:bg-green-600 dark:text-white"
                             type="submit"
                             :disabled="!isSubmitEnabled || $page.errors === null"
                             :loading="sending">

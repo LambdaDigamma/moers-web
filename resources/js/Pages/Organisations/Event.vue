@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <h1 class="font-bold text-gray-900 text-3xl">{{ event.name }}</h1>
+        <h1 class="text-3xl font-bold text-gray-900">{{ event.name }}</h1>
     </div>
 
 </template>

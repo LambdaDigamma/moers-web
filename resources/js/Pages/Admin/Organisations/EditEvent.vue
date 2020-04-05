@@ -2,9 +2,9 @@
 
     <div class="pb-32">
 
-        <div class="flex flex-col md:flex-row justify-between">
+        <div class="flex flex-col justify-between md:flex-row">
             <div>
-                <h3 class="text-gray-900 text-3xl font-bold">Veranstaltung bearbeiten</h3>
+                <h3 class="text-3xl font-bold text-gray-900">Veranstaltung bearbeiten</h3>
                 <p class="text-gray-600">Bearbeite die Veranstaltung für diese Organisation.</p>
             </div>
             <LanguagePicker :languageCode="lang" class="mt-4 md:mt-0" @change="languageChanged" />
