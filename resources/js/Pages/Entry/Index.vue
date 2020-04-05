@@ -1,3 +1,4 @@
+
 <template>
 
     <div class="h-full">
@@ -13,133 +14,13 @@
             </l-marker>
         </l-map>
 
-        <div class="absolute inset-y-0 right-0 w-1/5 h-full p-8 w-80" style="z-index: 500;">
+        <div class="absolute inset-y-0 right-0 w-1/4 h-full p-8 w-80" style="z-index: 500;">
 
             <div class="flex flex-col h-full overflow-hidden bg-white rounded-lg shadow-md">
 
-                <div v-if="true">
+                <div v-if="selectedEntry">
 
-                    <div class="relative pb-2/3">
-                        <button class="absolute top-0 left-0">
-
-                        </button>
-                        <img class="absolute object-cover w-full h-full"
-                             src="https://images.unsplash.com/photo-1464869372688-a93d806be852?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" />
-                    </div>
-
-                    <div class="p-4 border-b border-gray-200">
-                        <h1 class="text-2xl font-semibold text-gray-900">Café Extrablatt</h1>
-                    </div>
-
-                    <div class="p-4 border-b border-gray-200">
-
-                        <PrimaryButton size="lg" block>
-                            Route
-                        </PrimaryButton>
-
-                        <div class="grid grid-cols-2 gap-4 mt-4">
-                            <div class="col-span-1">
-                                <WhiteButton size="lg" block>
-                                    Anrufen
-                                </WhiteButton>
-                            </div>
-                            <div class="col-span-1">
-                                <WhiteButton size="lg" block>
-                                    Webseite
-                                </WhiteButton>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="p-4 border-b border-gray-200">
-
-
-                        <div class="text-sm text-gray-700">
-                            <h2 class="text-base font-medium text-gray-900">Öffnungszeiten</h2>
-                            <div class="grid grid-cols-3 gap-4 mt-2">
-                                <div class="col-span-1">
-                                    Montag
-                                </div>
-                                <div class="col-span-2">
-                                    12:00 - 16:00
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-4">
-                                <div class="col-span-1">
-                                    Dienstag
-                                </div>
-                                <div class="col-span-2">
-                                    12:00 - 16:00
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-4">
-                                <div class="col-span-1">
-                                    Mittwoch
-                                </div>
-                                <div class="col-span-2">
-                                    12:00 - 16:00
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-4">
-                                <div class="col-span-1">
-                                    Donnerstag
-                                </div>
-                                <div class="col-span-2">
-                                    12:00 - 16:00
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-4">
-                                <div class="col-span-1">
-                                    Freitag
-                                </div>
-                                <div class="col-span-2">
-                                    12:00 - 16:00
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-4">
-                                <div class="col-span-1">
-                                    Samstag
-                                </div>
-                                <div class="col-span-2">
-                                    12:00 - 16:00
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-4">
-                                <div class="col-span-1">
-                                    Sonntag
-                                </div>
-                                <div class="col-span-2">
-                                    12:00 - 16:00
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-4">
-                                <div class="col-span-1">
-                                    Sonstiges
-                                </div>
-                                <div class="col-span-2">
-                                    12:00 - 16:00
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="p-4">
-
-                        <div>
-                            <span>
-                                Neustraße 33b
-                            </span>
-
-                        </div>
-
-
-
-                    </div>
+                    <EntryDetail :entry="selectedEntry"></EntryDetail>
 
                 </div>
 
@@ -159,8 +40,9 @@
                     </div>
                     <div class="overflow-y-scroll">
                         <ul>
-                            <li v-for="entry in entries" :key="entry.id" class="border-b border-gray-200">
-                                <a href="#" class="block transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:bg-gray-50">
+                            <li v-for="entry in entries" :key="entry.id" class="border-b border-gray-200" >
+                                <inertia-link :href="route('entries.index', entry.id)" class="block transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+                                              @click.prevent.stop="showDetails(entry)">
                                     <div class="px-4 py-4 sm:px-6">
                                         <div class="flex items-center justify-between">
                                             <div class="text-base font-medium leading-5 text-gray-900 truncate">
@@ -186,7 +68,7 @@
                                         </span>
                                         </div>
                                     </div>
-                                </a>
+                                </inertia-link>
                             </li>
                         </ul>
                     </div>
@@ -209,11 +91,20 @@
     import { latLng } from "leaflet";
     import PrimaryButton from "../../Shared/UI/PrimaryButton";
     import WhiteButton from "../../Shared/UI/WhiteButton";
+    import EntryDetail from "../../Shared/Entry/EntryDetail";
 
     export default {
         name: "Index",
         layout: LayoutGeneralFluid,
+        props: {
+            entries: Array,
+            selectedEntry: {
+                type: Object,
+                required: false
+            }
+        },
         components: {
+            EntryDetail,
             WhiteButton,
             PrimaryButton,
             LMap,
@@ -222,8 +113,8 @@
         },
         data () {
             return {
-                url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                zoom: 18,
+                url: 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + process.env.MIX_MAP_BOX_KEY,
+                zoom: 16,
                 center: [51.4514, 6.6255],
             };
         },
@@ -239,10 +130,19 @@
             },
             latLngForEntry(entry) {
                 return latLng(entry.lat, entry.lng)
+            },
+            showDetails(entry) {
+                this.$inertia.replace(this.route('entries.index', entry.id), {
+                    method: 'get',
+                    data: {},
+                    preserveState: true,
+                    preserveScroll: true,
+                    only: ['selectedEntry'],
+                })
             }
         },
-        props: {
-            entries: Array
+        mounted() {
+            console.log(process.env.MIX_MAP_BOX_KEY)
         }
     }
 </script>
