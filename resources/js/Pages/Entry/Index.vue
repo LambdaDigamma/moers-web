@@ -1,31 +1,22 @@
-
 <template>
 
     <div class="h-full">
-        <l-map
-                :zoom="zoom"
-                :center="center"
-                @update:zoom="zoomUpdated"
-                @update:center="centerUpdated"
-                @update:bounds="boundsUpdated">
-            <l-tile-layer style="height: 100%;" :url="url"></l-tile-layer>
-            <l-marker v-for="entry in entries" :key="entry.id" :lat-lng="latLngForEntry(entry)">
 
-            </l-marker>
-        </l-map>
+        <Map class="w-full h-full"
+             :entries="entries"/>
 
         <div class="absolute inset-y-0 right-0 w-1/4 h-full p-8 w-80" style="z-index: 500;">
 
             <div class="flex flex-col h-full overflow-hidden bg-white rounded-lg shadow-md">
 
-                <div v-if="selectedEntry">
+                <div v-if="selectedEntry" class="overflow-y-auto" scroll-region>
 
-                    <EntryDetail :entry="selectedEntry"></EntryDetail>
+                    <EntryDetail :entry="selectedEntry" @close="closeDetail"></EntryDetail>
 
                 </div>
 
 
-                <div v-else>
+                <div class="flex flex-col h-full" v-else>
                     <div class="flex-shrink-0 px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
                         <div class="flex flex-wrap items-center justify-start -mt-4 -ml-4 sm:flex-no-wrap">
                             <div class="mt-4 ml-4">
@@ -38,10 +29,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="overflow-y-scroll">
+                    <div class="overflow-y-scroll" scroll-region>
                         <ul>
-                            <li v-for="entry in entries" :key="entry.id" class="border-b border-gray-200" >
-                                <inertia-link :href="route('entries.index', entry.id)" class="block transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+                            <li v-for="entry in entries" :key="entry.id" class="border-b border-gray-200">
+                                <inertia-link :href="route('entries.index', entry.id)"
+                                              class="block transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
                                               @click.prevent.stop="showDetails(entry)">
                                     <div class="px-4 py-4 sm:px-6">
                                         <div class="flex items-center justify-between">
@@ -49,10 +41,12 @@
                                                 {{ entry.name }}
                                             </div>
                                             <div class="flex flex-shrink-0 ml-2">
-                                            <span v-if="false" class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
+                                            <span v-if="false"
+                                                  class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
                                                 Geöffnet
                                             </span>
-                                                <span v-else class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
+                                                <span v-else
+                                                      class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
                                                 Geschlossen
                                             </span>
                                             </div>
@@ -84,14 +78,11 @@
 </template>
 
 <script>
-    import L from 'leaflet';
-    import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
-    import LayoutGeneral from "../../Shared/Layouts/LayoutGeneral";
     import LayoutGeneralFluid from "../../Shared/Layouts/LayoutGeneralFluid";
-    import { latLng } from "leaflet";
     import PrimaryButton from "../../Shared/UI/PrimaryButton";
     import WhiteButton from "../../Shared/UI/WhiteButton";
     import EntryDetail from "../../Shared/Entry/EntryDetail";
+    import Map from "../../Shared/Map/Map";
 
     export default {
         name: "Index",
@@ -104,33 +95,12 @@
             }
         },
         components: {
+            Map,
             EntryDetail,
             WhiteButton,
             PrimaryButton,
-            LMap,
-            LTileLayer,
-            LMarker,
-        },
-        data () {
-            return {
-                url: 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + process.env.MIX_MAP_BOX_KEY,
-                zoom: 16,
-                center: [51.4514, 6.6255],
-            };
         },
         methods: {
-            zoomUpdated (zoom) {
-                this.zoom = zoom;
-            },
-            centerUpdated (center) {
-                this.center = center;
-            },
-            boundsUpdated (bounds) {
-                this.bounds = bounds;
-            },
-            latLngForEntry(entry) {
-                return latLng(entry.lat, entry.lng)
-            },
             showDetails(entry) {
                 this.$inertia.replace(this.route('entries.index', entry.id), {
                     method: 'get',
@@ -139,10 +109,16 @@
                     preserveScroll: true,
                     only: ['selectedEntry'],
                 })
+            },
+            closeDetail() {
+                this.$inertia.replace(this.route('entries.index'), {
+                    method: 'get',
+                    data: {},
+                    preserveState: true,
+                    preserveScroll: true,
+                    only: ['selectedEntry'],
+                })
             }
-        },
-        mounted() {
-            console.log(process.env.MIX_MAP_BOX_KEY)
         }
     }
 </script>

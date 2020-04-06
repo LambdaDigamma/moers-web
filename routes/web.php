@@ -30,6 +30,8 @@ Route::post('/login/google/callback', 'Auth\GoogleController@callback');
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('/register', 'Auth\RegisterController@register')->name('register.attempt');
 
+Route::get('/maps/auth')->uses('MapAuthController@token');
+
 Route::group([
     'namespace' => 'Web',
 ], function () {

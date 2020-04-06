@@ -2,7 +2,8 @@
 
     <div>
         <div class="relative pb-2/3">
-            <button class="absolute top-0 left-0 z-50 p-2 mt-4 ml-4 rounded-full overflow-hidden bg-gray-300">
+            <button class="absolute top-0 left-0 z-50 p-2 mt-4 ml-4 rounded-full overflow-hidden bg-gray-300"
+                    @click="$emit('close')">
                 <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6 text-white">
                     <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
                 </svg>
@@ -109,18 +110,17 @@
             </div>
         </div>
 
-
-
-
         <div class="p-4 border-b border-gray-200">
 
             <h2 class="text-base font-medium text-gray-900">Adresse</h2>
 
             <div class="text-gray-700">
-                <span>
-                    Neustraße 33b
-                </span>
-
+                <p>
+                    {{ entry.street }} {{ entry.house_number }}
+                </p>
+                <p>
+                   {{ entry.postcode }} {{ entry.place }}
+                </p>
             </div>
 
         </div>
@@ -129,26 +129,9 @@
 
             <h2 class="text-base font-medium text-gray-900">Schlagworte</h2>
             <div class="mb-2 flex flex-wrap">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-gray-200 text-gray-800 mr-2 mt-2">
-                    Café
-                </span>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-gray-200 text-gray-800 mr-2 mt-2">
-                    Draußen
-                </span>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-gray-200 text-gray-800 mr-2 mt-2">
-                    barrierefrei
-                </span>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-gray-200 text-gray-800 mr-2 mt-2">
-                    Kinderecke
-                </span>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-gray-200 text-gray-800 mr-2 mt-2">
-                    WLAN
-                </span>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-gray-200 text-gray-800 mr-2 mt-2">
-                    Wickeltisch
-                </span>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-gray-200 text-gray-800 mr-2 mt-2">
-                    Sky
+                <span v-for="tag in entry.tags"
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-gray-200 text-gray-800 mr-2 mt-2">
+                    {{ tag }}
                 </span>
             </div>
         </div>
