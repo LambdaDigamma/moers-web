@@ -67,6 +67,17 @@
                 this.map.cameraBoundary = moers.region;
                 this.map.region = moers.region;
             },
+            setupClusterAnnotations() {
+                this.map.annotationForCluster = function(clusterAnnotation) {
+                    if (clusterAnnotation.clusteringIdentifier === "entry") {
+                        console.log("Testing")
+                        clusterAnnotation.title = clusterAnnotation.memberAnnotations.length + " Einträge";
+                        clusterAnnotation.subtitle = ""
+                        clusterAnnotation.color = '#000000'
+                    }
+                    return clusterAnnotation
+                };
+            },
             addEntryMarker() {
                 let annotations = this.entries.map(entry => this.generateAnnotation(entry.lat, entry.lng, '#000000', entry.name, 'M'));
                 console.log(annotations.length)
@@ -78,18 +89,19 @@
                 let annotation = new mapkit.MarkerAnnotation(coordinate, {
                     color: color,
                     title: title,
-                    glyphText: glyphText
+                    glyphText: glyphText,
+                    clusteringIdentifier: "entry"
                 });
 
                 return annotation;
 
-            }
-
+            },
         },
         mounted() {
             this.initializeMap()
             this.setupMap()
             this.setRegion()
+            this.setupClusterAnnotations()
             this.addEntryMarker()
         },
     }

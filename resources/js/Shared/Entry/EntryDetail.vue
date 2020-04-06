@@ -25,12 +25,12 @@
 
             <div class="grid grid-cols-2 gap-4 mt-4">
                 <div class="col-span-1">
-                    <WhiteButton size="lg" block :disabled="!entry.phone">
+                    <WhiteButton size="lg" block :disabled="!entry.phone" @click="copyPhone">
                         Anrufen
                     </WhiteButton>
                 </div>
                 <div class="col-span-1">
-                    <WhiteButton size="lg" block :disabled="!entry.url">
+                    <WhiteButton size="lg" block :disabled="!entry.url" :href="entry.url ? entry.url : null" target="_blank">
                         Webseite
                     </WhiteButton>
                 </div>
@@ -127,6 +127,21 @@
 
         <div class="p-4 border-b border-gray-200">
 
+            <h2 class="text-base font-medium text-gray-900">Kontakt</h2>
+
+            <div class="text-gray-700">
+                <p v-if="entry.phone">
+                    Telefon: {{ entry.phone }}
+                </p>
+                <p v-if="entry.url">
+                    Webseite: <a target="_blank" class="hover:text-gray-700 hover:underline" :href="entry.url">{{ entry.url }}</a>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="p-4 border-b border-gray-200">
+
             <h2 class="text-base font-medium text-gray-900">Schlagworte</h2>
             <div class="mb-2 flex flex-wrap">
                 <span v-for="tag in entry.tags"
@@ -147,6 +162,17 @@
         components: {WhiteButton, PrimaryButton},
         props: {
             entry: Object
+        },
+        methods: {
+            copyPhone() {
+                if (this.entry.phone) {
+                    navigator.clipboard.writeText(this.entry.phone).then(function() {
+                        console.log('Async: Copying to clipboard was successful!');
+                    }, function(err) {
+                        console.error('Async: Could not copy text: ', err);
+                    });
+                }
+            }
         }
     }
 </script>

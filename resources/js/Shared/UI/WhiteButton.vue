@@ -16,6 +16,7 @@
                 'opacity-50' : disabled,
                 'w-full justify-center': block
                 }"
+                :target="target"
                 @click="clickedButton($event)">
             <slot></slot>
         </component>
@@ -52,6 +53,11 @@
             block: {
                 type: Boolean,
                 default: false
+            },
+            target: {
+                type: String,
+                required: false,
+                default: () => ''
             }
         },
         computed: {
