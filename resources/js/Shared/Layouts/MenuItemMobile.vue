@@ -31,7 +31,6 @@
         },
         methods: {
             clickedLink() {
-                console.log("Test")
                 this.$emit('nav')
             }
         }
