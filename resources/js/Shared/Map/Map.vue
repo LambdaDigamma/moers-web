@@ -79,18 +79,28 @@
                 };
             },
             addEntryMarker() {
-                let annotations = this.entries.map(entry => this.generateAnnotation(entry.lat, entry.lng, '#000000', entry.name, 'M'));
+                let annotations = this.entries.map(entry => this.generateAnnotation(entry.id, entry.lat, entry.lng, '#000000', entry.name, 'M'));
                 console.log(annotations.length)
                 this.map.showItems(annotations)
             },
-            generateAnnotation(latitude, longitude, color, title, glyphText) {
+            setupListeners() {
+                var vm = this
+                this.map.addEventListener("select", function(event) {
+                    vm.$emit('selected', event)
+                });
+                this.map.addEventListener("deselect", function(event) {
+                    vm.$emit('deselected', event)
+                });
+            },
+            generateAnnotation(id, latitude, longitude, color, title, glyphText) {
 
                 let coordinate = new mapkit.Coordinate(latitude, longitude);
                 let annotation = new mapkit.MarkerAnnotation(coordinate, {
                     color: color,
                     title: title,
                     glyphText: glyphText,
-                    clusteringIdentifier: "entry"
+                    clusteringIdentifier: "entry",
+                    data: { id: id }
                 });
 
                 return annotation;
@@ -102,6 +112,7 @@
             this.setupMap()
             this.setRegion()
             this.setupClusterAnnotations()
+            this.setupListeners()
             this.addEntryMarker()
         },
     }

@@ -3,7 +3,8 @@
     <div class="h-full">
 
         <Map class="w-full h-full"
-             :entries="entries"/>
+             :entries="entries"
+             @selected="showDetails($event.annotation.data.id)" />
 
         <div class="absolute inset-y-0 right-0 w-1/4 h-full p-8 w-80" style="z-index: 500;">
 
@@ -33,7 +34,7 @@
                             <li v-for="entry in entries" :key="entry.id" class="border-b border-gray-200">
                                 <inertia-link :href="route('entries.index', entry.id)"
                                               class="block transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
-                                              @click.prevent.stop="showDetails(entry)">
+                                              @click.prevent.stop="showDetails(entry.id)">
                                     <div class="px-4 py-4 sm:px-6">
                                         <div class="flex items-center justify-between">
                                             <div class="text-base font-medium leading-5 text-gray-900 truncate">
@@ -100,8 +101,8 @@
             PrimaryButton,
         },
         methods: {
-            showDetails(entry) {
-                this.$inertia.replace(this.route('entries.index', entry.id), {
+            showDetails(id) {
+                this.$inertia.replace(this.route('entries.index', id), {
                     method: 'get',
                     data: {},
                     preserveState: true,
