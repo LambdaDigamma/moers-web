@@ -37,8 +37,8 @@ class StoreStudentInformation extends FormRequest
             'soundtrack' => 'required|string|min:3|max:100',
             'miss_least' => 'required|string|min:3|max:100',
             'miss_most' => 'required|string|min:3|max:100',
-            'photo_old' => 'required|image',
-            'photo_new' => 'required|image',
+            'photo_old' => 'nullable|image',
+            'photo_new' => 'nullable|image',
         ];
     }
 }

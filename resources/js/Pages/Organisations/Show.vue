@@ -4,27 +4,27 @@
 
         <div class="mt-6">
 
-            <div class="shadow rounded-lg overflow-hidden">
-                <div class="h-64 w-full relative overflow-hidden rounded-t-lg " v-if="organisation.header_path">
-                    <img class="absolute object-center object-cover w-full h-full"
+            <div class="overflow-hidden rounded-lg shadow">
+                <div class="relative w-full h-64 overflow-hidden rounded-t-lg" v-if="organisation.header_path">
+                    <img class="absolute object-cover object-center w-full h-full"
                          :src="organisation.header_path" />
                 </div>
-                <div class="bg-white px-4 py-5 sm:px-6 overflow-hidden">
-                    <div class="-ml-4 -mt-2 flex justify-between flex-wrap sm:flex-no-wrap">
-                        <div class="ml-4 mt-2 flex-shrink-0 w-32 flex flex-col items-center justify-center">
-                            <img class="w-32 h-auto object-center object-scale-down"
+                <div class="px-4 py-5 overflow-hidden bg-white sm:px-6">
+                    <div class="flex flex-wrap justify-between -mt-2 -ml-4 sm:flex-no-wrap">
+                        <div class="flex flex-col items-center justify-center flex-shrink-0 w-32 mt-2 ml-4">
+                            <img class="object-scale-down object-center w-32 h-auto"
                                  :src="organisation.logo_path"
                                  alt="" />
                         </div>
-                        <div class="ml-4 mt-2">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        <div class="mt-2 ml-4">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">
                                 {{ organisation.name }}
                             </h3>
                             <p class="text-sm leading-5 text-gray-500">
                                 {{ organisation.description }}
                             </p>
                         </div>
-                        <div class="ml-4 mt-2 flex-shrink-0 w-32 flex flex-col justify-center">
+                        <div class="flex flex-col justify-center flex-shrink-0 w-32 mt-2 ml-4">
                             <WhiteButton>Folgen</WhiteButton>
                             <WhiteButton class="mt-2">Beitreten</WhiteButton>
                         </div>
@@ -34,14 +34,14 @@
 
             <div v-if="todayEvents.length !== 0">
                 <div class="mt-8">
-                    <h3 class="text-gray-900 text-xl md:text-3xl font-bold">Laufende Veranstaltungen</h3>
+                    <h3 class="text-xl font-bold text-gray-900 md:text-3xl">Laufende Veranstaltungen</h3>
                     <p class="text-gray-600">Sieh dir alle geplanten Veranstaltungen an.</p>
                 </div>
 
                 <div class="mt-6 overflow-x-auto overflow-y-hidden sm:overflow-x-hidden">
                     <div class="inline-flex pt-2 pb-8 sm:pt-0 sm:pb-6 sm:grid md:grid-cols-3 sm:gap-6 sm:grid-cols-2">
 
-                        <div v-for="(event, i) in todayEvents" :class="{'ml-4 sm:ml-0': i > 0 }" class="mt-0 w-64 flex-shrink-0 sm:col-span-1 sm:w-full">
+                        <div v-for="(event, i) in todayEvents" :class="{'ml-4 sm:ml-0': i > 0 }" class="flex-shrink-0 w-64 mt-0 sm:col-span-1 sm:w-full">
                             <EventCard :event="event" :href="route('events.show', event.id)" />
                         </div>
                     </div>
@@ -51,14 +51,14 @@
 
             <div v-if="todayUpcoming.length !== 0">
                 <div class="mt-8">
-                    <h3 class="text-gray-900 text-xl md:text-3xl font-bold">Weitere heutige Veranstaltungen</h3>
+                    <h3 class="text-xl font-bold text-gray-900 md:text-3xl">Weitere heutige Veranstaltungen</h3>
                     <p class="text-gray-600">Sieh dir alle weiteren heutigen Veranstaltungen an.</p>
                 </div>
 
                 <div class="mt-6 overflow-x-auto overflow-y-hidden sm:overflow-x-hidden">
                     <div class="inline-flex pt-2 pb-8 sm:pt-0 sm:pb-6 sm:grid md:grid-cols-3 sm:gap-6 sm:grid-cols-2">
 
-                        <div v-for="(event, i) in todayUpcoming" :class="{'ml-4 sm:ml-0': i > 0 }" class="mt-0 w-64 flex-shrink-0 sm:col-span-1 sm:w-full">
+                        <div v-for="(event, i) in todayUpcoming" :class="{'ml-4 sm:ml-0': i > 0 }" class="flex-shrink-0 w-64 mt-0 sm:col-span-1 sm:w-full">
                             <EventCard :event="event" :href="route('events.show', event.id)" />
                         </div>
                     </div>
@@ -68,32 +68,32 @@
 
             <div v-if="nextUpcoming.length !== 0">
                 <div class="mt-8">
-                    <h3 class="text-gray-900 text-xl md:text-3xl font-bold">In den nächsten Tagen</h3>
+                    <h3 class="text-xl font-bold text-gray-900 md:text-3xl">In den nächsten Tagen</h3>
                     <p class="text-gray-600">Sieh dir alle nächsten Veranstaltungen an.</p>
                 </div>
 
                 <div class="mt-6 overflow-x-auto overflow-y-hidden sm:overflow-x-hidden">
                     <div class="inline-flex pt-2 pb-8 sm:pt-0 sm:pb-6 sm:grid md:grid-cols-3 sm:gap-6 sm:grid-cols-2">
 
-                        <div v-for="(event, i) in nextUpcoming" :class="{'ml-4 sm:ml-0': i > 0 }" class="mt-0 w-64 flex-shrink-0 sm:col-span-1 sm:w-full">
+                        <div v-for="(event, i) in nextUpcoming" :class="{'ml-4 sm:ml-0': i > 0 }" class="flex-shrink-0 w-64 mt-0 sm:col-span-1 sm:w-full">
                             <EventCard :event="event" :href="route('events.show', event.id)" />
                         </div>
                     </div>
                 </div>
             </div>
 
-<!--            <div class="mt-4 bg-white overflow-hidden shadow rounded-lg">-->
-<!--                <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">-->
-<!--                    <div class="-ml-4 -mt-4 flex items-center justify-between flex-wrap sm:flex-no-wrap">-->
-<!--                        <div class="ml-4 mt-4">-->
-<!--                            <h3 class="text-lg leading-6 font-medium text-gray-900">-->
+<!--            <div class="mt-4 overflow-hidden bg-white rounded-lg shadow">-->
+<!--                <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">-->
+<!--                    <div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-no-wrap">-->
+<!--                        <div class="mt-4 ml-4">-->
+<!--                            <h3 class="text-lg font-medium leading-6 text-gray-900">-->
 <!--                                Veranstaltungen-->
 <!--                            </h3>-->
 <!--                            <p class="mt-1 text-sm leading-5 text-gray-500">-->
 <!--                                Sieh dir alle geplanten Veranstaltungen der Organisation an.-->
 <!--                            </p>-->
 <!--                        </div>-->
-<!--                        <div class="ml-4 mt-4 flex-shrink-0">-->
+<!--                        <div class="flex-shrink-0 mt-4 ml-4">-->
 <!--                            <PrimaryButton>-->
 <!--                                Erstellen-->
 <!--                            </PrimaryButton>-->

@@ -1,23 +1,23 @@
 <template>
 
-    <div class="py-3 flex flex-row dark:text-white w-full" :class="{ 'border-t dark:border-gray-600' : border }">
-        <div class="pt-4 flex flex-col flex-shrink-0 items-center w-40 bg-gray-100 rounded-lg">
+    <div class="flex flex-row w-full py-3 dark:text-white" :class="{ 'border-t dark:border-gray-600' : border }">
+        <div class="flex flex-col items-center flex-shrink-0 w-40 pt-4 bg-gray-100 rounded-lg">
             <slot name="pre" />
-            <div class="mt-3 flex flex-row flex-wrap justify-start">
-                <button class="px-3 py-2 font-semibold text-sm rounded-lg bg-blue-500 text-white dark:bg-blue-600 dark-hover:bg-blue-700 dark:text-white"
+            <div class="flex flex-row flex-wrap justify-start mt-3">
+                <button class="px-3 py-2 text-sm font-semibold text-white bg-blue-500 rounded-lg dark:bg-blue-600 dark-hover:bg-blue-700 dark:text-white"
                         id="duplicate"
                         @click="duplicateBlock">
-                    <Icon name="duplicate" class="fill-current h-3 w-3" />
+                    <Icon name="duplicate" class="w-3 h-3 fill-current" />
                 </button>
-                <button class="ml-2 px-3 py-2 font-semibold text-sm rounded-lg bg-red-500 text-white dark:bg-red-600 dark-hover:bg-red-700 dark:text-white"
+                <button class="px-3 py-2 ml-2 text-sm font-semibold text-white bg-red-500 rounded-lg dark:bg-red-600 dark-hover:bg-red-700 dark:text-white"
                         aria-label="delete"
                         id="delete"
                         @click.prevent="deleteBlock">
-                    <Icon name="trash" class="fill-current h-3 w-3" />
+                    <Icon name="trash" class="w-3 h-3 fill-current" />
                 </button>
             </div>
         </div>
-        <div class="pl-3 flex-grow-1 w-full">
+        <div class="w-full pl-3 flex-grow-1">
             <slot />
         </div>
     </div>

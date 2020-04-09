@@ -28,6 +28,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.0",
+        "lcobucci/jwt": "^3.3",
         "orchestra/parser": "~5.0",
         "owen-it/laravel-auditing": "dev-laravel-7",
         "pusher/pusher-php-server": "~4.0",
@@ -42,6 +43,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
+        "beyondcode/tinkerwell-helper": "^1.1",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",

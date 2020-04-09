@@ -30,6 +30,8 @@ Route::post('/login/google/callback', 'Auth\GoogleController@callback');
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('/register', 'Auth\RegisterController@register')->name('register.attempt');
 
+Route::get('/maps/auth')->uses('MapAuthController@token');
+
 Route::group([
     'namespace' => 'Web',
 ], function () {
@@ -67,8 +69,9 @@ Route::group([
     Route::get('/events')->name('events.index')->uses('EventController@index');
     Route::get('/events/{event}')->name('events.show')->uses('EventController@show');
 
-//    Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
-//    Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
+    Route::get('/entries/{selectedEntry?}')->name('entries.index')->uses('EntryController@index');
+    Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
+    Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
 //
 //    Route::get('/polls')->name('polls.index')->uses('PollController@index')->middleware('auth');
 //    Route::get('/polls/answered')->name('polls.index.answered')->uses('PollController@indexAnswered')->middleware('auth');

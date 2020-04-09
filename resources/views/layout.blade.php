@@ -28,6 +28,7 @@
     <script src="{{ mix('/js/manifest.js') }}" defer></script>
     <script src="{{ mix('/js/vendor.js') }}" defer></script>
     <script src="{{ mix('/js/app.js') }}" defer></script>
+    <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
 
 </head>
 <body class="font-sans antialiased text-gray-900 dark:bg-gray-800">

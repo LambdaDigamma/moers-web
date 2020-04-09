@@ -16,7 +16,7 @@ class FormController extends Controller
     public function student()
     {
         return Inertia::render('Forms/Student', [
-
+            'existingInformation' => StudentInformation::where('user_id', '=', auth()->id())->first()
         ]);
     }
 
@@ -26,16 +26,19 @@ class FormController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = Auth::user()->id;
 
-//        dd($validated);
-
         $information = StudentInformation::updateOrCreate(['user_id' => Auth::user()->id], $validated);
 
-        $information->photo_old_path = Request::file('photo_old') ? Request::file('photo_old')->store('photos_old') : null;
-        $information->photo_new_path = Request::file('photo_new') ? Request::file('photo_new')->store('photos_new') : null;
+        if (Request::hasFile('photo_old')) {
+            $information->photo_old_path = Request::file('photo_old') ? Request::file('photo_old')->store('photos_old') : null;
+        }
+        if (Request::hasFile('photo_new')) {
+            $information->photo_new_path = Request::file('photo_new') ? Request::file('photo_new')->store('photos_new') : null;
+        }
+
         $information->save();
 
-        return Redirect::route('dashboard')
-            ->with('success', 'Erfolgreich abgesendet.');
+        return Redirect::route('forms.student')
+            ->with('success', 'Erfolgreich gespeichert.');
 
     }
 

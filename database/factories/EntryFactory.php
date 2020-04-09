@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Factory;
 $factory->define(Entry::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
-        'lat' => $faker->latitude(6.5851, 6.5851),
-        'lng' => $faker->longitude(51.4283, 51.4916),
+        'lat' => $faker->latitude(51.4514, 51.4916),
+        'lng' => $faker->longitude(6.5851, 6.6255),
         'tags' => "Backery, Bread", //implode(", ", $faker->words(3)),
         'street' => $faker->streetName,
         'house_number' => $faker->buildingNumber,

@@ -1,8 +1,8 @@
 <template>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-        <inertia-link :href="route('landingPage')" class="block py-6 font-bold text-4xl text-center mx-auto">Mein Moers</inertia-link>
+        <inertia-link :href="route('landingPage')" class="block py-6 mx-auto text-4xl font-bold text-center">Mein Moers</inertia-link>
 
         <header class="mt-6">
             <h2 class="text-3xl font-bold leading-tight text-gray-900">
@@ -44,7 +44,7 @@
                 Irgendwann möchte ich vielleicht die App aktualisieren. Die App ist derzeit auf iOS und im Web verfügbar - die Anforderungen für beide Systeme (und für alle weiteren Systeme, auf die ich die Verfügbarkeit der App erweitern möchte) können sich ändern, und Sie müssen die Updates herunterladen, wenn Sie die App weiterhin verwenden möchten. Lennart Fischer verspricht nicht, die App immer so zu aktualisieren, dass sie für Sie relevant ist und/oder mit der iOS-Version, die Sie auf Ihrem Gerät installiert haben, funktioniert. Ich kann auch die Bereitstellung der Anwendung einstellen und die Nutzung der Anwendung jederzeit ohne Kündigung beenden. Sofern ich Ihnen nichts anderes mitteile, enden (a) die Ihnen in diesen Bedingungen gewährten Rechte und Lizenzen; (b) Sie müssen die Nutzung der App einstellen und (falls erforderlich) sie von Ihrem Gerät löschen.
             </p>
 
-            <h2 class="my-4 font-semibold text-2xl">Änderungen dieser Geschäftsbedingungen</h2>
+            <h2 class="my-4 text-2xl font-semibold">Änderungen dieser Geschäftsbedingungen</h2>
 
             Ich kann die Allgemeinen Geschäftsbedingungen von Zeit zu Zeit aktualisieren. Ich empfehlen Ihnen daher, diese Seite regelmäßig auf Änderungen zu überprüfen. Ich werde Sie über alle Änderungen informieren, indem ich die neuen Allgemeinen Geschäftsbedingungen auf dieser Seite veröffentliche. Diese Änderungen werden sofort nach ihrer Veröffentlichung auf dieser Seite wirksam.
 

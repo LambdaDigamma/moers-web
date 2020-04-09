@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <div class="mt-8 bg-white shadow rounded-lg">
+        <div class="mt-8 bg-white rounded-lg shadow">
             <form @submit.prevent="submit">
                 <div class="px-4 py-5 sm:p-6 md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
@@ -31,7 +31,7 @@
 
                     </div>
                 </div>
-                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-lg">
+                <div class="px-4 py-3 text-right rounded-b-lg bg-gray-50 sm:px-6">
                     <PrimaryButton type="submit">
                         Speichern
                     </PrimaryButton>
@@ -39,7 +39,7 @@
             </form>
         </div>
 
-        <div class="mt-6 bg-white shadow rounded-lg">
+        <div class="mt-6 bg-white rounded-lg shadow">
             <form @submit.prevent="submit">
                 <div class="px-4 py-5 sm:p-6 md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
@@ -132,7 +132,7 @@
 
                     </div>
                 </div>
-                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-lg">
+                <div class="px-4 py-3 text-right rounded-b-lg bg-gray-50 sm:px-6">
                     <PrimaryButton type="submit" :disabled="isTranslation">
                         Speichern
                     </PrimaryButton>
@@ -140,7 +140,7 @@
             </form>
         </div>
 
-        <div class="mt-6 bg-white shadow rounded-lg overflow-hidden opacity-50">
+        <div class="mt-6 overflow-hidden bg-white rounded-lg shadow opacity-50">
             <div class="px-4 py-5 sm:p-6 md:grid md:grid-cols-3 md:gap-6">
                 <div class="md:col-span-1">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Veranstaltungsort</h3>
@@ -180,7 +180,7 @@
 
                         <!-- Form: Temporary Location -->
                         <!--                        <transition>-->
-                        <div class="mt-4 grid grid-cols-6 gap-6" v-if="form.useTempLocation">
+                        <div class="grid grid-cols-6 gap-6 mt-4" v-if="form.useTempLocation">
 
                             <TextInput class="col-span-5"
                                        id="street_address"
@@ -209,7 +209,7 @@
                     </form>
                 </div>
             </div>
-            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                 <PrimaryButton>
                     Speichern
                 </PrimaryButton>
@@ -224,7 +224,7 @@
 
         </PageEditor>
 
-        <div class="mt-6 bg-white shadow rounded-lg">
+        <div class="mt-6 bg-white rounded-lg shadow">
             <form @submit.prevent="submit">
                 <div class="px-4 py-5 sm:p-6 md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
@@ -242,7 +242,7 @@
 
                             </Checkbox>
 
-                            <div class="mt-4 grid grid-cols-6 gap-6" v-if="!form.publishNow">
+                            <div class="grid grid-cols-6 gap-6 mt-4" v-if="!form.publishNow">
 
                                 <DatePicker
                                         class="col-span-6 sm:col-span-3"
@@ -271,7 +271,7 @@
 
                     </div>
                 </div>
-                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-lg">
+                <div class="px-4 py-3 text-right rounded-b-lg bg-gray-50 sm:px-6">
                     <PrimaryButton type="submit" :disabled="isTranslation">
                         Speichern
                     </PrimaryButton>

@@ -3,7 +3,7 @@
     <div>
 
         <div v-if="label" class="flex flex-col">
-            <label :for="id" class="block text-sm font-semibold mb-2 dark:text-white">{{ label + ':' }}</label>
+            <label :for="id" class="block mb-2 text-sm font-semibold dark:text-white">{{ label + ':' }}</label>
             <input :id="id"
                    :value="value"
                    :placeholder="placeholder"
@@ -13,7 +13,7 @@
                    @update="$emit('input', $event)"
                    @input="$emit('input', $event.target.value)"
                    ref="input"
-                   class="shadow appearance-none border dark:border-gray-700 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark-focus:border-gray-500 dark-focus:shadow-none dark:bg-gray-600 dark:text-white" />
+                   class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-700 focus:outline-none focus:shadow-outline dark-focus:border-gray-500 dark-focus:shadow-none dark:bg-gray-600 dark:text-white" />
             <div v-if="errors.length" class="form-error">{{ errors[0] }}</div>
             <slot/>
         </div>
@@ -27,7 +27,7 @@
                    v-bind="$attrs"
                    @update="$emit('input', $event)"
                    @input="$emit('input', $event.target.value)"
-                   class="shadow appearance-none border dark:border-gray-700 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark-focus:border-gray-500 dark-focus:shadow-none dark:bg-gray-600 dark:text-white"
+                   class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-700 focus:outline-none focus:shadow-outline dark-focus:border-gray-500 dark-focus:shadow-none dark:bg-gray-600 dark:text-white"
                    ref="input"/>
             <div v-if="errors.length" class="form-error">{{ errors[0] }}</div>
             <slot/>

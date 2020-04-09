@@ -2,8 +2,8 @@
 
     <EditorPreset>
         <template v-slot:pre>
-            <div class="rounded-full w-10 h-10 flex items-center justify-center bg-blue-500 text-gray-50 dark:bg-yellow-800">
-                <Icon name="paragraph" class="h-8 w-8 fill-current" />
+            <div class="flex items-center justify-center w-10 h-10 bg-blue-500 rounded-full text-gray-50 dark:bg-yellow-800">
+                <Icon name="paragraph" class="w-8 h-8 fill-current" />
             </div>
             <span class="mt-2 text-xs font-medium text-center">
                 Text
