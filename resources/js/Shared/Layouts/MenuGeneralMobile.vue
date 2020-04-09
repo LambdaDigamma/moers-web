@@ -45,9 +45,6 @@
             url: String,
         },
         methods: {
-            url() {
-                return location.pathname.substr(1)
-            },
             isUrl(...urls) {
                 if (urls[0] === '') {
                     return this.url === ''

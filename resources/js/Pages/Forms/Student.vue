@@ -1,127 +1,138 @@
 <template>
 
-    <div class="lg:w-1/2">
-        <div class="p-3 mb-6 rounded-lg shadow-lg dark:bg-gray-700">
-            <h1 class="text-xl font-bold md:text-3xl dark:text-white">Steckbrief Abizeitung</h1>
-            <form @submit.prevent="submit">
-                <TextInput
-                    v-model="form.name"
-                    label="Name"
-                    class="w-full"
-                    :errors="$page.errors.name">
-
-                </TextInput>
-                <TextInput
-                        v-model="form.nickname"
-                        label="a.k.a."
-                        class="w-full mt-2"
-                        :errors="$page.errors.nickname">
-
-                </TextInput>
-                <TextInput
-                    v-model="form.birthday"
-                    label="Geburtsdatum (dd.MM.yyyy)"
-                    class="w-full mt-2"
-                    :errors="$page.errors.birthday">
-
-                </TextInput>
-                <TextInput
-                    v-model="form.slogan"
-                    label="Meine Redewendung (100 Zeichen)"
-                    class="w-full mt-2"
-                    :errors="$page.errors.slogan">
-
-                </TextInput>
-                <TextInput
-                    v-model="form.motto"
-                    label="Lebensmotto (100 Zeichen)"
-                    class="w-full mt-2"
-                    :errors="$page.errors.motto">
-
-                </TextInput>
-                <TextInput
-                        v-model="form.strengths"
-                        label="Stärken (100 Zeichen)"
-                        class="w-full mt-2"
-                        :errors="$page.errors.strengths">
-
-                </TextInput>
-                <TextInput
-                        v-model="form.weaknesses"
-                        label="Schwächen (100 Zeichen)"
-                        class="w-full mt-2"
-                        :errors="$page.errors.weaknesses">
-
-                </TextInput>
-                <TextInput
-                    v-model="form.lkA"
-                    label="LK A (Fach + Nachname Lehrer)"
-                    class="w-full mt-2"
-                    :errors="$page.errors.lkA">
-
-                </TextInput>
-                <TextInput
-                    v-model="form.lkB"
-                    class="w-full mt-2"
-                    label="LK B (Fach + Nachname Lehrer)"
-                    :errors="$page.errors.lkB">
-
-                </TextInput>
-                <TextareaInput
-                    v-model="form.highlight"
-                    class="w-full mt-2"
-                    label="Mein Schulhighlight (400 Zeichen)"
-                    :errors="$page.errors.highlight">
-
-                </TextareaInput>
-                <TextInput
-                        v-model="form.soundtrack"
-                        class="w-full mt-2"
-                        label="Soundtrack des Lebens"
-                        :errors="$page.errors.soundtrack">
-
-                </TextInput>
-                <TextInput
-                        v-model="form.miss_least"
-                        class="w-full mt-2"
-                        label="Was werde ich am wenigsten vermissen"
-                        :errors="$page.errors.miss_least">
-
-                </TextInput>
-                <TextInput
-                        v-model="form.miss_most"
-                        class="w-full mt-2"
-                        label="Was werde ich am meisten vermissen"
-                        :errors="$page.errors.miss_most">
-
-                </TextInput>
-                <FileInput
-                        v-model="form.photo_old"
-                        label="Bild (Kindheit)"
-                        :errors="$page.errors.photo_old"
-                        class="w-full mt-2"
-                        type="file"
-                        accept="image/*">
-
-                </FileInput>
-                <FileInput
-                        v-model="form.photo_new"
-                        label="Bild (Jetzt)"
-                        :errors="$page.errors.photo_new"
-                        class="w-full mt-2"
-                        type="file"
-                        accept="image/*">
-
-                </FileInput>
-                <div class="flex items-center py-3 bg-gray-700 rounded-b-lg dark:border-gray-600">
-                    <LoadingButton
-                            class="px-3 py-2 text-base font-semibold rounded-lg dark:bg-green-600 dark:text-white"
-                            type="submit"
-                            :loading="sending">
-                        Abschicken
-                    </LoadingButton>
+    <div class="pb-48">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">Steckbrief Abizeitung</h3>
+                    <p class="mt-1 text-sm leading-5 text-gray-500">
+                        This information will be displayed publicly so be careful what you share.
+                    </p>
                 </div>
-            </form>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <form @submit.prevent="submit">
+                    <div class="shadow sm:rounded-md sm:overflow-hidden">
+                        <div class="px-4 py-5 bg-white sm:p-6">
+                            <TextInput
+                                    v-model="form.name"
+                                    label="Name"
+                                    class="w-full"
+                                    :errors="$page.errors.name">
+
+                            </TextInput>
+                            <TextInput
+                                    v-model="form.nickname"
+                                    label="a.k.a."
+                                    class="w-full mt-2"
+                                    :errors="$page.errors.nickname">
+
+                            </TextInput>
+                            <TextInput
+                                    v-model="form.birthday"
+                                    label="Geburtsdatum (dd.MM.yyyy)"
+                                    class="w-full mt-2"
+                                    :errors="$page.errors.birthday">
+
+                            </TextInput>
+                            <TextInput
+                                    v-model="form.slogan"
+                                    label="Meine Redewendung (100 Zeichen)"
+                                    class="w-full mt-2"
+                                    :errors="$page.errors.slogan">
+
+                            </TextInput>
+                            <TextInput
+                                    v-model="form.motto"
+                                    label="Lebensmotto (100 Zeichen)"
+                                    class="w-full mt-2"
+                                    :errors="$page.errors.motto">
+
+                            </TextInput>
+                            <TextInput
+                                    v-model="form.strengths"
+                                    label="Stärken (100 Zeichen)"
+                                    class="w-full mt-2"
+                                    :errors="$page.errors.strengths">
+
+                            </TextInput>
+                            <TextInput
+                                    v-model="form.weaknesses"
+                                    label="Schwächen (100 Zeichen)"
+                                    class="w-full mt-2"
+                                    :errors="$page.errors.weaknesses">
+
+                            </TextInput>
+                            <TextInput
+                                    v-model="form.lkA"
+                                    label="LK A (Fach + Nachname Lehrer)"
+                                    class="w-full mt-2"
+                                    :errors="$page.errors.lkA">
+
+                            </TextInput>
+                            <TextInput
+                                    v-model="form.lkB"
+                                    class="w-full mt-2"
+                                    label="LK B (Fach + Nachname Lehrer)"
+                                    :errors="$page.errors.lkB">
+
+                            </TextInput>
+                            <TextareaInput
+                                    v-model="form.highlight"
+                                    class="w-full mt-2"
+                                    label="Mein Schulhighlight (400 Zeichen)"
+                                    :errors="$page.errors.highlight">
+
+                            </TextareaInput>
+                            <TextInput
+                                    v-model="form.soundtrack"
+                                    class="w-full mt-2"
+                                    label="Soundtrack des Lebens"
+                                    :errors="$page.errors.soundtrack">
+
+                            </TextInput>
+                            <TextInput
+                                    v-model="form.miss_least"
+                                    class="w-full mt-2"
+                                    label="Was werde ich am wenigsten vermissen"
+                                    :errors="$page.errors.miss_least">
+
+                            </TextInput>
+                            <TextInput
+                                    v-model="form.miss_most"
+                                    class="w-full mt-2"
+                                    label="Was werde ich am meisten vermissen"
+                                    :errors="$page.errors.miss_most">
+
+                            </TextInput>
+                            <FileInput
+                                    v-model="form.photo_old"
+                                    label="Bild (Kindheit)"
+                                    :errors="$page.errors.photo_old"
+                                    class="w-full mt-2"
+                                    type="file"
+                                    accept="image/*">
+
+                            </FileInput>
+                            <FileInput
+                                    v-model="form.photo_new"
+                                    label="Bild (Jetzt)"
+                                    :errors="$page.errors.photo_new"
+                                    class="w-full mt-2"
+                                    type="file"
+                                    accept="image/*">
+
+                            </FileInput>
+
+                        </div>
+                        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                            <PrimaryButton type="submit">
+                                Speichern
+                            </PrimaryButton>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -133,28 +144,35 @@
     import TextInput from "../../Shared/TextInput";
     import TextareaInput from "../../Shared/TextareaInput";
     import FileInput from "../../Shared/FileInput";
+    import PrimaryButton from "../../Shared/UI/PrimaryButton";
 
     export default {
         name: "Student",
-        components: {FileInput, TextareaInput, TextInput},
+        components: {PrimaryButton, FileInput, TextareaInput, TextInput},
         layout: LayoutGeneral,
+        props: {
+            existingInformation: {
+                type: Object,
+                required: false
+            }
+        },
         data() {
             return {
                 sending: false,
                 form: {
-                    name: null,
-                    nickname: null,
-                    birthday: null,
-                    slogan: null,
-                    motto: null,
-                    strengths: null,
-                    weaknesses: null,
-                    lkA: null,
-                    lkB: null,
-                    highlight: null,
-                    soundtrack: null,
-                    miss_least: null,
-                    miss_most: null,
+                    name: this.existingInformation.name,
+                    nickname: this.existingInformation.nickname,
+                    birthday: this.existingInformation.birthday,
+                    slogan: this.existingInformation.slogan,
+                    motto: this.existingInformation.motto,
+                    strengths: this.existingInformation.strengths,
+                    weaknesses: this.existingInformation.weaknesses,
+                    lkA: this.existingInformation.lkA,
+                    lkB: this.existingInformation.lkB,
+                    highlight: this.existingInformation.highlight,
+                    soundtrack: this.existingInformation.soundtrack,
+                    miss_least: this.existingInformation.miss_least,
+                    miss_most: this.existingInformation.miss_most,
                     photo_old: null,
                     photo_new: null,
                 }
