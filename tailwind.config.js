@@ -195,11 +195,12 @@ module.exports = {
     variants: {
         aspectRatio: ['responsive'],
         backgroundColor: ['responsive', 'hover', 'focus', 'group-hover'],
+        borderWidth: ['responsive', 'last', 'hover', 'focus'],
         filter: ['responsive', 'group-hover'],
         objectFit: ['responsive'],
         objectPosition: ['responsive'],
         textColor: ['responsive', 'hover', 'focus', 'group-hover'],
-        placeholderColor: ['responsive']
+        placeholderColor: ['responsive'],
     },
     plugins: [
         require('@tailwindcss/ui')({

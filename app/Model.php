@@ -23,4 +23,16 @@ abstract class Model extends Eloquent
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    public function toArray()
+    {
+        $attributes = parent::toArray();
+
+        foreach ($this->getTranslatableAttributes() as $name) {
+            $attributes[$name] = $this->getTranslation($name, app()->getLocale());
+        }
+
+        return $attributes;
+    }
+
 }

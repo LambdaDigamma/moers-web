@@ -164,9 +164,10 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\PageServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        App\Providers\DatasetServiceProvider::class,
 
         // Laravel IDE helper
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,

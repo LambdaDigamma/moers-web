@@ -29,6 +29,9 @@ Route::group([
     Route::get('/pages/{page}/preview')->name('admin.pages.preview')->uses('PageController@preview');
     Route::put('/pages/{page}')->name('admin.pages.update')->uses('PageController@update');
 
+    Route::get('/datasets')->name('admin.datasets.index')->uses('AdminDatasetController@index');
+    Route::get('/datasets/{dataset}')->name('admin.datasets.edit')->uses('AdminDatasetController@edit');
+
 });
 
 
