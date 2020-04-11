@@ -27,9 +27,9 @@
 <script>
     import CardContainer from "../../../Shared/UI/CardContainer";
     import LayoutAdmin from "../../../Shared/LayoutAdmin";
-    import LoadingButton from "../../../Shared/LoadingButton";
-    import TextInput from "../../../Shared/TextInput";
-    import TextareaInput from "../../../Shared/TextareaInput";
+    import LoadingButton from "../../../Shared/UI/LoadingButton";
+    import TextInput from "../../../Shared/UI/TextInput";
+    import TextareaInput from "../../../Shared/UI/TextareaInput";
     import PageEditor from "../../../Shared/PageEditor";
     import LanguagePicker from "../../../Shared/UI/LanguagePicker";
     import ImagePreviewInput from "../../../Shared/UI/ImagePreviewInput";

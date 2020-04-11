@@ -77,8 +77,8 @@
 
 <script>
     import LayoutGeneral from "../../Shared/Layouts/LayoutGeneral";
-    import TextInput from "../../Shared/TextInput";
-    import TextareaInput from "../../Shared/TextareaInput";
+    import TextInput from "../../Shared/UI/TextInput";
+    import TextareaInput from "../../Shared/UI/TextareaInput";
 
     export default {
         name: "Need",

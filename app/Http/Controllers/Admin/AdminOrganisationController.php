@@ -103,6 +103,7 @@ class AdminOrganisationController extends Controller
 
     public function updateEvent(Organisation $organisation, AdvEvent $event, UpdateEvent $request, string $lang = "de")
     {
+        $validated = $request->validated();
 
         app()->setLocale($lang);
 
@@ -112,7 +113,6 @@ class AdminOrganisationController extends Controller
             $event->setTranslation('category', $lang, $request->get('category'));
             $event->save();
         } else {
-            $validated = $request->validated();
             $event->update($validated);
         }
 

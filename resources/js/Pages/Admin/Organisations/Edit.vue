@@ -59,15 +59,16 @@
 </template>
 
 <script>
-    import LayoutAdmin from "@/Shared/LayoutAdmin";
-    import TextInput from "@/Shared/TextInput";
-    import LoadingButton from "@/Shared/LoadingButton";
-    import TextareaInput from "@/Shared/TextareaInput";
-    import PollResult from "@/Shared/PollResult";
-    import Header from "@/Shared/Admin/Header";
+
+    import LayoutAdmin from "../../../Shared/LayoutAdmin";
+    import TextInput from "../../../Shared/UI/TextInput";
+    import LoadingButton from "../../../Shared/UI/LoadingButton";
+    import PollResult from "../../../Shared/PollResult";
+    import Header from "../../../Shared/Admin/Header";
     import TrashedMessage from "../../../Shared/TrashedMessage";
     import CardContainer from "../../../Shared/UI/CardContainer";
     import EventCard from "../../../Shared/Events/EventCard";
+    import TextareaInput from "../../../Shared/UI/TextareaInput";
 
     export default {
         name: "Edit",

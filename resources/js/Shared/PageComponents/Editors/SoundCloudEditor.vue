@@ -31,7 +31,7 @@
 </template>
 
 <script>
-    import TextInput from "../../TextInput";
+    import TextInput from "../../UI/TextInput";
     import EditorPreset from "./EditorPreset";
     export default {
         name: "SoundCloudEditor",

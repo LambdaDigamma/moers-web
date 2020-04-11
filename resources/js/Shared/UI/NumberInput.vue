@@ -8,6 +8,7 @@
         </div>
 
         <input type="number" name="hrs" :placeholder="placeholder"
+               ref="input"
                :disabled="disabled"
                v-bind="$attrs"
                pattern="^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$"
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-    import TextInput from "../TextInput";
+    import TextInput from "./TextInput";
 
     export default {
         name: "NumberInput",
@@ -47,7 +48,7 @@
                 type: Boolean,
                 default: false
             },
-            number: Number,
+            value: Number,
             min: {
                 type: Number,
                 default: 1
@@ -56,6 +57,16 @@
                 type: Number,
                 default: 100
             }
+        },
+        data() {
+            return {
+                number: this.value,
+            }
+        },
+        watch: {
+            number(number) {
+                this.$emit('input', number)
+            },
         },
         methods: {
             focus() {

@@ -14,13 +14,11 @@
 
 <script>
     import LayoutAdmin from "../../../../Shared/LayoutAdmin";
-    import TextInput from "../../../../Shared/TextInput";
-    import SelectInput from "../../../../Shared/UI/SelectInput";
     import ResourceGeneralForm from "./ResourceGeneralForm";
 
     export default {
         name: "Create",
-        components: {ResourceGeneralForm, SelectInput, TextInput},
+        components: {ResourceGeneralForm},
         layout: LayoutAdmin,
         remember: 'form',
         props: {

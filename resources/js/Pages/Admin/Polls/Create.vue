@@ -91,12 +91,12 @@
 </template>
 
 <script>
-    import LayoutAdmin from "@/Shared/LayoutAdmin";
-    import LoadingButton from "@/Shared/LoadingButton";
-    import SelectInput from "@/Shared/SelectInput";
-    import Header from "@/Shared/Admin/Header";
-    import TextInput from "../../../Shared/TextInput";
-    import NumberInput from "../../../Shared/NumberInput";
+    import LayoutAdmin from "../../../Shared/LayoutAdmin";
+    import LoadingButton from "../../../Shared/UI/LoadingButton";
+    import SelectInput from "../../../Shared/UI/SelectInput";
+    import Header from "../../../Shared/Admin/Header";
+    import TextInput from "../../../Shared/UI/TextInput";
+    import NumberInput from "../../../Shared/UI/NumberInput";
 
     export default {
         name: "Create",

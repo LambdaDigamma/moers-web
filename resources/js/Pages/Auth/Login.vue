@@ -105,9 +105,9 @@
 </template>
 
 <script>
-    import TextInput from "../../Shared/TextInput";
+    import TextInput from "../../Shared/UI/TextInput";
     import Navigation from "../../Shared/Navigation";
-    import LoadingButton from "../../Shared/LoadingButton";
+    import LoadingButton from "../../Shared/UI/LoadingButton";
     export default {
         name: "Login",
         components: {LoadingButton, Navigation, TextInput},

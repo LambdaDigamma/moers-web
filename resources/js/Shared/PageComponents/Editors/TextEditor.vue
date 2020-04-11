@@ -28,7 +28,7 @@
 
 <script>
     import Icon from "../../Icon";
-    import TextareaInput from "../../TextareaInput";
+    import TextareaInput from "../../UI/TextareaInput";
     import EditorPreset from "./EditorPreset";
     import Editor from '@toast-ui/vue-editor/src/Editor.vue'
     import 'tui-editor/dist/tui-editor.css';

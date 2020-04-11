@@ -128,8 +128,8 @@
 </template>
 
 <script>
-    import TextInput from "../../Shared/TextInput";
-    import TextareaInput from "../../Shared/TextareaInput";
+    import TextInput from "../../Shared/UI/TextInput";
+    import TextareaInput from "../../Shared/UI/TextareaInput";
     import LayoutGeneral from "../../Shared/Layouts/LayoutGeneral";
 
     export default {

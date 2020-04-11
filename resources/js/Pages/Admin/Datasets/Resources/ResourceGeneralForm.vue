@@ -43,16 +43,13 @@
                                 </Checkbox>
                             </div>
                             <div class="col-span-3 sm:col-span-2" v-if="form.shouldAutoImport">
-                                <NumberInput
-                                        label="Update-Interval (in h)"
-                                        placeholder="Interval"
-                                        v-model="form.autoUpdatingInterval"
-                                        :number="form.autoUpdatingInterval"
-                                        :min="1"
-                                        :max="10000"
-                                        :errors="$page.errors.auto_updating_interval">
-
-                                </NumberInput>
+                                <TextInput label="Update-Interval (in h)"
+                                           type="number"
+                                           placeholder="Interval"
+                                           v-model="form.autoUpdatingInterval"
+                                           :min="1"
+                                           :max="10000"
+                                           :errors="$page.errors.auto_updating_interval"></TextInput>
                             </div>
 
                         </div>
@@ -115,8 +112,8 @@
 <script>
     import {de} from "vuejs-datepicker/dist/locale";
     import NumberInput from "../../../../Shared/UI/NumberInput";
-    import TextareaInput from "../../../../Shared/TextareaInput";
-    import TextInput from "../../../../Shared/TextInput";
+    import TextareaInput from "../../../../Shared/UI/TextareaInput";
+    import TextInput from "../../../../Shared/UI/TextInput";
     import PrimaryButton from "../../../../Shared/UI/PrimaryButton";
 
     export default {
@@ -144,7 +141,7 @@
                     name: this.resource.name,
                     format: this.resource.format,
                     shouldAutoImport: this.resource.auto_updating_interval !== null,
-                    autoUpdatingInterval: this.resource.autoUpdatingInterval !== null ? this.resource.autoUpdatingInterval : 24
+                    autoUpdatingInterval: this.resource.autoUpdatingInterval !== null ? this.resource.auto_updating_interval : 24
                 }
             }
         },

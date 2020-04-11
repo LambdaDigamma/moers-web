@@ -32,12 +32,12 @@
 </template>
 
 <script>
-    import LayoutAdmin from "@/Shared/LayoutAdmin";
-    import TextInput from "@/Shared/TextInput";
-    import LoadingButton from "@/Shared/LoadingButton";
-    import TextareaInput from "@/Shared/TextareaInput";
-    import PollResult from "@/Shared/PollResult";
-    import Header from "@/Shared/Admin/Header";
+    import LayoutAdmin from "../../../Shared/LayoutAdmin";
+    import TextInput from "../../../Shared/UI/TextInput";
+    import LoadingButton from "../../../Shared/UI/LoadingButton";
+    import TextareaInput from "../../../Shared/UI/TextareaInput";
+    import PollResult from "../../../Shared/PollResult";
+    import Header from "../../../Shared/Admin/Header";
 
     export default {
         name: "Edit",

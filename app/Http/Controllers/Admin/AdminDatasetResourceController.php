@@ -51,4 +51,31 @@ class AdminDatasetResourceController extends Controller
 
     }
 
+    public function edit(Dataset $dataset, DatasetResource $resource)
+    {
+        return Inertia::render('Admin/Datasets/Resources/Edit', [
+            'dataset' => $dataset,
+            'resource' => $resource
+        ]);
+    }
+
+    public function update(Dataset $dataset, DatasetResource $resource, UpdateGeneralResource $request, string $lang = "de")
+    {
+
+        $validated = $request->validated();
+
+        app()->setLocale($lang);
+
+        if ($lang != "de") {
+            $resource->setTranslation('name', $lang, $request->get('name'));
+            $resource->save();
+        } else {
+            $resource->update($validated);
+        }
+
+        return Redirect::route('admin.datasets.resources.edit', [$dataset->id, $resource->id, $lang])
+            ->with('success', 'Daten gespeichert.');
+
+    }
+
 }

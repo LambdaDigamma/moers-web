@@ -131,7 +131,11 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap">
-                                        <a href="#" class="text-blue-600 hover:text-blue-900 focus:outline-none focus:underline">Bearbeiten</a>
+                                        <inertia-link
+                                                :href="route('admin.datasets.resources.edit', [dataset.id, resource.id])"
+                                                class="text-blue-600 hover:text-blue-900 focus:outline-none focus:underline">
+                                            Bearbeiten
+                                        </inertia-link>
                                     </td>
                                 </tr>
                             </tbody>

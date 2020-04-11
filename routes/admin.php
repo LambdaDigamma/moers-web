@@ -34,6 +34,8 @@ Route::group([
 
     Route::get('/datasets/{dataset}/resources/create')->name('admin.datasets.resources.create')->uses('AdminDatasetResourceController@create');
     Route::post('/datasets/{dataset}/resources')->name('admin.datasets.resources.store')->uses('AdminDatasetResourceController@storeResource');
+    Route::get('/datasets/{dataset}/resources/{resource}')->name('admin.datasets.resources.edit')->uses('AdminDatasetResourceController@edit');
+    Route::put('/datasets/{dataset}/resources/{resource}')->name('admin.datasets.resources.update')->uses('AdminDatasetResourceController@update');
 
 });
 

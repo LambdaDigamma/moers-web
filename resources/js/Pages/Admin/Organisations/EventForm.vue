@@ -294,9 +294,9 @@
     import PictureInput from "../../../Shared/UI/PictureInput";
     import LanguagePicker from "../../../Shared/UI/LanguagePicker";
     import PageEditor from "../../../Shared/PageEditor";
-    import TextareaInput from "../../../Shared/TextareaInput";
-    import TextInput from "../../../Shared/TextInput";
-    import LoadingButton from "../../../Shared/LoadingButton";
+    import TextareaInput from "../../../Shared/UI/TextareaInput";
+    import TextInput from "../../../Shared/UI/TextInput";
+    import LoadingButton from "../../../Shared/UI/LoadingButton";
     import CardContainer from "../../../Shared/UI/CardContainer";
     import {de} from "vuejs-datepicker/dist/locale";
     import moment from 'moment';
