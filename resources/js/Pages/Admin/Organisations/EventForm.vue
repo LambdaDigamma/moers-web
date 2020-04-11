@@ -70,7 +70,7 @@
                                         label="Ganztägig?"
                                         hint="Startet diese Veranstaltung zu einer bestimmten Uhrzeit?"
                                         v-model="form.startWholeDay"
-                                        :disabled="form.noDate  || isTranslation">
+                                        :disabled="form.noDate || isTranslation">
 
                                 </Checkbox>
 

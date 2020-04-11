@@ -32,6 +32,9 @@ Route::group([
     Route::get('/datasets')->name('admin.datasets.index')->uses('AdminDatasetController@index');
     Route::get('/datasets/{dataset}')->name('admin.datasets.edit')->uses('AdminDatasetController@edit');
 
+    Route::get('/datasets/{dataset}/resources/create')->name('admin.datasets.resources.create')->uses('AdminDatasetResourceController@create');
+    Route::post('/datasets/{dataset}/resources')->name('admin.datasets.resources.store')->uses('AdminDatasetResourceController@storeResource');
+
 });
 
 

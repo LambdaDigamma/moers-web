@@ -59,7 +59,7 @@
                         </p>
                     </div>
                     <div class="flex-shrink-0 mt-4 ml-4">
-                        <PrimaryButton>
+                        <PrimaryButton :href="route('admin.datasets.resources.create', dataset.id)">
                             Erstelle Resource
                         </PrimaryButton>
                     </div>

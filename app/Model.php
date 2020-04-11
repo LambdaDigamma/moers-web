@@ -5,6 +5,7 @@ namespace App;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Spatie\Translatable\HasTranslations;
 
 abstract class Model extends Eloquent
 {
@@ -28,8 +29,10 @@ abstract class Model extends Eloquent
     {
         $attributes = parent::toArray();
 
-        foreach ($this->getTranslatableAttributes() as $name) {
-            $attributes[$name] = $this->getTranslation($name, app()->getLocale());
+        if (method_exists($this, 'getTranslatableAttributes')) {
+            foreach ($this->getTranslatableAttributes() as $name) {
+                $attributes[$name] = $this->getTranslation($name, app()->getLocale());
+            }
         }
 
         return $attributes;
