@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\LoadAdvEvents;
+use App\Console\Commands\SendEmailUserHasUnreadConversations;
 use App\Console\Commands\UpdateResources;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -15,7 +16,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\SendEmailUserHasUnreadConversations',
+        SendEmailUserHasUnreadConversations::class,
         LoadAdvEvents::class,
         UpdateResources::class
     ];
@@ -29,16 +30,24 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
-        $schedule->command('events:loadAdv')
-                 ->daily();
+        $schedule
+            ->command('events:loadAdv')
+            ->daily();
 
-        $schedule->command('resources:update')
-                 ->everyMinute();
+//        $schedule
+//            ->command('resources:update')
+//            ->everyMinute();
 
 //        $schedule->command('emails:send-unread')
 //                 ->cron('0 */4 * * *');
 
-        $schedule->command('personal-data-export:clean')->daily();
+        $schedule
+            ->command('telescope:prune')
+            ->daily();
+
+        $schedule
+            ->command('personal-data-export:clean')
+            ->daily();
 
     }
 
@@ -49,7 +58,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
