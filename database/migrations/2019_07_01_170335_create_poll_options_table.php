@@ -21,7 +21,7 @@ class CreatePollOptionsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('poll_options', function(Blueprint $table) {
+        Schema::table('poll_options', function (Blueprint $table) {
             $table->foreign('poll_id')->references('id')->on('polls')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
@@ -35,14 +35,12 @@ class CreatePollOptionsTable extends Migration
      */
     public function down()
     {
-
-        Schema::table('poll_options', function(Blueprint $table) {
+        Schema::table('poll_options', function (Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
                 $table->dropForeign(['poll_id']);
             }
         });
 
         Schema::dropIfExists('poll_options');
-
     }
 }

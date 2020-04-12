@@ -2,9 +2,14 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -15,30 +20,30 @@ use Spatie\Translatable\HasTranslations;
  * @property string $type
  * @property array $data
  * @property int|null $order
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read mixed $translations
- * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read Collection|Media[] $media
  * @property-read int|null $media_count
- * @property-read \App\Page $page
+ * @property-read Page $page
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\PageBlock onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock newQuery()
+ * @method static Builder|PageBlock onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock whereData($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock whereOrder($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock wherePageId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PageBlock whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\PageBlock withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\PageBlock withoutTrashed()
- * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock whereOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock wherePageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBlock whereUpdatedAt($value)
+ * @method static Builder|PageBlock withTrashed()
+ * @method static Builder|PageBlock withoutTrashed()
+ * @mixin Eloquent
  */
 class PageBlock extends Model implements HasMedia
 {

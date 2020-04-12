@@ -24,10 +24,10 @@ use Request;
 
 class AdminDatasetResourceController extends Controller
 {
-
     private DatasetRepository $datasetRepository;
 
-    public function __construct(DatasetRepository $datasetRepository) {
+    public function __construct(DatasetRepository $datasetRepository)
+    {
         $this->middleware('can:access-admin');
         $this->middleware('remember')->only('index');
         $this->datasetRepository = $datasetRepository;
@@ -42,13 +42,11 @@ class AdminDatasetResourceController extends Controller
 
     public function storeResource(Dataset $dataset, UpdateGeneralResource $request)
     {
-
         $validated = $request->validated();
 
         $dataset->resources()->save(DatasetResource::make($validated));
 
         return Redirect::route('admin.datasets.edit', [$dataset->id]);
-
     }
 
     public function edit(Dataset $dataset, DatasetResource $resource)
@@ -61,7 +59,6 @@ class AdminDatasetResourceController extends Controller
 
     public function update(Dataset $dataset, DatasetResource $resource, UpdateGeneralResource $request, string $lang = "de")
     {
-
         $validated = $request->validated();
 
         app()->setLocale($lang);
@@ -75,7 +72,5 @@ class AdminDatasetResourceController extends Controller
 
         return Redirect::route('admin.datasets.resources.edit', [$dataset->id, $resource->id, $lang])
             ->with('success', 'Daten gespeichert.');
-
     }
-
 }

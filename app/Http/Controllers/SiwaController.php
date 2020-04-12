@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\User;
 use Auth;
 use Inertia\Inertia;
@@ -12,7 +11,6 @@ use Request;
 
 class SiwaController extends Controller
 {
-
     public function login()
     {
         return Socialite::driver("sign-in-with-apple")
@@ -22,7 +20,6 @@ class SiwaController extends Controller
 
     public function callback(Request $request)
     {
-
         $appleUser = Socialite::driver("sign-in-with-apple")
             ->user();
 
@@ -32,7 +29,6 @@ class SiwaController extends Controller
         ])->first();
 
         if (!$user) {
-
             $nameComponents = collect(explode(" ", $appleUser->getName()));
 
             $lastName = $nameComponents->slice($nameComponents->count() - 1)->first();
@@ -50,7 +46,5 @@ class SiwaController extends Controller
         Auth::guard('web')->login($user, true);
 
         return redirect()->to(route('dashboard'));
-
     }
-
 }

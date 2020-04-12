@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-
 use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
@@ -12,7 +11,6 @@ use Request;
 
 class GoogleController extends Controller
 {
-
     public function login()
     {
         return Socialite::driver("google")
@@ -22,7 +20,6 @@ class GoogleController extends Controller
 
     public function callback(Request $request)
     {
-
         $googleUser = Socialite::driver("google")
             ->user();
 
@@ -32,7 +29,6 @@ class GoogleController extends Controller
         ])->first();
 
         if (!$user) {
-
             $nameComponents = collect(explode(" ", $googleUser->getName()));
 
             $lastName = $nameComponents->slice($nameComponents->count() - 1)->first();
@@ -50,7 +46,5 @@ class GoogleController extends Controller
         Auth::guard('web')->login($user, true);
 
         return redirect()->to(route('dashboard'));
-
     }
-
 }

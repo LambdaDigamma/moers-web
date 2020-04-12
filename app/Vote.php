@@ -23,8 +23,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Vote whereUpdatedAt($value)
  * @method static Builder|Vote whereUserId($value)
  * @mixin Eloquent
- * @property-read \App\Poll $poll
- * @property-read \App\User|null $user
+ * @property-read Poll $poll
+ * @property-read User|null $user
  */
 class Vote extends Model
 {

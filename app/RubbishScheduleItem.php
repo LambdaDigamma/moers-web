@@ -5,6 +5,7 @@ namespace App;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * App\RubbishScheduleItem
@@ -167,7 +168,8 @@ class RubbishScheduleItem extends Model
         }
     }
 
-    public function scopeUpcoming($query) {
+    public function scopeUpcoming($query)
+    {
         $query->whereDate('date', '>=', Carbon::today()->toDateString());
     }
 
@@ -176,7 +178,7 @@ class RubbishScheduleItem extends Model
      *
      * @param $value
      *
-     * @return \Illuminate\Support\Collection|\Tightenco\Collect\Support\Collection
+     * @return \Illuminate\Support\Collection|Collection
      */
     private function explodeBaseTour($value)
     {
@@ -188,5 +190,4 @@ class RubbishScheduleItem extends Model
             return collect();
         }
     }
-
 }

@@ -82,7 +82,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  */
 class Entry extends Model implements AuditableContract, HasMedia
 {
-
     use SoftDeletes, Auditable, InteractsWithMedia;
 
     protected $table = 'entries';
@@ -111,8 +110,8 @@ class Entry extends Model implements AuditableContract, HasMedia
         }
     }
 
-    public function getTagsAttribute($value) {
-
+    public function getTagsAttribute($value)
+    {
         $tags = explode(', ', $value);
 
         if ($tags != [""]) {
@@ -120,19 +119,20 @@ class Entry extends Model implements AuditableContract, HasMedia
         } else {
             return array();
         }
-
     }
 
-    public function getIsValidatedAttribute($value) {
+    public function getIsValidatedAttribute($value)
+    {
         return $value == 1 ? true : false;
     }
 
-    public function events() {
+    public function events()
+    {
         return $this->hasMany('App\Event');
     }
 
-    public function organisations() {
+    public function organisations()
+    {
         return $this->belongsToMany('App\Organisation');
     }
-
 }

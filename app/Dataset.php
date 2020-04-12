@@ -6,7 +6,6 @@ use Spatie\Translatable\HasTranslations;
 
 class Dataset extends Model
 {
-
     use HasTranslations;
 
     public $translatable = ['name'];
@@ -16,8 +15,8 @@ class Dataset extends Model
         return $this->hasMany(DatasetResource::class)->orderByDesc('updated_at');
     }
 
-    public function getCategoriesAttribute($value) {
-
+    public function getCategoriesAttribute($value)
+    {
         $categories = explode(', ', $value);
 
         if ($categories != [""]) {
@@ -25,7 +24,5 @@ class Dataset extends Model
         } else {
             return array();
         }
-
     }
-
 }

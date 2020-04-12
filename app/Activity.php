@@ -37,11 +37,8 @@ use Illuminate\Support\Carbon;
  */
 class Activity extends Model
 {
-
-    public function user() {
-
+    public function user()
+    {
         return User::where('user_id', '=', $this->user_id)->firstOrFail();
-
     }
-
 }

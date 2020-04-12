@@ -13,8 +13,7 @@ class AddForeignKeys extends Migration
      */
     public function up()
     {
-
-        Schema::table('events', function(Blueprint $table) {
+        Schema::table('events', function (Blueprint $table) {
             $table->foreign('entry_id')->references('id')->on('entries')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
@@ -22,7 +21,6 @@ class AddForeignKeys extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
-
     }
 
     /**
@@ -32,14 +30,11 @@ class AddForeignKeys extends Migration
      */
     public function down()
     {
-
-        Schema::table('events', function(Blueprint $table) {
+        Schema::table('events', function (Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
                 $table->dropForeign(['entry_id']);
                 $table->dropForeign(['organisation_id']);
             }
         });
-
-
     }
 }

@@ -22,10 +22,10 @@ use Request;
 
 class AdminDatasetController extends Controller
 {
-
     private DatasetRepository $datasetRepository;
 
-    public function __construct(DatasetRepository $datasetRepository) {
+    public function __construct(DatasetRepository $datasetRepository)
+    {
         $this->middleware('can:access-admin');
         $this->middleware('remember')->only('index');
         $this->datasetRepository = $datasetRepository;
@@ -48,5 +48,4 @@ class AdminDatasetController extends Controller
             'dataset' => $dataset->load('resources')
         ]);
     }
-
 }

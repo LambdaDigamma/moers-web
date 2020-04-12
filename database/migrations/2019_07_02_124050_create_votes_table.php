@@ -20,7 +20,7 @@ class CreateVotesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('votes', function(Blueprint $table) {
+        Schema::table('votes', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
@@ -28,7 +28,6 @@ class CreateVotesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
-
     }
 
     /**
@@ -38,8 +37,7 @@ class CreateVotesTable extends Migration
      */
     public function down()
     {
-
-        Schema::table('votes', function(Blueprint $table) {
+        Schema::table('votes', function (Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
                 $table->dropForeign(['user_id']);
                 $table->dropForeign(['poll_id']);

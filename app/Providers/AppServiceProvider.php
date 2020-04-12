@@ -17,7 +17,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\UrlWindow;
 use Illuminate\Support\Collection;
 
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -47,11 +46,10 @@ class AppServiceProvider extends ServiceProvider
 
         $faker = $this->app->make(Generator::class);
         $faker->addProvider(new PicsumPhotosProvider($faker));
-
     }
 
-    private function registerInertia() {
-
+    private function registerInertia()
+    {
         Inertia::setRootView('layout');
 
         Inertia::version(function () {
@@ -90,11 +88,10 @@ class AppServiceProvider extends ServiceProvider
                     : (object) [];
             },
         ]);
-
     }
 
-    private function registerLengthAwarePaginator() {
-
+    private function registerLengthAwarePaginator()
+    {
         $this->app->bind(LengthAwarePaginator::class, function ($app, $values) {
             return new class(...array_values($values)) extends LengthAwarePaginator {
                 public function only(...$attributes)
@@ -163,7 +160,6 @@ class AppServiceProvider extends ServiceProvider
                 }
             };
         });
-
     }
 
     /**
@@ -173,6 +169,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 }

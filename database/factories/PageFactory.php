@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Str;
 
 $factory->define(Page::class, function (Faker $faker) {
-    $title = $faker->sentence($faker->numberBetween(1,3));
+    $title = $faker->sentence($faker->numberBetween(1, 3));
     $slug = Str::of($title)
         ->slug('-')
         ->append('-')
@@ -23,7 +23,5 @@ $factory->define(Page::class, function (Faker $faker) {
 });
 
 $factory->afterCreating(Page::class, function (Page $page, Faker $faker) {
-
     \factory(PageBlock::class, 1)->create(['page_id' => $page->id]);
-
 });

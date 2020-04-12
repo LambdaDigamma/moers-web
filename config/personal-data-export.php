@@ -1,5 +1,7 @@
 <?php
 
+use Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail;
+
 return [
     /*
      * The disk where the exports will be stored by default.
@@ -21,5 +23,5 @@ return [
      * The mailable which will be sent to the user when the export
      * has been created.
      */
-    'mailable' => \Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail::class,
+    'mailable' => PersonalDataExportCreatedMail::class,
 ];

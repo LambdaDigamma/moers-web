@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
-
-    public function allRoles() {
+    public function allRoles()
+    {
         return Bouncer::role()->all();
     }
 
@@ -18,5 +18,4 @@ class PermissionController extends Controller
     {
         return $user->roles();
     }
-
 }

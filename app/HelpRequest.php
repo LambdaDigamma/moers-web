@@ -3,6 +3,9 @@
 namespace App;
 
 use Auth;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 /**
  * App\HelpRequest
@@ -14,29 +17,29 @@ use Auth;
  * @property int|null $helper_id
  * @property string|null $served_on
  * @property int|null $conversation_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Conversation|null $conversation
- * @property-read \App\User $creator
- * @property-read \App\User|null $helper
- * @property-read \App\Quarter $quarter
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest filter($filters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest notServed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest userHelps()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereConversationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereCreatorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereHelperId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereQuarterId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereRequest($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereServedOn($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\HelpRequest withoutOwn()
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Conversation|null $conversation
+ * @property-read User $creator
+ * @property-read User|null $helper
+ * @property-read Quarter $quarter
+ * @method static Builder|HelpRequest filter($filters)
+ * @method static Builder|HelpRequest newModelQuery()
+ * @method static Builder|HelpRequest newQuery()
+ * @method static Builder|HelpRequest notServed()
+ * @method static Builder|HelpRequest query()
+ * @method static Builder|HelpRequest userHelps()
+ * @method static Builder|HelpRequest whereConversationId($value)
+ * @method static Builder|HelpRequest whereCreatedAt($value)
+ * @method static Builder|HelpRequest whereCreatorId($value)
+ * @method static Builder|HelpRequest whereHelperId($value)
+ * @method static Builder|HelpRequest whereId($value)
+ * @method static Builder|HelpRequest whereQuarterId($value)
+ * @method static Builder|HelpRequest whereRequest($value)
+ * @method static Builder|HelpRequest whereServedOn($value)
+ * @method static Builder|HelpRequest whereUpdatedAt($value)
+ * @method static Builder|HelpRequest withoutOwn()
+ * @mixin Eloquent
  */
 class HelpRequest extends Model
 {

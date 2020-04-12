@@ -69,7 +69,6 @@ use Spatie\Translatable\HasTranslations;
  */
 class AdvEvent extends Model implements HasMedia
 {
-
     use SoftDeletes;
     use HasTranslations;
     use InteractsWithMedia;
@@ -102,7 +101,8 @@ class AdvEvent extends Model implements HasMedia
         }
     }
 
-    public function organisation() {
+    public function organisation()
+    {
         return $this->belongsTo('App\Organisation');
     }
 
@@ -194,5 +194,4 @@ class AdvEvent extends Model implements HasMedia
         return $query->whereDate('start_date', '>=', now()->toDateString())
             ->orWhere('start_date', '=', null);
     }
-
 }

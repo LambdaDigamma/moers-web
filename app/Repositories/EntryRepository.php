@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\Entry;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -76,5 +75,4 @@ class EntryRepository implements EntryRepositoryInterface
     {
         Entry::find($entry_id)->restore();
     }
-
 }

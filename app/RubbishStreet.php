@@ -39,9 +39,8 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class RubbishStreet extends Model
 {
-
-    public function pickupItems() {
-
+    public function pickupItems()
+    {
         $items = RubbishScheduleItem::upcoming()->get();
 
         $residual_tour = $this->residual_tour;
@@ -88,11 +87,10 @@ class RubbishStreet extends Model
         $pickupItems = $pickupItems->merge($cuttings);
 
         return $pickupItems->sortBy('date')->values();
-
     }
 
-    public function scopeCurrent($query) {
+    public function scopeCurrent($query)
+    {
         return $query->where('year', '=', Carbon::now()->year);
     }
-
 }

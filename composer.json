@@ -17,6 +17,7 @@
         "doctrine/dbal": "^2.10",
         "facade/ignition": "^2.0",
         "fideloper/proxy": "^4.0",
+        "friendsofphp/php-cs-fixer": "3.0.x-dev",
         "fruitcake/laravel-cors": "^1.0",
         "genealabs/laravel-sign-in-with-apple": "^0.4.3",
         "guzzlehttp/guzzle": "^6.3",

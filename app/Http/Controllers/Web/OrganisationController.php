@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers\Web;
 
-
 use App\AdvEvent;
 use App\Http\Controllers\Controller;
 use App\Organisation;
@@ -11,7 +10,6 @@ use Inertia\Inertia;
 
 class OrganisationController extends Controller
 {
-
     public function show(Organisation $organisation)
     {
         return Inertia::render('Organisations/Show', [
@@ -33,6 +31,4 @@ class OrganisationController extends Controller
             'event' => $event
         ]);
     }
-
-
 }

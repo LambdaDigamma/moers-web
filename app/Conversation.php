@@ -2,26 +2,30 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Conversation
  *
  * @property int $id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Message[] $messages
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Message[] $messages
  * @property-read int|null $messages_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read Collection|User[] $users
  * @property-read int|null $users_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Conversation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Conversation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Conversation query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Conversation whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Conversation whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Conversation whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static Builder|Conversation newModelQuery()
+ * @method static Builder|Conversation newQuery()
+ * @method static Builder|Conversation query()
+ * @method static Builder|Conversation whereCreatedAt($value)
+ * @method static Builder|Conversation whereId($value)
+ * @method static Builder|Conversation whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Conversation extends Model
 {

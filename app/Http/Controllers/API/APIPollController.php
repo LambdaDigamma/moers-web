@@ -46,7 +46,8 @@ class APIPollController extends Controller
      * @param $id
      * @return Poll
      */
-    public function show($id) {
+    public function show($id)
+    {
         return Poll::with(['options'])->findOrFail($id);
     }
 
@@ -87,7 +88,6 @@ class APIPollController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'question' => 'required|string|min:3|max:500',
             'description' => 'required|string|min:3',
@@ -104,7 +104,6 @@ class APIPollController extends Controller
         $group = Group::findOrFail($request->json()->get('group_id'));
 
         if (Bouncer::can('create-poll-group', $group)) {
-
             $poll = Poll::create($request->json()->all());
 
             $options = $request->json()->get('options');
@@ -115,11 +114,9 @@ class APIPollController extends Controller
             }
 
             return response()->json($poll);
-
         } else {
             return $this->errorResponse("You are not allowed to create a Poll for this Group.", 403);
         }
-
     }
 
     /**
@@ -131,13 +128,10 @@ class APIPollController extends Controller
      */
     public function abstain(Request $request, Poll $poll)
     {
-
         if ($poll->canUserVote()) {
-
             $user_id = $request->user()->id;
 
             if (Vote::where([['poll_id', $poll->id], ['user_id', $user_id]])->count() == 0) {
-
                 $vote = new Vote(['poll_id' => $poll->id, 'user_id' => $user_id]);
                 $vote->save();
 
@@ -145,11 +139,9 @@ class APIPollController extends Controller
             } else {
                 return $this->errorResponse("You already voted for this poll.", 403);
             }
-
         } else {
             return $this->errorResponse("You are not a member of this group.", 403);
         }
-
     }
 
     /**
@@ -163,13 +155,10 @@ class APIPollController extends Controller
      */
     public function vote(Request $request, Poll $poll)
     {
-
         if ($poll->canUserVote()) {
-
             $user_id = $request->user()->id;
 
             if (Vote::where([['poll_id', $poll->id], ['user_id', $user_id]])->count() == 0) {
-
                 $validator = Validator::make($request->all(), [
                     'options' => ['required', 'array', 'min:1', new SatisfiesPollOptionsMaxCheck($poll)],
                     'options.*' => ['required', 'integer', 'exists:poll_options,id', new CheckPollHasOption($poll)]
@@ -190,11 +179,9 @@ class APIPollController extends Controller
             } else {
                 return $this->errorResponse("You already voted for this poll.", 403);
             }
-
         } else {
             return $this->errorResponse("You are not a member of this group.", 403);
         }
-
     }
 
     /**
@@ -204,8 +191,8 @@ class APIPollController extends Controller
      * @param $status
      * @return ResponseFactory|Response
      */
-    private function errorResponse($message, $status) {
+    private function errorResponse($message, $status)
+    {
         return response(['errors' => ['common' => [$message]]], $status);
     }
-
 }

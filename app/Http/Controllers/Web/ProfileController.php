@@ -13,7 +13,6 @@ use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 
 class ProfileController extends Controller
 {
-
     public function notifications()
     {
         $unreadNotifications = Auth::user()->unreadNotifications()->orderByDesc('created_at')->get();
@@ -50,7 +49,6 @@ class ProfileController extends Controller
 
     public function deleteAccount()
     {
-
         $user = Auth::user();
 
         $user->notifications()->delete();
@@ -58,17 +56,14 @@ class ProfileController extends Controller
 
         return Redirect::route('landingPage')
             ->with('success', 'Dein Benutzerkonto wurde geschlossen und alle verknüpften Daten vollständig gelöscht.');
-
     }
 
-    public function exportData() {
-
+    public function exportData()
+    {
         $user = Auth::user();
 
         dispatch(new CreatePersonalDataExportJob($user));
 
         return Redirect::to(route('profile'))->with('success', 'Deine Daten wurden exportiert und dir per Mail zugeschickt.');
-
     }
-
 }

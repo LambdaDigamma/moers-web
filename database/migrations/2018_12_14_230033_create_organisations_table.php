@@ -13,7 +13,6 @@ class CreateOrganisationsTable extends Migration
      */
     public function up()
     {
-
         Schema::create('organisations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -46,13 +45,13 @@ class CreateOrganisationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('organisation_user', function(Blueprint $table) {
+        Schema::table('organisation_user', function (Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
                 $table->dropForeign(['user_id']);
                 $table->dropForeign(['organisation_id']);
             }
         });
-        Schema::table('organisations', function(Blueprint $table) {
+        Schema::table('organisations', function (Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
                 $table->dropForeign(['entry_id']);
             }

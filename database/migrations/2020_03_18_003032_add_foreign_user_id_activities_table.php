@@ -13,10 +13,10 @@ class AddForeignUserIdActivitiesTable extends Migration
      */
     public function up()
     {
-        Schema::table('activities', function(Blueprint $table) {
+        Schema::table('activities', function (Blueprint $table) {
             $table->unsignedInteger('user_id')->change();
         });
-        Schema::table('activities', function(Blueprint $table) {
+        Schema::table('activities', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
@@ -35,7 +35,7 @@ class AddForeignUserIdActivitiesTable extends Migration
                 $table->dropForeign('activities_user_id_foreign');
             }
         });
-        Schema::table('activities', function(Blueprint $table) {
+        Schema::table('activities', function (Blueprint $table) {
             $table->integer('user_id')->change();
         });
     }

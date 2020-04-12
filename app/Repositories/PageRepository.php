@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\Entry;
 use App\Page;
 use App\PageBlock;
@@ -13,10 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PageRepository implements PageRepositoryInterface
 {
-
     public function update($page, array $data, $lang = "de"): Page
     {
-
         $newBlockIds = collect([]);
 
         // Retrieve all the IDs of Blocks that already existed.
@@ -43,7 +40,6 @@ class PageRepository implements PageRepositoryInterface
                 $block->save();
 
                 $newBlockIds->push($block->id);
-
             } else {
                 $block = PageBlock::make();
 
@@ -54,9 +50,7 @@ class PageRepository implements PageRepositoryInterface
                 $block->save();
 
                 $newBlockIds->push($block->id);
-
             }
-
         });
 
         // Diffing already existing blocks to the new blocks and deleting those that where deleted.
@@ -66,7 +60,5 @@ class PageRepository implements PageRepositoryInterface
         });
 
         return Page::find($page->id);
-
     }
-
 }
