@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\LoadAdvEvents;
+use App\Console\Commands\UpdateResources;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +16,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\SendEmailUserHasUnreadConversations',
-        LoadAdvEvents::class
+        LoadAdvEvents::class,
+        UpdateResources::class
     ];
 
     /**
@@ -29,6 +31,9 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('events:loadAdv')
                  ->daily();
+
+        $schedule->command('resources:update')
+                 ->everyMinute();
 
 //        $schedule->command('emails:send-unread')
 //                 ->cron('0 */4 * * *');
