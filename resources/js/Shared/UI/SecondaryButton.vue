@@ -50,7 +50,7 @@
         computed: {
             type() {
                 if (this.href) {
-                    return 'a'
+                    return 'inertia-link'
                 } else {
                     return 'button'
                 }

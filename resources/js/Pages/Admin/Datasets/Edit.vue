@@ -106,7 +106,7 @@
                                         {{ resource.format }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap">
-                                        <span v-if="resource.is_valid"
+                                        <span v-if="resource.error === null"
                                               class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-200 rounded-full">
                                             Valide Daten
                                         </span>

@@ -18,7 +18,7 @@ class CreateDatasetResourcesTable extends Migration
             $table->json('name');
             $table->string('source_url')->nullable();
             $table->string('format');
-            $table->boolean('is_valid')->default(false);
+            $table->string('error', 500)->nullable();
             $table->unsignedBigInteger('auto_updating_interval')->nullable();
             $table->unsignedBigInteger('dataset_id');
             $table->timestamps();

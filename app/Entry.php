@@ -79,6 +79,9 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Query\Builder|Entry withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Entry withoutTrashed()
  * @mixin Eloquent
+ * @property-read mixed $header_url
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  */
 class Entry extends Model implements AuditableContract, HasMedia
 {

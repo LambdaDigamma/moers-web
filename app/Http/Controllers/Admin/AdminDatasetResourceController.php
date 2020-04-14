@@ -2,25 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\AdvEvent;
 use App\Dataset;
 use App\DatasetResource;
-use App\Entry;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateEvent;
-use App\Http\Requests\UpdateEventPage;
 use App\Http\Requests\UpdateGeneralResource;
-use App\Http\Requests\UpdatePage;
-use App\Organisation;
-use App\Page;
+use App\Jobs\UpdateAndRevalidateResource;
 use App\Repositories\DatasetRepository;
-use App\Repositories\PageRepository;
-use App\Repositories\PageRepositoryInterface;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Log;
 use Redirect;
-use Request;
 
 class AdminDatasetResourceController extends Controller
 {
@@ -73,4 +63,14 @@ class AdminDatasetResourceController extends Controller
         return Redirect::route('admin.datasets.resources.edit', [$dataset->id, $resource->id, $lang])
             ->with('success', 'Daten gespeichert.');
     }
+
+    public function loadResource(Dataset $dataset, DatasetResource $resource, string $lang = "de")
+    {
+        UpdateAndRevalidateResource::dispatch($resource);
+        Log::debug('Test');
+        return Redirect::route('admin.datasets.resources.edit', [$dataset->id, $resource->id, $lang])
+            ->with('success', 'Die Resource wird bei nächster Gelegenheit akutalisiert.');
+    }
+
+
 }

@@ -16,3 +16,4 @@ cgi-bruecke.php
 .yarn
 .pnp.js
 .php_cs.cache
+*.cache

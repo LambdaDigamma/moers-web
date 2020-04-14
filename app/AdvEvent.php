@@ -66,6 +66,12 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent published()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent wherePageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereScheduledAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent active()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent chronological()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent future()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent nextDays()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent today()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent upcomingToday()
  */
 class AdvEvent extends Model implements HasMedia
 {

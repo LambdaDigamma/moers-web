@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\DatasetResource;
+use App\Jobs\UpdateAndRevalidateResource;
 use Illuminate\Console\Command;
 
 class UpdateResources extends Command
@@ -39,7 +40,11 @@ class UpdateResources extends Command
     public function handle()
     {
 
-        DatasetResource::query()->update([]);
+        $resources = DatasetResource::all();
+
+        foreach ($resources as $resource) {
+            UpdateAndRevalidateResource::dispatch($resource);
+        }
 
     }
 }

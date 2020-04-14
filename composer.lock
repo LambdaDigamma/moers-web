@@ -4,8 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f0192c453933bbe03304d19927d08af",
+    "content-hash": "14297c8dda15066835edfc2a117a32cd",
     "packages": [
+        {
+            "name": "additionapps/flexible-presenter",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AdditionApps/flexible-presenter.git",
+                "reference": "e9ac8b3c6aa1c01c039b34cc8188b3b7a66190a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AdditionApps/flexible-presenter/zipball/e9ac8b3c6aa1c01c039b34cc8188b3b7a66190a7",
+                "reference": "e9ac8b3c6aa1c01c039b34cc8188b3b7a66190a7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0|^7.0",
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "^1.8",
+                "orchestra/testbench": "^4.6",
+                "phpunit/phpunit": "~8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AdditionApps\\FlexiblePresenter\\FlexiblePresenterServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AdditionApps\\FlexiblePresenter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Addition",
+                    "email": "info@addition.com.au"
+                }
+            ],
+            "description": "Easily define just the right data for your InertiaJS views",
+            "time": "2020-04-06T19:01:47+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "1.3.0",

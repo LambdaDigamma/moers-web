@@ -13,6 +13,7 @@
     "require": {
         "php": "^7.4.0",
         "ext-json": "*",
+        "additionapps/flexible-presenter": "^1.2",
         "bluemmb/faker-picsum-photos-provider": "^1.0",
         "doctrine/dbal": "^2.10",
         "facade/ignition": "^2.0",
