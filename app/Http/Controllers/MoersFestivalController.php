@@ -9,21 +9,19 @@ use Illuminate\Support\Facades\Validator;
 
 class MoersFestivalController extends Controller
 {
-
     public $mfOrganisationID = 1;
 
-    public function getEvents() {
-
+    public function getEvents()
+    {
         $organisation = Organisation::where('name', '=', 'moers festival')->firstOrFail();
 
         $events = $organisation->publishedEvents()->with('entry', 'organisation', 'page', 'page.blocks')->get();
 
         return response()->json($events, 200);
-
     }
 
-    public function store(Request $request) {
-
+    public function store(Request $request)
+    {
         $validator = Validator::make($request->json()->all(), [
             'name' => 'required|max:255',
             'description' => 'sometimes|nullable|string',
@@ -44,7 +42,6 @@ class MoersFestivalController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->messages(), 422);
         } else {
-
             $organisation = Organisation::where('name', '=', 'moers festival')->firstOrFail();
 
             $event = AdvEvent::create($request->json()->all());
@@ -52,9 +49,13 @@ class MoersFestivalController extends Controller
             $event->save();
 
             return response()->json($event, 201);
-
         }
-
     }
 
+    public function getStream()
+    {
+        return [
+            'stream_url' => null
+        ];
+    }
 }
