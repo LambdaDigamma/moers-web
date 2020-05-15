@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AdvEvent;
 use App\Organisation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -55,7 +56,10 @@ class MoersFestivalController extends Controller
     public function getStream()
     {
         return [
-            'stream_url' => null
+            'stream_url' => null,
+            'start_date' => Carbon::parse('2018-05-29 18:00:00')->setTimezone('Europe/Berlin')->toIso8601String(),
+            'failure_title' => null,
+            'failure_description' => null
         ];
     }
 }
