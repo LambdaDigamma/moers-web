@@ -29,6 +29,9 @@ Route::group([
     Route::get('/pages/{page}/preview')->name('admin.pages.preview')->uses('PageController@preview');
     Route::put('/pages/{page}')->name('admin.pages.update')->uses('PageController@update');
 
+    Route::get('/moers-festival/stream')->name('admin.moers-festival.stream')->uses('AdminOrganisationController@stream');
+    Route::put('/moers-festival/stream')->name('admin.moers-festival.stream.update')->uses('AdminOrganisationController@updateStream');
+
 });
 
 

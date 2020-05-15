@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use anlutro\LaravelSettings\SettingStore;
 use App\AdvEvent;
 use App\Entry;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateEvent;
 use App\Http\Requests\UpdateEventPage;
 use App\Http\Requests\UpdatePage;
+use App\Http\Requests\UpdateStream;
 use App\Organisation;
 use App\Page;
 use App\Repositories\PageRepository;
@@ -168,6 +170,32 @@ class AdminOrganisationController extends Controller
             'title' => $eventName,
             'slug' => $slug
         ]);
+
+    }
+
+    public function stream()
+    {
+        return Inertia::render('Admin/MoersFestival/Stream', [
+            'stream' => [
+                'start_date' => setting()->get('moersfestival.stream.start_date'),
+                'url' => setting()->get('moersfestival.stream.stream_url'),
+                'failure_title' => setting()->get('moersfestival.stream.failure_title'),
+                'failure_description' => setting()->get('moersfestival.stream.failure_description')
+            ]
+        ]);
+    }
+
+    public function updateStream(UpdateStream $request)
+    {
+        $validated = $request->validated();
+
+        setting()->set('moersfestival.stream.stream_url', $validated['stream_url']);
+        setting()->set('moersfestival.stream.start_date', Carbon::parse($validated['start_date'])->setTimezone('Europe/Berlin')->toIso8601ZuluString());
+        setting()->set('moersfestival.stream.failure_title', $validated['failure_title']);
+        setting()->set('moersfestival.stream.failure_description', $validated['failure_description']);
+        setting()->save();
+
+        return redirect()->back()->with('success', 'Erfolgreich gespeichert.');
 
     }
 

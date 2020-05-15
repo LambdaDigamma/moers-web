@@ -226,6 +226,7 @@ return [
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,
         'XmlParser' => Orchestra\Parser\Xml\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Setting' => anlutro\LaravelSettings\Facade::class
 
     ],
 

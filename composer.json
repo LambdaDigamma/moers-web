@@ -13,6 +13,7 @@
     "require": {
         "php": "^7.4.0",
         "ext-json": "*",
+        "anlutro/l4-settings": "^0.11.2",
         "bluemmb/faker-picsum-photos-provider": "^1.0",
         "doctrine/dbal": "^2.10",
         "facade/ignition": "^2.0",
