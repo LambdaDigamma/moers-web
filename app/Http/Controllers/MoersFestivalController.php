@@ -57,7 +57,7 @@ class MoersFestivalController extends Controller
     {
         return [
             'stream_url' => null,
-            'start_date' => Carbon::parse('2018-05-29 18:00:00')->setTimezone('Europe/Berlin')->toIso8601String(),
+            'start_date' => Carbon::parse('2020-05-29 18:00:00')->setTimezone('Europe/Berlin')->toIso8601ZuluString(),
             'failure_title' => null,
             'failure_description' => null
         ];
