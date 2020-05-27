@@ -32,6 +32,7 @@
         "lcobucci/jwt": "^3.3",
         "orchestra/parser": "~5.0",
         "owen-it/laravel-auditing": "dev-laravel-7",
+        "parsedown/laravel": "^1.2",
         "pusher/pusher-php-server": "~4.0",
         "reinink/advanced-eloquent": "^0.2.0",
         "reinink/remember-query-strings": "^0.1.0",

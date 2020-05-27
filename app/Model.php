@@ -6,6 +6,9 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
+/**
+ * @mixin \Eloquent
+ */
 abstract class Model extends Eloquent
 {
     protected $guarded = [];
