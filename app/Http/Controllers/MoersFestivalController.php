@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AdvEvent;
 use App\Organisation;
+use App\Page;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,11 @@ class MoersFestivalController extends Controller
     {
         $organisation = Organisation::where('name', '=', 'moers festival')->firstOrFail();
 
-        $events = $organisation->publishedEvents()->with('entry', 'organisation', 'page', 'page.blocks')->get();
+        $events = $organisation
+            ->publishedEvents()
+            ->with('entry', 'organisation', 'page', 'page.blocks')
+            ->future()
+            ->get();
 
         return response()->json($events, 200);
     }

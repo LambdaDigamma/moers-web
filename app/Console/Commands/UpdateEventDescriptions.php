@@ -75,23 +75,6 @@ class UpdateEventDescriptions extends Command
 
         });
 
-//        $events = AdvEvent::query()->future()->with(['page', 'page.blocks'])->get();
-//
-//        app()->setLocale('de');
-//
-//        $events->each(function ($event) {
-//
-//            $firstMarkdownBlock = $event->page->blocks->firstWhere('type', 'markdown');
-//
-//            if ($firstMarkdownBlock !== null) {
-//                dd($firstMarkdownBlock['text']);
-//            }
-//
-//
-//
-//
-//        });
-
         $this->info("All event descriptions have been updated.");
 
         return true;
