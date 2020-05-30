@@ -25,6 +25,19 @@ class MoersFestivalController extends Controller
         return response()->json($events, 200);
     }
 
+    public function getAllEvents()
+    {
+        $organisation = Organisation::where('name', '=', 'moers festival')->firstOrFail();
+
+        $events = $organisation
+            ->publishedEvents()
+            ->with('entry', 'organisation', 'page', 'page.blocks')
+            ->get();
+
+        return response()->json($events, 200);
+
+    }
+
 //    public function store(Request $request)
 //    {
 //        $validator = Validator::make($request->json()->all(), [
