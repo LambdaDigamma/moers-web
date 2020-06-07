@@ -33,7 +33,8 @@
             disabled: {
                 type: Boolean,
                 default: false
-            }
+            },
+            value: [String, Number, Boolean],
         },
         data() {
             return {

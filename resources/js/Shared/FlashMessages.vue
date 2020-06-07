@@ -1,7 +1,6 @@
 <template>
     <div>
 
-
         <div v-if="$page.flash.success && show" class="mb-8 rounded-md bg-green-200 p-4">
             <div class="flex">
                 <div class="flex-shrink-0">

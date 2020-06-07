@@ -107,7 +107,7 @@
                             </TextInput>
                             <FileInput
                                     v-model="form.photo_old"
-                                    label="Bild (Kindheit)"
+                                    label="Neues Bild (Kindheit) hochladen"
                                     :errors="$page.errors.photo_old"
                                     class="w-full mt-2"
                                     type="file"
@@ -116,7 +116,7 @@
                             </FileInput>
                             <FileInput
                                     v-model="form.photo_new"
-                                    label="Bild (Jetzt)"
+                                    label="Neues Bild (Jetzt) hochladen"
                                     :errors="$page.errors.photo_new"
                                     class="w-full mt-2"
                                     type="file"
@@ -160,19 +160,19 @@
             return {
                 sending: false,
                 form: {
-                    name: this.existingInformation.name,
-                    nickname: this.existingInformation.nickname,
-                    birthday: this.existingInformation.birthday,
-                    slogan: this.existingInformation.slogan,
-                    motto: this.existingInformation.motto,
-                    strengths: this.existingInformation.strengths,
-                    weaknesses: this.existingInformation.weaknesses,
-                    lkA: this.existingInformation.lkA,
-                    lkB: this.existingInformation.lkB,
-                    highlight: this.existingInformation.highlight,
-                    soundtrack: this.existingInformation.soundtrack,
-                    miss_least: this.existingInformation.miss_least,
-                    miss_most: this.existingInformation.miss_most,
+                    name: this.existingInformation?.name || null,
+                    nickname: this.existingInformation?.nickname || null,
+                    birthday: this.existingInformation?.birthday || null,
+                    slogan: this.existingInformation?.slogan || null,
+                    motto: this.existingInformation?.motto || null,
+                    strengths: this.existingInformation?.strengths || null,
+                    weaknesses: this.existingInformation?.weaknesses || null,
+                    lkA: this.existingInformation?.lkA || null,
+                    lkB: this.existingInformation?.lkB || null,
+                    highlight: this.existingInformation?.highlight || null,
+                    soundtrack: this.existingInformation?.soundtrack || null,
+                    miss_least: this.existingInformation?.miss_least || null,
+                    miss_most: this.existingInformation?.miss_most || null,
                     photo_old: null,
                     photo_new: null,
                 }

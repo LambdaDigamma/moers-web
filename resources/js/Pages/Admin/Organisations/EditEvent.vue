@@ -29,10 +29,11 @@
 <script>
     import LayoutAdmin from "../../../Shared/LayoutAdmin";
     import EventForm from "../../../Pages/Admin/Organisations/EventForm";
+    import LanguagePicker from "../../../Shared/UI/LanguagePicker";
 
     export default {
         name: "EditEvent",
-        components: {EventForm},
+        components: {LanguagePicker, EventForm},
         layout: LayoutAdmin,
         props: {
             event: Object,

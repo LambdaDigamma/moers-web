@@ -26,7 +26,7 @@
                     </svg>
                     <p class="mt-1 text-sm text-gray-600">
                         <button type="button"
-                                class="cursor-pointer font-medium text-blue-600 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out" @click="select()">
+                                class="cursor-pointer font-medium text-blue-600 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out" @click="select()"> <!-- TODO: Select Image? -->
                             Lade ein Foto hoch
                         </button>
                         oder per Drag & Drop
