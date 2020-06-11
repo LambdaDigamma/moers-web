@@ -71,4 +71,9 @@ new Vue({
             resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default),
         },
     }),
+    mounted() {
+        window.addEventListener('popstate', () => {
+            this.$inertia.reload({preserveScroll: true, preserveState: false})
+        })
+    }
 }).$mount(app)
