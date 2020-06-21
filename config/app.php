@@ -1,5 +1,7 @@
 <?php
 
+use Laravel\Passport\PassportServiceProvider;
+
 return [
 
     /*
