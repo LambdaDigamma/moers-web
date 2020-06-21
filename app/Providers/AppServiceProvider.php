@@ -11,6 +11,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
+use Laravel\Passport\Passport;
 use Request;
 use Session;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -173,6 +174,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        Passport::ignoreMigrations();
     }
 }
