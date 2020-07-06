@@ -9,6 +9,8 @@ interface EntryRepositoryInterface
 {
     public function all();
 
+    public function allTags();
+
     public function get($entry_id);
 
     public function store(array $data): Entry;

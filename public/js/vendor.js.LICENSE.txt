@@ -14,29 +14,22 @@
  */
 
 /*!
- * Pusher JavaScript Library v5.1.1
+ * Pusher JavaScript Library v6.0.3
  * https://pusher.com/
  *
- * Copyright 2017, Pusher
+ * Copyright 2020, Pusher
  * Released under the MIT licence.
  */
 
 /*!
- * Sizzle CSS Selector Engine v2.3.4
+ * Sizzle CSS Selector Engine v2.3.5
  * https://sizzlejs.com/
  *
  * Copyright JS Foundation and other contributors
  * Released under the MIT license
  * https://js.foundation/
  *
- * Date: 2019-04-08
- */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
+ * Date: 2020-03-14
  */
 
 /*!
@@ -53,7 +46,7 @@
  */
 
 /*!
- * jQuery JavaScript Library v3.4.1
+ * jQuery JavaScript Library v3.5.1
  * https://jquery.com/
  *
  * Includes Sizzle.js
@@ -63,7 +56,7 @@
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2019-05-01T21:04Z
+ * Date: 2020-05-04T22:49Z
  */
 
 /*!
@@ -81,7 +74,7 @@
  */
 
 /*!
- * vue-cookie-law v1.12.0
+ * vue-cookie-law v1.13.3
  * (c) 2020 Jakub Juszczak <jakub@posteo.de>
  * 
  */

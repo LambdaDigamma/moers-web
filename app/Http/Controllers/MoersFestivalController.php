@@ -51,4 +51,13 @@ class MoersFestivalController extends Controller
             return response()->json($event, 201);
         }
     }
+
+    public function getStream()
+    {
+        return [
+            'stream_url' => null,
+
+        ];
+    }
+
 }

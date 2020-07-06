@@ -21,6 +21,20 @@ class EntryRepository implements EntryRepositoryInterface
             ->get();
     }
 
+    public function allTags()
+    {
+        return $this
+            ->all()
+            ->map(function ($entry) {
+                return $entry->tags;
+            })
+            ->flatten()
+            ->unique()
+            ->sort()
+            ->values()
+            ->all();
+    }
+
     /**
      * Gets entry by it's ID
      *

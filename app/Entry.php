@@ -3,7 +3,6 @@
 namespace App;
 
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -49,7 +48,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static bool|null forceDelete()
  * @method static Builder|Entry newModelQuery()
  * @method static Builder|Entry newQuery()
- * @method static \Illuminate\Database\Query\Builder|Entry onlyTrashed()
+ * @method static Builder|Entry onlyTrashed()
  * @method static Builder|Entry query()
  * @method static bool|null restore()
  * @method static Builder|Entry whereCreatedAt($value)
@@ -76,8 +75,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static Builder|Entry whereUrl($value)
  * @method static Builder|Entry whereUserId($value)
  * @method static Builder|Entry whereWednesday($value)
- * @method static \Illuminate\Database\Query\Builder|Entry withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Entry withoutTrashed()
+ * @method static Builder|Entry withTrashed()
+ * @method static Builder|Entry withoutTrashed()
  * @mixin Eloquent
  * @property-read mixed $header_url
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
@@ -90,8 +89,8 @@ class Entry extends Model implements AuditableContract, HasMedia
     protected $table = 'entries';
 
     protected $fillable = ['lat', 'lng', 'name', 'tags', 'street', 'house_number', 'postcode', 'place',
-                           'url', 'phone', 'monday', 'tuesday', 'wednesday', 'thursday',
-                           'friday', 'saturday', 'sunday', 'other'];
+        'url', 'phone', 'monday', 'tuesday', 'wednesday', 'thursday',
+        'friday', 'saturday', 'sunday', 'other'];
 
     /**
      * Attributes to include in the Audit.
@@ -138,4 +137,25 @@ class Entry extends Model implements AuditableContract, HasMedia
     {
         return $this->belongsToMany('App\Organisation');
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('street', 'like', '%' . $search . '%')
+                ->orWhere('tags', 'like', '%' . $search . '%');
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
+    }
+
+    public function scopeValidated($query)
+    {
+        return $query->where('is_validated', '=', true);
+    }
+
 }
