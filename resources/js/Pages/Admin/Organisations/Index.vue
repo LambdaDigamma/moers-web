@@ -1,10 +1,7 @@
 <template>
 
     <div>
-
         <div class="overflow-hidden bg-white rounded-lg shadow-sm">
-
-
             <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
                 <div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-no-wrap">
                     <div class="mt-4 ml-4">
@@ -78,15 +75,11 @@
                 </ul>
             </div>
 
-
-<!--            {{ organisations.links }}-->
-
             <PaginationCardFooter
                 :links="organisations.links"
                 :total-items="10">
 
             </PaginationCardFooter>
-
 
         </div>
 
