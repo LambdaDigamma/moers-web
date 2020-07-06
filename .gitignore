@@ -15,4 +15,6 @@ cgi-bruecke.php
 /.phpunit.result.cache
 .yarn
 .pnp.js
+.php_cs.cache
+*.cache
 storage/settings.json

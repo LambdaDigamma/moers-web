@@ -9,7 +9,6 @@ use Illuminate\Validation\Validator;
 
 class UserController extends Controller
 {
-
     public function login()
     {
         $credentials = [
@@ -25,8 +24,8 @@ class UserController extends Controller
         return response()->json(['error' => 'Unauthorised'], 401);
     }
 
-    public function register(Request $request) {
-
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
@@ -45,5 +44,4 @@ class UserController extends Controller
 
         return response()->json(['success' => $success]);
     }
-
 }

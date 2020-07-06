@@ -12,19 +12,20 @@ use App\Http\Controllers\Controller;
 
 class APIEntryController extends Controller
 {
-
     private $entryRepository;
 
-    public function __construct(EntryRepositoryInterface $entryRepository) {
+    public function __construct(EntryRepositoryInterface $entryRepository)
+    {
         $this->entryRepository = $entryRepository;
     }
 
-    public function get() {
+    public function get()
+    {
         return $this->entryRepository->all();
     }
 
-    public function store(StoreEntry $request) {
-
+    public function store(StoreEntry $request)
+    {
         $data = $request->validated();
 
         $isAllowed = true;
@@ -34,19 +35,16 @@ class APIEntryController extends Controller
         }
 
         if ($request->get('secret') == 'tzVQl34i6SrYSzAGSkBh') {
-
             $entry = $this->entryRepository->store($data);
 
             return response()->json($entry, 201);
-
         } else {
             return response()->json(['error' => 'Not authorized. Client secret is not valid.'], 403);
         }
-
     }
 
-    public function update(UpdateEntry $request, Entry $entry) {
-
+    public function update(UpdateEntry $request, Entry $entry)
+    {
         $data = $request->validated();
 
         $isAllowed = true;
@@ -58,31 +56,26 @@ class APIEntryController extends Controller
         $secret = $request->get('secret');
 
         if ($secret == 'tzVQl34i6SrYSzAGSkBh') {
-
             $entry = $this->entryRepository->update($entry->id, $data);
 
             return response()->json($entry, 201);
-
         } else {
             return response()->json(['error' => 'Not authorized. Client secret is not valid.'], 403);
         }
-
     }
 
-    public function delete(Request $request, Entry $entry) {
+    public function delete(Request $request, Entry $entry)
+    {
 
 //        try {
 //            $entry->delete();
 //        } catch (Exception $e) {}
 //
 //        return response()->json(null, 204);
-
     }
 
-    public function getHistory(Entry $entry) {
-
+    public function getHistory(Entry $entry)
+    {
         return $entry->audits()->select('id', 'event', 'old_values', 'new_values', 'created_at', 'updated_at')->get();
-
     }
-
 }

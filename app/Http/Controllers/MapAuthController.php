@@ -9,10 +9,8 @@ use Lcobucci\JWT\Signer\Key;
 
 class MapAuthController extends Controller
 {
-
     public function token()
     {
-
         $url = config('app.url');
         $team = config('services.apple.team');
         $keyID = config('services.apple.maps_key_id');
@@ -30,7 +28,5 @@ class MapAuthController extends Controller
                                 ->getToken($signer, $privateKey);
 
         return $token;
-
     }
-
 }

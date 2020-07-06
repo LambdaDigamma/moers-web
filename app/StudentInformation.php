@@ -2,6 +2,10 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
+
 /**
  * App\StudentInformation
  *
@@ -22,32 +26,32 @@ namespace App;
  * @property string $miss_most
  * @property string|null $photo_old_path
  * @property string|null $photo_new_path
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereBirthday($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereHighlight($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereLkA($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereLkB($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereMissLeast($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereMissMost($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereMotto($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereNickname($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation wherePhotoNewPath($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation wherePhotoOldPath($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereSlogan($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereSoundtrack($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereStrengths($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\StudentInformation whereWeaknesses($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User $user
+ * @method static Builder|StudentInformation newModelQuery()
+ * @method static Builder|StudentInformation newQuery()
+ * @method static Builder|StudentInformation query()
+ * @method static Builder|StudentInformation whereBirthday($value)
+ * @method static Builder|StudentInformation whereCreatedAt($value)
+ * @method static Builder|StudentInformation whereHighlight($value)
+ * @method static Builder|StudentInformation whereId($value)
+ * @method static Builder|StudentInformation whereLkA($value)
+ * @method static Builder|StudentInformation whereLkB($value)
+ * @method static Builder|StudentInformation whereMissLeast($value)
+ * @method static Builder|StudentInformation whereMissMost($value)
+ * @method static Builder|StudentInformation whereMotto($value)
+ * @method static Builder|StudentInformation whereName($value)
+ * @method static Builder|StudentInformation whereNickname($value)
+ * @method static Builder|StudentInformation wherePhotoNewPath($value)
+ * @method static Builder|StudentInformation wherePhotoOldPath($value)
+ * @method static Builder|StudentInformation whereSlogan($value)
+ * @method static Builder|StudentInformation whereSoundtrack($value)
+ * @method static Builder|StudentInformation whereStrengths($value)
+ * @method static Builder|StudentInformation whereUpdatedAt($value)
+ * @method static Builder|StudentInformation whereUserId($value)
+ * @method static Builder|StudentInformation whereWeaknesses($value)
+ * @mixin Eloquent
  */
 class StudentInformation extends Model
 {

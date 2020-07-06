@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\Entry;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,6 +19,20 @@ class EntryRepository implements EntryRepositoryInterface
     {
         return Entry::where('is_validated', '=', 1)
             ->get();
+    }
+
+    public function allTags()
+    {
+        return $this
+            ->all()
+            ->map(function ($entry) {
+                return $entry->tags;
+            })
+            ->flatten()
+            ->unique()
+            ->sort()
+            ->values()
+            ->all();
     }
 
     /**
@@ -76,5 +89,4 @@ class EntryRepository implements EntryRepositoryInterface
     {
         Entry::find($entry_id)->restore();
     }
-
 }

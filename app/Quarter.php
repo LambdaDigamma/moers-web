@@ -2,23 +2,27 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
+
 /**
  * App\Quarter
  *
  * @property int $id
  * @property string $name
  * @property string $postcode
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Quarter newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Quarter newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Quarter query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Quarter whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Quarter whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Quarter whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Quarter wherePostcode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Quarter whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Quarter newModelQuery()
+ * @method static Builder|Quarter newQuery()
+ * @method static Builder|Quarter query()
+ * @method static Builder|Quarter whereCreatedAt($value)
+ * @method static Builder|Quarter whereId($value)
+ * @method static Builder|Quarter whereName($value)
+ * @method static Builder|Quarter wherePostcode($value)
+ * @method static Builder|Quarter whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Quarter extends Model
 {

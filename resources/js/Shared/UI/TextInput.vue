@@ -1,16 +1,16 @@
 <template>
 
     <div>
-        <div class="flex" :class="{ 'justify-between' : isOptional, 'justify-start' : !isOptional }">
+        <div class="flex" :class="{ 'justify-between' : isOptional, 'justify-start' : !isOptional }" v-if="isOptional || label">
             <label :for="id" class="block text-sm font-medium leading-5 text-gray-700">{{ label }}</label>
             <span class="text-sm leading-5 text-gray-500" v-if="isOptional">Optional</span>
         </div>
         <div class="relative mt-1 rounded-md shadow-sm">
             <input :id="id"
-                   :value="value"
                    :placeholder="placeholder"
                    :type="type"
                    :disabled="disabled"
+                   :value="value"
                    v-bind="$attrs"
                    :class="{
                        'border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : this.hasError,
@@ -18,7 +18,6 @@
                        'opacity-50' : disabled
                    }"
                    class="block w-full pr-10 form-input sm:text-sm sm:leading-5"
-                   @update="$emit('input', $event)"
                    @input="$emit('input', $event.target.value)"
                    @keydown.enter.prevent=""
                    ref="input" />
@@ -59,7 +58,7 @@
                 type: String,
                 default: 'text',
             },
-            value: String,
+            value: [String, Number],
             label: String,
             placeholder: String,
             errors: {

@@ -22,10 +22,10 @@ use Request;
 
 class AdminOrganisationController extends Controller
 {
-
     private $pageRepository;
 
-    public function __construct(PageRepositoryInterface $pageRepository) {
+    public function __construct(PageRepositoryInterface $pageRepository)
+    {
         $this->middleware('can:access-admin');
         $this->middleware('remember')->only('index');
         $this->pageRepository = $pageRepository;
@@ -67,7 +67,6 @@ class AdminOrganisationController extends Controller
 
     public function storeEvent(Organisation $organisation, UpdateEvent $request)
     {
-
         $validated = $request->validated();
 
         $event = AdvEvent::create($validated);
@@ -85,12 +84,10 @@ class AdminOrganisationController extends Controller
         $event->save();
 
         return Redirect::route('admin.organisations.events.edit', [$organisation->id, $event->id]);
-
     }
 
     public function editEvent(Organisation $organisation, AdvEvent $event, string $lang = "de")
     {
-
         app()->setLocale($lang);
 
         $event->load('page', 'page.blocks');
@@ -105,6 +102,7 @@ class AdminOrganisationController extends Controller
 
     public function updateEvent(Organisation $organisation, AdvEvent $event, UpdateEvent $request, string $lang = "de")
     {
+        $validated = $request->validated();
 
         app()->setLocale($lang);
 
@@ -114,7 +112,6 @@ class AdminOrganisationController extends Controller
             $event->setTranslation('category', $lang, $request->get('category'));
             $event->save();
         } else {
-            $validated = $request->validated();
             $event->update($validated);
         }
 
@@ -125,7 +122,6 @@ class AdminOrganisationController extends Controller
         }
 
         return Redirect::route('admin.organisations.events.edit', [$organisation->id, $event->id, $lang]);
-
     }
 
     public function updatePage(Organisation $organisation, AdvEvent $event, UpdateEventPage $request, string $lang = "de")
@@ -141,7 +137,6 @@ class AdminOrganisationController extends Controller
         $this->pageRepository->update(Page::find($event->page->id), $request->validated(), $lang);
 
         return Redirect::route('admin.organisations.events.edit', [$organisation->id, $event->id, $lang]);
-
     }
 
     public function destroy(Organisation $organisation)
@@ -160,7 +155,6 @@ class AdminOrganisationController extends Controller
 
     public function createPage($eventName): Page
     {
-
         $slug = Str::of($eventName)
             ->slug('-')
             ->append('-')
@@ -170,7 +164,6 @@ class AdminOrganisationController extends Controller
             'title' => $eventName,
             'slug' => $slug
         ]);
-
     }
 
     public function stream()

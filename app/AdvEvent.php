@@ -66,10 +66,15 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent published()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent wherePageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereScheduledAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent active()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent chronological()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent future()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent nextDays()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent today()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent upcomingToday()
  */
 class AdvEvent extends Model implements HasMedia
 {
-
     use SoftDeletes;
     use HasTranslations;
     use InteractsWithMedia;
@@ -102,7 +107,8 @@ class AdvEvent extends Model implements HasMedia
         }
     }
 
-    public function organisation() {
+    public function organisation()
+    {
         return $this->belongsTo('App\Organisation');
     }
 
@@ -194,5 +200,4 @@ class AdvEvent extends Model implements HasMedia
         return $query->whereDate('start_date', '>=', now()->toDateString())
             ->orWhere('start_date', '=', null);
     }
-
 }

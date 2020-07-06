@@ -61,9 +61,9 @@ use Illuminate\Support\Facades\Auth;
  * @property int $can_voter_see_result
  * @property string|null $is_closed
  * @property string|null $starts_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll answered()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll filter($filters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Poll unanswered()
+ * @method static Builder|Poll answered()
+ * @method static Builder|Poll filter($filters)
+ * @method static Builder|Poll unanswered()
  */
 class Poll extends Model
 {

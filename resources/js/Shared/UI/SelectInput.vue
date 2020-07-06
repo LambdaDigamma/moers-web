@@ -26,6 +26,7 @@
                     return `select-input-${this._uid}`
                 },
             },
+            value: [String, Number, Boolean],
             label: {
                 type: String,
                 required: false

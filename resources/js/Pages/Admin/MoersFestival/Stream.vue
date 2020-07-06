@@ -119,8 +119,8 @@
 
 <script>
     import LayoutAdmin from "../../../Shared/LayoutAdmin";
-    import TextareaInput from "../../../Shared/TextareaInput";
-    import TextInput from "../../../Shared/TextInput";
+    import TextareaInput from "../../../Shared/UI/TextareaInput";
+    import TextInput from "../../../Shared/UI/TextInput";
     import DatePicker from "../../../Shared/UI/DatePicker";
     import TimePicker from "../../../Shared/UI/TimePicker";
     import moment from "moment";
@@ -128,7 +128,7 @@
     export default {
         name: "Stream",
         layout: LayoutAdmin,
-        components: {TimePicker, DatePicker, TextareaInput, TextInput},
+        components: {TextInput, TextareaInput, TimePicker, DatePicker, },
         props: {
             stream: Object
         },

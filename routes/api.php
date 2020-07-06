@@ -28,7 +28,7 @@ Route::group(['prefix' => '/v2'], function () {
     Route::put('/organisations/{organisation}', 'API\APIOrganisationController@update')
         ->name('api.v2.organisations.update');
 
-    Route::delete('/organisations/{organisation}','API\APIOrganisationController@delete')
+    Route::delete('/organisations/{organisation}', 'API\APIOrganisationController@delete')
         ->name('api.v2.organisations.delete');
 
     /* Users */
@@ -92,13 +92,11 @@ Route::group(['prefix' => '/v2'], function () {
     Route::post('/moers-festival/events', 'MoersFestivalController@store')
         ->middleware('auth:api')
         ->name('api.v2.moersfestival.store');
-
 });
 
 /* Events */
 
 Route::group(['prefix' => '/v2'], function () {
-
     Route::get('/events', 'API\APIEventController@get')
         ->name('api.v2.events.get');
 
@@ -112,7 +110,7 @@ Route::group(['prefix' => '/v2'], function () {
     Route::put('/events/{event}', 'API\APIEventController@update')
         ->name('api.v2.events.update');
 
-    Route::delete('/organisations/{event}','API\APIEventController@delete')
+    Route::delete('/organisations/{event}', 'API\APIEventController@delete')
         ->name('api.v2.events.delete');
 
     Route::get('/advEvents', 'API\APIEventController@getAdvEvents')
@@ -120,13 +118,11 @@ Route::group(['prefix' => '/v2'], function () {
 
     Route::get('/advEvents/keyed', 'API\APIEventController@getAdvEventsKeyed')
         ->name('api.v2.advEvents.get.keyed');
-
 });
 
 /* Entries */
 
 Route::group(['prefix' => '/v2'], function () {
-
     Route::get('/entries', 'API\APIEntryController@get')
         ->name('api.v2.entries.get');
 
@@ -138,42 +134,34 @@ Route::group(['prefix' => '/v2'], function () {
 
     Route::get('/entries/{entry}/history', 'API\APIEntryController@getHistory')
          ->name('api.v2.entries.history');
-
 });
 
 /* Tracker */
 
 Route::group(['prefix' => '/v2'], function () {
-
     Route::get('/tracker', 'API\APITrackerController@get')
         ->name('api.v2.tracker.get');
-    
 });
 
 /* Auth */
 
 Route::group(['prefix' => '/v2'], function () {
-
     Route::prefix('/auth')->group(function () {
 
 //        Route::post('register', 'AuthController@register');
         Route::post('login', 'AuthController@login');
         Route::get('refresh', 'AuthController@refresh');
 
-        Route::group(['middleware' => 'auth:api'], function() {
+        Route::group(['middleware' => 'auth:api'], function () {
             Route::get('user', 'AuthController@user');
             Route::post('logout', 'AuthController@logout');
         });
-
     });
-
-
 });
 
 /* Admin */
 
 Route::group(['prefix' => '/v2'], function () {
-
     Route::get('/polls', 'API\APIPollController@index')
         ->name('api.v2.polls');
 
@@ -196,7 +184,6 @@ Route::group(['prefix' => '/v2'], function () {
 
     Route::post('polls/{poll}/vote', 'API\APIPollController@vote') // TODO: Add Ability Middleware for Voting
         ->name('api.v2.poll.vote');
-
 });
 
 /*
@@ -217,7 +204,6 @@ Route::group(['prefix' => '/v1'], function () {
     Route::post('/entries', 'API\APIEntryController@store')->name('api.v1.entries.store');
     Route::put('/entries/{entry}', 'API\APIEntryController@update')->name('api.v1.entries.update');
     Route::get('/entries/{entry}/history', 'API\APIEntryController@getHistory')->name('api.v1.entries.history.get');
-
 });
 
 
@@ -232,7 +218,7 @@ Route::get('/events', function () {
     return Event::all();
 });
 
-Route::fallback(function() {
+Route::fallback(function () {
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact info@website.com'
     ], 404);

@@ -31,7 +31,8 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/';
 
-    protected function guard() {
+    protected function guard()
+    {
         return Auth::guard('web');
     }
 
@@ -71,9 +72,8 @@ class LoginController extends Controller
             : $this->redirectWithoutInertia(Redirect::intended($this->redirectPath())->getTargetUrl());
     }
 
-    function redirectWithoutInertia(string $url)
+    public function redirectWithoutInertia(string $url)
     {
         return response('', Response::HTTP_CONFLICT)->header('x-inertia-location', $url);
     }
-
 }

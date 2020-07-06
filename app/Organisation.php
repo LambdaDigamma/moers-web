@@ -60,7 +60,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  */
 class Organisation extends Model implements HasMedia
 {
-
     use SoftDeletes;
     use InteractsWithMedia;
 
@@ -84,16 +83,19 @@ class Organisation extends Model implements HasMedia
         }
     }
 
-    public function users() {
+    public function users()
+    {
         return $this->belongsToMany('App\User')->withPivot('organisation_id', 'user_id', 'role');
     }
 
-    public function entry() {
+    public function entry()
+    {
         return $this->belongsTo('App\Entry');
     }
 
     // TODO: Only show next events
-    public function events() {
+    public function events()
+    {
         return $this->hasMany('App\AdvEvent');
     }
 
@@ -126,5 +128,4 @@ class Organisation extends Model implements HasMedia
             }
         });
     }
-
 }

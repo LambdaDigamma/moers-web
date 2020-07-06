@@ -31,6 +31,14 @@ Route::group([
     Route::get('/pages/{page}/preview')->name('admin.pages.preview')->uses('PageController@preview');
     Route::put('/pages/{page}')->name('admin.pages.update')->uses('PageController@update');
 
+    Route::get('/datasets')->name('admin.datasets.index')->uses('AdminDatasetController@index');
+    Route::get('/datasets/{dataset}')->name('admin.datasets.edit')->uses('AdminDatasetController@edit');
+
+    Route::get('/datasets/{dataset}/resources/create')->name('admin.datasets.resources.create')->uses('AdminDatasetResourceController@create');
+    Route::post('/datasets/{dataset}/resources')->name('admin.datasets.resources.store')->uses('AdminDatasetResourceController@storeResource');
+    Route::get('/datasets/{dataset}/resources/{resource}')->name('admin.datasets.resources.edit')->uses('AdminDatasetResourceController@edit');
+    Route::put('/datasets/{dataset}/resources/{resource}')->name('admin.datasets.resources.update')->uses('AdminDatasetResourceController@update');
+    Route::post('/datasets/{dataset}/resources/{resource}/update')->name('admin.datasets.resources.updateData')->uses('AdminDatasetResourceController@loadResource');
     Route::get('/moers-festival/stream')->name('admin.moers-festival.stream')->uses('AdminOrganisationController@stream');
     Route::put('/moers-festival/stream')->name('admin.moers-festival.stream.update')->uses('AdminOrganisationController@updateStream');
 

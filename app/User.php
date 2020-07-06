@@ -126,59 +126,56 @@ class User extends Authenticatable implements ExportsPersonalData
             ->withTimestamps();
     }
 
-    public function organisations() {
+    public function organisations()
+    {
         return $this->belongsToMany('App\Organisation')->withPivot('organisation_id', 'user_id', 'role');
     }
 
-    public function organisationRole($organisationID) {
+    public function organisationRole($organisationID)
+    {
         return $this->organisations()->findOrFail($organisationID)->pivot->role;
     }
 
-    public function isMember($id) {
+    public function isMember($id)
+    {
         return $this->organisations()->find($id) != null;
     }
 
-    public function isOrganisationAdmin($organisation) {
+    public function isOrganisationAdmin($organisation)
+    {
         return $this->organisationRole($organisation->id) == 'admin';
     }
 
-    public function makeAdmin($id) {
-
+    public function makeAdmin($id)
+    {
         $pivot = $this->organisations()->findOrFail($id)->pivot;
 
         $pivot->role = 'admin';
         $pivot->save();
 
         return $pivot;
-
     }
 
-    public function makeMember($id) {
-
+    public function makeMember($id)
+    {
         $pivot = $this->organisations()->findOrFail($id)->pivot;
 
         $pivot->role = 'member';
         $pivot->save();
 
         return $pivot;
-
     }
 
-    public function join($id) {
-
+    public function join($id)
+    {
         if (!$this->isMember($id)) {
-
             $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($id);
             $organisation->users()->attach($this->id);
 
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
 
     /**
@@ -224,25 +221,41 @@ class User extends Authenticatable implements ExportsPersonalData
                 'description' => $this->description,
                 'points' => $this->points
             ])
-            ->add('own_help_requests.json',
-                Auth::user()->helpRequests()->get())
-            ->add('helper_helping_requests.json',
-                HelpRequest::userHelps()->get())
-            ->add('messages.json',
-                Message::where('sender_id', '=', $user_id)->get())
-            ->add('audits.json',
-                Audit::where('user_id', $user_id)->get())
-            ->add('votes.json',
+            ->add(
+                'own_help_requests.json',
+                Auth::user()->helpRequests()->get()
+            )
+            ->add(
+                'helper_helping_requests.json',
+                HelpRequest::userHelps()->get()
+            )
+            ->add(
+                'messages.json',
+                Message::where('sender_id', '=', $user_id)->get()
+            )
+            ->add(
+                'audits.json',
+                Audit::where('user_id', $user_id)->get()
+            )
+            ->add(
+                'votes.json',
                 Vote::with('poll')
                     ->without('poll.votes')
                     ->where('user_id', $user_id)
-                    ->get())
-            ->add('student_information.json',
-                StudentInformation::where('user_id', $user_id)->get())
-            ->add('created_pages.json',
-                Page::where('creator_id', $user_id)->get())
-            ->add('group_members.json',
-                Auth::user()->groups()->get());
+                    ->get()
+            )
+            ->add(
+                'student_information.json',
+                StudentInformation::where('user_id', $user_id)->get()
+            )
+            ->add(
+                'created_pages.json',
+                Page::where('creator_id', $user_id)->get()
+            )
+            ->add(
+                'group_members.json',
+                Auth::user()->groups()->get()
+            );
     }
 
     public function personalDataExportName(): string

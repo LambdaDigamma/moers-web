@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Message
@@ -11,20 +14,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $sender_id
  * @property int $conversation_id
  * @property string $content
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Conversation $conversation
- * @property-read \App\User $sender
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Message newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Message newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Message query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereConversationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereSenderId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Conversation $conversation
+ * @property-read User $sender
+ * @method static Builder|Message newModelQuery()
+ * @method static Builder|Message newQuery()
+ * @method static Builder|Message query()
+ * @method static Builder|Message whereContent($value)
+ * @method static Builder|Message whereConversationId($value)
+ * @method static Builder|Message whereCreatedAt($value)
+ * @method static Builder|Message whereId($value)
+ * @method static Builder|Message whereSenderId($value)
+ * @method static Builder|Message whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Message extends Model
 {

@@ -8,7 +8,6 @@ use Request;
 
 class APIRubbishController extends Controller
 {
-
     public function streetList()
     {
         if (Request::has('all')) {
@@ -22,5 +21,4 @@ class APIRubbishController extends Controller
     {
         return $street->pickupItems();
     }
-
 }

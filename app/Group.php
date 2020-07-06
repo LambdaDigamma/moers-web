@@ -42,7 +42,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Group withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Group withoutTrashed()
  * @mixin Eloquent
- * @property-read \App\Organisation|null $organisation
+ * @property-read Organisation|null $organisation
  */
 class Group extends Model
 {

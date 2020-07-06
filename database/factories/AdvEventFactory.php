@@ -9,7 +9,6 @@ use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(AdvEvent::class, function (Faker $faker) {
-
     $start = $faker->dateTimeBetween('next Monday', 'next Monday +7 days');
     $end = $faker->dateTimeBetween($start, $start->format('Y-m-d H:i:s') . ' +2 days');
 
@@ -29,7 +28,6 @@ $factory->define(AdvEvent::class, function (Faker $faker) {
         'is_published' => $faker->boolean(85),
         'extras' => $extras,
     ];
-
 });
 
 // ----- Time and Date -----
@@ -97,7 +95,7 @@ $factory->state(AdvEvent::class, 'not_published', function (Faker $faker) {
 
 $factory->state(AdvEvent::class, 'page', function (Faker $faker) {
     return [
-        'page_id' => function() {
+        'page_id' => function () {
             return factory(Page::class)->create()->id;
         }
     ];

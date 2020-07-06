@@ -43,7 +43,7 @@ class CreateStudentInformationTable extends Migration
      */
     public function down()
     {
-        Schema::table('student_information', function(Blueprint $table) {
+        Schema::table('student_information', function (Blueprint $table) {
             if (DB::getDriverName() !== 'sqlite') {
                 $table->dropForeign(['user_id']);
             }

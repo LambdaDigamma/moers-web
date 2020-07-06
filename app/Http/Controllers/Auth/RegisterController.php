@@ -36,7 +36,8 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
 
-    protected function guard() {
+    protected function guard()
+    {
         return Auth::guard('web');
     }
 
@@ -107,12 +108,10 @@ class RegisterController extends Controller
         return $request->wantsJson()
             ? new Response('', 201)
             : $this->redirectWithoutInertia(Redirect::intended($this->redirectPath())->getTargetUrl());
-
     }
 
-    function redirectWithoutInertia(string $url)
+    public function redirectWithoutInertia(string $url)
     {
         return response('', Response::HTTP_CONFLICT)->header('x-inertia-location', $url);
     }
-
 }

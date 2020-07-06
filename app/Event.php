@@ -52,7 +52,6 @@ use Illuminate\Support\Carbon;
  */
 class Event extends Model
 {
-
     use SoftDeletes;
 
     protected $table = 'events';
@@ -61,12 +60,13 @@ class Event extends Model
                            'description', 'url', 'category',
                            'organisation_id', 'entry_id', 'extras'];
 
-    public function organisation() {
+    public function organisation()
+    {
         return $this->belongsTo('App\Organisation');
     }
 
-    public function entry() {
+    public function entry()
+    {
         return $this->belongsTo('App\Entry');
     }
-
 }

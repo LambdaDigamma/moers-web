@@ -47,12 +47,10 @@ class LoadAdvEvents extends Command
      */
     public function handle()
     {
-
         $client = new Client();
         $request = new Request('GET', 'https://www.moers.de/www/event.nsf/apijson.xsp/view-event-month');
 
         $promise = $client->sendAsync($request)->then(function ($response) {
-
             $data = $response->getBody();
             $json = collect(json_decode($data, true));
 
@@ -63,26 +61,22 @@ class LoadAdvEvents extends Command
             $this->info('Successfully recognized ' . $this->unids->count() . ' events this month.');
 
             $this->getNextEvent();
-
         });
 
         $promise->wait();
-
     }
 
-    public function getNextEvent() {
-
+    public function getNextEvent()
+    {
         $unid = $this->unids->shift();
 
         if ($unid !== null) {
-
             $client = new Client();
             $request = new Request('GET', 'https://www.moers.de/www/event.nsf/apijson.xsp/doc/' . $unid);
 
             $this->currentUnid = $unid;
 
             $promise = $client->sendAsync($request)->then(function ($response) {
-
                 $data = collect(json_decode($response->getBody(), true));
 
                 $title = $data->get('EventTitle');
@@ -105,27 +99,18 @@ class LoadAdvEvents extends Command
                 // Start
 
                 if (is_array($start) or ($start instanceof Traversable)) {
-
                     $finalStart = $this->cleanTimeString($start[0]);
-
                 } elseif ($start !== null) {
-
                     $finalStart = $this->cleanTimeString($start);
-
                 }
 
                 // End
 
                 if (is_array($end) or ($end instanceof Traversable)) {
-
                     $finalEnd = $this->cleanTimeString(end($end));
-
                 } elseif ($end !== null) {
-
                     $finalEnd = $this->cleanTimeString($end);
-
                 } else {
-
                     $endDate = Carbon::parse($data->get('StartDate'));
 
                     $endDate->setTimezone('Europe/Berlin');
@@ -134,7 +119,6 @@ class LoadAdvEvents extends Command
                     if ($endDate !== null && $endDate !== false && $endTime !== null) {
                         $finalEnd = $endDate->format('Y-m-d') . ' ' . $endTime;
                     }
-
                 }
 
                 // URL
@@ -173,51 +157,38 @@ class LoadAdvEvents extends Command
 
                 $this->currentUnid = null;
                 $this->getNextEvent();
-
             });
 
             $promise->wait();
-
         }
-
-
     }
 
-    protected function cleanTime($time) {
-
+    protected function cleanTime($time)
+    {
         if ($time !== null) {
-
             if (!(strpos($time, 'T') !== false)) {
                 $time .= 'T00:00:00Z';
             }
 
             return $time;
-
         } else {
             return null;
         }
-
     }
 
-    protected function cleanTimeString($timeString) {
-
+    protected function cleanTimeString($timeString)
+    {
         $cleanedTimeString = $this->cleanTime($timeString);
 
         try {
-
             $date = new Carbon($cleanedTimeString);
             $date->setTimezone('Europe/Berlin');
 
             return $date->format('Y-m-d H:i:s');
-
         } catch (Exception $e) {
-
             $this->error($e->getMessage());
 
             return null;
-
         }
-
     }
-
 }

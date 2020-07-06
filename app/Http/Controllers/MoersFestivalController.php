@@ -36,6 +36,9 @@ class MoersFestivalController extends Controller
 
         return response()->json($events, 200);
 
+            $event = AdvEvent::create($request->json()->all());
+            $event->organisation_id = $organisation->id;
+            $event->save();
     }
 
 //    public function store(Request $request)

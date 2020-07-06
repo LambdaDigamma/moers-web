@@ -3,6 +3,7 @@
     <span class="inline-flex rounded-md shadow-sm" :class="{ 'w-full justify-center': block }">
         <component
                 class="inline-flex items-center border border-gray-300 font-medium text-gray-700 bg-white transition ease-in-out duration-150"
+                v-bind="$attrs"
                 :is="type"
                 :href="href"
                 :type="buttonType"
@@ -27,6 +28,7 @@
 <script>
     export default {
         name: "WhiteButton",
+        inheritAttrs: false,
         props: {
             size: {
                 validator: function (value) {
@@ -63,7 +65,7 @@
         computed: {
             type() {
                 if (this.href) {
-                    return 'a'
+                    return 'inertia-link'
                 } else {
                     return 'button'
                 }

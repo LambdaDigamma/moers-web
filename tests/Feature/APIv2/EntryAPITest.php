@@ -6,8 +6,8 @@ use App\Entry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class EntryAPITest extends TestCase {
-
+class EntryAPITest extends TestCase
+{
     use RefreshDatabase;
 
     public function setUp(): void
@@ -16,12 +16,10 @@ class EntryAPITest extends TestCase {
 
 //        $seeder = new EntrySeeder();
 //        $seeder->run();
-
     }
 
     public function test_can_get_validated_entries()
     {
-
         factory(Entry::class, 10)->create();
 
         $response = $this->get('/api/v2/entries');
@@ -29,12 +27,10 @@ class EntryAPITest extends TestCase {
             ->assertJson([[
                 'is_validated' => true
             ]]);
-
     }
 
     public function test_can_store_entry()
     {
-
         $data = [
             'name' => $this->faker->title,
             'tags' => 'Just, Testing',
@@ -59,12 +55,10 @@ class EntryAPITest extends TestCase {
                 'street', 'house_number', 'postcode', 'place',
                 'created_at', 'updated_at',
             ]);
-
     }
 
     public function test_fails_store_entry_no_key()
     {
-
         $data = [
             'name' => $this->faker->title,
             'tags' => 'Just, Testing',
@@ -78,12 +72,10 @@ class EntryAPITest extends TestCase {
 
         $this->post(route('api.v2.entries.store'), $data)
             ->assertStatus(403);
-
     }
 
     public function test_can_update_entry()
     {
-
         $entry = factory(Entry::class)->create();
         $updateData = factory(Entry::class)->make()->toArray();
         $updateData['secret'] = 'tzVQl34i6SrYSzAGSkBh';
@@ -99,7 +91,5 @@ class EntryAPITest extends TestCase {
                 'street', 'house_number', 'postcode', 'place',
                 'created_at', 'updated_at',
             ]);
-
     }
-
 }

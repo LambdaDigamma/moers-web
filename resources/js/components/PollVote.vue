@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import LoadingButton from "../Shared/LoadingButton";
+import LoadingButton from "../Shared/UI/LoadingButton";
 import Icon from "../Shared/Icon";
 
 export default {

@@ -45,7 +45,6 @@ class APIUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-
         $request->validate([
             'name' => 'required|string|min:5|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
@@ -87,7 +86,6 @@ class APIUserController extends Controller
             'group' => $group,
             'user' => $user->load('groups')
         ];
-
     }
 
     /**
@@ -118,7 +116,6 @@ class APIUserController extends Controller
             'group' => $group,
             'user' => $user->load('groups')
         ];
-
     }
 
     /**
@@ -129,7 +126,8 @@ class APIUserController extends Controller
      *
      * @return mixed
      */
-    public function allowCreatePoll($userID) {
+    public function allowCreatePoll($userID)
+    {
         $user = User::findOrFail($userID);
         Bouncer::allow($user)->to('create-poll', Poll::class);
         return $user;
@@ -142,10 +140,10 @@ class APIUserController extends Controller
      *
      * @return mixed
      */
-    public function disallowCreatePoll($userID) {
+    public function disallowCreatePoll($userID)
+    {
         $user = User::findOrFail($userID);
         Bouncer::disallow($user)->to('create-poll', Poll::class);
         return $user;
     }
-
 }
