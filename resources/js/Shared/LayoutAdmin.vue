@@ -62,8 +62,8 @@
             </div>
 
             <!-- Static sidebar for desktop -->
-            <div class="hidden md:flex md:flex-shrink-0">
-                <div class="flex flex-col w-64">
+            <div class="hidden md:flex md:flex-shrink-0 m-4 mr-2">
+                <div class="flex flex-col w-64 shadow-xl rounded-lg overflow-hidden">
                     <div class="flex items-center flex-shrink-0 h-16 px-4 bg-gray-900">
                         <span class="text-lg font-bold text-white">Mein Moers</span>
                     </div>
@@ -126,7 +126,7 @@
                 </div>
             </div>
             <div class="flex flex-col flex-1 w-0 overflow-hidden">
-                <div class="relative z-10 flex flex-shrink-0 h-16 bg-white shadow-sm">
+                <div class="relative z-10 flex flex-shrink-0 h-16 bg-white m-4 ml-2 shadow rounded-lg">
                     <button @click="sidebarOpen = true" class="px-4 text-gray-500 border-r border-gray-200 focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden">
                         <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />

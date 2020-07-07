@@ -3,7 +3,7 @@
     <header class="py-10">
         <div class="mt-2 md:flex md:items-center md:justify-between">
             <div class="flex-1">
-                <h2 class="text-2xl font-bold leading-7 text-white sm:text-3xl sm:leading-9 sm:truncate">
+                <h2 class="text-2xl font-bold leading-7 sm:text-3xl sm:leading-9 sm:truncate">
                     {{ title }}
                 </h2>
             </div>
