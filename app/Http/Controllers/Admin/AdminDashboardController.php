@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AdvEvent;
 use App\Entry;
 use App\Http\Controllers\Controller;
 use App\Organisation;
@@ -27,7 +28,8 @@ class AdminDashboardController extends Controller
     {
         return Inertia::render('Admin/Dashboard', [
             'numberOfEntries' => Entry::all()->count(),
-            'numberOfOrganisations' => Organisation::all()->count()
+            'numberOfOrganisations' => Organisation::all()->count(),
+            'numberOfEvents' => AdvEvent::all()->count()
         ]);
     }
 }

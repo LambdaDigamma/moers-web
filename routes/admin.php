@@ -22,6 +22,9 @@ Route::group([
     Route::get('/entries/{entry}')->name('admin.entries.edit')->uses('AdminEntryController@edit');
     Route::put('/entries/{entry}')->name('admin.entries.update')->uses('AdminEntryController@update');
 
+    Route::get('/events')->name('admin.events.index')->uses('AdminEventController@index');
+    Route::get('/events/{event}')->name('admin.events.edit')->uses('AdminEventController@edit');
+
     Route::get('/polls')->name('admin.polls.index')->uses('AdminPollsController@index');
     Route::get('/polls/create')->name('admin.polls.create')->uses('AdminPollsController@create');
     Route::post('/polls')->name('admin.polls.store')->uses('AdminPollsController@store');
