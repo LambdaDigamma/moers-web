@@ -1,34 +1,25 @@
 <template>
 
     <div>
-        <h1 class="text-4xl font-bold dark:text-white">Abstimmungen</h1>
 
-        <div class="flex flex-col items-center justify-between mt-3 mb-6 md:flex-row">
-            <search-filter v-model="form.search" class="w-full max-w-sm mr-4" @reset="reset">
-                <label class="block text-grey-darkest">Gelöschte:</label>
-                <select v-model="form.trashed" class="w-full mt-1 form-select">
-                    <option :value="null"/>
-                    <option value="with">inklusive gelöschten</option>
-                    <option value="only">nur gelöschte</option>
-                </select>
-            </search-filter>
-            <inertia-link :href="route('admin.polls.create')" class="px-3 py-2 text-lg font-semibold text-white bg-green-700 rounded-lg hover:no-underline">
-                <span>Erstellen</span>
-            </inertia-link>
-        </div>
+        <Header title="Abstimmungen">
+            <PrimaryButton :href="route('admin.polls.create')">
+                Abstimmung erstellen
+            </PrimaryButton>
+        </Header>
 
         <div>
 
             <inertia-link v-for="(poll, index) in polls.data"
                  :key="poll.id"
                  :href="route('admin.polls.edit', poll.id)"
-                 class="block p-3 px-4 mb-3 rounded-lg dark:bg-gray-700 dark:text-white">
+                 class="block p-3 px-4 mb-3 transition duration-150 bg-white rounded-lg shadow md:p-5 hover:bg-gray-50">
 
-                <h3 class="text-xs font-semibold leading-relaxed tracking-normal uppercase dark:text-yellow-500"
+                <h3 class="text-sm font-semibold leading-relaxed tracking-normal uppercase text-gray-500"
                     v-if="poll.group && poll.group.organisation">
                     {{ poll.group.organisation.name }} • {{ poll.group.name }}
                 </h3>
-                <h3 class="text-xs font-semibold leading-relaxed tracking-normal uppercase dark:text-yellow-500" v-else>
+                <h3 class="text-xs font-semibold leading-relaxed tracking-normal uppercase" v-else>
                     Unbekannte Gruppe
                 </h3>
 
@@ -62,10 +53,12 @@
     import Pagination from "@/Shared/Pagination";
     import SearchFilter from "@/Shared/SearchFilter";
     import {mapValues, pickBy, throttle} from "lodash";
+    import Header from "../../../Shared/UI/Header";
+    import PrimaryButton from "../../../Shared/UI/PrimaryButton";
 
     export default {
         name: "Index",
-        components: {Pagination, SearchFilter},
+        components: {PrimaryButton, Header, Pagination, SearchFilter},
         layout: LayoutAdmin,
         props: {
             polls: Object,

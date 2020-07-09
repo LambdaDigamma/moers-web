@@ -3,7 +3,7 @@
     <div>
         <div v-if="this.results.total !== 0">
             <PollChart :chartData="chartData" :chartLabels="chartLabels"  />
-            <div class="mt-4 rounded dark:text-white">
+            <div class="mt-4 rounded">
                 <div class="flex align-items-center">
                     <p v-if="this.results.total === 1" class="m-0 font-semibold">
                         Eine Person hat schon abgestimmt.
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div v-else class="text-lg font-semibold dark:text-white">
+        <div v-else class="text-lg font-medium leading-6 text-gray-900">
             Noch keine Ergebnisse verfügbar.
         </div>
     </div>
