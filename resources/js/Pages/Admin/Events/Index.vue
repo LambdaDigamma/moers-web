@@ -2,7 +2,9 @@
 
     <div>
         <Header title="Veranstaltungen">
-
+            <PrimaryButton :href="route('admin.events.create')">
+                Veranstaltung erstellen
+            </PrimaryButton>
         </Header>
 
         <div class="grid grid-cols-3 gap-6 mt-6">
@@ -13,7 +15,6 @@
               :key="event.id"
               :href="route('admin.events.edit', [event.id])"
               class="col-span-1">
-                <!--              :href="route('admin.organisations.events.edit', [organisation.id, event.id])"-->
 
             </EventCard>
 
@@ -28,10 +29,11 @@
 <script>
     import LayoutAdmin from "../../../Shared/LayoutAdmin";
     import Pagination from "../../../Shared/Pagination";
+    import PrimaryButton from "../../../Shared/UI/PrimaryButton";
 
     export default {
         name: "Index",
-        components: {Pagination},
+        components: {PrimaryButton, Pagination},
         layout: LayoutAdmin,
         props: {
             events: Object

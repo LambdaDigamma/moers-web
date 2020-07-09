@@ -24,6 +24,7 @@ Route::group([
 
     Route::get('/events')->name('admin.events.index')->uses('AdminEventController@index');
     Route::get('/events/{event}')->name('admin.events.edit')->uses('AdminEventController@edit');
+    Route::get('/events/create')->name('admin.events.create')->uses('AdminEventController@create');
 
     Route::get('/polls')->name('admin.polls.index')->uses('AdminPollsController@index');
     Route::get('/polls/create')->name('admin.polls.create')->uses('AdminPollsController@create');

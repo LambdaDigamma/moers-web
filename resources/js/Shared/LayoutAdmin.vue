@@ -190,7 +190,7 @@
                     </div>
                 </div>
                 <main class="relative z-0 flex-1 py-6 overflow-y-auto focus:outline-none" tabindex="0" scroll-region>
-                    <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
+                    <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8 pb-48">
 
                         <flash-messages />
                         <slot />

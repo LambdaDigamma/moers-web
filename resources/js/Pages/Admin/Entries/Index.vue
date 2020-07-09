@@ -12,7 +12,7 @@
                     <div class="w-full flex items-center justify-between p-6 space-x-6">
                         <div class="flex-1 truncate">
                             <div class="flex items-center space-x-3">
-                                <h3 class="text-gray-900 text-sm leading-5 font-medium truncate">
+                                <h3 class="text-gray-900 text-base leading-5 font-medium truncate">
                                     {{ entry.name }}
                                 </h3>
                             </div>
@@ -67,10 +67,11 @@
     import LayoutAdmin from "../../../Shared/LayoutAdmin";
     import Header from "../../../Shared/UI/Header";
     import Pagination from "../../../Shared/Pagination";
+    import SecondaryButton from "../../../Shared/UI/SecondaryButton";
 
     export default {
         name: "Index",
-        components: {Pagination, Header},
+        components: {SecondaryButton, Pagination, Header},
         layout: LayoutAdmin,
         props: {
             entries: Object

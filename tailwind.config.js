@@ -205,6 +205,9 @@ module.exports = {
                     // 900: '#171717',
                 // }
             },
+            transitionProperty: {
+                'filter': 'filter',
+            },
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },

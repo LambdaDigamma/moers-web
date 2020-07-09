@@ -38,7 +38,7 @@ class AdminOrganisationController extends Controller
             'organisations' => Organisation::with(['mainGroup', 'entry'])
                 ->orderByDesc('name')
                 ->filter(Request::only('search'))
-                ->paginate()
+                ->paginate(9)
         ]);
     }
 

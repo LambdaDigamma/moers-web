@@ -72,7 +72,7 @@ Route::group([
     Route::get('/entries/{selectedEntry?}')->name('entries.index')->uses('EntryController@index');
     Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
     Route::post('/forms/students')->name('forms.student.save')->uses('FormController@saveStudentForm')->middleware('auth');
-//
+
 //    Route::get('/polls')->name('polls.index')->uses('PollController@index')->middleware('auth');
 //    Route::get('/polls/answered')->name('polls.index.answered')->uses('PollController@indexAnswered')->middleware('auth');
 //    Route::get('/polls/{poll}')->name('polls.show')->uses('PollController@show')->middleware('auth');
