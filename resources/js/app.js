@@ -10,6 +10,7 @@ require('moment/locale/de')
 
 Vue.config.productionTip = false
 Vue.mixin({ methods: { route: window.route } })
+Vue.mixin(require('./base'))
 Vue.use(InertiaApp)
 Vue.use(PortalVue)
 Vue.use(VueMeta)

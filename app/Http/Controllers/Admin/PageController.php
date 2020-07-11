@@ -23,6 +23,7 @@ class PageController extends Controller
         return Inertia::render('Admin/Pages/Index', [
             'filters' => Request::all('search'),
             'pages' => Page::query()
+                ->with('creator')
                 ->orderByDesc('created_at')
                 ->filter(Request::only('search'))
                 ->paginate()

@@ -32,6 +32,11 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register.att
 
 Route::get('/maps/auth')->uses('MapAuthController@token');
 
+Route::get('language/{language}', function ($language) {
+    Session()->put('locale', $language);
+    return redirect()->back();
+})->name('language');
+
 Route::group([
     'namespace' => 'Web',
 ], function () {

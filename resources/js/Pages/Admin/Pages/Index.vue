@@ -2,41 +2,80 @@
 
     <div>
 
-        <h1 class="text-4xl font-bold dark:text-white">Seiten</h1>
+        <Header title="Seiten">
+            <PrimaryButton>
+                Seite erstellen
+            </PrimaryButton>
+        </Header>
 
-        <div class="flex flex-col items-center justify-between mt-3 mb-6 md:flex-row">
-            <search-filter v-model="form.search" class="w-full max-w-sm mr-4" @reset="reset">
-                <label class="block text-grey-darkest">Gelöschte:</label>
-                <select v-model="form.trashed" class="w-full mt-1 form-select">
-                    <option :value="null"/>
-                    <option value="with">inklusive gelöschten</option>
-                    <option value="only">nur gelöschte</option>
-                </select>
-            </search-filter>
-            <!--        <inertia-link :href="route('admin.pages.create')" class="px-3 py-2 text-lg font-semibold text-white bg-green-700 rounded-lg hover:no-underline">-->
-            <!--            <span>Erstellen</span>-->
-            <!--        </inertia-link>-->
+        <div class="flex flex-col">
+            <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                    <table class="min-w-full">
+                        <thead>
+                        <tr>
+                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Title
+                            </th>
+                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Slug
+                            </th>
+                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Ersteller
+                            </th>
+                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Letzte Änderung
+                            </th>
+                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                        <tr v-for="page in pages.data" class="border-b border-gray-200 last:border-0">
+                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
+                                {{ page.title }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 font-mono">
+                                {{ page.slug }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                {{ page.creator.first_name }} {{ page.creator.last_name }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                {{ page.updated_at | moment("from", "now") }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                <inertia-link :href="route('admin.pages.edit', page.id)" class="text-blue-600 hover:text-blue-900">
+                                    Bearbeiten
+                                </inertia-link>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
-        <div>
-
-            <inertia-link v-for="page in pages.data"
-                          :key="page.id"
-                          :href="route('admin.pages.edit', page.id)"
-                          class="block p-3 px-4 mb-3 rounded-lg dark:bg-gray-700 dark:text-white">
-
-                <h4 class="text-2xl font-bold">
-                    {{ page.title }}
-                </h4>
-                <p class="mb-0">Slug: {{ page.slug }}</p>
-
-            </inertia-link>
-
-        </div>
 
 
-        <div class="p-0">
-            <Pagination :links="pages.links" class="my-2 my-md-4" />
+<!--        <div>-->
+
+<!--            <inertia-link v-for="page in pages.data"-->
+<!--                          :key="page.id"-->
+<!--                          :href="route('admin.pages.edit', page.id)"-->
+<!--                          class="block p-3 px-4 mb-3 rounded-lg dark:bg-gray-700 dark:text-white">-->
+
+<!--                <h4 class="text-2xl font-bold">-->
+<!--                    {{ page.title }}-->
+<!--                </h4>-->
+<!--                <p class="mb-0">Slug: {{ page.slug }}</p>-->
+
+<!--            </inertia-link>-->
+
+<!--        </div>-->
+
+
+        <div class="mt-6">
+            <Pagination :links="pages.links" />
         </div>
 
     </div>
@@ -46,9 +85,12 @@
 <script>
     import LayoutAdmin from "../../../Shared/LayoutAdmin";
     import {mapValues, pickBy, throttle} from "lodash";
+    import Header from "../../../Shared/UI/Header";
+    import PrimaryButton from "../../../Shared/UI/PrimaryButton";
 
     export default {
         name: "Index",
+        components: {PrimaryButton, Header},
         layout: LayoutAdmin,
         props: {
             pages: Object,

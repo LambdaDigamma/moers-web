@@ -68,6 +68,14 @@ class AppServiceProvider extends ServiceProvider
                     ] : null,
                 ];
             },
+            'locale' => function () {
+                return app()->getLocale();
+            },
+            'language' => function () {
+                return translations(
+                    resource_path('lang/'. app()->getLocale() .'.json')
+                );
+            },
             'flash' => function () {
                 return [
                     'success' => Session::get('success'),
