@@ -28,7 +28,7 @@
         "laravel-mix-tailwind": "^0.1.0",
         "leaflet": "^1.6.0",
         "lint-staged": "^10.2.9",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.19",
         "marked": "^1.1.0",
         "mocha": "^6.2.3",
         "mochapack": "^2.0.0",
