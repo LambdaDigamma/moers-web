@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div class="space-y-1">
 
         <MenuItemDesktop title="Übersicht"
                          :href="route('dashboard')"

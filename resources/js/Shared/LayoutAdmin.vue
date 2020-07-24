@@ -69,7 +69,7 @@
                     </div>
                     <div class="flex flex-col flex-1 h-0 overflow-y-auto">
                         <!-- Sidebar component, swap this element with another sidebar if you like -->
-                        <nav class="flex-1 px-2 py-4 bg-gray-800">
+                        <nav class="flex-1 px-2 py-4 bg-gray-800 space-y-1">
 
                             <MenuItemDesktop title="Übersicht"
                                              :href="route('admin.dashboard')"
@@ -113,7 +113,7 @@
                                 <h3 class="px-3 text-xs leading-4 font-semibold text-gray-400 uppercase tracking-wider">
                                     Sonstiges
                                 </h3>
-                                <div class="mt-1">
+                                <div class="mt-1 space-y-1">
                                     <MenuItemDesktop title="Datensätze"
                                                      :href="route('admin.datasets.index')"
                                                      :active="isUrl('admin/datasets')"

@@ -2,104 +2,155 @@
 
     <div>
 
-        <div class="grid grid-cols-4 gap-6">
-            <div class="col-span-3">
-                <Panel></Panel>
-            </div>
-            <div class="col-span-1">
-                <Panel></Panel>
-            </div>
-        </div>
+        <div class="grid grid-cols-7 gap-6">
+            <div class="col-span-5">
+
+                <draggable tag="ul" ghost-class="moving-card" filter=".action-button" class="w-full" :list="blocks" :animation="200">
+
+                    <div v-for="(block, index) in blocks"
+                         :key="index"
+                         class="flex flex-row items-center dark:text-white mb-6">
+
+                        <TextEditor
+                          v-if="block.type === 'markdown'"
+                          :block="block"
+                          @duplicated="duplicateBlock(index)"
+                          @deleted="deleteBlock(index)" />
+                        <SoundCloudEditor
+                          v-else-if="block.type === 'soundcloud'"
+                          @duplicated="duplicateBlock(index)"
+                          @deleted="deleteBlock(index)" />
+
+                        <ExternalLinkEditor
+                          v-else-if="block.type === 'externalLink'"
+                          :block="block"
+                          @duplicated="duplicateBlock(index)"
+                          @deleted="deleteBlock(index)" />
 
 
-
-
-        <div class="mt-12 flex flex-row">
-            <div class="lg:w-3/4">
-                <CardContainer class="lg:mr-2" :show-action-bar="false">
-                    <template v-slot:header>
-                        <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            {{ title }}
-                        </h3>
-                        <p class="mt-1 text-sm leading-5 text-gray-500">
-                            Editiere die Details, die für diese Veranstaltung angezeigt werden
-                        </p>
-                    </template>
-                    <div class="rounded-lg" :class="{ 'border dark:border-gray-600' : blocks.length === 0 }">
-                        <div>
-                            <draggable
-                              :list="blocks"
-                              group="blocks"
-                              @change="updateOrder">
-                                <div v-for="(block, index) in blocks"
-                                     :key="index"
-                                     class="flex flex-row items-center dark:text-white">
-
-                                    <TextEditor
-                                      v-if="block.type === 'markdown'"
-                                      :block="block"
-                                      @duplicated="duplicateBlock(index)"
-                                      @deleted="deleteBlock(index)" />
-                                    <SoundCloudEditor
-                                      v-else-if="block.type === 'soundcloud'"
-                                      @duplicated="duplicateBlock(index)"
-                                      @deleted="deleteBlock(index)" />
-
-                                    <ExternalLinkEditor
-                                      v-else-if="block.type === 'externalLink'"
-                                      :block="block"
-                                      @duplicated="duplicateBlock(index)"
-                                      @deleted="deleteBlock(index)" />
-
-
-                                    <div v-else class="flex flex-row items-center justify-center w-full py-3  dark:text-white">
-                                        Dieser Baustein wird leider noch nicht unterstützt.
-                                    </div>
-                                </div>
-                                <div v-if="blocks.length === 0" class="flex flex-row items-center justify-center py-3 text-sm text-gray-600 dark:text-white">
-                                    Ziehe die gewünschten Inhalte aus dem Kasten rechts in die Bearbeitungsfläche.
-                                </div>
-                            </draggable>
+                        <div v-else class="flex flex-row items-center justify-center w-full py-3  dark:text-white">
+                            Dieser Baustein wird leider noch nicht unterstützt.
                         </div>
-
                     </div>
-                </CardContainer>
+                    <div v-if="blocks.length === 0" class="flex flex-row items-center justify-center py-3 text-sm text-gray-600 dark:text-white">
+                        Ziehe die gewünschten Inhalte aus dem Kasten rechts in die Bearbeitungsfläche.
+                    </div>
+
+                </draggable>
+
+                <div class="mt-4 flex items-center space-x-3">
+
+                    <div class="flex-grow h-0.5 bg-gray-300"></div>
+
+                    <button class="flex-grow-0 w-6 h-6">
+                        <svg class="text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+
+                    <div class="flex-grow h-0.5 bg-gray-300"></div>
+
+                </div>
+
             </div>
-            <div class="lg:w-1/4">
-                <CardContainer class="lg:ml-2" :inset-container="false">
-                    <!--                <input @keydown.enter.prevent=""-->
-                    <!--                       v-model="query"-->
-                    <!--                       placeholder="Suchen…"-->
-                    <!--                       type="text"-->
-                    <!--                       class="w-full px-2 py-2 rounded md:px-2 md:py-3 focus:shadow-outline dark:text-white dark:bg-gray-600" />-->
-                    <div class="px-3 pt-3 sm:px-6">
-                        <draggable
-                          :list="presets"
-                          :group="{ name: 'blocks', pull: 'clone' }"
-                          :clone="clone">
-                            <div v-for="(preset, index) in presets"
-                                 :key="index"
-                                 class="flex flex-row items-center py-2 dark:text-white">
-                                <Icon :name="preset.icon" class="w-10 h-10 mr-2 fill-current" />
-                                <div>
-                                    <h1 class="text-base font-semibold">{{ preset.name }}</h1>
-                                    <p class="mb-0 text-sm font-normal">{{ preset.description }}</p>
-                                </div>
-                            </div>
-                        </draggable>
+            <div class="col-span-2">
+                <Panel>
+                    <div class="max-w-lg flex rounded-md shadow-sm">
+                        <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
+                            workcation.com/
+                        </span>
+                        <input id="username" class="flex-1 form-input block w-full min-w-0 rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
-
-
-                </CardContainer>
-                <CardContainer class="mt-4 lg:ml-2">
-                    <div class="flex flex-col">
-                        <PrimaryButton @click="save" size="lg" block>
-                            Speichern
-                        </PrimaryButton>
-                    </div>
-                </CardContainer>
+                </Panel>
             </div>
         </div>
+
+<!--        <div class="mt-12 flex flex-row">-->
+<!--            <div class="lg:w-3/4">-->
+<!--                <CardContainer class="lg:mr-2" :show-action-bar="false">-->
+<!--                    <template v-slot:header>-->
+<!--                        <h3 class="text-lg font-medium leading-6 text-gray-900">-->
+<!--                            {{ title }}-->
+<!--                        </h3>-->
+<!--                        <p class="mt-1 text-sm leading-5 text-gray-500">-->
+<!--                            Editiere die Details, die für diese Veranstaltung angezeigt werden-->
+<!--                        </p>-->
+<!--                    </template>-->
+<!--                    <div class="rounded-lg" :class="{ 'border dark:border-gray-600' : blocks.length === 0 }">-->
+<!--                        <div>-->
+<!--                            <draggable-->
+<!--                              :list="blocks"-->
+<!--                              group="blocks"-->
+<!--                              @change="updateOrder">-->
+<!--                                <div v-for="(block, index) in blocks"-->
+<!--                                     :key="index"-->
+<!--                                     class="flex flex-row items-center dark:text-white">-->
+
+<!--                                    <TextEditor-->
+<!--                                      v-if="block.type === 'markdown'"-->
+<!--                                      :block="block"-->
+<!--                                      @duplicated="duplicateBlock(index)"-->
+<!--                                      @deleted="deleteBlock(index)" />-->
+<!--                                    <SoundCloudEditor-->
+<!--                                      v-else-if="block.type === 'soundcloud'"-->
+<!--                                      @duplicated="duplicateBlock(index)"-->
+<!--                                      @deleted="deleteBlock(index)" />-->
+
+<!--                                    <ExternalLinkEditor-->
+<!--                                      v-else-if="block.type === 'externalLink'"-->
+<!--                                      :block="block"-->
+<!--                                      @duplicated="duplicateBlock(index)"-->
+<!--                                      @deleted="deleteBlock(index)" />-->
+
+
+<!--                                    <div v-else class="flex flex-row items-center justify-center w-full py-3  dark:text-white">-->
+<!--                                        Dieser Baustein wird leider noch nicht unterstützt.-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div v-if="blocks.length === 0" class="flex flex-row items-center justify-center py-3 text-sm text-gray-600 dark:text-white">-->
+<!--                                    Ziehe die gewünschten Inhalte aus dem Kasten rechts in die Bearbeitungsfläche.-->
+<!--                                </div>-->
+<!--                            </draggable>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+<!--                </CardContainer>-->
+<!--            </div>-->
+<!--            <div class="lg:w-1/4">-->
+<!--                <CardContainer class="lg:ml-2" :inset-container="false">-->
+<!--                    &lt;!&ndash;                <input @keydown.enter.prevent=""&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       v-model="query"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       placeholder="Suchen…"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       type="text"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       class="w-full px-2 py-2 rounded md:px-2 md:py-3 focus:shadow-outline dark:text-white dark:bg-gray-600" />&ndash;&gt;-->
+<!--                    <div class="px-3 pt-3 sm:px-6">-->
+<!--                        <draggable-->
+<!--                          :list="presets"-->
+<!--                          :group="{ name: 'blocks', pull: 'clone' }"-->
+<!--                          :clone="clone">-->
+<!--                            <div v-for="(preset, index) in presets"-->
+<!--                                 :key="index"-->
+<!--                                 class="flex flex-row items-center py-2 dark:text-white">-->
+<!--                                <Icon :name="preset.icon" class="w-10 h-10 mr-2 fill-current" />-->
+<!--                                <div>-->
+<!--                                    <h1 class="text-base font-semibold">{{ preset.name }}</h1>-->
+<!--                                    <p class="mb-0 text-sm font-normal">{{ preset.description }}</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </draggable>-->
+<!--                    </div>-->
+
+
+<!--                </CardContainer>-->
+<!--                <CardContainer class="mt-4 lg:ml-2">-->
+<!--                    <div class="flex flex-col">-->
+<!--                        <PrimaryButton @click="save" size="lg" block>-->
+<!--                            Speichern-->
+<!--                        </PrimaryButton>-->
+<!--                    </div>-->
+<!--                </CardContainer>-->
+<!--            </div>-->
+<!--        </div>-->
 
 
 
@@ -160,7 +211,7 @@
                         "description": "Füge einen Soundcloud Track hinzu.",
                         "icon": "dashboard"
                     }
-                ]
+                ],
             }
         },
         methods: {
@@ -205,6 +256,8 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+    .moving-card {
+        @apply opacity-50 bg-gray-100 rounded-lg border border-blue-500;
+    }
 </style>

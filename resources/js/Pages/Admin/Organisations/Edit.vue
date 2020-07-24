@@ -69,9 +69,20 @@
     import CardContainer from "../../../Shared/UI/CardContainer";
     import EventCard from "../../../Shared/Events/EventCard";
     import TextareaInput from "../../../Shared/UI/TextareaInput";
+    import LayoutEditOrganisation from "../../../Layout/LayoutEditOrganisation";
 
     export default {
         name: "Edit",
+        metaInfo() {
+            return {
+                title: this.organisation.name
+            }
+        },
+        layout: (h, page) => {
+            return h(LayoutAdmin, [
+                h(LayoutEditOrganisation, { props: { organisation: page.context.props.organisation, endPath: '' } }, [page]),
+            ])
+        },
         components: {
             EventCard,
             CardContainer,
@@ -81,7 +92,6 @@
             LoadingButton,
             Header
         },
-        layout: LayoutAdmin,
         props: {
             organisation: Object,
             events: Array
