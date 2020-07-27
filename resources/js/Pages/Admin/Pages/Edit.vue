@@ -24,6 +24,7 @@
             <PageEditor
                     class="w-full"
                     title="Bearbeiten"
+                    :page="page"
                     :initial-blocks="page.blocks"
                     @save="save">
 
