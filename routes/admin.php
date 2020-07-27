@@ -48,6 +48,8 @@ Route::group([
     Route::get('/moers-festival/stream')->name('admin.moers-festival.stream')->uses('AdminOrganisationController@stream');
     Route::put('/moers-festival/stream')->name('admin.moers-festival.stream.update')->uses('AdminOrganisationController@updateStream');
 
+    Route::get('/forms/students')->name('admin.forms.students')->uses('AdminStudentController@index');
+
 });
 
 
