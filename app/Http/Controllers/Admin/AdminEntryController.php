@@ -2,20 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use anlutro\LaravelSettings\SettingStore;
-use App\AdvEvent;
 use App\Entry;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateEvent;
-use App\Http\Requests\UpdateEventPage;
-use App\Http\Requests\UpdatePage;
-use App\Http\Requests\UpdateStream;
-use App\Organisation;
-use App\Page;
-use App\Repositories\PageRepository;
-use App\Repositories\PageRepositoryInterface;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
+use App\Http\Requests\AdminUpdateEntry;
 use Inertia\Inertia;
 use Redirect;
 use Request;
@@ -35,8 +24,23 @@ class AdminEntryController extends Controller
             'entries' => Entry::with('organisations')
                 ->orderByDesc('name')
                 ->filter(Request::only('search'))
-                ->paginate()
+                ->paginate(12)
         ]);
+    }
+
+    public function edit(Entry $entry)
+    {
+        return Inertia::render('Admin/Entries/Edit', [
+            'entry' => $entry
+        ]);
+    }
+
+    public function update(Entry $entry, AdminUpdateEntry $request)
+    {
+        $data = $request->validated();
+        $entry->update($data);
+
+        return Redirect::back()->with('success', 'Die Informationen wurden erfolgreich gespeichert.');
     }
 
 }

@@ -19,6 +19,12 @@ Route::group([
     Route::put('/organisations/{organisation}/events/{event}/page/{lang?}')->name('admin.organisations.events.page.update')->uses('AdminOrganisationController@updatePage');
 
     Route::get('/entries')->name('admin.entries.index')->uses('AdminEntryController@index');
+    Route::get('/entries/{entry}')->name('admin.entries.edit')->uses('AdminEntryController@edit');
+    Route::put('/entries/{entry}')->name('admin.entries.update')->uses('AdminEntryController@update');
+
+    Route::get('/events')->name('admin.events.index')->uses('AdminEventController@index');
+    Route::get('/events/{event}')->name('admin.events.edit')->uses('AdminEventController@edit');
+    Route::get('/events/create')->name('admin.events.create')->uses('AdminEventController@create');
 
     Route::get('/polls')->name('admin.polls.index')->uses('AdminPollsController@index');
     Route::get('/polls/create')->name('admin.polls.create')->uses('AdminPollsController@create');

@@ -1,23 +1,30 @@
 <template>
 
     <div>
-        <Header
-                :href="route('admin.pages.index')"
-                previousTitle="Seiten"
-                class="mb-8">
-            <div class="inline-flex flex-row items-center">
-                {{ page.title }}
-                <button class="px-2 py-1 ml-3 text-sm font-semibold rounded-lg dark:bg-blue-500 dark:text-white dark-hover:bg-blue-600"
-                        @click="preview">
-                    Vorschau anzeigen
-                </button>
+
+        <Header>
+            <div slot="header">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">
+                        Seite bearbeiten
+                    </h2>
+                    <p class="text-gray-600">
+                        Bearbeite den Inhalt der Seite.
+                    </p>
+                </div>
+
             </div>
+            <PrimaryButton>
+                Vorschau anzeigen
+            </PrimaryButton>
         </Header>
+
         <div class="flex flex-wrap pb-6">
 
             <PageEditor
                     class="w-full"
                     title="Bearbeiten"
+                    :page="page"
                     :initial-blocks="page.blocks"
                     @save="save">
 
@@ -31,10 +38,12 @@
 <script>
     import LayoutAdmin from "../../../Shared/LayoutAdmin";
     import PageEditor from "../../../Shared/PageEditor";
+    import Header from "../../../Shared/UI/Header";
+    import PrimaryButton from "../../../Shared/UI/PrimaryButton";
 
     export default {
         name: "Edit",
-        components: {PageEditor},
+        components: {PrimaryButton, Header, PageEditor},
         layout: LayoutAdmin,
         props: {
             page: Object,

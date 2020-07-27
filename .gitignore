@@ -18,3 +18,4 @@ cgi-bruecke.php
 .php_cs.cache
 *.cache
 storage/settings.json
+.php_cs.cache

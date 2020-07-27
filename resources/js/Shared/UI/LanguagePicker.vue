@@ -88,11 +88,6 @@
             ClickOutside
         },
         methods: {
-            selectedLanguage(index) {
-                this.currentLanguageCode = this.languages[index].value
-                this.open = false
-                this.$emit('change', this.currentLanguageCode)
-            },
             closeDropdown() {
                 this.open = false
             },

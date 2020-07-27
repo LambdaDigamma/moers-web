@@ -26,12 +26,12 @@ class APIOrganisationController extends Controller
 
     public function get()
     {
-        return Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->get();
+        return Organisation::with(['users:id,first_name,created_at,updated_at', 'entry'])->get();
     }
 
     public function show($id)
     {
-        $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry', 'events'])->findOrFail($id);
+        $organisation = Organisation::with(['users:id,first_name,created_at,updated_at', 'entry', 'events'])->findOrFail($id);
 
         return $organisation;
     }
@@ -49,7 +49,7 @@ class APIOrganisationController extends Controller
         $request->user()->join($organisation->id);
         $request->user()->makeAdmin($organisation->id);
 
-        $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
+        $organisation = Organisation::with(['users:id,first_name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
 
         return response()->json($organisation, 201);
     }
@@ -94,7 +94,7 @@ class APIOrganisationController extends Controller
     public function getUsers(Request $request, Organisation $organisation)
     {
         if ($request->user()->isMember($organisation->id)) {
-            $users = $organisation->users()->select(['id', 'name', 'created_at', 'updated_at'])->get();
+            $users = $organisation->users()->select(['id', 'first_name', 'created_at', 'updated_at'])->get();
 
             return response()->json($users, 200);
         } else {
@@ -107,7 +107,7 @@ class APIOrganisationController extends Controller
         $user = $request->user();
 
         if ($user->join($organisation->id)) {
-            $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
+            $organisation = Organisation::with(['users:id,first_name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
 
             return response()->json($organisation, 200);
         } else {
@@ -121,7 +121,7 @@ class APIOrganisationController extends Controller
 
         $organisation->users()->detach($user->id);
 
-        $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
+        $organisation = Organisation::with(['users:id,first_name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
 
         return response()->json($organisation, 200);
     }
@@ -137,7 +137,7 @@ class APIOrganisationController extends Controller
 
             $organisation->users()->attach($userID);
 
-            $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
+            $organisation = Organisation::with(['users:id,first_name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
 
             return response()->json($organisation, 200);
         } else {
@@ -156,7 +156,7 @@ class APIOrganisationController extends Controller
 
             $organisation->users()->detach($userID);
 
-            $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
+            $organisation = Organisation::with(['users:id,first_name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
 
             return response()->json($organisation, 200);
         } else {
@@ -286,7 +286,7 @@ class APIOrganisationController extends Controller
                 $organisation->entry_id = $id;
                 $organisation->save();
 
-                $organisation = Organisation::with(['users:id,name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
+                $organisation = Organisation::with(['users:id,first_name,created_at,updated_at', 'entry'])->findOrFail($organisation->id);
 
                 return response()->json($organisation, 201);
             } else {

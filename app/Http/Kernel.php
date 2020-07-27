@@ -6,6 +6,7 @@ use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\LocalizeAPI;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\SafariFixAuth;
+use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -41,6 +42,7 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
+        SetLocale::class,
         TrustProxies::class,
         HandleCors::class,
     ];
@@ -55,6 +57,7 @@ class Kernel extends HttpKernel
             EncryptCookies::class,
             AddQueuedCookiesToResponse::class,
             StartSession::class,
+            SetLocale::class,
             ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
             SubstituteBindings::class,

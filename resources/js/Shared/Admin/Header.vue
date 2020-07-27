@@ -3,11 +3,11 @@
     <div>
         <h1 class="mb-3 text-xl font-semibold text-gray-900 md:mb-8 md:text-3xl dark:text-white">
             <inertia-link
-                    class="text-red-600 dark:text-yellow-500 dark-hover:text-yellow-600 hover:no-underline"
+                    class="text-gray-500 hover:text-gray-600 hover:no-underline"
                     :href="href">
                 {{ previousTitle }}
             </inertia-link>
-            <span class="font-medium dark:text-yellow-500">
+            <span class="font-medium">
                 /
             </span>
             <span>

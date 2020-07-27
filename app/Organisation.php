@@ -48,7 +48,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Query\Builder|Organisation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Organisation withoutTrashed()
  * @mixin Eloquent
- * @property int|null $group_id
  * @property-read mixed $header_path
  * @property-read mixed $logo_path
  * @property-read \App\Group $mainGroup
