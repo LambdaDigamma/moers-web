@@ -209,6 +209,11 @@ class User extends Authenticatable implements ExportsPersonalData
         return $this->hasMany(HelpRequest::class, 'creator_id', 'id');
     }
 
+    public function studentInformation()
+    {
+        return $this->hasOne(StudentInformation::class, 'user_id', 'id');
+    }
+
     public function selectPersonalData(PersonalDataSelection $personalDataSelection): void
     {
         // TODO: Export Memberships of Conversations?

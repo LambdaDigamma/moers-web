@@ -23,16 +23,13 @@ class AdminStudentController extends Controller
     {
         return Inertia::render('Admin/Forms/Students', [
             'filters' => Request::all('search'),
-            'students' => StudentInformation::with('user')
-//                ->orderBy('user.last_name')
-//                ->orderBy('user.first_name')
-//                ->filter(Request::only('search'))
-                ->paginate(160),
-            'users' => User::query()
+            'users' => User::with('studentInformation')
                 ->orderBy('last_name')
                 ->orderBy('first_name')
-                ->select(['first_name', 'last_name'])
                 ->paginate(160)
+                ->makeVisible(['last_name']),
+            'missing_information' => User::doesntHave('studentInformation')
+                ->get()
                 ->makeVisible(['last_name'])
         ]);
     }

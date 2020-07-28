@@ -10,9 +10,27 @@
 
             <Panel v-for="user in users" :key="user.id">
                 <h2 class="font-semibold text-xl">{{ user.first_name }} {{ user.last_name }}</h2>
+                <span v-if="user.student_information !== null" class="mt-2 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800">
+                    Steckbrief abgegeben
+                </span>
+                <span v-else class="mt-2 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-red-100 text-red-800">
+                    Kein Steckbrief abgegeben
+                </span>
             </Panel>
 
         </div>
+
+        <div class="mt-6">
+            <h1 class="font-bold text-4xl">
+                Fehlende Steckbriefe:
+            </h1>
+            <ul class="mt-6">
+                <li v-for="user in missing_information" :key="user.id">
+                    {{ user.first_name }} {{ user.last_name }}
+                </li>
+            </ul>
+        </div>
+
     </div>
 
 </template>
@@ -26,8 +44,8 @@
         components: {Panel},
         layout: LayoutAdmin,
         props: {
-            users: Object,
-            students: Object
+            users: Array,
+            missing_information: Array,
         }
     }
 </script>
