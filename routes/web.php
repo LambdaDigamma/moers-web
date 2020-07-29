@@ -37,6 +37,8 @@ Route::get('language/{language}', function ($language) {
     return redirect()->back();
 })->name('language');
 
+Route::get('/image/{filename}', 'ImageController@displayImage')->where('filename', '.*')->name('image.displayImage');
+
 Route::group([
     'namespace' => 'Web',
 ], function () {

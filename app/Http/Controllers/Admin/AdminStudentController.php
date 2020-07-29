@@ -33,4 +33,15 @@ class AdminStudentController extends Controller
                 ->makeVisible(['last_name'])
         ]);
     }
+
+    public function show(StudentInformation $studentInformation)
+    {
+//        dd($studentInformation);
+
+//        $studentInformation->load('user');
+        return Inertia::render('Admin/Forms/StudentInformation', [
+            'studentInformation' => $studentInformation
+        ]);
+    }
+
 }

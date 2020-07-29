@@ -4,10 +4,12 @@ import PortalVue from 'portal-vue'
 import { InertiaApp } from '@inertiajs/inertia-vue'
 import Echo from "laravel-echo"
 import 'leaflet/dist/leaflet.css';
+import VueClipboard from 'vue-clipboard2'
 
 const moment = require('moment')
 require('moment/locale/de')
 
+Vue.use(VueClipboard)
 Vue.config.productionTip = false
 Vue.mixin({ methods: { route: window.route } })
 Vue.mixin(require('./base'))
