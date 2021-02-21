@@ -172,7 +172,7 @@
                 let formData = new Form(this.form)
                     .toFormData('put')
                 this.$inertia
-                    .post(this.route('admin.entries.update', [this.entry.id]).url(), formData)
+                    .post(this.route('admin.entries.update', [this.entry.id]), formData)
             }
         }
     }

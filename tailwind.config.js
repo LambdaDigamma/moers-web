@@ -1,128 +1,14 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
-
-let colors = {
-    transparent: 'transparent',
-
-    black: '#000',
-    white: '#fff',
-
-    gray: {
-        100: '#f7fafc',
-        200: '#edf2f7',
-        300: '#e2e8f0',
-        400: '#cbd5e0',
-        500: '#a0aec0',
-        600: '#6a636b',
-        700: '#231F20',
-        800: '#1E1A1B',
-        900: '#151515',
-    },
-    red: {
-        100: '#fff5f5',
-        200: '#fed7d7',
-        300: '#feb2b2',
-        400: '#fc8181',
-        500: '#f56565',
-        600: '#e53e3e',
-        700: '#c53030',
-        800: '#9b2c2c',
-        900: '#742a2a',
-    },
-    orange: {
-        100: '#fffaf0',
-        200: '#feebc8',
-        300: '#fbd38d',
-        400: '#f6ad55',
-        500: '#ed8936',
-        600: '#dd6b20',
-        700: '#c05621',
-        800: '#9c4221',
-        900: '#7b341e',
-    },
-    yellow: {
-        100: '#fffff0',
-        200: '#fefcbf',
-        300: '#faf089',
-        400: '#f6e05e',
-        500: '#FFF233',
-        600: '#d69e2e',
-        700: '#b7791f',
-        800: '#975a16',
-        900: '#744210',
-    },
-    green: {
-        100: '#f0fff4',
-        200: '#c6f6d5',
-        300: '#9ae6b4',
-        400: '#68d391',
-        500: '#48bb78',
-        600: '#38a169',
-        700: '#2f855a',
-        800: '#276749',
-        900: '#22543d',
-    },
-    teal: {
-        100: '#e6fffa',
-        200: '#b2f5ea',
-        300: '#81e6d9',
-        400: '#4fd1c5',
-        500: '#38b2ac',
-        600: '#319795',
-        700: '#2c7a7b',
-        800: '#285e61',
-        900: '#234e52',
-    },
-    blue: {
-        100: '#ebf8ff',
-        200: '#bee3f8',
-        300: '#90cdf4',
-        400: '#63b3ed',
-        500: '#4299e1',
-        600: '#3182ce',
-        700: '#2b6cb0',
-        800: '#2c5282',
-        900: '#2a4365',
-    },
-    indigo: {
-        100: '#ebf4ff',
-        200: '#c3dafe',
-        300: '#a3bffa',
-        400: '#7f9cf5',
-        500: '#667eea',
-        600: '#5a67d8',
-        700: '#4c51bf',
-        800: '#434190',
-        900: '#3c366b',
-    },
-    purple: {
-        100: '#faf5ff',
-        200: '#e9d8fd',
-        300: '#d6bcfa',
-        400: '#b794f4',
-        500: '#9f7aea',
-        600: '#805ad5',
-        700: '#6b46c1',
-        800: '#553c9a',
-        900: '#44337a',
-    },
-    pink: {
-        100: '#fff5f7',
-        200: '#fed7e2',
-        300: '#fbb6ce',
-        400: '#f687b3',
-        500: '#ed64a6',
-        600: '#d53f8c',
-        700: '#b83280',
-        800: '#97266d',
-        900: '#702459',
-    },
-}
-
 module.exports = {
+    purge: [
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
+    ],
     theme: {
         customForms: theme => ({
-            default: {
+            DEFAULT: {
                 input: {
                     placeholderColor: theme('colors.gray.300')
                 },
@@ -130,80 +16,6 @@ module.exports = {
         }),
         extend: {
             colors: {
-                // gray: {
-                    // 100: '#f8f9fa',
-                    // 200: '#e9ecef',
-                    // 300: '#dee2e6',
-                    // 400: '#ced4da',
-                    // 500: '#adb5bd',
-                    // 600: '#6c757d',
-                    // 700: '#495057',
-                    // 800: '#343a40',
-                    // 900: '#212529',
-
-                    // 100: '#f7fafc',
-                    // 200: '#edf2f7',
-                    // 300: '#e2e8f0',
-                    // 400: '#cbd5e0',
-                    // 500: '#a0aec0',
-                    // 600: '#6a636b',
-                    // 700: '#231F20',
-                    // 800: '#1E1A1B',
-                    // 900: '#151515',
-
-                    // 100: '#f5f5f5',
-                    // 200: '#eeeeee',
-                    // 300: '#e0e0e0',
-                    // 400: '#bdbdbd',
-                    // 500: '#9e9e9e',
-                    // 600: '#757575',
-                    // 700: '#616161',
-                    // 800: '#424242',
-                    // 900: '#212121',
-
-                    // 100: '#f7fafc',
-                    // 200: '#edf2f7',
-                    // 300: '#e2e8f0',
-                    // 400: '#cbd5e0',
-                    // 500: '#a0aec0',
-                    // 600: '#718096',
-                    // 700: '#4a5568',
-                    // 800: '#2d3748',
-                    // 900: '#1a202c',
-
-                    // 50: '#fafafa',
-                    // 100: '#f5f5f5',
-                    // 200: '#eeeeee',
-                    // 300: '#e0e0e0',
-                    // 400: '#bdbdbd',
-                    // 500: '#9e9e9e',
-                    // 600: '#757575',
-                    // 700: '#616161',
-                    // 800: '#424242',
-                    // 900: '#212121',
-
-                    // 50: '#f7f7f8',
-                    // 100: '#eaebeb',
-                    // 200: '#d5d7d8',
-                    // 300: '#b7bbbd',
-                    // 400: '#92979b',
-                    // 500: '#72777b',
-                    // 600: '#62676a',
-                    // 700: '#4e5255',
-                    // 800: '#36393a',
-                    // 900: '#1d1f20',
-
-                    // 50: '#f3f3f3',
-                    // 100: '#dcdcdc',
-                    // 200: '#bebebe',
-                    // 300: '#a4a4a4',
-                    // 400: '#8c8c8c',
-                    // 500: '#6f6f6f',
-                    // 600: '#565656',
-                    // 700: '#3d3d3d',
-                    // 800: '#282828',
-                    // 900: '#171717',
-                // }
             },
             transitionProperty: {
                 'filter': 'filter',
@@ -242,13 +54,6 @@ module.exports = {
                 'none': 'none',
                 'blur': 'blur(20px)',
             },
-            aspectRatio: {
-                'none': 0,
-                'square': [1, 1],
-                '16/9': [16, 9],
-                '4/3': [4, 3],
-                '21/9': [21, 9],
-            },
             maxHeight: {
                 xs: '20rem',
                 sm: '24rem',
@@ -260,16 +65,21 @@ module.exports = {
                 '4xl': '56rem',
                 '5xl': '64rem',
                 '6xl': '72rem',
+            },
+            lineClamp: {
+                7: '7',
+                8: '8',
+                9: '9',
+                10: '10',
+            },
+            aspectRatio: {
+                17: '17',
+                18: '18',
+                19: '19',
+                20: '20',
+                21: '21',
             }
         },
-        truncate: {
-            lines: {
-                2: '2',
-                3: '3',
-                5: '5',
-                8: '8',
-            }
-        }
     },
     variants: {
         aspectRatio: ['responsive'],
@@ -282,14 +92,10 @@ module.exports = {
         placeholderColor: ['responsive'],
     },
     plugins: [
-        require('@tailwindcss/ui')({
-            layout: 'sidebar',
-        }),
-        require('tailwindcss-dark-mode')(),
-        require('tailwindcss-font-inter')(),
+        require('@tailwindcss/aspect-ratio'),
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/line-clamp'),
         require('tailwindcss-filters'),
-        require('tailwindcss-aspect-ratio'),
-        require('@tailwindcss/custom-forms'),
-        require('tailwindcss-truncate-multiline')(),
+        // require('tailwindcss-truncate-multiline')(),
     ]
 }

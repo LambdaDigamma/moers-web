@@ -66,7 +66,7 @@
 <!--                            </div>-->
                         </div>
                         <div class="flex items-center ml-4 md:ml-6" v-if="$page.auth.user">
-                            <inertia-link :href="route('notifications')" class="relative p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500">
+                            <inertia-link :href="route('notifications')" class="relative p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring focus:text-gray-500">
                                 <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                 </svg>
@@ -76,7 +76,7 @@
                             </inertia-link>
                             <div class="relative ml-3">
                                 <div>
-                                    <button @click="open = !open" class="flex items-center max-w-xs text-sm rounded-full focus:outline-none focus:shadow-outline"
+                                    <button @click="open = !open" class="flex items-center max-w-xs text-sm rounded-full focus:outline-none focus:ring"
                                             v-click-outside="hideDropdownMenus"
                                             @keydown.esc="hideDropdownMenus">
                                         <span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
@@ -94,7 +94,7 @@
                                         leave-class="transform scale-100 opacity-100"
                                         leave-to-class="transform scale-95 opacity-0">
                                     <div v-show="open" class="absolute right-0 w-48 mt-2 origin-top-right rounded-md shadow-lg">
-                                        <div class="py-1 bg-white rounded-md shadow-xs">
+                                        <div class="py-1 bg-white rounded-md ring-1 ring-black ring-opacity-5">
                                             <inertia-link :href="route('profile')"
                                                           class="block px-4 py-2 text-sm text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100">
                                                 Dein Profil
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <div class="flex items-center ml-4 md:ml-6" v-else>
-                            <inertia-link :href="route('login')" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500">
+                            <inertia-link :href="route('login')" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring focus:text-gray-500">
                                 Anmelden
                             </inertia-link>
                         </div>
@@ -140,7 +140,7 @@
                                 </div>
                                 <div class="flex-shrink-0 order-3 w-full mt-2 sm:order-2 sm:mt-0 sm:w-auto">
                                     <div class="rounded-md shadow-sm">
-                                        <inertia-link :href="route('help.index')" class="flex items-center justify-center px-4 py-2 text-sm font-medium leading-5 text-red-600 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-red-500 focus:outline-none focus:shadow-outline">
+                                        <inertia-link :href="route('help.index')" class="flex items-center justify-center px-4 py-2 text-sm font-medium leading-5 text-red-600 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-red-500 focus:outline-none focus:ring">
                                             Mehr erfahren
                                         </inertia-link>
                                     </div>
@@ -163,7 +163,7 @@
         <footer>
             <cookie-law theme="blood-orange" message="Diese Seite verwendet Session-Cookies und Cookies für das Login."
                         buttonText="Verstanden!"
-                        buttonClass="rounded-md inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150" />
+                        buttonClass="rounded-md inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:ring-red active:bg-red-700 transition ease-in-out duration-150" />
         </footer>
 
     </div>

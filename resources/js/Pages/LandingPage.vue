@@ -67,12 +67,12 @@
 <!--                                </h2>-->
 <!--                                <div class="flex flex-col justify-center mx-4 mt-8 sm:flex-row">-->
 <!--                                    <div class="inline-flex rounded-md shadow">-->
-<!--                                        <inertia-link :href="route('help.serve')" class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline">-->
+<!--                                        <inertia-link :href="route('help.serve')" class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md hover:bg-red-500 focus:outline-none focus:ring">-->
 <!--                                            Jetzt helfen!-->
 <!--                                        </inertia-link>-->
 <!--                                    </div>-->
 <!--                                    <div class="inline-flex mt-2 sm:mt-0 sm:ml-3">-->
-<!--                                        <inertia-link :href="route('help.index')" class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium leading-6 text-red-700 transition duration-150 ease-in-out bg-red-100 border border-transparent rounded-md hover:text-red-600 hover:bg-red-200 focus:outline-none focus:shadow-outline focus:border-red-300">-->
+<!--                                        <inertia-link :href="route('help.index')" class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium leading-6 text-red-700 transition duration-150 ease-in-out bg-red-100 border border-transparent rounded-md hover:text-red-600 hover:bg-red-200 focus:outline-none focus:ring focus:border-red-300">-->
 <!--                                            Mehr erfahren-->
 <!--                                        </inertia-link>-->
 <!--                                    </div>-->
@@ -187,7 +187,7 @@
         <footer>
             <cookie-law theme="blood-orange" message="Diese Seite verwendet Session-Cookies und Cookies für das Login."
                         buttonText="Verstanden!"
-                        buttonClass="rounded-md inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150" />
+                        buttonClass="rounded-md inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:ring-red active:bg-red-700 transition ease-in-out duration-150" />
         </footer>
 
     </div>

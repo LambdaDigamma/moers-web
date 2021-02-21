@@ -72,7 +72,7 @@
             form: {
                 handler: throttle(function () {
                     let query = pickBy(this.form)
-                    this.$inertia.replace(this.route('help.serve', Object.keys(query).length ? query : { remember: 'forget' }).url())
+                    this.$inertia.replace(this.route('help.serve', Object.keys(query).length ? query : { remember: 'forget' }))
                 }, 150),
                 deep: true,
             },

@@ -26,7 +26,7 @@
                 {{ request.request }}
             </p>
             <span class="inline-flex rounded-md shadow-sm" v-if="(request.served_on === null) && ($page.auth.user !== null && $page.auth.user.id !== request.creator_id)">
-                <inertia-link :href="route('help.request.show', request.id)" class="inline-flex items-center px-3 py-2 mt-3 text-sm font-medium leading-4 text-white transition duration-150 ease-in-out bg-blue-600 border border-transparent rounded-md hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700">
+                <inertia-link :href="route('help.request.show', request.id)" class="inline-flex items-center px-3 py-2 mt-3 text-sm font-medium leading-4 text-white transition duration-150 ease-in-out bg-blue-600 border border-transparent rounded-md hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:ring-blue active:bg-blue-700">
                     <svg class="-ml-0.5 mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd" />
                     </svg>

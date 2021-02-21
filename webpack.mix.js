@@ -16,24 +16,15 @@ const tailwindcss = require('tailwindcss')
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/main.scss', 'public/css')
-    .options({
-        processCssUrls: false,
-        postCss: [tailwindcss('./tailwind.config.js')]
-    })
-    .purgeCss({
-        enabled: mix.inProduction(),
-        defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || []
-    })
-    .webpackConfig({
-        output: {chunkFilename: '[name].js?id=[chunkhash]'},
-        resolve: {
-            alias: {
-                'vue$': 'vue/dist/vue.runtime.esm.js',
-                '@': path.resolve('resources/js'),
-            },
-        }
-    })
+mix.js('resources/js/app.js', 'public/js').vue()
+    .postCss("resources/css/app.css", "public/css", [
+        require("tailwindcss"),
+        require("autoprefixer")
+    ])
+    // .options({
+    //     processCssUrls: false,
+    //     postCss: [tailwindcss('./tailwind.config.js')]
+    // })
+    .webpackConfig(require("./webpack.config.js"))
     .sourceMaps()
     .extract()

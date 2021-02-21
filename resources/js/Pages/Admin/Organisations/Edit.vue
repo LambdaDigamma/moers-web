@@ -18,7 +18,7 @@
                      :src="organisation.header_path" />
             </div>
             <div class="px-4 py-5 overflow-hidden bg-white sm:px-6">
-                <div class="flex flex-wrap justify-between -mt-2 -ml-4 sm:flex-no-wrap">
+                <div class="flex flex-wrap justify-between -mt-2 -ml-4 sm:flex-nowrap">
                     <div class="flex flex-col items-center justify-center flex-shrink-0 w-32 mt-2 ml-4">
                         <img class="object-scale-down object-center w-32 h-auto"
                              :src="organisation.logo_path"
@@ -108,9 +108,7 @@
         },
         methods: {
             submit() {
-                // this.$inertia
-                //     .put(this.route('admin.polls.update', this.poll.id), this.form)
-                //     .then(() => this.sending = false)
+
             },
             destroy() {
                 if (confirm('Möchtest Du diese Organisation löschen?')) {

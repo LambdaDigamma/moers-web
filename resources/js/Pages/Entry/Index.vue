@@ -34,7 +34,7 @@
                                        v-model="form.search" />
                             </div>
                         </div>
-<!--                        <div class="flex flex-wrap items-center justify-start -mt-4 -ml-4 sm:flex-no-wrap">-->
+<!--                        <div class="flex flex-wrap items-center justify-start -mt-4 -ml-4 sm:flex-nowrap">-->
 <!--                            <div class="mt-4 ml-4">-->
 <!--                                <h3 class="text-lg font-medium leading-6 text-gray-900">-->
 <!--                                    Einträge-->

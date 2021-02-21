@@ -16,7 +16,7 @@
                 </p>
             </div>
 
-            <div v-else-if="supportsPreview" class="relative w-full aspect-ratio-21/9 overflow-hidden rounded-md cursor-pointer">
+            <div v-else-if="supportsPreview" class="relative w-full aspect-w-21 aspect-h-9 overflow-hidden rounded-md cursor-pointer">
 
                 <div id="dragndrop-target"
                      class="absolute inset-0 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">

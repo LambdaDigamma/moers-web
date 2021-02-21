@@ -17,7 +17,7 @@
                     </p>
                     <div class="flex flex-col mt-5 md:flex-row">
                         <span class="inline-flex rounded-md shadow-sm">
-                            <inertia-link :href="route('help.serve')" class="inline-flex items-center w-full px-6 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-500 border border-transparent rounded-md hover:bg-green-400 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700">
+                            <inertia-link :href="route('help.serve')" class="inline-flex items-center w-full px-6 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-500 border border-transparent rounded-md hover:bg-green-400 focus:outline-none focus:border-green-700 focus:ring-green active:bg-green-700">
                                 <svg class="w-5 h-5 mr-3 -ml-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd" />
                                 </svg>
@@ -25,7 +25,7 @@
                             </inertia-link>
                         </span>
                         <span class="inline-flex mt-4 ml-0 rounded-md shadow-sm md:ml-4 md:mt-0">
-                            <inertia-link :href="route('help.need')" class="inline-flex items-center w-full px-6 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-red-500 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700">
+                            <inertia-link :href="route('help.need')" class="inline-flex items-center w-full px-6 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-red-500 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus:border-red-700 focus:ring-red active:bg-red-700">
                                 <svg class="w-5 h-5 mr-3 -ml-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" />
                                 </svg>

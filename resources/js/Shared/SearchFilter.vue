@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center bg-white rounded shadow dark:bg-gray-700">
         <dropdown :auto-close="false"
-                  class="px-4 border-r rounded-l md:px-6 dark:border-black dark-hover:bg-gray-600 focus:border-yellow-500 focus:shadow-outline focus:z-10"
+                  class="px-4 border-r rounded-l md:px-6 dark:border-black dark-hover:bg-gray-600 focus:border-yellow-500 focus:ring focus:z-10"
                   placement="bottom-start">
             <div class="flex items-baseline">
                 <span class="hidden md:inline dark:text-gray-600">Filter</span>
@@ -15,7 +15,7 @@
                 <slot/>
             </div>
         </dropdown>
-        <input class="w-full px-2 py-2 rounded-r md:px-2 md:py-3 focus:shadow-outline dark:text-white dark:bg-gray-600"
+        <input class="w-full px-2 py-2 rounded-r md:px-2 md:py-3 focus:ring dark:text-white dark:bg-gray-600"
                autocomplete="off"
                type="text"
                name="search"

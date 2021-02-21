@@ -10,7 +10,7 @@
                          :src="organisation.header_path" />
                 </div>
                 <div class="px-4 py-5 overflow-hidden bg-white sm:px-6">
-                    <div class="flex flex-wrap justify-between -mt-2 -ml-4 sm:flex-no-wrap">
+                    <div class="flex flex-wrap justify-between -mt-2 -ml-4 sm:flex-nowrap">
                         <div class="flex flex-col items-center justify-center flex-shrink-0 w-32 mt-2 ml-4">
                             <img class="object-scale-down object-center w-32 h-auto"
                                  :src="organisation.logo_path"
@@ -84,7 +84,7 @@
 
 <!--            <div class="mt-4 overflow-hidden bg-white rounded-lg shadow">-->
 <!--                <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">-->
-<!--                    <div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-no-wrap">-->
+<!--                    <div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-nowrap">-->
 <!--                        <div class="mt-4 ml-4">-->
 <!--                            <h3 class="text-lg font-medium leading-6 text-gray-900">-->
 <!--                                Veranstaltungen-->

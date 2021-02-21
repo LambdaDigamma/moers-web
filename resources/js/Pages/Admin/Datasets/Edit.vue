@@ -49,7 +49,7 @@
         </div>
         <div class="mt-6 overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
-                <div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-no-wrap">
+                <div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-nowrap">
                     <div class="mt-4 ml-4">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Zugehörige Resourcen
@@ -93,7 +93,7 @@
                             </thead>
                             <tbody class="bg-white">
                                 <tr v-for="resource in dataset.resources" class="border-b border-gray-200 last:border-0">
-                                    <td class="px-6 py-4 whitespace-no-wrap">
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="">
                                                 <div class="text-sm font-medium leading-5 text-gray-900">
@@ -102,10 +102,10 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm leading-5 text-gray-500 uppercase whitespace-no-wrap">
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-500 uppercase whitespace-nowrap">
                                         {{ resource.format }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap">
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         <span v-if="resource.error === null"
                                               class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-200 rounded-full">
                                             Valide Daten
@@ -115,7 +115,7 @@
                                             Invalide Daten
                                         </span>
                                     </td>
-                                    <td class="px-2 py-4 whitespace-no-wrap">
+                                    <td class="px-2 py-4 whitespace-nowrap">
                                         <div class="flex items-center text-sm font-medium leading-5 text-gray-900">
                                             <svg v-if="resource.auto_updating_interval !== null" class="w-6 h-6 mt-1 text-green-300" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -125,12 +125,12 @@
                                             </svg>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap">
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium leading-5 text-gray-900">
                                             {{ resource.updated_at | moment("from", "now") }}
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap">
+                                    <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-nowrap">
                                         <inertia-link
                                                 :href="route('admin.datasets.resources.edit', [dataset.id, resource.id])"
                                                 class="text-blue-600 hover:text-blue-900 focus:outline-none focus:underline">

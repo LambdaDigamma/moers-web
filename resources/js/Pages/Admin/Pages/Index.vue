@@ -31,19 +31,19 @@
                         </thead>
                         <tbody class="bg-white">
                         <tr v-for="page in pages.data" class="border-b border-gray-200 last:border-0">
-                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm leading-5 font-medium text-gray-900">
                                 {{ page.title }}
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 font-mono">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm leading-5 text-gray-500 font-mono">
                                 {{ page.slug }}
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm leading-5 text-gray-500">
                                 {{ page.creator.first_name }} {{ page.creator.last_name }}
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm leading-5 text-gray-500">
                                 {{ page.updated_at | moment("from", "now") }}
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm leading-5 font-medium">
                                 <inertia-link :href="route('admin.pages.edit', page.id)" class="text-blue-600 hover:text-blue-900">
                                     Bearbeiten
                                 </inertia-link>

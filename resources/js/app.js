@@ -1,10 +1,28 @@
 import Vue from 'vue'
 import VueMeta from 'vue-meta'
 import PortalVue from 'portal-vue'
-import { InertiaApp } from '@inertiajs/inertia-vue'
+import { App, plugin } from '@inertiajs/inertia-vue'
 import Echo from "laravel-echo"
 import 'leaflet/dist/leaflet.css';
 import VueClipboard from 'vue-clipboard2'
+import { InertiaProgress } from '@inertiajs/progress'
+
+Vue.use(plugin)
+
+InertiaProgress.init({
+    // The delay after which the progress bar will
+    // appear during navigation, in milliseconds.
+    delay: 250,
+
+    // The color of the progress bar.
+    color: '#29d',
+
+    // Whether to include the default NProgress styles.
+    includeCSS: true,
+
+    // Whether the NProgress spinner will be shown.
+    showSpinner: false,
+})
 
 const moment = require('moment')
 require('moment/locale/de')
@@ -13,7 +31,6 @@ Vue.use(VueClipboard)
 Vue.config.productionTip = false
 Vue.mixin({ methods: { route: window.route } })
 Vue.mixin(require('./base'))
-Vue.use(InertiaApp)
 Vue.use(PortalVue)
 Vue.use(VueMeta)
 Vue.use(require('vue-moment'), {
@@ -59,7 +76,7 @@ let app = document.getElementById('app')
 
 // require('tailwindcss-dark-mode/prefers-dark')
 
-document.documentElement.classList.add('mode-dark');
+// document.documentElement.classList.add('mode-dark');
 
 const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
@@ -68,15 +85,15 @@ new Vue({
     metaInfo: {
         titleTemplate: (title) => title ? `${title} - Mein Moers` : 'Mein Moers'
     },
-    render: h => h(InertiaApp, {
+    render: h => h(App, {
         props: {
             initialPage: JSON.parse(app.dataset.page),
-            resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default),
+            resolveComponent: name => require(`./Pages/${name}`).default,
         },
     }),
     mounted() {
         window.addEventListener('popstate', () => {
-            this.$inertia.reload({preserveScroll: true, preserveState: false})
+            this.$inertia.reload({preserveScroll: true, preserveState: false}) // TODO: Check this
         })
     }
 }).$mount(app)

@@ -74,8 +74,11 @@
             submit(formData) {
                 formData.append('_method', 'put')
                 this.$inertia
-                    .post(this.route('admin.organisations.events.update', [this.organisation.id, this.event.id, this.languageCode]), formData)
-                    .then(() => this.sending = false)
+                    .post(this.route('admin.organisations.events.update', [this.organisation.id, this.event.id, this.languageCode]), formData, {
+                        onSuccess: () => {
+                            this.sending = false
+                        }
+                    })
             },
             languageChanged(languageCode) {
                 this.languageCode = languageCode
