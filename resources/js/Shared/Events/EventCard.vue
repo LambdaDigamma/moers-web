@@ -3,16 +3,16 @@
     <inertia-link class="block group" :href="href">
         <div class="relative h-64 pb-4/6">
             <img v-if="event.header_url"
-                 class="absolute inset-0 object-cover w-full h-full rounded-lg shadow-md group-hover:filter-brightness-90 transition ease-in-out transition-filter duration-150"
+                 class="absolute inset-0 object-cover w-full h-full transition duration-150 ease-in-out rounded-lg shadow-md group-hover:filter-brightness-90 transition-filter"
                  :src="event.header_url"
                  :alt="event.name + 'Titelbild'">
             <div v-else
-                 class="absolute inset-0 object-cover w-full h-full rounded-lg shadow-md group-hover:filter-brightness-90 bg-gray-200 transition transition-filter ease-in-out duration-150">
+                 class="absolute inset-0 object-cover w-full h-full transition duration-150 ease-in-out bg-gray-200 rounded-lg shadow-md group-hover:filter-brightness-90 transition-filter">
 
             </div>
         </div>
         <div class="relative px-4 -mt-16">
-            <div class="px-4 py-4 bg-white rounded-lg shadow-lg group-hover:bg-gray-100 transition transition-filter ease-in-out duration-150">
+            <div class="px-4 py-4 transition duration-150 ease-in-out bg-white rounded-lg shadow-lg group-hover:bg-gray-100 transition-filter">
                 <div class="flex items-baseline">
                     <div class="text-xs font-semibold tracking-wide text-gray-600 uppercase">
                         {{ subtitle }}

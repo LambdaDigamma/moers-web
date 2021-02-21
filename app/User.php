@@ -217,7 +217,7 @@ class User extends Authenticatable implements ExportsPersonalData
     public function selectPersonalData(PersonalDataSelection $personalDataSelection): void
     {
         // TODO: Export Memberships of Conversations?
-        $user_id = Auth::user()->id;
+        $user_id = $this->id;
         $personalDataSelection
             ->add('user.json', [
                 'first_name' => $this->first_name,
@@ -228,11 +228,11 @@ class User extends Authenticatable implements ExportsPersonalData
             ])
             ->add(
                 'own_help_requests.json',
-                Auth::user()->helpRequests()->get()
+                $this->helpRequests()->get()
             )
             ->add(
                 'helper_helping_requests.json',
-                HelpRequest::userHelps()->get()
+                HelpRequest::userHelps()->get() // TODO: Change this
             )
             ->add(
                 'messages.json',
@@ -259,7 +259,7 @@ class User extends Authenticatable implements ExportsPersonalData
             )
             ->add(
                 'group_members.json',
-                Auth::user()->groups()->get()
+                $this->groups()->get()
             );
     }
 
