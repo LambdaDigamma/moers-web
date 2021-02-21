@@ -138,7 +138,11 @@
                     email: this.form.email,
                     password: this.form.password,
                     remember: true
-                }).then(() => this.sending = false)
+                }, {
+                    onSuccess: () => {
+                        this.sending = false
+                    }
+                })
             },
         },
     }

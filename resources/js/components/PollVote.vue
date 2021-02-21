@@ -86,8 +86,11 @@ export default {
                 options: this.selectionIndex
             }
             this.sending = true
-            this.$inertia.post(this.route('polls.vote', this.poll.id), payload)
-                .then(() => this.sending = false)
+            this.$inertia.post(this.route('polls.vote', this.poll.id), payload, {
+                onSuccess: () => {
+                    this.sending = false
+                }
+            })
         },
         abstain() {
             this.$inertia.post()

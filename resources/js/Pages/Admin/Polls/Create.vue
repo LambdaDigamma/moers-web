@@ -387,8 +387,11 @@
             submit() {
                 this.sending = true
                 this.$inertia
-                    .post(this.route('admin.polls.store'), this.form)
-                    .then(() => this.sending = false)
+                    .post(this.route('admin.polls.store'), this.form, {
+                        onSuccess: () => {
+                            this.sending = false
+                        }
+                    })
             },
             addPollOption() {
                 this.form.options.push('')

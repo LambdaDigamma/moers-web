@@ -5,6 +5,22 @@ import { InertiaApp } from '@inertiajs/inertia-vue'
 import Echo from "laravel-echo"
 import 'leaflet/dist/leaflet.css';
 import VueClipboard from 'vue-clipboard2'
+import { InertiaProgress } from '@inertiajs/progress'
+
+InertiaProgress.init({
+    // The delay after which the progress bar will
+    // appear during navigation, in milliseconds.
+    delay: 250,
+
+    // The color of the progress bar.
+    color: '#29d',
+
+    // Whether to include the default NProgress styles.
+    includeCSS: true,
+
+    // Whether the NProgress spinner will be shown.
+    showSpinner: false,
+})
 
 const moment = require('moment')
 require('moment/locale/de')

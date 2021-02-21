@@ -161,7 +161,12 @@
                     password: this.form.password,
                     password_confirmation: this.form.password_confirmation,
                     remember: true
-                }).then(() => this.sending = false)
+                },
+                {
+                    onSuccess: () => {
+                        this.sending = false
+                    }
+                })
             },
         },
     }

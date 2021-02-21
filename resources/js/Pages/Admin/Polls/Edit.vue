@@ -141,8 +141,11 @@
         methods: {
             submit() {
                 this.$inertia
-                    .put(this.route('admin.polls.update', this.poll.id), this.form)
-                    .then(() => this.sending = false)
+                    .put(this.route('admin.polls.update', this.poll.id), this.form, {
+                        onSuccess: () => {
+                            this.sending = false
+                        }
+                    })
             },
             destroy() {
 

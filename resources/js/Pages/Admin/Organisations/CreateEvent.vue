@@ -83,8 +83,11 @@
             },
             submit(formData) {
                 this.$inertia
-                    .post(this.route('admin.organisations.events.store', this.organisation.id), formData)
-                    .then(() => this.sending = false)
+                    .post(this.route('admin.organisations.events.store', this.organisation.id), formData, {
+                        onSuccess: () => {
+                            this.sending = false
+                        }
+                    })
             },
         }
     }

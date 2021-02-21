@@ -108,9 +108,7 @@
         },
         methods: {
             submit() {
-                // this.$inertia
-                //     .put(this.route('admin.polls.update', this.poll.id), this.form)
-                //     .then(() => this.sending = false)
+
             },
             destroy() {
                 if (confirm('Möchtest Du diese Organisation löschen?')) {
