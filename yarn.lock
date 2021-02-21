@@ -825,17 +825,25 @@
   dependencies:
     "purgecss" "^3.1.3"
 
-"@inertiajs/inertia-vue@^0.1.4":
-  "integrity" "sha512-n10fqZ3MyH/fypR2J3ej6edXn6BfCxfr7wqNeJrkCXiNF21uXhb4FeWX0qF3l2K6WB1Gr3YRT/RLdESlAMcGAw=="
-  "resolved" "https://registry.npmjs.org/@inertiajs/inertia-vue/-/inertia-vue-0.1.4.tgz"
-  "version" "0.1.4"
+"@inertiajs/inertia-vue@^0.5.5":
+  "integrity" "sha512-f3kPJoXv8PXW6OVqSTbmynbVVVsTQb2m8k4sPmG5PsfmcXPukP3QEDBL3JDLgrNxpVzLyjh1oQXyW0fVop/mYQ=="
+  "resolved" "https://registry.npmjs.org/@inertiajs/inertia-vue/-/inertia-vue-0.5.5.tgz"
+  "version" "0.5.5"
 
-"@inertiajs/inertia@^0.1.4", "@inertiajs/inertia@^0.1.9":
-  "integrity" "sha512-xqVdr+UxVUn7LC7uwzFMJ7t5HOrAZJ7uZzYlpvN/hwuO6y+rYMTAWobvkHnUyu+LaRspwqqZitBdXGs0JIZbyA=="
-  "resolved" "https://registry.npmjs.org/@inertiajs/inertia/-/inertia-0.1.9.tgz"
-  "version" "0.1.9"
+"@inertiajs/inertia@^0.6.0 || ^0.7.0 || ^0.8.0", "@inertiajs/inertia@^0.8.2", "@inertiajs/inertia@^0.8.4":
+  "integrity" "sha512-iTiyqXNvOYCY7/llhJgAHBKuUNlz6FBgXV/w0yzugpepqVR23kxSjepYLYdAKWS5Noq6W+Iz7oLeqFjuoCy53w=="
+  "resolved" "https://registry.npmjs.org/@inertiajs/inertia/-/inertia-0.8.4.tgz"
+  "version" "0.8.4"
   dependencies:
-    "axios" "^0.19.0"
+    "axios" "^0.21.1"
+    "deepmerge" "^4.0.0"
+    "qs" "^6.9.0"
+
+"@inertiajs/progress@^0.2.4":
+  "integrity" "sha512-FVlxQjA3qxXoSljbhDWpXKdDth0IxovmI9lNJLbvxzpVir7iL5n9MCX7Sx9X+JcKdTKezCbGnc3CXQ92B38wbA=="
+  "resolved" "https://registry.npmjs.org/@inertiajs/progress/-/progress-0.2.4.tgz"
+  "version" "0.2.4"
+  dependencies:
     "nprogress" "^0.2.0"
 
 "@jest/types@^26.6.2":
@@ -1696,12 +1704,19 @@
   "resolved" "https://registry.npmjs.org/aws4/-/aws4-1.11.0.tgz"
   "version" "1.11.0"
 
-"axios@^0.19.0", "axios@^0.19.2":
+"axios@^0.19.2":
   "integrity" "sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA=="
   "resolved" "https://registry.npmjs.org/axios/-/axios-0.19.2.tgz"
   "version" "0.19.2"
   dependencies:
     "follow-redirects" "1.5.10"
+
+"axios@^0.21.1":
+  "integrity" "sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz"
+  "version" "0.21.1"
+  dependencies:
+    "follow-redirects" "^1.10.0"
 
 "babel-loader@^8.1.0":
   "integrity" "sha512-JvTd0/D889PQBtUXJ2PXaKU/pjZDMtHA9V2ecm+eNRmmBCMR09a+fmpGTNwnJtFmFl5Ei7Vy47LjBb+L0wQ99g=="
@@ -2996,7 +3011,7 @@
   "resolved" "https://registry.npmjs.org/deepmerge/-/deepmerge-2.2.1.tgz"
   "version" "2.2.1"
 
-"deepmerge@^4.2.2":
+"deepmerge@^4.0.0", "deepmerge@^4.2.2":
   "integrity" "sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg=="
   "resolved" "https://registry.npmjs.org/deepmerge/-/deepmerge-4.2.2.tgz"
   "version" "4.2.2"
@@ -3825,6 +3840,11 @@
   "version" "1.5.10"
   dependencies:
     "debug" "=3.1.0"
+
+"follow-redirects@^1.10.0":
+  "integrity" "sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA=="
+  "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.2.tgz"
+  "version" "1.13.2"
 
 "for-in@^1.0.2":
   "integrity" "sha1-gQaNKVqBQuwKxybG4iAMMPttXoA="
@@ -5255,9 +5275,9 @@
     "stringify-object" "^3.3.0"
 
 "listr2@^3.2.2":
-  "integrity" "sha512-8Zoxe7s/8nNr4bJ8bdAduHD8uJce+exmMmUWTXlq0WuUdffnH3muisHPHPFtW2vvOfohIsq7FGCaguUxN/h3Iw=="
-  "resolved" "https://registry.npmjs.org/listr2/-/listr2-3.3.1.tgz"
-  "version" "3.3.1"
+  "integrity" "sha512-mGwDWg5Zq2m96Ern+RFTgzh6otSfLtHqhWKhoNvCErr46komaWAs1G8K6Th4VENps3cKySKGJXL1yAiCjmt5IQ=="
+  "resolved" "https://registry.npmjs.org/listr2/-/listr2-3.3.2.tgz"
+  "version" "3.3.2"
   dependencies:
     "chalk" "^4.1.0"
     "cli-truncate" "^2.1.0"
@@ -7077,6 +7097,11 @@
   "integrity" "sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc="
   "resolved" "https://registry.npmjs.org/q/-/q-1.5.1.tgz"
   "version" "1.5.1"
+
+"qs@^6.9.0":
+  "integrity" "sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ=="
+  "resolved" "https://registry.npmjs.org/qs/-/qs-6.9.6.tgz"
+  "version" "6.9.6"
 
 "qs@~6.5.2":
   "integrity" "sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA=="
