@@ -1,9 +1,11 @@
 <?php
 
-use App\Entry;
+namespace Database\Seeders;
+
+use App\AdvEvent;
 use Illuminate\Database\Seeder;
 
-class EntrySeeder extends Seeder
+class AdvEventSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +14,6 @@ class EntrySeeder extends Seeder
      */
     public function run()
     {
-
-        factory(Entry::class, 50)->create();
-
+        factory(AdvEvent::class, 50)->create();
     }
 }

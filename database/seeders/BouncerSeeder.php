@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Group;
 use App\Poll;
 use Illuminate\Database\Seeder;

@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Entry;
 use Illuminate\Database\Seeder;
 
-class PageSeeder extends Seeder
+class EntrySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,8 @@ class PageSeeder extends Seeder
      */
     public function run()
     {
-        //
+
+        factory(Entry::class, 50)->create();
+
     }
 }
