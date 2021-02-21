@@ -50,7 +50,7 @@
                             </div>
                             <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                                 <span class="inline-flex rounded-md shadow-sm">
-                                    <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-blue-600 border border-transparent rounded-md hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700">
+                                    <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-blue-600 border border-transparent rounded-md hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:ring-blue active:bg-blue-700">
                                         Speichern
                                     </button>
                                 </span>
@@ -92,7 +92,7 @@
                                 <div class="mt-5">
                                     <inertia-link
                                             method="POST" :href="route('profile.export')"
-                                            class="inline-flex items-center justify-center px-4 py-2 font-medium text-blue-700 transition duration-150 ease-in-out bg-blue-100 border border-transparent rounded-md hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 sm:text-sm sm:leading-5">
+                                            class="inline-flex items-center justify-center px-4 py-2 font-medium text-blue-700 transition duration-150 ease-in-out bg-blue-100 border border-transparent rounded-md hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:ring-blue active:bg-blue-200 sm:text-sm sm:leading-5">
                                         Daten anfordern
                                     </inertia-link>
                                 </div>
@@ -112,7 +112,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-5">
-                                    <button type="button" @click="showDeletionModal" class="inline-flex items-center justify-center px-4 py-2 font-medium text-red-700 transition duration-150 ease-in-out bg-red-100 border border-transparent rounded-md hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 sm:text-sm sm:leading-5">
+                                    <button type="button" @click="showDeletionModal" class="inline-flex items-center justify-center px-4 py-2 font-medium text-red-700 transition duration-150 ease-in-out bg-red-100 border border-transparent rounded-md hover:bg-red-50 focus:outline-none focus:border-red-300 focus:ring-red active:bg-red-200 sm:text-sm sm:leading-5">
                                         Benutzerkonto löschen
                                     </button>
                                 </div>
@@ -157,7 +157,7 @@
         methods: {
             submit() {
                 this.$inertia
-                    .put(this.route('profile.update').url(), this.form)
+                    .put(this.route('profile.update'), this.form)
             },
             showDeletionModal() {
                 let r = confirm("Möchtest du dein Benutzerkonto wirklich löschen? Dies kann nicht rückgängig gemacht werden.");

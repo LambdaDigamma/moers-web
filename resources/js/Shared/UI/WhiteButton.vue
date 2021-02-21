@@ -13,7 +13,7 @@
                 'px-4 py-2 text-sm leading-6 rounded-md' : size === 'md',
                 'px-4 py-2 text-base leading-6 rounded-md' : size === 'lg',
                 'px-6 py-3 text-base leading-6 rounded-md' : size === 'xl',
-                'hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50' : !disabled,
+                'hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50' : !disabled,
                 'opacity-50' : disabled,
                 'w-full justify-center': block
                 }"

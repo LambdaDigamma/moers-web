@@ -144,7 +144,7 @@
 <!--                    &lt;!&ndash;                       v-model="query"&ndash;&gt;-->
 <!--                    &lt;!&ndash;                       placeholder="Suchen…"&ndash;&gt;-->
 <!--                    &lt;!&ndash;                       type="text"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                       class="w-full px-2 py-2 rounded md:px-2 md:py-3 focus:shadow-outline dark:text-white dark:bg-gray-600" />&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       class="w-full px-2 py-2 rounded md:px-2 md:py-3 focus:ring dark:text-white dark:bg-gray-600" />&ndash;&gt;-->
 <!--                    <div class="px-3 pt-3 sm:px-6">-->
 <!--                        <draggable-->
 <!--                          :list="presets"-->

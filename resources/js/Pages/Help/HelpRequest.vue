@@ -19,7 +19,7 @@
             </div>
             <div class="px-4 py-5 sm:p-6" v-if="!isCreator && request.served_on === null">
                 <div id="start-contact-container" >
-                    <inertia-link :href="route('help.request.accept', request.id)" method="PUT" class="inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-blue-700 transition duration-150 ease-in-out bg-blue-100 border border-transparent rounded-md hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200">
+                    <inertia-link :href="route('help.request.accept', request.id)" method="PUT" class="inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-blue-700 transition duration-150 ease-in-out bg-blue-100 border border-transparent rounded-md hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:ring-blue active:bg-blue-200">
                         Nimm Kontakt auf
                     </inertia-link>
                     <p class="max-w-xl mt-2 text-sm leading-5 text-gray-500">
@@ -115,7 +115,7 @@
                 <div v-if="request.served_on !== null">
                     <inertia-link :href="route('help.request.done', request.id)"
                                   method="POST"
-                                  class="inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-green-700 transition duration-150 ease-in-out bg-green-100 border border-transparent rounded-md hover:bg-green-50 focus:outline-none focus:border-green-300 focus:shadow-outline-green active:bg-green-200">
+                                  class="inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-green-700 transition duration-150 ease-in-out bg-green-100 border border-transparent rounded-md hover:bg-green-50 focus:outline-none focus:border-green-300 focus:ring-green active:bg-green-200">
                         Ich habe einen Helfer gefunden
                     </inertia-link>
                     <p class="max-w-xl mt-2 text-sm leading-5 text-gray-500">
@@ -124,7 +124,7 @@
                     </p>
                 </div>
                 <div :class="{ 'mt-6' : request.served_on !== null }">
-                    <inertia-link :href="route('help.request.delete', request.id)" method="DELETE" class="inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-red-700 transition duration-150 ease-in-out bg-red-100 border border-transparent rounded-md hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200">
+                    <inertia-link :href="route('help.request.delete', request.id)" method="DELETE" class="inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-red-700 transition duration-150 ease-in-out bg-red-100 border border-transparent rounded-md hover:bg-red-50 focus:outline-none focus:border-red-300 focus:ring-red active:bg-red-200">
                         Ziehe die Hilfesuche zurück
                     </inertia-link>
                     <p class="max-w-xl mt-2 text-sm leading-5 text-gray-500">
@@ -145,7 +145,7 @@
             </div>
             <div class="px-4 py-5 sm:p-6">
                 <div v-if="request.served_on !== null">
-                    <inertia-link :href="route('help.request.quit', request.id)" method="POST" class="inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-red-700 transition duration-150 ease-in-out bg-red-100 border border-transparent rounded-md hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200">
+                    <inertia-link :href="route('help.request.quit', request.id)" method="POST" class="inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-red-700 transition duration-150 ease-in-out bg-red-100 border border-transparent rounded-md hover:bg-red-50 focus:outline-none focus:border-red-300 focus:ring-red active:bg-red-200">
                         Wieder austreten
                     </inertia-link>
                     <p class="max-w-xl mt-2 text-sm leading-5 text-gray-500">

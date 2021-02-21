@@ -11,7 +11,7 @@
                 'px-4 py-2 text-sm leading-5 rounded-md' : size === 'md',
                 'px-4 py-2 text-base leading-6 rounded-md' : size === 'lg',
                 'px-6 py-3 text-base leading-6 rounded-md' : size === 'xl',
-                'hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200' : !disabled,
+                'hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:ring-blue active:bg-blue-200' : !disabled,
                 'opacity-50' : disabled
                 }"
             @click="clickedButton($event)">

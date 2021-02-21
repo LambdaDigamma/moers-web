@@ -21,7 +21,7 @@
                 </span>
 
                 <span class="inline-flex rounded-md shadow-sm">
-                    <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+                    <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
                             v-clipboard:copy="studentInformation.name">
                         Kopieren
                     </button>
@@ -41,7 +41,7 @@
                     </span>
 
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.nickname">
+                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.nickname">
                             Kopieren
                         </button>
                     </span>
@@ -58,7 +58,7 @@
                     </span>
 
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.lkA">
+                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.lkA">
                             Kopieren
                         </button>
                     </span>
@@ -78,7 +78,7 @@
                     </span>
 
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.birthday">
+                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.birthday">
                             Kopieren
                         </button>
                     </span>
@@ -95,7 +95,7 @@
                     </span>
 
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.lkB">
+                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.lkB">
                             Kopieren
                         </button>
                     </span>
@@ -114,7 +114,7 @@
                 </span>
 
                 <span class="inline-flex rounded-md shadow-sm">
-                    <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.slogan">
+                    <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.slogan">
                         Kopieren
                     </button>
                 </span>
@@ -133,7 +133,7 @@
                     </span>
 
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.motto">
+                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.motto">
                             Kopieren
                         </button>
                     </span>
@@ -150,7 +150,7 @@
                     </span>
 
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.soundtrack">
+                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.soundtrack">
                             Kopieren
                         </button>
                     </span>
@@ -170,7 +170,7 @@
                     </span>
 
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.strengths">
+                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.strengths">
                             Kopieren
                         </button>
                     </span>
@@ -187,7 +187,7 @@
                     </span>
 
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.weaknesses">
+                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.weaknesses">
                             Kopieren
                         </button>
                     </span>
@@ -207,7 +207,7 @@
                     </span>
 
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.miss_least">
+                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.miss_least">
                             Kopieren
                         </button>
                     </span>
@@ -224,7 +224,7 @@
                     </span>
 
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.miss_most">
+                        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.miss_most">
                             Kopieren
                         </button>
                     </span>
@@ -243,7 +243,7 @@
                 </span>
 
                 <span class="inline-flex rounded-md shadow-sm">
-                    <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.highlight">
+                    <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150" v-clipboard:copy="studentInformation.highlight">
                         Kopieren
                     </button>
                 </span>

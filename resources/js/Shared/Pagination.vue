@@ -12,7 +12,7 @@
             <span class="inline-flex rounded-md shadow-sm" v-else>
                 <button type="button"
                         :key="key"
-                        :class="{ 'bg-white border-gray-300 text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50': link.active, '' : !link.active, 'ml-auto': link.label === 'Nächste' }"
+                        :class="{ 'bg-white border-gray-300 text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:text-gray-800 active:bg-gray-50': link.active, '' : !link.active, 'ml-auto': link.label === 'Nächste' }"
                         @click="selectedButton(link.url)"
                         class="inline-flex items-center px-4 py-2 mr-3 text-base font-medium leading-6 transition duration-150 ease-in-out border rounded-md">
                     {{ link.label }}

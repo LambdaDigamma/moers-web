@@ -3,10 +3,10 @@
 <!--    <div class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6">-->
 <!--        &lt;!&ndash;-->
 <!--            <div class="flex justify-between flex-1 hidden">-->
-<!--              <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">-->
+<!--              <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:ring-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">-->
 <!--                Previous-->
 <!--              </a>-->
-<!--              <a href="#" class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">-->
+<!--              <a href="#" class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:ring-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">-->
 <!--                Next-->
 <!--              </a>-->
 <!--            </div>-->
@@ -43,13 +43,13 @@
 
 
 
-<!--          <button @click="firstPage" :disabled="prevDisabled" type="button" class="relative items-center hidden px-2 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 sm:inline-flex rounded-l-md focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500" :class="{ 'text-gray-500 hover:text-gray-400': !prevDisabled, 'text-gray-400': prevDisabled }">-->
+<!--          <button @click="firstPage" :disabled="prevDisabled" type="button" class="relative items-center hidden px-2 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 sm:inline-flex rounded-l-md focus:z-10 focus:outline-none focus:border-blue-300 focus:ring-blue active:bg-gray-100 active:text-gray-500" :class="{ 'text-gray-500 hover:text-gray-400': !prevDisabled, 'text-gray-400': prevDisabled }">-->
 <!--            <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">-->
 <!--              <path fill-rule="evenodd" d="M13.707 5.293a1 1 0 010 1.414L10.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>-->
 <!--              <path fill-rule="evenodd" d="M7 5a1 1 0 011 1v8a1 1 0 11-2 0V6a1 1 0 011-1z" clip-rule="evenodd"/>-->
 <!--            </svg>-->
 <!--          </button>-->
-<!--          <button @click="prevPage" :disabled="prevDisabled" type="button" class="relative inline-flex items-center px-2 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 sm:-ml-px rounded-l-md sm:rounded-none focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500" :class="{ 'text-gray-500 hover:text-gray-400': !prevDisabled, 'text-gray-400': prevDisabled }">-->
+<!--          <button @click="prevPage" :disabled="prevDisabled" type="button" class="relative inline-flex items-center px-2 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 sm:-ml-px rounded-l-md sm:rounded-none focus:z-10 focus:outline-none focus:border-blue-300 focus:ring-blue active:bg-gray-100 active:text-gray-500" :class="{ 'text-gray-500 hover:text-gray-400': !prevDisabled, 'text-gray-400': prevDisabled }">-->
 <!--            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">-->
 <!--              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>-->
 <!--            </svg>-->
@@ -57,18 +57,18 @@
 
 <!--          <span v-for="page in pages">-->
 <!--            <button @click="gotoPage(page - 1)" type="button"-->
-<!--                    class="relative items-center hidden px-4 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out border border-gray-300 md:inline-flex focus:z-10 focus:outline-none focus:border-indigo-300 focus:shadow-outline-indigo active:bg-indigo-200 active:text-gray-700 hover:bg-indigo-50"-->
+<!--                    class="relative items-center hidden px-4 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out border border-gray-300 md:inline-flex focus:z-10 focus:outline-none focus:border-indigo-300 focus:ring-indigo active:bg-indigo-200 active:text-gray-700 hover:bg-indigo-50"-->
 <!--                    :class="{ 'bg-indigo-100 text-indigo-700': tinted && page === currentPage + 1, 'bg-white text-gray-700': page !== currentPage + 1 }">-->
 <!--              {{ page }}-->
 <!--            </button>-->
 <!--          </span>-->
 
-<!--          <button @click="nextPage" :disabled="nextDisabled" type="button" class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-r-md sm:rounded-none focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500" :class="{ 'text-gray-500 hover:text-gray-400': !nextDisabled, 'text-gray-400': nextDisabled }">-->
+<!--          <button @click="nextPage" :disabled="nextDisabled" type="button" class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-r-md sm:rounded-none focus:z-10 focus:outline-none focus:border-blue-300 focus:ring-blue active:bg-gray-100 active:text-gray-500" :class="{ 'text-gray-500 hover:text-gray-400': !nextDisabled, 'text-gray-400': nextDisabled }">-->
 <!--            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">-->
 <!--              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>-->
 <!--            </svg>-->
 <!--          </button>-->
-<!--          <button @click="lastPage" :disabled="nextDisabled" type="button" class="relative items-center hidden px-2 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 sm:inline-flex rounded-r-md focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500" :class="{ 'text-gray-500 hover:text-gray-400': !nextDisabled, 'text-gray-400': nextDisabled }">-->
+<!--          <button @click="lastPage" :disabled="nextDisabled" type="button" class="relative items-center hidden px-2 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 sm:inline-flex rounded-r-md focus:z-10 focus:outline-none focus:border-blue-300 focus:ring-blue active:bg-gray-100 active:text-gray-500" :class="{ 'text-gray-500 hover:text-gray-400': !nextDisabled, 'text-gray-400': nextDisabled }">-->
 <!--            <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">-->
 <!--              <path fill-rule="evenodd" d="M6.293 5.293a1 1 0 000 1.414L9.586 10l-3.293 3.293a1 1 0 001.414 1.414l4-4a1 1 0 000-1.414l-4-4a1 1 0 00-1.414 0z" clip-rule="evenodd"/>-->
 <!--              <path fill-rule="evenodd" d="M13 5a1 1 0 00-1 1v8a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>-->

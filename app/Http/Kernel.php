@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\LocalizeAPI;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\SafariFixAuth;
@@ -61,7 +62,8 @@ class Kernel extends HttpKernel
             ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
             SubstituteBindings::class,
-            CreateFreshApiToken::class
+            CreateFreshApiToken::class,
+            HandleInertiaRequests::class,
         ],
 
         'api' => [

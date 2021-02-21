@@ -2,7 +2,7 @@
 
     <div @keydown.esc="open = false" class="relative inline-block text-left" v-click-outside="closeDropdown">
         <div>
-            <button @click="open = !open" class="flex items-center max-w-xs text-sm rounded-full focus:outline-none focus:shadow-outline">
+            <button @click="open = !open" class="flex items-center max-w-xs text-sm rounded-full focus:outline-none focus:ring">
                 <span class="inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-gray-200 rounded-full">
                     {{ findLanguage(currentLanguageCode).flag }}
                 </span>
@@ -18,7 +18,7 @@
 
             <div v-show="open"
                  class="transform origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg z-20">
-                <div class="rounded-md bg-white shadow-xs">
+                <div class="rounded-md bg-white ring-1 ring-black ring-opacity-5">
                     <div class="py-1">
                         <inertia-link :href="route('language', [languages[index].value])"
                              v-for="(language, index) in languages"

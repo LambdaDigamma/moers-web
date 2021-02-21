@@ -13,8 +13,8 @@
                    :value="value"
                    v-bind="$attrs"
                    :class="{
-                       'border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : this.hasError,
-                       'focus:border-blue-500 focus:shadow-outline-blue' : !this.hasError,
+                       'border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red' : this.hasError,
+                       'focus:border-blue-500 focus:ring-blue' : !this.hasError,
                        'opacity-50' : disabled
                    }"
                    class="block w-full pr-10 form-input sm:text-sm sm:leading-5"

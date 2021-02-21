@@ -51,52 +51,52 @@ class AppServiceProvider extends ServiceProvider
 
     private function registerInertia()
     {
-        Inertia::setRootView('layout');
-
-        Inertia::version(function () {
-            return md5_file(public_path('mix-manifest.json'));
-        });
-
-        Inertia::share([
-            'auth' => function () {
-                return [
-                    'user' => Auth::user() ? [
-                        'id' => Auth::user()->id,
-                        'name' => Auth::user()->name,
-                        'email' => Auth::user()->email,
-                        'notifications_count' => Auth::user()->unreadNotifications()->count()
-                    ] : null,
-                ];
-            },
-            'locale' => function () {
-                return app()->getLocale();
-            },
-            'language' => function () {
-                return translations(
-                    resource_path('lang/'. app()->getLocale() .'.json')
-                );
-            },
-            'flash' => function () {
-                return [
-                    'success' => Session::get('success'),
-                    'error' => Session::get('error'),
-                ];
-            },
-            'menuEntries' => function () {
-                return [
-                    'entries' => true,
-                    'events' => true,
-                    'organisations' => true,
-                    'help' => true,
-                    'polls' => false
-                ];
-            },
-            'errors' => function () {
-                return Session::get('errors')
-                    ? Session::get('errors')->getBag('default')->getMessages()
-                    : (object) [];
-            },
-        ]);
+//        Inertia::setRootView('layout');
+//
+//        Inertia::version(function () {
+//            return md5_file(public_path('mix-manifest.json'));
+//        });
+//
+//        Inertia::share([
+//            'auth' => function () {
+//                return [
+//                    'user' => Auth::user() ? [
+//                        'id' => Auth::user()->id,
+//                        'name' => Auth::user()->name,
+//                        'email' => Auth::user()->email,
+//                        'notifications_count' => Auth::user()->unreadNotifications()->count()
+//                    ] : null,
+//                ];
+//            },
+//            'locale' => function () {
+//                return app()->getLocale();
+//            },
+//            'language' => function () {
+//                return translations(
+//                    resource_path('lang/'. app()->getLocale() .'.json')
+//                );
+//            },
+//            'flash' => function () {
+//                return [
+//                    'success' => Session::get('success'),
+//                    'error' => Session::get('error'),
+//                ];
+//            },
+//            'menuEntries' => function () {
+//                return [
+//                    'entries' => true,
+//                    'events' => true,
+//                    'organisations' => true,
+//                    'help' => true,
+//                    'polls' => false
+//                ];
+//            },
+//            'errors' => function () {
+//                return Session::get('errors')
+//                    ? Session::get('errors')->getBag('default')->getMessages()
+//                    : (object) [];
+//            },
+//        ]);
     }
 
     private function registerLengthAwarePaginator()

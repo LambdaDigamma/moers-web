@@ -1,0 +1,33 @@
+/*@import "media-library-pro-styles";*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[v-cloak] {
+    display: none;
+}
+
+[x-cloak] {
+    display: none;
+}
+
+.moving-block {
+    @apply opacity-70 border border-blue-300;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    background: transparent;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    scrollbar-height: none;
+}
+
+.max-h-0 {
+    max-height: 0;
+}
