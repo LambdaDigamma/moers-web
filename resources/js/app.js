@@ -92,7 +92,7 @@ new Vue({
     }),
     mounted() {
         window.addEventListener('popstate', () => {
-            this.$inertia.reload({preserveScroll: true, preserveState: false})
+            this.$inertia.reload({preserveScroll: true, preserveState: false}) // TODO: Check this
         })
     }
 }).$mount(app)
