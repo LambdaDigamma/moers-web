@@ -1,5 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+const colors = require('tailwindcss/colors')
+
 module.exports = {
     purge: [
         './resources/**/*.blade.php',
@@ -16,6 +18,8 @@ module.exports = {
         }),
         extend: {
             colors: {
+                teal: colors.teal,
+                cyan: colors.cyan,
             },
             transitionProperty: {
                 'filter': 'filter',

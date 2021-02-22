@@ -39,6 +39,8 @@ Route::get('language/{language}', function ($language) {
 
 Route::get('/image/{filename}', 'ImageController@displayImage')->where('filename', '.*')->name('image.displayImage');
 
+Route::get('/home', HomeController::class)->name('home');
+
 Route::group([
     'namespace' => 'Web',
 ], function () {
