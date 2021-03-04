@@ -3,7 +3,7 @@
 
 namespace App\Repositories;
 
-use App\Page;
+use App\Models\Page;
 
 interface PageRepositoryInterface
 {

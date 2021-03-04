@@ -3,7 +3,7 @@
 /* @var $factory Factory */
 
 use App\Models\AdvEvent;
-use App\Page;
+use App\Models\Page;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;

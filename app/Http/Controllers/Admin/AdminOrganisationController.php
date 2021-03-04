@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateStream;
 use App\Models\AdvEvent;
 use App\Models\Entry;
 use App\Models\Organisation;
-use App\Page;
+use App\Models\Page;
 use App\Repositories\PageRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Str;

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Page;
 use App\StudentInformation;
 use Auth;
 use Eloquent;

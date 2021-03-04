@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePage;
-use App\Page;
+use App\Models\Page;
 use App\PageBlock;
 use Inertia\Inertia;
 use Request;

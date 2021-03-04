@@ -13,13 +13,13 @@ use Spatie\Translatable\HasTranslations;
 /**
  * App\Models\AdvEvent
  *
- * @property int                         $id
- * @property string                      $name
- * @property string|null                 $start_date
- * @property string|null                 $end_date
- * @property string|null                 $description
- * @property string|null                 $url
- * @property string|null                 $image_path
+ * @property int                                                                                                $id
+ * @property string                                                                                             $name
+ * @property string|null                                                                                        $start_date
+ * @property string|null                                                                                        $end_date
+ * @property string|null                                                                                        $description
+ * @property string|null                                                                                        $url
+ * @property string|null                                                                                        $image_path
  * @property string|null                 $category
  * @property int|null                    $organisation_id
  * @property int|null                    $entry_id
@@ -54,13 +54,13 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Query\Builder|AdvEvent withTrashed()
  * @method static \Illuminate\Database\Query\Builder|AdvEvent withoutTrashed()
  * @mixin Eloquent
- * @property int|null $page_id
- * @property string|null $scheduled_at
- * @property-read mixed $header_url
- * @property-read mixed $translations
+ * @property int|null                                                                                           $page_id
+ * @property string|null                                                                                        $scheduled_at
+ * @property-read mixed                                                                                         $header_url
+ * @property-read mixed                                                                                         $translations
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
- * @property-read int|null $media_count
- * @property-read \App\Page|null $page
+ * @property-read int|null                                                                                      $media_count
+ * @property-read \App\Models\Page|null                                                                         $page
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent published()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent wherePageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent whereScheduledAt($value)
@@ -117,7 +117,7 @@ class AdvEvent extends Model implements HasMedia
 
     public function page()
     {
-        return $this->belongsTo('App\Page');
+        return $this->belongsTo('App\Models\Page');
     }
 
     public function toArray()

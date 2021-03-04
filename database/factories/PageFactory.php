@@ -2,7 +2,7 @@
 
 /** @var Factory $factory */
 
-use App\Page;
+use App\Models\Page;
 use App\PageBlock;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
