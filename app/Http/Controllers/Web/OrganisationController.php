@@ -3,8 +3,8 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\AdvEvent;
 use App\Http\Controllers\Controller;
+use App\Models\AdvEvent;
 use App\Models\Organisation;
 use Inertia\Inertia;
 

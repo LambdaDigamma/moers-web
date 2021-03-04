@@ -1422,7 +1422,7 @@ namespace PHPSTORM_META {
         'App\Poll' => \App\PollFactoryBuilder::class,
         'App\PollOption' => \App\PollOptionFactoryBuilder::class,
         'App\Models\User' => \App\UserFactoryBuilder::class,
-        'App\AdvEvent' => \App\AdvEventFactoryBuilder::class,
+        'App\Models\AdvEvent' => \App\AdvEventFactoryBuilder::class,
 	]));
 
     override(\Illuminate\Support\Arr::add(0), type(0));

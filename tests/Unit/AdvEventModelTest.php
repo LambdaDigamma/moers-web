@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\AdvEvent;
+use App\Models\AdvEvent;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

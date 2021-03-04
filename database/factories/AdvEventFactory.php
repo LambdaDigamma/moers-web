@@ -2,7 +2,7 @@
 
 /* @var $factory Factory */
 
-use App\AdvEvent;
+use App\Models\AdvEvent;
 use App\Page;
 use Carbon\Carbon;
 use Faker\Generator as Faker;

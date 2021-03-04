@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\AdvEvent;
+use App\Models\AdvEvent;
 use Illuminate\Database\Seeder;
 
 class AdvEventSeeder extends Seeder

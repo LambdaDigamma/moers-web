@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\AdvEvent;
 use App\Entry;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateEvent;
 use App\Http\Requests\UpdateEventPage;
 use App\Http\Requests\UpdateStream;
+use App\Models\AdvEvent;
 use App\Models\Organisation;
 use App\Page;
 use App\Repositories\PageRepositoryInterface;

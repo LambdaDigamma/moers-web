@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\AdvEvent;
-use App\Entry;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminUpdateEntry;
+use App\Models\AdvEvent;
 use Inertia\Inertia;
-use Redirect;
 use Request;
 
 class AdminEventController extends Controller

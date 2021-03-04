@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\AdvEvent;
 use App\Entry;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -55,7 +54,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read \App\Models\Group                                                                             $mainGroup
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null                                                                                      $media_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\AdvEvent[]                                      $publishedEvents
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AdvEvent[]                               $publishedEvents
  * @property-read int|null                                                                                      $published_events_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation filter($filters)
  */
@@ -97,7 +96,7 @@ class Organisation extends Model implements HasMedia
     // TODO: Only show next events
     public function events()
     {
-        return $this->hasMany('App\AdvEvent');
+        return $this->hasMany('App\Models\AdvEvent');
     }
 
     public function publishedEvents()

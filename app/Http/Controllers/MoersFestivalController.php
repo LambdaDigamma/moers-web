@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\AdvEvent;
+use App\Models\AdvEvent;
 use App\Models\Organisation;
 
 class MoersFestivalController extends Controller

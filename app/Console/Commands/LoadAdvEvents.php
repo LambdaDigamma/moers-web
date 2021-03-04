@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\AdvEvent;
-use DateTime;
+use App\Models\AdvEvent;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\AdvEvent;
+use App\Models\AdvEvent;
 use Illuminate\Console\Command;
 use Parsedown;
 
