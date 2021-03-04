@@ -1,15 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Model;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Tightenco\Collect\Support\Collection;
 
 /**
- * App\RubbishScheduleItem
+ * App\Models\RubbishScheduleItem
  *
  * @property int $id
  * @property string $date

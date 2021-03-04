@@ -2,7 +2,7 @@
 
 /** @var Factory $factory */
 
-use App\RubbishScheduleItem;
+use App\Models\RubbishScheduleItem;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;

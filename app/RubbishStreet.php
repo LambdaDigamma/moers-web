@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Models\Model;
+use App\Models\RubbishPickupItem;
+use App\Models\RubbishScheduleItem;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;

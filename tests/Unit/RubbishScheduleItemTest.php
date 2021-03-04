@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\RubbishScheduleItem;
+use App\Models\RubbishScheduleItem;
 use Carbon\Carbon;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RubbishScheduleItemTest extends TestCase
 {

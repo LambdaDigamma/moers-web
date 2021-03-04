@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\RubbishScheduleItem;
+use App\Models\RubbishScheduleItem;
 use App\RubbishStreet;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
