@@ -2,7 +2,6 @@
 
 /* @var $factory Factory */
 
-use App\Model;
 use App\Poll;
 use App\PollOption;
 use Faker\Generator as Faker;

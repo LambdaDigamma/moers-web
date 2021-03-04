@@ -2,7 +2,6 @@
 
 /** @var Factory $factory */
 
-use App\Model;
 use App\Page;
 use App\PageBlock;
 use Carbon\Carbon;

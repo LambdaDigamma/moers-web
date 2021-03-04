@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Model;
 use Spatie\Translatable\HasTranslations;
 
 /**

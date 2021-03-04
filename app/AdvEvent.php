@@ -2,8 +2,7 @@
 
 namespace App;
 
-use DB;
-use Doctrine\DBAL\Query\QueryBuilder;
+use App\Models\Model;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;

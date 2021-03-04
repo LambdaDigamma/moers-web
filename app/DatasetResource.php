@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
