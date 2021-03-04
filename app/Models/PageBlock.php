@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\SerializeTranslations;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -49,30 +50,15 @@ class PageBlock extends Model implements HasMedia
 {
     use SoftDeletes;
     use InteractsWithMedia;
-    use HasTranslations;
+    use SerializeTranslations;
 
     protected $guarded = [];
-
-    protected $casts = [
-        'data' => 'array'
-    ];
-
     public $translatable = ['data'];
+    protected $casts = ['data' => 'array'];
 
     public function page()
     {
         return $this->belongsTo(Page::class, 'page_id', 'id');
-    }
-
-    public function toArray()
-    {
-        $attributes = parent::toArray();
-
-        foreach ($this->getTranslatableAttributes() as $name) {
-            $attributes[$name] = $this->getTranslation($name, app()->getLocale());
-        }
-
-        return $attributes;
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\SerializeTranslations;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -75,7 +76,7 @@ use Spatie\Translatable\HasTranslations;
 class AdvEvent extends Model implements HasMedia
 {
     use SoftDeletes;
-    use HasTranslations;
+    use SerializeTranslations;
     use InteractsWithMedia;
 
     protected $table = 'adv_events';
@@ -119,17 +120,6 @@ class AdvEvent extends Model implements HasMedia
     public function page()
     {
         return $this->belongsTo(Page::class);
-    }
-
-    public function toArray()
-    {
-        $attributes = parent::toArray();
-
-        foreach ($this->getTranslatableAttributes() as $name) {
-            $attributes[$name] = $this->getTranslation($name, app()->getLocale());
-        }
-
-        return $attributes;
     }
 
     public function scopePublished($query)

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\SerializeTranslations;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
-use Spatie\Translatable\HasTranslations;
 
 /**
  * App\Models\Page
@@ -43,18 +45,18 @@ use Spatie\Translatable\HasTranslations;
 class Page extends Model
 {
     use SoftDeletes;
-    use HasTranslations;
+    use SerializeTranslations;
 
     public $translatable = ['title', 'slug'];
 
-    public function blocks()
+    public function blocks(): HasMany
     {
         return $this
             ->hasMany(PageBlock::class, 'page_id', 'id')
             ->orderBy('order');
     }
 
-    public function creator()
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'creator_id');
     }
@@ -71,17 +73,6 @@ class Page extends Model
                 $query->onlyTrashed();
             }
         });
-    }
-
-    public function toArray()
-    {
-        $attributes = parent::toArray();
-
-        foreach ($this->getTranslatableAttributes() as $name) {
-            $attributes[$name] = $this->getTranslation($name, app()->getLocale());
-        }
-
-        return $attributes;
     }
 
 }

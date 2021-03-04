@@ -63,24 +63,8 @@ class Organisation extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $table = 'organisations';
-
     protected $fillable = ['name', 'description'];
-
     protected $appends = ['header_path', 'logo_path'];
-
-    public function getHeaderPathAttribute()
-    {
-        if (!is_null($this->getFirstMedia('header'))) {
-            return $this->getFirstMedia('header')->getUrl();
-        }
-    }
-
-    public function getLogoPathAttribute()
-    {
-        if (!is_null($this->getFirstMedia('logo'))) {
-            return $this->getFirstMedia('logo')->getUrl();
-        }
-    }
 
     public function users()
     {
@@ -113,6 +97,20 @@ class Organisation extends Model implements HasMedia
     public function mainGroup()
     {
         return $this->hasOne(Group::class);
+    }
+
+    public function getHeaderPathAttribute()
+    {
+        if (!is_null($this->getFirstMedia('header'))) {
+            return $this->getFirstMedia('header')->getUrl();
+        }
+    }
+
+    public function getLogoPathAttribute()
+    {
+        if (!is_null($this->getFirstMedia('logo'))) {
+            return $this->getFirstMedia('logo')->getUrl();
+        }
     }
 
     /* Custom Scopes */
