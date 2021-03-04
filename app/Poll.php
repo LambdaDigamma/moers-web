@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Group;
 use App\Models\Model;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -89,7 +90,7 @@ class Poll extends Model
      */
     public function group()
     {
-        return $this->belongsTo('App\Group');
+        return $this->belongsTo('App\Models\Group');
     }
 
     /**

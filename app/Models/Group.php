@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Model;
-use App\Models\Organisation;
-use App\Models\User;
+use App\Poll;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,13 +13,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Group
+ * App\Models\Group
  *
  * @property integer|null organisation_id
  * @property int $id
  * @property string $name
  * @property string $description
- * @property int|null $organisation_id
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at

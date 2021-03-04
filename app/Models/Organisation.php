@@ -16,13 +16,13 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 /**
  * App\Models\Organisation
  *
- * @property integer|null group_id
- * @property int $id
- * @property string $name
- * @property string $description
- * @property int|null $entry_id
- * @property string|null $tags
- * @property string|null $logo_url
+ * @property integer|null                                                                                       group_id
+ * @property int                                                                                                $id
+ * @property string                                                                                             $name
+ * @property string                                                                                             $description
+ * @property int|null                                                                                           $entry_id
+ * @property string|null                                                                                        $tags
+ * @property string|null                                                                                        $logo_url
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -50,13 +50,13 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Query\Builder|Organisation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Organisation withoutTrashed()
  * @mixin Eloquent
- * @property-read mixed $header_path
- * @property-read mixed $logo_path
- * @property-read \App\Group $mainGroup
+ * @property-read mixed                                                                                         $header_path
+ * @property-read mixed                                                                                         $logo_path
+ * @property-read \App\Models\Group                                                                             $mainGroup
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
- * @property-read int|null $media_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\AdvEvent[] $publishedEvents
- * @property-read int|null $published_events_count
+ * @property-read int|null                                                                                      $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\AdvEvent[]                                      $publishedEvents
+ * @property-read int|null                                                                                      $published_events_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation filter($filters)
  */
 class Organisation extends Model implements HasMedia
@@ -112,7 +112,7 @@ class Organisation extends Model implements HasMedia
      */
     public function mainGroup()
     {
-        return $this->hasOne('App\Group');
+        return $this->hasOne('App\Models\Group');
     }
 
     /* Custom Scopes */

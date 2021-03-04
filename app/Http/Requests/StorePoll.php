@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Group;
+use App\Models\Group;
 use Bouncer;
 use Illuminate\Foundation\Http\FormRequest;
 use Request;

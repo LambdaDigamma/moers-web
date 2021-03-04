@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Conversation;
-use App\Group;
 use App\HelpRequest;
 use App\Message;
 use App\Page;
@@ -190,7 +189,7 @@ class User extends Authenticatable implements ExportsPersonalData
      */
     public function groups()
     {
-        return $this->belongsToMany('App\Group');
+        return $this->belongsToMany('App\Models\Group');
     }
 
     /**

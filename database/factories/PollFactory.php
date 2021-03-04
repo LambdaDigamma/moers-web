@@ -17,7 +17,7 @@ $factory->define(Poll::class, function (Faker $faker) {
         'description' => $faker->realText(200),
         'max_check' => 1,
         'group_id' => function () {
-            return factory(App\Group::class)->create()->id;
+            return factory(\App\Models\Group::class)->create()->id;
         },
         'can_visitors_vote' => false,
         'can_voter_see_result' => true,

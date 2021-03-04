@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Group;
 use App\Http\Controllers\Controller;
+use App\Models\Group;
 use App\Models\User;
 use Auth;
 use Bouncer;
@@ -37,7 +37,7 @@ class APIGroupController extends Controller
     /**
      * Returns a Collection of all existing groups.
      *
-     * @return Group[]|\Illuminate\Database\Eloquent\Collection
+     * @return \App\Models\Group[]|\Illuminate\Database\Eloquent\Collection
      */
     public function all()
     {

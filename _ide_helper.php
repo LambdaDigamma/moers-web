@@ -20841,6 +20841,7 @@ namespace Illuminate\Support {
 namespace App
 {
 
+    use App\Models\Group;
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
 

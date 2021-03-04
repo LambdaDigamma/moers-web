@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Group;
 use App\Http\Controllers\Controller;
+use App\Models\Group;
 use App\Models\User;
 use App\Poll;
 use Bouncer;
