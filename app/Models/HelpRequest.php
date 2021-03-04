@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Quarter;
 use Auth;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;

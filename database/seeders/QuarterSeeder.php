@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Quarter;
+use App\Models\Quarter;
 use Illuminate\Database\Seeder;
 
 class QuarterSeeder extends Seeder
