@@ -16,5 +16,5 @@ $factory->define(Dataset::class, function (Faker $faker) {
 });
 
 $factory->afterCreating(\App\Models\Dataset::class, function ($dataset, $faker) {
-    $dataset->resources()->save(factory(App\DatasetResource::class)->make());
+    $dataset->resources()->save(factory(\App\Models\DatasetResource::class)->make());
 });

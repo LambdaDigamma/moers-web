@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\DatasetResource;
+use App\Models\DatasetResource;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Bus\Queueable;

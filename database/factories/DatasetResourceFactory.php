@@ -2,7 +2,7 @@
 
 /** @var Factory $factory */
 
-use App\DatasetResource;
+use App\Models\DatasetResource;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 

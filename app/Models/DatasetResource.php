@@ -1,15 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Dataset;
-use App\Models\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
 
 /**
- * App\DatasetResource
+ * App\Models\DatasetResource
  *
  * @property int                                                                                                $id
  * @property string                                                                                             $name
@@ -24,18 +22,18 @@ use Spatie\Translatable\HasTranslations;
  * @property-read mixed                                                                                         $translations
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null                                                                                      $media_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource whereAutoUpdatingInterval($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource whereDatasetId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource whereError($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource whereFormat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource whereSourceUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\DatasetResource whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource whereAutoUpdatingInterval($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource whereDatasetId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource whereError($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource whereFormat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource whereSourceUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DatasetResource whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class DatasetResource extends Model implements HasMedia

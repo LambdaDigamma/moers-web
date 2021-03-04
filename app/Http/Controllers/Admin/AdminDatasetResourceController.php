@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DatasetResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateGeneralResource;
 use App\Jobs\UpdateAndRevalidateResource;
 use App\Models\Dataset;
+use App\Models\DatasetResource;
 use App\Repositories\DatasetRepository;
 use Inertia\Inertia;
 use Log;

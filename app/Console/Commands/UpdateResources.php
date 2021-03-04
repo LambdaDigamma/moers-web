@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\DatasetResource;
 use App\Jobs\UpdateAndRevalidateResource;
+use App\Models\DatasetResource;
 use Illuminate\Console\Command;
 
 class UpdateResources extends Command
