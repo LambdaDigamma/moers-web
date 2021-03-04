@@ -61,15 +61,15 @@ use Spatie\Translatable\HasTranslations;
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
  * @property-read \App\Page|null $page
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent published()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent wherePageId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent whereScheduledAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent active()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent chronological()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent future()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent nextDays()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent today()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AdvEvent upcomingToday()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent published()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent wherePageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent whereScheduledAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent active()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent chronological()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent future()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent nextDays()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent today()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent upcomingToday()
  */
 class AdvEvent extends Model implements HasMedia
 {

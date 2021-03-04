@@ -1,15 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Activity
+ * App\Models\Activity
  *
  * @property int $id
  * @property int $user_id
