@@ -84,18 +84,20 @@ class Organisation extends Model implements HasMedia
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User')->withPivot('organisation_id', 'user_id', 'role');
+        return $this
+            ->belongsToMany(User::class)
+            ->withPivot('organisation_id', 'user_id', 'role');
     }
 
     public function entry()
     {
-        return $this->belongsTo('App\Models\Entry');
+        return $this->belongsTo(Entry::class);
     }
 
     // TODO: Only show next events
     public function events()
     {
-        return $this->hasMany('App\Models\AdvEvent');
+        return $this->hasMany(AdvEvent::class);
     }
 
     public function publishedEvents()
@@ -110,7 +112,7 @@ class Organisation extends Model implements HasMedia
      */
     public function mainGroup()
     {
-        return $this->hasOne('App\Models\Group');
+        return $this->hasOne(Group::class);
     }
 
     /* Custom Scopes */

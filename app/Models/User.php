@@ -125,7 +125,9 @@ class User extends Authenticatable implements ExportsPersonalData
 
     public function organisations()
     {
-        return $this->belongsToMany('App\Models\Organisation')->withPivot('organisation_id', 'user_id', 'role');
+        return $this
+            ->belongsToMany(Organisation::class)
+            ->withPivot('organisation_id', 'user_id', 'role');
     }
 
     public function organisationRole($organisationID)
@@ -182,7 +184,7 @@ class User extends Authenticatable implements ExportsPersonalData
      */
     public function groups()
     {
-        return $this->belongsToMany('App\Models\Group');
+        return $this->belongsToMany(Group::class);
     }
 
     /**

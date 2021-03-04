@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
@@ -105,19 +106,19 @@ class AdvEvent extends Model implements HasMedia
         }
     }
 
-    public function organisation()
+    public function organisation(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Organisation');
+        return $this->belongsTo(Organisation::class);
     }
 
     public function entry()
     {
-        return $this->belongsTo('App\Models\Entry');
+        return $this->belongsTo(Entry::class);
     }
 
     public function page()
     {
-        return $this->belongsTo('App\Models\Page');
+        return $this->belongsTo(Page::class);
     }
 
     public function toArray()

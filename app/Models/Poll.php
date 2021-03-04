@@ -82,7 +82,7 @@ class Poll extends Model
      */
     public function group()
     {
-        return $this->belongsTo('App\Models\Group');
+        return $this->belongsTo(Group::class);
     }
 
     /**
@@ -92,12 +92,12 @@ class Poll extends Model
      */
     public function options()
     {
-        return $this->hasMany('App\Models\PollOption');
+        return $this->hasMany(PollOption::class);
     }
 
     public function votes()
     {
-        return $this->hasMany('App\Models\Vote');
+        return $this->hasMany(Vote::class);
     }
 
     public function results()

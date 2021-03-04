@@ -130,12 +130,12 @@ class Entry extends Model implements AuditableContract, HasMedia
 
     public function events()
     {
-        return $this->hasMany('App\Models\Event');
+        return $this->hasMany(Event::class);
     }
 
     public function organisations()
     {
-        return $this->hasMany('App\Models\Organisation');
+        return $this->hasMany(Organisation::class);
     }
 
     public function scopeFilter($query, array $filters)

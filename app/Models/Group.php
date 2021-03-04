@@ -56,7 +56,7 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany(User::class);
     }
 
     /**
@@ -66,7 +66,7 @@ class Group extends Model
      */
     public function organisation()
     {
-        return $this->belongsTo('App\Models\Organisation');
+        return $this->belongsTo(Organisation::class);
     }
 
     /**
@@ -76,7 +76,7 @@ class Group extends Model
      */
     public function polls()
     {
-        return $this->hasMany('App\Models\Poll')->with('options:id,name,poll_id,created_at,updated_at');
+        return $this->hasMany(Poll::class)->with('options:id,name,poll_id,created_at,updated_at');
     }
 
 }

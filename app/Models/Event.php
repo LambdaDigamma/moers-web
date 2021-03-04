@@ -62,11 +62,11 @@ class Event extends Model
 
     public function organisation()
     {
-        return $this->belongsTo('App\Models\Organisation');
+        return $this->belongsTo(Organisation::class);
     }
 
     public function entry()
     {
-        return $this->belongsTo('App\Models\Entry');
+        return $this->belongsTo(Entry::class);
     }
 }
