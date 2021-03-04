@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Tracker;
+use App\Models\Tracker;
 
 class APITrackerController
 {

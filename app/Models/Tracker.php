@@ -1,14 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Model;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Tracker
+ * App\Models\Tracker
  *
  * @property int $id
  * @property string $device_id
