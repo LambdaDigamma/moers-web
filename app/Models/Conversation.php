@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Message;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

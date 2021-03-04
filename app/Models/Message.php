@@ -1,17 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Conversation;
-use App\Models\Model;
-use App\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Message
+ * App\Models\Message
  *
  * @property int $id
  * @property int $sender_id
