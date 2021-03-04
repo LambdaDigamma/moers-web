@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Entry;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -90,7 +89,7 @@ class Organisation extends Model implements HasMedia
 
     public function entry()
     {
-        return $this->belongsTo('App\Entry');
+        return $this->belongsTo('App\Models\Entry');
     }
 
     // TODO: Only show next events

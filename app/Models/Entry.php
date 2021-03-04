@@ -1,9 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Model;
-use App\Models\Organisation;
+use App\Event;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,7 +14,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Entry
+ * App\Models\Entry
  *
  * @property int $id
  * @property float $lat

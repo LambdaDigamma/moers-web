@@ -3,7 +3,7 @@
 
 namespace App\Repositories;
 
-use App\Entry;
+use App\Models\Entry;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -62,9 +62,11 @@ class EntryRepository implements EntryRepositoryInterface
 
     /**
      * Updates an entry with the given data.
+     *
      * @param $entry_id
      * @param array $data
-     * @return Entry
+     *
+     * @return \App\Models\Entry
      */
     public function update($entry_id, array $data): Entry
     {

@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Entry;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEntry;
 use App\Http\Requests\UpdateEntry;
+use App\Models\Entry;
 use App\Repositories\EntryRepositoryInterface;
-use Exception;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class APIEntryController extends Controller
 {

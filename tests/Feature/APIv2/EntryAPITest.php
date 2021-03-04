@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\APIv2;
 
-use App\Entry;
+use App\Models\Entry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

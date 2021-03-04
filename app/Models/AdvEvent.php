@@ -13,23 +13,23 @@ use Spatie\Translatable\HasTranslations;
 /**
  * App\Models\AdvEvent
  *
- * @property int $id
- * @property string $name
- * @property string|null $start_date
- * @property string|null $end_date
- * @property string|null $description
- * @property string|null $url
- * @property string|null $image_path
- * @property string|null $category
- * @property int|null $organisation_id
- * @property int|null $entry_id
- * @property int $is_published
- * @property array|null $extras
- * @property Carbon|null $deleted_at
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read \App\Entry|null $entry
- * @property-read Organisation|null $organisation
+ * @property int                         $id
+ * @property string                      $name
+ * @property string|null                 $start_date
+ * @property string|null                 $end_date
+ * @property string|null                 $description
+ * @property string|null                 $url
+ * @property string|null                 $image_path
+ * @property string|null                 $category
+ * @property int|null                    $organisation_id
+ * @property int|null                    $entry_id
+ * @property int                         $is_published
+ * @property array|null                  $extras
+ * @property Carbon|null                 $deleted_at
+ * @property Carbon|null                 $created_at
+ * @property Carbon|null                 $updated_at
+ * @property-read \App\Models\Entry|null $entry
+ * @property-read Organisation|null      $organisation
  * @method static bool|null forceDelete()
  * @method static Builder|AdvEvent newModelQuery()
  * @method static Builder|AdvEvent newQuery()
@@ -112,7 +112,7 @@ class AdvEvent extends Model implements HasMedia
 
     public function entry()
     {
-        return $this->belongsTo('App\Entry');
+        return $this->belongsTo('App\Models\Entry');
     }
 
     public function page()

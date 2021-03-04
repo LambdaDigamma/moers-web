@@ -3,7 +3,7 @@
 
 namespace App\Repositories;
 
-use App\Entry;
+use App\Models\Entry;
 
 interface EntryRepositoryInterface
 {

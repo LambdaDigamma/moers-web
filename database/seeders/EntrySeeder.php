@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Entry;
+use App\Models\Entry;
 use Illuminate\Database\Seeder;
 
 class EntrySeeder extends Seeder

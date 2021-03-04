@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Entry;
 use App\Models\Model;
 use App\Models\Organisation;
 use Eloquent;
@@ -69,6 +70,6 @@ class Event extends Model
 
     public function entry()
     {
-        return $this->belongsTo('App\Entry');
+        return $this->belongsTo('App\Models\Entry');
     }
 }

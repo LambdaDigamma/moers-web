@@ -20918,6 +20918,7 @@ namespace App
 namespace App
 {
 
+    use App\Models\Entry;
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
 

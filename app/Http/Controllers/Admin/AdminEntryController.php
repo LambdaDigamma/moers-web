@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Entry;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminUpdateEntry;
+use App\Models\Entry;
 use Inertia\Inertia;
 use Redirect;
 use Request;

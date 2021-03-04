@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Entry;
 use App\Http\Controllers\Controller;
+use App\Models\Entry;
 use App\Repositories\EntryRepositoryInterface;
 use Inertia\Inertia;
 use Request;
