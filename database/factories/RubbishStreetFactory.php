@@ -2,7 +2,7 @@
 
 /** @var Factory $factory */
 
-use App\RubbishStreet;
+use App\Models\RubbishStreet;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;

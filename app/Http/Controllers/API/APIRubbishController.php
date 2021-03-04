@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\RubbishStreet;
+use App\Models\RubbishStreet;
 use Request;
 
 class APIRubbishController extends Controller

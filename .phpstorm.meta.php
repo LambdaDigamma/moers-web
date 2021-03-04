@@ -1414,7 +1414,7 @@ namespace PHPSTORM_META {
 	override(\factory(0), map([
         '' => '@FactoryBuilder',
         'App\Models\Group' => \App\GroupFactoryBuilder::class,
-        'App\RubbishStreet' => \App\RubbishStreetFactoryBuilder::class,
+        'App\Models\RubbishStreet' => \App\RubbishStreetFactoryBuilder::class,
         'App\Models\Event' => \App\EventFactoryBuilder::class,
         'App\Models\RubbishScheduleItem' => \App\RubbishScheduleItemFactoryBuilder::class,
         'App\Models\Organisation' => \App\OrganisationFactoryBuilder::class,

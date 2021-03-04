@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\RubbishScheduleItem;
-use App\RubbishStreet;
+use App\Models\RubbishStreet;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

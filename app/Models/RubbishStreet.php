@@ -1,16 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Model;
-use App\Models\RubbishPickupItem;
-use App\Models\RubbishScheduleItem;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * App\RubbishStreet
+ * App\Models\RubbishStreet
  *
  * @property int $id
  * @property string $name
