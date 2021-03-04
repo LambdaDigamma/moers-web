@@ -6,7 +6,6 @@ use App\Conversation;
 use App\HelpRequest;
 use App\Message;
 use App\Page;
-use App\Poll;
 use App\StudentInformation;
 use Auth;
 use Eloquent;

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePoll;
 use App\Http\Requests\UpdatePoll;
 use App\Models\Group;
-use App\Poll;
+use App\Models\Poll;
 use App\PollOption;
 use Inertia\Inertia;
 use Redirect;

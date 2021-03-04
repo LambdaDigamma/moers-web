@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Models\Poll;
 use App\Models\Vote;
-use App\Poll;
 use App\PollOption;
 use App\Rules\CheckPollHasOption;
 use App\Rules\SatisfiesPollOptionsMaxCheck;
@@ -44,7 +44,8 @@ class APIPollController extends Controller
      * Returns the Poll with its related options. Returns an error if no Poll exists for the given $id.
      *
      * @param $id
-     * @return Poll
+     *
+     * @return \App\Models\Poll
      */
     public function show($id)
     {
@@ -122,8 +123,9 @@ class APIPollController extends Controller
     /**
      * Marks the given Poll as abstained. Returns an error if User is not allowed to vote for this poll.
      *
-     * @param Request $request
-     * @param Poll $poll
+     * @param Request          $request
+     * @param \App\Models\Poll $poll
+     *
      * @return ResponseFactory|JsonResponse|Response
      */
     public function abstain(Request $request, Poll $poll)
@@ -149,8 +151,9 @@ class APIPollController extends Controller
      * Returns the created Vote for the User and the Poll with result or
      * returns an error if the authenticated User is not allowed to vote for this poll.
      *
-     * @param Request $request
-     * @param Poll $poll
+     * @param Request          $request
+     * @param \App\Models\Poll $poll
+     *
      * @return ResponseFactory|JsonResponse|Response
      */
     public function vote(Request $request, Poll $poll)

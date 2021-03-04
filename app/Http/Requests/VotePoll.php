@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Poll;
 use App\Rules\CheckPollHasOption;
 use App\Rules\SatisfiesPollOptionsMaxCheck;
 use Illuminate\Foundation\Http\FormRequest;

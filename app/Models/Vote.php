@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Poll;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;

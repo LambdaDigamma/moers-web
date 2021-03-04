@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Poll;
+use App\Models\Poll;
 use Illuminate\Contracts\Validation\Rule;
 
 class SatisfiesPollOptionsMaxCheck implements Rule
@@ -13,7 +13,7 @@ class SatisfiesPollOptionsMaxCheck implements Rule
     /**
      * Create a new rule instance.
      *
-     * @param Poll $poll
+     * @param \App\Models\Poll $poll
      */
     public function __construct(Poll $poll)
     {

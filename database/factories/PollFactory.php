@@ -2,7 +2,7 @@
 
 /* @var $factory Factory */
 
-use App\Poll;
+use App\Models\Poll;
 use App\PollOption;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;

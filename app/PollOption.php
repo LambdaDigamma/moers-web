@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Model;
+use App\Models\Poll;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;

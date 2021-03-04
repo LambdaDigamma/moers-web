@@ -1419,7 +1419,7 @@ namespace PHPSTORM_META {
         'App\RubbishScheduleItem' => \App\RubbishScheduleItemFactoryBuilder::class,
         'App\Models\Organisation' => \App\OrganisationFactoryBuilder::class,
         'App\Entry' => \App\EntryFactoryBuilder::class,
-        'App\Poll' => \App\PollFactoryBuilder::class,
+        'App\Models\Poll' => \App\PollFactoryBuilder::class,
         'App\PollOption' => \App\PollOptionFactoryBuilder::class,
         'App\Models\User' => \App\UserFactoryBuilder::class,
         'App\Models\AdvEvent' => \App\AdvEventFactoryBuilder::class,

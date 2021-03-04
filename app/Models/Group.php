@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Poll;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -77,7 +76,7 @@ class Group extends Model
      */
     public function polls()
     {
-        return $this->hasMany('App\Poll')->with('options:id,name,poll_id,created_at,updated_at');
+        return $this->hasMany('App\Models\Poll')->with('options:id,name,poll_id,created_at,updated_at');
     }
 
 }

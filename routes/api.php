@@ -176,7 +176,7 @@ Route::group(['prefix' => '/v2'], function () {
         ->name('api.v2.polls.answered');
 
     Route::post('/polls', 'API\APIPollController@store')
-        ->middleware('can:create-poll,App\Poll')
+        ->middleware('can:create-poll,App\Models\Poll')
         ->name('api.v2.polls.store');
 
     Route::post('polls/{poll}/abstain', 'API\APIPollController@abstain') // TODO: Add Ability Middleware for Voting

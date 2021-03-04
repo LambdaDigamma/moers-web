@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Poll;
+use App\Models\Poll;
 use Bouncer;
 use Illuminate\Foundation\Http\FormRequest;
 

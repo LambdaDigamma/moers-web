@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Models\Poll;
 use App\Models\User;
-use App\Poll;
 use Bouncer;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;

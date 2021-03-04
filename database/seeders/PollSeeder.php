@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Poll;
+use App\Models\Poll;
 use App\PollOption;
 use Illuminate\Database\Seeder;
 

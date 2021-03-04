@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Group;
-use App\Models\Model;
-use App\Models\Vote;
+use App\PollOption;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,14 +12,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * App\Poll
+ * App\Models\Poll
  *
- * @property mixed id
- * @property mixed can_visitors_vote
- * @property mixed is_closed
- * @property mixed max_check
- * @property mixed can_voter_see_result
- * @property mixed starts_at
  * @property string $question
  * @property string $description
  * @property int|null $group_id

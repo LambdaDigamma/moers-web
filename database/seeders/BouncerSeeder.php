@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Group;
+use App\Models\Poll;
 use App\Models\User;
-use App\Poll;
 use Illuminate\Database\Seeder;
 
 class BouncerSeeder extends Seeder

@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Poll;
+use App\Models\Poll;
 use App\PollOption;
 use Illuminate\Contracts\Validation\Rule;
 
@@ -14,7 +14,7 @@ class CheckPollHasOption implements Rule
     /**
      * Create a new rule instance.
      *
-     * @param Poll $poll
+     * @param \App\Models\Poll $poll
      */
     public function __construct(Poll $poll)
     {
