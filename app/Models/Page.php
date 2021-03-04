@@ -41,6 +41,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Page withTrashed()
  * @method static Builder|Page withoutTrashed()
  * @mixin Eloquent
+ * @property-read \App\Models\User|null $creator
  */
 class Page extends Model
 {

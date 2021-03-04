@@ -81,6 +81,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read mixed $header_url
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Entry filter(array $filters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Entry validated()
  */
 class Entry extends Model implements AuditableContract, HasMedia
 {

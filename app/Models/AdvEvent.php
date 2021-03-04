@@ -72,6 +72,7 @@ use Spatie\Translatable\HasTranslations;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent nextDays()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent today()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdvEvent upcomingToday()
+ * @method static Builder|AdvEvent filter(array $filters)
  */
 class AdvEvent extends Model implements HasMedia
 {

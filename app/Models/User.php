@@ -78,6 +78,10 @@ use Spatie\PersonalDataExport\PersonalDataSelection;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProvider($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProviderId($value)
+ * @property string $email
+ * @property string|null $password
+ * @property-read mixed $name
+ * @property-read \App\Models\StudentInformation|null $studentInformation
  */
 class User extends Authenticatable implements ExportsPersonalData
 {

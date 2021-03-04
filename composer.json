@@ -47,10 +47,13 @@
         "barryvdh/laravel-debugbar": "^3.3",
         "barryvdh/laravel-ide-helper": "^2.6",
         "beyondcode/tinkerwell-helper": "^1.1",
-        "filp/whoops": "^2.0",
         "fakerphp/faker": "^1.13",
+        "filp/whoops": "^2.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^5.0",
+        "pestphp/pest": "^1.0",
+        "pestphp/pest-plugin-faker": "^1.0",
+        "pestphp/pest-plugin-laravel": "^1.0",
         "phpunit/phpunit": "^9.0"
     },
     "autoload": {
