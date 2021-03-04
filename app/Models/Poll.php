@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\PollOption;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -93,7 +92,7 @@ class Poll extends Model
      */
     public function options()
     {
-        return $this->hasMany('App\PollOption');
+        return $this->hasMany('App\Models\PollOption');
     }
 
     public function votes()

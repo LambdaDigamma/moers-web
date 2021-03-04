@@ -1420,7 +1420,7 @@ namespace PHPSTORM_META {
         'App\Models\Organisation' => \App\OrganisationFactoryBuilder::class,
         'App\Models\Entry' => \App\EntryFactoryBuilder::class,
         'App\Models\Poll' => \App\PollFactoryBuilder::class,
-        'App\PollOption' => \App\PollOptionFactoryBuilder::class,
+        'App\Models\PollOption' => \App\PollOptionFactoryBuilder::class,
         'App\Models\User' => \App\UserFactoryBuilder::class,
         'App\Models\AdvEvent' => \App\AdvEventFactoryBuilder::class,
 	]));

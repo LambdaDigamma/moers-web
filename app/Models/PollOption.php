@@ -1,17 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Model;
-use App\Models\Poll;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
 /**
- * App\PollOption
+ * App\Models\PollOption
  *
- * @property mixed poll
  * @property int $id
  * @property string $name
  * @property int $poll_id

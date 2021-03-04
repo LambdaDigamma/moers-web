@@ -3,7 +3,7 @@
 /* @var $factory Factory */
 
 use App\Models\Poll;
-use App\PollOption;
+use App\Models\PollOption;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 
@@ -35,7 +35,7 @@ $factory->define(PollOption::class, function (Faker $faker) {
 });
 
 $factory->afterCreating(Poll::class, function ($poll, $faker) {
-    $options = factory(App\PollOption::class, $faker->numberBetween(2, 4))->make();
+    $options = factory(\App\Models\PollOption::class, $faker->numberBetween(2, 4))->make();
     $poll->options()->saveMany($options);
 });
 

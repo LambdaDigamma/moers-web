@@ -7,7 +7,7 @@ use App\Http\Requests\StorePoll;
 use App\Http\Requests\UpdatePoll;
 use App\Models\Group;
 use App\Models\Poll;
-use App\PollOption;
+use App\Models\PollOption;
 use Inertia\Inertia;
 use Redirect;
 use Request;

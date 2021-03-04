@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Poll;
-use App\PollOption;
+use App\Models\PollOption;
 use Illuminate\Database\Seeder;
 
 class PollSeeder extends Seeder

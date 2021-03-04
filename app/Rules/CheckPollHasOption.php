@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use App\Models\Poll;
-use App\PollOption;
+use App\Models\PollOption;
 use Illuminate\Contracts\Validation\Rule;
 
 class CheckPollHasOption implements Rule
