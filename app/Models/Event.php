@@ -1,17 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Entry;
-use App\Models\Model;
-use App\Models\Organisation;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Event
+ * App\Models\Event
  *
  * @property int $id
  * @property string $name

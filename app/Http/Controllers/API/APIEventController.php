@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Event;
 use App\Http\Controllers\Controller;
 use App\Models\AdvEvent;
+use App\Models\Event;
 use App\Models\Organisation;
 use Carbon\Carbon;
 use Exception;

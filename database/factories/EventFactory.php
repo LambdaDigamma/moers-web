@@ -2,7 +2,7 @@
 
 /* @var $factory Factory */
 
-use App\Event as Event;
+use App\Models\Event as Event;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 

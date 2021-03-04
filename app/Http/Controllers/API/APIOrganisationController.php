@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Event;
 use App\Http\Controllers\Controller;
 use App\Models\Entry;
+use App\Models\Event;
 use App\Models\Organisation;
 use App\Models\User;
 use Exception;

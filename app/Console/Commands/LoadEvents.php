@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Event;
+use App\Models\Event;
 use Illuminate\Console\Command;
 use Orchestra\Parser\Xml\Facade as XmlParser;
 

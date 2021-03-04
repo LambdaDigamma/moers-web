@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Event;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -131,7 +130,7 @@ class Entry extends Model implements AuditableContract, HasMedia
 
     public function events()
     {
-        return $this->hasMany('App\Event');
+        return $this->hasMany('App\Models\Event');
     }
 
     public function organisations()

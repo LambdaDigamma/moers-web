@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Event;
 use Illuminate\Support\Facades\Route;
-use \App\Event;
 
 /*
 |--------------------------------------------------------------------------
