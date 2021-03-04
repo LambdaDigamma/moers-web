@@ -4,7 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\Page;
-use App\PageBlock;
+use App\Models\PageBlock;
 
 class PageRepository implements PageRepositoryInterface
 {

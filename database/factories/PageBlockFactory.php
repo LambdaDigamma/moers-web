@@ -2,7 +2,7 @@
 
 /** @var Factory $factory */
 
-use App\PageBlock;
+use App\Models\PageBlock;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 

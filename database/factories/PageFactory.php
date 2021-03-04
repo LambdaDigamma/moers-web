@@ -3,7 +3,7 @@
 /** @var Factory $factory */
 
 use App\Models\Page;
-use App\PageBlock;
+use App\Models\PageBlock;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
