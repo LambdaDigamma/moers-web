@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Web;
 
 use App\Events\MessageWasPosted;
 use App\Events\UserJoinedConversation;
-use App\HelpRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SendMessage;
 use App\Http\Requests\StoreHelpRequest;
 use App\Message;
 use App\Models\Conversation;
+use App\Models\HelpRequest;
 use App\Notifications\ClosedHelpRequestNotification;
 use App\Notifications\CompletedHelpRequestNotification;
 use App\Quarter;

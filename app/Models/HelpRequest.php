@@ -1,17 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Conversation;
-use App\Models\Model;
-use App\Models\User;
+use App\Quarter;
 use Auth;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
 /**
- * App\HelpRequest
+ * App\Models\HelpRequest
  *
  * @property int $id
  * @property string $request

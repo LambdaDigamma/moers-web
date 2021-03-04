@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\HelpRequest;
 use App\Message;
 use App\Page;
 use App\StudentInformation;
@@ -76,7 +75,7 @@ use Spatie\PersonalDataExport\PersonalDataSelection;
  * @property string|null                                                              $provider
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Conversation[] $conversations
  * @property-read int|null                                                            $conversations_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\HelpRequest[]         $helpRequests
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\HelpRequest[]  $helpRequests
  * @property-read int|null                                                            $help_requests_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)

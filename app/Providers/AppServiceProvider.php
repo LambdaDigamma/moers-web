@@ -2,21 +2,18 @@
 
 namespace App\Providers;
 
-use App\HelpRequest;
-use Auth;
+use App\Models\HelpRequest;
 use Bluemmb\Faker\PicsumPhotosProvider;
 use Bouncer;
 use Faker\Generator;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
-use Inertia\Inertia;
-use Laravel\Passport\Passport;
-use Request;
-use Session;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\UrlWindow;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
+use Request;
 
 class AppServiceProvider extends ServiceProvider
 {
