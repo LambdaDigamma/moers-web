@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Bouncer;
-use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {

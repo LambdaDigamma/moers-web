@@ -17,6 +17,6 @@ $factory->define(Group::class, function (Faker $faker) {
 });
 
 $factory->afterCreating(Group::class, function ($group, $faker) {
-    $users = factory(App\User::class, 6)->make();
+    $users = factory(\App\Models\User::class, 6)->make();
     $group->users()->saveMany($users);
 });

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Entry;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminUpdateEntry;
+use App\Models\User;
 use App\StudentInformation;
-use App\User;
 use Inertia\Inertia;
-use Redirect;
 use Request;
 
 class AdminStudentController extends Controller

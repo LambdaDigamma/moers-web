@@ -11,21 +11,21 @@ Route::get('/groups/{id}', 'API\APIGroupController@get')
 
 Route::put('/groups/{group}', 'API\APIGroupController@update')
      ->middleware([
-         'can:read-group,App\User',
+         'can:read-group,App\Models\User',
          'can:update-group,App\Group',
      ])
      ->name('api.v2.admin.group.update');
 
 Route::post('/groups/{group}/allowCreatePoll', 'API\APIGroupController@allowCreatePoll')
      ->middleware([
-         'can:read-group,App\User',
+         'can:read-group,App\Models\User',
          'can:update-group,App\Group',
      ])
      ->name('api.v2.admin.group.allowCreatePoll');
 
 Route::post('/groups/{group}/disallowCreatePoll', 'API\APIGroupController@disallowCreatePoll')
      ->middleware([
-         'can:read-group,App\User',
+         'can:read-group,App\Models\User',
          'can:update-group,App\Group',
      ])
      ->name('api.v2.admin.group.disallowCreatePoll');

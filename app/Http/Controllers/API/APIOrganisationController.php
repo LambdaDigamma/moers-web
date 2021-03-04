@@ -4,11 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Entry;
 use App\Event;
-use App\Organisation;
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Organisation;
 use Exception;
+use Illuminate\Http\Request;
 
 class APIOrganisationController extends Controller
 {

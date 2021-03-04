@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Model;
+use App\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
@@ -76,7 +77,7 @@ class StudentInformation extends Model
 
     public function user()
     {
-        return $this->hasOne('App\User', 'id', 'user_id');
+        return $this->hasOne('App\Models\User', 'id', 'user_id');
     }
 
 }

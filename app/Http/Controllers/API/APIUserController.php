@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Group;
-use App\Poll;
-use App\User;
-use Bouncer;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Poll;
+use Bouncer;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class APIUserController extends Controller
 {

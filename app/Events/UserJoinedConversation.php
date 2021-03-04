@@ -3,10 +3,9 @@
 namespace App\Events;
 
 use App\Conversation;
-use App\User;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -28,8 +27,8 @@ class UserJoinedConversation implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param User $user
-     * @param Conversation $conversation
+     * @param \App\Models\User $user
+     * @param Conversation     $conversation
      */
     public function __construct(User $user, Conversation $conversation)
     {

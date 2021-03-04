@@ -3,15 +3,15 @@
 namespace App\Broadcasting;
 
 use App\Conversation;
-use App\User;
+use App\Models\User;
 
 class ConversationChannel
 {
     /**
      * Authenticate the user's access to the channel.
      *
-     * @param User         $user
-     * @param Conversation $conversation
+     * @param \App\Models\User $user
+     * @param Conversation     $conversation
      *
      * @return array|bool
      */

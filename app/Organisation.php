@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Model;
+use App\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -85,7 +86,7 @@ class Organisation extends Model implements HasMedia
 
     public function users()
     {
-        return $this->belongsToMany('App\User')->withPivot('organisation_id', 'user_id', 'role');
+        return $this->belongsToMany('App\Models\User')->withPivot('organisation_id', 'user_id', 'role');
     }
 
     public function entry()

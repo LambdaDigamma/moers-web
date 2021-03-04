@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use App\Notifications\UserHasUnreadConversations;
-use App\User;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Console\Command;

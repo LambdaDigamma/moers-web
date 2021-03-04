@@ -1,7 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Conversation;
+use App\Group;
+use App\HelpRequest;
+use App\Message;
+use App\Organisation;
+use App\Page;
+use App\Poll;
+use App\StudentInformation;
+use App\Vote;
 use Auth;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,7 +33,7 @@ use Spatie\PersonalDataExport\ExportsPersonalData;
 use Spatie\PersonalDataExport\PersonalDataSelection;
 
 /**
- * App\User
+ * App\Models\User
  *
  * @property mixed email
  * @property mixed name
@@ -68,8 +77,6 @@ use Spatie\PersonalDataExport\PersonalDataSelection;
  * @mixin Eloquent
  * @property string|null $first_name
  * @property string|null $last_name
- * @property string $email
- * @property string|null $password
  * @property string|null $provider_id
  * @property string|null $provider
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Conversation[] $conversations

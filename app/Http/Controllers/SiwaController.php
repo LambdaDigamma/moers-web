@@ -3,9 +3,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Auth;
-use Inertia\Inertia;
 use Laravel\Socialite\Facades\Socialite;
 use Request;
 

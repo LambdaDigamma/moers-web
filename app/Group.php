@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Model;
+use App\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -58,7 +59,7 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\Models\User');
     }
 
     /**

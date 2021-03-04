@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Group;
+use App\Models\User;
 use App\Poll;
 use Illuminate\Database\Seeder;
-use App\User;
 
 class BouncerSeeder extends Seeder
 {

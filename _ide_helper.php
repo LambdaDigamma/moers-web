@@ -13,8 +13,9 @@
 
 namespace Illuminate\Support\Facades {
 
-    use use App\Console\Kernel;
-    use App\User;
+    use;
+    use App\Console\Kernel;
+    use App\Models\User;
     use BadMethodCallException;
     use Closure;
     use Countable;
@@ -48,7 +49,8 @@ namespace Illuminate\Support\Facades {
     use Illuminate\Contracts\Cache\Lock;
     use Illuminate\Contracts\Container\BindingResolutionException;
     use Illuminate\Contracts\Container\Container;
-    use Illuminate\Contracts\Container\ContextualBindingBuilder;use Illuminate\Contracts\Cookie\QueueingFactory;
+    use Illuminate\Contracts\Container\ContextualBindingBuilder;
+    use Illuminate\Contracts\Cookie\QueueingFactory;
     use Illuminate\Contracts\Encryption\DecryptException;
     use Illuminate\Contracts\Encryption\EncryptException;
     use Illuminate\Contracts\Events\Dispatcher;
@@ -103,7 +105,8 @@ namespace Illuminate\Support\Facades {
     use Illuminate\Session\SessionManager;
     use Illuminate\Session\Store;
     use Illuminate\Support\Collection;
-    use Illuminate\Support\ServiceProvider;use Illuminate\Support\Testing\Fakes\BusFake;
+    use Illuminate\Support\ServiceProvider;
+    use Illuminate\Support\Testing\Fakes\BusFake;
     use Illuminate\Support\Testing\Fakes\EventFake;
     use Illuminate\Support\Testing\Fakes\MailFake;
     use Illuminate\Support\Testing\Fakes\NotificationFake;
@@ -135,7 +138,9 @@ namespace Illuminate\Support\Facades {
     use Symfony\Component\HttpFoundation\BinaryFileResponse;
     use Symfony\Component\HttpFoundation\ParameterBag;
     use Symfony\Component\HttpFoundation\StreamedResponse;
-    use Symfony\Component\HttpKernel\Exception\HttpException;use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;use Symfony\Component\Routing\Exception\RouteNotFoundException;
+    use Symfony\Component\HttpKernel\Exception\HttpException;
+    use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+    use Symfony\Component\Routing\Exception\RouteNotFoundException;
     use Throwable;
 
     /**
@@ -1972,7 +1977,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the currently authenticated user.
          *
-         * @return User|null
+         * @return \App\Models\User|null
          * @static 
          */ 
         public static function user()
@@ -2010,7 +2015,8 @@ namespace Illuminate\Support\Facades {
          * Log the given user ID into the application without sessions or cookies.
          *
          * @param mixed $id
-         * @return User|false
+         *
+         * @return \App\Models\User|false
          * @static 
          */ 
         public static function onceUsingId($id)
@@ -2079,7 +2085,8 @@ namespace Illuminate\Support\Facades {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return User|false
+         *
+         * @return \App\Models\User|false
          * @static 
          */ 
         public static function loginUsingId($id, $remember = false)
@@ -2158,7 +2165,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return User
+         * @return \App\Models\User
          * @static 
          */ 
         public static function getLastAttempted()
@@ -2269,7 +2276,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Return the currently cached user.
          *
-         * @return User|null
+         * @return \App\Models\User|null
          * @static 
          */ 
         public static function getUser()
@@ -2319,7 +2326,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if current user is authenticated. If not, throw an exception.
          *
-         * @return User
+         * @return \App\Models\User
          * @throws AuthenticationException
          * @static 
          */ 
@@ -15110,7 +15117,8 @@ namespace Illuminate\Support\Facades {
  
 }
 
-namespace Collective\Html {
+namespace Collective\Html
+{
 
     use BadMethodCallException;
     use Illuminate\Contracts\Session\Session;
@@ -16730,7 +16738,8 @@ namespace Collective\Html {
  
 }
 
-namespace Silber\Bouncer {
+namespace Silber\Bouncer
+{
 
     use Closure;
     use Illuminate\Auth\Access\AuthorizationException;
@@ -17368,7 +17377,8 @@ namespace Orchestra\Parser\Xml {
  
 }
 
-namespace Laravel\Socialite\Facades {
+namespace Laravel\Socialite\Facades
+{
 
     use Closure;
     use InvalidArgumentException;
@@ -17747,7 +17757,8 @@ namespace Facade\Ignition\Facades {
  
 }
 
-namespace Intervention\Image\Facades {
+namespace Intervention\Image\Facades
+{
 
     use Closure;
     use Intervention\Image\ImageManager;
@@ -17814,13 +17825,14 @@ namespace Intervention\Image\Facades {
                         /** @var ImageManager $instance */
                         return $instance->cache($callback, $lifetime, $returnObj);
         }
-         
+
     }
- 
+
 }
 
 
-namespace  {
+namespace
+{
 
     use Collective\Html\FormFacade;
     use Collective\Html\HtmlFacade;
@@ -20822,10 +20834,13 @@ namespace Illuminate\Support {
      * @method Fluent useCurrent() Add the default timestamp value
      * @method Fluent change() Add the change modifier
      */
-    class Fluent {}
+    class Fluent
+    {
+    }
 }
 
-namespace App {
+namespace App
+{
 
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
@@ -20834,9 +20849,13 @@ namespace App {
     * @method Collection|Group[]|Group create($attributes = [])
     * @method Collection|Group[]|Group make($attributes = [])
     */
-    class GroupFactoryBuilder extends FactoryBuilder {}
+    class GroupFactoryBuilder extends FactoryBuilder
+    {
+    }
 }
-namespace App {
+
+namespace App
+{
 
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
@@ -20845,9 +20864,13 @@ namespace App {
     * @method Collection|RubbishStreet[]|RubbishStreet create($attributes = [])
     * @method Collection|RubbishStreet[]|RubbishStreet make($attributes = [])
     */
-    class RubbishStreetFactoryBuilder extends FactoryBuilder {}
+    class RubbishStreetFactoryBuilder extends FactoryBuilder
+    {
+    }
 }
-namespace App {
+
+namespace App
+{
 
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
@@ -20856,9 +20879,13 @@ namespace App {
     * @method Collection|Event[]|Event create($attributes = [])
     * @method Collection|Event[]|Event make($attributes = [])
     */
-    class EventFactoryBuilder extends FactoryBuilder {}
+    class EventFactoryBuilder extends FactoryBuilder
+    {
+    }
 }
-namespace App {
+
+namespace App
+{
 
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
@@ -20867,9 +20894,13 @@ namespace App {
     * @method Collection|RubbishScheduleItem[]|RubbishScheduleItem create($attributes = [])
     * @method Collection|RubbishScheduleItem[]|RubbishScheduleItem make($attributes = [])
     */
-    class RubbishScheduleItemFactoryBuilder extends FactoryBuilder {}
+    class RubbishScheduleItemFactoryBuilder extends FactoryBuilder
+    {
+    }
 }
-namespace App {
+
+namespace App
+{
 
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
@@ -20878,9 +20909,13 @@ namespace App {
     * @method Collection|Organisation[]|Organisation create($attributes = [])
     * @method Collection|Organisation[]|Organisation make($attributes = [])
     */
-    class OrganisationFactoryBuilder extends FactoryBuilder {}
+    class OrganisationFactoryBuilder extends FactoryBuilder
+    {
+    }
 }
-namespace App {
+
+namespace App
+{
 
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
@@ -20889,9 +20924,13 @@ namespace App {
     * @method Collection|Entry[]|Entry create($attributes = [])
     * @method Collection|Entry[]|Entry make($attributes = [])
     */
-    class EntryFactoryBuilder extends FactoryBuilder {}
+    class EntryFactoryBuilder extends FactoryBuilder
+    {
+    }
 }
-namespace App {
+
+namespace App
+{
 
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
@@ -20900,9 +20939,13 @@ namespace App {
     * @method Collection|Poll[]|Poll create($attributes = [])
     * @method Collection|Poll[]|Poll make($attributes = [])
     */
-    class PollFactoryBuilder extends FactoryBuilder {}
+    class PollFactoryBuilder extends FactoryBuilder
+    {
+    }
 }
-namespace App {
+
+namespace App
+{
 
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
@@ -20911,10 +20954,15 @@ namespace App {
     * @method Collection|PollOption[]|PollOption create($attributes = [])
     * @method Collection|PollOption[]|PollOption make($attributes = [])
     */
-    class PollOptionFactoryBuilder extends FactoryBuilder {}
+    class PollOptionFactoryBuilder extends FactoryBuilder
+    {
+    }
 }
-namespace App {
 
+namespace App
+{
+
+    use App\Models\User;
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
 
@@ -20922,9 +20970,13 @@ namespace App {
     * @method Collection|User[]|User create($attributes = [])
     * @method Collection|User[]|User make($attributes = [])
     */
-    class UserFactoryBuilder extends FactoryBuilder {}
+    class UserFactoryBuilder extends FactoryBuilder
+    {
+    }
 }
-namespace App {
+
+namespace App
+{
 
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Model;
+use App\Models\User;
 use Auth;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
