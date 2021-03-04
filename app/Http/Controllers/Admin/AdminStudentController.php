@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\StudentInformation;
 use App\Models\User;
-use App\StudentInformation;
 use Inertia\Inertia;
 use Request;
 

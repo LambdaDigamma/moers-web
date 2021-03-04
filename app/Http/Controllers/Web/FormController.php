@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreStudentInformation;
-use App\StudentInformation;
+use App\Models\StudentInformation;
 use Auth;
 use Inertia\Inertia;
 use Redirect;
