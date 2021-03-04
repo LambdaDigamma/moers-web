@@ -1,15 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Model;
-use App\Models\User;
+use App\Poll;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Vote
+ * App\Models\Vote
  *
  * @property int $id
  * @property int $user_id

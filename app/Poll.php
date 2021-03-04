@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Group;
 use App\Models\Model;
+use App\Models\Vote;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -105,7 +106,7 @@ class Poll extends Model
 
     public function votes()
     {
-        return $this->hasMany('App\Vote');
+        return $this->hasMany('App\Models\Vote');
     }
 
     public function results()

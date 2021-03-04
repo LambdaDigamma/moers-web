@@ -8,7 +8,6 @@ use App\Message;
 use App\Page;
 use App\Poll;
 use App\StudentInformation;
-use App\Vote;
 use Auth;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;

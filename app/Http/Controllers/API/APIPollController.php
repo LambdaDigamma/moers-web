@@ -4,11 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Models\Vote;
 use App\Poll;
 use App\PollOption;
 use App\Rules\CheckPollHasOption;
 use App\Rules\SatisfiesPollOptionsMaxCheck;
-use App\Vote;
 use Bouncer;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
