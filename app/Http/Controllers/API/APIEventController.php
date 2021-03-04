@@ -4,11 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\AdvEvent;
 use App\Event;
-use App\Organisation;
+use App\Http\Controllers\Controller;
+use App\Models\Organisation;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class APIEventController extends Controller
 {

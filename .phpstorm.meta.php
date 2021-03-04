@@ -1417,7 +1417,7 @@ namespace PHPSTORM_META {
         'App\RubbishStreet' => \App\RubbishStreetFactoryBuilder::class,
         'App\Event' => \App\EventFactoryBuilder::class,
         'App\RubbishScheduleItem' => \App\RubbishScheduleItemFactoryBuilder::class,
-        'App\Organisation' => \App\OrganisationFactoryBuilder::class,
+        'App\Models\Organisation' => \App\OrganisationFactoryBuilder::class,
         'App\Entry' => \App\EntryFactoryBuilder::class,
         'App\Poll' => \App\PollFactoryBuilder::class,
         'App\PollOption' => \App\PollOptionFactoryBuilder::class,

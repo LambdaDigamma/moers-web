@@ -6,7 +6,6 @@ use App\Conversation;
 use App\Group;
 use App\HelpRequest;
 use App\Message;
-use App\Organisation;
 use App\Page;
 use App\Poll;
 use App\StudentInformation;
@@ -81,7 +80,6 @@ use Spatie\PersonalDataExport\PersonalDataSelection;
  * @property string|null $provider
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Conversation[] $conversations
  * @property-read int|null $conversations_count
- * @property-read mixed $name
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\HelpRequest[] $helpRequests
  * @property-read int|null $help_requests_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
@@ -135,7 +133,7 @@ class User extends Authenticatable implements ExportsPersonalData
 
     public function organisations()
     {
-        return $this->belongsToMany('App\Organisation')->withPivot('organisation_id', 'user_id', 'role');
+        return $this->belongsToMany('App\Models\Organisation')->withPivot('organisation_id', 'user_id', 'role');
     }
 
     public function organisationRole($organisationID)

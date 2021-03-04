@@ -2,22 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\AdvEvent;
 use App\Dataset;
-use App\Entry;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateEvent;
-use App\Http\Requests\UpdateEventPage;
-use App\Http\Requests\UpdatePage;
-use App\Organisation;
-use App\Page;
 use App\Repositories\DatasetRepository;
-use App\Repositories\PageRepository;
-use App\Repositories\PageRepositoryInterface;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
-use Redirect;
 use Request;
 
 class AdminDatasetController extends Controller

@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use anlutro\LaravelSettings\SettingStore;
 use App\AdvEvent;
 use App\Entry;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateEvent;
 use App\Http\Requests\UpdateEventPage;
-use App\Http\Requests\UpdatePage;
 use App\Http\Requests\UpdateStream;
-use App\Organisation;
+use App\Models\Organisation;
 use App\Page;
-use App\Repositories\PageRepository;
 use App\Repositories\PageRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Str;

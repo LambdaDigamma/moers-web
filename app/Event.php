@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Model;
+use App\Models\Organisation;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -63,7 +64,7 @@ class Event extends Model
 
     public function organisation()
     {
-        return $this->belongsTo('App\Organisation');
+        return $this->belongsTo('App\Models\Organisation');
     }
 
     public function entry()

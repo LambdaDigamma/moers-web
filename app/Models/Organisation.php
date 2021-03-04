@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Model;
-use App\Models\User;
+use App\AdvEvent;
+use App\Entry;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,7 +14,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Organisation
+ * App\Models\Organisation
  *
  * @property integer|null group_id
  * @property int $id

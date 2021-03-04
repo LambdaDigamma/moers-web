@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\AdvEvent;
 use App\Entry;
 use App\Http\Controllers\Controller;
-use App\Organisation;
+use App\Models\Organisation;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;

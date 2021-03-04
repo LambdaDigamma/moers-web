@@ -15,7 +15,6 @@ namespace Illuminate\Support\Facades {
 
     use;
     use App\Console\Kernel;
-    use App\Models\User;
     use BadMethodCallException;
     use Closure;
     use Countable;
@@ -20902,6 +20901,7 @@ namespace App
 namespace App
 {
 
+    use App\Models\Organisation;
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\FactoryBuilder;
 

@@ -11,7 +11,7 @@ $factory->define(Group::class, function (Faker $faker) {
         'name' => $faker->company,
         'description' => $faker->text(100),
         'organisation_id' => function () {
-            return factory(App\Organisation::class)->create()->id;
+            return factory(\App\Models\Organisation::class)->create()->id;
         },
     ];
 });

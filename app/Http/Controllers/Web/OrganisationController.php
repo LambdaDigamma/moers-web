@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web;
 
 use App\AdvEvent;
 use App\Http\Controllers\Controller;
-use App\Organisation;
+use App\Models\Organisation;
 use Inertia\Inertia;
 
 class OrganisationController extends Controller

@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AdvEvent;
-use App\Organisation;
-use App\Page;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Models\Organisation;
 
 class MoersFestivalController extends Controller
 {

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Model;
+use App\Models\Organisation;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -136,7 +137,7 @@ class Entry extends Model implements AuditableContract, HasMedia
 
     public function organisations()
     {
-        return $this->hasMany('App\Organisation');
+        return $this->hasMany('App\Models\Organisation');
     }
 
     public function scopeFilter($query, array $filters)

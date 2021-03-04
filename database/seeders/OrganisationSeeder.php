@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Organisation;
+use App\Models\Organisation;
 use Illuminate\Database\Seeder;
 
 class OrganisationSeeder extends Seeder
