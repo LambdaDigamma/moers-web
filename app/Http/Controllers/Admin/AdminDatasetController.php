@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Dataset;
 use App\Http\Controllers\Controller;
+use App\Models\Dataset;
 use App\Repositories\DatasetRepository;
 use Inertia\Inertia;
 use Request;
