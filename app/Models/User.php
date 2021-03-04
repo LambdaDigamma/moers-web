@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Conversation;
 use App\HelpRequest;
 use App\Message;
 use App\Page;
@@ -31,13 +30,13 @@ use Spatie\PersonalDataExport\PersonalDataSelection;
 /**
  * App\Models\User
  *
- * @property mixed email
- * @property mixed name
- * @property string password
+ * @property mixed                                                                    email
+ * @property mixed                                                                    name
+ * @property string                                                                   password
  * @method static findOrFail($get)
- * @property int $id
- * @property string|null $description
- * @property int $points
+ * @property int                                                                      $id
+ * @property string|null                                                              $description
+ * @property int                                                                      $points
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -71,14 +70,14 @@ use Spatie\PersonalDataExport\PersonalDataSelection;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
- * @property string|null $first_name
- * @property string|null $last_name
- * @property string|null $provider_id
- * @property string|null $provider
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Conversation[] $conversations
- * @property-read int|null $conversations_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\HelpRequest[] $helpRequests
- * @property-read int|null $help_requests_count
+ * @property string|null                                                              $first_name
+ * @property string|null                                                              $last_name
+ * @property string|null                                                              $provider_id
+ * @property string|null                                                              $provider
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Conversation[] $conversations
+ * @property-read int|null                                                            $conversations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\HelpRequest[]         $helpRequests
+ * @property-read int|null                                                            $help_requests_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProvider($value)

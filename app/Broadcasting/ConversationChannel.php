@@ -2,7 +2,7 @@
 
 namespace App\Broadcasting;
 
-use App\Conversation;
+use App\Models\Conversation;
 use App\Models\User;
 
 class ConversationChannel

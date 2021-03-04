@@ -3,8 +3,8 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Conversation;
 use App\Http\Controllers\Controller;
+use App\Models\Conversation;
 use Auth;
 use Carbon\Carbon;
 

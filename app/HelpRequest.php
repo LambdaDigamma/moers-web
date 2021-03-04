@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Conversation;
 use App\Models\Model;
 use App\Models\User;
 use Auth;
