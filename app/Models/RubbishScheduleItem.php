@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
 use Tightenco\Collect\Support\Collection;
 
@@ -36,7 +37,7 @@ use Tightenco\Collect\Support\Collection;
  */
 class RubbishScheduleItem extends Model
 {
-
+    use HasFactory;
 
     /**
      * Returns the array of residual tours.

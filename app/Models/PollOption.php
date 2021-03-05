@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
 
 /**
@@ -29,6 +30,7 @@ use Illuminate\Support\Carbon;
  */
 class PollOption extends Model
 {
+    use HasFactory;
 
     protected $fillable = ['name', 'poll_id'];
     protected $table = 'poll_options';

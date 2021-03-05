@@ -20,7 +20,7 @@ class EntryAPITest extends TestCase
 
     public function test_can_get_validated_entries()
     {
-        factory(Entry::class, 10)->create();
+        Entry::factory(10)->create();
 
         $response = $this->get('/api/v2/entries');
         $response->assertStatus(200)
@@ -76,8 +76,8 @@ class EntryAPITest extends TestCase
 
     public function test_can_update_entry()
     {
-        $entry = factory(Entry::class)->create();
-        $updateData = factory(Entry::class)->make()->toArray();
+        $entry = Entry::factory()->create();
+        $updateData = Entry::factory()->make()->toArray();
         $updateData['secret'] = 'tzVQl34i6SrYSzAGSkBh';
 
         $this

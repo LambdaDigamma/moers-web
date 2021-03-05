@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\SerializeTranslations;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -79,6 +80,7 @@ class AdvEvent extends Model implements HasMedia
     use SoftDeletes;
     use SerializeTranslations;
     use InteractsWithMedia;
+    use HasFactory;
 
     protected $table = 'adv_events';
 
@@ -126,8 +128,10 @@ class AdvEvent extends Model implements HasMedia
     public function scopePublished($query)
     {
         return $query
-            ->where('scheduled_at', '<=', Carbon::now()->toDateTimeString())
-            ->orWhere('scheduled_at', '=', null);
+            ->where('is_published', '=', true);
+//        return $query
+//            ->where('scheduled_at', '<=', Carbon::now()->toDateTimeString())
+//            ->orWhere('scheduled_at', '=', null);
     }
 
     public function scopeActive($query)

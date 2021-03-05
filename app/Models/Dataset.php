@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -32,6 +33,7 @@ use Spatie\Translatable\HasTranslations;
 class Dataset extends Model
 {
     use HasTranslations;
+    use HasFactory;
 
     public $translatable = ['name'];
 

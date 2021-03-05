@@ -15,7 +15,7 @@ class RubbishScheduleItemTest extends TestCase
     public function testRubbishScheduleItemFactory()
     {
 
-        $item = factory(RubbishScheduleItem::class)->create();
+        $item = RubbishScheduleItem::factory()->create();
 
         $this->assertNotNull($item->id);
         $this->assertNotNull($item->date);
@@ -30,7 +30,7 @@ class RubbishScheduleItemTest extends TestCase
     public function testRubbishScheduleItemRouteAccessorsAndMutators()
     {
 
-        $item = factory(RubbishScheduleItem::class)
+        $item = RubbishScheduleItem::factory()
             ->create(
                 [
                     'residual_tours' => [2,5],
@@ -41,7 +41,7 @@ class RubbishScheduleItemTest extends TestCase
                 ]
             );
 
-        $item2 = factory(RubbishScheduleItem::class)
+        $item2 = RubbishScheduleItem::factory()
             ->create(
                 [
                     'residual_tours' => 2,
@@ -61,9 +61,9 @@ class RubbishScheduleItemTest extends TestCase
     public function testRubbishScheduleItemUpcomingScope()
     {
 
-        $item1 = factory(RubbishScheduleItem::class)->create(['date' => Carbon::today()->toDateString()]);
-        $item2 = factory(RubbishScheduleItem::class)->create(['date' => Carbon::yesterday()->toDateString()]);
-        $item3 = factory(RubbishScheduleItem::class)->create(['date' => Carbon::tomorrow()->toDateString()]);
+        $item1 = RubbishScheduleItem::factory()->create(['date' => Carbon::today()->toDateString()]);
+        $item2 = RubbishScheduleItem::factory()->create(['date' => Carbon::yesterday()->toDateString()]);
+        $item3 = RubbishScheduleItem::factory()->create(['date' => Carbon::tomorrow()->toDateString()]);
 
         $items = RubbishScheduleItem::upcoming()->get();
 

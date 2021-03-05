@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\RubbishStreet
@@ -39,6 +40,8 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class RubbishStreet extends Model
 {
+    use HasFactory;
+
     public function pickupItems()
     {
         $items = RubbishScheduleItem::upcoming()->get();

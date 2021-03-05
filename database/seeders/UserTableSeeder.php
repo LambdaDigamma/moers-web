@@ -15,7 +15,7 @@ class UserTableSeeder extends Seeder
     public function run()
     {
 
-        $superadmin = factory(User::class)->create([
+        $superadmin = User::factory()->create([
             'first_name' => 'Super',
             'last_name' => 'Admin',
             'email' => 'admin@lambdadigamma.com',
@@ -24,7 +24,7 @@ class UserTableSeeder extends Seeder
 
         $superadmin->assign('superadmin');
 
-        factory(User::class, 5)->create();
+        User::factory(5)->create();
 
     }
 }

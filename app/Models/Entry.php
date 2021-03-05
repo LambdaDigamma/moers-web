@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use OwenIt\Auditing\Auditable;
@@ -86,7 +87,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  */
 class Entry extends Model implements AuditableContract, HasMedia
 {
-    use SoftDeletes, Auditable, InteractsWithMedia;
+    use SoftDeletes, Auditable, InteractsWithMedia, HasFactory;
 
     protected $table = 'entries';
 

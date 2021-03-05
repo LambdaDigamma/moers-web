@@ -9,25 +9,24 @@ use Tests\TestCase;
 
 class AdvEventModelTest extends TestCase
 {
-
     use DatabaseMigrations;
     use RefreshDatabase;
 
     public function testScopeActive()
     {
 
-        $activeEventStartEnd = factory(AdvEvent::class, 1)
-            ->states('active_start_end')
+        $activeEventStartEnd = AdvEvent::factory()
+            ->activeStartEnd()
             ->create()
             ->first();
 
-        $activeEventInDeadline = factory(AdvEvent::class, 1)
-            ->states('active_start')
+        $activeEventInDeadline = AdvEvent::factory()
+            ->activeStart()
             ->create()
             ->first();
 
-        $upcomingStartEvents = factory(AdvEvent::class, 5)
-            ->states('upcoming_start')
+        $upcomingStartEvents = AdvEvent::factory(5)
+            ->upcomingStart()
             ->create();
 
         $activeEventsDatabase = AdvEvent::active()->pluck('id');
@@ -41,12 +40,12 @@ class AdvEventModelTest extends TestCase
     public function testScopePublished()
     {
 
-        $publishedEvents = factory(AdvEvent::class, 3)
-            ->state('published')
+        $publishedEvents = AdvEvent::factory(3)
+            ->published()
             ->create();
 
-        $notPublishedEvents = factory(AdvEvent::class, 3)
-            ->state('not_published')
+        $notPublishedEvents = AdvEvent::factory(3)
+            ->notPublished()
             ->create();
 
         $events = AdvEvent::published()->pluck('id');

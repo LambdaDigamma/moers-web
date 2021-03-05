@@ -1,19 +1,34 @@
 <?php
 
-/** @var Factory $factory */
+namespace Database\Factories;
 
 use App\Models\RubbishScheduleItem;
 use Carbon\Carbon;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(RubbishScheduleItem::class, function (Faker $faker) {
-    return [
-        'date' => Carbon::now()->addDays($faker->numberBetween(0, 20))->toDateString(),
-        'residual_tours' => $faker->numberBetween(1, 10),
-        'organic_tours' => $faker->numberBetween(1, 10),
-        'paper_tours' => $faker->numberBetween(1, 10),
-        'plastic_tours' => $faker->numberBetween(1, 10),
-        'cuttings_tours' => $faker->numberBetween(1, 10),
-    ];
-});
+class RubbishScheduleItemFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = RubbishScheduleItem::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'date' => Carbon::now()->addDays($this->faker->numberBetween(0, 20))->toDateString(),
+            'residual_tours' => $this->faker->numberBetween(1, 10),
+            'organic_tours' => $this->faker->numberBetween(1, 10),
+            'paper_tours' => $this->faker->numberBetween(1, 10),
+            'plastic_tours' => $this->faker->numberBetween(1, 10),
+            'cuttings_tours' => $this->faker->numberBetween(1, 10),
+        ];
+    }
+}

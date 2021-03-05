@@ -16,7 +16,7 @@ class RubbishStreetTest extends TestCase
     public function testRubbishStreetFactory()
     {
 
-        $rubbishStreet = factory(RubbishStreet::class)->create();
+        $rubbishStreet = RubbishStreet::factory()->create();
 
         $this->assertNotNull($rubbishStreet->id);
         $this->assertNotNull($rubbishStreet->name);
@@ -33,8 +33,8 @@ class RubbishStreetTest extends TestCase
     public function testRubbishStreetCurrentScope()
     {
 
-        $rubbishStreet1 = factory(RubbishStreet::class)->create();
-        $rubbishStreet2 = factory(RubbishStreet::class)->create(['year' => Carbon::now()->subYear()->year]);
+        $rubbishStreet1 = RubbishStreet::factory()->create();
+        $rubbishStreet2 = RubbishStreet::factory()->create(['year' => Carbon::now()->subYear()->year]);
 
         $currentStreets = RubbishStreet::current()->get();
 
@@ -51,28 +51,28 @@ class RubbishStreetTest extends TestCase
         $plastic = 4;
         $cuttings = 5;
 
-        factory(RubbishScheduleItem::class)->create([
+        RubbishScheduleItem::factory()->create([
             'residual_tours' => 10,
             'organic_tours' => 11,
             'paper_tours' => 12,
             'plastic_tours' => 13,
             'cuttings_tours' => 14,
         ]);
-        factory(RubbishScheduleItem::class)->create([
+        RubbishScheduleItem::factory()->create([
             'residual_tours' => $residual,
             'organic_tours' => 21,
             'paper_tours' => 22,
             'plastic_tours' => 23,
             'cuttings_tours' => 24,
         ]);
-        factory(RubbishScheduleItem::class)->create([
+        RubbishScheduleItem::factory()->create([
             'residual_tours' => 31,
             'organic_tours' => [$organic, 35],
             'paper_tours' => 32,
             'plastic_tours' => 33,
             'cuttings_tours' => 34,
         ]);
-        $rubbishStreet = factory(RubbishStreet::class)->create([
+        $rubbishStreet = RubbishStreet::factory()->create([
             'residual_tour' => $residual,
             'organic_tour' => $organic,
             'paper_tour' => $paper,

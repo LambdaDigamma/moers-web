@@ -1,43 +1,57 @@
 <?php
 
-/* @var $factory Factory */
+namespace Database\Factories;
 
-use App\Models\Entry as Entry;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use App\Models\Entry;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Entry::class, function (Faker $faker) {
-    return [
-        'name' => $faker->company,
-        'lat' => $faker->latitude(51.4514, 51.4916),
-        'lng' => $faker->longitude(6.5851, 6.6255),
-        'tags' => "Backery, Bread", //implode(", ", $faker->words(3)),
-        'street' => $faker->streetName,
-        'house_number' => $faker->buildingNumber,
-        'postcode' => $faker->postcode,
-        'place' => $faker->city,
-        'url' => $faker->url,
-        'phone' => $faker->phoneNumber,
-        'is_validated' => $faker->boolean(75),
-        'monday' => "09:00 - 17:00",
-        'tuesday' => "09:00 - 17:00",
-        'wednesday' => "09:00 - 17:00",
-        'thursday' => "09:00 - 17:00",
-        'friday' => "09:00 - 17:00",
-        'saturday' => "09:00 - 17:00",
-        'sunday' => "09:00 - 17:00",
-        'other' => "09:00 - 17:00",
-    ];
-});
+class EntryFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Entry::class;
 
-// ----- Header ------
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->company,
+            'lat' => $this->faker->latitude(51.4514, 51.4916), // TODO: ???
+            'lng' => $this->faker->longitude(6.5851, 6.6255),
+            'tags' => "Backery, Bread", //implode(", ", $faker->words(3)),
+            'street' => $this->faker->streetName,
+            'house_number' => $this->faker->buildingNumber,
+            'postcode' => $this->faker->postcode,
+            'place' => $this->faker->city,
+            'url' => $this->faker->url,
+            'phone' => $this->faker->phoneNumber,
+            'is_validated' => $this->faker->boolean(75),
+            'monday' => "09:00 - 17:00",
+            'tuesday' => "09:00 - 17:00",
+            'wednesday' => "09:00 - 17:00",
+            'thursday' => "09:00 - 17:00",
+            'friday' => "09:00 - 17:00",
+            'saturday' => "09:00 - 17:00",
+            'sunday' => "09:00 - 17:00",
+            'other' => "09:00 - 17:00",
+        ];
+    }
 
-$factory->state(Entry::class, 'has_header', function (Faker $faker) {
-    return [];
-});
+    public function hasHeader()
+    {
+        return $this->state([
 
-$factory->afterMakingState(Entry::class, 'has_header', function (Entry $event, Faker $faker) {
-    $event
-        ->addMediaFromUrl($faker->imageUrl(640, 200))
-        ->toMediaCollection('header');
-});
+        ])->afterMaking(function (Entry $entry) {
+            $entry
+                ->addMediaFromUrl($this->faker->imageUrl(640, 200))
+                ->toMediaCollection('header');
+        });
+    }
+}

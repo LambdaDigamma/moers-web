@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Event;
+use App\Models\PollOption;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class EventFactory extends Factory
+class PollOptionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Event::class;
+    protected $model = PollOption::class;
 
     /**
      * Define the model's default state.
@@ -23,11 +23,7 @@ class EventFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(3),
-            'date' => $this->faker->date('d.m.Y'),
-            'time_start' => $this->faker->time('H:i'),
-            'time_end' => $this->faker->time('H:i'),
-            'description' => $this->faker->text(100),
-            'url' => $this->faker->url,
+            'votes' => 0,
         ];
     }
 }

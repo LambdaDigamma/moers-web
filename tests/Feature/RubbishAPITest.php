@@ -16,7 +16,7 @@ class RubbishAPITest extends TestCase
     public function testStreetListCurrentStreets()
     {
 
-        $streets = factory(RubbishStreet::class, 10)->create();
+        $streets = RubbishStreet::factory(10)->create();
 
         $this->get('/api/v2/rubbish/streets')
              ->assertStatus(200)
@@ -27,8 +27,8 @@ class RubbishAPITest extends TestCase
     public function testStreetListOldAndNewStreets()
     {
 
-        $currentStreets = factory(RubbishStreet::class, 10)->create();
-        factory(RubbishStreet::class, 10)->state('old')->create();
+        $currentStreets = RubbishStreet::factory(10)->create();
+        RubbishStreet::factory(10)->old()->create();
 
         $this->get('/api/v2/rubbish/streets')
              ->assertStatus(200)
@@ -45,35 +45,35 @@ class RubbishAPITest extends TestCase
         $plastic = 4;
         $cuttings = 5;
 
-        $rubbishStreet = factory(RubbishStreet::class)->create([
+        $rubbishStreet = RubbishStreet::factory()->create([
             'residual_tour' => $residual,
             'organic_tour' => $organic,
             'paper_tour' => $paper,
             'plastic_tour' => $plastic,
             'cuttings_tour' => $cuttings,
         ]);
-        factory(RubbishScheduleItem::class)->create([
+        RubbishScheduleItem::factory()->create([
             'residual_tours' => 10,
             'organic_tours' => 11,
             'paper_tours' => 12,
             'plastic_tours' => 13,
             'cuttings_tours' => 14,
         ]);
-        factory(RubbishScheduleItem::class)->create([
+        RubbishScheduleItem::factory()->create([
             'residual_tours' => $residual,
             'organic_tours' => 21,
             'paper_tours' => 22,
             'plastic_tours' => 23,
             'cuttings_tours' => 24,
         ]);
-        factory(RubbishScheduleItem::class)->create([
+        RubbishScheduleItem::factory()->create([
             'residual_tours' => 31,
             'organic_tours' => $organic,
             'paper_tours' => 32,
             'plastic_tours' => 33,
             'cuttings_tours' => 34,
         ]);
-        factory(RubbishScheduleItem::class)->create([
+        RubbishScheduleItem::factory()->create([
             'residual_tours' => 41,
             'organic_tours' => 42,
             'paper_tours' => $paper,

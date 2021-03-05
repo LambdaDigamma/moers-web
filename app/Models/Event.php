@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -53,6 +54,7 @@ use Illuminate\Support\Carbon;
 class Event extends Model
 {
     use SoftDeletes;
+    use HasFactory;
 
     protected $table = 'events';
 

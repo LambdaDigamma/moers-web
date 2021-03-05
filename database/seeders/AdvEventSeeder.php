@@ -14,6 +14,6 @@ class AdvEventSeeder extends Seeder
      */
     public function run()
     {
-        factory(AdvEvent::class, 50)->create();
+        AdvEvent::factory(50)->create();
     }
 }

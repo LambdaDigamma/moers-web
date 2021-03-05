@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Group;
 use App\Models\Poll;
 use App\Models\User;
+use Bouncer;
 use Illuminate\Database\Seeder;
 
 class BouncerSeeder extends Seeder

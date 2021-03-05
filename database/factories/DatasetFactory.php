@@ -1,20 +1,31 @@
 <?php
 
-/** @var Factory $factory */
+namespace Database\Factories;
 
 use App\Models\Dataset;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Dataset::class, function (Faker $faker) {
-    return [
-        'name' => $faker->word(),
-        'licence' => 'Datenlizenz Deutschland – Zero – Version 2.0',
-        'source_url' => $faker->url,
-        'categories' => implode(", ", ['Bevölkerung', 'Statistiken', 'Sozial'])
-    ];
-});
+class DatasetFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Dataset::class;
 
-$factory->afterCreating(\App\Models\Dataset::class, function ($dataset, $faker) {
-    $dataset->resources()->save(factory(\App\Models\DatasetResource::class)->make());
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->word(),
+            'licence' => 'Datenlizenz Deutschland – Zero – Version 2.0',
+            'source_url' => $this->faker->url,
+            'categories' => implode(", ", ['Bevölkerung', 'Statistiken', 'Sozial'])
+        ];
+    }
+}

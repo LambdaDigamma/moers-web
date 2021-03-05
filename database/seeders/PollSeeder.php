@@ -16,10 +16,9 @@ class PollSeeder extends Seeder
     public function run()
     {
 
-        factory(Poll::class, 50)->create()->each(function ($poll) {
+        Poll::factory(50)->create()->each(function ($poll) {
 
-            $option = factory(PollOption::class)->make();
-
+            $option = PollOption::factory()->make();
             $poll->options()->save($option);
 
         });

@@ -1,22 +1,31 @@
 <?php
 
-/** @var Factory $factory */
+namespace Database\Factories;
 
 use App\Models\Group;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use App\Models\Organisation;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Group::class, function (Faker $faker) {
-    return [
-        'name' => $faker->company,
-        'description' => $faker->text(100),
-        'organisation_id' => function () {
-            return factory(\App\Models\Organisation::class)->create()->id;
-        },
-    ];
-});
+class GroupFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Group::class;
 
-$factory->afterCreating(Group::class, function ($group, $faker) {
-    $users = factory(\App\Models\User::class, 6)->make();
-    $group->users()->saveMany($users);
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->company,
+            'description' => $this->faker->text(100),
+            'organisation_id' => Organisation::factory(),
+        ];
+    }
+}

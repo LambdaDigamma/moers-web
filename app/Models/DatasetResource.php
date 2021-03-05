@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
@@ -38,9 +39,9 @@ use Spatie\Translatable\HasTranslations;
  */
 class DatasetResource extends Model implements HasMedia
 {
-
     use HasTranslations;
     use InteractsWithMedia;
+    use HasFactory;
 
     public $translatable = ['name'];
 

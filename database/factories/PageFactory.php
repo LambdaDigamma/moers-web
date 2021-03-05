@@ -1,26 +1,37 @@
 <?php
 
-/** @var Factory $factory */
+namespace Database\Factories;
 
 use App\Models\Page;
-use App\Models\PageBlock;
 use Carbon\Carbon;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-$factory->define(Page::class, function (Faker $faker) {
-    $title = $faker->sentence($faker->numberBetween(1, 3));
-    $slug = Str::of($title)
-        ->slug('-')
-        ->append('-')
-        ->append(Carbon::now()->format('mdyHis'))->__toString();
-    return [
-        'title' => $title,
-        'slug' => $slug
-    ];
-});
+class PageFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Page::class;
 
-$factory->afterCreating(Page::class, function (Page $page, Faker $faker) {
-    \factory(PageBlock::class, 1)->create(['page_id' => $page->id]);
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $title = $this->faker->sentence($this->faker->numberBetween(1, 3));
+        $slug = Str::of($title)
+            ->slug('-')
+            ->append('-')
+            ->append(Carbon::now()->format('mdyHis'))->__toString();
+        return [
+            'title' => $title,
+            'slug' => $slug
+        ];
+    }
+
+}

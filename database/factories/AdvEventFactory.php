@@ -1,102 +1,80 @@
 <?php
 
-/* @var $factory Factory */
+namespace Database\Factories;
 
 use App\Models\AdvEvent;
-use App\Models\Page;
 use Carbon\Carbon;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(AdvEvent::class, function (Faker $faker) {
-    $start = $faker->dateTimeBetween('next Monday', 'next Monday +7 days');
-    $end = $faker->dateTimeBetween($start, $start->format('Y-m-d H:i:s') . ' +2 days');
+class AdvEventFactory extends Factory
+{
+    protected $model = AdvEvent::class;
 
-    // TODO: Add other extra fakes
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->sentence(3),
+            'description' => $this->faker->realText(200),
+            'url' => $this->faker->url,
+            'image_path' => $this->faker->imageUrl(640, 480),
+            'is_published' => $this->faker->boolean(85),
+            'extras' => collect(['locationName' => $this->faker->word()]),
+        ];
+    }
 
-    $extras = collect([
-        'locationName' => $faker->word()
-    ]);
+    public function activeStartEnd()
+    {
+        return $this
+            ->state(fn () => [
+                'start_date' => Carbon::now()->subRealMinutes($this->faker->numberBetween(1, 29))->toDateTimeString(),
+                'end_date' => Carbon::now()->addRealMinutes($this->faker->numberBetween(29, 180))->toDateTimeString(),
+            ]);
+    }
 
-    return [
-        'name' => $faker->sentence(3),
-//        'start_date' => $start->format('Y-m-d H:i:s'),
-//        'end_date' => $end->format('Y-m-d H:i:s'),
-        'description' => $faker->realText(200),
-        'url' => $faker->url,
-        'image_path' => $faker->imageUrl(640, 480),
-        'is_published' => $faker->boolean(85),
-        'extras' => $extras,
-    ];
-});
+    public function activeStart()
+    {
+        return $this
+            ->state(fn () => [
+                'start_date' => Carbon::now()->subRealMinutes($this->faker->numberBetween(1, 29))->toDateTimeString(),
+            ]);
+    }
 
-// ----- Time and Date -----
+    public function upcomingStart()
+    {
+        return $this
+            ->state(fn () => [
+                'start_date' => Carbon::now()->addRealMinutes($this->faker->numberBetween(1, 24) * 60)->toDateTimeString(),
+            ]);
+    }
 
-$factory->state(AdvEvent::class, 'active_start_end', function (Faker $faker) {
-    return [
-        'start_date' => Carbon::now()->subRealMinutes($faker->numberBetween(1, 29))->toDateTimeString(),
-        'end_date' => Carbon::now()->addRealMinutes($faker->numberBetween(29, 180))->toDateTimeString(),
-    ];
-});
+    public function upcomingToday()
+    {
+        return $this
+            ->state(fn () => [
+                'start_date' => $this->faker->dateTimeBetween(Carbon::now()->toDateTimeString(), Carbon::now()->setHours(23)->setMinutes(59)->setSeconds(0)->toDateTimeString())
+            ]);
+    }
 
-$factory->state(AdvEvent::class, 'active_start', function (Faker $faker) {
-    return [
-        'start_date' => Carbon::now()->subRealMinutes($faker->numberBetween(1, 29))->toDateTimeString(),
-    ];
-});
+    // public function withHeaderMedia()
+    // {
+    //     return $this->afterCreating(function (Event $event) {
+    //         $event
+    //             ->addMediaFromUrl($this->faker->imageUrl(640, 480))
+    //             ->toMediaCollection('header');
+    //     });
+    // }
 
-$factory->state(AdvEvent::class, 'upcoming_start', function (Faker $faker) {
-    return [
-        'start_date' => Carbon::now()->addRealMinutes($faker->numberBetween(1, 24) * 60)->toDateTimeString(),
-    ];
-});
+    public function published()
+    {
+        return $this->state(fn () => [
+            'is_published' => true,
+        ]);
+    }
 
-$factory->state(AdvEvent::class, 'upcoming_today', function (Faker $faker) {
-    return [
-        'start_date' => $faker
-            ->dateTimeBetween(
-                Carbon::now()->toDateTimeString(),
-                Carbon::now()
-                    ->setHours(23)
-                    ->setMinutes(59)
-                    ->setSeconds(0)
-                    ->toDateTimeString()
-            )
-    ];
-});
-
-// ----- Header ------
-
-$factory->state(AdvEvent::class, 'has_header', function (Faker $faker) {
-    return [];
-});
-
-$factory->afterMakingState(AdvEvent::class, 'has_header', function (AdvEvent $event, Faker $faker) {
-    $event
-        ->addMediaFromUrl($faker->imageUrl(640, 480))
-        ->toMediaCollection('header');
-});
-
-// ----- Publishing Status -----
-
-$factory->state(AdvEvent::class, 'published', function (Faker $faker) {
-    return [
-        'is_published' => true,
-        'scheduled_at' => null
-    ];
-});
-
-$factory->state(AdvEvent::class, 'not_published', function (Faker $faker) {
-    return [
-        'is_published' => false,
-        'scheduled_at' => $faker->dateTimeInInterval('tomorrow', '+ 10 days')
-    ];
-});
-
-$factory->state(AdvEvent::class, 'page', function (Faker $faker) {
-    return [
-        'page_id' => function () {
-            return factory(Page::class)->create()->id;
-        }
-    ];
-});
+    public function notPublished()
+    {
+        return $this->state(fn () => [
+            'is_published' => false,
+        ]);
+    }
+}

@@ -14,8 +14,6 @@ class EntrySeeder extends Seeder
      */
     public function run()
     {
-
-        factory(Entry::class, 50)->create();
-
+        Entry::factory(50)->create();
     }
 }
