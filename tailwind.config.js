@@ -28,10 +28,7 @@ module.exports = {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
             spacing: {
-                '72': '18rem',
-                '80': '20rem',
                 '88': '22rem',
-                '96': '24rem',
             },
             padding: {
                 '5/6': '83.3333333%',
@@ -100,6 +97,5 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('@tailwindcss/line-clamp'),
         require('tailwindcss-filters'),
-        // require('tailwindcss-truncate-multiline')(),
     ]
 }
