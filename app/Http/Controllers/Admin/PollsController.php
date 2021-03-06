@@ -12,7 +12,7 @@ use Inertia\Inertia;
 use Redirect;
 use Request;
 
-class AdminPollsController extends Controller
+class PollsController extends Controller
 {
 
     public function __construct()

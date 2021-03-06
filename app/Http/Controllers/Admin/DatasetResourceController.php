@@ -12,7 +12,7 @@ use Inertia\Inertia;
 use Log;
 use Redirect;
 
-class AdminDatasetResourceController extends Controller
+class DatasetResourceController extends Controller
 {
     private DatasetRepository $datasetRepository;
 

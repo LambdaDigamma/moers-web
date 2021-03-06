@@ -7,7 +7,7 @@ use App\Models\AdvEvent;
 use Inertia\Inertia;
 use Request;
 
-class AdminEventController extends Controller
+class EventController extends Controller
 {
 
     public function __construct() {

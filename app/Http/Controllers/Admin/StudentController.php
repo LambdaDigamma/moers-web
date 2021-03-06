@@ -8,7 +8,7 @@ use App\Models\User;
 use Inertia\Inertia;
 use Request;
 
-class AdminStudentController extends Controller
+class StudentController extends Controller
 {
     public function __construct()
     {

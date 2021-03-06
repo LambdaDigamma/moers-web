@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class AdminDashboardController extends Controller
+class DashboardController extends Controller
 {
 
     public function __construct()

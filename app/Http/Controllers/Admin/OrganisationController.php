@@ -17,7 +17,7 @@ use Inertia\Inertia;
 use Redirect;
 use Request;
 
-class AdminOrganisationController extends Controller
+class OrganisationController extends Controller
 {
     private $pageRepository;
 

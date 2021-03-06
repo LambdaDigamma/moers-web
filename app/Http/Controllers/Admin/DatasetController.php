@@ -8,7 +8,7 @@ use App\Repositories\DatasetRepository;
 use Inertia\Inertia;
 use Request;
 
-class AdminDatasetController extends Controller
+class DatasetController extends Controller
 {
     private DatasetRepository $datasetRepository;
 

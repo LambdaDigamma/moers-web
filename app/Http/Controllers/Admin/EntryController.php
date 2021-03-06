@@ -9,7 +9,7 @@ use Inertia\Inertia;
 use Redirect;
 use Request;
 
-class AdminEntryController extends Controller
+class EntryController extends Controller
 {
 
     public function __construct() {
