@@ -3,113 +3,78 @@
 namespace App\Models;
 
 use Auth;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\DatabaseNotification;
-use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-use Laravel\Passport\Client;
+//use Laravel\Fortify\TwoFactorAuthenticatable;
+//use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Passport\HasApiTokens;
-use Laravel\Passport\Token;
 use OwenIt\Auditing\Models\Audit;
-use Silber\Bouncer\Database\Ability;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
-use Silber\Bouncer\Database\Role;
 use Spatie\PersonalDataExport\ExportsPersonalData;
 use Spatie\PersonalDataExport\PersonalDataSelection;
 
-/**
- * App\Models\User
- *
- * @property mixed                                                                    email
- * @property mixed                                                                    name
- * @property string                                                                   password
- * @method static findOrFail($get)
- * @property int                                                                      $id
- * @property string|null                                                              $description
- * @property int                                                                      $points
- * @property string|null $remember_token
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Collection|Ability[] $abilities
- * @property-read int|null $abilities_count
- * @property-read Collection|Client[] $clients
- * @property-read int|null $clients_count
- * @property-read Collection|Group[] $groups
- * @property-read int|null $groups_count
- * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
- * @property-read Collection|Organisation[] $organisations
- * @property-read int|null $organisations_count
- * @property-read Collection|Role[] $roles
- * @property-read int|null $roles_count
- * @property-read Collection|Token[] $tokens
- * @property-read int|null $tokens_count
- * @method static Builder|User newModelQuery()
- * @method static Builder|User newQuery()
- * @method static Builder|User query()
- * @method static Builder|User whereCreatedAt($value)
- * @method static Builder|User whereDescription($value)
- * @method static Builder|User whereEmail($value)
- * @method static Builder|User whereId($value)
- * @method static Builder|User whereIs($role)
- * @method static Builder|User whereIsAll($role)
- * @method static Builder|User whereIsNot($role)
- * @method static Builder|User whereName($value)
- * @method static Builder|User wherePassword($value)
- * @method static Builder|User wherePoints($value)
- * @method static Builder|User whereRememberToken($value)
- * @method static Builder|User whereUpdatedAt($value)
- * @mixin Eloquent
- * @property string|null                                                              $first_name
- * @property string|null                                                              $last_name
- * @property string|null                                                              $provider_id
- * @property string|null                                                              $provider
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Conversation[] $conversations
- * @property-read int|null                                                            $conversations_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\HelpRequest[]  $helpRequests
- * @property-read int|null                                                            $help_requests_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProvider($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProviderId($value)
- * @property string $email
- * @property string|null $password
- * @property-read mixed $name
- * @property-read \App\Models\StudentInformation|null $studentInformation
- */
 class User extends Authenticatable implements ExportsPersonalData
 {
-    use Notifiable, HasApiTokens, HasRolesAndAbilities, HasFactory;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
+    use Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+//    use HasProfilePhoto;
+    use HasRolesAndAbilities;
+//    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['first_name', 'last_name', 'email', 'description', 'provider_id', 'provider'];
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'description',
+        'password',
+        'provider_id',
+        'provider'
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['last_name', 'name', 'email', 'password', 'remember_token'];
+    protected $hidden = [
+        'name',
+        'last_name',
+        'email',
+        'password',
+        'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+    ];
 
-    protected $hashable = ['password'];
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'profile_photo_url',
+    ];
+
+//    protected $hashable = ['password']; // TODO: Check this.
 
     public function getNameAttribute()
     {

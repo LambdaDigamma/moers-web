@@ -36,7 +36,6 @@ class ModifyUsersTable extends Migration
         Schema::table('users', function(Blueprint $table)
         {
             $table->dropColumn('email_verified_at', 'two_factor_secret', 'two_factor_recovery_codes', 'profile_photo_path');
-            $table->dropConstrainedForeignId('current_team_id');
         });
     }
 }

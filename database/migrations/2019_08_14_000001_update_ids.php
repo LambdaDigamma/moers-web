@@ -20,12 +20,12 @@ class UpdateIds extends Migration
         $this->dropForeign('permissions', ['ability_id']);
 
         Schema::table('abilities', function(Blueprint $table) {
-            $table->unsignedBigInteger('id')->change();
+            $table->bigIncrements('id')->change();
             $table->unsignedBigInteger('entity_id')->nullable()->change();
         });
 
         Schema::table('roles', function(Blueprint $table) {
-            $table->unsignedBigInteger('id')->change();
+            $table->bigIncrements('id')->change();
         });
 
         Schema::table('assigned_roles', function(Blueprint $table) {
@@ -62,7 +62,7 @@ class UpdateIds extends Migration
         $this->dropForeign('votes', ['user_id']);
 
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->change();
+            $table->bigIncrements('id')->change();
         });
 
         Schema::table('activities', function (Blueprint $table) {
@@ -147,20 +147,20 @@ class UpdateIds extends Migration
         });
 
         Schema::table('activities', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->change();
+            $table->bigIncrements('id')->change();
             $table->unsignedBigInteger('associated_object_index')->change();
         });
 
         Schema::table('adv_events', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->change();
+            $table->bigIncrements('id')->change();
         });
 
         Schema::table('audits', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->change();
+            $table->bigIncrements('id')->change();
         });
 
         Schema::table('events', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->change();
+            $table->bigIncrements('id')->change();
         });
 
         $this->dropForeign('events', ['entry_id']);
@@ -168,7 +168,7 @@ class UpdateIds extends Migration
         $this->dropForeign('organisations', ['entry_id']);
 
         Schema::table('entries', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->change();
+            $table->bigIncrements('id')->change();
         });
 
         Schema::table('events', function (Blueprint $table) {
@@ -198,7 +198,7 @@ class UpdateIds extends Migration
         $this->dropForeign('organisation_user', ['organisation_id']);
 
         Schema::table('organisations', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->change();
+            $table->bigIncrements('id')->change();
         });
 
         Schema::table('adv_events', function (Blueprint $table) {
