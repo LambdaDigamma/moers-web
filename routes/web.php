@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\RubbishController;
+
 Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
 Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
 Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
@@ -40,6 +42,8 @@ Route::get('language/{language}', function ($language) {
 Route::get('/image/{filename}', 'ImageController@displayImage')->where('filename', '.*')->name('image.displayImage');
 
 Route::get('/home', HomeController::class)->name('home');
+Route::get('/abfallkalender', [RubbishController::class, 'index'])->name('rubbish.index');
+Route::get('/abfallkalender/{street}', [RubbishController::class, 'show'])->name('rubbish.show');
 
 Route::group([
     'namespace' => 'Web',
