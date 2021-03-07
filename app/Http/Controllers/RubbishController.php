@@ -15,8 +15,6 @@ class RubbishController extends Controller
 
     public function show(RubbishStreet $street)
     {
-//        return $street->pickupItems();
-
         return view('rubbish.show', [
             'street' => $street
         ]);

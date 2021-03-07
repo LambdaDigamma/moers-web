@@ -9,13 +9,13 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => "It's Over 9000!", // set false to total remove
+            'title'        => "Mein Moers", // set false to total remove
             'titleBefore'  => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
-            'description'  => 'For those who helped create the Genki Dama', // set false to total remove
-            'separator'    => ' - ',
-            'keywords'     => [],
-            'canonical'    => false, // Set null for using Url::current(), set false to total remove
-            'robots'       => false, // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow
+            'description'  => "Digitale Bürgerinformation auf Basis von offenen Daten: Geschäfte, Parkplätze, 360° Panoramen, Veranstaltungen, aktuelle Kraftstoffpreise, Abfallkalender und vieles mehr!", // set false to total remove
+            'separator'    => ' | ',
+            'keywords'     => ['moers', 'geschäfte', 'restaurants', 'daten', 'bürger', 'moers festival', 'öffnungszeiten', 'parkplätze', 'veranstaltungen', 'kraftstoffpreise', 'benzin', 'diesel'],
+            'canonical'    => null, // Set null for using Url::current(), set false to total remove
+            'robots'       => 'all', // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow
         ],
         /*
          * Webmaster tags are always added.
@@ -29,18 +29,18 @@ return [
             'norton'    => null,
         ],
 
-        'add_notranslate_class' => false,
+        'add_notranslate_class' => true,
     ],
     'opengraph' => [
         /*
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
-            'title'       => 'Over 9000 Thousand!', // set false to total remove
-            'description' => 'For those who helped create the Genki Dama', // set false to total remove
-            'url'         => false, // Set null for using Url::current(), set false to total remove
-            'type'        => false,
-            'site_name'   => false,
+            'title'       => 'Mein Moers', // set false to total remove
+            'description' => 'Digitale Bürgerinformation auf Basis von offenen Daten: Geschäfte, Parkplätze, 360° Panoramen, Veranstaltungen, aktuelle Kraftstoffpreise, Abfallkalender und vieles mehr!', // set false to total remove
+            'url'         => null, // Set null for using Url::current(), set false to total remove
+            'type'        => 'website',
+            'site_name'   => 'Mein Moers',
             'images'      => [],
         ],
     ],
@@ -49,8 +49,8 @@ return [
          * The default values to be used by the twitter cards generator.
          */
         'defaults' => [
-            //'card'        => 'summary',
-            //'site'        => '@LuizVinicius73',
+            'card'        => 'summary',
+            'site'        => '@moers_de',
         ],
     ],
     'json-ld' => [
@@ -58,9 +58,9 @@ return [
          * The default configurations to be used by the json-ld generator.
          */
         'defaults' => [
-            'title'       => 'Over 9000 Thousand!', // set false to total remove
-            'description' => 'For those who helped create the Genki Dama', // set false to total remove
-            'url'         => false, // Set null for using Url::current(), set false to total remove
+            'title'       => 'Mein Moers', // set false to total remove
+            'description' => 'Digitale Bürgerinformation auf Basis von offenen Daten: Geschäfte, Parkplätze, 360° Panoramen, Veranstaltungen, aktuelle Kraftstoffpreise, Abfallkalender und vieles mehr! ', // set false to total remove
+            'url'         => null, // Set null for using Url::current(), set false to total remove
             'type'        => 'WebPage',
             'images'      => [],
         ],
