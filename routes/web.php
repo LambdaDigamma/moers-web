@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\PetrolController;
 use App\Http\Controllers\RubbishController;
 
 Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
@@ -41,10 +42,11 @@ Route::get('language/{language}', function ($language) {
 
 Route::get('/image/{filename}', 'ImageController@displayImage')->where('filename', '.*')->name('image.displayImage');
 
-Route::get('/home', TestHomeController::class)->name('home');
-Route::get('/h', HomeController::class)->name('h');
+Route::get('/home', HomeController::class)->name('home');
 Route::get('/abfallkalender', [RubbishController::class, 'index'])->name('rubbish.index');
 Route::get('/abfallkalender/{street}', [RubbishController::class, 'show'])->name('rubbish.show');
+
+Route::get('/kraftstoff', [PetrolController::class, 'index'])->name('petrol.index');
 
 Route::group([
     'namespace' => 'Web',

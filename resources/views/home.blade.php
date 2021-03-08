@@ -48,9 +48,9 @@
                                     {{ $event->name }}
                                 </h4>
                                 <div class="mt-0">
-                                <span class="text-xs font-medium text-gray-700 md:text-sm leading-0">
-                                    So, 9. Juni 2020 11:00
-                                </span>
+                                    <span class="text-xs font-medium text-gray-700 md:text-sm leading-0">
+                                        So, 9. Juni 2020 11:00
+                                    </span>
                                 </div>
                             </div>
 
