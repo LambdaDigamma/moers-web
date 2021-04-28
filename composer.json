@@ -27,6 +27,7 @@
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.0",
         "lcobucci/jwt": "^3.4",
+        "maatwebsite/excel": "^3.1",
         "orchestra/parser": "^6.0",
         "oshomo/csv-utils": "^6.0",
         "owen-it/laravel-auditing": "^12.0",
