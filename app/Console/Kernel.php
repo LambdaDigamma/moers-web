@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\LoadAdvEvents;
 use App\Console\Commands\SendEmailUserHasUnreadConversations;
 use App\Console\Commands\UpdateResources;
+use App\Console\Commands\UpdateRubbishScheduleItems;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,7 +19,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         SendEmailUserHasUnreadConversations::class,
         LoadAdvEvents::class,
-        UpdateResources::class
+        UpdateResources::class,
+        UpdateRubbishScheduleItems::class,
     ];
 
     /**
