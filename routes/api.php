@@ -56,16 +56,16 @@ Route::group(['prefix' => '/v2'], function () {
 
     /* Events */
 
-    Route::get('/organisations/{organisation}/events', 'API\APIOrganisationController@getEvents')
-        ->name('api.v2.organisations.events');
+    // Route::get('/organisations/{organisation}/events', 'API\APIOrganisationController@getEvents')
+    //     ->name('api.v2.organisations.events');
 
-    Route::post('/organisations/{organisation}/events', 'API\APIOrganisationController@storeEvent')
-        ->name('api.v2.organisations.events.store');
+    // Route::post('/organisations/{organisation}/events', 'API\APIOrganisationController@storeEvent')
+    //     ->name('api.v2.organisations.events.store');
 
-    Route::delete('/organisations/{oID}/events/{eID}', 'API\APIOrganisationController@deleteEvent')
-        ->where('oID', '[1-9][0-9]*')
-        ->where('eID', '[1-9][0-9]*')
-        ->name('api.v2.organisations.events.delete');
+    // Route::delete('/organisations/{oID}/events/{eID}', 'API\APIOrganisationController@deleteEvent')
+    //     ->where('oID', '[1-9][0-9]*')
+    //     ->where('eID', '[1-9][0-9]*')
+    //     ->name('api.v2.organisations.events.delete');
 
     /* Entry */
 
@@ -97,21 +97,21 @@ Route::group(['prefix' => '/v2'], function () {
 /* Events */
 
 Route::group(['prefix' => '/v2'], function () {
-    Route::get('/events', 'API\APIEventController@get')
-        ->name('api.v2.events.get');
+    // Route::get('/events', 'API\APIEventController@get')
+    //     ->name('api.v2.events.get');
 
-    Route::get('/events/{id}', 'API\APIEventController@show')
-        ->where('id', '[1-9][0-9]*')
-        ->name('api.v2.events.show');
+    // Route::get('/events/{id}', 'API\APIEventController@show')
+    //     ->where('id', '[1-9][0-9]*')
+    //     ->name('api.v2.events.show');
 
-    Route::post('/events', 'API\APIEventController@store')
-        ->name('api.v2.events.store');
+    // Route::post('/events', 'API\APIEventController@store')
+    //     ->name('api.v2.events.store');
 
-    Route::put('/events/{event}', 'API\APIEventController@update')
-        ->name('api.v2.events.update');
+    // Route::put('/events/{event}', 'API\APIEventController@update')
+    //     ->name('api.v2.events.update');
 
-    Route::delete('/organisations/{event}', 'API\APIEventController@delete')
-        ->name('api.v2.events.delete');
+    // Route::delete('/organisations/{event}', 'API\APIEventController@delete')
+    //     ->name('api.v2.events.delete');
 
     Route::get('/advEvents', 'API\APIEventController@getAdvEvents')
         ->name('api.v2.advEvents.get');

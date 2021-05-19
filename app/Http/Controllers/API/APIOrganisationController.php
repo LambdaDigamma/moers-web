@@ -202,63 +202,64 @@ class APIOrganisationController extends Controller
 
     public function getEvents(Organisation $organisation)
     {
-        $events = $organisation->events()->get();
+        return [];
+        // $events = $organisation->events()->get();
 
-        return response()->json($events, 200);
+        // return response()->json($events, 200);
     }
 
-    public function storeEvent(Request $request, Organisation $organisation)
-    {
-        $request->validate([
-            'name' => 'required|max:255',
-            'date' => 'required|date|date_format:d.m.Y|after:yesterday',
-            'time_start' => [
-                'required',
-                'regex:/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/i'
-            ],
-            'time_end' => [
-                'sometimes',
-                'nullable',
-                'regex:/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/i'
-            ],
-            'description' => 'sometimes|nullable|string',
-            'url' => 'sometimes|nullable|url',
-            'category' => 'sometimes|nullable|string|max:255',
-            'organisation_id' => 'sometimes|nullable|integer|exists:organisations,id',
-            'entry_id' => 'sometimes|nullable|integer|exists:entries,id',
-            'extras' => 'sometimes|nullable|json'
-        ]);
+    // public function storeEvent(Request $request, Organisation $organisation)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|max:255',
+    //         'date' => 'required|date|date_format:d.m.Y|after:yesterday',
+    //         'time_start' => [
+    //             'required',
+    //             'regex:/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/i'
+    //         ],
+    //         'time_end' => [
+    //             'sometimes',
+    //             'nullable',
+    //             'regex:/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/i'
+    //         ],
+    //         'description' => 'sometimes|nullable|string',
+    //         'url' => 'sometimes|nullable|url',
+    //         'category' => 'sometimes|nullable|string|max:255',
+    //         'organisation_id' => 'sometimes|nullable|integer|exists:organisations,id',
+    //         'entry_id' => 'sometimes|nullable|integer|exists:entries,id',
+    //         'extras' => 'sometimes|nullable|json'
+    //     ]);
 
-        if ($request->user()->isOrganisationAdmin($organisation)) {
-            $event = Event::create($request->all());
+    //     if ($request->user()->isOrganisationAdmin($organisation)) {
+    //         $event = Event::create($request->all());
 
-            $event->organisation_id = $organisation->id;
+    //         $event->organisation_id = $organisation->id;
 
-            $event->save();
+    //         $event->save();
 
-            return response()->json($event, 201);
-        } else {
-            return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
-        }
-    }
+    //         return response()->json($event, 201);
+    //     } else {
+    //         return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
+    //     }
+    // }
 
-    public function deleteEvent(Request $request, $oID, $eID)
-    {
-        $organisation = Organisation::findOrFail($oID);
+    // public function deleteEvent(Request $request, $oID, $eID)
+    // {
+    //     $organisation = Organisation::findOrFail($oID);
 
-        if ($request->user()->isOrganisationAdmin($organisation)) {
-            $event = Event::findOrFail($eID);
+    //     if ($request->user()->isOrganisationAdmin($organisation)) {
+    //         $event = Event::findOrFail($eID);
 
-            try {
-                $event->delete();
-            } catch (Exception $e) {
-            }
+    //         try {
+    //             $event->delete();
+    //         } catch (Exception $e) {
+    //         }
 
-            return response()->json(null, 204);
-        } else {
-            return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
-        }
-    }
+    //         return response()->json(null, 204);
+    //     } else {
+    //         return response()->json(['error' => 'Not authorized. You need to be admin of this organisation.'], 403);
+    //     }
+    // }
 
     /* Entry */
 
