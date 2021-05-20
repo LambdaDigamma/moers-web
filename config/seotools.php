@@ -13,12 +13,12 @@ return [
          */
         'defaults'       => [
             'title'        => $defaultTitle, // set false to total remove
-            'titleBefore'  => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
             'description'  => $defaultDescription,
+            'titleBefore'  => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
             'separator'    => ' | ',
-            'keywords'     => ['moers', 'stadt', 'veranstaltungen', 'geschäfte', 'öffnungszeiten', 'abfallkalender', 'moers app', 'stadtapp', 'offene daten'],
-            'canonical'    => false, // Set null for using Url::current(), set false to total remove
-            'robots'       => false, // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow
+            'keywords'     => ['moers', 'geschäfte', 'restaurants', 'daten', 'bürger', 'moers festival', 'öffnungszeiten', 'parkplätze', 'veranstaltungen', 'kraftstoffpreise', 'benzin', 'diesel', 'moers app', 'stadt app', 'offene daten'],
+            'canonical'    => null, // Set null for using Url::current(), set false to total remove
+            'robots'       => 'all', // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow
         ],
         /*
          * Webmaster tags are always added.
@@ -39,9 +39,9 @@ return [
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
+            'url'         => null, // Set null for using Url::current(), set false to total remove
             'title'       => $defaultTitle, // set false to total remove
             'description' => $defaultDescription, // set false to total remove
-            'url'         => false, // Set null for using Url::current(), set false to total remove
             'type'        => 'website',
             'site_name'   => 'Mein Moers',
             'images'      => [],
@@ -52,8 +52,8 @@ return [
          * The default values to be used by the twitter cards generator.
          */
         'defaults' => [
-            //'card'        => 'summary',
-            //'site'        => '@LuizVinicius73',
+            'card'        => 'summary',
+            'site'        => '@moers_de',
         ],
     ],
     'json-ld' => [
@@ -61,9 +61,9 @@ return [
          * The default configurations to be used by the json-ld generator.
          */
         'defaults' => [
+            'url'         => null, // Set null for using Url::current(), set false to total remove
             'title'       => $defaultTitle, // set false to total remove
             'description' => $defaultDescription, // set false to total remove
-            'url'         => false, // Set null for using Url::current(), set false to total remove
             'type'        => 'WebPage',
             'images'      => [],
         ],

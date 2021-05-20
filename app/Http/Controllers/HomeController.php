@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdvEvent;
 use App\Models\Event;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+use Illuminate\Http\Response;
 
 class HomeController extends Controller
 {
@@ -16,10 +19,16 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $events = Event::query()->upcoming()->limit(20)->get();
+        SEOTools::setTitle("Übersicht");
+//        SEOTools::setDescription($page->summary);
 
-        return view('pages.home', [
-            'events' => $events,
+        $events = Event::query()->chronological()->upcoming()->limit(20)->get();
+
+        // $events = AdvEvent::future()->chronological()->limit(10)->get();
+
+//        dd($events);
+        return view('home', [
+            'events' => $events
         ]);
     }
 }

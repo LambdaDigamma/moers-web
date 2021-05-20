@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,14 +58,6 @@ Route::group(['prefix' => '/v2'], function () {
     // Route::get('/organisations/{organisation}/events', 'API\APIOrganisationController@getEvents')
     //     ->name('api.v2.organisations.events');
 
-    // Route::post('/organisations/{organisation}/events', 'API\APIOrganisationController@storeEvent')
-    //     ->name('api.v2.organisations.events.store');
-
-    // Route::delete('/organisations/{oID}/events/{eID}', 'API\APIOrganisationController@deleteEvent')
-    //     ->where('oID', '[1-9][0-9]*')
-    //     ->where('eID', '[1-9][0-9]*')
-    //     ->name('api.v2.organisations.events.delete');
-
     /* Entry */
 
     Route::get('/organisations/{organisation}/entry', 'API\APIOrganisationController@getEntry')
@@ -97,21 +88,6 @@ Route::group(['prefix' => '/v2'], function () {
 /* Events */
 
 Route::group(['prefix' => '/v2'], function () {
-    // Route::get('/events', 'API\APIEventController@get')
-    //     ->name('api.v2.events.get');
-
-    // Route::get('/events/{id}', 'API\APIEventController@show')
-    //     ->where('id', '[1-9][0-9]*')
-    //     ->name('api.v2.events.show');
-
-    // Route::post('/events', 'API\APIEventController@store')
-    //     ->name('api.v2.events.store');
-
-    // Route::put('/events/{event}', 'API\APIEventController@update')
-    //     ->name('api.v2.events.update');
-
-    // Route::delete('/organisations/{event}', 'API\APIEventController@delete')
-    //     ->name('api.v2.events.delete');
 
     Route::get('/advEvents', 'API\APIEventController@getAdvEvents')
         ->name('api.v2.advEvents.get');
@@ -194,10 +170,6 @@ Route::group(['prefix' => '/v2'], function () {
 
 Route::group(['prefix' => '/v1'], function () {
 
-    /* Events */
-
-    Route::get('/events', 'API\APIEventController@get')->name('api.v1.events.get');
-
     /* Entries */
 
     Route::get('/entries', 'API\APIEntryController@get')->name('api.v1.entries.get');
@@ -212,11 +184,6 @@ Route::group(['prefix' => '/v1'], function () {
 | API Routes Deprecated
 |--------------------------------------------------------------------------
 */
-
-
-Route::get('/events', function () {
-    return Event::all();
-});
 
 Route::fallback(function () {
     return response()->json([

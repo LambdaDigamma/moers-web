@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac67e1f7febcf6eaeb70de5031696514",
+    "content-hash": "a24568327e2d73eed0f446ac802dcc4c",
     "packages": [
         {
             "name": "additionapps/flexible-presenter",
@@ -2262,217 +2262,6 @@
             "time": "2020-09-11T11:05:47+00:00"
         },
         {
-            "name": "joelbutcher/laravel-archivable",
-            "version": "v1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/joelbutcher/laravel-archivable.git",
-                "reference": "c24cf5ff18870762572676c151ba59986127ff12"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/joelbutcher/laravel-archivable/zipball/c24cf5ff18870762572676c151ba59986127ff12",
-                "reference": "c24cf5ff18870762572676c151ba59986127ff12",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "^8.0",
-                "illuminate/support": "^8.0",
-                "php": "^7.3|^8.0"
-            },
-            "require-dev": {
-                "illuminate/pagination": "^8.0",
-                "orchestra/testbench": "^6.3",
-                "phpunit/phpunit": "^8.4|^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "LaravelArchivable\\LaravelArchivableServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "LaravelArchivable\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Joel Butcher",
-                    "email": "joel@joelbutcher.co.uk"
-                }
-            ],
-            "description": "An archivable trait package for Laravel Eloquent models",
-            "homepage": "https://github.com/joelbutcher/laravel-archivable",
-            "keywords": [
-                "laravel",
-                "laravel-archivable"
-            ],
-            "support": {
-                "issues": "https://github.com/joelbutcher/laravel-archivable/issues",
-                "source": "https://github.com/joelbutcher/laravel-archivable"
-            },
-            "time": "2021-01-31T19:13:37+00:00"
-        },
-        {
-            "name": "lambdadigamma/laravel-publishable",
-            "version": "0.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/LambdaDigamma/laravel-publishable.git",
-                "reference": "6003ed0f44fb45c4076ece99dd5f2756fbeecb18"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/LambdaDigamma/laravel-publishable/zipball/6003ed0f44fb45c4076ece99dd5f2756fbeecb18",
-                "reference": "6003ed0f44fb45c4076ece99dd5f2756fbeecb18",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "^8.0",
-                "illuminate/support": "^8.0",
-                "php": "^7.3|^8.0"
-            },
-            "require-dev": {
-                "illuminate/pagination": "^8.0",
-                "orchestra/testbench": "^6.15",
-                "phpunit/phpunit": "^8.4|^9.0",
-                "spatie/test-time": "^1.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "LaravelPublishable\\LaravelPublishableServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "LaravelPublishable\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lennart Fischer",
-                    "email": "github@lambdadigamma.com"
-                }
-            ],
-            "description": "A Laravel Eloquent model trait for publishing and unpublishing",
-            "homepage": "https://github.com/lambdadigamma/laravel-publishable",
-            "keywords": [
-                "laravel",
-                "laravel-publishable"
-            ],
-            "support": {
-                "issues": "https://github.com/lambdadigamma/laravel-publishable/issues",
-                "source": "https://github.com/lambdadigamma/laravel-publishable"
-            },
-            "time": "2021-03-28T22:23:09+00:00"
-        },
-        {
-            "name": "lambdadigamma/mm-events",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:LambdaDigamma/mm-events.git",
-                "reference": "883a0c9d6b5aaec205081c0367692e667cf3a70f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/LambdaDigamma/mm-events/zipball/883a0c9d6b5aaec205081c0367692e667cf3a70f",
-                "reference": "883a0c9d6b5aaec205081c0367692e667cf3a70f",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^8.0",
-                "joelbutcher/laravel-archivable": "^1.1",
-                "lambdadigamma/laravel-publishable": "^0.0.1",
-                "php": "^7.4 || ^8.0",
-                "spatie/laravel-translatable": "^4.5"
-            },
-            "require-dev": {
-                "fakerphp/faker": "^1.10",
-                "orchestra/testbench": "^6.0",
-                "pestphp/pest": "^1.0",
-                "pestphp/pest-plugin-laravel": "^1.0",
-                "phpunit/phpunit": "^9.3",
-                "spatie/laravel-ray": "^1.17",
-                "vimeo/psalm": "^3.11"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "LambdaDigamma\\MMEvents\\MMEventsServiceProvider"
-                    ],
-                    "aliases": {
-                        "MMEvents": "LambdaDigamma\\MMEvents\\MMEventsFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "LambdaDigamma\\MMEvents\\": "src",
-                    "LambdaDigamma\\MMEvents\\Database\\Factories\\": "database/factories/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "LambdaDigamma\\MMEvents\\Tests\\": "tests"
-                }
-            },
-            "scripts": {
-                "psalm": [
-                    "vendor/bin/psalm"
-                ],
-                "test": [
-                    "vendor/bin/pest --colors=always"
-                ],
-                "test-coverage": [
-                    "vendor/bin/pest --coverage-html coverage"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lennart Fischer",
-                    "email": "github@lambdadigamma.com",
-                    "homepage": "https://lambdadigamma.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A package providing events for the Mein Moers platform.",
-            "homepage": "https://github.com/lambdadigamma/mm-events",
-            "keywords": [
-                "calendar",
-                "city",
-                "events",
-                "lambdadigamma",
-                "local",
-                "mein-moers",
-                "occasions"
-            ],
-            "support": {
-                "source": "https://github.com/LambdaDigamma/mm-events/tree/master",
-                "issues": "https://github.com/LambdaDigamma/mm-events/issues"
-            },
-            "time": "2021-05-11T11:41:39+00:00"
-        },
-        {
             "name": "laravel/framework",
             "version": "v8.42.1",
             "source": {
@@ -3781,6 +3570,78 @@
                 }
             ],
             "time": "2020-12-10T11:35:44+00:00"
+        },
+        {
+            "name": "livewire/livewire",
+            "version": "v2.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/livewire/livewire.git",
+                "reference": "33101c83b75728651b9e668a4559f97def7c9138"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/33101c83b75728651b9e668a4559f97def7c9138",
+                "reference": "33101c83b75728651b9e668a4559f97def7c9138",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^7.0|^8.0",
+                "illuminate/support": "^7.0|^8.0",
+                "illuminate/validation": "^7.0|^8.0",
+                "php": "^7.2.5|^8.0",
+                "symfony/http-kernel": "^5.0"
+            },
+            "require-dev": {
+                "calebporzio/sushi": "^2.1",
+                "laravel/framework": "^7.0|^8.0",
+                "mockery/mockery": "^1.3.1",
+                "orchestra/testbench": "^5.0|^6.0",
+                "orchestra/testbench-dusk": "^5.2|^6.0",
+                "phpunit/phpunit": "^8.4|^9.0",
+                "psy/psysh": "@stable"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Livewire\\LivewireServiceProvider"
+                    ],
+                    "aliases": {
+                        "Livewire": "Livewire\\Livewire"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Livewire\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caleb Porzio",
+                    "email": "calebporzio@gmail.com"
+                }
+            ],
+            "description": "A front-end framework for Laravel.",
+            "support": {
+                "issues": "https://github.com/livewire/livewire/issues",
+                "source": "https://github.com/livewire/livewire/tree/v2.4.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/calebporzio",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-04-28T15:31:15+00:00"
         },
         {
             "name": "maatwebsite/excel",
@@ -10648,12 +10509,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "c4ed9f5566c17f5d65750c0eb60d6fe29332429b"
+                "reference": "9ba042ded8b26230d33ebceb692bf29111d51ba4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/c4ed9f5566c17f5d65750c0eb60d6fe29332429b",
-                "reference": "c4ed9f5566c17f5d65750c0eb60d6fe29332429b",
+                "url": "https://api.github.com/repos/composer/composer/zipball/9ba042ded8b26230d33ebceb692bf29111d51ba4",
+                "reference": "9ba042ded8b26230d33ebceb692bf29111d51ba4",
                 "shasum": ""
             },
             "require": {
@@ -10739,7 +10600,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-19T13:24:01+00:00"
+            "time": "2021-05-20T08:17:30+00:00"
         },
         {
             "name": "composer/metadata-minifier",
@@ -14265,8 +14126,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "friendsofphp/php-cs-fixer": 20,
-        "lambdadigamma/mm-events": 20
+        "friendsofphp/php-cs-fixer": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

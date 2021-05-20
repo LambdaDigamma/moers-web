@@ -56,8 +56,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read int|null                                                                                      $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AdvEvent[]                               $publishedEvents
  * @property-read int|null                                                                                      $published_events_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Organisation filter($filters)
- * @property int|null $group_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organisation filter($filters)
  */
 class Organisation extends Model implements HasMedia
 {
