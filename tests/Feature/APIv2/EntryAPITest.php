@@ -6,6 +6,8 @@ use App\Models\Entry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+use function Pest\Faker\faker;
+
 class EntryAPITest extends TestCase
 {
     use RefreshDatabase;
@@ -32,14 +34,14 @@ class EntryAPITest extends TestCase
     public function test_can_store_entry()
     {
         $data = [
-            'name' => $this->faker->title,
+            'name' => faker()->title,
             'tags' => 'Just, Testing',
-            'lat' => $this->faker->latitude,
-            'lng' => $this->faker->longitude,
-            'street' => $this->faker->streetName,
-            'house_number' => $this->faker->buildingNumber,
-            'place' => $this->faker->city,
-            'postcode' => $this->faker->randomNumber(5),
+            'lat' => faker()->latitude,
+            'lng' => faker()->longitude,
+            'street' => faker()->streetName,
+            'house_number' => faker()->buildingNumber,
+            'place' => faker()->city,
+            'postcode' => faker()->randomNumber(5),
             'secret' => 'tzVQl34i6SrYSzAGSkBh'
         ];
 
@@ -60,14 +62,14 @@ class EntryAPITest extends TestCase
     public function test_fails_store_entry_no_key()
     {
         $data = [
-            'name' => $this->faker->title,
+            'name' => faker()->title,
             'tags' => 'Just, Testing',
-            'lat' => $this->faker->latitude,
-            'lng' => $this->faker->longitude,
-            'street' => $this->faker->streetName,
-            'house_number' => $this->faker->buildingNumber,
-            'place' => $this->faker->city,
-            'postcode' => $this->faker->randomNumber(5),
+            'lat' => faker()->latitude,
+            'lng' => faker()->longitude,
+            'street' => faker()->streetName,
+            'house_number' => faker()->buildingNumber,
+            'place' => faker()->city,
+            'postcode' => faker()->randomNumber(5),
         ];
 
         $this->post(route('api.v2.entries.store'), $data)

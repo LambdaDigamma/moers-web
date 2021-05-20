@@ -52,7 +52,7 @@
         "resolve-url-loader": "^3.1.1",
         "sass": "^1.26.10",
         "sass-loader": "^11.0.1",
-        "tailwindcss": "^2.0.3",
+        "tailwindcss": "^2.1.0",
         "tailwindcss-aspect-ratio": "^3.0.0",
         "tailwindcss-filters": "^3.0.0",
         "tailwindcss-truncate-multiline": "^1.0.3",

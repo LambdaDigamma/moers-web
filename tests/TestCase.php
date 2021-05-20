@@ -11,12 +11,18 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, DatabaseMigrations;
 
-    /** @var Generator */
-    protected $faker;
+    // /** @var Generator */
+    // protected $faker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
-        $this->faker = Factory::create();
+
     }
+
+    // public function setUp(): void
+    // {
+    //     parent::setUp();
+    //     $this->faker = Factory::create();
+    // }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdvEvent;
+use App\Models\Event;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Inertia\Inertia;
 use Redirect;
 
@@ -23,15 +25,27 @@ class EventController extends Controller
         ]);
     }
 
-    public function show(AdvEvent $event)
+    public function show(Event $event)
     {
-        if ($event->scheduled_at != null && $event->scheduled_at > now()->toDateTimeString()) {
-            return Redirect::route('events.index');
-        }
+        SEOTools::setTitle($event->name);
+        SEOTools::setDescription($event->description);
 
-        $event->load(['organisation', 'page', 'page.blocks', 'entry']);
-        return Inertia::render('Event/Show', [
+        // $event->load(['organisation'])
+
+        return view('pages.events.show', [
             'event' => $event
         ]);
     }
+
+    // public function show(AdvEvent $event)
+    // {
+    //     if ($event->scheduled_at != null && $event->scheduled_at > now()->toDateTimeString()) {
+    //         return Redirect::route('events.index');
+    //     }
+
+    //     $event->load(['organisation', 'page', 'page.blocks', 'entry']);
+    //     return Inertia::render('Event/Show', [
+    //         'event' => $event
+    //     ]);
+    // }
 }

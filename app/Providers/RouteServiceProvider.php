@@ -80,6 +80,10 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware(['transfer-auth-token', 'api'])
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+
+        Route::prefix('api')
+            ->middleware(['api'])
+            ->group(base_path('routes/api/v1.php'));
     }
 
     protected function mapApiV2Routes()

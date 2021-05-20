@@ -20,8 +20,8 @@
 <!--                    <a href="#" class="text-white no-underline dark-hover:bg-gray-700">Organisationen</a>-->
 <!--                </div>-->
 
-                <div v-if="$page.auth.user !== null">
-                    {{ $page.auth.user.name }}
+                <div v-if="$page.props.auth.user !== null">
+                    {{ $page.props.auth.user.name }}
                 </div>
 <!--                <div class="px-2 pt-2 pb-5 border-b border-gray-800 sm:flex sm:border-b-0 sm:py-0 sm:px-0">-->
 <!--                    <a href="#" class="block px-3 py-2 font-semibold text-white no-underline rounded hover:bg-gray-800 sm:text-sm sm:px-2 xl:text-gray-900 xl:hover:bg-gray-200">Produkte</a>-->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,6 +16,10 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return Inertia::render('Home');
+        $events = Event::query()->upcoming()->limit(20)->get();
+
+        return view('pages.home', [
+            'events' => $events,
+        ]);
     }
 }
