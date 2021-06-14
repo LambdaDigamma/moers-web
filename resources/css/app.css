@@ -13,7 +13,7 @@
 }
 
 .moving-block {
-    @apply opacity-70 border border-blue-300;
+    @apply border border-blue-300 opacity-70;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -23,8 +23,8 @@
     background: transparent;
 }
 .no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
     scrollbar-height: none;
 }
 

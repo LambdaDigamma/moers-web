@@ -4,6 +4,9 @@
 
 
 
+
+
+
 ## Ideas
 
 * OSM Entry Auto Importer (with nice UI and selection of different amenities)

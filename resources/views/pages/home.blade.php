@@ -26,7 +26,7 @@
                     @foreach ($events as $event)
 
                     <a href="{{ route('events.show', [$event]) }}"
-                        class="relative block w-64 w-full max-w-xs lg:w-104 group">
+                        class="relative block w-64 w-full max-w-xs lg:w-104 w-104 group">
                         <div
                             class="overflow-hidden transition-shadow duration-300 ease-in-out bg-gray-300 rounded shadow-md aspect-w-6 aspect-h-4 hover:shadow-xl">
 

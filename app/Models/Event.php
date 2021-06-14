@@ -8,10 +8,13 @@ use Illuminate\Support\Carbon;
 use LambdaDigamma\MMEvents\Models\Event as BaseEvent;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Support\Str;
 
 class Event extends BaseEvent implements HasMedia
 {
     use InteractsWithMedia;
+
+    public $appends = ['isOnline'];
 
     protected $casts = [
         'extras' => AsCollection::class,
@@ -70,6 +73,14 @@ class Event extends BaseEvent implements HasMedia
         //         $page->unpublish();
         //     }
         // });
+    }
+
+    public function getIsOnlineAttribute()
+    {
+        if ($this->extras) {
+            return Str::contains(Str::lower($this->extras->get('location', '')), 'online');
+        }
+        return false;
     }
 
     public function registerMediaCollections(): void

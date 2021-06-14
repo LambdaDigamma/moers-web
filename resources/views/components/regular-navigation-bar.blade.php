@@ -3,17 +3,32 @@
         <div class="flex justify-between h-16">
             <div class="flex px-2 lg:px-0">
                 <div class="flex items-center flex-shrink-0">
-                    <a href="#">
-                        <img class="w-auto h-8" src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"
-                            alt="Workflow">
+                    <a href="{{ route('home') }}" class="font-bold">
+                        Mein Moers
+                        {{-- <img class="w-auto h-8" src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"
+                            alt="Workflow"> --}}
                     </a>
                 </div>
                 <nav aria-label="Global" class="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4">
-                    <a href="#" class="px-3 py-2 text-sm font-medium text-gray-900">
-                        Veranstaltungen
+                    <a href="{{ route('events.index') }}" title="Veranstaltungen"
+                        class="inline-flex items-center justify-center w-10 h-10 transition bg-green-500 rounded-lg shadow-lg hover:bg-green-600">
+                        <x-hero-icon name="calendar-outline" class="w-5 h-5 text-white" />
+                        <span class="sr-only">Veranstaltungen</span>
                     </a>
 
-                    <a href="#" class="px-3 py-2 text-sm font-medium text-gray-900">
+                    <a href="{{ route('rubbish.index') }}" title="Abfallkalender"
+                        class="inline-flex items-center justify-center w-10 h-10 transition bg-red-500 rounded-lg shadow-lg hover:bg-red-600">
+                        <x-hero-icon name="abfall-outline" class="w-5 h-5 text-white" />
+                        <span class="sr-only">Abfallkalender</span>
+                    </a>
+
+                    <a href="#" title="Parkplätze"
+                        class="inline-flex items-center justify-center w-10 h-10 transition bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700">
+                        <x-hero-icon name="parking-outline" class="w-5 h-5 text-white" />
+                        <span class="sr-only">Parkplätze</span>
+                    </a>
+
+                    {{-- <a href="#" class="px-3 py-2 text-sm font-medium text-gray-900">
                         Jobs
                     </a>
 
@@ -23,7 +38,7 @@
 
                     <a href="#" class="px-3 py-2 text-sm font-medium text-gray-900">
                         Company
-                    </a>
+                    </a> --}}
                 </nav>
             </div>
             <div class="flex items-center justify-center flex-1 px-2 lg:ml-6 lg:justify-end">

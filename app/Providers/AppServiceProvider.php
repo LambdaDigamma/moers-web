@@ -10,6 +10,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\UrlWindow;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;

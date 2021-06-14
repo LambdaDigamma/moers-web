@@ -140,16 +140,17 @@ class LoadMoersEvents extends Command
                 $newEvent->start_date = $finalStart;
                 $newEvent->end_date = $finalEnd;
                 $newEvent->url = $url;
-                $newEvent->description = $description;
+                $newEvent->description = trim($description);
                 $newEvent->category = $category;
                 $newEvent->published_at = now();
-                $newEvent->extras = array(
+                $newEvent->extras = collect([
                     'unid' => $this->currentUnid,
                     'location' => $location,
                     'street' => $street,
                     'postcode' => $postcode,
                     'place' => $city,
-                    'organizer' => $organizer);
+                    'organizer' => $organizer
+                ]);
 
                 $newEvent->save();
 

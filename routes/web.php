@@ -53,6 +53,13 @@ Route::group([
 ], function () {
 
     Route::get('/')->name('landingPage')->uses('LandingPageController');
+    Route::get('/veranstaltungen', function () {
+        return "veranstaltungen";
+    })->name('events.index');
+
+    Route::get('/app', function () {
+        return view('pages.app');
+    });
 
     Route::get('/notifications')->name('notifications')->uses('ProfileController@notifications')->middleware('auth');
     Route::get('/profile')->name('profile')->uses('ProfileController@details')->middleware('auth');
@@ -82,8 +89,8 @@ Route::group([
 
     Route::post('/conversations/{conversation}/readMessage')->name('conversations.readMessage')->uses('ConversationController@sendReadMessage')->middleware(['auth']);
 
-    Route::get('/events')->name('events.index')->uses('EventController@index');
-    Route::get('/events/{event}')->name('events.show')->uses('EventController@show');
+    // Route::get('/events')->name('events.index')->uses('EventController@index');
+    Route::get('/veranstaltungen/{event}')->name('events.show')->uses('EventController@show');
 
     Route::get('/entries/{selectedEntry?}')->name('entries.index')->uses('EntryController@index');
     Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');
