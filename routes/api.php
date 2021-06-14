@@ -176,6 +176,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::post('/entries', 'API\APIEntryController@store')->name('api.v1.entries.store');
     Route::put('/entries/{entry}', 'API\APIEntryController@update')->name('api.v1.entries.update');
     Route::get('/entries/{entry}/history', 'API\APIEntryController@getHistory')->name('api.v1.entries.history.get');
+
 });
 
 
