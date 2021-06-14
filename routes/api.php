@@ -188,6 +188,6 @@ Route::group(['prefix' => '/v1'], function () {
 
 Route::fallback(function () {
     return response()->json([
-        'message' => 'Page Not Found. If error persists, contact info@website.com'
+        'message' => 'Page Not Found. If error persists, contact meinmoers@lambdadigamma.com'
     ], 404);
 });

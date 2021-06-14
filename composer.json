@@ -49,6 +49,7 @@
         "reinink/remember-query-strings": "^0.1.0",
         "seld/jsonlint": "^1.7",
         "silber/bouncer": "v1.0.0-rc.10",
+        "spatie/laravel-json-api-paginate": "^1.10",
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-newsletter": "^4.2",
         "spatie/laravel-personal-data-export": "^1.3",
