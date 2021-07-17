@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PetrolController;
 use App\Http\Controllers\RubbishController;
 
@@ -47,6 +48,8 @@ Route::get('/abfallkalender', [RubbishController::class, 'index'])->name('rubbis
 Route::get('/abfallkalender/{street}', [RubbishController::class, 'show'])->name('rubbish.show');
 
 Route::get('/kraftstoff', [PetrolController::class, 'index'])->name('petrol.index');
+
+Route::get('/neuigkeiten', [NewsController::class, 'index'])->name('news.index');
 
 Route::group([
     'namespace' => 'Web',

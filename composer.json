@@ -10,6 +10,14 @@
         "0": {
             "type": "vcs",
             "url": "https://github.com/LambdaDigamma/mm-events"
+        },
+        "1": {
+            "type": "vcs",
+            "url": "https://github.com/LambdaDigamma/mm-feeds"
+        },
+        "2": {
+            "type": "vcs",
+            "url": "https://github.com/LambdaDigamma/mm-pages"
         }
     },
     "type": "project",
@@ -29,6 +37,8 @@
         "inertiajs/inertia-laravel": "^0.3",
         "jenssegers/model": "^1.2",
         "lambdadigamma/mm-events": "^0.0.7",
+        "lambdadigamma/mm-feeds": "^0.0.1",
+        "lambdadigamma/mm-pages": "^0.0.3",
         "laravel/framework": "^8.0",
         "laravel/helpers": "^1.1",
         "laravel/passport": "^10.0",

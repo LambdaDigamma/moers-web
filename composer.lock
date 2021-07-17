@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63c8265d49214750e6734ba1a2c80bea",
+    "content-hash": "bec9f70e05bf639d0a3b3091e95de5e0",
     "packages": [
         {
             "name": "additionapps/flexible-presenter",
@@ -2321,6 +2321,66 @@
             "time": "2021-05-26T15:01:53+00:00"
         },
         {
+            "name": "lambdadigamma/laravel-publishable",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LambdaDigamma/laravel-publishable.git",
+                "reference": "6003ed0f44fb45c4076ece99dd5f2756fbeecb18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LambdaDigamma/laravel-publishable/zipball/6003ed0f44fb45c4076ece99dd5f2756fbeecb18",
+                "reference": "6003ed0f44fb45c4076ece99dd5f2756fbeecb18",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.0",
+                "illuminate/support": "^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "illuminate/pagination": "^8.0",
+                "orchestra/testbench": "^6.15",
+                "phpunit/phpunit": "^8.4|^9.0",
+                "spatie/test-time": "^1.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelPublishable\\LaravelPublishableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelPublishable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lennart Fischer",
+                    "email": "github@lambdadigamma.com"
+                }
+            ],
+            "description": "A Laravel Eloquent model trait for publishing and unpublishing",
+            "homepage": "https://github.com/lambdadigamma/laravel-publishable",
+            "keywords": [
+                "laravel",
+                "laravel-publishable"
+            ],
+            "support": {
+                "issues": "https://github.com/lambdadigamma/laravel-publishable/issues",
+                "source": "https://github.com/lambdadigamma/laravel-publishable"
+            },
+            "time": "2021-03-28T22:23:09+00:00"
+        },
+        {
             "name": "lambdadigamma/mm-events",
             "version": "0.0.7",
             "source": {
@@ -2408,17 +2468,756 @@
             "time": "2020-12-13T10:00:42+00:00"
         },
         {
-            "name": "laravel/framework",
-            "version": "v8.46.0",
+            "name": "lambdadigamma/mm-feeds",
+            "version": "0.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "a18266c612e0e6aba5e0174b3c873d2d217dccfb"
+                "url": "git@github.com:LambdaDigamma/mm-feeds.git",
+                "reference": "855f55e52c93493a5875d992a7c0cf5867eb9ade"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a18266c612e0e6aba5e0174b3c873d2d217dccfb",
-                "reference": "a18266c612e0e6aba5e0174b3c873d2d217dccfb",
+                "url": "https://api.github.com/repos/LambdaDigamma/mm-feeds/zipball/855f55e52c93493a5875d992a7c0cf5867eb9ade",
+                "reference": "855f55e52c93493a5875d992a7c0cf5867eb9ade",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^8.34",
+                "joelbutcher/laravel-archivable": "^1.1",
+                "lambdadigamma/laravel-publishable": "^0.0.1",
+                "laravel-json-api/laravel": "1.x-dev",
+                "php": "^7.4|^8.0",
+                "spatie/laravel-json-api-paginate": "^1.10",
+                "spatie/laravel-medialibrary": "^9.4",
+                "spatie/laravel-query-builder": "^3.3",
+                "spatie/laravel-translatable": "^4.6"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.13",
+                "orchestra/testbench": "^6.0",
+                "pestphp/pest": "^1.0",
+                "pestphp/pest-plugin-faker": "^1.0",
+                "pestphp/pest-plugin-laravel": "^1.0",
+                "phpunit/phpunit": "^9.3",
+                "spatie/laravel-ray": "^1.17",
+                "vimeo/psalm": "^4.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LambdaDigamma\\MMFeeds\\MMFeedsServiceProvider"
+                    ],
+                    "aliases": {
+                        "MMFeeds": "LambdaDigamma\\MMFeeds\\MMFeedsFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LambdaDigamma\\MMFeeds\\": "src",
+                    "LambdaDigamma\\MMFeeds\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "LambdaDigamma\\MMFeeds\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "psalm": [
+                    "vendor/bin/psalm"
+                ],
+                "test": [
+                    "vendor/bin/pest --colors=always"
+                ],
+                "test-coverage": [
+                    "vendor/bin/pest --coverage"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lennart Fischer",
+                    "email": "github@lambdadigamma.com",
+                    "homepage": "https://lambdadigamma.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package providing feeds for the Mein Moers platform.",
+            "homepage": "https://github.com/lambdadigamma/mm-feeds",
+            "keywords": [
+                "lambdadigamma",
+                "mm-feeds"
+            ],
+            "support": {
+                "source": "https://github.com/LambdaDigamma/mm-feeds/tree/0.0.1",
+                "issues": "https://github.com/LambdaDigamma/mm-feeds/issues"
+            },
+            "funding": [
+                {
+                    "type": "other",
+                    "url": "https://lambdadigamma.com"
+                }
+            ],
+            "time": "2021-04-14T17:49:04+00:00"
+        },
+        {
+            "name": "lambdadigamma/mm-pages",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:LambdaDigamma/mm-pages.git",
+                "reference": "525f5626800bbe6621933e8efb26ee1b5c2277e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LambdaDigamma/mm-pages/zipball/525f5626800bbe6621933e8efb26ee1b5c2277e8",
+                "reference": "525f5626800bbe6621933e8efb26ee1b5c2277e8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/contracts": "^8.34",
+                "joelbutcher/laravel-archivable": "^1.1",
+                "lambdadigamma/laravel-publishable": "^0.0.1",
+                "laravel-json-api/laravel": "1.x-dev",
+                "mavinoo/laravel-batch": "^2.2",
+                "php": "^7.4 || ^8.0",
+                "spatie/laravel-json-api-paginate": "^1.10",
+                "spatie/laravel-ray": "^1.3",
+                "spatie/laravel-translatable": "^4.6"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0",
+                "pestphp/pest": "^1.0",
+                "pestphp/pest-plugin-faker": "^1.0",
+                "pestphp/pest-plugin-laravel": "^1.0",
+                "phpunit/phpunit": "^9.3",
+                "spatie/laravel-ray": "^1.17",
+                "vimeo/psalm": "^3.11"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LambdaDigamma\\MMPages\\MMPagesServiceProvider"
+                    ],
+                    "aliases": {
+                        "MMPages": "LambdaDigamma\\MMPages\\MMPagesFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LambdaDigamma\\MMPages\\": "src",
+                    "LambdaDigamma\\MMPages\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "LambdaDigamma\\MMPages\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "psalm": [
+                    "vendor/bin/psalm"
+                ],
+                "test": [
+                    "vendor/bin/pest --colors=always"
+                ],
+                "test-coverage": [
+                    "vendor/bin/pest --coverage-html coverage"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lennart Fischer",
+                    "email": "github@lambdadigamma.com",
+                    "homepage": "https://lambdadigamma.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package providing pages for the Mein Moers platform.",
+            "homepage": "https://github.com/lambdadigamma/mm-pages",
+            "keywords": [
+                "lambdadigamma",
+                "mm-pages"
+            ],
+            "support": {
+                "source": "https://github.com/LambdaDigamma/mm-pages/tree/0.0.3",
+                "issues": "https://github.com/LambdaDigamma/mm-pages/issues"
+            },
+            "time": "2021-05-18T20:23:00+00:00"
+        },
+        {
+            "name": "laravel-json-api/core",
+            "version": "v1.0.0-beta.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-json-api/core.git",
+                "reference": "10db55dd00516c0c77e4627e1e653cab795a085e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-json-api/core/zipball/10db55dd00516c0c77e4627e1e653cab795a085e",
+                "reference": "10db55dd00516c0c77e4627e1e653cab795a085e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/contracts": "^8.0",
+                "illuminate/http": "^8.0",
+                "illuminate/support": "^8.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelJsonApi\\Contracts\\": "src/Contracts",
+                    "LaravelJsonApi\\Core\\": "src/Core"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Cloud Creativity Ltd",
+                    "email": "info@cloudcreativity.co.uk"
+                },
+                {
+                    "name": "Christopher Gammie",
+                    "email": "contact@gammie.co.uk"
+                }
+            ],
+            "description": "Contracts and support classes for Laravel JSON:API packages.",
+            "homepage": "https://github.com/laravel-json-api/core",
+            "keywords": [
+                "JSON-API",
+                "jsonapi",
+                "jsonapi.org",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-json-api/core/issues",
+                "source": "https://github.com/laravel-json-api/core/tree/v1.0.0-beta.4"
+            },
+            "time": "2021-06-02T12:48:41+00:00"
+        },
+        {
+            "name": "laravel-json-api/eloquent",
+            "version": "v1.0.0-beta.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-json-api/eloquent.git",
+                "reference": "09229f02ea2227b99b0a834e0df72373b91dfee3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-json-api/eloquent/zipball/09229f02ea2227b99b0a834e0df72373b91dfee3",
+                "reference": "09229f02ea2227b99b0a834e0df72373b91dfee3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/database": "^8.0",
+                "illuminate/support": "^8.0",
+                "laravel-json-api/core": "^1.0.0-beta.4",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.9",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelJsonApi\\Eloquent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Cloud Creativity Ltd",
+                    "email": "info@cloudcreativity.co.uk"
+                },
+                {
+                    "name": "Christopher Gammie",
+                    "email": "contact@gammie.co.uk"
+                }
+            ],
+            "description": "Serialize Eloquent models as JSON:API resources.",
+            "homepage": "https://github.com/laravel-json-api/eloquent",
+            "keywords": [
+                "JSON-API",
+                "jsonapi",
+                "jsonapi.org",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-json-api/eloquent/issues",
+                "source": "https://github.com/laravel-json-api/eloquent/tree/v1.0.0-beta.5"
+            },
+            "time": "2021-06-02T12:56:03+00:00"
+        },
+        {
+            "name": "laravel-json-api/encoder-neomerx",
+            "version": "v1.0.0-beta.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-json-api/encoder-neomerx.git",
+                "reference": "d2a3ee5f2ca575503668d9b4b4418d5bf7217a8f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-json-api/encoder-neomerx/zipball/d2a3ee5f2ca575503668d9b4b4418d5bf7217a8f",
+                "reference": "d2a3ee5f2ca575503668d9b4b4418d5bf7217a8f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/support": "^8.0",
+                "laravel-json-api/core": "^1.0.0-beta.1",
+                "laravel-json-api/neomerx-json-api": "^4.0.2",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "LaravelJsonApi\\Encoder\\Neomerx\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelJsonApi\\Encoder\\Neomerx\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Cloud Creativity Ltd",
+                    "email": "info@cloudcreativity.co.uk"
+                },
+                {
+                    "name": "Christopher Gammie",
+                    "email": "contact@gammie.co.uk"
+                }
+            ],
+            "description": "Encode JSON:API resources using the neomerx/json-api package.",
+            "homepage": "https://github.com/laravel-json-api/encoder-neomerx",
+            "keywords": [
+                "JSON-API",
+                "jsonapi",
+                "jsonapi.org",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-json-api/encoder-neomerx/issues",
+                "source": "https://github.com/laravel-json-api/encoder-neomerx/tree/v1.0.0-beta.1"
+            },
+            "time": "2021-03-30T10:02:40+00:00"
+        },
+        {
+            "name": "laravel-json-api/exceptions",
+            "version": "v1.0.0-beta.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-json-api/exceptions.git",
+                "reference": "a00178a757a4aa0d22acb396a358c0f934d51dd9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-json-api/exceptions/zipball/a00178a757a4aa0d22acb396a358c0f934d51dd9",
+                "reference": "a00178a757a4aa0d22acb396a358c0f934d51dd9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/contracts": "^8.0",
+                "illuminate/pipeline": "^8.0",
+                "laravel-json-api/core": "^1.0.0-beta.1",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "laravel-json-api/spec": "^1.0.0-beta.1",
+                "laravel-json-api/testing": "^1.0.0-beta.1",
+                "laravel-json-api/validation": "^1.0.0-beta.1",
+                "orchestra/testbench": "^6.9",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelJsonApi\\Exceptions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Cloud Creativity Ltd",
+                    "email": "info@cloudcreativity.co.uk"
+                },
+                {
+                    "name": "Christopher Gammie",
+                    "email": "contact@gammie.co.uk"
+                }
+            ],
+            "description": "JSON:API exception parsing for Laravel applications.",
+            "homepage": "https://github.com/laravel-json-api/exceptions",
+            "keywords": [
+                "JSON-API",
+                "jsonapi",
+                "jsonapi.org",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-json-api/exceptions/issues",
+                "source": "https://github.com/laravel-json-api/exceptions/tree/v1.0.0-beta.3"
+            },
+            "time": "2021-04-26T12:59:13+00:00"
+        },
+        {
+            "name": "laravel-json-api/laravel",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-json-api/laravel.git",
+                "reference": "61f56c7abb44b56777a4b690cc96eb529d6c7cad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-json-api/laravel/zipball/61f56c7abb44b56777a4b690cc96eb529d6c7cad",
+                "reference": "61f56c7abb44b56777a4b690cc96eb529d6c7cad",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "laravel-json-api/core": "^1.0.0-beta.4",
+                "laravel-json-api/eloquent": "^1.0.0-beta.5",
+                "laravel-json-api/encoder-neomerx": "^1.0.0-beta.1",
+                "laravel-json-api/exceptions": "^1.0.0-beta.2",
+                "laravel-json-api/spec": "^1.0.0-beta.1",
+                "laravel-json-api/validation": "^1.0.0-beta.2",
+                "laravel/framework": "^8.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "laravel-json-api/hashids": "^1.0.0-beta.2",
+                "laravel-json-api/testing": "^1.0.0-beta.1",
+                "orchestra/testbench": "^6.9",
+                "phpunit/phpunit": "^9.5"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                },
+                "laravel": {
+                    "aliases": {
+                        "JsonApi": "LaravelJsonApi\\Core\\Facades\\JsonApi",
+                        "JsonApiRoute": "LaravelJsonApi\\Laravel\\Facades\\JsonApiRoute"
+                    },
+                    "providers": [
+                        "LaravelJsonApi\\Laravel\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelJsonApi\\Laravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Cloud Creativity Ltd",
+                    "email": "info@cloudcreativity.co.uk"
+                },
+                {
+                    "name": "Christopher Gammie",
+                    "email": "contact@gammie.co.uk"
+                }
+            ],
+            "description": "JSON:API for Laravel applications.",
+            "homepage": "https://github.com/laravel-json-api/laravel",
+            "keywords": [
+                "JSON-API",
+                "jsonapi",
+                "jsonapi.org",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-json-api/laravel/issues",
+                "source": "https://github.com/laravel-json-api/laravel/tree/develop"
+            },
+            "time": "2021-06-11T14:07:40+00:00"
+        },
+        {
+            "name": "laravel-json-api/neomerx-json-api",
+            "version": "v4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-json-api/neomerx-json-api.git",
+                "reference": "dfefa4484a4b11dd1c4478568fb694818f57c0b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-json-api/neomerx-json-api/zipball/dfefa4484a4b11dd1c4478568fb694818f57c0b8",
+                "reference": "dfefa4484a4b11dd1c4478568fb694818f57c0b8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.14",
+                "mockery/mockery": "^1.0",
+                "phpmd/phpmd": "^2.6",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0",
+                "scrutinizer/ocular": "^1.4",
+                "squizlabs/php_codesniffer": "^2.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Neomerx\\JsonApi\\": "src/"
+                },
+                "files": [
+                    "src/I18n/format.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "neomerx",
+                    "email": "info@neomerx.com"
+                },
+                {
+                    "name": "Christopher Gammie",
+                    "email": "contact@gammie.co.uk"
+                }
+            ],
+            "description": "Framework agnostic JSON API (jsonapi.org) implementation",
+            "homepage": "https://github.com/neomerx/json-api",
+            "keywords": [
+                "JSON-API",
+                "api",
+                "json",
+                "jsonapi",
+                "jsonapi.org",
+                "neomerx"
+            ],
+            "support": {
+                "issues": "https://github.com/neomerx/json-api/issues",
+                "source": "https://github.com/laravel-json-api/neomerx-json-api/tree/v4.0.2"
+            },
+            "time": "2021-02-27T11:17:15+00:00"
+        },
+        {
+            "name": "laravel-json-api/spec",
+            "version": "v1.0.0-beta.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-json-api/spec.git",
+                "reference": "4fefed3f57a883c4b81100c290e4cc6b18158646"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-json-api/spec/zipball/4fefed3f57a883c4b81100c290e4cc6b18158646",
+                "reference": "4fefed3f57a883c4b81100c290e4cc6b18158646",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/contracts": "^8.0",
+                "illuminate/pipeline": "^8.0",
+                "illuminate/support": "^8.0",
+                "laravel-json-api/core": "^1.0.0-beta.1",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.9",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "LaravelJsonApi\\Spec\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelJsonApi\\Spec\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Cloud Creativity Ltd",
+                    "email": "info@cloudcreativity.co.uk"
+                },
+                {
+                    "name": "Christopher Gammie",
+                    "email": "contact@gammie.co.uk"
+                }
+            ],
+            "description": "Validate JSON documents for compliance with the JSON:API specification.",
+            "homepage": "https://github.com/laravel-json-api/spec",
+            "keywords": [
+                "JSON-API",
+                "jsonapi",
+                "jsonapi.org",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-json-api/spec/issues",
+                "source": "https://github.com/laravel-json-api/spec/tree/v1.0.0-beta.1"
+            },
+            "time": "2021-03-30T10:06:16+00:00"
+        },
+        {
+            "name": "laravel-json-api/validation",
+            "version": "v1.0.0-beta.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-json-api/validation.git",
+                "reference": "11c6052129891f2d126fdd0ce40859e73d83955b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-json-api/validation/zipball/11c6052129891f2d126fdd0ce40859e73d83955b",
+                "reference": "11c6052129891f2d126fdd0ce40859e73d83955b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/contracts": "^8.0",
+                "illuminate/support": "^8.0",
+                "laravel-json-api/core": "^1.0.0-beta.3",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.9",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "LaravelJsonApi\\Validation\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelJsonApi\\Validation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Cloud Creativity Ltd",
+                    "email": "info@cloudcreativity.co.uk"
+                },
+                {
+                    "name": "Christopher Gammie",
+                    "email": "contact@gammie.co.uk"
+                }
+            ],
+            "description": "Laravel validation for JSON:API resources.",
+            "homepage": "https://github.com/laravel-json-api/validation",
+            "keywords": [
+                "JSON-API",
+                "jsonapi",
+                "jsonapi.org",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-json-api/validation/issues",
+                "source": "https://github.com/laravel-json-api/validation/tree/v1.0.0-beta.2"
+            },
+            "time": "2021-04-26T13:07:22+00:00"
+        },
+        {
+            "name": "laravel/framework",
+            "version": "v8.47.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "93db226946453f4285558b7c3166ddb6e7ea5400"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/93db226946453f4285558b7c3166ddb6e7ea5400",
+                "reference": "93db226946453f4285558b7c3166ddb6e7ea5400",
                 "shasum": ""
             },
             "require": {
@@ -2573,7 +3372,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-06-08T13:36:46+00:00"
+            "time": "2021-06-15T14:00:32+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -2779,16 +3578,16 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v4.4.10",
+            "version": "v4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "04c9883c9ad8453e58207eb010e37153d13d26f6"
+                "reference": "b61cf696a339301fb71439c54f6ec88a8ac78fa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/04c9883c9ad8453e58207eb010e37153d13d26f6",
-                "reference": "04c9883c9ad8453e58207eb010e37153d13d26f6",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/b61cf696a339301fb71439c54f6ec88a8ac78fa4",
+                "reference": "b61cf696a339301fb71439c54f6ec88a8ac78fa4",
                 "shasum": ""
             },
             "require": {
@@ -2837,9 +3636,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/telescope/issues",
-                "source": "https://github.com/laravel/telescope/tree/v4.4.10"
+                "source": "https://github.com/laravel/telescope/tree/v4.5.0"
             },
-            "time": "2021-06-01T17:35:45+00:00"
+            "time": "2021-06-15T16:03:35+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -3720,16 +4519,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v2.4.4",
+            "version": "v2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "33101c83b75728651b9e668a4559f97def7c9138"
+                "reference": "a4ffb135693e7982e5b982ca203f5dc7a7ae1126"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/33101c83b75728651b9e668a4559f97def7c9138",
-                "reference": "33101c83b75728651b9e668a4559f97def7c9138",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/a4ffb135693e7982e5b982ca203f5dc7a7ae1126",
+                "reference": "a4ffb135693e7982e5b982ca203f5dc7a7ae1126",
                 "shasum": ""
             },
             "require": {
@@ -3780,7 +4579,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v2.4.4"
+                "source": "https://github.com/livewire/livewire/tree/v2.5.1"
             },
             "funding": [
                 {
@@ -3788,7 +4587,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-04-28T15:31:15+00:00"
+            "time": "2021-06-15T13:24:48+00:00"
         },
         {
             "name": "maatwebsite/excel",
@@ -4107,6 +4906,59 @@
                 "source": "https://github.com/MarkBaker/PHPMatrix/tree/2.1.3"
             },
             "time": "2021-05-25T15:42:17+00:00"
+        },
+        {
+            "name": "mavinoo/laravel-batch",
+            "version": "v2.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mavinoo/laravelBatch.git",
+                "reference": "8fb12e1602def1126238e190bb874df0d97e22bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mavinoo/laravelBatch/zipball/8fb12e1602def1126238e190bb874df0d97e22bd",
+                "reference": "8fb12e1602def1126238e190bb874df0d97e22bd",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3@dev"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mavinoo\\Batch\\BatchServiceProvider"
+                    ],
+                    "aliases": {
+                        "Batch": "Mavinoo\\Batch\\BatchFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mavinoo\\Batch\\": "src/"
+                },
+                "files": [
+                    "src/Common/Helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohammad Ghanbari",
+                    "email": "mavin.developer@gmail.com"
+                }
+            ],
+            "description": "Insert and update batch (bulk) in laravel",
+            "support": {
+                "issues": "https://github.com/mavinoo/laravelBatch/issues",
+                "source": "https://github.com/mavinoo/laravelBatch/tree/v2.2.7"
+            },
+            "time": "2021-04-24T06:22:17+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5364,16 +6216,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.8",
+            "version": "3.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "d9615a6fb970d9933866ca8b4036ec3407b020b6"
+                "reference": "a127a5133804ff2f47ae629dd529b129da616ad7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d9615a6fb970d9933866ca8b4036ec3407b020b6",
-                "reference": "d9615a6fb970d9933866ca8b4036ec3407b020b6",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/a127a5133804ff2f47ae629dd529b129da616ad7",
+                "reference": "a127a5133804ff2f47ae629dd529b129da616ad7",
                 "shasum": ""
             },
             "require": {
@@ -5455,7 +6307,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.8"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.9"
             },
             "funding": [
                 {
@@ -5471,7 +6323,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-04-19T03:20:48+00:00"
+            "time": "2021-06-14T06:54:45+00:00"
         },
         {
             "name": "psr/cache",
@@ -7089,17 +7941,87 @@
             "time": "2020-09-09T10:43:20+00:00"
         },
         {
-            "name": "spatie/laravel-ray",
-            "version": "1.19.1",
+            "name": "spatie/laravel-query-builder",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/spatie/laravel-ray.git",
-                "reference": "5afa1c020a61637f6f1f8c660ab7702e7bbc4d3d"
+                "url": "https://github.com/spatie/laravel-query-builder.git",
+                "reference": "6c09f1f9d6c988bf2e1220be072c7bd1ac958cc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/5afa1c020a61637f6f1f8c660ab7702e7bbc4d3d",
-                "reference": "5afa1c020a61637f6f1f8c660ab7702e7bbc4d3d",
+                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/6c09f1f9d6c988bf2e1220be072c7bd1ac958cc9",
+                "reference": "6c09f1f9d6c988bf2e1220be072c7bd1ac958cc9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^6.20.13|^7.30.4|^8.22.2",
+                "illuminate/http": "^6.20.13|7.30.4|^8.22.2",
+                "illuminate/support": "^6.20.13|7.30.4|^8.22.2",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "laravel/legacy-factories": "^1.0.4",
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^4.9|^5.8|^6.3",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\QueryBuilder\\QueryBuilderServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\QueryBuilder\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Vanderbist",
+                    "email": "alex@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily build Eloquent queries from API requests",
+            "homepage": "https://github.com/spatie/laravel-query-builder",
+            "keywords": [
+                "laravel-query-builder",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-query-builder/issues",
+                "source": "https://github.com/spatie/laravel-query-builder"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-05-24T10:13:32+00:00"
+        },
+        {
+            "name": "spatie/laravel-ray",
+            "version": "1.20.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-ray.git",
+                "reference": "1ecabbea3166fe098edc3b3a1314bcd5045d1833"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/1ecabbea3166fe098edc3b3a1314bcd5045d1833",
+                "reference": "1ecabbea3166fe098edc3b3a1314bcd5045d1833",
                 "shasum": ""
             },
             "require": {
@@ -7155,7 +8077,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-ray/issues",
-                "source": "https://github.com/spatie/laravel-ray/tree/1.19.1"
+                "source": "https://github.com/spatie/laravel-ray/tree/1.20.1"
             },
             "funding": [
                 {
@@ -7167,7 +8089,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-06-11T18:10:35+00:00"
+            "time": "2021-06-15T11:40:39+00:00"
         },
         {
             "name": "spatie/laravel-sitemap",
@@ -14435,16 +15357,16 @@
         },
         {
             "name": "sebastian/type",
-            "version": "2.3.2",
+            "version": "2.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/type.git",
-                "reference": "0d1c587401514d17e8f9258a27e23527cb1b06c1"
+                "reference": "b8cd8a1c753c90bc1a0f5372170e3e489136f914"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/0d1c587401514d17e8f9258a27e23527cb1b06c1",
-                "reference": "0d1c587401514d17e8f9258a27e23527cb1b06c1",
+                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/b8cd8a1c753c90bc1a0f5372170e3e489136f914",
+                "reference": "b8cd8a1c753c90bc1a0f5372170e3e489136f914",
                 "shasum": ""
             },
             "require": {
@@ -14479,7 +15401,7 @@
             "homepage": "https://github.com/sebastianbergmann/type",
             "support": {
                 "issues": "https://github.com/sebastianbergmann/type/issues",
-                "source": "https://github.com/sebastianbergmann/type/tree/2.3.2"
+                "source": "https://github.com/sebastianbergmann/type/tree/2.3.4"
             },
             "funding": [
                 {
@@ -14487,7 +15409,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-04T13:02:07+00:00"
+            "time": "2021-06-15T12:49:02+00:00"
         },
         {
             "name": "sebastian/version",
