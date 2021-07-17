@@ -2,17 +2,12 @@
 
 namespace Tests;
 
-use Faker\Factory;
-use Faker\Generator;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, DatabaseMigrations;
-
-    // /** @var Generator */
-    // protected $faker;
+    use CreatesApplication, RefreshDatabase;
 
     protected function setUp(): void
     {

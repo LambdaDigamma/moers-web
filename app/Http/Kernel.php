@@ -26,6 +26,8 @@ use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Lambdadigamma\LaravelApiLanguage\Http\Middleware\AcceptLanguageMiddleware;
+use Lambdadigamma\LaravelApiLanguage\Http\Middleware\ContentLanguageMiddleware;
 use Laravel\Passport\Http\Middleware\CreateFreshApiToken;
 use Reinink\RememberQueryStrings;
 
@@ -68,8 +70,9 @@ class Kernel extends HttpKernel
 
         'api' => [
             'throttle:60,1',
-            'localization',
-            'bindings',
+            SubstituteBindings::class,
+            AcceptLanguageMiddleware::class,
+            ContentLanguageMiddleware::class,
         ],
     ];
 
@@ -90,7 +93,6 @@ class Kernel extends HttpKernel
         'guest' => RedirectIfAuthenticated::class,
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
-        'localization' => LocalizeAPI::class,
         'remember' => RememberQueryStrings::class,
         'cors' => HandleCors::class,
     ];

@@ -11,7 +11,7 @@ trait CreatesApplication
     /**
      * Creates the application.
      *
-     * @return Application
+     * @return \Illuminate\Foundation\Application
      */
     public function createApplication()
     {
