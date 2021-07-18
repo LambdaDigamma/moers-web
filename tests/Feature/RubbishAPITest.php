@@ -11,8 +11,6 @@ use Tests\TestCase;
 class RubbishAPITest extends TestCase
 {
 
-    use RefreshDatabase;
-
     public function testStreetListCurrentStreets()
     {
 

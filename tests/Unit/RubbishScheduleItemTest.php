@@ -9,9 +9,7 @@ use Tests\TestCase;
 
 class RubbishScheduleItemTest extends TestCase
 {
-
-    use RefreshDatabase;
-
+    
     public function testRubbishScheduleItemFactory()
     {
 

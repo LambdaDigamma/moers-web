@@ -9,9 +9,7 @@ use Tests\TestCase;
 
 class AdvEventModelTest extends TestCase
 {
-    use DatabaseMigrations;
-    use RefreshDatabase;
-
+    
     public function testScopeActive()
     {
 

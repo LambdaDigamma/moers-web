@@ -10,7 +10,6 @@ use function Pest\Faker\faker;
 
 class EntryAPITest extends TestCase
 {
-    use RefreshDatabase;
 
     public function setUp(): void
     {

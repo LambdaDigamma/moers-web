@@ -34,7 +34,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "genealabs/laravel-sign-in-with-apple": "^0.5",
         "guzzlehttp/guzzle": "^7.0.1",
-        "inertiajs/inertia-laravel": "^0.3",
+        "inertiajs/inertia-laravel": "^0.4",
         "jenssegers/model": "^1.2",
         "lambdadigamma/laravel-api-language": "^0.1.0",
         "lambdadigamma/mm-events": "^0.1.0",
@@ -65,7 +65,7 @@
         "spatie/laravel-newsletter": "^4.2",
         "spatie/laravel-personal-data-export": "^2.0",
         "spatie/laravel-ray": "^1.17",
-        "spatie/laravel-sitemap": "^5.9",
+        "spatie/laravel-sitemap": "^6.0",
         "spatie/laravel-translatable": "^4.2",
         "tightenco/ziggy": "^1.0.5"
     },

@@ -11,8 +11,6 @@ use Tests\TestCase;
 class RubbishStreetTest extends TestCase
 {
 
-    use RefreshDatabase;
-
     public function testRubbishStreetFactory()
     {
 

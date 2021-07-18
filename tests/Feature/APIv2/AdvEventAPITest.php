@@ -9,10 +9,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdvEventAPITest extends TestCase
 {
-
-    use DatabaseMigrations;
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
