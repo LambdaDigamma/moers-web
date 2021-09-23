@@ -24,15 +24,18 @@ class CreateMMPagesTable extends Migration
             $table->foreign('page_template_id')->references('id')->on('mm_page_templates')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-            $table->bigInteger('creator_id')->unsigned()->nullable();
-            $table->foreign('creator_id')->references('id')->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('set null');
+            $table->unsignedBigInteger('creator_id')->nullable();
             $table->json('extras')->nullable();
             $table->timestamps();
             $table->archivedAt();
             $table->publishedAt();
             $table->softDeletes();
+        });
+
+        Schema::table('mm_pages', function (Blueprint $table) {
+            $table->foreign('creator_id')->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
 
         Schema::create('mm_menu_items', function (Blueprint $table) {
