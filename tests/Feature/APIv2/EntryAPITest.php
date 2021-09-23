@@ -40,7 +40,7 @@ class EntryAPITest extends TestCase
             'street' => faker()->streetName,
             'house_number' => faker()->buildingNumber,
             'place' => faker()->city,
-            'postcode' => faker()->randomNumber(5),
+            'postcode' => '12345',
             'secret' => 'tzVQl34i6SrYSzAGSkBh'
         ];
 

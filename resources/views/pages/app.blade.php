@@ -1,5 +1,7 @@
 <x-layout.main>
     <main class="min-h-screen bg-gray-100">
+        <x-top-navigation></x-top-navigation>
+
 
         <x-marketing.rubbish-cta class="pt-12"></x-marketing.rubbish-cta>
         <div class="mt-12 bg-black">

@@ -130,7 +130,7 @@
             </div>
             <div class="mt-12 xl:mt-0">
                 <h3 class="text-sm font-semibold tracking-wider text-gray-400 uppercase">
-                    Language &amp; Currency
+                    Language
                 </h3>
                 <form class="mt-4 sm:max-w-xs">
                     <fieldset class="w-full">
@@ -156,57 +156,8 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset class="w-full mt-4">
-                        <label class="sr-only" for="currency">Currency</label>
-                        <div class="mt-1.5 relative">
-                            <select id="currency"
-                                class="block w-full py-2 pl-3 pr-10 text-base text-white bg-gray-700 border border-transparent rounded-md appearance-none bg-none focus:outline-none focus:ring-white focus:border-white sm:text-sm"
-                                name="currency">
-                                <option>ARS</option>
-                                <option selected>AUD</option>
-                                <option>CAD</option>
-                                <option>CHF</option>
-                                <option>EUR</option>
-                                <option>GBP</option>
-                                <option>JPY</option>
-                                <option>USD</option>
-                            </select>
-                            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                                <!-- Heroicon name: solid/chevron-down -->
-                                <svg aria-hidden="true" class="w-4 h-4 text-white" fill="currentColor"
-                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path clip-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        fill-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-                    </fieldset>
                 </form>
             </div>
-        </div>
-        <div class="pt-8 border-t border-gray-700 lg:flex lg:items-center lg:justify-between xl:mt-0">
-            <div>
-                <h3 class="text-sm font-semibold tracking-wider text-gray-400 uppercase">
-                    Subscribe to our newsletter
-                </h3>
-                <p class="mt-2 text-base text-gray-300">
-                    The latest news, articles, and resources, sent to your inbox weekly.
-                </p>
-            </div>
-            <form class="mt-4 sm:flex sm:max-w-md lg:mt-0">
-                <label class="sr-only" for="emailAddress">Email address</label>
-                <input id="emailAddress" autocomplete="email"
-                    class="w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-transparent rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white focus:border-white focus:placeholder-gray-400 sm:max-w-xs"
-                    name="emailAddress" placeholder="Enter your email" required type="email">
-                <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-                    <button
-                        class="flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white bg-indigo-500 border border-transparent rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
-                        type="submit">
-                        Subscribe
-                    </button>
-                </div>
-            </form>
         </div>
         <div class="pt-8 mt-8 border-t border-gray-700 md:flex md:items-center md:justify-between">
             <div class="flex space-x-6 md:order-2">

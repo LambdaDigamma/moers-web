@@ -20,8 +20,8 @@ class CreateMMEventsTable extends Migration
             $table->dateTime('end_date')->nullable();
             $table->json('description')->nullable();
             $table->unsignedBigInteger('page_id')->nullable();
-            $table->string('url')->nullable();
-            $table->string('image_path')->nullable();
+            $table->string('url', 2000)->nullable();
+            $table->string('image_path', 2000)->nullable();
             $table->json('category', 1000)->nullable();
             $table->integer('organisation_id')->unsigned()->nullable();
             $table->integer('place_id')->unsigned()->nullable();

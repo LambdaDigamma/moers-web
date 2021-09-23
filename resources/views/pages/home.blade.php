@@ -1,5 +1,6 @@
 <x-layout.main>
     <div class="min-h-screen bg-gray-200">
+        <x-top-navigation></x-top-navigation>
         <div class="max-w-6xl min-h-screen pb-24 mx-auto bg-gray-100 shadow-md">
             <div class="relative h-80 lg:h-96">
                 {{-- <x-navigation class="absolute top-0 left-0 right-0 z-10"></x-navigation> --}}

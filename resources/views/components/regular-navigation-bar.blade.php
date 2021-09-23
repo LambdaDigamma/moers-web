@@ -1,4 +1,9 @@
 <header class="bg-white shadow">
+    <nav aria-label="Top">
+        <!-- Top navigation -->
+        <x-top-navigation></x-top-navigation>
+    </nav>
+
     <div class="px-2 mx-auto max-w-7xl sm:px-4 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex px-2 lg:px-0">
@@ -10,23 +15,23 @@
                     </a>
                 </div>
                 <nav aria-label="Global" class="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4">
-                    <a href="{{ route('events.index') }}" title="Veranstaltungen"
-                        class="inline-flex items-center justify-center w-10 h-10 transition bg-green-500 rounded-lg shadow-lg hover:bg-green-600">
-                        <x-hero-icon name="calendar-outline" class="w-5 h-5 text-white" />
-                        <span class="sr-only">Veranstaltungen</span>
+                    {{-- <a href="{{ route('events.index') }}" title="Veranstaltungen"
+                    class="inline-flex items-center justify-center w-10 h-10 transition bg-green-500 rounded-lg shadow-lg hover:bg-green-600">
+                    <x-hero-icon name="calendar-outline" class="w-5 h-5 text-white" />
+                    <span class="sr-only">Veranstaltungen</span>
                     </a>
 
                     <a href="{{ route('rubbish.index') }}" title="Abfallkalender"
                         class="inline-flex items-center justify-center w-10 h-10 transition bg-red-500 rounded-lg shadow-lg hover:bg-red-600">
                         <x-hero-icon name="abfall-outline" class="w-5 h-5 text-white" />
                         <span class="sr-only">Abfallkalender</span>
-                    </a>
+                    </a> --}}
 
-                    <a href="#" title="Parkplätze"
+                    {{-- <a href="#" title="Parkplätze"
                         class="inline-flex items-center justify-center w-10 h-10 transition bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700">
                         <x-hero-icon name="parking-outline" class="w-5 h-5 text-white" />
                         <span class="sr-only">Parkplätze</span>
-                    </a>
+                    </a> --}}
 
                     {{-- <a href="#" class="px-3 py-2 text-sm font-medium text-gray-900">
                         Jobs

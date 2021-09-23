@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\LoadAdvEvents;
+use App\Console\Commands\LoadMoersEvents;
 use App\Console\Commands\SendEmailUserHasUnreadConversations;
 use App\Console\Commands\UpdateResources;
 use App\Console\Commands\UpdateRubbishScheduleItems;
@@ -18,7 +19,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         SendEmailUserHasUnreadConversations::class,
-        LoadAdvEvents::class,
+        LoadMoersEvents::class,
         UpdateResources::class,
         UpdateRubbishScheduleItems::class,
     ];
@@ -33,7 +34,7 @@ class Kernel extends ConsoleKernel
     {
 
         $schedule
-            ->command('events:loadAdv')
+            ->command('events:load-moers-events')
             ->daily();
 
 //        $schedule
