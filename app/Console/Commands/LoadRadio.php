@@ -54,7 +54,7 @@ class LoadRadio extends Command
                     'uid' => $event->uid,
                 ], [
                     'title' => $event->summary,
-                    'description' => $event->summary,
+                    'description' => $event->description,
                     'url' => $event->url,
                     'attach' => $event->attach ?? null,
                     'starts_at' => Carbon::parse($event->dtstart, 'Europe/Berlin')->setTimezone('UTC'),
