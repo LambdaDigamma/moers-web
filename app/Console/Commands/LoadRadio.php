@@ -43,7 +43,8 @@ class LoadRadio extends Command
         try {
             $this->info('Loading radio broadcasts...');
 
-            $cal = new ICal('http://www.buergerfunk-moers.de/events/?ical=1&tribe_display=list', [
+            $nextYear = Carbon::now()->addYear()->year;
+            $cal = new ICal("http://www.buergerfunk-moers.de/events/?ical=1&tribe_display=custom&end_date={$nextYear}", [
                 'defaultTimeZone' => 'UTC',
             ]);
             

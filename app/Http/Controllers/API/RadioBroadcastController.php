@@ -10,7 +10,9 @@ class RadioBroadcastController extends Controller
 {
     public function index(): JsonResponse
     {
-        $radioBroadcasts = RadioBroadcast::all();
+        $radioBroadcasts = RadioBroadcast::query()
+            ->upcoming()
+            ->get();
 
         return new JsonResponse([
             'message' => 'Successfully loaded radio broadcasts.',

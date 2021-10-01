@@ -68,7 +68,7 @@ class EntryAPITest extends TestCase
             'street' => faker()->streetName,
             'house_number' => faker()->buildingNumber,
             'place' => faker()->city,
-            'postcode' => faker()->randomNumber(5),
+            'postcode' => '12345',
         ];
 
         $this->post(route('api.v2.entries.store'), $data)

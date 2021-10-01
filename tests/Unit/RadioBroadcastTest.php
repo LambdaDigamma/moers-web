@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\RadioBroadcast;
+use Illuminate\Support\Carbon;
 
 it('can be created', function () {
 
@@ -22,4 +23,22 @@ it('can be created', function () {
         ->and($broadcast->attach)->toBe('https://picsum.photos/200/300')
         ->and($broadcast->url)->toBe('https://example.org');
         
+});
+
+it('it can be scoped', function () {
+
+    RadioBroadcast::create([
+        'title' => 'Some title',
+        'uid' => '123456789',
+        'starts_at' => Carbon::now()->addDays(1),
+    ]);
+
+    RadioBroadcast::create([
+        'title' => 'Some title',
+        'uid' => '012345678',
+        'starts_at' => Carbon::now()->subDays(1),
+    ]);
+
+    expect(RadioBroadcast::query()->upcoming()->count())->toBe(1);
+
 });

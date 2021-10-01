@@ -2,11 +2,16 @@
 
 use App\Models\RadioBroadcast;
 
+use function Pest\Laravel\expectsJobs;
 use function Pest\Laravel\getJson;
 
 test('radio broadcasts can be accessed', function () {
 
-    $broadcasts = RadioBroadcast::factory()->count(10)->create();
+    RadioBroadcast::factory()->count(8)->upcomingStart()->create();
+    RadioBroadcast::factory()->count(10)->create([
+        'starts_at' => now()->subDays(1)->subHour(),
+        'ends_at' => now()->subDays(1),
+    ]);
 
     $response = getJson('/api/v1/radio-broadcasts')
         ->assertOk()
@@ -29,5 +34,6 @@ test('radio broadcasts can be accessed', function () {
             ]
         ]);
     
+    expect($response->json('data'))->toHaveCount(8);
 
 });
