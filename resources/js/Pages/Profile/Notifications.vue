@@ -10,7 +10,7 @@
             <div class="mt-6 mb-10">
                 <div class="overflow-hidden bg-white shadow sm:rounded-md" v-if="unreadNotifications.length !== 0">
                     <ul>
-                        <li class="border-t border-gray-200" v-for="notification in unreadNotifications">
+                        <li class="border-t border-gray-200" v-for="notification in unreadNotifications" :key="notification.id">
                             <NotificationItem :notification="notification" />
                         </li>
                     </ul>
@@ -47,8 +47,8 @@
 </template>
 
 <script>
-    import NotificationItem from "./NotificationItem";
-    import LayoutGeneral from "../../Shared/Layouts/LayoutGeneral";
+    import NotificationItem from "./NotificationItem.vue";
+    import LayoutGeneral from "@/Shared/Layouts/LayoutGeneral.vue";
 
     export default {
         name: "Notifications",

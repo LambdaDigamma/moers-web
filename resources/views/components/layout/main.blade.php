@@ -30,7 +30,8 @@
 
     @routes
 
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
+    {{ vite_assets() }}
+
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
     <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
 

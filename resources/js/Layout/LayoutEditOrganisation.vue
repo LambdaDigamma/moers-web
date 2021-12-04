@@ -5,7 +5,7 @@
             <div slot="nav">
                 <div class="mt-6">
                     <div class="sm:hidden">
-                        <select aria-label="Selected tab" class="form-select block w-full">
+                        <select aria-label="Selected tab" class="block w-full form-select">
                             <option selected>
                                 Allgemeines
                             </option>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-    import TabItem from "../Shared/UI/TabItem";
+    import TabItem from "@/Shared/UI/TabItem.vue";
     export default {
         name: "LayoutEditOrganisation",
         components: {TabItem},

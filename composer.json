@@ -68,6 +68,7 @@
         "spatie/laravel-ray": "^1.17",
         "spatie/laravel-sitemap": "^6.0",
         "spatie/laravel-translatable": "^4.6",
+        "spatie/ray": "^1.32",
         "tightenco/ziggy": "^1.0.5"
     },
     "require-dev": {
@@ -115,6 +116,11 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ]
     },
     "config": {

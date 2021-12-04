@@ -62,14 +62,14 @@
             </div>
 
             <!-- Static sidebar for desktop -->
-            <div class="hidden md:flex md:flex-shrink-0 m-4 mr-2">
-                <div class="flex flex-col w-64 shadow-xl rounded-lg overflow-hidden">
+            <div class="hidden m-4 mr-2 md:flex md:flex-shrink-0">
+                <div class="flex flex-col w-64 overflow-hidden rounded-lg shadow-xl">
                     <div class="flex items-center flex-shrink-0 h-16 px-4 bg-gray-900">
                         <span class="text-lg font-bold text-white">Mein Moers</span>
                     </div>
                     <div class="flex flex-col flex-1 h-0 overflow-y-auto">
                         <!-- Sidebar component, swap this element with another sidebar if you like -->
-                        <nav class="flex-1 px-2 py-4 bg-gray-800 space-y-1">
+                        <nav class="flex-1 px-2 py-4 space-y-1 bg-gray-800">
 
                             <MenuItemDesktop title="Übersicht"
                                              :href="route('admin.dashboard')"
@@ -110,7 +110,7 @@
                             </MenuItemDesktop>
 
                             <div class="mt-8">
-                                <h3 class="px-3 text-xs leading-4 font-semibold text-gray-400 uppercase tracking-wider">
+                                <h3 class="px-3 text-xs font-semibold leading-4 tracking-wider text-gray-400 uppercase">
                                     Sonstiges
                                 </h3>
                                 <div class="mt-1 space-y-1">
@@ -127,7 +127,7 @@
                 </div>
             </div>
             <div class="flex flex-col flex-1 w-0 overflow-hidden">
-                <div class="relative z-10 flex flex-shrink-0 h-16 bg-white m-4 ml-2 shadow rounded-lg">
+                <div class="relative z-10 flex flex-shrink-0 h-16 m-4 ml-2 bg-white rounded-lg shadow">
                     <button @click="sidebarOpen = true" class="px-4 text-gray-500 border-r border-gray-200 focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden">
                         <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
@@ -147,12 +147,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center ml-4 md:ml-6 space-x-3">
+                        <div class="flex items-center ml-4 space-x-3 md:ml-6">
                             <inertia-link :href="route('notifications')" class="relative p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring focus:text-gray-500">
                                 <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                 </svg>
-                                <span v-if="$page.auth.user.notifications_count !== 0" class="absolute bottom-0 right-0 block mb-1 mr-1 transform translate-x-1/2 translate-y-1/2 border-2 border-white rounded-full">
+                                <span v-if="$page.props.auth.user.notifications_count !== 0" class="absolute bottom-0 right-0 block mb-1 mr-1 transform translate-x-1/2 translate-y-1/2 border-2 border-white rounded-full">
                                     <span class="block w-3 h-3 text-sm bg-red-600 rounded-full"></span>
                                 </span>
                             </inertia-link>
@@ -179,7 +179,7 @@
                                                           class="block px-4 py-2 text-sm text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100">
                                                 Dein Profil
                                             </inertia-link>
-                                            <inertia-link :href="route('logout')" method="POST"
+                                            <inertia-link :href="route('logout')" method="POST" as="button"
                                                           class="block px-4 py-2 text-sm text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100">
                                                 Abmelden
                                             </inertia-link>
@@ -194,7 +194,7 @@
                     </div>
                 </div>
                 <main class="relative z-0 flex-1 py-6 overflow-y-auto focus:outline-none" tabindex="0" scroll-region>
-                    <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8 pb-48">
+                    <div class="px-4 pb-48 mx-auto max-w-7xl sm:px-6 md:px-8">
 
                         <flash-messages />
                         <slot />
@@ -208,11 +208,11 @@
 </template>
 
 <script>
-    import Dropdown from "./Dropdown";
-    import FlashMessages from "./FlashMessages";
-    import MenuItemMobile from "./Layouts/MenuItemMobile";
-    import MenuItemDesktop from "./Layouts/MenuItemDesktop";
-    import LanguageBubble from "./UI/LanguageBubble";
+    import Dropdown from "./Dropdown.vue";
+    import FlashMessages from "./FlashMessages.vue";
+    import MenuItemMobile from "./Layouts/MenuItemMobile.vue";
+    import MenuItemDesktop from "./Layouts/MenuItemDesktop.vue";
+    import LanguageBubble from "./UI/LanguageBubble.vue";
     export default {
         name: "LayoutAdmin",
         components: {LanguageBubble, MenuItemDesktop, MenuItemMobile, Dropdown, FlashMessages},

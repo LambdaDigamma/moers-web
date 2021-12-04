@@ -1,7 +1,6 @@
-import Errors from './Errors'
+import Errors from "./Errors.js";
 
 class Form {
-
     /**
      * Create a new Form instance.
      *
@@ -36,7 +35,7 @@ class Form {
      */
     reset() {
         for (let field in this.originalData) {
-            this[field] = '';
+            this[field] = "";
         }
         this.errors.clear();
     }
@@ -48,12 +47,12 @@ class Form {
      */
     submit(promise) {
         promise
-            .then(data => {
+            .then((data) => {
                 this.onSuccess(data);
             })
-            .catch(errors => {
+            .catch((errors) => {
                 this.onFail(errors);
-            })
+            });
     }
 
     /**
@@ -75,7 +74,6 @@ class Form {
     onFail(errors) {
         this.errors.record(errors);
     }
-
 }
 
 export default Form;

@@ -1,46 +1,39 @@
 <template>
-
     <div>
-
-        <ResourceGeneralForm
-                @changed="changed"
-                @submit="submit">
-
+        <ResourceGeneralForm @changed="changed" @submit="submit">
         </ResourceGeneralForm>
-
     </div>
-
 </template>
 
 <script>
-    import LayoutAdmin from "../../../../Shared/LayoutAdmin";
-    import ResourceGeneralForm from "./ResourceGeneralForm";
+import LayoutAdmin from "@/Shared/LayoutAdmin.vue";
+import ResourceGeneralForm from "./ResourceGeneralForm.vue";
 
-    export default {
-        name: "Create",
-        components: {ResourceGeneralForm},
-        layout: LayoutAdmin,
-        remember: 'form',
-        props: {
-            dataset: Object
+export default {
+    name: "Create",
+    components: { ResourceGeneralForm },
+    layout: LayoutAdmin,
+    remember: "form",
+    props: {
+        dataset: Object,
+    },
+    data() {
+        return {
+            form: null,
+        };
+    },
+    methods: {
+        changed(formData) {
+            this.form = formData;
         },
-        data() {
-            return {
-                form: null
-            }
+        submit(formData) {
+            this.$inertia.post(
+                this.route("admin.datasets.resources.store", this.dataset.id),
+                formData
+            );
         },
-        methods: {
-            changed(formData) {
-                this.form = formData
-            },
-            submit(formData) {
-                this.$inertia
-                    .post(this.route('admin.datasets.resources.store', this.dataset.id), formData)
-            },
-        }
-    }
+    },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

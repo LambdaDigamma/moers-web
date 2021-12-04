@@ -1,116 +1,97 @@
-import Vue from "vue";
-import VueMeta from "vue-meta";
-import PortalVue from "portal-vue";
-import { App, plugin } from "@inertiajs/inertia-vue";
-import Echo from "laravel-echo";
-import "leaflet/dist/leaflet.css";
+import "../css/app.css";
+import "./bootstrap";
+
+import { format, formatDistanceToNow } from "date-fns";
+import { de } from "date-fns/locale";
+
+import { createApp, h } from "vue";
+import { createInertiaApp, Head, Link } from "@inertiajs/inertia-vue3";
+import { InertiaProgress as progress } from "@inertiajs/progress";
+
 import VueClipboard from "vue-clipboard2";
-import { InertiaProgress } from "@inertiajs/progress";
-import { Head, Link } from "@inertiajs/inertia-vue";
-
-Vue.component("InertiaHead", Head);
-Vue.component("InertiaLink", Link);
-Vue.use(plugin);
-
-InertiaProgress.init({
-    // The delay after which the progress bar will
-    // appear during navigation, in milliseconds.
-    delay: 250,
-
-    // The color of the progress bar.
-    color: "#29d",
-
-    // Whether to include the default NProgress styles.
-    includeCSS: true,
-
-    // Whether the NProgress spinner will be shown.
-    showSpinner: false
-});
-
-const moment = require("moment");
-require("moment/locale/de");
-
-Vue.use(VueClipboard);
-Vue.config.productionTip = false;
-Vue.mixin({ methods: { route: window.route } });
-Vue.mixin(require("./base"));
-Vue.use(PortalVue);
-Vue.use(VueMeta);
-Vue.use(require("vue-moment"), {
-    moment
-});
-
-window.axios = require("axios");
-window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
-let token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-    window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
-} else {
-    console.error(
-        "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
-    );
-}
-
-window.Pusher = require("pusher-js");
-window.Echo = new Echo({
-    broadcaster: "pusher",
-    key: "d6e230a8246cff590289",
-    cluster: "eu",
-    encrypted: true,
-    forceTLS: true
-});
-
+import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 
-delete Icon.Default.prototype._getIconUrl;
-Icon.Default.mergeOptions({
-    iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-    iconUrl: require("leaflet/dist/images/marker-icon.png"),
-    shadowUrl: require("leaflet/dist/images/marker-shadow.png")
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
+
+progress.init({
+    delay: 250,
+    includeCSS: true,
+    showSpinner: false,
 });
+
+import moment from "moment";
+// require("moment/locale/de");
+
+// Vue.config.productionTip = false;
+// Vue.use(VueClipboard);
+// Vue.mixin({ methods: { route: window.route } });
+// Vue.mixin(require("./base"));
+// Vue.use(require("vue-moment"), {
+//     moment,
+// });
+
+// delete Icon.Default.prototype._getIconUrl;
+// Icon.Default.mergeOptions({
+//     iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+//     iconUrl: require("leaflet/dist/images/marker-icon.png"),
+//     shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+// });
 
 let app = document.getElementById("app");
 
-// require('tailwindcss-dark-mode/prefers-dark')
+createInertiaApp({
+    // resolveComponent: (name) => {
+    //     const pages = import.meta.glob("./Pages/**/*.vue");
+    //     return pages[`./Pages/${name}.vue`]().then((module) => module.default);
+    // },
+    resolve: async (name) => {
+        const pages = import.meta.glob("./Pages/**/*.vue");
 
-// document.documentElement.classList.add('mode-dark');
-
-const files = require.context("./", true, /\.vue$/i);
-files.keys().map(key =>
-    Vue.component(
-        key
-            .split("/")
-            .pop()
-            .split(".")[0],
-        files(key).default
-    )
-);
-
-new Vue({
-    metaInfo: {
-        titleTemplate: title => (title ? `${title} - Mein Moers` : "Mein Moers")
+        return (await pages[`./Pages/${name}.vue`]()).default;
     },
-    render: h =>
-        h(App, {
-            props: {
-                initialPage: JSON.parse(app.dataset.page),
-                resolveComponent: name => require(`./Pages/${name}`).default
-            }
-        }),
-    mounted() {
-        window.addEventListener("popstate", () => {
-            this.$inertia.reload({
-                preserveScroll: true,
-                preserveState: false
-            }); // TODO: Check this
+    title: (title) => `${title} | Mein Moers`,
+    setup({ el, app, props, plugin }) {
+        let createdApp = createApp({
+            render: () => h(app, props),
+            mounted() {
+                window.addEventListener("popstate", () => {
+                    this.$inertia.reload({
+                        preserveScroll: false,
+                        preserveState: false,
+                    });
+                });
+            },
         });
-    }
-}).$mount(app);
+        createdApp.use(plugin);
+        // createdApp.use(VCalendar, {});
+        createdApp.component("InertiaHead", Head);
+        createdApp.component("Head", Head);
+        createdApp.component("InertiaLink", Link);
+        createdApp.mixin({
+            methods: {
+                route: window.route,
+            },
+        });
+        // createdApp.mixin(useModal);
+        createdApp.config.globalProperties.$filters = {
+            moment(value, dateFormat = "dd, DD.MM. HH:mm") {
+                if (!(value instanceof Date)) {
+                    value = new Date(value);
+                    console.log(value);
+                }
+
+                if (dateFormat === "from") {
+                    return formatDistanceToNow(value, {
+                        addSuffix: true,
+                        locale: de,
+                    });
+                }
+
+                return format(value, dateFormat, { locale: de });
+            },
+        };
+        createdApp.mount(el);
+    },
+});
