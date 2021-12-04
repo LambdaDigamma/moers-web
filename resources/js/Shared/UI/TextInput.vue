@@ -8,18 +8,15 @@
             }"
             v-if="isOptional || label"
         >
-            <label
-                :for="id"
-                class="block text-sm font-medium leading-5 text-gray-700"
-                >{{ label }}</label
-            >
-            <span class="text-sm leading-5 text-gray-500" v-if="isOptional"
-                >Optional</span
-            >
+            <label class="block text-sm font-medium leading-5 text-gray-700">
+                {{ label }}
+            </label>
+            <span class="text-sm leading-5 text-gray-500" v-if="isOptional">
+                Optional
+            </span>
         </div>
         <div class="relative mt-1 rounded-md shadow-sm">
             <input
-                :id="id"
                 :placeholder="placeholder"
                 :type="type"
                 :disabled="disabled"
@@ -28,10 +25,11 @@
                 :class="{
                     'border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red':
                         this.hasError,
-                    'focus:border-blue-500 focus:ring-blue': !this.hasError,
                     'opacity-50': disabled,
+                    'focus:ring-blue-500 focus:border-blue-500':
+                        !this.hasError,
                 }"
-                class="block w-full pr-10 form-input sm:text-sm sm:leading-5"
+                class="block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
                 @input="$emit('input', $event.target.value)"
                 @keydown.enter.prevent=""
                 ref="input"
@@ -69,12 +67,6 @@ export default {
     name: "TextInput",
     inheritAttrs: false,
     props: {
-        id: {
-            type: String,
-            default() {
-                return `text-input-${this._uid}`;
-            },
-        },
         isOptional: {
             type: Boolean,
             default: false,

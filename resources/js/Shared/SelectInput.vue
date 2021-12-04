@@ -2,17 +2,21 @@
     <div>
         <label
             v-if="label"
-            class="font-semibold form-label dark:text-white"
+            class="block text-sm font-medium text-gray-700 dark:text-white"
             :for="id"
-            >{{ label }}:</label
         >
+            {{ label }}:
+        </label>
         <select
             :id="id"
             ref="input"
             v-model="selected"
             v-bind="$attrs"
-            class="form-select dark:bg-gray-600 dark:text-white"
-            :class="{ error: errors.length }"
+            class="block w-full py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md focus:outline-none sm:text-sm"
+            :class="{
+                error: errors.length,
+                'focus:ring-blue-500 focus:border-blue-500': !hasError,
+            }"
         >
             <slot />
         </select>
@@ -27,7 +31,7 @@ export default {
         id: {
             type: String,
             default() {
-                return `select-input-${this._uid}`;
+                return undefined;
             },
         },
         value: [String, Number, Boolean],
@@ -53,6 +57,11 @@ export default {
         },
         select() {
             this.$refs.input.select();
+        },
+    },
+    computed: {
+        hasError() {
+            return this.errors.length !== 0;
         },
     },
 };

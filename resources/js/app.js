@@ -79,7 +79,6 @@ createInertiaApp({
             moment(value, dateFormat = "dd, DD.MM. HH:mm") {
                 if (!(value instanceof Date)) {
                     value = new Date(value);
-                    console.log(value);
                 }
 
                 if (dateFormat === "from") {

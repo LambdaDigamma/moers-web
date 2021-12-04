@@ -39,6 +39,18 @@
                         class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
                     >
                         <dt class="text-sm font-medium leading-5 text-gray-500">
+                            Lizenz
+                        </dt>
+                        <dd
+                            class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                        >
+                            {{ dataset.licence ?? "unbekannt" }}
+                        </dd>
+                    </div>
+                    <div
+                        class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                    >
+                        <dt class="text-sm font-medium leading-5 text-gray-500">
                             Aktualisiert am
                         </dt>
                         <dd
@@ -47,7 +59,7 @@
                             {{
                                 $filters.moment(
                                     dataset.updated_at,
-                                    "dddd, Do MMMM, H:mm"
+                                    "cccc, do LLLL yyyy, HH:mm"
                                 )
                             }}
                         </dd>
@@ -62,8 +74,10 @@
                             class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
                         >
                             {{
-                                dataset.created_at
-                                    | moment("dddd, Do MMMM, H:mm")
+                                $filters.moment(
+                                    dataset.created_at,
+                                    "cccc, do LLLL yyyy, HH:mm"
+                                )
                             }}
                         </dd>
                     </div>
@@ -212,8 +226,10 @@
                                             class="text-sm font-medium leading-5 text-gray-900"
                                         >
                                             {{
-                                                resource.updated_at
-                                                    | moment("from", "now")
+                                                $filters.moment(
+                                                    resource.last_updated,
+                                                    "from"
+                                                )
                                             }}
                                         </div>
                                     </td>

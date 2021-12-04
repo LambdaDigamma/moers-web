@@ -7,13 +7,13 @@
                 ref="input"
                 v-model="checked"
                 v-bind="$attrs"
-                class="w-4 h-4 text-blue-600 transition duration-150 ease-in-out form-checkbox"
+                class="w-4 h-4 text-blue-600 border-gray-300 rounded shadow-sm focus:ring-blue-500"
             />
         </div>
         <div class="ml-2 text-sm leading-5">
-            <label :for="id" class="font-medium text-gray-700">{{
-                label
-            }}</label>
+            <label :for="id" class="font-medium text-gray-700">
+                {{ label }}
+            </label>
             <p class="text-gray-500" v-if="hint">
                 {{ hint }}
             </p>
@@ -28,7 +28,7 @@ export default {
         id: {
             type: String,
             default() {
-                return `checkbox-${this._uid}`;
+                return undefined;
             },
         },
         value: Boolean,

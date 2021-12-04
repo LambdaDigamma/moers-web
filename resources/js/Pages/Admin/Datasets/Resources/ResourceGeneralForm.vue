@@ -18,7 +18,7 @@
                                     label="Name der Resource"
                                     placeholder="Name"
                                     v-model="form.name"
-                                    :errors="$page.errors.name"
+                                    :errors="form.errors.name"
                                 >
                                 </TextInput>
                             </div>
@@ -26,7 +26,7 @@
                                 <SelectInput
                                     label="Format"
                                     v-model="form.format"
-                                    :errors="$page.errors.format"
+                                    :errors="form.errors.format"
                                 >
                                     <option
                                         v-for="(format, index) in formats"
@@ -57,9 +57,7 @@
                                     v-model="form.autoUpdatingInterval"
                                     :min="1"
                                     :max="10000"
-                                    :errors="
-                                        $page.errors.auto_updating_interval
-                                    "
+                                    :errors="form.errors.auto_updating_interval"
                                 ></TextInput>
                             </div>
                         </div>
@@ -93,17 +91,6 @@
                                     hint="Füge eine Datenquelle hinzu, von der die Daten periodisch geladen werden."
                                 />
                             </div>
-
-                            <!--                            <div class="col-span-3 sm:col-span-3">-->
-
-                            <!--                                <TextareaInput-->
-                            <!--                                        label="Beschreibung"-->
-                            <!--                                        placeholder="Beschreibung"-->
-                            <!--                                        hint="Eine kurze Beschreibung für dein Profil."-->
-                            <!--                                        :no-wrap="true"-->
-                            <!--                                        :errors="$page.errors.description" />-->
-
-                            <!--                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -122,62 +109,64 @@ import NumberInput from "@/Shared/UI/NumberInput.vue";
 import TextareaInput from "@/Shared/UI/TextareaInput.vue";
 import TextInput from "@/Shared/UI/TextInput.vue";
 import PrimaryButton from "@/Shared/UI/PrimaryButton.vue";
+import SelectInput from "@/Shared/SelectInput.vue";
+import Checkbox from "@/Shared/UI/Checkbox.vue";
 
 export default {
     name: "ResourceGeneralForm",
-    components: { PrimaryButton, TextInput, TextareaInput, NumberInput },
+    components: {
+        PrimaryButton,
+        TextInput,
+        TextareaInput,
+        NumberInput,
+        SelectInput,
+        Checkbox,
+    },
     props: {
-        resource: {
+        form: {
             type: Object,
-            default() {
-                return {
-                    name: null,
-                    format: null,
-                    shouldAutoImport: true,
-                    autoUpdatingInterval: 24,
-                };
-            },
+            required: true,
         },
     },
-    data() {
+    setup(props, { emit }) {
+        const submit = () => {
+            emit("submit");
+        };
+
         return {
-            de: de,
+            de: "de",
             standardCode: "de",
             formats: ["csv", "json", "geojson", "text"],
-            form: {
-                name: this.resource.name,
-                format: this.resource.format,
-                shouldAutoImport: this.resource.auto_updating_interval !== null,
-                autoUpdatingInterval:
-                    this.resource.autoUpdatingInterval !== null
-                        ? this.resource.auto_updating_interval
-                        : 24,
-            },
+            // form: {
+            //     name: props.resource.name ? props.resource.name : null,
+            //     format: props.resource.format,
+            //     shouldAutoImport:
+            //         props.resource.auto_updating_interval !== null,
+            //     autoUpdatingInterval:
+            //         props.resource.autoUpdatingInterval !== null
+            //             ? props.resource.auto_updating_interval
+            //             : 24,
+            // },
         };
     },
-    computed: {
-        formData() {
-            let data = new FormData();
-            data.append("name", this.form.name || "");
-            data.append("format", this.form.format || "");
+    // computed: {
+    //     formData() {
+    //         let data = new FormData();
+    //         data.append("name", this.form.name || "");
+    //         data.append("format", this.form.format || "");
 
-            if (this.form.shouldAutoImport) {
-                data.append(
-                    "auto_updating_interval",
-                    this.form.autoUpdatingInterval || ""
-                );
-            } else {
-                data.append("auto_updating_interval", "");
-            }
+    //         if (this.form.shouldAutoImport) {
+    //             data.append(
+    //                 "auto_updating_interval",
+    //                 this.form.autoUpdatingInterval || ""
+    //             );
+    //         } else {
+    //             data.append("auto_updating_interval", "");
+    //         }
 
-            return data;
-        },
-    },
-    methods: {
-        submit() {
-            this.$emit("submit", this.formData);
-        },
-    },
+    //         return data;
+    //     },
+    // }
 };
 </script>
 

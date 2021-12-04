@@ -30,7 +30,9 @@
                                             label="Vorname"
                                             placeholder="Vorname"
                                             v-model="form.first_name"
-                                            :errors="$page.props.errors.first_name"
+                                            :errors="
+                                                $page.props.errors.first_name
+                                            "
                                             hint="Nur dein Vorname wird öffentlich angezeigt."
                                         />
                                     </div>
@@ -39,7 +41,9 @@
                                             label="Nachname"
                                             placeholder="Nachname"
                                             v-model="form.last_name"
-                                            :errors="$page.props.errors.last_name"
+                                            :errors="
+                                                $page.props.errors.last_name
+                                            "
                                         />
                                     </div>
                                 </div>
@@ -127,6 +131,7 @@
                                     <inertia-link
                                         method="POST"
                                         :href="route('profile.export')"
+                                        as="button"
                                         class="inline-flex items-center justify-center px-4 py-2 font-medium text-blue-700 transition duration-150 ease-in-out bg-blue-100 border border-transparent rounded-md hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:ring-blue active:bg-blue-200 sm:text-sm sm:leading-5"
                                     >
                                         Daten anfordern

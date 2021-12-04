@@ -7,24 +7,25 @@
                 'justify-start': !isOptional,
             }"
         >
-            <label
-                :for="id"
-                class="block text-sm font-medium leading-5 text-gray-700"
-                >{{ label }}</label
-            >
+            <label class="block text-sm font-medium leading-5 text-gray-700">{{
+                label
+            }}</label>
             <span class="text-sm leading-5 text-gray-500" v-if="isOptional"
                 >Optional</span
             >
         </div>
         <div class="relative rounded-md shadow-sm">
             <textarea
-                :id="id"
                 :rows="rows"
                 :value="value"
                 :placeholder="placeholder"
-                :class="{ 'whitespace-pre': noWrap }"
                 v-bind="$attrs"
-                class="block w-full mt-1 transition duration-150 ease-in-out form-textarea sm:text-sm sm:leading-5"
+                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm"
+                :class="{
+                    'whitespace-pre': noWrap,
+                    '': hasError,
+                    'focus:ring-blue-500 focus:border-blue-500': !hasError,
+                }"
                 ref="input"
                 @input="$emit('input', $event.target.value)"
             ></textarea>
@@ -60,12 +61,6 @@
 export default {
     inheritAttrs: false,
     props: {
-        id: {
-            type: String,
-            default() {
-                return `textarea-input-${this._uid}`;
-            },
-        },
         value: String,
         label: String,
         rows: {
@@ -99,6 +94,11 @@ export default {
         },
         select() {
             this.$refs.input.select();
+        },
+    },
+    computed: {
+        hasError() {
+            return this.errors.length !== 0;
         },
     },
 };

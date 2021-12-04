@@ -2,6 +2,7 @@
     "private": true,
     "scripts": {
         "dev": "vite --host=mein-moers.localhost --https",
+        "watch": "vite --host=mein-moers.localhost --https",
         "production": "vite build",
         "prod": "vite build",
         "routes": "php ./artisan ziggy:generate resources/js/routes.js"
@@ -52,7 +53,6 @@
         "vue-axios": "^3.4.0",
         "vue-click-outside": "^1.1.0",
         "vue-clipboard2": "^0.3.1",
-        "vue-cookie-law": "^1.13.3",
         "vue-loader": "^15.9.3",
         "vue-moment": "^4.1.0",
         "vue-picture-input": "^2.1.6",

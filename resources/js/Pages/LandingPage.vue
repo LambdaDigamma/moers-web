@@ -266,25 +266,15 @@
                 </div>
             </div>
         </div>
-
-        <footer>
-            <cookie-law
-                theme="blood-orange"
-                message="Diese Seite verwendet Session-Cookies und Cookies für das Login."
-                buttonText="Verstanden!"
-                buttonClass="rounded-md inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:ring-red active:bg-red-700 transition ease-in-out duration-150"
-            />
-        </footer>
     </div>
 </template>
 
 <script>
-import CookieLaw from "vue-cookie-law";
 import Navigation from "@/Shared/Navigation.vue";
 
 export default {
     name: "LandingPage",
-    components: { Navigation, CookieLaw },
+    components: { Navigation },
 };
 </script>
 

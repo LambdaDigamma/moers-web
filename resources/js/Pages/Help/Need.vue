@@ -27,9 +27,8 @@
                                 Stadtteil
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <select
+                                <select-input
                                     id="quarter"
-                                    class="block w-full transition duration-150 ease-in-out form-select sm:text-sm sm:leading-5"
                                     v-model="form.quarter_id"
                                 >
                                     <option
@@ -41,7 +40,7 @@
                                             quarter.postcode
                                         }})
                                     </option>
-                                </select>
+                                </select-input>
                             </div>
                         </div>
 
@@ -56,7 +55,20 @@
                         </div>
 
                         <div class="flex items-center mt-4">
-                            <input
+                            <Checkbox
+                                id="consent"
+                                v-model="form.consent"
+                            ></Checkbox>
+                            <label for="consent" class="ml-3">
+                                <span
+                                    class="block text-sm font-medium leading-5 text-gray-700"
+                                >
+                                    Ich bin damit einverstanden, dass ich
+                                    kontaktiert werden kann, wenn mir jemand
+                                    aktiv helfen will.
+                                </span>
+                            </label>
+                            <!-- <input
                                 id="consent"
                                 type="checkbox"
                                 v-model="form.consent"
@@ -70,7 +82,7 @@
                                     kontaktiert werden kann, wenn mir jemand
                                     aktiv helfen will.
                                 </span>
-                            </label>
+                            </label> -->
                         </div>
                     </div>
                     <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
@@ -93,7 +105,6 @@
             <h1 class="mb-6 text-3xl font-bold leading-tight text-gray-900">
                 Hier benötigst du Hilfe:
             </h1>
-
             <HelpItem
                 v-for="(request, index) in activeRequests"
                 :key="index"
@@ -108,10 +119,13 @@
 import LayoutGeneral from "@/Shared/Layouts/LayoutGeneral.vue";
 import TextInput from "@/Shared/UI/TextInput.vue";
 import TextareaInput from "@/Shared/UI/TextareaInput.vue";
+import HelpItem from "@/Shared/Help/HelpItem.vue";
+import SelectInput from "@/Shared/SelectInput.vue";
+import Checkbox from "@/Shared/UI/Checkbox.vue";
 
 export default {
     name: "Need",
-    components: { TextareaInput, TextInput },
+    components: { TextareaInput, TextInput, HelpItem, SelectInput, Checkbox },
     layout: LayoutGeneral,
     props: {
         quarters: Array,
