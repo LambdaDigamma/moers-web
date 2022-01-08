@@ -81,6 +81,7 @@
                 <div class="mt-6">
                     <button
                         type="submit"
+                        :disabled="form.processing"
                         class="relative flex justify-center w-full px-4 py-2 text-base font-medium text-white transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md group hover:bg-red-500 focus:outline-none focus:border-red-700 focus:ring-red active:bg-red-700"
                     >
                         <span class="absolute left-0 pl-3 inset-y">
@@ -101,12 +102,14 @@
                 </div>
 
                 <div
-                    v-if="$page.props.errors"
+                    v-if="form.errors"
                     class="mt-3 text-sm font-semibold text-red-500"
                 >
-                    <p v-if="$page.props.errors.email">{{ $page.props.errors.email[0] }}</p>
-                    <p v-if="$page.props.errors.password">
-                        {{ $page.props.errors.password[0] }}
+                    <p v-if="form.errors.email">
+                        {{ form.errors.email[0] }}
+                    </p>
+                    <p v-if="form.errors.password">
+                        {{ form.errors.password[0] }}
                     </p>
                 </div>
 
@@ -161,6 +164,8 @@
 import TextInput from "@/Shared/UI/TextInput.vue";
 import Navigation from "@/Shared/Navigation.vue";
 import LoadingButton from "@/Shared/UI/LoadingButton.vue";
+import { computed } from "vue";
+import { useForm } from "@inertiajs/inertia-vue3";
 export default {
     name: "Login",
     components: { LoadingButton, Navigation, TextInput },
@@ -169,14 +174,20 @@ export default {
         endpoint: String,
         googleEndpoint: String,
     },
-    data() {
+    setup() {
+        const form = useForm({
+            email: "",
+            password: "",
+            remember: null,
+        });
+
+        const formDisabled = computed(() => {
+            return form.email === "" && form.password === "";
+        });
+
         return {
-            sending: false,
-            form: {
-                email: "",
-                password: "",
-                remember: null,
-            },
+            form,
+            formDisabled,
         };
     },
     computed: {
@@ -186,7 +197,7 @@ export default {
     },
     methods: {
         submit() {
-            this.sending = true;
+            // this.sending = true;
             this.$inertia.post(
                 this.route("login.attempt"),
                 {
