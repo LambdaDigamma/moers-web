@@ -110,7 +110,7 @@ class LoadMoersEvents extends Command
                 } elseif ($end !== null) {
                     $finalEnd = $this->cleanTimeString($end);
                 } else {
-                    $endDate = Carbon::parse($data->get('StartDate'));
+                    $endDate = Carbon::parse($data->get('StartDate'), 'Europe/Berlin');
 
                     $endDate->setTimezone('Europe/Berlin');
                     $endTime = $data->get('EndTime');
@@ -138,7 +138,7 @@ class LoadMoersEvents extends Command
 
                 $newEvent->name = $title;
                 $newEvent->start_date = $finalStart;
-                $newEvent->end_date = $finalEnd;
+                $newEvent->end_date = Carbon::parse($finalEnd, 'Europe/Berlin')->setTimezone('UTC');
                 $newEvent->url = $url;
                 $newEvent->description = trim($description);
                 $newEvent->category = $category;
@@ -182,10 +182,9 @@ class LoadMoersEvents extends Command
         $cleanedTimeString = $this->cleanTime($timeString);
 
         try {
-            $date = new Carbon($cleanedTimeString);
-            $date->setTimezone('Europe/Berlin');
+            $date = new Carbon($cleanedTimeString, 'Europe/Berlin');
 
-            return $date->format('Y-m-d H:i:s');
+            return $date->setTimezone('UTC')->format('Y-m-d H:i:s');
         } catch (Exception $e) {
             $this->error($e->getMessage());
 
