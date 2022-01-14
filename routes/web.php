@@ -14,6 +14,7 @@
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PetrolController;
 use App\Http\Controllers\RubbishController;
+use App\Http\Controllers\Web\ParkingAreaController;
 
 Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
 Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
@@ -46,6 +47,8 @@ Route::get('/image/{filename}', 'ImageController@displayImage')->where('filename
 Route::get('/home', HomeController::class)->name('home');
 Route::get('/abfallkalender', [RubbishController::class, 'index'])->name('rubbish.index');
 Route::get('/abfallkalender/{street}', [RubbishController::class, 'show'])->name('rubbish.show');
+
+Route::get('/parken', [ParkingAreaController::class, 'index'])->name('parking-area.index');
 
 Route::get('/kraftstoff', [PetrolController::class, 'index'])->name('petrol.index');
 

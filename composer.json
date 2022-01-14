@@ -50,6 +50,7 @@
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.0",
         "lcobucci/jwt": "^4.0",
+        "league/csv": "^9.0",
         "livewire/livewire": "^2.4",
         "maatwebsite/excel": "^3.1",
         "orchestra/parser": "^6.0",
@@ -120,7 +121,11 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "pestphp/pest-plugin": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

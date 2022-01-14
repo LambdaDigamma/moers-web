@@ -1,4 +1,4 @@
-<div class="bg-gray-900">
+<div class="bg-black">
     <div class="flex items-center justify-between h-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex space-x-4">
             <a href="{{ route('rubbish.index') }}" class="p-1 rounded hover:bg-gray-800">
@@ -9,7 +9,7 @@
                 <x-hero-icon name="calendar-outline" class="w-5 h-5 text-white" />
                 <span class="sr-only">Veranstaltungen</span>
             </a>
-            <a href="#" class="p-1 rounded hover:bg-gray-800">
+            <a href="{{ route('parking-area.index') }}" class="p-1 rounded hover:bg-gray-800">
                 <x-hero-icon name="parking-outline" class="w-5 h-5 text-white" />
                 <span class="sr-only">Parkplätze</span>
             </a>

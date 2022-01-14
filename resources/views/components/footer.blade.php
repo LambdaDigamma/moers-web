@@ -1,7 +1,7 @@
-<footer aria-labelledby="footerHeading" class="bg-gray-800">
-    <h2 id="footerHeading" class="sr-only">Footer</h2>
+<footer aria-labelledby="footerHeading" class="bg-black">
+    <h2 id="footerHeading" class="sr-only">Fußzeile</h2>
     <div class="max-w-6xl px-4 py-12 mx-auto sm:px-6 lg:py-16 lg:px-8">
-        <div class="pb-8 xl:grid xl:grid-cols-5 xl:gap-8">
+        {{-- <div class="pb-8 xl:grid xl:grid-cols-5 xl:gap-8">
             <div class="grid grid-cols-2 gap-8 xl:col-span-4">
                 <div class="md:grid md:grid-cols-2 md:gap-8">
                     <div>
@@ -158,7 +158,7 @@
                     </fieldset>
                 </form>
             </div>
-        </div>
+        </div> --}}
         <div class="pt-8 mt-8 border-t border-gray-700 md:flex md:items-center md:justify-between">
             <div class="flex space-x-6 md:order-2">
                 <a class="text-gray-400 hover:text-gray-300" href="https://lambdadigamma.com" rel="noopener"
