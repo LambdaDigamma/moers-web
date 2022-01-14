@@ -60,16 +60,16 @@
 
 <script>
 
-    import LayoutAdmin from "../../../Shared/LayoutAdmin";
-    import TextInput from "../../../Shared/UI/TextInput";
-    import LoadingButton from "../../../Shared/UI/LoadingButton";
-    import PollResult from "../../../Shared/PollResult";
-    import Header from "../../../Shared/Admin/Header";
-    import TrashedMessage from "../../../Shared/TrashedMessage";
-    import CardContainer from "../../../Shared/UI/CardContainer";
-    import EventCard from "../../../Shared/Events/EventCard";
-    import TextareaInput from "../../../Shared/UI/TextareaInput";
-    import LayoutEditOrganisation from "../../../Layout/LayoutEditOrganisation";
+    import LayoutAdmin from "@/Shared/LayoutAdmin.vue";
+    import TextInput from "@/Shared/UI/TextInput.vue";
+    import LoadingButton from "@/Shared/UI/LoadingButton.vue";
+    import PollResult from "@/Shared/PollResult.vue";
+    import Header from "@/Shared/Admin/Header.vue";
+    import TrashedMessage from "@/Shared/TrashedMessage.vue";
+    import CardContainer from "@/Shared/UI/CardContainer.vue";
+    import EventCard from "@/Shared/Events/EventCard.vue";
+    import TextareaInput from "@/Shared/UI/TextareaInput.vue";
+    import LayoutEditOrganisation from "@/Layout/LayoutEditOrganisation.vue";
 
     export default {
         name: "Edit",

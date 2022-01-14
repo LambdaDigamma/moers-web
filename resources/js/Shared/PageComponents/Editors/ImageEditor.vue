@@ -1,13 +1,7 @@
-<template>
-    
-</template>
+<template></template>
 
 <script>
-    export default {
-        name: "ImageEditor"
-    }
+export default {
+    name: "ImageEditor",
+};
 </script>
-
-<style scoped>
-
-</style>

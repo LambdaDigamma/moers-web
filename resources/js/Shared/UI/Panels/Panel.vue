@@ -1,5 +1,5 @@
 <template>
-    <div class="shadow rounded-lg bg-white">
+    <div class="bg-white rounded-lg shadow">
         <slot v-if="hasHeadingSlot" name="heading"></slot>
         <div class="px-4 py-5 sm:p-6">
             <slot></slot>

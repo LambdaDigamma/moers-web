@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html class="h-full bg-grey-100" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
 
     <meta charset="utf-8">
@@ -24,20 +25,26 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     @routes
 
+    {{--
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
     <script src="{{ mix('/js/manifest.js') }}" defer></script>
     <script src="{{ mix('/js/vendor.js') }}" defer></script>
-    <script src="{{ mix('/js/app.js') }}" defer></script>
+    <script src="{{ mix('/js/app.js') }}" defer></script> --}}
+
+    {{ vite_assets() }}
     <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
 
 </head>
+
 <body class="font-sans antialiased text-gray-900 dark:bg-gray-800">
 
-@inertia
+    @inertia
 
 </body>
+
 </html>

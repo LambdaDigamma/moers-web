@@ -1,46 +1,42 @@
 <template>
-
     <div>
-
-        <ResourceGeneralForm
-                @changed="changed"
-                @submit="submit">
-
-        </ResourceGeneralForm>
-
+        <ResourceGeneralForm :form="form" @submit="submit"> </ResourceGeneralForm>
     </div>
-
 </template>
 
 <script>
-    import LayoutAdmin from "../../../../Shared/LayoutAdmin";
-    import ResourceGeneralForm from "./ResourceGeneralForm";
+import LayoutAdmin from "@/Shared/LayoutAdmin.vue";
+import ResourceGeneralForm from "./ResourceGeneralForm.vue";
+import { useForm } from "@inertiajs/inertia-vue3";
 
-    export default {
-        name: "Create",
-        components: {ResourceGeneralForm},
-        layout: LayoutAdmin,
-        remember: 'form',
-        props: {
-            dataset: Object
-        },
-        data() {
-            return {
-                form: null
-            }
-        },
-        methods: {
-            changed(formData) {
-                this.form = formData
-            },
-            submit(formData) {
-                this.$inertia
-                    .post(this.route('admin.datasets.resources.store', this.dataset.id), formData)
-            },
-        }
-    }
+export default {
+    name: "Create",
+    components: { ResourceGeneralForm },
+    layout: LayoutAdmin,
+    remember: "form",
+    props: {
+        dataset: Object,
+    },
+    setup() {
+        const form = useForm({
+            name: "",
+            format: "json",
+            shouldAutoImport: true,
+            autoUpdatingInterval: 24,
+        });
+
+        const submit = () => {
+            form.post(
+                this.route("admin.datasets.resources.store", props.dataset.id)
+            );
+        };
+
+        return {
+            form,
+            submit,
+        };
+    },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

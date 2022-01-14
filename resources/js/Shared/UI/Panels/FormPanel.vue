@@ -15,7 +15,7 @@
 
 <script>
 
-    import PrimaryButton from "../PrimaryButton";
+    import PrimaryButton from "../PrimaryButton.vue";
     export default {
         name: "FormPanel",
         components: {PrimaryButton},
