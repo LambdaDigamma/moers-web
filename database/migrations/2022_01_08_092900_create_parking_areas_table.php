@@ -16,7 +16,7 @@ class CreateParkingAreasTable extends Migration
         Schema::create('parking_areas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->point('location')->nullable();
+            $table->point('location', '4326')->nullable();
             $table->string('current_opening_state')->nullable();
             $table->unsignedInteger('capacity')->nullable();
             $table->unsignedInteger('occupied_sites')->nullable();

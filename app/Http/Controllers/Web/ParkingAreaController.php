@@ -10,11 +10,9 @@ class ParkingAreaController extends Controller
 {
     public function index()
     {
-        $exitCode = Artisan::call('parking-area:update');
-
         return view('parking-area.index', [
             'parkingAreas' => ParkingArea::query()
-                ->orderByRaw("FIELD(current_opening_state, 'open', 'closed', 'unknown')")
+                ->orderByOpeningState()
                 ->get(),
         ]);
     }

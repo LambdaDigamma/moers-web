@@ -32,6 +32,11 @@ class ParkingArea extends StandardModel
         return ($this->capacity ?? 0) - ($this->occupied_sites ?? 0);
     }
 
+    public function scopeOrderByOpeningState($query)
+    {
+        $query->orderByRaw("FIELD(current_opening_state, 'open', 'closed', 'unknown')");
+    }
+
     static function openingStateFromString($openingState): string
     {
         switch ($openingState) {
