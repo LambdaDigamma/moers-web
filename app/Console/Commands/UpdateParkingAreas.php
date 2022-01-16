@@ -98,7 +98,13 @@ class UpdateParkingAreas extends Command
     public function shouldStoreCurrentOccupancy(): bool 
     {
         $shouldStoreCurrentOccupancy = true;
-        $lastUpdated = ParkingAreaOccupancy::query()->latest()->first()->created_at;
+        $lastOccupancy = ParkingAreaOccupancy::query()->latest()->first();
+
+        if (! $lastOccupancy) {
+            return true;
+        }
+
+        $lastUpdated = $lastOccupancy->created_at;
 
         if ($lastUpdated) {
             $diffInMinutes = now()->diffInMinutes($lastUpdated);
