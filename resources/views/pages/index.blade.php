@@ -16,8 +16,11 @@
                     <img src="img/header.png" alt="Mein Moers App" />
                 </div>
                 <h1 class="mb-6 text-xl font-bold leading-tight text-gray-900 sm:text-2xl md:text-5xl dark:text-white">
-                    Digitale Bürgerinformation auf Basis von <span class="text-red-600 dark:text-yellow-500">offenen
-                        Daten</span></h1>
+                    Digitale Bürgerinformation auf Basis von
+                    <span class="text-red-600 dark:text-yellow-500">
+                        offenen Daten
+                    </span>
+                </h1>
                 <p class="leading-relaxed text-gray-600 md:text-xl md:px-18 dark:text-white">
                     Geschäfte, Parkplätze, 360° Panoramen, Veranstaltungen, aktuelle Kraftstoffpreise,
                     Abfallkalender und vieles mehr!
@@ -57,8 +60,10 @@
                         <pattern id="b1e6e422-73f8-40a6-b5d9-c8586e37e0e7" x="0" y="0" width="20" height="20"
                             patternUnits="userSpaceOnUse">
                             <circle r="3" cx="3" cy="3" class="text-gray-200" fill="currentColor" />
-                            {{-- <circle x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" /> --}}
-                            {{-- <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" /> --}}
+                            {{--
+                            <circle x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" /> --}}
+                            {{--
+                            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" /> --}}
                         </pattern>
                     </defs>
                     <rect width="404" height="784" fill="url(#b1e6e422-73f8-40a6-b5d9-c8586e37e0e7)" />
@@ -363,7 +368,8 @@
                     <a href="https://lambdadigamma.com/" target="_blank"
                         class="text-blue-500 border-b dark:text-yellow-500 dark:border-yellow-500">
                         Lennart Fischer.
-                    </a></p>
+                    </a>
+                </p>
 
             </div>
         </div> --}}

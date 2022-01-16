@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdvEvent;
+use App\Models\Event;
 use Inertia\Inertia;
 use Request;
 
@@ -19,7 +20,8 @@ class EventController extends Controller
     {
         return Inertia::render('Admin/Events/Index', [
             'filters' => Request::all('search'),
-            'events' => AdvEvent::with('organisation', 'entry')
+            'events' => //Event::with('organisation', 'entry')
+                Event::query()
                 ->chronological()
                 ->filter(Request::only('search'))
                 ->paginate(9)

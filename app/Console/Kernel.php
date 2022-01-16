@@ -33,9 +33,18 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
+        // Load events from the moers site every four hours
         $schedule
             ->command('events:load-moers-events')
-            ->daily();
+            ->cron('0 */4 * * *');
+            
+        $schedule
+            ->command('radio-broadcasts:load')
+            ->cron('0 */4 * * *');
+
+        $schedule
+            ->command('parking-area:update')
+            ->everyMinute();
 
 //        $schedule
 //            ->command('resources:update')

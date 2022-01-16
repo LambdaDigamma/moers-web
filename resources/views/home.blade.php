@@ -3,14 +3,15 @@
         <x-top-navigation></x-top-navigation>
         <div class="max-w-6xl min-h-screen pb-24 mx-auto bg-gray-100 shadow-md">
             <div class="relative" style="height: 50vh;">
-                <x-scaffold.navigation class="absolute top-0 left-0 right-0 z-10"></x-scaffold.navigation>
-                <div class="absolute top-0 bottom-0 left-0 right-0 bg-gray-800" aria-hidden="true">
-                    <img class="object-cover object-right-bottom w-full h-full" src="/images/moers.jpg"
-                        style="filter: brightness(30%); -webkit-filter: brightness(30%);">
+                {{-- <x-scaffold.navigation class="absolute top-0 left-0 right-0 z-10"></x-scaffold.navigation> --}}
+                <div class="absolute top-0 bottom-0 left-0 right-0 bg-black" aria-hidden="true">
+                    {{-- <img class="object-cover object-right-bottom w-full h-full" src="/images/moers.jpg"
+                        style="filter: brightness(30%); -webkit-filter: brightness(30%);"> --}}
                 </div>
                 <div class="absolute z-20 flex flex-col items-center justify-center w-full h-full">
-                    <h1 class="text-2xl font-bold text-center text-white lg:text-3xl">Digitale Bürgerinformation <br />
-                        auf Basis von <span class="">offenen Daten</span></h1>
+                    <h1 class="text-2xl font-bold text-center text-white lg:text-3xl">
+                        Digitale Bürgerinformation <br /> auf Basis von <span class="">offenen Daten</span>
+                    </h1>
                 </div>
             </div>
             <div class="relative max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">

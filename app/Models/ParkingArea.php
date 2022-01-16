@@ -3,16 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 
-use function PHPUnit\Framework\returnSelf;
-
-class ParkingArea extends Model
+class ParkingArea extends StandardModel
 {
     use HasFactory;
+    use SpatialTrait;
 
     const OPEN = "open";
     const CLOSED = "closed";
     const UNKNOWN = "unknown";
+
+    protected $spatialFields = [
+        'location',
+    ];
 
     public function isOpen()
     {
@@ -27,7 +31,6 @@ class ParkingArea extends Model
     public function freeSites(): int {
         return ($this->capacity ?? 0) - ($this->occupied_sites ?? 0);
     }
-
 
     static function openingStateFromString($openingState): string
     {
