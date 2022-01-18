@@ -64,6 +64,7 @@ class UpdateParkingAreas extends Command
                 $capacity = $record['Capacity'] ?? null;
                 $occupied = $record['OccupiedSites'] ?? null;
                 $timestamp = $record['Timestamp'] ?? null;
+                $openingState = ParkingArea::openingStateFromString($openingState);
                 
                 $parkingArea = ParkingArea::updateOrCreate(
                     ['name' => $name],
@@ -71,7 +72,7 @@ class UpdateParkingAreas extends Command
                         'name' => $name,
                         'capacity' => $capacity,
                         'occupied_sites' => $occupied,
-                        'current_opening_state' => ParkingArea::openingStateFromString($openingState),
+                        'current_opening_state' => $openingState,
                         'updated_at' => Carbon::createFromTimestampMsUTC($timestamp),
                     ]
                 );
@@ -86,6 +87,7 @@ class UpdateParkingAreas extends Command
                         'occupancy_rate' => $occupancy_rate,
                         'occupied_sites' => $occupied,
                         'capacity' => $capacity,
+                        'opening_state' => $openingState,
                         'parking_area_id' => $parkingArea->id,
                     ]);
                 }
