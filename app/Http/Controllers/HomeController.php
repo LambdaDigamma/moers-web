@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\AdvEvent;
 use App\Models\Event;
+use App\Models\ParkingArea;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -20,15 +22,19 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
         SEOTools::setTitle("Übersicht");
-//        SEOTools::setDescription($page->summary);
-
+        
         $events = Event::query()->chronological()->upcoming()->limit(20)->get();
+        $parkingAreas = Cache::remember('home_parking_state', 60, function () {
+            return ParkingArea::query()
+                ->open()
+                ->get();
+        });
 
         // $events = AdvEvent::future()->chronological()->limit(10)->get();
 
-//        dd($events);
         return view('home', [
-            'events' => $events
+            'events' => $events,
+            'parkingAreas' => $parkingAreas,
         ]);
     }
 }

@@ -40,12 +40,7 @@
                             <div class="flex flex-shrink-0 mt-4 ml-4">
                                 <a href="https://cms.sbm-moers.de/abfk/ical/{{ now()->year }}-{{ $street->id }}.ics"
                                     class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    <svg class="w-5 h-5 mr-2 -ml-1 text-gray-400" fill="currentColor"
-                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
+                                    <x-heroicon-s-calendar class="w-5 h-5 mr-2 -ml-1 text-gray-400" />
                                     <span>
                                         Kalender (ics)
                                     </span>
@@ -53,13 +48,7 @@
                                 <a href="https://cms.sbm-moers.de/abfk/abfallkalender_moers.php?h=0&streetid={{ $street->id }}&rw=0&newjear={{ now()->year }}"
                                     download="abfallkalender.pdf" rel="noopener" target="_blank"
                                     class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    <!-- Heroicon name: solid/mail -->
-                                    <svg class="w-5 h-5 mr-2 -ml-1 text-gray-400" fill="currentColor"
-                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
+                                    <x-heroicon-s-download class="w-5 h-5 mr-2 -ml-1 text-gray-400" />
                                     <span>
                                         PDF <span class="sr-only">herunterladen</span>
                                     </span>
@@ -164,32 +153,32 @@
         </main>
 
         {{-- <div class="min-h-screen bg-gray-200">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-4 gap-6">
-                <div class="col-span-3 py-10 bg-white">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-4 gap-6">
+                    <div class="col-span-3 py-10 bg-white">
 
-                </div>
-                <div class="col-span-1 py-10 bg-white">
+                    </div>
+                    <div class="col-span-1 py-10 bg-white">
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="max-w-6xl min-h-screen pb-24 mx-auto bg-gray-100 shadow-md">
-            <h2>
-                {{ $event->name }}
-        </h2>
-        <p>
-            {{ $event->description }}
-        </p>
-        <p>{{ $event->start_date }}</p>
-        <p>{{ $event->organisation ?? 'keine Organisation' }}</p>
-        <p>abgesagt</p>
-        <p>Ort</p>
+            <div class="max-w-6xl min-h-screen pb-24 mx-auto bg-gray-100 shadow-md">
+                <h2>
+                    {{ $event->name }}
+                </h2>
+                <p>
+                    {{ $event->description }}
+                </p>
+                <p>{{ $event->start_date }}</p>
+                <p>{{ $event->organisation ?? 'keine Organisation' }}</p>
+                <p>abgesagt</p>
+                <p>Ort</p>
 
-    </div>
-    </div> --}}
+            </div>
+        </div> --}}
 
-    <!--
+        <!--
       This example requires Tailwind CSS v2.0+ 
       
       This example requires some changes to your config:
@@ -205,70 +194,70 @@
       }
       ```
     -->
-    <x-footer>
-    </x-footer>
+        <x-footer>
+        </x-footer>
 </x-layout.main>
 
 {{-- <x-layouts.main>
     <x-slot name="header">
         Straße {{ $street->name }}
-</x-slot>
+    </x-slot>
 
-<div class="px-4 mx-auto mt-16 sm:px-6 lg:px-8 max-w-7xl">
-    <div class="overflow-hidden bg-white rounded-lg shadow-lg">
-        <nav class="overflow-y-auto" style="max-height: 40rem;" aria-label="Directory">
-            @foreach($street->pickupItems()->groupBy(fn($item) => $item['date']) as $key => $items)
-            <div class="relative">
-                <div
-                    class="sticky top-0 z-10 px-6 py-1 text-sm font-medium text-gray-500 border-t border-b border-gray-200 bg-gray-50">
-                    <h3>{{ \Carbon\Carbon::parse($key)->isoFormat('LL') }}</h3>
+    <div class="px-4 mx-auto mt-16 sm:px-6 lg:px-8 max-w-7xl">
+        <div class="overflow-hidden bg-white rounded-lg shadow-lg">
+            <nav class="overflow-y-auto" style="max-height: 40rem;" aria-label="Directory">
+                @foreach($street->pickupItems()->groupBy(fn($item) => $item['date']) as $key => $items)
+                <div class="relative">
+                    <div
+                        class="sticky top-0 z-10 px-6 py-1 text-sm font-medium text-gray-500 border-t border-b border-gray-200 bg-gray-50">
+                        <h3>{{ \Carbon\Carbon::parse($key)->isoFormat('LL') }}</h3>
+                    </div>
+                    <ul class="relative z-0 divide-y divide-gray-200">
+
+                        @foreach($items as $item)
+                        <li class="bg-white">
+                            <div
+                                class="relative flex items-center px-6 py-5 space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+                                <div class="flex-shrink-0">
+                                    @switch($item->type)
+                                    @case('organic')
+                                    <div class="w-10 h-10 bg-green-500 rounded-full"></div>
+                                    @break
+
+                                    @case('paper')
+                                    <div class="w-10 h-10 bg-blue-500 rounded-full"></div>
+                                    @break
+
+                                    @case('residual')
+                                    <div class="w-10 h-10 bg-gray-500 rounded-full"></div>
+                                    @break
+
+                                    @case('plastic')
+                                    <div class="w-10 h-10 bg-yellow-500 rounded-full"></div>
+                                    @break
+
+                                    @endswitch
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <a href="#" class="focus:outline-none">
+                                        <!-- Extend touch target to entire panel -->
+                                        <span class="absolute inset-0" aria-hidden="true"></span>
+                                        <p class="text-sm font-medium text-gray-900">
+                                            {{ __('rubbish-types.' . $item->type) }}
+                                        </p>
+                                        <p class="text-sm text-gray-500 truncate">
+                                            {{ \Carbon\Carbon::parse($item->date)->isoFormat('LL') }}
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
-                <ul class="relative z-0 divide-y divide-gray-200">
-
-                    @foreach($items as $item)
-                    <li class="bg-white">
-                        <div
-                            class="relative flex items-center px-6 py-5 space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                            <div class="flex-shrink-0">
-                                @switch($item->type)
-                                @case('organic')
-                                <div class="w-10 h-10 bg-green-500 rounded-full"></div>
-                                @break
-
-                                @case('paper')
-                                <div class="w-10 h-10 bg-blue-500 rounded-full"></div>
-                                @break
-
-                                @case('residual')
-                                <div class="w-10 h-10 bg-gray-500 rounded-full"></div>
-                                @break
-
-                                @case('plastic')
-                                <div class="w-10 h-10 bg-yellow-500 rounded-full"></div>
-                                @break
-
-                                @endswitch
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <a href="#" class="focus:outline-none">
-                                    <!-- Extend touch target to entire panel -->
-                                    <span class="absolute inset-0" aria-hidden="true"></span>
-                                    <p class="text-sm font-medium text-gray-900">
-                                        {{ __('rubbish-types.' . $item->type) }}
-                                    </p>
-                                    <p class="text-sm text-gray-500 truncate">
-                                        {{ \Carbon\Carbon::parse($item->date)->isoFormat('LL') }}
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    @endforeach
-                </ul>
-            </div>
-            @endforeach
-        </nav>
+                @endforeach
+            </nav>
+        </div>
     </div>
-</div>
 
 </x-layouts.main> --}}

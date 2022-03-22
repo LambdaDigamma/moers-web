@@ -148,58 +148,6 @@
                                             {!! nl2br($event->description) !!}
                                         </dd>
                                     </div>
-                                    {{-- <div class="sm:col-span-2">
-                                        <dt class="text-sm font-medium text-gray-500">
-                                            Attachments
-                                        </dt>
-                                        <dd class="mt-1 text-sm text-gray-900">
-                                            <ul class="border border-gray-200 divide-y divide-gray-200 rounded-md">
-                                                <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-                                                    <div class="flex items-center flex-1 w-0">
-                                                        <!-- Heroicon name: solid/paper-clip -->
-                                                        <svg class="flex-shrink-0 w-5 h-5 text-gray-400"
-                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                            fill="currentColor" aria-hidden="true">
-                                                            <path fill-rule="evenodd"
-                                                                d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
-                                                                clip-rule="evenodd" />
-                                                        </svg>
-                                                        <span class="flex-1 w-0 ml-2 truncate">
-                                                            resume_front_end_developer.pdf
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex-shrink-0 ml-4">
-                                                        <a href="#"
-                                                            class="font-medium text-blue-600 hover:text-blue-500">
-                                                            Download
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-                                                    <div class="flex items-center flex-1 w-0">
-                                                        <!-- Heroicon name: solid/paper-clip -->
-                                                        <svg class="flex-shrink-0 w-5 h-5 text-gray-400"
-                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                            fill="currentColor" aria-hidden="true">
-                                                            <path fill-rule="evenodd"
-                                                                d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
-                                                                clip-rule="evenodd" />
-                                                        </svg>
-                                                        <span class="flex-1 w-0 ml-2 truncate">
-                                                            coverletter_front_end_developer.pdf
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex-shrink-0 ml-4">
-                                                        <a href="#"
-                                                            class="font-medium text-blue-600 hover:text-blue-500">
-                                                            Download
-                                                        </a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </dd>
-                                    </div> --}}
                                 </dl>
                             </div>
                             <div>
@@ -274,32 +222,5 @@
             </div>
         </main>
     </div>
-
-    {{-- <div class="min-h-screen bg-gray-200">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-4 gap-6">
-                <div class="col-span-3 py-10 bg-white">
-
-                </div>
-                <div class="col-span-1 py-10 bg-white">
-
-                </div>
-            </div>
-        </div>
-        <div class="max-w-6xl min-h-screen pb-24 mx-auto bg-gray-100 shadow-md">
-            <h2>
-                {{ $event->name }}
-    </h2>
-    <p>
-        {{ $event->description }}
-    </p>
-    <p>{{ $event->start_date }}</p>
-    <p>{{ $event->organisation ?? 'keine Organisation' }}</p>
-    <p>abgesagt</p>
-    <p>Ort</p>
-
-    </div>
-    </div> --}}
-    <x-footer></x-footer>
 
 </x-layout.main>

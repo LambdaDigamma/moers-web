@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full bg-grey-100" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="h-full bg-grey-100 scroll-smooth" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
 
@@ -32,15 +32,20 @@
 
     {{ vite_assets() }}
 
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+    <script defer src="https://unpkg.com/alpinejs@3.9.1/dist/cdn.min.js"></script>
     <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
 
+    @livewireStyles
 </head>
 
-<body class="font-sans antialiased text-gray-900 dark:bg-gray-800">
+<body class="flex flex-col h-full font-sans antialiased text-gray-900 bg-gray-100">
+    <div class="flex-1 grow">
+        {{ $slot }}
 
-    {{ $slot }}
+    </div>
+    <x-footer></x-footer>
 
+    @livewireScripts
 </body>
 
 </html>

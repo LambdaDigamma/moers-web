@@ -11,9 +11,11 @@
 |
 */
 
+use App\Http\Controllers\MarketingController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PetrolController;
 use App\Http\Controllers\RubbishController;
+use App\Http\Controllers\Web\EventController;
 use App\Http\Controllers\Web\ParkingAreaController;
 
 Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
@@ -59,13 +61,11 @@ Route::group([
 ], function () {
 
     Route::get('/')->name('landingPage')->uses('LandingPageController');
-    Route::get('/veranstaltungen', function () {
-        return "veranstaltungen";
-    })->name('events.index');
 
-    Route::get('/app', function () {
-        return view('pages.app');
-    });
+    Route::get('/veranstaltungen', [EventController::class, 'index'])->name('events.index');
+    Route::get('/veranstaltungen/{event}', [EventController::class, 'show'])->name('events.show');
+
+    Route::get('/app', [MarketingController::class, 'app'])->name('marketing.app');
 
     Route::get('/notifications')->name('notifications')->uses('ProfileController@notifications')->middleware('auth');
     Route::get('/profile')->name('profile')->uses('ProfileController@details')->middleware('auth');
@@ -94,9 +94,6 @@ Route::group([
     Route::get('/organisations/{organisation}/events/{event}')->name('organisations.event.show')->uses('OrganisationController@event');
 
     Route::post('/conversations/{conversation}/readMessage')->name('conversations.readMessage')->uses('ConversationController@sendReadMessage')->middleware(['auth']);
-
-    // Route::get('/events')->name('events.index')->uses('EventController@index');
-    Route::get('/veranstaltungen/{event}')->name('events.show')->uses('EventController@show');
 
     Route::get('/entries/{selectedEntry?}')->name('entries.index')->uses('EntryController@index');
     Route::get('/forms/students')->name('forms.student')->uses('FormController@student')->middleware('auth');

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Event;
+use App\Models\RubbishStreet;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Spatie\Sitemap\Sitemap;
@@ -56,41 +57,64 @@ class GenerateSitemap extends Command
                 ->setLastModificationDate(Carbon::now())
                 ->setPriority(1.0)
         );
-            // ->add(Url::create('/de')
-            //     ->setLastModificationDate(Carbon::now())
-            //     ->setPriority(1.0)
-            // )
-            // ->add(Url::create('/en')
-            //     ->setLastModificationDate(Carbon::now())
-            //     ->setPriority(1.0)
-            // );
 
-        $sitemap->add(Url::create('/events'));
-
-        $events = Event::query()
-            ->upcoming()->chronological()->get();
-
-        $events->each(function ($event) use ($sitemap) {
-            $sitemap->add(Url::create("/events/{$event->id}"));
-        });
-        
-
-
-        // $pages = Page::all();
-        // $pages->each(function ($page) use ($sitemap) {
-
-        //     $deSlug = "de/" . $page->getTranslation('slug', 'de');
-        //     $enSlug = "en/" . $page->getTranslation('slug', 'en');
-
-        //     $sitemap
-        //         ->add(Url::create($deSlug)
-        //             ->setLastModificationDate($page->updated_at)
-        //         )
-        //         ->add(Url::create($enSlug)
-        //             ->setLastModificationDate($page->updated_at)
-        //         );
-        // });
+        $this->addEvents($sitemap);
+        $this->addRubbish($sitemap);
         
         $sitemap->writeToFile(public_path('sitemap.xml'));
+    }
+
+    private function addEvents(Sitemap $sitemap) 
+    {    
+        $sitemap->add(
+            Url::create('/veranstaltungen')
+                ->setLastModificationDate(Carbon::now())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+                ->setPriority(1.0)
+        );
+        
+        $events = Event::query()
+            ->upcoming()
+            ->chronological()
+            ->get();
+
+        $events->each(function ($event) use ($sitemap) {
+            $sitemap->add(
+                Url::create("/events/{$event->id}")
+                    ->setLastModificationDate($event->updated_at)
+            );
+        });
+    }
+
+    private function addRubbish(Sitemap $sitemap) 
+    {
+        $sitemap->add(
+            Url::create('/abfallkalender')
+                ->setLastModificationDate(Carbon::now())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                ->setPriority(1.0)
+        );
+
+        $rubbishStreets = RubbishStreet::query()
+            ->current()
+            ->orderBy('name')
+            ->get();
+
+        $rubbishStreets->each(function ($street) use ($sitemap) {
+            $sitemap->add(
+                Url::create("/abfallkalender/{$street->id}")
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+            );
+        });
+    }
+
+    private function addParking(Sitemap $sitemap)
+    {
+        $sitemap->add(
+            Url::create('/abfallkalender')
+                ->setLastModificationDate(Carbon::now())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_ALWAYS)
+                ->setPriority(1.0)
+        );
     }
 }

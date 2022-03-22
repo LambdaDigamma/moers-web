@@ -37,6 +37,11 @@ class ParkingArea extends StandardModel
         $query->orderByRaw("FIELD(current_opening_state, 'open', 'closed', 'unknown')");
     }
 
+    public function scopeOpen($query)
+    {
+        $query->where('current_opening_state', self::OPEN);
+    }
+
     static function openingStateFromString($openingState): string
     {
         switch ($openingState) {

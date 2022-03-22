@@ -1,6 +1,6 @@
 @props(['href' => '#'])
 
-<a href="{{ $href }}" {{ $attributes->merge(['class' => 'block focus:outline-none']) }}>
+<a href="{{ $href }}" target="_blank" {{ $attributes->merge(['class' => 'block focus:outline-none']) }}>
     <span class="sr-only">Download on the AppStore</span>
     <svg id="livetype" xmlns="http://www.w3.org/2000/svg" width="119.66407" height="40" viewBox="0 0 119.66407 40">
         <title>Download</title>

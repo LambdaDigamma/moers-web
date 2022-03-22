@@ -1,5 +1,20 @@
 <?php
 
-uses(Tests\TestCase::class)->in('Feature');
-uses(Tests\TestCase::class)->in('Unit');
-uses(Tests\TestCase::class)->in('Integration');
+uses(Tests\TestCase::class)
+    ->beforeEach(function () { 
+        ray()->newScreen($this->getName()); 
+    })
+    ->in('Feature');
+    
+uses(Tests\TestCase::class)
+    ->beforeEach(function () { 
+        ray()->newScreen($this->getName()); 
+    })
+    ->in('Unit');
+
+uses(Tests\TestCase::class)
+    ->beforeEach(function () { 
+        ray()->newScreen($this->getName()); 
+    })
+    ->in('Integration');
+

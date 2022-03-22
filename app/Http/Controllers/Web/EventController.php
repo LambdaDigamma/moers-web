@@ -19,11 +19,11 @@ class EventController extends Controller
 
     public function index()
     {
-        return Inertia::render('Event/Index', [
-            'todayEvents' => AdvEvent::with('organisation')->published()->active()->chronological()->get(),
-            'todayUpcoming' => AdvEvent::with('organisation')->published()->today()->chronological()->upcomingToday()->get(),
-            'nextUpcoming' => AdvEvent::with('organisation')->published()->nextDays()->chronological()->get()
-        ]);
+        $todayEvents = AdvEvent::with('organisation')->published()->active()->chronological()->get();
+        $todayUpcoming = AdvEvent::with('organisation')->published()->today()->chronological()->upcomingToday()->get();
+        $nextUpcoming = AdvEvent::with('organisation')->published()->nextDays()->chronological()->get();
+
+        return view('pages.events.index');
     }
 
     public function show(Event $event)

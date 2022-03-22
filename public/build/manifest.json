@@ -60,7 +60,7 @@
       "resources/js/Pages/Admin/Datasets/Resources/ResourceGeneralForm.vue"
     ],
     "css": [
-      "assets/app.a1471784.css"
+      "assets/app.3477446f.css"
     ]
   },
   "_vendor.f8bd942e.js": {
@@ -848,7 +848,7 @@
       "_FlashMessages.fa6a8e36.js"
     ],
     "css": [
-      "assets/Edit.8a91a68c.css"
+      "assets/Edit.23f953fa.css"
     ]
   },
   "resources/js/Pages/Admin/Pages/Index.vue": {

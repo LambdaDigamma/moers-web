@@ -1,9 +1,10 @@
 <?php
 // @formatter:off
+// phpcs:ignoreFile
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.79.0.
+ * Generated for Laravel 8.83.5.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -2337,6 +2338,30 @@
                         return $instance->compileString($value);
         }
                     /**
+         * Evaluate and render a Blade string to HTML.
+         *
+         * @param string $string
+         * @param array $data
+         * @param bool $deleteCachedView
+         * @return string 
+         * @static 
+         */ 
+        public static function render($string, $data = [], $deleteCachedView = false)
+        {
+                        return \Illuminate\View\Compilers\BladeCompiler::render($string, $data, $deleteCachedView);
+        }
+                    /**
+         * Render a component instance to HTML.
+         *
+         * @param \Illuminate\View\Component $component
+         * @return string 
+         * @static 
+         */ 
+        public static function renderComponent($component)
+        {
+                        return \Illuminate\View\Compilers\BladeCompiler::renderComponent($component);
+        }
+                    /**
          * Strip the parentheses from the given expression.
          *
          * @param string $expression
@@ -3905,8 +3930,30 @@
          */ 
         public static function flush()
         {
-                        /** @var \Illuminate\Cache\ArrayStore $instance */
+                        /** @var \Illuminate\Cache\FileStore $instance */
                         return $instance->flush();
+        }
+                    /**
+         * Get the Filesystem instance.
+         *
+         * @return \Illuminate\Filesystem\Filesystem 
+         * @static 
+         */ 
+        public static function getFilesystem()
+        {
+                        /** @var \Illuminate\Cache\FileStore $instance */
+                        return $instance->getFilesystem();
+        }
+                    /**
+         * Get the working directory of the cache.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getDirectory()
+        {
+                        /** @var \Illuminate\Cache\FileStore $instance */
+                        return $instance->getDirectory();
         }
                     /**
          * Get the cache key prefix.
@@ -3916,7 +3963,7 @@
          */ 
         public static function getPrefix()
         {
-                        /** @var \Illuminate\Cache\ArrayStore $instance */
+                        /** @var \Illuminate\Cache\FileStore $instance */
                         return $instance->getPrefix();
         }
                     /**
@@ -3930,7 +3977,7 @@
          */ 
         public static function lock($name, $seconds = 0, $owner = null)
         {
-                        /** @var \Illuminate\Cache\ArrayStore $instance */
+                        /** @var \Illuminate\Cache\FileStore $instance */
                         return $instance->lock($name, $seconds, $owner);
         }
                     /**
@@ -3943,7 +3990,7 @@
          */ 
         public static function restoreLock($name, $owner)
         {
-                        /** @var \Illuminate\Cache\ArrayStore $instance */
+                        /** @var \Illuminate\Cache\FileStore $instance */
                         return $instance->restoreLock($name, $owner);
         }
          
@@ -7422,6 +7469,10 @@
             /**
      * 
      *
+     * @method static void alwaysFrom(string $address, string|null $name = null)
+     * @method static void alwaysReplyTo(string $address, string|null $name = null)
+     * @method static void alwaysReturnPath(string $address)
+     * @method static void alwaysTo(string $address, string|null $name = null)
      * @method static mixed laterOn(string $queue, \DateTimeInterface|\DateInterval|int $delay, \Illuminate\Contracts\Mail\Mailable|string|array $view)
      * @method static mixed queueOn(string $queue, \Illuminate\Contracts\Mail\Mailable|string|array $view)
      * @method static void plain(string $view, array $data, $callback)
@@ -8489,7 +8540,7 @@
                     /**
          * Push a new job onto the queue.
          *
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @param string|null $queue
          * @return mixed 
@@ -8518,7 +8569,7 @@
          * Push a new job onto the queue after a delay.
          *
          * @param \DateTimeInterface|\DateInterval|int $delay
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @param string|null $queue
          * @return mixed 
@@ -8533,7 +8584,7 @@
          * Push a new job onto the queue.
          *
          * @param string $queue
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @return mixed 
          * @static 
@@ -8548,7 +8599,7 @@
          *
          * @param string $queue
          * @param \DateTimeInterface|\DateInterval|int $delay
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @return mixed 
          * @static 
@@ -11374,6 +11425,7 @@
      * 
      *
      * @method static \Illuminate\Routing\RouteRegistrar as(string $value)
+     * @method static \Illuminate\Routing\RouteRegistrar controller(string $controller)
      * @method static \Illuminate\Routing\RouteRegistrar domain(string $value)
      * @method static \Illuminate\Routing\RouteRegistrar middleware(array|string|null $middleware)
      * @method static \Illuminate\Routing\RouteRegistrar name(string $value)
@@ -22630,7 +22682,7 @@ namespace  {
                 /**
              * Query lazily, by chunking the results of a query by comparing IDs.
              *
-             * @param int $count
+             * @param int $chunkSize
              * @param string|null $column
              * @param string|null $alias
              * @return \Illuminate\Support\LazyCollection 
@@ -22646,7 +22698,7 @@ namespace  {
                 /**
              * Query lazily, by chunking the results of a query by comparing IDs in descending order.
              *
-             * @param int $count
+             * @param int $chunkSize
              * @param string|null $column
              * @param string|null $alias
              * @return \Illuminate\Support\LazyCollection 

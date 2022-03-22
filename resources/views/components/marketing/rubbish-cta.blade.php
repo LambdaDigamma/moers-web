@@ -5,11 +5,11 @@
         <div class="overflow-hidden bg-green-700 rounded-lg shadow-xl lg:grid lg:grid-cols-2 lg:gap-4">
             <div class="px-6 pt-10 pb-12 sm:pt-16 sm:px-16 lg:py-16 lg:pr-0 xl:py-20 xl:px-20">
                 <div class="lg:self-center">
-                    <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                    <h2 class="text-2xl font-extrabold text-white sm:text-4xl">
                         <span class="block">Du vergisst auch manchmal den Müll?</span>
                         <span class="block">Mein Moers hilft Dir!</span>
                     </h2>
-                    <p class="mt-4 text-lg leading-6 text-green-200">
+                    <p class="mt-4 leading-6 text-green-200 md:text-lg">
                         Die App Mein Moers sendet Dir für Deine Straße am Tag vor der Leerung eine
                         Erinnerung, den
                         richtigen Müll an die Straße zu bringen.

@@ -12,16 +12,18 @@
         <main class="py-10">
             <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
 
-                <h2 class="text-xl font-bold text-gray-900">
-                    Freie Parkplätze in Moers
-                </h2>
+                <div class="flex flex-row justify-between">
+                    <h2 class="text-xl font-bold text-gray-900">
+                        Freie Parkplätze in Moers
+                    </h2>
+                </div>
 
-                <div class="grid grid-cols-1 gap-6 mt-6 lg:grid-cols-3">
+                <div class="grid grid-cols-1 gap-6 mt-6 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($parkingAreas as $parkingArea)
                     <div class="overflow-hidden bg-white rounded-lg shadow">
-                        <div class="px-4 py-5 sm:p-5">
+                        <div class="px-4 py-5 lg:p-5">
                             <div class="flex flex-row items-start justify-between space-x-3">
-                                <h3 class="text-lg font-semibold">
+                                <h3 class="text-lg font-semibold truncate">
                                     {{ $parkingArea->name }}
                                 </h3>
                                 <div>
@@ -71,28 +73,6 @@
                     </div>
                     @endforeach
                 </div>
-                {{-- <div class="overflow-hidden bg-white rounded-lg shadow-lg">
-                    <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
-                        <div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-nowrap">
-                            <div class="mt-4 ml-4">
-                                <div class="flex items-center">
-                                    <div>
-                                        <h2 class="text-lg font-medium leading-6 text-gray-900">
-                                            Parken in Moers
-                                        </h2>
-                                        <p class="text-sm text-gray-500">
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="overflow-hidden bg-white">
-
-                    </div>
-                </div> --}}
             </div>
         </main>
-        <x-footer>
-        </x-footer>
 </x-layout.main>
