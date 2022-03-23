@@ -43,7 +43,9 @@
         {{ $slot }}
 
     </div>
+    @if (! $hide)
     <x-footer></x-footer>
+    @endif
 
     @livewireScripts
     @livewire('livewire-ui-modal')

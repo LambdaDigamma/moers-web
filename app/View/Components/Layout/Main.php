@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class Main extends Component
 {
+    public $hide = false;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(bool $hide = false)
     {
-        //
+        $this->hide = $hide;
     }
 
     /**

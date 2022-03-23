@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -12,17 +13,23 @@ class LegalController extends Controller
 
     public function privacy()
     {
-        return Inertia::render('Legal/Privacy');
+        SEOTools::setTitle('Datenschutz');
+
+        return view('legal.privacy');
     }
 
     public function tac()
     {
-        return Inertia::render('Legal/TermsAndConditions');
+        SEOTools::setTitle('AGBs');
+
+        return view('legal.tac');
     }
 
     public function imprint()
     {
-        return Inertia::render('Legal/Imprint');
+        SEOTools::setTitle('Impressum');
+
+        return view('legal.imprint');
     }
 
 }

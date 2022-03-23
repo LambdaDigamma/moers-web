@@ -11,15 +11,20 @@
     </x-regular-navigation-bar>
     <x-container regular fluidmobile>
         <div class="grid grid-cols-1 gap-6 pb-8 sm:pt-12 sm:grid-cols-2 md:grid-cols-3">
-            <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+            <x-card>
                 <div class="overflow-hidden border-t border-l border-r border-gray-200 sm:rounded-t-lg">
                     <img src="{{ $parkingArea->getFirstMediaUrl('snapshot_light') }}" alt="Map" height="400" width="600"
                         class="overflow-hidden" />
                 </div>
                 <div class="flex items-center justify-between px-4 py-4 border-t border-gray-200 grow-0 sm:px-6">
-                    <h2 class="text-base font-semibold text-gray-900 truncate">
-                        {{ $parkingArea->name }}
-                    </h2>
+                    <div>
+                        <p class="text-xs font-semibold tracking-wider text-blue-500 uppercase">
+                            Parkplatz
+                        </p>
+                        <h2 class="text-base font-semibold text-gray-900 truncate">
+                            {{ $parkingArea->name }}
+                        </h2>
+                    </div>
                     <div>
                         <button
                             onclick='Livewire.emit("openModal", "navigation-panel", {{ json_encode(["lat" => $lat, "lng" => $lng]) }})'
@@ -30,50 +35,44 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </x-card>
 
             <div class="px-4 py-5 overflow-hidden bg-white shadow sm:rounded-lg sm:p-6">
-                @if ($parkingArea->isOpen())
-                <span
-                    class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800">
-                    Geöffnet
-                </span>
-                @elseif($parkingArea->isClosed())
-                <span
-                    class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800">
-                    Geschlossen
-                </span>
-                @else
-                <span
-                    class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
-                    Unbekannt
-                </span>
-                @endif
-
-                <p>
-                    <span class="text-xl font-semibold">
-                        {{ $parkingArea->freeSites() }}
-                    </span>
-                    <span class="text-sm font-medium text-gray-500"> / </span>
-                    <span class="text-sm font-medium text-gray-500">
-                        {{ $parkingArea->capacity }}
-                    </span>
-                </p>
-                <p class="text-xs text-gray-500">
-                    @if ($parkingArea->updated_at)
-                    {{ $parkingArea->updated_at->timezone('Europe/Berlin')->diffForHumans() }}
-                    @endif
-                </p>
-            </div>
-            <div class="overflow-hidden bg-white divide-y divide-gray-200 shadow sm:rounded-lg md:col-span-3">
-                <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">Belegung in den letzten 24 Stunden</h3>
-                    <p class="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit quam
-                        corrupti
-                        consectetur.</p>
+                <div class="flex flex-row justify-between">
+                    <div>
+                        <p>
+                            <span class="text-xl font-semibold md:text-2xl">
+                                {{ $parkingArea->freeSites() }}
+                            </span>
+                            <span class="text-sm font-medium text-gray-500 md:text-2xl"> / </span>
+                            <span class="text-sm font-medium text-gray-500 md:text-2xl">
+                                {{ $parkingArea->capacity }}
+                            </span>
+                        </p>
+                        <p class="text-xs text-gray-500 md:text-sm">
+                            @if ($parkingArea->updated_at)
+                            {{ $parkingArea->updated_at->timezone('Europe/Berlin')->diffForHumans() }}
+                            @endif
+                        </p>
+                    </div>
+                    <x-location.opening-state :state="$parkingArea->current_opening_state" />
                 </div>
-                <div class="px-4 py-5 sm:p-6">
-                    <div class="relative flex items-end justify-between space-x-2 h-80">
+
+                <x-location.opening-hours class="mt-4 border-t border-b border-gray-100">
+
+                </x-location.opening-hours>
+            </div>
+            <div class="flex flex-col overflow-hidden bg-white shadow sm:rounded-lg md:col-span-1">
+                <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">Belegung in den letzten 24h</h3>
+                    {{-- <p class="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit
+                        quam
+                        corrupti
+                        consectetur.
+                    </p> --}}
+                </div>
+                <div class="px-4 py-5 sm:p-6 grow">
+                    <div class="relative flex items-end justify-between h-full space-x-2 min-h-[5rem]">
                         @foreach ($pastOccupancy['data'] as $occupancy)
                         <div class="bg-blue-500 rounded-lg grow"
                             style="height: {{ $occupancy->occupancy_rate * 100 }}%">

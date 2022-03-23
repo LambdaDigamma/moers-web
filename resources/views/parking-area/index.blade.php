@@ -27,24 +27,7 @@
                                 <h3 class="text-lg font-semibold truncate">
                                     {{ $parkingArea->name }}
                                 </h3>
-                                <div>
-                                    @if ($parkingArea->isOpen())
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800">
-                                        Geöffnet
-                                    </span>
-                                    @elseif($parkingArea->isClosed())
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800">
-                                        Geschlossen
-                                    </span>
-                                    @else
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
-                                        Unbekannt
-                                    </span>
-                                    @endif
-                                </div>
+                                <x-location.opening-state :state="$parkingArea->current_opening_state" />
                             </div>
                             <div class="flex flex-row items-end justify-between space-x-3">
                                 <div>

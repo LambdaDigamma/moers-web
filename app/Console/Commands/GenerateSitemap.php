@@ -58,6 +58,18 @@ class GenerateSitemap extends Command
                 ->setLastModificationDate(Carbon::now())
                 ->setPriority(1.0)
         );
+        $sitemap->add(
+            Url::create('/legal/privacy')
+                ->setPriority(0.1)
+        );
+        $sitemap->add(
+            Url::create('/legal/imprint')
+                ->setPriority(0.1)
+        );
+        $sitemap->add(
+            Url::create('/legal/tac')
+                ->setPriority(0.1)
+        );
 
         $this->addEvents($sitemap);
         $this->addRubbish($sitemap);
