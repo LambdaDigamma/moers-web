@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class WebSnapshot {
+class AppleMapSnapshot {
 	public static $snapshotBaseUrl = 'https://snapshot.apple-mapkit.com';
 	public static $snapshotPath = '/api/v1/snapshot';
 	public static $jsonParams = [
@@ -22,7 +22,7 @@ class WebSnapshot {
     {
         $teamId = config('services.apple.team');
         $keyId = config('services.apple.maps_key_id');
-        $private_key = config('services.apple.maps_key');
+        $privateKey = config('services.apple.maps_key');
 
 		foreach (static::$jsonParams as $param) {
 			if (isset($additionalParams[$param])) {
@@ -38,7 +38,7 @@ class WebSnapshot {
 
 		$request_uri = static::$snapshotPath . '?' . http_build_query($params);
 
-		if (!$key = openssl_pkey_get_private($private_key)) {
+		if (!$key = openssl_pkey_get_private($privateKey)) {
 			return false;
 		}
         

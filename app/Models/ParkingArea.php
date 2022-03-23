@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class ParkingArea extends StandardModel
+class ParkingArea extends StandardModel implements HasMedia
 {
     use HasFactory;
     use SpatialTrait;
+    use InteractsWithMedia;
 
     const OPEN = "open";
     const CLOSED = "closed";
@@ -18,6 +21,12 @@ class ParkingArea extends StandardModel
     protected $spatialFields = [
         'location',
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('snapshot_light')->singleFile();
+        $this->addMediaCollection('snapshot_dark')->singleFile();
+    }
 
     public function isOpen()
     {

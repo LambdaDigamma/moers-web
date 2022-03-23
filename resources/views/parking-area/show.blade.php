@@ -13,7 +13,8 @@
         <div class="grid grid-cols-1 gap-6 pb-8 sm:pt-12 sm:grid-cols-2 md:grid-cols-3">
             <div class="overflow-hidden bg-white shadow sm:rounded-lg">
                 <div class="overflow-hidden border-t border-l border-r border-gray-200 sm:rounded-t-lg">
-                    <img src="{{ $imageUrl }}" alt="Map" height="400" width="600" class="overflow-hidden" />
+                    <img src="{{ $parkingArea->getFirstMediaUrl('snapshot_light') }}" alt="Map" height="400" width="600"
+                        class="overflow-hidden" />
                 </div>
                 <div class="flex items-center justify-between px-4 py-4 border-t border-gray-200 grow-0 sm:px-6">
                     <h2 class="text-base font-semibold text-gray-900 truncate">

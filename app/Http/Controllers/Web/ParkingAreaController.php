@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\ParkingArea;
 use App\Services\NavigationLinkBuilder;
-use App\Services\WebSnapshot;
+use App\Services\AppleMapSnapshot;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +46,7 @@ class ParkingAreaController extends Controller
         $lat = $parkingArea->location->getLat();
         $lng = $parkingArea->location->getLng();
         
-        $url = WebSnapshot::signedURL('auto', [
+        $url = AppleMapSnapshot::signedURL('auto', [
             'z' => '13',
             'lang' => 'de-DE',
             'scale' => 2,
