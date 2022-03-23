@@ -10,13 +10,10 @@
         </x-slot>
     </x-regular-navigation-bar>
     <x-container regular fluidmobile>
-        <div class="grid grid-cols-1 gap-6 sm:pt-12 sm:grid-cols-2 md:grid-cols-3">
+        <div class="grid grid-cols-1 gap-6 pb-8 sm:pt-12 sm:grid-cols-2 md:grid-cols-3">
             <div class="overflow-hidden bg-white shadow sm:rounded-lg">
                 <div class="overflow-hidden border-t border-l border-r border-gray-200 sm:rounded-t-lg">
                     <img src="{{ $imageUrl }}" alt="Map" height="400" width="600" class="overflow-hidden" />
-                    {{-- <div class="absolute top-0 left-0 right-0 p-4 bg-gradient-to-t from-transparent to-gray-400">
-
-                    </div> --}}
                 </div>
                 <div class="flex items-center justify-between px-4 py-4 border-t border-gray-200 grow-0 sm:px-6">
                     <h2 class="text-base font-semibold text-gray-900 truncate">
@@ -24,6 +21,7 @@
                     </h2>
                     <div>
                         <button
+                            onclick='Livewire.emit("openModal", "navigation-panel", {{ json_encode(["lat" => $lat, "lng" => $lng]) }})'
                             class="border border-transparent inline-flex p-2 px-3 text-blue-500 rounded-full bg-blue-50 space-x-1.5 items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             title="Navigation starten">
                             <span class="text-xs font-semibold">Navigation</span>
@@ -31,8 +29,6 @@
                         </button>
                     </div>
                 </div>
-                {{-- <div class="w-full h-32 bg-gray-200 rounded-md"></div> --}}
-                {{-- <x-button>Navigation starten</x-button> --}}
             </div>
 
             <div class="px-4 py-5 overflow-hidden bg-white shadow sm:rounded-lg sm:p-6">

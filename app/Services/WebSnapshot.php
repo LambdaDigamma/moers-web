@@ -15,7 +15,7 @@ class WebSnapshot {
 	 * Generates a signed URL to an Apple Maps snapshot image.
 	 *
 	 * @param string $center The center of the map, specified as either coordinates or an address
-	 * @param array $additionalParams A keyed array of any additional map parameters; JSON parameters will be automatically encoded
+	 * @param array $additionalParams A keyed array of any additional map parameters; JSON parameters will be encoded automatically
 	 * @return false|string
 	 */
 	public static function signedURL($center, $additionalParams = []) 

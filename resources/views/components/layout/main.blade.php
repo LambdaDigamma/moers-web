@@ -46,6 +46,7 @@
     <x-footer></x-footer>
 
     @livewireScripts
+    @livewire('livewire-ui-modal')
 </body>
 
 </html>
