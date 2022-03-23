@@ -50,6 +50,7 @@ Route::get('/home', HomeController::class)->name('home');
 Route::get('/abfallkalender', [RubbishController::class, 'index'])->name('rubbish.index');
 Route::get('/abfallkalender/{street}', [RubbishController::class, 'show'])->name('rubbish.show');
 
+Route::get('/parken/{slug}', [ParkingAreaController::class, 'show'])->name('parking-area.show');
 Route::get('/parken', [ParkingAreaController::class, 'index'])->name('parking-area.index');
 
 Route::get('/kraftstoff', [PetrolController::class, 'index'])->name('petrol.index');

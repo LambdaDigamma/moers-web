@@ -20,7 +20,8 @@
 
                 <div class="grid grid-cols-1 gap-6 mt-6 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($parkingAreas as $parkingArea)
-                    <div class="overflow-hidden bg-white rounded-lg shadow">
+                    <a href="{{ route('parking-area.show', $parkingArea->slug) }}"
+                        class="block overflow-hidden bg-white rounded-lg shadow hover:bg-gray-50">
                         <div class="px-4 py-5 lg:p-5">
                             <div class="flex flex-row items-start justify-between space-x-3">
                                 <h3 class="text-lg font-semibold truncate">
@@ -53,7 +54,6 @@
                                     <p>
                                         <span class="text-xl font-semibold">
                                             {{ $parkingArea->freeSites() }}
-
                                         </span>
                                         <span class="text-sm font-medium text-gray-500"> / </span>
                                         <span class="text-sm font-medium text-gray-500">
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     @endforeach
                 </div>
             </div>

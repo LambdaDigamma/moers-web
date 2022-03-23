@@ -20,7 +20,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32">
     <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96">
-    <link rel="icon" type="image/svg+xml" href="svg/mm.svg" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="/svg/mm.svg" sizes="any">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
     <!-- Fonts -->

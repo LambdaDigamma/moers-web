@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
+use Illuminate\Support\Str;
 
 class ParkingArea extends StandardModel
 {
@@ -28,7 +29,8 @@ class ParkingArea extends StandardModel
         return $this->current_opening_state == self::CLOSED;
     }
 
-    public function freeSites(): int {
+    public function freeSites(): int 
+    {
         return ($this->capacity ?? 0) - ($this->occupied_sites ?? 0);
     }
 
@@ -63,5 +65,10 @@ class ParkingArea extends StandardModel
             default:
                 return ParkingArea::UNKNOWN;
         }
+    }
+
+    public static function createSlug($name): string
+    {
+        return Str::slug($name, '-');
     }
 }

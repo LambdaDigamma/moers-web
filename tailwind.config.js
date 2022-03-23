@@ -91,6 +91,5 @@ module.exports = {
         require("@tailwindcss/aspect-ratio"),
         require("@tailwindcss/forms"),
         require("@tailwindcss/line-clamp"),
-        require("tailwindcss-filters"),
     ],
 };

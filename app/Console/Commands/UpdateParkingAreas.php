@@ -70,6 +70,7 @@ class UpdateParkingAreas extends Command
                     ['name' => $name],
                     [
                         'name' => $name,
+                        'slug' => ParkingArea::createSlug($name),
                         'capacity' => $capacity,
                         'occupied_sites' => $occupied,
                         'current_opening_state' => $openingState,

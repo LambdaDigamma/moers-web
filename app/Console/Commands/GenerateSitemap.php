@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Event;
+use App\Models\ParkingArea;
 use App\Models\RubbishStreet;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
@@ -60,6 +61,7 @@ class GenerateSitemap extends Command
 
         $this->addEvents($sitemap);
         $this->addRubbish($sitemap);
+        $this->addParking($sitemap);
         
         $sitemap->writeToFile(public_path('sitemap.xml'));
     }
@@ -111,10 +113,19 @@ class GenerateSitemap extends Command
     private function addParking(Sitemap $sitemap)
     {
         $sitemap->add(
-            Url::create('/abfallkalender')
+            Url::create('/parken')
                 ->setLastModificationDate(Carbon::now())
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_ALWAYS)
                 ->setPriority(1.0)
         );
+        
+        $parkingAreas = ParkingArea::all();
+        $parkingAreas->each(function ($parkingArea) use ($sitemap) {
+            $sitemap->add(
+                Url::create("/parken/{$parkingArea->slug}")
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_ALWAYS)
+                    ->setLastModificationDate($parkingArea->updated_at)
+            );
+        });
     }
 }

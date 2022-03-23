@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ParkingArea;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,8 +15,10 @@ class ParkingAreaFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->streetName();
         return [
-            'name' => $this->faker->streetName(),
+            'name' => $name,
+            'slug' => ParkingArea::createSlug($name),
         ];
     }
 
