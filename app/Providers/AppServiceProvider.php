@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Charts\ParkingAreaRecentHistory;
 use App\Models\HelpRequest;
 use Bluemmb\Faker\PicsumPhotosProvider;
 use Bouncer;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 use Request;
+use ConsoleTVs\Charts\Registrar as Charts;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      * @throws BindingResolutionException
      */
-    public function boot()
+    public function boot(Charts $charts)
     {
         Schema::defaultStringLength(255);
 
@@ -42,6 +44,10 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Bouncer::ownedVia(HelpRequest::class, 'creator_id');
+
+        $charts->register([
+            ParkingAreaRecentHistory::class,
+        ]);
 
         $faker = $this->app->make(Generator::class);
         $faker->addProvider(new PicsumPhotosProvider($faker));

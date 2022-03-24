@@ -58,9 +58,9 @@
                     <x-location.opening-state :state="$parkingArea->current_opening_state" />
                 </div>
 
-                <x-location.opening-hours class="mt-4 border-t border-b border-gray-100">
+                {{-- <x-location.opening-hours class="mt-4 border-t border-b border-gray-100">
 
-                </x-location.opening-hours>
+                </x-location.opening-hours> --}}
             </div>
             <div class="flex flex-col overflow-hidden bg-white shadow sm:rounded-lg md:col-span-1">
                 <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
@@ -92,4 +92,7 @@
 
         </div>
     </x-container>
+    @push('scripts')
+        
+    @endpush
 </x-layout.main>

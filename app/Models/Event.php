@@ -88,6 +88,29 @@ class Event extends BaseEvent implements HasMedia
         $this->addMediaCollection('header');
     }
 
+    public function isActive(): bool 
+    {
+        $now = Carbon::now()->toDateTimeString();
+        $deadline = Carbon::now()
+            ->addMinutes(config('mm-events.event_active_duration') * -1)
+            ->toDateTimeString();
+
+        if (
+            $this->end_date == null && 
+            $this->start_date != null && 
+            $this->start_date <= $now && 
+            $this->start_date >= $deadline
+        ) {
+            return true;
+        }
+
+        if ($this->end_date >= $now && $this->start_date <= $now) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Returns all upcoming events that have a start date
      * which is greater than now.

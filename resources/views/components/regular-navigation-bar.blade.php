@@ -28,7 +28,8 @@
             <div class="flex items-center justify-center flex-1 sm:items-stretch sm:justify-between">
                 <div class="flex items-center flex-shrink-0">
                     <a href="{{ route('home') }}" class="inline-flex items-center space-x-3 font-bold">
-                        <img class="w-8 h-8 rounded-lg shadow-md md:h-10 md:w-10" src="/svg/mm.svg" />
+                        <img class="w-8 h-8 rounded-lg shadow-md md:h-10 md:w-10" src="/svg/mm.svg"
+                            alt="Mein Moers Icon" aria-hidden="true" />
                         <span class="md:text-lg">Mein Moers</span>
                     </a>
                 </div>

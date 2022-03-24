@@ -1,23 +1,23 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Event;
 
 use Illuminate\View\Component;
 
-use function Pest\Laravel\flushSession;
-
-class Card extends Component
+class CategoryChip extends Component
 {
-    public bool $fluid;
+    public $image;
+    public $text;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(bool $fluid = false)
+    public function __construct(?string $image, string $text)
     {
-        $this->fluid = $fluid;
+        $this->image = $image;
+        $this->text = $text;
     }
 
     /**
@@ -27,6 +27,6 @@ class Card extends Component
      */
     public function render()
     {
-        return view('components.card');
+        return view('components.event.category-chip');
     }
 }

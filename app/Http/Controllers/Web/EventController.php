@@ -19,11 +19,29 @@ class EventController extends Controller
 
     public function index()
     {
-        $todayEvents = AdvEvent::with('organisation')->published()->active()->chronological()->get();
-        $todayUpcoming = AdvEvent::with('organisation')->published()->today()->chronological()->upcomingToday()->get();
-        $nextUpcoming = AdvEvent::with('organisation')->published()->nextDays()->chronological()->get();
+        $todayEvents = Event::query()
+            ->active()
+            ->chronological()
+            ->get();
 
-        return view('pages.events.index');
+        $todayUpcoming = Event::query()
+            ->today()
+            ->chronological()
+            ->upcomingToday()
+            ->get();
+        
+        $nextUpcoming = Event::query()
+            ->nextDays()
+            ->chronological()
+            ->get();
+
+        SEOTools::setTitle('Veranstaltungen');
+
+        return view('pages.events.index', [
+            'todayEvents' => $todayEvents,
+            'todayUpcoming' => $todayUpcoming,
+            'nextUpcoming' => $nextUpcoming,
+        ]);
     }
 
     public function show(Event $event)

@@ -138,7 +138,7 @@ class LoadMoersEvents extends Command
 
                 $newEvent->name = $title;
                 $newEvent->start_date = $finalStart;
-                $newEvent->end_date = Carbon::parse($finalEnd, 'Europe/Berlin')->setTimezone('UTC');
+                $newEvent->end_date = $finalEnd != null ? Carbon::parse($finalEnd, 'Europe/Berlin')->setTimezone('UTC') : null;
                 $newEvent->url = $url;
                 $newEvent->description = trim($description);
                 $newEvent->category = $category;

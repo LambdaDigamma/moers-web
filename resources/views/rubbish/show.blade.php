@@ -124,7 +124,7 @@
                 </div>
             </div>
             <x-marketing.rubbish-cta class="py-16"></x-marketing.rubbish-cta>
-            {{-- <div class="">
+            <div class="">
                 <div class="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div class="overflow-hidden bg-green-700 rounded-lg shadow-xl lg:grid lg:grid-cols-2 lg:gap-4">
                         <div class="px-6 pt-10 pb-12 sm:pt-16 sm:px-16 lg:py-16 lg:pr-0 xl:py-20 xl:px-20">
@@ -149,53 +149,8 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </main>
-
-        {{-- <div class="min-h-screen bg-gray-200">
-            <div class="max-w-6xl mx-auto">
-                <div class="grid grid-cols-4 gap-6">
-                    <div class="col-span-3 py-10 bg-white">
-
-                    </div>
-                    <div class="col-span-1 py-10 bg-white">
-
-                    </div>
-                </div>
-            </div>
-            <div class="max-w-6xl min-h-screen pb-24 mx-auto bg-gray-100 shadow-md">
-                <h2>
-                    {{ $event->name }}
-                </h2>
-                <p>
-                    {{ $event->description }}
-                </p>
-                <p>{{ $event->start_date }}</p>
-                <p>{{ $event->organisation ?? 'keine Organisation' }}</p>
-                <p>abgesagt</p>
-                <p>Ort</p>
-
-            </div>
-        </div> --}}
-
-        <!--
-      This example requires Tailwind CSS v2.0+ 
-      
-      This example requires some changes to your config:
-      
-      ```
-      // tailwind.config.js
-      module.exports = {
-        // ...
-        plugins: [
-          // ...
-          require('@tailwindcss/aspect-ratio'),
-        ]
-      }
-      ```
-    -->
-        <x-footer>
-        </x-footer>
 </x-layout.main>
 
 {{-- <x-layouts.main>
