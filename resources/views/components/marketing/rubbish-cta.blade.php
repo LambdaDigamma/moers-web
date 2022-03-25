@@ -1,4 +1,4 @@
-@props(['show_more' => false])
+@props(['show_more' => true])
 
 <div {{ $attributes->merge(['class' => '']) }}>
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -15,7 +15,7 @@
                         richtigen Müll an die Straße zu bringen.
                     </p>
                     @if ($show_more)
-                    <a href="#"
+                    <a href="{{ route('marketing.app') }}"
                         class="inline-flex items-center px-5 py-3 mt-8 text-base font-medium text-green-600 bg-white border border-transparent rounded-md shadow hover:bg-green-50">
                         Mehr erfahren
                     </a>

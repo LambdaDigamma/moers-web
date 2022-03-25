@@ -124,4 +124,18 @@ class Event extends BaseEvent implements HasMedia
                 $query->where('start_date', '>=', Carbon::now());
             });
     }
+
+    public function scopeFilter($query, array $filters): void
+    {
+        $locale = app()->getLocale();
+        $fallback = config('app.fallback_locale', 'en');
+
+        parent::scopeFilter($query, $filters);
+
+        $query->when($filters['category'] ?? null, function ($query, $category) use ($locale, $fallback) {
+            $query
+                ->where("category->${locale}", 'like', '%' . $category . '%')
+                ->orWhere("category->${fallback}", 'like', '%' . $category . '%');
+        });
+    }
 }

@@ -8,7 +8,9 @@ use Livewire\Component;
 
 class EventsExploration extends Component
 {
-    public ?string $search = "abcd";
+    public ?string $search = null;
+    public ?string $filterCategory = null;
+    public bool $searchActive = false;
     public bool $attendance_offline = true;
     public bool $attendance_online = true;
     public bool $only_free = false;
@@ -22,20 +24,37 @@ class EventsExploration extends Component
     public function mount()
     {
         $this->generateCategories();
+        $this->loadOverview();
     }
 
     public function render()
     {
+        $this->searchActive = $this->searchActive();
         $this->filteredEvents = Event::query()
-            ->filter(['search' => $this->search])
+            ->filter([
+                'search' => $this->search,
+                'category' => $this->filterCategory,
+            ])
+            ->upcoming()
             ->get();
-
+        
         return view('livewire.events-exploration');
     }
 
     public function resetSearch()
     {
         $this->search = null;
+        $this->filterCategory = null;
+    }
+
+    public function setCategoryFilter(?string $category)
+    {
+        $this->filterCategory = $category;
+    }
+
+    public function searchActive(): bool
+    {
+        return $this->filterCategory != null || $this->search != null && $this->search != "";
     }
 
     private function loadOverview()
@@ -45,13 +64,18 @@ class EventsExploration extends Component
             ->chronological()
             ->get();
 
-        $todayUpcoming = Event::query()
-            ->today()
+        $this->todayUpcoming = Event::query()
+            ->where(function ($q) {
+                $q->today()
+                    ->upcomingToday();
+            })
+            ->orWhere(function ($q) {
+                $q->active();
+            })
             ->chronological()
-            ->upcomingToday()
             ->get();
         
-        $nextUpcoming = Event::query()
+        $this->nextUpcoming = Event::query()
             ->nextDays()
             ->chronological()
             ->get();

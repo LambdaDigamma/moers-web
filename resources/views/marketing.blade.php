@@ -3,9 +3,9 @@
         <div class="relative flex flex-col w-full bg-white">
             <div class="absolute inset-x-0 top-0 overflow-x-hidden">
                 <div class="relative px-4 py-3 md:px-4 md:py-4">
-                    <div class="flex items-center justify-between w-full md:max-w-6xl md:mx-auto md:items-center">
+                    <nav class="flex items-center justify-between w-full md:max-w-6xl md:mx-auto md:items-center">
                         <div>
-                            <a href="#" class="inline-block py-1 text-2xl font-bold text-gray-800 md:py-2">Mein
+                            <a href="/" class="inline-block py-1 text-2xl font-bold text-gray-800 md:py-2">Mein
                                 Moers</a>
                         </div>
 
@@ -15,7 +15,7 @@
                                 Herunterladen
                             </a>
                         </div>
-                    </div>
+                    </nav>
 
                     <div class="px-4 pt-16 pb-10">
                         <div class="relative w-full text-center md:max-w-2xl md:mx-auto">

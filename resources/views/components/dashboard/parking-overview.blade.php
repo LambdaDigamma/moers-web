@@ -1,7 +1,7 @@
 <x-card>
     <div class="flex flex-row items-center justify-between px-4 py-4 sm:px-4">
         <h2 id="parking-title" class="text-lg font-semibold text-gray-900">
-            Parkleitsystem
+            Freie Parkplätze
         </h2>
         <div class="relative w-6 h-6 text-white bg-blue-600 rounded-sm">
             <div class="absolute inset-0 flex flex-col items-center justify-center font-semibold">

@@ -1,7 +1,6 @@
-<a {{ $attributes->merge([
+<button {{ $attributes->merge([
     'class' => 'relative flex items-center gap-6 mx-auto overflow-hidden bg-white shadow-sm ring-1 ring-black/5
-    rounded-xl',
-    'href' => '#'
+    rounded-xl'
     ]) }}>
     <div class="absolute w-20 h-20 overflow-hidden rounded-full shadow-md -left-6">
         <img class="absolute z-0 object-cover w-full h-full" src="{{ $image }}" aria-hidden="true">
@@ -11,4 +10,4 @@
         <strong class="text-sm font-medium text-slate-900">{{ $text }}</strong>
         {{-- <span class="text-sm font-medium text-slate-500">Technical advisor</span> --}}
     </div>
-</a>
+</button>

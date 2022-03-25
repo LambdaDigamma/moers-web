@@ -23,7 +23,10 @@ class HomeController extends Controller
     {
         SEOTools::setTitle("Übersicht");
         
-        $events = Event::query()->chronological()->upcoming()->limit(20)->get();
+        $events = Event::query()->chronological()
+            ->upcomingToday()
+            ->limit(20)
+            ->get();
         $parkingAreas = Cache::remember('home_parking_state', 60, function () {
             return ParkingArea::query()
                 ->open()

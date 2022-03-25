@@ -14,6 +14,8 @@ class ParkingAreaController extends Controller
 {
     public function index()
     {
+        SEOTools::setTitle('Parkplätze');
+
         return view('parking-area.index', [
             'parkingAreas' => ParkingArea::query()
                 ->orderByOpeningState()
