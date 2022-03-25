@@ -5,21 +5,25 @@ namespace App\Http\Livewire;
 use App\Models\Event;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class EventsExploration extends Component
 {
+    use WithPagination;
+
     public ?string $search = null;
     public ?string $filterCategory = null;
     public bool $searchActive = false;
     public bool $attendance_offline = true;
     public bool $attendance_online = true;
     public bool $only_free = false;
-    public $filteredEvents = [];
     public $categories = [];
 
     public $todayEvents = [];
     public $todayUpcoming = [];
     public $nextUpcoming = [];
+
+    protected $queryString = ['search'];
 
     public function mount()
     {
@@ -30,15 +34,20 @@ class EventsExploration extends Component
     public function render()
     {
         $this->searchActive = $this->searchActive();
-        $this->filteredEvents = Event::query()
+        
+        $filteredEvents = Event::query()
             ->filter([
                 'search' => $this->search,
                 'category' => $this->filterCategory,
             ])
             ->upcoming()
-            ->get();
+            ->paginate(5);
+
+        // dd($filteredEvents);
         
-        return view('livewire.events-exploration-new');
+        return view('livewire.events-exploration-new', [
+            'filteredEvents' => $filteredEvents,
+        ]);
     }
 
     public function resetSearch()
@@ -49,6 +58,9 @@ class EventsExploration extends Component
 
     public function setCategoryFilter(?string $category)
     {
+        if ($this->filterCategory == $category) {
+            return $this->filterCategory = null;
+        }
         $this->filterCategory = $category;
     }
 

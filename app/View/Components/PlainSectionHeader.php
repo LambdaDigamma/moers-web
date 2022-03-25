@@ -6,14 +6,16 @@ use Illuminate\View\Component;
 
 class PlainSectionHeader extends Component
 {
+    public $hideBorder = false;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(bool $hideBorder = false)
     {
-        //
+        $this->hideBorder = $hideBorder;
     }
 
     /**

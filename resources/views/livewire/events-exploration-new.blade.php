@@ -10,7 +10,7 @@
             <div class="relative">
                 <x-heroicon-s-search class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400" />
                 <input type="search" wire:model.debounce.300ms="search" id="event_search"
-                    class="w-full h-12 pr-4 text-gray-800 placeholder-gray-400 bg-transparent border-0 pl-11 focus:ring-0 sm:text-sm lg:text-lg"
+                    class="w-full h-12 pr-4 font-medium text-gray-800 placeholder-gray-400 bg-transparent border-0 pl-11 focus:ring-0 sm:text-sm lg:text-lg"
                     placeholder="Veranstaltung suchen…">
             </div>
             <div class="px-4 py-4 overflow-x-auto bg-white no-scrollbar">
@@ -76,14 +76,17 @@
         </x-card>
 
         @if ($searchActive)
-        <x-plain-section-header id="search_results" class="mt-20">
+        <x-plain-section-header id="search_results" class="mx-6 mt-20">
             Suchergebnisse
         </x-plain-section-header>
         {{-- Search results --}}
-        <x-card class="mt-8 divide-y divide-gray-200">
+        <x-card class="mt-4 divide-y divide-gray-200">
             @foreach ($filteredEvents as $event)
             <x-event.row :event="$event" />
             @endforeach
+            {{-- @dd($filteredEvents->links()) --}}
+            {{-- {!! $filteredEvents->links() !!} --}}
+            {{-- {!! $filteredEvents->render() !!} --}}
             @if ($filteredEvents->isEmpty())
             <div class="flex flex-col items-center justify-center">
                 <div class="relative block w-full p-12 text-center rounded-lg">
@@ -99,6 +102,28 @@
                 </button>
             </div>
             @endif
+            <nav class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6"
+                aria-label="Pagination">
+                <div class="hidden sm:block">
+                    <p class="text-sm text-gray-700">
+                        Zeige
+                        <span class="font-medium">1</span>
+                        bis
+                        <span class="font-medium">{{ min($filteredEvents->perPage(), $filteredEvents->total()) }}</span>
+                        von
+                        <span class="font-medium">{{ $filteredEvents->total() }}</span>
+                        Ergebnissen
+                    </p>
+                </div>
+                <div class="flex justify-between flex-1 sm:justify-end">
+                    <a href="#"
+                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                        Previous </a>
+                    <a href="#"
+                        class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                        Next </a>
+                </div>
+            </nav>
         </x-card>
         @endif
 
@@ -106,54 +131,37 @@
         <x-event.christmas-market-panel class="mt-12 overflow-hidden rounded-lg shadow-xl" /> --}}
 
         <div class="mt-20">
-            <x-plain-section-header id="search_results" class="">
-                Veranstaltungen in Moers
+            <x-plain-section-header id="search_results" class="px-6">
+                <span class="">
+                    Heutige Veranstaltungen
+                </span>
             </x-plain-section-header>
 
             <div class="grid grid-cols-3 gap-6 mt-4">
-                <div class="col-span-2">
-                    @if ($searchActive)
-                    {{-- Search results --}}
-                    <x-card class="divide-y divide-gray-200">
-                        @foreach ($filteredEvents as $event)
-                        <x-event.row :event="$event" />
-                        @endforeach
-                        @if ($filteredEvents->isEmpty())
-                        <div class="flex flex-col items-center justify-center">
-                            <div class="relative block w-full p-12 text-center rounded-lg">
-                                <x-heroicon-o-emoji-sad class="w-12 h-12 mx-auto text-gray-400">
-                                </x-heroicon-o-emoji-sad>
-                                <span class="block mt-2 text-sm font-medium text-gray-900">
-                                    Es gibt keine Ergebnisse für Deine Suche.
-                                </span>
-                            </div>
-                            <button wire:click="resetSearch"
-                                class="flex items-center justify-center w-full py-1.5 text-sm font-semibold text-red-500 bg-red-50 hover:underline">
-                                Aktive Suche zurücksetzen
-                            </button>
-                        </div>
-                        @endif
-                    </x-card>
-                    @else
-                    {{-- Today --}}
+                <div class="col-span-3">
                     <div class="space-y-4">
-                        <x-card class="">
-                            <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
+                        <x-card class="shadow-md">
+                            {{-- <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
                                 <h2 class="text-lg font-semibold leading-6 text-gray-900">Heutige Veranstaltungen</h2>
-                            </div>
+                            </div> --}}
                             <div class="divide-y divide-gray-200">
                                 @foreach ($todayUpcoming as $event)
-                                <x-event.row :event="$event">
+                                <?php
+                                $class = $loop->odd ? 'bg-white' : 'bg-white'
+                                ?>
+
+                                <x-event.row :event="$event" class="{{ $class }}">
                                 </x-event.row>
                                 @endforeach
                             </div>
+                            <div class="px-4 py-3 text-right bg-gray-100 sm:px-6">
+                                <button type="submit"
+                                    class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
+                            </div>
                         </x-card>
                     </div>
-                    @endif
                 </div>
-                <div class="w-full col-span-1 place-self-start">
-
-                </div>
+                {{-- <div class="w-full col-span-1 place-self-start"></div> --}}
             </div>
         </div>
     </div>

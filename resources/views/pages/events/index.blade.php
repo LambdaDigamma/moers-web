@@ -10,7 +10,7 @@
     <livewire:events-exploration />
 
     <div class="relative max-w-5xl pb-12 mx-auto sm:px-6 lg:px-8">
-        <x-event.moers-festival-panel class="mt-12"></x-event.moers-festival-panel>
+        <x-event.moers-festival-panel class="mt-24"></x-event.moers-festival-panel>
 
         <div class="px-4 pt-4 mt-24 border-t border-gray-200 sm:px-0">
             <div class="text-sm max-w-prose">

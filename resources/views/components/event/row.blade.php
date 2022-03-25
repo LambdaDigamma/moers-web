@@ -1,4 +1,4 @@
-<a href="{{ route('events.show', $event->id) }}" class="block hover:bg-gray-50">
+{{-- <a href="{{ route('events.show', $event->id) }}" class="block hover:bg-gray-50">
     <div class="flex items-center px-4 py-4 sm:px-4">
         <div class="flex-1 min-w-0 sm:flex sm:items-center sm:justify-between">
             <div class="truncate">
@@ -28,6 +28,37 @@
                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                     clip-rule="evenodd" />
             </svg>
+        </div>
+    </div>
+</a> --}}
+
+<a href="{{ route('events.show', $event->id) }}" {{ $attributes->merge(['class' => 'block hover:bg-gray-50']) }}>
+    <div class="px-4 py-4 sm:px-6">
+        <div class="flex items-center justify-between">
+            <p class="text-sm font-medium text-gray-900 truncate">{{ $event->name }}</p>
+            <div class="flex flex-shrink-0 ml-2">
+                <p class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
+                    Full-time</p>
+            </div>
+        </div>
+        <div class="mt-2 sm:flex sm:justify-between">
+            <div class="sm:flex">
+                <p class="flex items-center text-sm text-gray-500">
+                    <!-- Heroicon name: solid/users -->
+                    <x-heroicon-s-users class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
+                    Engineering
+                </p>
+                <p class="flex items-center mt-2 text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                    <x-heroicon-s-location-marker class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
+                    {{ $event->extras['location'] }}
+                </p>
+            </div>
+            <div class="flex items-center mt-2 text-sm text-gray-500 sm:mt-0">
+                <x-heroicon-s-calendar class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
+                <p>
+                    <time datetime="2020-01-07">{{ $date }}</time>
+                </p>
+            </div>
         </div>
     </div>
 </a>
