@@ -38,7 +38,7 @@ class EventsExploration extends Component
             ->upcoming()
             ->get();
         
-        return view('livewire.events-exploration');
+        return view('livewire.events-exploration-new');
     }
 
     public function resetSearch()
@@ -54,7 +54,7 @@ class EventsExploration extends Component
 
     public function searchActive(): bool
     {
-        return $this->filterCategory != null || $this->search != null && $this->search != "";
+        return $this->filterCategory != null || ($this->search != null && $this->search != "");
     }
 
     private function loadOverview()
