@@ -28,6 +28,7 @@ function vite_assets(): HtmlString
 function devServerRunning(bool $tls = false): bool
 {
     if (app()->environment('local')) {
+        return true;
         try {
             $schema = $tls ? 'https' : 'http';
             Http::withoutVerifying()->get($schema.'://mein-moers.localhost:3000');

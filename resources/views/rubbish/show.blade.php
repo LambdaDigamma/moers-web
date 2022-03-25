@@ -123,4 +123,5 @@
             </div>
             <x-marketing.rubbish-cta class="py-16"></x-marketing.rubbish-cta>
         </main>
+    </div>
 </x-layout.main>

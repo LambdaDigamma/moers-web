@@ -71,28 +71,68 @@
                         consectetur.
                     </p> --}}
                 </div>
-                <div class="px-4 py-5 sm:p-6 grow">
+                <canvas id="recent_history_chart" width="400" height="400" class="px-2"></canvas>
+                {{-- <div class="px-4 py-5 sm:p-6 grow">
                     <div class="relative flex items-end justify-between h-full space-x-2 min-h-[5rem]">
                         @foreach ($pastOccupancy['data'] as $occupancy)
                         <div class="bg-blue-500 rounded-lg grow"
                             style="height: {{ $occupancy->occupancy_rate * 100 }}%">
 
                         </div>
-                        {{-- {{ $occupancy->occupancy_rate }}
-                        {{ $occupancy->hour }} --}}
                         @endforeach
-                        {{-- <div class="absolute inset-0 p-4 ">
-                            <div class="border-t border-b border-gray-100">
-
-                            </div>
-                        </div> --}}
                     </div>
-                </div>
+                </div> --}}
             </div>
-
         </div>
     </x-container>
+
     @push('scripts')
-        
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://unpkg.com/@chartisan/chartjs@^2.1.0/dist/chartisan_chartjs.umd.js"></script>
+
+    <script type="text/javascript">
+        const ctx = document.getElementById('recent_history_chart');
+        const myChart = new Chart(ctx, {
+        type: 'line',
+            data: {
+                labels: [17,18,19,20,21,22,23,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+                datasets: [{
+                    label: 'Belegung',
+                    data: [16.84,3.827273,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,2.7781819999999997,13.876363999999999,33.015454999999996,49.569091,64.07875,65.13125,62.019166999999996,56.076364,51.580000000000005],
+                    fill: true,
+                    tension: 0.5,
+                    backgroundColor: [
+                        'rgba(60, 130, 246, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(60, 130, 246, 0.8)',
+                        // 'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value, index, ticks) {
+                                return value + '%';
+                            }
+                        }
+                    },
+                    x: {
+                        
+                    }
+                }
+            }
+        });
+
+    </script>
     @endpush
 </x-layout.main>

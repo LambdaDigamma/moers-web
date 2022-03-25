@@ -29,7 +29,7 @@ class ParkingAreaRecentHistory extends BaseChart
                 ->dataset('Letzte 24h', []);
         }
 
-        $pastOccupancy = Cache::remember('api_past_occupancy_parking_area_' . $parkingArea->id, 1, function () use ($parkingArea) {
+        $pastOccupancy = Cache::remember('chart_past_occupancy_parking_area_' . $parkingArea->id, 1, function () use ($parkingArea) {
             $data = DB::table('parking_area_occupancies')
                 ->selectRaw('avg(occupancy_rate) as occupancy_rate, HOUR(created_at) as hour')
                 ->where('parking_area_id', $parkingArea->id)
@@ -47,7 +47,7 @@ class ParkingAreaRecentHistory extends BaseChart
             return $item->hour;
         })->toArray();
         $occupancy = $pastOccupancy['data']->map(function ($item) {
-            return (double) $item->occupancy_rate;
+            return $item->occupancy_rate * 100;
         })->toArray();
 
         return Chartisan::build()
