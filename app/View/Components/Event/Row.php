@@ -9,6 +9,7 @@ class Row extends Component
 {
     public $event;
     public string $date;
+    public string $attendance;
 
     /**
      * Create a new component instance.
@@ -23,6 +24,17 @@ class Row extends Component
             $this->date = "läuft gerade";
         } else {
             $this->date = $event->start_date->tz('Europe/Berlin')->format('d.m. H:i');
+        }
+
+        $attendance = $event->extras['attendance_mode'] ?? Event::ATTENDANCE_OFFLINE;
+
+        switch ($attendance) {
+            case Event::ATTENDANCE_MIXED:
+                $this->attendance = 'Hybrid';
+            case Event::ATTENDANCE_OFFLINE:
+                $this->attendance = 'In Präsenz';
+            case Event::ATTENDANCE_ONLINE:
+                $this->attendance = 'Online';
         }
 
     }

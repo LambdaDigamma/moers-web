@@ -143,13 +143,21 @@ class LoadMoersEvents extends Command
                 $newEvent->description = trim($description);
                 $newEvent->category = $category;
                 $newEvent->published_at = now();
+
+                $attendanceMode = Event::ATTENDANCE_OFFLINE;
+                
+                if ($location == 'online-Veranstaltung') {
+                    $attendanceMode = Event::ATTENDANCE_ONLINE;
+                }
+
                 $newEvent->extras = collect([
                     'unid' => $this->currentUnid,
                     'location' => $location,
                     'street' => $street,
                     'postcode' => $postcode,
                     'place' => $city,
-                    'organizer' => $organizer
+                    'organizer' => $organizer,
+                    'attendance_mode' => $attendanceMode,
                 ]);
 
                 $newEvent->save();

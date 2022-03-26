@@ -20,7 +20,6 @@ class EventsExploration extends Component
     public $categories = [];
 
     public $todayEvents = [];
-    public $todayUpcoming = [];
     public $nextUpcoming = [];
 
     public const searchPageName = "search_page";
@@ -38,19 +37,35 @@ class EventsExploration extends Component
     {
         $this->searchActive = $this->searchActive();
         
-        ray()->showQueries();
-
         $filteredEvents = Event::query()
             ->filter([
                 'search' => $this->search,
                 'category' => $this->category,
             ])
-            ->upcoming()
+            ->where(function ($query) {
+                $query->upcoming();
+            })
+            ->orWhere(function ($query) {
+                $query->active();
+            })
             ->paginate(5, ['*'], self::searchPageName)
+            ->withQueryString();
+
+        $todayUpcoming = Event::query()
+            ->where(function ($q) {
+                $q->today()
+                    ->upcomingToday();
+            })
+            ->orWhere(function ($q) {
+                $q->active();
+            })
+            ->chronological()
+            ->paginate(4, ['*'], self::pageName)
             ->withQueryString();
         
         return view('livewire.events-exploration-new', [
             'filteredEvents' => $filteredEvents,
+            'todayUpcoming' => $todayUpcoming,
         ]);
     }
 
@@ -92,17 +107,6 @@ class EventsExploration extends Component
             ->chronological()
             ->get();
 
-        $this->todayUpcoming = Event::query()
-            ->where(function ($q) {
-                $q->today()
-                    ->upcomingToday();
-            })
-            ->orWhere(function ($q) {
-                $q->active();
-            })
-            ->chronological()
-            ->get();
-        
         $this->nextUpcoming = Event::query()
             ->nextDays()
             ->chronological()

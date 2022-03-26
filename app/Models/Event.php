@@ -125,6 +125,32 @@ class Event extends BaseEvent implements HasMedia
             });
     }
 
+    public function scopeOnlyOnline(Builder $query)
+    {
+        return $query
+            ->where('extras->attendance_mode', Event::ATTENDANCE_ONLINE);
+    }
+
+    public function scopeOnlineAndMixed(Builder $query)
+    {
+        return $query
+            ->where(function ($query) {
+                $query
+                    ->where('extras->attendance_mode', Event::ATTENDANCE_ONLINE)
+                    ->orWhere('extras->attendance_mode', Event::ATTENDANCE_MIXED);
+            });
+    }
+
+    public function scopeOffline(Builder $query) 
+    {
+        return $query
+            ->where(function ($query) {
+                $query
+                    ->where('extras->attendance_mode', Event::ATTENDANCE_ONLINE)
+                    ->orWhere('extras->attendance_mode', null);
+            });
+    }
+
     public function scopeFilter($query, array $filters): void
     {
         $locale = app()->getLocale();

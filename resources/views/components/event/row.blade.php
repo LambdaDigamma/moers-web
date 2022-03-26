@@ -38,7 +38,7 @@
             <p class="text-sm font-medium text-gray-900 truncate">{{ $event->name }}</p>
             <div class="flex flex-shrink-0 ml-2">
                 <p class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                    Full-time</p>
+                    {{ $attendance }}</p>
             </div>
         </div>
         <div class="mt-2 sm:flex sm:justify-between">
