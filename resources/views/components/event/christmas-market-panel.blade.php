@@ -18,7 +18,8 @@
                     <a href="#"
                         class="inline-flex items-center justify-center px-4 py-2.5 text-base font-medium text-red-900 bg-white border border-transparent rounded-md hover:bg-gray-50">
                         Ab auf den Weihnachtsmarkt
-                        <x-heroicon-s-external-link class="w-5 h-5 ml-3 -mr-1 text-red-400" />
+                        {{--
+                        <x-heroicon-s-external-link class="w-5 h-5 ml-3 -mr-1 text-red-400" /> --}}
                     </a>
                 </div>
             </div>

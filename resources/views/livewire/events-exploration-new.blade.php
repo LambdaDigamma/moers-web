@@ -1,12 +1,12 @@
 <div class="">
-    <div class="relative w-full overflow-auto bg-gray-200 h-60">
+    <div class="relative w-full overflow-auto bg-gradient-to-r from-sky-800 to-cyan-600 h-80">
         <img src="/images/hero/veranstaltung.jpg" alt="" class="object-cover w-full h-full" aria-hidden="true" />
-        <div class="absolute inset-0 bg-black/40 z-1" aria-hidden="true">
-
+        <div class="absolute top-0 bottom-0 left-0 right-0 flex flex-col items-center justify-center bg-black/40 z-1">
+            <h1 class="-mt-20 text-xl font-bold text-white lg:text-4xl">Veranstaltungen in Moers</h1>
         </div>
     </div>
     <div class="relative max-w-5xl mx-auto sm:px-6 lg:px-8">
-        <x-card class="-mt-20 divide-y divide-gray-200 shadow-lg">
+        <x-card class="-mt-24 divide-y divide-gray-200 shadow-lg">
             <div class="relative">
                 <x-heroicon-s-search class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400" />
                 <input type="search" wire:model.debounce.300ms="search" id="event_search"
@@ -17,7 +17,7 @@
                 <div class="flex flex-row space-x-4">
                     @foreach ($categories as $item)
                     <?php
-                    if ($item['category'] == $filterCategory) {
+                    if ($item['category'] == $category) {
                         $class = "border-2 border-blue-500 shrink-0";
                     } else {
                         $class = "border-2 border-transparent shrink-0";
@@ -102,33 +102,40 @@
                 </button>
             </div>
             @endif
-            <nav class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6"
+            @if ($filteredEvents->hasPages())
+            <div class="px-4 py-3 border-t border-gray-200 sm:px-6">
+                {{ $filteredEvents->render() }}
+            </div>
+            @endif
+            {{-- <nav class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6"
                 aria-label="Pagination">
                 <div class="hidden sm:block">
+                    <?php
+                    $countPreviousPages = $filteredEvents->perPage() * ($filteredEvents->currentPage() - 1);
+                    ?>
                     <p class="text-sm text-gray-700">
                         Zeige
-                        <span class="font-medium">1</span>
+                        <span class="font-medium">{{ $countPreviousPages + 1 }}</span>
                         bis
-                        <span class="font-medium">{{ min($filteredEvents->perPage(), $filteredEvents->total()) }}</span>
+                        <span class="font-medium">{{ $countPreviousPages + $filteredEvents->count() }}</span>
                         von
                         <span class="font-medium">{{ $filteredEvents->total() }}</span>
                         Ergebnissen
                     </p>
                 </div>
                 <div class="flex justify-between flex-1 sm:justify-end">
-                    <a href="#"
+                    <a href="{{ $filteredEvents->previousPageUrl() }}"
                         class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                        Previous </a>
-                    <a href="#"
+                        Vorherige
+                    </a>
+                    <a href="{{ $filteredEvents->nextPageUrl() }}"
                         class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                        Next </a>
+                        Nächste
+                    </a>
                 </div>
-            </nav>
+            </nav> --}}
         </x-card>
         @endif
-
-        {{--
-        <x-event.christmas-market-panel class="mt-12 overflow-hidden rounded-lg shadow-xl" /> --}}
 
         <div class="mt-20">
             <x-plain-section-header id="search_results" class="px-6">

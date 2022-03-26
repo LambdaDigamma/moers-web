@@ -12,7 +12,7 @@ class EventsExploration extends Component
     use WithPagination;
 
     public ?string $search = null;
-    public ?string $filterCategory = null;
+    public ?string $category = null;
     public bool $searchActive = false;
     public bool $attendance_offline = true;
     public bool $attendance_online = true;
@@ -23,7 +23,10 @@ class EventsExploration extends Component
     public $todayUpcoming = [];
     public $nextUpcoming = [];
 
-    protected $queryString = ['search'];
+    public const searchPageName = "search_page";
+    public const pageName = "page";
+
+    protected $queryString = ['search', 'category'];
 
     public function mount()
     {
@@ -35,15 +38,16 @@ class EventsExploration extends Component
     {
         $this->searchActive = $this->searchActive();
         
+        ray()->showQueries();
+
         $filteredEvents = Event::query()
             ->filter([
                 'search' => $this->search,
-                'category' => $this->filterCategory,
+                'category' => $this->category,
             ])
             ->upcoming()
-            ->paginate(5);
-
-        // dd($filteredEvents);
+            ->paginate(5, ['*'], self::searchPageName)
+            ->withQueryString();
         
         return view('livewire.events-exploration-new', [
             'filteredEvents' => $filteredEvents,
@@ -53,20 +57,32 @@ class EventsExploration extends Component
     public function resetSearch()
     {
         $this->search = null;
-        $this->filterCategory = null;
+        $this->category = null;
+        $this->resetPage(self::searchPageName);
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage(self::searchPageName);
+    }
+
+    public function updatingCategory()
+    {
+        $this->resetPage(self::searchPageName);
     }
 
     public function setCategoryFilter(?string $category)
     {
-        if ($this->filterCategory == $category) {
-            return $this->filterCategory = null;
+        if ($this->category == $category) {
+            return $this->category = null;
         }
-        $this->filterCategory = $category;
+        $this->category = $category;
+        $this->resetPage(self::searchPageName);
     }
 
     public function searchActive(): bool
     {
-        return $this->filterCategory != null || ($this->search != null && $this->search != "");
+        return $this->category != null || ($this->search != null && $this->search != "");
     }
 
     private function loadOverview()
