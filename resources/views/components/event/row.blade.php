@@ -44,20 +44,18 @@
         <div class="mt-2 sm:flex sm:justify-between">
             <div class="sm:flex">
                 <p class="flex items-center text-sm text-gray-500">
-                    <!-- Heroicon name: solid/users -->
-                    <x-heroicon-s-users class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-                    Engineering
+                    <x-heroicon-s-calendar class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
+                    <time datetime="2020-01-07" class="min-w-[18ch]">{{ $date }}</time>
                 </p>
                 <p class="flex items-center mt-2 text-sm text-gray-500 sm:mt-0 sm:ml-6">
                     <x-heroicon-s-location-marker class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-                    {{ $event->extras['location'] }}
+                    <span class="max-w-[50ch] truncate">
+                        {{ $event->extras['location'] }}
+                    </span>
                 </p>
             </div>
             <div class="flex items-center mt-2 text-sm text-gray-500 sm:mt-0">
-                <x-heroicon-s-calendar class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-                <p>
-                    <time datetime="2020-01-07">{{ $date }}</time>
-                </p>
+
             </div>
         </div>
     </div>

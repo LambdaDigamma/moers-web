@@ -15,7 +15,7 @@ class CreateParkingAreaOccupanciesTable extends Migration
     {
         Schema::create('parking_area_occupancies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedDecimal('occupancy_rate', 4, 4);
+            $table->unsignedDecimal('occupancy_rate', 5, 4);
             $table->unsignedInteger('occupied_sites');
             $table->unsignedInteger('capacity');
             $table->unsignedBigInteger('parking_area_id');

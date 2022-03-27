@@ -3,12 +3,15 @@
 namespace App\View\Components\Event;
 
 use App\Models\Event;
+use App\Services\AttendanceModeFormatter;
+use App\Services\EventDateFormatter;
+use Illuminate\Support\Carbon;
 use Illuminate\View\Component;
 
 class Row extends Component
 {
     public $event;
-    public string $date;
+    public string $date = "";
     public string $attendance;
 
     /**
@@ -23,20 +26,10 @@ class Row extends Component
         if ($event->isActive()) {
             $this->date = "läuft gerade";
         } else {
-            $this->date = $event->start_date->tz('Europe/Berlin')->format('d.m. H:i');
+            $this->date = EventDateFormatter::format($event->start_date, $event->end_date);
         }
 
-        $attendance = $event->extras['attendance_mode'] ?? Event::ATTENDANCE_OFFLINE;
-
-        switch ($attendance) {
-            case Event::ATTENDANCE_MIXED:
-                $this->attendance = 'Hybrid';
-            case Event::ATTENDANCE_OFFLINE:
-                $this->attendance = 'In Präsenz';
-            case Event::ATTENDANCE_ONLINE:
-                $this->attendance = 'Online';
-        }
-
+        $this->attendance = AttendanceModeFormatter::format($event->extras['attendance_mode']);
     }
 
     /**

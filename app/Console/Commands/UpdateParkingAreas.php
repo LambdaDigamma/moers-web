@@ -83,6 +83,7 @@ class UpdateParkingAreas extends Command
                     if ($capacity > 0) {
                         $occupancy_rate = $occupied / $capacity;
                     }
+                    $occupancy_rate = number_format((float) $occupancy_rate, 4, '.', '');
     
                     ParkingAreaOccupancy::create([
                         'occupancy_rate' => $occupancy_rate,

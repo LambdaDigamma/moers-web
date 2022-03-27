@@ -53,14 +53,13 @@ class EventsExploration extends Component
 
         $todayUpcoming = Event::query()
             ->where(function ($q) {
-                $q->today()
-                    ->upcomingToday();
+                $q->today();
             })
             ->orWhere(function ($q) {
                 $q->active();
             })
             ->chronological()
-            ->paginate(4, ['*'], self::pageName)
+            ->paginate(8, ['*'], self::pageName)
             ->withQueryString();
         
         return view('livewire.events-exploration-new', [

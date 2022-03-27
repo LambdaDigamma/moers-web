@@ -82,11 +82,12 @@
         {{-- Search results --}}
         <x-card class="mt-4 divide-y divide-gray-200">
             @foreach ($filteredEvents as $event)
-            <x-event.row :event="$event" />
+            <?php
+                $class = $loop->odd ? 'bg-white' : 'bg-gray-50'
+            ?>
+            <x-event.row :event="$event" class="{{ $class }}">
+            </x-event.row>
             @endforeach
-            {{-- @dd($filteredEvents->links()) --}}
-            {{-- {!! $filteredEvents->links() !!} --}}
-            {{-- {!! $filteredEvents->render() !!} --}}
             @if ($filteredEvents->isEmpty())
             <div class="flex flex-col items-center justify-center">
                 <div class="relative block w-full p-12 text-center rounded-lg">
@@ -107,33 +108,6 @@
                 {{ $filteredEvents->render() }}
             </div>
             @endif
-            {{-- <nav class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6"
-                aria-label="Pagination">
-                <div class="hidden sm:block">
-                    <?php
-                    $countPreviousPages = $filteredEvents->perPage() * ($filteredEvents->currentPage() - 1);
-                    ?>
-                    <p class="text-sm text-gray-700">
-                        Zeige
-                        <span class="font-medium">{{ $countPreviousPages + 1 }}</span>
-                        bis
-                        <span class="font-medium">{{ $countPreviousPages + $filteredEvents->count() }}</span>
-                        von
-                        <span class="font-medium">{{ $filteredEvents->total() }}</span>
-                        Ergebnissen
-                    </p>
-                </div>
-                <div class="flex justify-between flex-1 sm:justify-end">
-                    <a href="{{ $filteredEvents->previousPageUrl() }}"
-                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                        Vorherige
-                    </a>
-                    <a href="{{ $filteredEvents->nextPageUrl() }}"
-                        class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                        Nächste
-                    </a>
-                </div>
-            </nav> --}}
         </x-card>
         @endif
 
@@ -147,23 +121,33 @@
             <div class="grid grid-cols-3 gap-6 mt-4">
                 <div class="col-span-3">
                     <div class="space-y-4">
-                        <x-card class="shadow-md">
-                            {{-- <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
-                                <h2 class="text-lg font-semibold leading-6 text-gray-900">Heutige Veranstaltungen</h2>
-                            </div> --}}
+                        <x-card class="">
+                            @if (! $todayUpcoming->isEmpty())
                             <div class="divide-y divide-gray-200">
                                 @foreach ($todayUpcoming as $event)
                                 <?php
-                                $class = $loop->odd ? 'bg-white' : 'bg-white'
+                                $class = $loop->odd ? 'bg-white' : 'bg-gray-50'
                                 ?>
-
                                 <x-event.row :event="$event" class="{{ $class }}">
                                 </x-event.row>
                                 @endforeach
                             </div>
+                            @else
+                            <div class="flex flex-row items-center justify-center p-6 py-8 bg-white">
+                                <div class="flex flex-col items-center justify-center space-y-4">
+                                    <x-heroicon-o-sparkles class="w-10 h-10 text-yellow-400" />
+                                    <p class="text-center text-gray-700">
+                                        Huch, heute finden keine Veranstaltungen statt… <br />
+                                        Aber mach Dir trotzdem einen schönen Tag!
+                                    </p>
+                                </div>
+                            </div>
+                            @endif
+                            @if ($todayUpcoming->hasPages())
                             <div class="px-4 py-3 border-t border-gray-200 sm:px-6">
                                 {{ $todayUpcoming->render() }}
                             </div>
+                            @endif
                         </x-card>
                     </div>
                 </div>

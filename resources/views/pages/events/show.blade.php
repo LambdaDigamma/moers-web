@@ -13,38 +13,6 @@
         </x-regular-navigation-bar>
 
         <main class="py-10">
-            <!-- Page header -->
-            {{-- <div
-                class="max-w-3xl px-4 mx-auto sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
-                <div class="flex items-center space-x-5">
-                    <div class="flex-shrink-0">
-                        <div class="relative">
-                            <img class="w-16 h-16 rounded-full"
-                                src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-                                alt="">
-                            <span class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-900">Ricardo Cooper</h1>
-                        <p class="text-sm font-medium text-gray-500">Applied for <a href="#" class="text-gray-900">Front
-                                End
-                                Developer</a> on <time datetime="2020-08-25">August 25, 2020</time></p>
-                    </div>
-                </div>
-                <div
-                    class="flex flex-col-reverse mt-6 space-y-4 space-y-reverse justify-stretch sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-                    <button type="button"
-                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
-                        Teilen
-                    </button>
-                    <button type="button"
-                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
-                        Merken
-                    </button>
-                </div>
-            </div> --}}
-
             <div
                 class="grid max-w-3xl grid-cols-1 gap-6 mx-auto mt-8 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
                 <div class="space-y-6 lg:col-start-1 lg:col-span-2">
@@ -95,7 +63,11 @@
                                             Datum
                                         </dt>
                                         <dd class="mt-1 text-sm text-gray-900">
-                                            @if ($event->start_date)
+                                            {{
+                                            \App\Services\EventDateFormatter::format($event->start_date,
+                                            $event->end_date)
+                                            }}
+                                            {{-- @if ($event->start_date)
                                             <span>
                                                 {{ $event->start_date->isoFormat('LLL') }}
                                             </span>
@@ -105,7 +77,7 @@
                                                 {{ $event->end_date->isoFormat('LLL') }}
                                             </span>
                                             @endif
-                                            @endif
+                                            @endif --}}
                                         </dd>
                                     </div>
                                     <div class="sm:col-span-1">
@@ -144,7 +116,7 @@
                                         <dt class="text-sm font-medium text-gray-500">
                                             Beschreibung
                                         </dt>
-                                        <dd class="mt-1 text-sm text-gray-900">
+                                        <dd class="mt-1 text-sm text-gray-900 max-w-prose">
                                             {!! nl2br($event->description) !!}
                                         </dd>
                                     </div>
