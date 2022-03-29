@@ -4,6 +4,7 @@
 <head>
 
     <meta charset="utf-8">
+    <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="apple-itunes-app" content="app-id=1305862555">
@@ -23,6 +24,8 @@
     <link rel="icon" type="image/svg+xml" href="/svg/mm.svg" sizes="any">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
+    <link rel="manifest" href="manifest.json" />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
@@ -34,6 +37,12 @@
 
     <script defer src="https://unpkg.com/alpinejs@3.9.1/dist/cdn.min.js"></script>
     {{-- <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script> --}}
+
+    <script type="module">
+        import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+        const el = document.createElement('pwa-update');
+        document.body.appendChild(el);
+    </script>
 
     @livewireStyles
 </head>

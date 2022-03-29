@@ -3,7 +3,7 @@
     rounded-xl'
     ]) }}>
     <div class="absolute w-20 h-20 overflow-hidden rounded-full shadow-md -left-6">
-        <img class="absolute z-0 object-cover w-full h-full" src="{{ $image }}" aria-hidden="true">
+        <img class="absolute z-0 object-cover w-full h-full" src="{{ $image }}" aria-hidden="true" loading="lazy">
         {{-- <div class="absolute inset-0 bg-blue-400 mix-blend-multiply"></div> --}}
     </div>
     <div class="flex flex-col py-3 pr-4 pl-[4.5rem]">
