@@ -135,58 +135,68 @@
 
                     <section aria-labelledby="organizer-title">
                         <div class="px-4 py-5 bg-white shadow sm:rounded-lg sm:px-6">
-                            <h2 id="organizer-title" class="text-lg font-medium text-gray-900 sr-only">Veranstalter</h2>
-                            <h3 id="organizer-title" class="text-lg font-medium text-gray-900">
+                            <h2 id="organizer-title"
+                                class="text-xs font-semibold tracking-wider text-blue-500 uppercase">
+                                Organisator
+                            </h2>
+                            <p id="organizer" class="mt-1 text-lg font-medium text-gray-900">
                                 @if ($event->extras)
                                 {{ $event->extras->get('organizer', 'n/v') }}
                                 @endif
-                            </h3>
+                            </p>
 
-                            <div class="mt-2 text-sm line-clamp-3">
+                            {{-- <div class="mt-2 text-sm line-clamp-3">
                                 Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur, weil er
                                 Schmerz ist, es sei denn, es
                                 kommt zu zufälligen Umständen, in denen Mühen und Schmerz ihm große Freude bereiten
                                 können. Um ein triviales Beispiel zu
                                 nehmen, wer von uns unterzieht sich je anstrengender körperlicher Betätigung, außer um
                                 Vorteile daraus zu ziehen?
-                            </div>
+                            </div> --}}
 
-                            <div class="flex flex-col mt-6 justify-stretch">
+                            {{-- <div class="flex flex-col mt-6 justify-stretch">
                                 <button type="button"
                                     class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                     Mehr Informationen
                                 </button>
-                            </div>
+                            </div> --}}
                         </div>
                     </section>
 
                     <section aria-labelledby="location-title" class="mt-6">
                         <div class="px-4 py-5 bg-white shadow sm:rounded-lg sm:px-6">
-                            <h2 id="location-title" class="text-lg font-medium text-gray-900">Veranstaltungsort</h2>
+                            <h2 id="location-title"
+                                class="text-xs font-semibold tracking-wider text-blue-500 uppercase">
+                                Veranstaltungsort
+                            </h2>
 
-                            <div class="mt-2">
+                            <div class="mt-1">
                                 <adress class="text-sm leading-none text-gray-900">
-                                    @if ($event->extras && $event->extras->get('location'))
-                                    {{ $event->extras->get('location') }}<br>
-                                    @endif
-                                    @if ($event->extras && $event->extras->get('street'))
-                                    {{ $event->extras->get('street') }}<br>
-                                    @endif
-                                    @if ($event->extras && $event->extras->get('postcode'))
-                                    {{ $event->extras->get('postcode') . " " . $event->extras->get('place') }}
-                                    @endif
+                                    <p id="location" class="text-lg font-medium leading-6 text-gray-900">
+                                        @if ($event->extras && $event->extras->get('location'))
+                                        {{ $event->extras->get('location') }}<br>
+                                        @endif
+                                    </p>
+                                    <div class="mt-3 space-y-2">
+                                        <p>
+                                            @if ($event->extras && $event->extras->get('street'))
+                                            {{ $event->extras->get('street') }}<br>
+                                            @endif
+                                        </p>
+                                        <p>
+                                            @if ($event->extras && $event->extras->get('postcode'))
+                                            {{ $event->extras->get('postcode') . " " . $event->extras->get('place') }}
+                                            @endif
+                                        </p>
+                                    </div>
                                 </adress>
-
                             </div>
 
-                            <div class="mt-6 bg-gray-100 rounded-lg h-44">
-
+                            <div class="mt-6 overflow-hidden bg-gray-100 rounded-lg h-44">
+                                <img src="{{ $snapshot }}" alt="" class="object-cover w-full h-full" />
                             </div>
                             <div class="flex flex-col mt-6 justify-stretch">
-                                <button type="button"
-                                    class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Navigation starten
-                                </button>
+                                <x-button>Navigation starten</x-button>
                             </div>
                         </div>
                     </section>
@@ -194,5 +204,4 @@
             </div>
         </main>
     </div>
-
 </x-layout.main>

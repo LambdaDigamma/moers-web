@@ -38,16 +38,13 @@ class EventsExploration extends Component
         $this->searchActive = $this->searchActive();
         
         $filteredEvents = Event::query()
+            ->where(function ($query) {
+                $query->upcoming();
+            })
             ->filter([
                 'search' => $this->search,
                 'category' => $this->category,
             ])
-            ->where(function ($query) {
-                $query->upcoming();
-            })
-            ->orWhere(function ($query) {
-                $query->active();
-            })
             ->paginate(5, ['*'], self::searchPageName)
             ->withQueryString();
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Services\AppleMapSnapshot;
 use Artesaos\SEOTools\Facades\JsonLdMulti;
 use Artesaos\SEOTools\Facades\SEOTools;
 
@@ -35,7 +36,7 @@ class EventController extends Controller
             $eventLd->addValues([
                 'address' => [
                     "@type" => "PostalAddress",
-                    "addressLocality" => "USA, CA",
+                    "addressLocality" => "Germany",
                     "postalCode" => $event->extras->get('postcode'),
                     "streetAddress" => $event->extras->get('street'),
                     "addressCountry" => "DE",
@@ -59,14 +60,36 @@ class EventController extends Controller
 
         } else {
             $eventLd->addValue("eventAttendanceMode", "https://schema.org/OnlineEventAttendanceMode");
-
         }
 
-            
-        // $event->load(['organisation'])
+        if ($event->extras && $event->extras->get('location')) {
+            $address = "";
+            $address .= $event->extras->get('street', '');
+            $address .= " " . $event->extras->get('postcode', '');
+            $address .= " " . $event->extras->get('place', '');
 
+            $snapshot = AppleMapSnapshot::signedURL($address, [
+                'z' => '17',
+                'lang' => 'de-DE',
+                'scale' => 2,
+                'poi' => 0,
+                'colorScheme' => 'light',
+                'size' => "600x400",
+                'annotations' => [
+                    [
+                        'point' => "center",
+                        'color' => '2563EB',
+                        'markerStyle' => 'large',
+                    ]
+                ]
+            ]);
+        }
+
+        // $event->load(['organisation'])
+        
         return view('pages.events.show', [
-            'event' => $event
+            'event' => $event,
+            'snapshot' => $snapshot ?? null,
         ]);
     }
 }

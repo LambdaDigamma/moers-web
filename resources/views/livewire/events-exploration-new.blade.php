@@ -6,14 +6,14 @@
         </div>
     </div>
     <div class="relative max-w-5xl mx-auto sm:px-6 lg:px-8">
-        <x-card class="-mt-24 divide-y divide-gray-200 shadow-lg">
-            <div class="relative">
+        <x-card class="-mt-24 bg-white divide-y divide-gray-200 shadow-lg">
+            <div class="relative bg-white">
                 <x-heroicon-s-search class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400" />
                 <input type="search" wire:model.debounce.300ms="search" id="event_search"
                     class="w-full h-12 pr-4 font-medium text-gray-800 placeholder-gray-400 bg-transparent border-0 pl-11 focus:ring-0 sm:text-sm lg:text-lg"
                     placeholder="Veranstaltung suchen…">
             </div>
-            <div class="px-4 py-4 overflow-x-auto bg-white no-scrollbar">
+            <div class="px-4 py-4 overflow-x-auto no-scrollbar">
                 <div class="flex flex-row space-x-4">
                     @foreach ($categories as $item)
                     <?php
@@ -73,43 +73,43 @@
 
                 </div>
             </div>
-        </x-card>
-
-        @if ($searchActive)
-        <x-plain-section-header id="search_results" class="mx-6 mt-20">
-            Suchergebnisse
-        </x-plain-section-header>
-        {{-- Search results --}}
-        <x-card class="mt-4 divide-y divide-gray-200">
-            @foreach ($filteredEvents as $event)
-            <?php
-                $class = $loop->odd ? 'bg-white' : 'bg-gray-50'
-            ?>
-            <x-event.row :event="$event" class="{{ $class }}">
-            </x-event.row>
-            @endforeach
-            @if ($filteredEvents->isEmpty())
-            <div class="flex flex-col items-center justify-center">
-                <div class="relative block w-full p-12 text-center rounded-lg">
-                    <x-heroicon-o-emoji-sad class="w-12 h-12 mx-auto text-gray-400">
-                    </x-heroicon-o-emoji-sad>
-                    <span class="block mt-2 text-sm font-medium text-gray-900">
-                        Es gibt keine Ergebnisse für Deine Suche.
-                    </span>
+            @if ($searchActive)
+            <div class="border-t border-gray-200">
+                <div class="px-4 py-2 text-sm font-semibold text-left text-gray-900 bg-gray-50 sm:px-6">
+                    Suchergebnisse
                 </div>
-                <button wire:click="resetSearch"
-                    class="flex items-center justify-center w-full py-1.5 text-sm font-semibold text-red-500 bg-red-50 hover:underline">
-                    Aktive Suche zurücksetzen
-                </button>
             </div>
-            @endif
-            @if ($filteredEvents->hasPages())
-            <div class="px-4 py-3 border-t border-gray-200 sm:px-6">
-                {{ $filteredEvents->render() }}
+            <div class="divide-y divide-gray-200">
+                @foreach ($filteredEvents as $event)
+                <?php
+                            $class = $loop->odd ? 'bg-white' : 'bg-gray-50'
+                        ?>
+                <x-event.row :event="$event" class="{{ $class }}">
+                </x-event.row>
+                @endforeach
+                @if ($filteredEvents->isEmpty())
+                <div class="flex flex-col items-center justify-center">
+                    <div class="relative block w-full p-12 text-center rounded-lg">
+                        <x-heroicon-o-emoji-sad class="w-12 h-12 mx-auto text-gray-400">
+                        </x-heroicon-o-emoji-sad>
+                        <span class="block mt-2 text-sm font-medium text-gray-900">
+                            Es gibt keine Ergebnisse für Deine Suche.
+                        </span>
+                    </div>
+                    <button wire:click="resetSearch"
+                        class="flex items-center justify-center w-full py-1.5 text-sm font-semibold text-red-500 bg-red-50 hover:underline">
+                        Aktive Suche zurücksetzen
+                    </button>
+                </div>
+                @endif
+                @if ($filteredEvents->hasPages())
+                <div class="px-4 py-3 border-t border-gray-200 sm:px-6">
+                    {{ $filteredEvents->render() }}
+                </div>
+                @endif
             </div>
             @endif
         </x-card>
-        @endif
 
         <div class="mt-20">
             <x-plain-section-header id="search_results" class="px-6">
@@ -121,7 +121,7 @@
             <div class="grid grid-cols-3 gap-6 mt-4">
                 <div class="col-span-3">
                     <div class="space-y-4">
-                        <x-card class="">
+                        <x-card class="shadow-lg">
                             @if (! $today->isEmpty())
                             <div class="divide-y divide-gray-200">
                                 @foreach ($today as $event)
@@ -165,7 +165,7 @@
             <div class="grid grid-cols-3 gap-6 mt-4">
                 <div class="col-span-3">
                     <div class="space-y-4">
-                        <x-card class="">
+                        <x-card class="shadow-lg">
                             <div class="divide-y divide-gray-200">
                                 @foreach ($longTermEvents as $event)
                                 <?php
