@@ -122,9 +122,9 @@
                 <div class="col-span-3">
                     <div class="space-y-4">
                         <x-card class="">
-                            @if (! $todayUpcoming->isEmpty())
+                            @if (! $today->isEmpty())
                             <div class="divide-y divide-gray-200">
-                                @foreach ($todayUpcoming as $event)
+                                @foreach ($today as $event)
                                 <?php
                                 $class = $loop->odd ? 'bg-white' : 'bg-gray-50'
                                 ?>
@@ -143,9 +143,9 @@
                                 </div>
                             </div>
                             @endif
-                            @if ($todayUpcoming->hasPages())
+                            @if ($today->hasPages())
                             <div class="px-4 py-3 border-t border-gray-200 sm:px-6">
-                                {{ $todayUpcoming->render() }}
+                                {{ $today->render() }}
                             </div>
                             @endif
                         </x-card>
@@ -154,5 +154,32 @@
                 {{-- <div class="w-full col-span-1 place-self-start"></div> --}}
             </div>
         </div>
+
+        @if (! $longTermEvents->isEmpty())
+        <div class="mt-20">
+            <x-plain-section-header id="long_term" class="px-6">
+                <span class="">
+                    Langzeit-Veranstaltungen
+                </span>
+            </x-plain-section-header>
+            <div class="grid grid-cols-3 gap-6 mt-4">
+                <div class="col-span-3">
+                    <div class="space-y-4">
+                        <x-card class="">
+                            <div class="divide-y divide-gray-200">
+                                @foreach ($longTermEvents as $event)
+                                <?php
+                                    $class = $loop->odd ? 'bg-white' : 'bg-gray-50'
+                                ?>
+                                <x-event.row :event="$event" class="{{ $class }}">
+                                </x-event.row>
+                                @endforeach
+                            </div>
+                        </x-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 </div>

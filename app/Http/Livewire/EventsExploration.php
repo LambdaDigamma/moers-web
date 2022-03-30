@@ -51,20 +51,41 @@ class EventsExploration extends Component
             ->paginate(5, ['*'], self::searchPageName)
             ->withQueryString();
 
-        $todayUpcoming = Event::query()
-            ->where(function ($q) {
-                $q->today();
-            })
-            ->orWhere(function ($q) {
-                $q->active();
+        $today = Event::query()
+            ->withoutLongTermEvents()
+            ->where(function ($query) {
+                $query
+                    ->where(function ($q) {
+                        $q->today();
+                    })
+                    ->orWhere(function ($q) {
+                        $q->active();
+                    });
             })
             ->chronological()
             ->paginate(8, ['*'], self::pageName)
             ->withQueryString();
         
+        $longTermEvents = Cache::remember('events-exploration-long-term', 60, function () {
+            return Event::query()
+                ->onlyLongTermEvents()
+                ->where(function ($query) {
+                    $query
+                        ->where(function ($query) {
+                            $query->active();
+                        })
+                        ->orWhere(function ($query) {
+                            $query->upcoming();
+                        });
+                })
+                ->chronological()
+                ->get();
+        });
+
         return view('livewire.events-exploration-new', [
             'filteredEvents' => $filteredEvents,
-            'todayUpcoming' => $todayUpcoming,
+            'today' => $today,
+            'longTermEvents' => $longTermEvents,
         ]);
     }
 

@@ -185,7 +185,13 @@ class Event extends BaseEvent implements HasMedia
             $duration_threshold = config('mm-events.min_long_event_duration', 2 * 24 * 60 * 60);
         }
 
-        $builder->whereRaw('TIMESTAMPDIFF(SECOND, start_date, end_date) < ?', [$duration_threshold]);
+        $builder
+            ->where(function ($query) {
+                $query
+                    ->where('start_date', '!=', null)
+                    ->whereNull('end_date');
+            })
+            ->orWhereRaw('TIMESTAMPDIFF(SECOND, start_date, end_date) < ?', [$duration_threshold]);
     }
 
     public function scopeFilter($query, array $filters): void

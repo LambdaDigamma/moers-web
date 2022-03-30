@@ -29,7 +29,7 @@ class Row extends Component
             $this->date = EventDateFormatter::format($event->start_date, $event->end_date);
         }
 
-        $this->attendance = AttendanceModeFormatter::format($event->extras['attendance_mode']);
+        $this->attendance = AttendanceModeFormatter::format($event->extras['attendance_mode'] ?? null);
     }
 
     /**

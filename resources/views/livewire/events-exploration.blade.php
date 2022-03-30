@@ -129,7 +129,7 @@
                             <h2 class="text-lg font-semibold leading-6 text-gray-900">Heutige Veranstaltungen</h2>
                         </div>
                         <div class="divide-y divide-gray-200">
-                            @foreach ($todayUpcoming as $event)
+                            @foreach ($today as $event)
                             <x-event.row :event="$event">
                             </x-event.row>
                             @endforeach

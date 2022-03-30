@@ -170,6 +170,11 @@ test('scope without long term events', function () {
 
     Event::factory()->published()->create([
         'start_date' => Carbon::parse('2022-04-10 00:00:00'), 
+        'end_date' => null,
+    ]);
+
+    Event::factory()->published()->create([
+        'start_date' => Carbon::parse('2022-04-10 00:00:00'), 
         'end_date' => Carbon::parse('2022-04-10 01:00:00'),
     ]);
 
@@ -184,6 +189,6 @@ test('scope without long term events', function () {
     ]);
 
     expect(Event::query()->withoutLongTermEvents()->get())
-        ->count()->toBe(2);
+        ->count()->toBe(3);
 
 });
