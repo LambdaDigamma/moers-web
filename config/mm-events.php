@@ -16,7 +16,7 @@ return [
      */
     'event_active_duration' => 30,
 
-    'min_long_event_duration' => 60 * 60 * 24 * 2, // two days
+    'min_long_event_duration' => 60 * 60 * 24 * 2, // in seconds; two days
 
     /*
      * This table names are used to connect with other packages.

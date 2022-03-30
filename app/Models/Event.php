@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use LambdaDigamma\MMEvents\Models\Event as BaseEvent;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -149,6 +150,42 @@ class Event extends BaseEvent implements HasMedia
                     ->where('extras->attendance_mode', Event::ATTENDANCE_ONLINE)
                     ->orWhere('extras->attendance_mode', null);
             });
+    }
+
+    public function scopeWithDaysDuration(Builder $builder)
+    {
+        $builder->when(empty($builder->getQuery()->columns), fn ($q) => $q->select('*'))
+            ->selectRaw('datediff(end_date, start_date) as days_duration');
+    }
+
+    public function scopeWithMinutesDuration(Builder $builder)
+    {
+        $builder->when(empty($builder->getQuery()->columns), fn ($q) => $q->select('*'))
+            ->selectRaw('TIMESTAMPDIFF(MINUTE, start_date, end_date) as minutes_duration');
+    }
+
+    public function scopeWithSecondsDuration(Builder $builder)
+    {
+        $builder->when(empty($builder->getQuery()->columns), fn ($q) => $q->select('*'))
+            ->selectRaw('TIMESTAMPDIFF(MINUTE, start_date, end_date) as seconds_duration');
+    }
+
+    public function scopeOnlyLongTermEvents(Builder $query, ?int $duration_threshold = null)
+    {
+        if (! $duration_threshold) {
+            $duration_threshold = config('mm-events.min_long_event_duration', 2 * 24 * 60 * 60);
+        }
+
+        $query->whereRaw('TIMESTAMPDIFF(SECOND, start_date, end_date) >= ?', [$duration_threshold]);
+    }
+
+    public function scopeWithoutLongTermEvents(Builder $builder, ?int $duration_threshold = null)
+    {
+        if (! $duration_threshold) {
+            $duration_threshold = config('mm-events.min_long_event_duration', 2 * 24 * 60 * 60);
+        }
+
+        $builder->whereRaw('TIMESTAMPDIFF(SECOND, start_date, end_date) < ?', [$duration_threshold]);
     }
 
     public function scopeFilter($query, array $filters): void

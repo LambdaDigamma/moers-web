@@ -70,7 +70,7 @@
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-newsletter": "^4.2",
         "spatie/laravel-personal-data-export": "^3.0",
-        "spatie/laravel-ray": "^1.17",
+        "spatie/laravel-ray": "^1.29",
         "spatie/laravel-sitemap": "^6.0",
         "spatie/laravel-translatable": "^4.6",
         "spatie/ray": "^1.32",
@@ -88,6 +88,8 @@
         "pestphp/pest": "^1.2",
         "pestphp/pest-plugin-faker": "^1.0",
         "pestphp/pest-plugin-laravel": "^1.0",
+        "pestphp/pest-plugin-livewire": "^1.0",
+        "pestphp/pest-plugin-parallel": "^1.0",
         "phpunit/phpunit": "^9.0"
     },
     "autoload": {
