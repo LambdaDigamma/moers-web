@@ -22,6 +22,24 @@ class ParkingAreaFactory extends Factory
         ];
     }
 
+    public function open() 
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'current_opening_state' => ParkingArea::OPEN,
+            ];
+        });
+    }
+
+    public function closed() 
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'current_opening_state' => ParkingArea::CLOSED,
+            ];
+        });
+    }
+
     // does not work at the moment
     public function withLocation() 
     {

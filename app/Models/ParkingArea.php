@@ -53,6 +53,11 @@ class ParkingArea extends StandardModel implements HasMedia
         $query->where('current_opening_state', self::OPEN);
     }
 
+    public function scopeClosed($query)
+    {
+        $query->where('current_opening_state', self::CLOSED);
+    }
+
     static function openingStateFromString($openingState): string
     {
         switch ($openingState) {
