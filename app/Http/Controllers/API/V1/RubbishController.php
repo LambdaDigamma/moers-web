@@ -1,35 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\RubbishStreet;
+use Illuminate\Http\JsonResponse;
 use Request;
 
-class APIRubbishController extends Controller
+class RubbishController extends Controller
 {
     public function streetList()
     {
         $queryTerm = Request::get('q');
 
         if (Request::has('all')) {
-            return RubbishStreet::query()
+            $data = RubbishStreet::query()
                 ->when($queryTerm, function ($query) use ($queryTerm) {
                     return $query->where('name', 'LIKE', "%{$queryTerm}%");
                 })
                 ->get();
+
+            return new JsonResponse(['data' => $data], 200);
         } else {
-            return RubbishStreet::query()
+            $data = RubbishStreet::query()
                 ->current()
                 ->when($queryTerm, function ($query) use ($queryTerm) {
                     return $query->where('name', 'LIKE', "%{$queryTerm}%");
                 })
                 ->get();
+
+            return new JsonResponse(['data' => $data], 200);
         }
     }
 
     public function pickupItems(RubbishStreet $street)
     {
-        return $street->pickupItems();
+        return new JsonResponse(['data' => $street->pickupItems()], 200);
     }
 }

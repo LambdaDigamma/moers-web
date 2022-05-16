@@ -11,7 +11,7 @@ it('show parking area dashboard', function () {
     $parkingArea1 = ParkingArea::factory()->open()->create();
     ParkingArea::factory()->open()->count(4)->create();
 
-    getJson('/api/v1/parking-areas/dashboard')
+    getJson('/api/v1/parking/dashboard')
         ->assertOk()
         ->assertJson(fn (AssertableJson $json) =>
             $json
