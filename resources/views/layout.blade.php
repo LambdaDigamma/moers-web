@@ -36,7 +36,9 @@
     <script src="{{ mix('/js/vendor.js') }}" defer></script>
     <script src="{{ mix('/js/app.js') }}" defer></script> --}}
 
-    {{ vite_assets() }}
+    @vite(['resources/js/app.js'])
+
+{{--    {{ vite_assets() }}--}}
     <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
 
 </head>

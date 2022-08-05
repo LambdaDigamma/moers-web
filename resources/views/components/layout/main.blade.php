@@ -33,7 +33,9 @@
 
     @routes
 
-    {{ vite_assets() }}
+    @vite(['resources/css/app.css'])
+
+{{--    {{ vite_assets() }}--}}
 
     <script defer src="https://unpkg.com/alpinejs@3.9.1/dist/cdn.min.js"></script>
     {{-- <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script> --}}

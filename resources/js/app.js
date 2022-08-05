@@ -3,15 +3,10 @@ import "./bootstrap";
 
 import { format, formatDistanceToNow } from "date-fns";
 import { de } from "date-fns/locale";
-
 import { createApp, h } from "vue";
 import { createInertiaApp, Head, Link } from "@inertiajs/inertia-vue3";
 import { InertiaProgress as progress } from "@inertiajs/progress";
-
-import VueClipboard from "vue-clipboard2";
 import "leaflet/dist/leaflet.css";
-import { Icon } from "leaflet";
-
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
@@ -32,25 +27,15 @@ import moment from "moment";
 //     moment,
 // });
 
-// delete Icon.Default.prototype._getIconUrl;
-// Icon.Default.mergeOptions({
-//     iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-//     iconUrl: require("leaflet/dist/images/marker-icon.png"),
-//     shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-// });
-
 let app = document.getElementById("app");
 
 createInertiaApp({
-    // resolveComponent: (name) => {
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+    // resolve: async (name) => {
     //     const pages = import.meta.glob("./Pages/**/*.vue");
-    //     return pages[`./Pages/${name}.vue`]().then((module) => module.default);
+    //
+    //     return (await pages[`./Pages/${name}.vue`]()).default;
     // },
-    resolve: async (name) => {
-        const pages = import.meta.glob("./Pages/**/*.vue");
-
-        return (await pages[`./Pages/${name}.vue`]()).default;
-    },
     title: (title) => `${title} | Mein Moers`,
     setup({ el, app, props, plugin }) {
         let createdApp = createApp({

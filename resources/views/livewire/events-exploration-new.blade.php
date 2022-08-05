@@ -159,7 +159,7 @@
         <div class="mt-20">
             <x-plain-section-header id="long_term" class="px-6">
                 <span class="">
-                    Langzeit-Veranstaltungen
+                    Länger in Moers
                 </span>
             </x-plain-section-header>
             <div class="grid grid-cols-3 gap-6 mt-4">

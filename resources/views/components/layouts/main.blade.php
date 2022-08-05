@@ -10,7 +10,9 @@
     {!! SEO::generate(true) !!}
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+{{--    <link rel="stylesheet" href="{{ mix('css/app.css') }}">--}}
+
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 
     @livewireStyles
 

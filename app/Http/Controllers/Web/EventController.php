@@ -49,7 +49,7 @@ class EventController extends Controller
             'endDate' => $event->end_date,
         ]);
             
-        if (! $event->isOnline) {
+        if (! $event->is_online) {
             $eventLd->addValue("eventAttendanceMode", "https://schema.org/OfflineEventAttendanceMode");
             $eventLd->addValues([
                 'location' => [

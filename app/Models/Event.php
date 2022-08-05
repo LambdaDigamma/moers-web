@@ -15,7 +15,7 @@ class Event extends BaseEvent implements HasMedia
 {
     use InteractsWithMedia;
 
-    public $appends = ['isOnline'];
+    public $appends = ['is_online'];
 
     protected $casts = [
         'extras' => AsCollection::class,
