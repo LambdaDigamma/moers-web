@@ -45,8 +45,6 @@ Route::group([
     Route::get('/datasets/{dataset}/resources/{resource}')->name('admin.datasets.resources.edit')->uses('DatasetResourceController@edit');
     Route::put('/datasets/{dataset}/resources/{resource}')->name('admin.datasets.resources.update')->uses('DatasetResourceController@update');
     Route::post('/datasets/{dataset}/resources/{resource}/update')->name('admin.datasets.resources.updateData')->uses('DatasetResourceController@loadResource');
-    Route::get('/moers-festival/stream')->name('admin.moers-festival.stream')->uses('OrganisationController@stream');
-    Route::put('/moers-festival/stream')->name('admin.moers-festival.stream.update')->uses('OrganisationController@updateStream');
 
     Route::get('/forms/students')->name('admin.forms.students')->uses('StudentController@index');
     Route::get('/forms/students/{student_information}')->name('admin.forms.students.show')->uses('StudentController@show');

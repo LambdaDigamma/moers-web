@@ -163,36 +163,4 @@ class OrganisationController extends Controller
         ]);
     }
 
-    public function stream()
-    {
-        return Inertia::render('Admin/MoersFestival/Stream', [
-            'stream' => [
-                'start_date' => setting()->get('moersfestival.stream.start_date'),
-                'url' => setting()->get('moersfestival.stream.stream_url'),
-                'failure_title' => setting()->get('moersfestival.stream.failure_title'),
-                'failure_description' => setting()->get('moersfestival.stream.failure_description')
-            ]
-        ]);
-    }
-
-    public function updateStream(UpdateStream $request)
-    {
-        $validated = $request->validated();
-
-        setting()->set('moersfestival.stream.stream_url', $validated['stream_url']);
-        setting()->set('moersfestival.stream.failure_title', $validated['failure_title']);
-        setting()->set('moersfestival.stream.failure_description', $validated['failure_description']);
-
-        if (is_null($validated['start_date'])) {
-            setting()->set('moersfestival.stream.start_date', null);
-        } else {
-            setting()->set('moersfestival.stream.start_date', Carbon::parse($validated['start_date'])->setTimezone('Europe/Berlin')->toIso8601ZuluString());
-        }
-
-        setting()->save();
-
-        return redirect()->back()->with('success', 'Erfolgreich gespeichert.');
-
-    }
-
 }

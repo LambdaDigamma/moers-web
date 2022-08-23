@@ -89,7 +89,7 @@ class Event extends BaseEvent implements HasMedia
         $this->addMediaCollection('header');
     }
 
-    public function isActive(): bool 
+    public function isActive(): bool
     {
         $now = Carbon::now()->toDateTimeString();
         $deadline = Carbon::now()
@@ -97,9 +97,9 @@ class Event extends BaseEvent implements HasMedia
             ->toDateTimeString();
 
         if (
-            $this->end_date == null && 
-            $this->start_date != null && 
-            $this->start_date <= $now && 
+            $this->end_date == null &&
+            $this->start_date != null &&
+            $this->start_date <= $now &&
             $this->start_date >= $deadline
         ) {
             return true;
@@ -142,7 +142,7 @@ class Event extends BaseEvent implements HasMedia
             });
     }
 
-    public function scopeOffline(Builder $query) 
+    public function scopeOffline(Builder $query)
     {
         return $query
             ->where(function ($query) {

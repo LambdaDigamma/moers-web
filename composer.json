@@ -72,7 +72,6 @@
         "spatie/laravel-ignition": "^1.0",
         "spatie/laravel-json-api-paginate": "^1.10",
         "spatie/laravel-medialibrary": "^9.0.0",
-        "spatie/laravel-newsletter": "^4.2",
         "spatie/laravel-personal-data-export": "^4.0",
         "spatie/laravel-ray": "^1.29",
         "spatie/laravel-sitemap": "^6.0",

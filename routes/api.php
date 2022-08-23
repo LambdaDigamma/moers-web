@@ -70,20 +70,6 @@ Route::group(['prefix' => '/v2'], function () {
     Route::delete('/organisations/{organisation}/entry', 'API\APIOrganisationController@detachEntry')
         ->name('api.v2.organisations.entry.detach');
 
-
-    /* moers festival */
-
-    Route::get('/moers-festival/events', 'MoersFestivalController@getEvents')
-        ->name('api.v2.moersfestival.get');
-
-    Route::get('/moers-festival/events/all', 'MoersFestivalController@getAllEvents')
-        ->name('api.v2.moersfestival.getAll');
-
-    Route::get('/moers-festival/stream', 'MoersFestivalController@getStream');
-
-    Route::post('/moers-festival/events', 'MoersFestivalController@store')
-        ->middleware('auth:api')
-        ->name('api.v2.moersfestival.store');
 });
 
 /* Events */
