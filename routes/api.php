@@ -165,6 +165,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('/entries/{entry}/history', 'API\APIEntryController@getHistory')->name('api.v1.entries.history.get');
 
     Route::get('/radio-broadcasts', [RadioBroadcastController::class, 'index'])->name('api.v1.radio-broadcasts.index');
+    Route::get('/radio-broadcasts/{radioBroadcast}', [RadioBroadcastController::class, 'show'])->name('api.v1.radio-broadcasts.show');
 
 });
 

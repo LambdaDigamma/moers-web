@@ -19,4 +19,12 @@ class RadioBroadcastController extends Controller
             'data' => $radioBroadcasts
         ]);
     }
+
+    public function show(RadioBroadcast $radioBroadcast): JsonResponse
+    {
+        return new JsonResponse([
+            'message' => 'Successfully loaded radio broadcast.',
+            'data' => $radioBroadcast
+        ]);
+    }
 }

@@ -4,56 +4,56 @@ specifiers:
   '@inertiajs/inertia': ^0.11.0
   '@inertiajs/inertia-vue3': ^0.6.0
   '@inertiajs/progress': ^0.2.7
-  '@rollup/plugin-node-resolve': ^13.3.0
+  '@rollup/plugin-node-resolve': ^13.1.3
   '@rollup/plugin-url': ^6.1.0
   '@tailwindcss/aspect-ratio': ^0.4.0
   '@tailwindcss/forms': ^0.5.2
   '@tailwindcss/line-clamp': ^0.4.0
-  '@tailwindcss/typography': ^0.5.4
-  '@types/leaflet': ^1.7.11
-  '@vitejs/plugin-vue': ^3.0.1
+  '@tailwindcss/typography': ^0.5.2
+  '@types/leaflet': ^1.7.9
+  '@vitejs/plugin-vue': ^3.0.0
   '@vue-leaflet/vue-leaflet': ^0.6.1
-  autoprefixer: ^10.4.8
+  autoprefixer: ^10.4.4
   axios: ^0.27.2
-  chart.js: ^3.9.1
-  chartjs-plugin-datalabels: ^2.1.0
+  chart.js: ^3.7.1
+  chartjs-plugin-datalabels: ^2.0.0
   cross-env: ^7.0.3
-  date-fns: ^2.29.1
+  date-fns: ^2.28.0
   expect: ^27.5.1
   jquery: ^3.6.0
   jsdom: ^20.0.0
   jsdom-global: ^3.0.2
-  laravel-echo: ^1.13.1
+  laravel-echo: ^1.11.4
   laravel-vite-plugin: ^0.5.3
-  leaflet: ^1.8.0
-  lint-staged: ^13.0.3
+  leaflet: ^1.7.1
+  lint-staged: ^13.0.0
   lodash: ^4.17.21
-  marked: ^4.0.18
+  marked: ^4.0.12
   mocha: ^10.0.0
-  moment: ^2.29.4
+  moment: ^2.29.1
   moment-locales-webpack-plugin: ^1.2.0
   node-sass: ^7.0.1
   popper.js: ^1.16.1
-  postcss: ^8.4.14
-  pusher-js: ^7.3.0
+  postcss: ^8.4.12
+  pusher-js: ^7.0.6
   register-service-worker: ^1.7.2
   resolve-url-loader: ^5.0.0
-  sass: ^1.54.3
-  sass-loader: ^13.0.2
-  tailwindcss: ^3.1.8
+  sass: ^1.49.9
+  sass-loader: ^13.0.0
+  tailwindcss: ^3.0.23
   tailwindcss-filters: ^3.0.0
   tailwindcss-truncate-multiline: ^1.0.3
-  vite: ^3.0.4
-  vite-plugin-mkcert: ^1.9.0
-  vue: ^3.2.37
+  vite: ^3.0.0
+  vite-plugin-mkcert: ^1.6.0
+  vue: ^3.2.31
   vue-axios: ^3.4.1
   vue-click-outside: ^1.1.0
   vue-clipboard2: ^0.3.3
-  vue-loader: ^15.10.0
+  vue-loader: ^15.9.8
   vue-moment: ^4.1.0
-  vue-picture-input: ^2.4.0
-  vue-router: ^3.5.4
-  vue-template-compiler: ^2.7.8
+  vue-picture-input: ^2.1.6
+  vue-router: ^3.5.3
+  vue-template-compiler: ^2.6.14
   vuedraggable: ^2.24.3
 
 devDependencies:
@@ -910,7 +910,7 @@ packages:
   /axios/0.21.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.15.1
+      follow-redirects: 1.15.1_debug@4.3.4
     transitivePeerDependencies:
       - debug
     dev: true
@@ -1989,16 +1989,6 @@ packages:
   /flat/5.0.2:
     resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
     hasBin: true
-    dev: true
-
-  /follow-redirects/1.15.1:
-    resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
     dev: true
 
   /follow-redirects/1.15.1_debug@4.3.4:
