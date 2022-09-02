@@ -66,6 +66,9 @@ Route::group([
     Route::get('/veranstaltungen', [EventController::class, 'index'])->name('events.index');
     Route::get('/veranstaltungen/{event}', [EventController::class, 'show'])->name('events.show');
 
+    Route::redirect('/android', 'https://play.google.com/store/apps/details?id=com.lambdadigamma.moers', 301);
+    Route::redirect('/ios', 'https://apps.apple.com/de/app/mein-moers/id1305862555?mt=8', 301);
+
     Route::get('/app', [MarketingController::class, 'app'])->name('marketing.app');
 
     Route::get('/notifications')->name('notifications')->uses('ProfileController@notifications')->middleware('auth');
