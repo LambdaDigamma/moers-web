@@ -16,8 +16,10 @@ class RubbishController extends Controller
         if (Request::has('all')) {
             $data = RubbishStreet::query()
                 ->when($queryTerm, function ($query) use ($queryTerm) {
-                    return $query->where('name', 'LIKE', "%{$queryTerm}%");
+                    return $query
+                        ->where('name', 'LIKE', "%{$queryTerm}%");
                 })
+                ->orderBy('name')
                 ->get();
 
             return new JsonResponse(['data' => $data], 200);
@@ -25,8 +27,10 @@ class RubbishController extends Controller
             $data = RubbishStreet::query()
                 ->current()
                 ->when($queryTerm, function ($query) use ($queryTerm) {
-                    return $query->where('name', 'LIKE', "%{$queryTerm}%");
+                    return $query
+                        ->where('name', 'LIKE', "%{$queryTerm}%");
                 })
+                ->orderBy('name')
                 ->get();
 
             return new JsonResponse(['data' => $data], 200);
