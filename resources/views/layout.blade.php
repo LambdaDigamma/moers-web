@@ -23,22 +23,11 @@
     <link rel="icon" type="image/svg+xml" href="/svg/mm.svg" sizes="any">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
+    @googlefonts
     @routes
 
-    {{--
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
-    <script src="{{ mix('/js/manifest.js') }}" defer></script>
-    <script src="{{ mix('/js/vendor.js') }}" defer></script>
-    <script src="{{ mix('/js/app.js') }}" defer></script> --}}
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 
-    @vite(['resources/js/app.js'])
-
-{{--    {{ vite_assets() }}--}}
     <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
 
 </head>

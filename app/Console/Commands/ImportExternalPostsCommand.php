@@ -3,10 +3,15 @@
 namespace App\Console\Commands;
 
 use App\Models\Post;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
+use Log;
 use SimpleXMLElement;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 class ImportExternalPostsCommand extends Command
 {
@@ -36,6 +41,7 @@ class ImportExternalPostsCommand extends Command
 
     protected $feeds = [
         "https://adolfinum.de/share/aktuelles.xml",
+        "https://rp-online.de/nrw/staedte/moers/feed.rss",
     ];
 
     /**
@@ -51,31 +57,58 @@ class ImportExternalPostsCommand extends Command
         $feedSources = collect($this->feeds);
 
         $feedSources->each(function ($source) {
-            $response = Http::get($source);
-            $response = utf8_encode($response->body());
+            try {
+                $response = Http::get($source);
+                $response = $response->body();
 
-            $feed = new SimpleXMLElement($response);
+                $feed = new SimpleXMLElement($response);
 
-            foreach ($feed->channel->item as $entry) {
+                $feedTitle = (string) $feed->channel->title;
 
-                $post = Post::updateOrCreate([
-                    'guid' => (string) $entry->guid,
-                ], [
-                    'title' => (string) $entry->title,
-                    // 'content' => (string) $entry->description,
-                    // 'source' => $source,
-                    'guid' => (string) $entry->guid,
-                    'external_href' => (string) $entry->link,
-                    'published_at' => Carbon::parse((string) $entry->pubDate),
-                ]);
+                foreach ($feed->channel->item as $entry) {
 
-                // dd($entry);
+                    $post = Post::updateOrCreate([
+                        'guid' => (string) $entry->guid,
+                    ], [
+                        'title' => (string) $entry->title,
+                        // 'content' => (string) $entry->description,
+                        'source' => $feedTitle,
+                        'guid' => (string) $entry->guid,
+                        'external_href' => (string) $entry->link,
+                        'published_at' => Carbon::parse((string) $entry->pubDate),
+                    ]);
+
+                    // Media of the rss item
+                    $enclosure = (string) $entry->enclosure['url'];
+                    $image_url = null;
+
+                    if ($post->getFirstMedia('header') == null) {
+                        if ($enclosure != "") {
+                            $image_url = $enclosure;
+                        } else {
+                            $media_namespace = $entry->children('http://search.yahoo.com/mrss/');
+                            $image_url = (string) $media_namespace->content->attributes()->url;
+                        }
+                    }
+
+                    if ($image_url) {
+                        try {
+                            $post->addMediaFromUrl($image_url)
+                                ->toMediaCollection('header');
+                        } catch (FileDoesNotExist|FileIsTooBig|FileCannotBeAdded $e) {
+                            Log::error($e->getMessage());
+                        }
+                    }
+
+                }
+            } catch (Exception $e) {
+                $this->error('Error while loading feed ' . $source);
+                $this->error($e->getMessage());
+                Log::error($e->getMessage());
             }
 
-            // dd($feed);
         });
 
-        // dd(Post::all());
 
         return 0;
     }

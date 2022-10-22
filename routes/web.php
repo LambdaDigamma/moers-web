@@ -13,7 +13,7 @@
 
 use App\Http\Controllers\MarketingController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\PetrolController;
+use App\Http\Controllers\FuelController;
 use App\Http\Controllers\RubbishController;
 use App\Http\Controllers\Web\EventController;
 use App\Http\Controllers\Web\ParkingAreaController;
@@ -53,7 +53,7 @@ Route::get('/abfallkalender/{street}', [RubbishController::class, 'show'])->name
 Route::get('/parken/{slug}', [ParkingAreaController::class, 'show'])->name('parking-area.show');
 Route::get('/parken', [ParkingAreaController::class, 'index'])->name('parking-area.index');
 
-Route::get('/kraftstoff', [PetrolController::class, 'index'])->name('petrol.index');
+Route::get('/kraftstoff', [FuelController::class, 'index'])->name('petrol.index');
 
 Route::get('/neuigkeiten', [NewsController::class, 'index'])->name('news.index');
 
@@ -113,4 +113,3 @@ Route::group([
 
 });
 
-Route::post('/mailinglist/subscribe', 'MailingListController@subscribe')->name('mailinglist.subscribe');

@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper.cdc0426e.js";import{o as t,c as o}from"./app.b7fec2ed.js";/* empty css            */const r={name:"Create"};function a(c,n,s,p,_,m){return t(),o("div")}const l=e(r,[["render",a]]);export{l as default};
