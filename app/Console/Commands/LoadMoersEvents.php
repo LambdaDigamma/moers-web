@@ -8,6 +8,10 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Http;
+use Swis\JsonApi\Client\Facades\DocumentFactoryFacade;
+use Swis\JsonApi\Client\Interfaces\DocumentInterface;
+use Swis\JsonApi\Client\Item;
 use Traversable;
 
 class LoadMoersEvents extends Command
@@ -26,8 +30,13 @@ class LoadMoersEvents extends Command
      */
     protected $description = 'Load all events for the next month from moers backend.';
 
-    protected $unids;
-    protected $currentUnid;
+    protected $client;
+    protected $hrefs;
+    protected $currentHref;
+
+    protected array $events = [];
+    protected array $urls = [];
+    protected array $eventUrls = [];
 
     /**
      * Create a new command instance.
@@ -37,6 +46,7 @@ class LoadMoersEvents extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->client = new Client();
     }
 
     /**
@@ -46,157 +56,199 @@ class LoadMoersEvents extends Command
      */
     public function handle()
     {
-        $client = new Client();
-        $request = new Request('GET', 'https://www.moers.de/www/event.nsf/apijson.xsp/view-event-month');
+        $document = Http::asJsonApi()
+            ->get('https://www.moers.de/jsonapi/node/event')
+            ->jsonApi();
 
-        $promise = $client->sendAsync($request)->then(function ($response) {
-            $data = $response->getBody();
-            $json = collect(json_decode($data, true));
+        $this->handleDocument($document);
 
-            $this->unids = $json->map(function ($item, $key) {
-                return $item['@unid'];
-            });
+        while ($document->getLinks()->next) {
+            $this->urls[] = $document->getLinks()->next->getHref();
+            $document = Http::asJsonApi()
+                ->get($document->getLinks()->next->getHref())
+                ->jsonApi();
+            $this->handleDocument($document);
+        }
 
-            $this->info('Successfully recognized ' . $this->unids->count() . ' events this month.');
+        $this->info('Found ' . count($this->eventUrls) . ' events.');
 
-            $this->getNextEvent();
+        foreach ($this->events as $event) {
+            $this->info('Loading event ' . $event['title']);
+
+//                $eventType = $data->get('EventType');
+//                $location = $data->get('LocationName');
+//                $street = $data->get('LocationStreetAddress');
+//                $postcode = $data->get('LocationZIP');
+//                $city = $data->get('LocationCity');
+//                $organizer = $data->get('VeranstalterName');
+//
+//                // Category
+//
+//                if (is_array($eventType) or ($eventType instanceof Traversable)) {
+//                    $category = implode(', ', $eventType);
+//                } else {
+//                    $category = $eventType;
+//                }
+//
+            $newEvent = Event::firstWhere('extras->unid', $event['uuid']);
+
+            if (! $newEvent) {
+                $newEvent = Event::create([
+                    'name' => $event['title'],
+                    'extras->unid' => $event['uuid']
+                ]);
+            }
+
+            $newEvent->name = $event['title'];
+            $newEvent->description = $event['description'];
+            $newEvent->start_date = $event['start_date'];
+            $newEvent->end_date = $event['end_date'] ?? null;
+            $newEvent->url = $event['url'];
+            $newEvent->published_at = now();
+            $newEvent->created_at = $event['created_at'];
+            $newEvent->updated_at = $event['updated_at'];
+            $extras = [];
+            $extras['unid'] = $event['uuid'];
+
+            $newEvent->extras = $extras;
+            $newEvent->save();
+
+
+//                $newEvent->category = $category;
+//
+//                $attendanceMode = Event::ATTENDANCE_OFFLINE;
+//
+//                if ($location == 'online-Veranstaltung') {
+//                    $attendanceMode = Event::ATTENDANCE_ONLINE;
+//                }
+//
+//                $newEvent->extras = collect([
+//                    'unid' => $this->currentUnid,
+//                    'location' => $location,
+//                    'street' => $street,
+//                    'postcode' => $postcode,
+//                    'place' => $city,
+//                    'organizer' => $organizer,
+//                    'attendance_mode' => $attendanceMode,
+//                ]);
+        }
+
+        return 0;
+    }
+
+    public function handleDocument(DocumentInterface $document)
+    {
+        $events = $document->getData();
+
+        foreach ($events as $event) {
+            $data = [
+                'uuid' => $event->id,
+                'title' => $event->title,
+                'description' => $event->field_nsf_teaser_text,
+                'start_date' => $event->field_evt_date?->value ? Carbon::parse($event->field_evt_date->value) : null,
+                'end_date' => $event->field_evt_date?->end_value ? Carbon::parse($event->field_evt_date->end_value) : null,
+                'url' => 'https://moers.de' . $event->path->alias,
+                'created_at' => Carbon::parse($event->created),
+                'updated_at' => Carbon::parse($event->changed),
+                'data_url' => $event->getLinks()->self->getHref(),
+            ];
+
+            $this->events[] = $data;
+            $this->eventUrls[] = $event->getLinks()->self->getHref();
+        }
+    }
+
+
+    public function updateOrCreateNextEvent()
+    {
+        $href = $this->hrefs->shift();
+        $request = new Request('GET', $href);
+        $this->currentHref = $href;
+
+        $promise = $this->client->sendAsync($request)->then(function ($response) {
+            $data = collect(json_decode($response->getBody(), true)['data']);
+
+            $title = $data->get('attributes')['title'];
+
+            dd($title);
+
+
+            $this->currentHref = null;
         });
 
         $promise->wait();
     }
 
-    public function getNextEvent()
-    {
-        $unid = $this->unids->shift();
+//                $eventType = $data->get('EventType');
+//                $location = $data->get('LocationName');
+//                $street = $data->get('LocationStreetAddress');
+//                $postcode = $data->get('LocationZIP');
+//                $city = $data->get('LocationCity');
+//                $organizer = $data->get('VeranstalterName');
 
-        if ($unid !== null) {
-            $client = new Client();
-            $request = new Request('GET', 'https://www.moers.de/www/event.nsf/apijson.xsp/doc/' . $unid);
-
-            $this->currentUnid = $unid;
-
-            $promise = $client->sendAsync($request)->then(function ($response) {
-                $data = collect(json_decode($response->getBody(), true));
-
-                $title = $data->get('EventTitle');
-                $start = $data->get('StartDateTime');
-                $end = $data->get('EndDateTime');
-                $docName = $data->get('DocNameWeb');
-                $description = $data->get('Content_1');
-                $eventType = $data->get('EventType');
-                $location = $data->get('LocationName');
-                $street = $data->get('LocationStreetAddress');
-                $postcode = $data->get('LocationZIP');
-                $city = $data->get('LocationCity');
-                $organizer = $data->get('VeranstalterName');
-
-                $finalStart = null;
-                $finalEnd = null;
-                $url = null;
-                $category = null;
-
-                // Start
-
-                if (is_array($start) or ($start instanceof Traversable)) {
-                    $finalStart = $this->cleanTimeString($start[0]);
-                } elseif ($start !== null) {
-                    $finalStart = $this->cleanTimeString($start);
-                }
-
-                // End
-
-                if (is_array($end) or ($end instanceof Traversable)) {
-                    $finalEnd = $this->cleanTimeString(end($end));
-                } elseif ($end !== null) {
-                    $finalEnd = $this->cleanTimeString($end);
-                } else {
-                    $endDate = Carbon::parse($data->get('StartDate'), 'Europe/Berlin');
-
-                    $endDate->setTimezone('Europe/Berlin');
-                    $endTime = $data->get('EndTime');
-
-                    if ($endDate !== null && $endDate !== false && $endTime !== null) {
-                        $finalEnd = $endDate->format('Y-m-d') . ' ' . $endTime;
-                    }
-                }
-
-                // URL
-
-                if ($docName !== null) {
-                    $url = 'https://www.moers.de/de/veranstaltungen/' . $docName;
-                }
-
-                // Category
-
-                if (is_array($eventType) or ($eventType instanceof Traversable)) {
-                    $category = implode(', ', $eventType);
-                } else {
-                    $category = $eventType;
-                }
-
-                $newEvent = Event::firstOrCreate(['extras->unid' => $this->currentUnid], ['name' => '']);
-
-                $newEvent->name = $title;
-                $newEvent->start_date = $finalStart;
-                $newEvent->end_date = $finalEnd != null ? Carbon::parse($finalEnd, 'Europe/Berlin')->setTimezone('UTC') : null;
-                $newEvent->url = $url;
-                $newEvent->description = trim($description);
-                $newEvent->category = $category;
-                $newEvent->published_at = now();
-
-                $attendanceMode = Event::ATTENDANCE_OFFLINE;
-                
-                if ($location == 'online-Veranstaltung') {
-                    $attendanceMode = Event::ATTENDANCE_ONLINE;
-                }
-
-                $newEvent->extras = collect([
-                    'unid' => $this->currentUnid,
-                    'location' => $location,
-                    'street' => $street,
-                    'postcode' => $postcode,
-                    'place' => $city,
-                    'organizer' => $organizer,
-                    'attendance_mode' => $attendanceMode,
-                ]);
-
-                $newEvent->save();
-
-                $this->info('Successfully loaded event \'' . $newEvent->name .'\'.');
-
-                $this->currentUnid = null;
-                $this->getNextEvent();
-            });
-
-            $promise->wait();
-        }
-    }
-
-    protected function cleanTime($time)
-    {
-        if ($time !== null) {
-            if (!(strpos($time, 'T') !== false)) {
-                $time .= 'T00:00:00Z';
-            }
-
-            return $time;
-        } else {
-            return null;
-        }
-    }
-
-    protected function cleanTimeString($timeString)
-    {
-        $cleanedTimeString = $this->cleanTime($timeString);
-
-        try {
-            $date = new Carbon($cleanedTimeString, 'Europe/Berlin');
-
-            return $date->setTimezone('UTC')->format('Y-m-d H:i:s');
-        } catch (Exception $e) {
-            $this->error($e->getMessage());
-
-            return null;
-        }
-    }
+//                // Category
+//
+//                if (is_array($eventType) or ($eventType instanceof Traversable)) {
+//                    $category = implode(', ', $eventType);
+//                } else {
+//                    $category = $eventType;
+//                }
+//
+//                $newEvent->category = $category;
+//
+//                $attendanceMode = Event::ATTENDANCE_OFFLINE;
+//
+//                if ($location == 'online-Veranstaltung') {
+//                    $attendanceMode = Event::ATTENDANCE_ONLINE;
+//                }
+//
+//                $newEvent->extras = collect([
+//                    'unid' => $this->currentUnid,
+//                    'location' => $location,
+//                    'street' => $street,
+//                    'postcode' => $postcode,
+//                    'place' => $city,
+//                    'organizer' => $organizer,
+//                    'attendance_mode' => $attendanceMode,
+//                ]);
+//
+//                $newEvent->save();
+//
+//                $this->info('Successfully loaded event \'' . $newEvent->name .'\'.');
+//
+//                $this->currentUnid = null;
+//                $this->getNextEvent();
+//            });
+//
+//            $promise->wait();
+//        }
+//    }
+//
+//    protected function cleanTime($time)
+//    {
+//        if ($time !== null) {
+//            if (!(strpos($time, 'T') !== false)) {
+//                $time .= 'T00:00:00Z';
+//            }
+//
+//            return $time;
+//        } else {
+//            return null;
+//        }
+//    }
+//
+//    protected function cleanTimeString($timeString)
+//    {
+//        $cleanedTimeString = $this->cleanTime($timeString);
+//
+//        try {
+//            $date = new Carbon($cleanedTimeString, 'Europe/Berlin');
+//
+//            return $date->setTimezone('UTC')->format('Y-m-d H:i:s');
+//        } catch (Exception $e) {
+//            $this->error($e->getMessage());
+//
+//            return null;
+//        }
+//    }
 }
