@@ -50,7 +50,7 @@
                 <p class="flex items-center mt-2 text-sm text-gray-500 sm:mt-0 sm:ml-6">
                     <x-heroicon-s-location-marker class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
                     <span class="max-w-[50ch] truncate">
-                        {{ $event->extras['location'] }}
+                        {{ $event->extras['location'] ?? "Kein Ort" }}
                     </span>
                 </p>
             </div>
