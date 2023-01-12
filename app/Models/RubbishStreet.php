@@ -42,6 +42,10 @@ class RubbishStreet extends Model
 {
     use HasFactory;
 
+    public $casts = [
+        'year' => 'integer'
+    ];
+
     public function pickupItems()
     {
         $items = RubbishScheduleItem::upcoming()->get();
