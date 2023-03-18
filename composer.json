@@ -76,6 +76,8 @@
         "pusher/pusher-php-server": "^5.0",
         "reinink/advanced-eloquent": "^0.2.0",
         "reinink/remember-query-strings": "^0.1.0",
+        "sammyjo20/saloon": "^2.0",
+        "sammyjo20/saloon-laravel": "^2.0",
         "seld/jsonlint": "^1.7",
         "silber/bouncer": "^1.0.0",
         "spatie/laravel-google-fonts": "^1.2",
@@ -153,7 +155,8 @@
         "optimize-autoloader": true,
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "dev",
