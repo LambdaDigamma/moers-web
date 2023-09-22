@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Charts\ParkingAreaRecentHistory;
+use App\Data\Api\EventNodeItem;
+use App\Data\Api\MediaCompanyItem;
 use App\Models\HelpRequest;
 use Bluemmb\Faker\PicsumPhotosProvider;
 use Bouncer;
@@ -17,6 +19,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 use Request;
 use ConsoleTVs\Charts\Registrar as Charts;
+use TypeMapper;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -44,6 +47,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Bouncer::ownedVia(HelpRequest::class, 'creator_id');
+
+        TypeMapper::setMapping('node--event', EventNodeItem::class);
+        TypeMapper::setMapping('media--company', MediaCompanyItem::class);
 
         $charts->register([
             ParkingAreaRecentHistory::class,
