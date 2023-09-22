@@ -15,7 +15,11 @@ class RadioBroadcast extends Model
     
     public $translatable = ['title', 'description'];
     public $fillable = ['title', 'description', 'starts_at', 'ends_at', 'uid', 'url', 'attach'];
-    public $dates = ['starts_at', 'ends_at'];
+
+    protected $casts = [
+        'starts_at' => 'datetime',
+        'ends_at' => 'datetime',
+    ];
 
     /**
      * Orders the query with a chronological start date.

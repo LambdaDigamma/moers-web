@@ -6,7 +6,7 @@ use App\Models\Entry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 class EntryAPITest extends TestCase
 {
@@ -33,13 +33,13 @@ class EntryAPITest extends TestCase
     public function test_can_store_entry()
     {
         $data = [
-            'name' => faker()->title,
+            'name' => fake()->title,
             'tags' => 'Just, Testing',
-            'lat' => faker()->latitude,
-            'lng' => faker()->longitude,
-            'street' => faker()->streetName,
-            'house_number' => faker()->buildingNumber,
-            'place' => faker()->city,
+            'lat' => fake()->latitude,
+            'lng' => fake()->longitude,
+            'street' => fake()->streetName,
+            'house_number' => fake()->buildingNumber,
+            'place' => fake()->city,
             'postcode' => '12345',
             'secret' => 'tzVQl34i6SrYSzAGSkBh'
         ];
@@ -61,13 +61,13 @@ class EntryAPITest extends TestCase
     public function test_fails_store_entry_no_key()
     {
         $data = [
-            'name' => faker()->title,
+            'name' => fake()->title,
             'tags' => 'Just, Testing',
-            'lat' => faker()->latitude,
-            'lng' => faker()->longitude,
-            'street' => faker()->streetName,
-            'house_number' => faker()->buildingNumber,
-            'place' => faker()->city,
+            'lat' => fake()->latitude,
+            'lng' => fake()->longitude,
+            'street' => fake()->streetName,
+            'house_number' => fake()->buildingNumber,
+            'place' => fake()->city,
             'postcode' => '12345',
         ];
 

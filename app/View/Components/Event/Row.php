@@ -5,6 +5,7 @@ namespace App\View\Components\Event;
 use App\Models\Event;
 use App\Services\AttendanceModeFormatter;
 use App\Services\EventDateFormatter;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Carbon;
 use Illuminate\View\Component;
 
@@ -22,7 +23,10 @@ class Row extends Component
     public function __construct(Event $event)
     {
         $this->event = $event;
-        
+
+        dd($event);
+        dd($event->start_date);
+
         if ($event->isActive()) {
             $this->date = "läuft gerade";
         } else {
@@ -35,7 +39,7 @@ class Row extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View|\Closure|string
      */
     public function render()
     {
