@@ -95,9 +95,6 @@ devDependencies:
   moment:
     specifier: ^2.29.4
     version: 2.29.4
-  moment-locales-webpack-plugin:
-    specifier: ^1.2.0
-    version: 1.2.0(moment@2.29.4)(webpack@5.89.0)
   node-sass:
     specifier: ^7.0.3
     version: 7.0.3
@@ -3089,10 +3086,6 @@ packages:
     resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
     dev: true
 
-  /lodash.difference@4.5.0:
-    resolution: {integrity: sha512-dS2j+W26TQ7taQBGN8Lbbq04ssV3emRw4NY58WErlTO29pIqS0HmoT5aJ9+TUQ1N3G+JOZSji4eugsWwGp9yPA==}
-    dev: true
-
   /lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
     dev: true
@@ -3399,17 +3392,6 @@ packages:
       yargs: 16.2.0
       yargs-parser: 20.2.4
       yargs-unparser: 2.0.0
-    dev: true
-
-  /moment-locales-webpack-plugin@1.2.0(moment@2.29.4)(webpack@5.89.0):
-    resolution: {integrity: sha512-QAi5v0OlPUP7GXviKMtxnpBAo8WmTHrUNN7iciAhNOEAd9evCOvuN0g1N7ThIg3q11GLCkjY1zQ2saRcf/43nQ==}
-    peerDependencies:
-      moment: ^2.8.0
-      webpack: ^1 || ^2 || ^3 || ^4 || ^5
-    dependencies:
-      lodash.difference: 4.5.0
-      moment: 2.29.4
-      webpack: 5.89.0
     dev: true
 
   /moment@2.29.4:
