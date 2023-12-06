@@ -19,7 +19,7 @@
                     <div class="relative">
                         <x-heroicon-s-search
                             class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400" />
-                        <input type="search" wire:model.debounce.300ms="search" id="event_search"
+                        <input type="search" wire:model.live.debounce.300ms="search" id="event_search"
                             class="w-full h-12 pr-4 text-gray-800 placeholder-gray-400 bg-transparent border-0 pl-11 focus:ring-0 sm:text-sm"
                             placeholder="Veranstaltung suchen…">
                     </div>
@@ -34,7 +34,7 @@
                             <label for="category" class="block text-sm font-semibold text-gray-700">Kategorie</label>
                             <div class="flex mt-1 rounded-md shadow-sm">
                                 <div class="relative flex items-stretch flex-grow focus-within:z-10">
-                                    <select id="category" name="category" wire:model="filterCategory"
+                                    <select id="category" name="category" wire:model.live="filterCategory"
                                         class="block w-full border-gray-300 rounded-none focus:ring-indigo-500 focus:border-indigo-500 rounded-l-md sm:text-sm">
                                         <option selected value="null">Kein Filter</option>
                                         @foreach ($categories as $item)
@@ -58,7 +58,7 @@
                                 <div class="relative flex items-start">
                                     <div class="flex items-center h-5">
                                         <input id="offline" name="offline" type="checkbox"
-                                            wire:model="attendance_offline"
+                                            wire:model.live="attendance_offline"
                                             class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                                     </div>
                                     <div class="ml-3 text-sm">
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="relative flex items-start">
                                     <div class="flex items-center h-5">
-                                        <input id="online" name="online" type="checkbox" wire:model="attendance_online"
+                                        <input id="online" name="online" type="checkbox" wire:model.live="attendance_online"
                                             class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                                     </div>
                                     <div class="ml-3 text-sm">
@@ -81,7 +81,7 @@
                         <legend class="text-sm font-semibold text-gray-900">Preis</legend>
                         <div class="relative flex items-start">
                             <div class="flex items-center h-5">
-                                <input id="only_free" name="only_free" type="checkbox" wire:model="only_free"
+                                <input id="only_free" name="only_free" type="checkbox" wire:model.live="only_free"
                                     class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                             </div>
                             <div class="ml-3 text-sm">

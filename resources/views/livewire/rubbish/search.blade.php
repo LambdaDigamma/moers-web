@@ -9,7 +9,7 @@
                     </div>
                     <input id="search_field"
                         class="block w-full h-full py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 border-transparent focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
-                        name="search" wire:model="search" placeholder="Suche eine Straße..." type="search">
+                        name="search" wire:model.live="search" placeholder="Suche eine Straße..." type="search">
                 </div>
             </form>
         </div>

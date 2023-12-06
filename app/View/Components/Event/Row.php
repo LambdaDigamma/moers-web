@@ -24,9 +24,6 @@ class Row extends Component
     {
         $this->event = $event;
 
-        dd($event);
-        dd($event->start_date);
-
         if ($event->isActive()) {
             $this->date = "läuft gerade";
         } else {

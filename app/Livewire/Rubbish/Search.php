@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Rubbish;
+namespace App\Livewire\Rubbish;
 
 use App\Models\RubbishStreet;
 use Livewire\Component;

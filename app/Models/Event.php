@@ -17,9 +17,12 @@ class Event extends BaseEvent implements HasMedia
 
     public $appends = ['is_online'];
 
-    protected $casts = [
-        'extras' => AsCollection::class,
-    ];
+    public function getCasts(): array
+    {
+        return array_merge(parent::getCasts(), [
+            'extras' => AsCollection::class,
+        ]);
+    }
 
     protected static function booted()
     {

@@ -55,7 +55,7 @@
     @endif
 
     @livewireScripts
-    @livewire('livewire-ui-modal')
+    @livewire('wire-elements-modal')
     @stack('scripts')
 
 </body>
