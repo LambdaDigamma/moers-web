@@ -1,0 +1,19 @@
+mein-moers.localhost:5173 {
+  	tls internal
+    reverse_proxy mein-moers-app:5173
+}
+
+24doors.localhost {
+  	tls internal
+    reverse_proxy mein-moers-nginx:80
+}
+
+phpmyadmin.mein-moers.localhost {
+  	tls internal
+	reverse_proxy phpmyadmin:80
+}
+
+mailpit.mein-moers.localhost {
+   	tls internal
+	reverse_proxy mailpit:8025
+}
