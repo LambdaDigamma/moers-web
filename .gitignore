@@ -2,10 +2,10 @@
 /.vscode
 /.vagrant
 node_modules
-/src/public/hot
-/src/public/storage
-/src/storage/*.key
-/src/vendor
+public/hot
+public/storage
+storage/*.key
+vendor
 Homestead.json
 Homestead.yaml
 npm-debug.log
