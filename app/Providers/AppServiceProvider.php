@@ -31,8 +31,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Charts $charts)
     {
-        Schema::defaultStringLength(255);
-
         $this->registerInertia();
         $this->registerLengthAwarePaginator();
 

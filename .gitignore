@@ -19,3 +19,4 @@ cgi-bruecke.php
 *.cache
 storage/settings.json
 .php_cs.cache
+.vault-password
