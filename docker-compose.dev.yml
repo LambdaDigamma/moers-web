@@ -8,6 +8,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "5173:5173"
     volumes:
       # Add Docker as a mounted volume, so that Traefik can read the labels of other services
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -38,11 +39,21 @@ services:
   
   node:
     image: node:20
+    command: "npm run watch-dev"
     volumes:
       - .:/usr/src/app/
     working_dir: /usr/src/app/
     networks: 
       - development
+    environment:
+        VITE_HOST: "vite.dev.test"
+    labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.vite.rule=HostRegexp(`vite.dev.test`)"
+        - "traefik.http.routers.vite.entrypoints=websecure"
+        - "traefik.http.routers.vite.tls=true"
+        - "traefik.http.services.vite.loadbalancer.server.port=5173"
+        - "traefik.http.services.vite.loadbalancer.server.scheme=https"
 
   mariadb:
     networks:
@@ -63,7 +74,7 @@ services:
         - development
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.mailpit.rule=Host(`mailpit.dev.test`)"
+        - "traefik.http.routers.mailpit.rule=Host(`mailpit.mein-moers.localhost`)"
         - "traefik.http.routers.mailpit.entrypoints=websecure"
         - "traefik.http.routers.mailpit.tls=true"
         - "traefik.http.services.mailpit.loadbalancer.server.port=8025"

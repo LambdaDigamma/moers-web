@@ -1,49 +1,18 @@
-import vue from "@vitejs/plugin-vue";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import mkcert from "vite-plugin-mkcert";
-import url from "@rollup/plugin-url";
-import path from "path";
-import fs from 'fs';
+import { defineConfig, loadEnv } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import { exec } from "child_process";
-import {defineConfig} from 'vite'
-import {homedir} from 'os'
-import {resolve} from 'path'
+import vue from '@vitejs/plugin-vue';
+import basicSsl from '@vitejs/plugin-basic-ssl'
 
-let host = 'mein-moers.localhost'
+const env = loadEnv('', process.cwd());
 
-export default ({ command }) => ({
-    base: command === "serve" ? "" : "/build/",
-    // publicDir: false,
-    // build: {
-    //     manifest: true,
-    //     outDir: "public/build",
-    //     rollupOptions: {
-    //         input: "resources/js/app.js",
-    //     },
-    // },
-    resolve: {
-        alias: {
-            "@": path.resolve(__dirname, "resources/js"),
-            "~": path.resolve(__dirname, "resources/img"),
-            ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue"),
-        },
-    },
+const host = env.VITE_HOST;
+
+export default defineConfig({
     plugins: [
-        laravel([
-            'resources/js/app.js',
-            'resources/css/app.css',
-        ]),
-        nodeResolve({
-            moduleDirectories: [
-                "node_modules",
-                __dirname +
-                    "/vendor/spatie/laravel-medialibrary-pro/resources/js",
-            ],
-        }),
-        url({
-            limit: Infinity,
-            publicPath: "/public",
+        basicSsl(),
+        laravel({
+            input: 'resources/js/app.js',
+            refresh: true,
         }),
         vue({
             template: {
@@ -53,51 +22,12 @@ export default ({ command }) => ({
                 },
             },
         }),
-        {
-            name: "blade",
-            handleHotUpdate({ file, server }) {
-                if (file.endsWith(".blade.php")) {
-                    server.ws.send({
-                        type: "full-reload",
-                        path: "*",
-                    });
-                }
-            },
-        },
-        {
-            name: "rebuildRoutes",
-            handleHotUpdate({ file, server }) {
-                if (file.includes("routes") && file.endsWith(".php")) {
-                    exec("yarn routes");
-                    server.ws.send({
-                        type: "full-reload",
-                        path: "*",
-                    });
-                }
-            },
-        },
     ],
-    server: detectServerConfig(host),
-});
-
-function detectServerConfig(host) {
-    let keyPath = resolve(homedir(), `.config/valet/Certificates/${host}.key`)
-    let certificatePath = resolve(homedir(), `.config/valet/Certificates/${host}.crt`)
-
-    if (!fs.existsSync(keyPath)) {
-        return {}
-    }
-
-    if (!fs.existsSync(certificatePath)) {
-        return {}
-    }
-
-    return {
-        hmr: {host},
+    server: {
         host,
-        https: {
-            key: fs.readFileSync(keyPath),
-            cert: fs.readFileSync(certificatePath),
+        hmr: {
+            host,
+            clientPort: 443
         },
-    }
-}
+    },
+});
