@@ -2,8 +2,8 @@
 
 namespace App\View\Components\Parking;
 
-use App\Models\ParkingArea;
 use Illuminate\View\Component;
+use Modules\Parking\Models\ParkingArea;
 
 class Panel extends Component
 {

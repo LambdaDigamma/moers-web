@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Modules\News\Models;
 
 use LambdaDigamma\MMFeeds\Models\Post as BasePost;
 

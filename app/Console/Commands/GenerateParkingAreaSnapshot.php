@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Jobs\GenerateParkingAreaSnapshot as GenerateParkingAreaSnapshotJob;
-use App\Models\ParkingArea;
 use Illuminate\Console\Command;
+use Modules\Parking\Models\ParkingArea;
 
 class GenerateParkingAreaSnapshot extends Command
 {

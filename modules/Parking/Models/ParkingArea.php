@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Parking\Models;
 
+use App\Models\StandardModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Limenet\LaravelMysqlSpatial\Eloquent\SpatialTrait;

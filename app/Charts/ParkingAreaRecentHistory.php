@@ -4,12 +4,12 @@ declare(strict_types = 1);
 
 namespace App\Charts;
 
-use App\Models\ParkingArea;
 use Chartisan\PHP\Chartisan;
 use ConsoleTVs\Charts\BaseChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Modules\Parking\Models\ParkingArea;
 
 class ParkingAreaRecentHistory extends BaseChart
 {

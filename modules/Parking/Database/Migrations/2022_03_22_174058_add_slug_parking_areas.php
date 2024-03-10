@@ -1,12 +1,11 @@
 <?php
 
-use App\Models\ParkingArea;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Modules\Parking\Models\ParkingArea;
 
-class AddSlugParkingAreas extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -33,4 +32,4 @@ class AddSlugParkingAreas extends Migration
             $table->string('slug', 255)->default(null)->unique()->change();
         });
     }
-}
+};

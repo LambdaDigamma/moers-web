@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\ParkingArea;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Parking\Models\ParkingArea;
 
 class ParkingAreaFactory extends Factory
 {

@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdvEvent;
 use App\Models\Event;
-use App\Models\ParkingArea;
-use App\Models\Post;
-use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Cache;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Modules\News\Models\Post;
+use Modules\Parking\Models\ParkingArea;
 
 class HomeController extends Controller
 {

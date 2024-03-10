@@ -1,8 +1,7 @@
 <?php
 
-use App\Models\ParkingArea;
 use Illuminate\Testing\Fluent\AssertableJson;
-
+use Modules\Parking\Models\ParkingArea;
 use function Pest\Laravel\getJson;
 
 it('show parking area dashboard', function () {

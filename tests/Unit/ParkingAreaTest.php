@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\ParkingArea;
+use Modules\Parking\Models\ParkingArea;
 
 it('creating slug for parking area works', function () {
     

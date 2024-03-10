@@ -5,12 +5,8 @@ namespace App\Console\Commands;
 use App\Http\Integrations\Moers\MoersConnector;
 use App\Http\Integrations\Moers\Requests\GetParkingLotsRequest;
 use Illuminate\Console\Command;
-use App\Models\ParkingArea;
-use App\Models\ParkingAreaOccupancy;
-use Cache;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Http;
-use League\Csv\Reader;
+use Modules\Parking\Models\ParkingArea;
+use Modules\Parking\Models\ParkingAreaOccupancy;
 
 class UpdateParkingAreas extends Command
 {
