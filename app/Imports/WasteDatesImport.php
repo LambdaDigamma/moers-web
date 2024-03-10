@@ -2,14 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\RubbishScheduleItem;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Excel;
+use Modules\Rubbish\Models\RubbishScheduleItem;
 
 class WasteDatesImport implements ToModel, WithCustomCsvSettings, WithHeadingRow
 {

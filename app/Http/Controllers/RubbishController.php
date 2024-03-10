@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RubbishStreet;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Modules\Rubbish\Models\RubbishStreet;
 
 class RubbishController extends Controller
 {

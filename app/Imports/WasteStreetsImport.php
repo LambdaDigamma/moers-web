@@ -2,13 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\RubbishScheduleItem;
-use App\Models\RubbishStreet;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithUpserts;
+use Modules\Rubbish\Models\RubbishStreet;
 
 class WasteStreetsImport implements ToModel, WithCustomCsvSettings, WithHeadingRow
 {

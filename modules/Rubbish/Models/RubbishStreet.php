@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Rubbish\Models;
 
+use App\Models\Model;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;

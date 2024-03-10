@@ -2,11 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\WasteDatesImport;
 use App\Imports\WasteStreetsImport;
-use App\Models\RubbishStreet;
 use Excel;
 use Illuminate\Console\Command;
+use Modules\Rubbish\Models\RubbishStreet;
 
 class ImportWasteStreets extends Command
 {

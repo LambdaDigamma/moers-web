@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Rubbish\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Model\Model;

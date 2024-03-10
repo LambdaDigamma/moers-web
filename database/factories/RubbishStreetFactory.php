@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\RubbishStreet;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Rubbish\Models\RubbishStreet;
 
 class RubbishStreetFactory extends Factory
 {

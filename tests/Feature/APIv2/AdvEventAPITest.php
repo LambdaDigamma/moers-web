@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\APIv2;
 
-use AdvEventSeeder;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,9 +11,6 @@ class AdvEventAPITest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
-//        $seeder = new AdvEventSeeder();
-//        $seeder->run();
 
     }
 

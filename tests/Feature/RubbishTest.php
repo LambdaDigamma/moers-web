@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\RubbishStreet;
-
+use Modules\Rubbish\Models\RubbishStreet;
 use function Pest\Laravel\get;
 
 it('can be accessed', function () {

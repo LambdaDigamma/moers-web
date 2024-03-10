@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Imports\ImportRubbishScheduleItems;
-use App\Models\RubbishScheduleItem;
 use Illuminate\Console\Command;
+use Modules\Rubbish\Models\RubbishScheduleItem;
 
 class UpdateRubbishScheduleItems extends Command
 {

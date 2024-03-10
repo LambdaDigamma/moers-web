@@ -4,10 +4,11 @@ services:
     networks:
       development:
         aliases:
-          - mein-moers.localhost
+          - moers.dev.test
     ports:
       - "80:80"
       - "443:443"
+      - "8080:8080"
       - "5173:5173"
     volumes:
       # Add Docker as a mounted volume, so that Traefik can read the labels of other services
@@ -15,6 +16,19 @@ services:
       - ./.infrastructure/conf/traefik/dev/traefik.yml:/traefik.yml:ro
       - ./.infrastructure/conf/traefik/dev/traefik-certs.yml:/traefik-certs.yml
       - ./.infrastructure/conf/traefik/dev/certificates/:/certificates
+
+  mariadb:
+    networks:
+      - development
+    volumes:
+      - ./.infrastructure/volume_data/mariadb/database_data/:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "rootpassword"
+      MYSQL_DATABASE: "laravel"
+      MYSQL_USER: "mysqluser"
+      MYSQL_PASSWORD: "mysqlpassword"
+    ports:
+      - "3306:3306"
 
   php:
     build:
@@ -31,19 +45,23 @@ services:
       - mariadb
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.laravel.rule=HostRegexp(`mein-moers.localhost`)"
+      - "traefik.http.routers.laravel.rule=HostRegexp(`moers.dev.test`)"
       - "traefik.http.routers.laravel.entrypoints=websecure"
       - "traefik.http.routers.laravel.tls=true"
-      - "traefik.http.services.laravel.loadbalancer.server.port=80"
-      - "traefik.http.services.laravel.loadbalancer.server.scheme=http"
-  
+      - "traefik.http.services.laravel.loadbalancer.server.port=443"
+      - "traefik.http.services.laravel.loadbalancer.server.scheme=https"
+    environment:
+      AUTORUN_ENABLED: "false"
+      SSL_MODE: "full"
+      APP_URL: "https://moers.dev.test"
+
   node:
     image: node:20
     command: "npm run watch-dev"
     volumes:
       - .:/usr/src/app/
     working_dir: /usr/src/app/
-    networks: 
+    networks:
       - development
     environment:
         VITE_HOST: "vite.dev.test"
@@ -55,26 +73,13 @@ services:
         - "traefik.http.services.vite.loadbalancer.server.port=5173"
         - "traefik.http.services.vite.loadbalancer.server.scheme=https"
 
-  mariadb:
-    networks:
-      - development
-    volumes:
-      - ./.infrastructure/volume_data/mariadb/database_data/:/var/lib/mysql
-    environment:
-        MYSQL_ROOT_PASSWORD: "rootpassword"
-        MYSQL_DATABASE: "laravel"
-        MYSQL_USER: "mysqluser"
-        MYSQL_PASSWORD: "mysqlpassword"
-    ports:
-      - "3306:3306"
-
   mailpit:
       image: axllent/mailpit
       networks:
         - development
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.mailpit.rule=Host(`mailpit.mein-moers.localhost`)"
+        - "traefik.http.routers.mailpit.rule=Host(`mailpit.moers.dev.test`)"
         - "traefik.http.routers.mailpit.entrypoints=websecure"
         - "traefik.http.routers.mailpit.tls=true"
         - "traefik.http.services.mailpit.loadbalancer.server.port=8025"

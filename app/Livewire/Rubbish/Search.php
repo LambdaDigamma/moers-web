@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Rubbish;
 
-use App\Models\RubbishStreet;
 use Livewire\Component;
+use Modules\Rubbish\Models\RubbishStreet;
 
 class Search extends Component
 {
