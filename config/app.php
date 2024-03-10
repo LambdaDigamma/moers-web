@@ -1,6 +1,13 @@
 <?php
 
+use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\PassportServiceProvider;
+use Modules\Content\Providers\ContentServiceProvider;
+use Modules\Event\Providers\EventServiceProvider;
+use Modules\News\Providers\NewsServiceProvider;
+use Modules\Organisation\Providers\OrganisationServiceProvider;
+use Modules\Parking\Providers\ParkingServiceProvider;
+use Modules\Rubbish\Providers\RubbishServiceProvider;
 
 return [
 
@@ -123,7 +130,7 @@ return [
 
     'faker_locale' => 'de_DE',
 
-    'providers' => \Illuminate\Support\ServiceProvider::defaultProviders()->merge([
+    'providers' => ServiceProvider::defaultProviders()->merge([
 
         /*
          * Package Service Providers...
@@ -145,6 +152,16 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\PageServiceProvider::class,
         App\Providers\DatasetServiceProvider::class,
+
+        /*
+         * Module Service Providers...
+         */
+        ContentServiceProvider::class,
+        EventServiceProvider::class,
+        NewsServiceProvider::class,
+        OrganisationServiceProvider::class,
+        ParkingServiceProvider::class,
+        RubbishServiceProvider::class,
 
         // Laravel IDE helper
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
@@ -199,8 +216,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Form' => Collective\Html\FormFacade::class,
-        'HTML' => Collective\Html\HtmlFacade::class,
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,
         'XmlParser' => Orchestra\Parser\Xml\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,

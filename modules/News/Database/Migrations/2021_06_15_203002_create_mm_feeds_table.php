@@ -4,8 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMMFeedsTable extends Migration
-{
+return new class extends Migration {
+
     public function up()
     {
         Schema::create('mm_feeds', function (Blueprint $table) {
@@ -58,4 +58,4 @@ class CreateMMFeedsTable extends Migration
         Schema::dropIfExists('mm_post_feed');
     }
 
-}
+};

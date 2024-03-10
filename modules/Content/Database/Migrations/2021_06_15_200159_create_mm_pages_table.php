@@ -4,8 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMMPagesTable extends Migration
-{
+return new class extends Migration {
+
     public function up()
     {
         Schema::create('mm_page_templates', function (Blueprint $table) {
@@ -97,4 +97,5 @@ class CreateMMPagesTable extends Migration
         Schema::dropIfExists('mm_pages');
         Schema::dropIfExists('mm_menu_items');
     }
-}
+
+};
