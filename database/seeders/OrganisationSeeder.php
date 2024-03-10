@@ -28,7 +28,7 @@ class OrganisationSeeder extends Seeder
 
         Organisation::factory()->create([
             'name' => 'moers festival',
-            'description' => 'Das mœrs festival ist ein international beachtetes Groß-Event der aktuellen improvisierten Musik. Es findet jeweils an Pfingsten statt und steht für Risikobereitschaft und den Mut zu Neuem. Es ist damit Garant für musikalische Entdeckungen jenseits des Mainstream. Abenteuerlust und Grenzüberschreitungen prägen das Festival, und dass dabei die musikalischen Ränder weit auseinander liegen ist erklärte Absicht.',
+            'description' => 'Das moers festival ist ein international beachtetes Groß-Event der aktuellen improvisierten Musik. Es findet jeweils an Pfingsten statt und steht für Risikobereitschaft und den Mut zu Neuem. Es ist damit Garant für musikalische Entdeckungen jenseits des Mainstream. Abenteuerlust und Grenzüberschreitungen prägen das Festival, und dass dabei die musikalischen Ränder weit auseinander liegen ist erklärte Absicht.',
             'logo_url' => 'https://www.moers-festival.de/fileadmin/img/logo-quer_md.gif'
         ]);
 

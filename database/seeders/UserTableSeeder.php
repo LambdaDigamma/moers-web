@@ -24,7 +24,5 @@ class UserTableSeeder extends Seeder
 
         $superadmin->assign('superadmin');
 
-        User::factory(5)->create();
-
     }
 }
