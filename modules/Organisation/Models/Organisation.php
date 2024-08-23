@@ -1,14 +1,22 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Organisation\Models;
 
+use App\Models\AdvEvent;
+use App\Models\Entry;
+use App\Models\Group;
+use App\Models\Model;
+use App\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Modules\Organisation\Database\Factories\OrganisationFactory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -68,14 +76,19 @@ class Organisation extends Model implements HasMedia
     protected $fillable = ['name', 'description'];
     protected $appends = ['header_path', 'logo_path'];
 
-    public function users()
+    protected static function newFactory(): OrganisationFactory
+    {
+        return OrganisationFactory::new();
+    }
+
+    public function users(): BelongsToMany
     {
         return $this
             ->belongsToMany(User::class)
             ->withPivot('organisation_id', 'user_id', 'role');
     }
 
-    public function entry()
+    public function entry(): BelongsTo
     {
         return $this->belongsTo(Entry::class);
     }

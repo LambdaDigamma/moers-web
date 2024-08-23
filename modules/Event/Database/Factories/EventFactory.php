@@ -1,18 +1,18 @@
 <?php
 
-namespace Database\Factories;
+namespace Modules\Event\Database\Factories;
 
-use App\Models\Organisation;
+use App\Models\Event;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class OrganisationFactory extends Factory
+class EventFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Organisation::class;
+    protected $model = Event::class;
 
     /**
      * Define the model's default state.
@@ -22,8 +22,7 @@ class OrganisationFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->company,
-            'description' => $this->faker->sentence(20)
+            //
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Modules\Rubbish\Database\Factories;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -34,7 +34,7 @@ class RubbishStreetFactory extends Factory
         ];
     }
 
-    public function old()
+    public function old(): RubbishStreetFactory
     {
         return $this->state([
             'year' => Carbon::now()->subYears($this->faker->numberBetween(1, 10))->year

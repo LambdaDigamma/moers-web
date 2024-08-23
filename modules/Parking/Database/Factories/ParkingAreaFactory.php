@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Modules\Parking\Database\Factories;
 
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -8,6 +8,8 @@ use Modules\Parking\Models\ParkingArea;
 
 class ParkingAreaFactory extends Factory
 {
+    protected $model = ParkingArea::class;
+
     /**
      * Define the model's default state.
      *
@@ -22,7 +24,7 @@ class ParkingAreaFactory extends Factory
         ];
     }
 
-    public function open() 
+    public function open(): ParkingAreaFactory
     {
         return $this->state(function (array $attributes) {
             return [
@@ -31,7 +33,7 @@ class ParkingAreaFactory extends Factory
         });
     }
 
-    public function closed() 
+    public function closed(): ParkingAreaFactory
     {
         return $this->state(function (array $attributes) {
             return [
@@ -41,7 +43,7 @@ class ParkingAreaFactory extends Factory
     }
 
     // does not work at the moment
-    public function withLocation() 
+    public function withLocation(): ParkingAreaFactory
     {
         return $this->state(function (array $attributes) {
             return [
