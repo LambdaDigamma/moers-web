@@ -1,3 +1,8 @@
-.infrastructure
+.vault-password
 .github
+.infrastructure
+!.infrastructure/conf/traefik/dev/certificates/ssu-ca.pem
+Dockerfile
+docker-*.yml
 .gitlab-ci.yml
+.spin*

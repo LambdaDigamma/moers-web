@@ -1,16 +1,35 @@
-version: '3.8'
 services:
-
   traefik:
-    image: traefik:v2.10
-
-  mariadb: 
-    image: mariadb:10.11
-
+    image: traefik:v3.1
   php:
-    build:
-      context: .
-      target: base
+    environment:
+      PHP_FPM_POOL_NAME: "laravel_web"
     depends_on:
-      - traefik
       - mariadb
+  mariadb:
+    image: mariadb:11.4
+  redis:
+    image: redis:7.4
+  horizon:
+    entrypoint: ''
+    command: ["php", "/var/www/html/artisan", "horizon"]
+    healthcheck:
+      test: ["CMD", "php", "/var/www/html/artisan", "horizon:status"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
+    depends_on:
+      - redis
+      - php
+  reverb:
+    entrypoint: ''
+    command: ["php", "/var/www/html/artisan", "--port=8000", "reverb:start"]
+    healthcheck:
+      disable: true
+    depends_on:
+      - php
+  schedule:
+    entrypoint: ''
+    command: ["php", "/var/www/html/artisan", "schedule:work"]

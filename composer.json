@@ -57,8 +57,10 @@
         "laravel-json-api/laravel": "^4.0",
         "laravel/framework": "^11.0.0",
         "laravel/helpers": "^1.1",
+        "laravel/horizon": "^5.27",
         "laravel/passport": "^12.0",
-        "laravel/pulse": "^1.0@beta",
+        "laravel/pulse": "^1.0",
+        "laravel/reverb": "^1.0",
         "laravel/socialite": "^5.0",
         "laravel/telescope": "^v5.2.1.0",
         "laravel/tinker": "^2.0",
@@ -72,7 +74,6 @@
         "oshomo/csv-utils": "^6.0",
         "owen-it/laravel-auditing": "^13.0",
         "parsedown/laravel": "^1.2",
-        "pusher/pusher-php-server": "^5.0",
         "reinink/advanced-eloquent": "^0.2.0",
         "reinink/remember-query-strings": "^0.1.0",
         "saloonphp/laravel-plugin": "^3.0",
@@ -106,7 +107,8 @@
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-faker": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
-        "pestphp/pest-plugin-livewire": "^2.0"
+        "pestphp/pest-plugin-livewire": "^2.0",
+        "serversideup/spin": "^2.0"
     },
     "autoload": {
         "files": [],
