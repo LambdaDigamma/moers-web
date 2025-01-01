@@ -2,11 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Post;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Modules\News\Models\Post;
 use XmlParser;
 
 class LoadAdolfinumNews extends Command

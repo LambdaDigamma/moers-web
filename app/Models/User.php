@@ -9,13 +9,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-//use Laravel\Fortify\TwoFactorAuthenticatable;
-//use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Passport\HasApiTokens;
+use Modules\Organisation\Models\Organisation;
 use OwenIt\Auditing\Models\Audit;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Spatie\PersonalDataExport\ExportsPersonalData;
 use Spatie\PersonalDataExport\PersonalDataSelection;
+
+//use Laravel\Fortify\TwoFactorAuthenticatable;
+//use Laravel\Jetstream\HasProfilePhoto;
 
 class User extends Authenticatable implements ExportsPersonalData
 {

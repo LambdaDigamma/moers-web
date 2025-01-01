@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Post;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Log;
+use Modules\News\Models\Post;
 use SimpleXMLElement;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;

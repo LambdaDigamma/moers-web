@@ -1,64 +1,47 @@
+###########################################################################
+# 🚨 WARNING: You must set secrets in GitHub Actions in order for this
+# workflow to work. Learn more on our guide:
+# https://getspin.pro/docs/guide/automating-deployments-with-github-actions
+###########################################################################
 name: Production Deployment
 on:
-  release:
-    types:
-      - released
-
-########################################################################
-# 🚨 WARNING: You must set the following secrets in GitHub:
-#
-# - DEPLOYMENT_SSH_PRIVATE_KEY
-# - DEPLOYMENT_SSH_HOSTNAME
-# - DB_ROOT_PASSWORD
-# - DB_NAME
-# - DB_USERNAME
-# - DB_PASSWORD
-# - ENV_FILE_BASE64
-#
-# Ensure these secrets match the environment you're deploying to.
-# https://github.com/<your-organization>/<your-repo>/settings/environments
-########################################################################
-
-# 👇 Set these variables to match your application needs. Most of them should work great by default.
-env:
-  DEPLOYMENT_URL_HOSTNAME: moers.app
-  DEPLOYMENT_URL: https://moers.app
-
+  push:
+    branches:
+      - main
+permissions:
+  contents: read
+  packages: write
 jobs:
   build:
     uses: ./.github/workflows/service_docker-build-and-publish.yml
     with:
-      # 👇 Ensure these are the tags you want to publish to your registry.
-      docker-tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }},ghcr.io/${{ github.repository }}:latest
-      environment: production # 👈 Make sure you created this environment in GitHub with the secrets above.
+      docker-tags: "ghcr.io/${{ github.repository }}:${{ github.sha }}"
+      dockerfile: "./Dockerfile.php"
     secrets: inherit
-  
   deploy:
     needs: build
-    runs-on: ubuntu-22.04
-    environment:
-      name: production # 👈 Make sure you created this environment in GitHub with the secrets above.
-      url: "${{ env.DEPLOYMENT_URL }}"
+    runs-on: ubuntu-24.04
     steps:
-
-      - name: Get project name from repository name.
-        run: | 
+      - name: Set project name and calculate MD5 hash
+        run: |
           echo "PROJECT_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-
-      - uses: serversideup/github-action-docker-swarm-deploy@v1
+      - uses: serversideup/github-action-docker-swarm-deploy@v2
         with:
-          # 👇 Ensure these are correct and that you've set the appropriate secrets.
-          deployment_ssh_private_key: "${{ secrets.DEPLOYMENT_SSH_PRIVATE_KEY }}"
-          remote_ssh_server_hostname: "${{ secrets.DEPLOYMENT_SSH_HOSTNAME }}"
+          ssh_deploy_private_key: "${{ secrets.SSH_DEPLOY_PRIVATE_KEY }}"
+          ssh_remote_hostname: "${{ secrets.SSH_REMOTE_HOSTNAME }}"
           registry: "ghcr.io"
           registry-username: "${{ github.actor }}"
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           stack_name: "${{ env.PROJECT_NAME }}"
+          md5_file_path: "./.infrastructure/conf/traefik/prod/traefik.yml"
+          md5_variable_name: "SPIN_MD5_HASH_TRAEFIK_YML"
         env:
-          # 👇 Ensure this makes sense for your application.
-          TRAEFIK_HOST_RULE: "Host(`${{ env.DEPLOYMENT_URL_HOSTNAME }}`)"
           DB_ROOT_PASSWORD: "${{ secrets.DB_ROOT_PASSWORD }}"
-          DB_NAME: "${{ secrets.DB_NAME }}"
+          DB_DATABASE: "${{ secrets.DB_DATABASE }}"
           DB_USERNAME: "${{ secrets.DB_USERNAME }}"
           DB_PASSWORD: "${{ secrets.DB_PASSWORD }}"
-          DEPLOYMENT_IMAGE_PHP: "ghcr.io/${{ github.repository }}:${{ github.ref_name }}"
+          REDIS_PASSWORD: "${{ secrets.REDIS_PASSWORD }}"
+          REVERB_HOST: "${{ secrets.REVERB_HOST }}"
+          SPIN_APP_DOMAIN: "${{ secrets.SPIN_APP_DOMAIN }}"
+          SPIN_DEPLOYMENT_ENVIRONMENT: production
+          SPIN_IMAGE_DOCKERFILE_PHP: "ghcr.io/${{ github.repository }}:${{ github.sha }}"

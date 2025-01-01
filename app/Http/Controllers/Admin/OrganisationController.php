@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateEvent;
 use App\Http\Requests\UpdateEventPage;
-use App\Http\Requests\UpdateStream;
 use App\Models\AdvEvent;
 use App\Models\Entry;
-use App\Models\Organisation;
 use App\Models\Page;
 use App\Repositories\PageRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Modules\Organisation\Models\Organisation;
 use Redirect;
 use Request;
 

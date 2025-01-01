@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\RubbishStreet;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Modules\Rubbish\Models\RubbishStreet;
 
 test('search rubbish street by name', function () {
     RubbishStreet::factory()->create(['name' => 'Musterstraße']);

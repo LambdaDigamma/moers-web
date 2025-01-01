@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Group;
-use App\Models\Organisation;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Organisation\Models\Organisation;
 
 class GroupFactory extends Factory
 {

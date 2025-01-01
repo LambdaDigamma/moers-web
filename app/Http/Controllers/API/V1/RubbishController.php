@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\RubbishStreet;
 use Illuminate\Http\JsonResponse;
+use Modules\Rubbish\Models\RubbishStreet;
 use Request;
 
 class RubbishController extends Controller

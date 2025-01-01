@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\ParkingArea;
 use Cache;
 use DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Modules\Parking\Models\ParkingArea;
 
 class ParkingAreaController extends Controller
 {

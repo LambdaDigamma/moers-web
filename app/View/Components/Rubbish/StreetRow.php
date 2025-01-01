@@ -2,8 +2,8 @@
 
 namespace App\View\Components\Rubbish;
 
-use App\Models\RubbishStreet;
 use Illuminate\View\Component;
+use Modules\Rubbish\Models\RubbishStreet;
 
 class StreetRow extends Component
 {
@@ -14,7 +14,7 @@ class StreetRow extends Component
     /**
      * Create a new component instance.
      *
-     * @param \App\Models\RubbishStreet $street
+     * @param \Modules\Rubbish\Models\RubbishStreet $street
      */
     public function __construct(RubbishStreet $street)
     {

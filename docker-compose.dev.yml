@@ -1,86 +1,126 @@
-version: '3.8'
 services:
   traefik:
-    networks:
-      development:
-        aliases:
-          - mein-moers.localhost
     ports:
       - "80:80"
       - "443:443"
-      - "5173:5173"
+    # - "8080:8080" # Uncomment to enable Traefik's dashboard
+    networks:
+      development:
+        aliases:
+          - moers.dev.test
+          - vite.dev.test
+          - mailpit.dev.test
+          - reverb.dev.test
     volumes:
-      # Add Docker as a mounted volume, so that Traefik can read the labels of other services
+      # Mount the Docker socket as read-only so Traefik can listen to events
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./.infrastructure/conf/traefik/dev/traefik.yml:/traefik.yml:ro
       - ./.infrastructure/conf/traefik/dev/traefik-certs.yml:/traefik-certs.yml
       - ./.infrastructure/conf/traefik/dev/certificates/:/certificates
-
   php:
     build:
       target: development
       args:
         USER_ID: ${SPIN_USER_ID}
         GROUP_ID: ${SPIN_GROUP_ID}
+      dockerfile: Dockerfile.php
     volumes:
       - .:/var/www/html/
     networks:
       - development
     depends_on:
       - traefik
-      - mariadb
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.laravel.rule=HostRegexp(`mein-moers.localhost`)"
-      - "traefik.http.routers.laravel.entrypoints=websecure"
-      - "traefik.http.routers.laravel.tls=true"
-      - "traefik.http.services.laravel.loadbalancer.server.port=80"
-      - "traefik.http.services.laravel.loadbalancer.server.scheme=http"
-  
+      - "traefik.http.routers.laravel-web.rule=Host(`moers.dev.test`) || HostRegexp(`^.+\\.ngrok-free\\.app$$`)"
+      - "traefik.http.routers.laravel-web.tls=true"
+      - "traefik.http.routers.laravel-web.entrypoints=websecure"
+      - "traefik.http.services.laravel-web.loadbalancer.server.port=8080"
+      - "traefik.http.services.laravel-web.loadbalancer.server.scheme=http"
   node:
-    image: node:20
-    command: "npm run watch-dev"
+    build:
+      target: development
+      args:
+        USER_ID: ${SPIN_USER_ID}
+        GROUP_ID: ${SPIN_GROUP_ID}
+      dockerfile: Dockerfile.node
     volumes:
       - .:/usr/src/app/
     working_dir: /usr/src/app/
-    networks: 
+    networks:
       - development
-    environment:
-        VITE_HOST: "vite.dev.test"
     labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.vite.rule=HostRegexp(`vite.dev.test`)"
-        - "traefik.http.routers.vite.entrypoints=websecure"
-        - "traefik.http.routers.vite.tls=true"
-        - "traefik.http.services.vite.loadbalancer.server.port=5173"
-        - "traefik.http.services.vite.loadbalancer.server.scheme=https"
-
+      - "traefik.enable=true"
+      - "traefik.http.routers.vite.rule=HostRegexp(`vite.dev.test`)"
+      - "traefik.http.routers.vite.entrypoints=websecure"
+      - "traefik.http.routers.vite.tls=true"
+      - "traefik.http.services.vite.loadbalancer.server.port=5173"
+      - "traefik.http.services.vite.loadbalancer.server.scheme=https"
+  mailpit:
+    image: axllent/mailpit
+    networks:
+      - development
+    ports:
+      - "8025:8025"
   mariadb:
     networks:
       - development
     volumes:
       - ./.infrastructure/volume_data/mariadb/database_data/:/var/lib/mysql
     environment:
-        MYSQL_ROOT_PASSWORD: "rootpassword"
-        MYSQL_DATABASE: "laravel"
-        MYSQL_USER: "mysqluser"
-        MYSQL_PASSWORD: "mysqlpassword"
+      MARIADB_ROOT_PASSWORD: "rootpassword"
+      MARIADB_DATABASE: "laravel"
+      MARIADB_USER: "mysqluser"
+      MARIADB_PASSWORD: "mysqlpassword"
     ports:
-      - "3306:3306"
-
-  mailpit:
-      image: axllent/mailpit
-      networks:
-        - development
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.mailpit.rule=Host(`mailpit.mein-moers.localhost`)"
-        - "traefik.http.routers.mailpit.entrypoints=websecure"
-        - "traefik.http.routers.mailpit.tls=true"
-        - "traefik.http.services.mailpit.loadbalancer.server.port=8025"
-        - "traefik.http.services.mailpit.loadbalancer.server.scheme=http"
-      depends_on:
-        - traefik
-
+      - target: 3306
+        published: 3306
+        mode: host
+  redis:
+    command: "redis-server --appendonly yes --requirepass redispassword"
+    volumes:
+      - ./.infrastructure/volume_data/redis/data:/data
+    networks:
+      - development
+  horizon:
+    build:
+      target: development
+      args:
+        USER_ID: ${SPIN_USER_ID}
+        GROUP_ID: ${SPIN_GROUP_ID}
+      dockerfile: Dockerfile.php
+    volumes:
+      - .:/var/www/html/
+    networks:
+      - development
+  reverb:
+    build:
+      target: development
+      args:
+        USER_ID: ${SPIN_USER_ID}
+        GROUP_ID: ${SPIN_GROUP_ID}
+      dockerfile: Dockerfile.php
+    volumes:
+      - .:/var/www/html/
+    networks:
+      - development
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.laravel-reverb.rule=Host(`reverb.dev.test`)"
+      - "traefik.http.routers.laravel-reverb.entrypoints=websecure"
+      - "traefik.http.routers.laravel-reverb.tls=true"
+      - "traefik.http.services.laravel-reverb.loadbalancer.server.port=8000"
+      - "traefik.http.services.laravel-reverb.loadbalancer.server.scheme=http"
+  schedule:
+    build:
+      target: development
+      args:
+        USER_ID: ${SPIN_USER_ID}
+        GROUP_ID: ${SPIN_GROUP_ID}
+      dockerfile: Dockerfile.php
+    volumes:
+      - .:/var/www/html/
+    networks:
+      - development
 networks:
   development:

@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdvEvent;
 use App\Models\Entry;
-use App\Models\Organisation;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Modules\Organisation\Models\Organisation;
 
 class DashboardController extends Controller
 {

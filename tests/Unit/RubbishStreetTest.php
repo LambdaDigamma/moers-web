@@ -2,10 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Models\RubbishScheduleItem;
-use App\Models\RubbishStreet;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Modules\Rubbish\Models\RubbishScheduleItem;
+use Modules\Rubbish\Models\RubbishStreet;
 use Tests\TestCase;
 
 class RubbishStreetTest extends TestCase

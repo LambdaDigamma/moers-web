@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\ParkingArea;
+use Modules\Parking\Models\ParkingArea;
 
 test('api show parking area', function () {
 

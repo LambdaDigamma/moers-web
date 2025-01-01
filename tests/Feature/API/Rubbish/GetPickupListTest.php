@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\RubbishScheduleItem;
-use App\Models\RubbishStreet;
 use Illuminate\Support\Carbon;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Modules\Rubbish\Models\RubbishScheduleItem;
+use Modules\Rubbish\Models\RubbishStreet;
 use function Pest\Laravel\travelTo;
 
 test('get rubbish street pickup list', function () {

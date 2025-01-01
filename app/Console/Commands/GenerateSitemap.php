@@ -3,12 +3,11 @@
 namespace App\Console\Commands;
 
 use App\Models\Event;
-use App\Models\ParkingArea;
-use App\Models\RubbishStreet;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Modules\Parking\Models\ParkingArea;
+use Modules\Rubbish\Models\RubbishStreet;
 use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Sitemap\Tags\Url;
 
 class GenerateSitemap extends Command

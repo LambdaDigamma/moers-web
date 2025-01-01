@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Artesaos\SEOTools\Facades\SEOTools;
-use Illuminate\Http\Request;
+use Modules\News\Models\Post;
 
 class NewsController extends Controller
 {
