@@ -31,10 +31,10 @@ class ImportRubbishDates extends Command
     {
         $file = $this->argument('file');
 
-        if (!file_exists($file)) {
-            $this->error("The file {$file} does not exist.");
-            return Command::FAILURE;
-        }
+//        if (!file_exists($file)) {
+//            $this->error("The file {$file} does not exist.");
+//            return Command::FAILURE;
+//        }
 
         // Import the data
         Excel::import(new WasteDatesImport(), $file);

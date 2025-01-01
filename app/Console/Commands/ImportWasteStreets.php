@@ -34,10 +34,10 @@ class ImportWasteStreets extends Command
         $file = $this->argument('file');
 
         // Check if the file exists
-        if (!file_exists($file)) {
-            $this->error("The file {$file} does not exist.");
-            return Command::FAILURE;
-        }
+//        if (!file_exists($file)) {
+//            $this->error("The file {$file} does not exist.");
+//            return Command::FAILURE;
+//        }
 
         DB::transaction(function () use ($file) {
             // Truncate the table
