@@ -39,13 +39,13 @@ class ImportWasteStreets extends Command
 //            return Command::FAILURE;
 //        }
 
-        DB::transaction(function () use ($file) {
+//        DB::transaction(function () use ($file) {
             // Truncate the table
             RubbishStreet::query()->truncate();
 
             // Import the data
             Excel::import(new WasteStreetsImport(), $file);
-        });
+//        });
 
         $this->info("The file {$file} has been successfully imported.");
 
