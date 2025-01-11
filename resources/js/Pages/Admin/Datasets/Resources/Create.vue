@@ -7,7 +7,7 @@
 <script>
 import LayoutAdmin from "@/Shared/LayoutAdmin.vue";
 import ResourceGeneralForm from "./ResourceGeneralForm.vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm } from "@inertiajs/vue3";
 
 export default {
     name: "Create",

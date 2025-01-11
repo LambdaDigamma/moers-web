@@ -4,7 +4,7 @@ import "./bootstrap";
 import { format, formatDistanceToNow } from "date-fns";
 import { de } from "date-fns/locale";
 import { createApp, h } from "vue";
-import { createInertiaApp, Head, Link } from "@inertiajs/inertia-vue3";
+import { createInertiaApp, Head, Link } from "@inertiajs/vue3";
 import { InertiaProgress as progress } from "@inertiajs/progress";
 import "leaflet/dist/leaflet.css";
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';

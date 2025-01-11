@@ -165,7 +165,7 @@ import TextInput from "@/Shared/UI/TextInput.vue";
 import Navigation from "@/Shared/Navigation.vue";
 import LoadingButton from "@/Shared/UI/LoadingButton.vue";
 import { computed } from "vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm } from "@inertiajs/vue3";
 export default {
     name: "Login",
     components: { LoadingButton, Navigation, TextInput },
