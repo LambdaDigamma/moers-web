@@ -46,9 +46,6 @@ Route::group([
     Route::put('/datasets/{dataset}/resources/{resource}')->name('admin.datasets.resources.update')->uses('DatasetResourceController@update');
     Route::post('/datasets/{dataset}/resources/{resource}/update')->name('admin.datasets.resources.updateData')->uses('DatasetResourceController@loadResource');
 
-    Route::get('/forms/students')->name('admin.forms.students')->uses('StudentController@index');
-    Route::get('/forms/students/{student_information}')->name('admin.forms.students.show')->uses('StudentController@show');
-
 });
 
 
