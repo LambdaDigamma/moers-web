@@ -1,0 +1,11 @@
+{
+    "name": "Waste",
+    "alias": "waste",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Waste\\Providers\\WasteServiceProvider"
+    ],
+    "files": []
+}

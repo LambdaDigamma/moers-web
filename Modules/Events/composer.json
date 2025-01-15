@@ -1,0 +1,33 @@
+{
+    "name": "nwidart/events",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "require": {
+        "spatie/icalendar-generator": "^2.9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Events\\": "app/",
+            "Modules\\Events\\Database\\Factories\\": "database/factories/",
+            "Modules\\Events\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Events\\Tests\\": "tests/"
+        }
+    }
+}
