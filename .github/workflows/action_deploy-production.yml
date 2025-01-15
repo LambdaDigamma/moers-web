@@ -17,31 +17,28 @@ jobs:
     with:
       docker-tags: "ghcr.io/${{ github.repository }}:${{ github.sha }}"
       dockerfile: "./Dockerfile.php"
+      environment: production
     secrets: inherit
   deploy:
     needs: build
     runs-on: ubuntu-24.04
     steps:
-      - name: Set project name and calculate MD5 hash
+      - name: Set project name
         run: |
           echo "PROJECT_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-      - uses: serversideup/github-action-docker-swarm-deploy@v2
+      - uses: serversideup/github-action-docker-swarm-deploy@v3
         with:
-          ssh_deploy_private_key: "${{ secrets.SSH_DEPLOY_PRIVATE_KEY }}"
-          ssh_remote_hostname: "${{ secrets.SSH_REMOTE_HOSTNAME }}"
-          registry: "ghcr.io"
-          registry-username: "${{ github.actor }}"
-          registry-token: "${{ secrets.GITHUB_TOKEN }}"
-          stack_name: "${{ env.PROJECT_NAME }}"
+          env_file_base64: "${{ secrets.PRODUCTION_ENV_FILE_BASE64 }}"
           md5_file_path: "./.infrastructure/conf/traefik/prod/traefik.yml"
           md5_variable_name: "SPIN_MD5_HASH_TRAEFIK_YML"
+          registry: "ghcr.io"
+          registry-token: "${{ secrets.GITHUB_TOKEN }}"
+          registry-username: "${{ github.actor }}"
+          ssh_deploy_private_key: "${{ secrets.SSH_DEPLOY_PRIVATE_KEY }}"
+          ssh_remote_hostname: "${{ secrets.PRODUCTION_SSH_REMOTE_HOSTNAME }}"
+          ssh_remote_known_hosts: "${{ secrets.SSH_REMOTE_KNOWN_HOSTS }}"
+          stack_name: "${{ env.PROJECT_NAME }}"
         env:
-          DB_ROOT_PASSWORD: "${{ secrets.DB_ROOT_PASSWORD }}"
-          DB_DATABASE: "${{ secrets.DB_DATABASE }}"
-          DB_USERNAME: "${{ secrets.DB_USERNAME }}"
-          DB_PASSWORD: "${{ secrets.DB_PASSWORD }}"
-          REDIS_PASSWORD: "${{ secrets.REDIS_PASSWORD }}"
-          REVERB_HOST: "${{ secrets.REVERB_HOST }}"
-          SPIN_APP_DOMAIN: "${{ secrets.SPIN_APP_DOMAIN }}"
-          SPIN_DEPLOYMENT_ENVIRONMENT: production
           SPIN_IMAGE_DOCKERFILE_PHP: "ghcr.io/${{ github.repository }}:${{ github.sha }}"
+          SPIN_DEPLOYMENT_ENVIRONMENT: production
+          AUTHORIZED_KEYS: "${{ secrets.AUTHORIZED_KEYS }}"

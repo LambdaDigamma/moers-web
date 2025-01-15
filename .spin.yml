@@ -1,14 +1,108 @@
----
-###########################################
-# Basic Server Configuration
-###########################################
+##############################################################
+# 👇 Users - You must set at least one user
+##############################################################
+
+users:
+  # - username: alice
+  #   name: Alice Smith
+  #   groups: ['sudo']
+  #   authorized_keys:
+  #     - public_key: "ssh-ed25519 AAAAC3NzaC1lmyfakeublickeyMVIzwQXBzxxD9b8Erd1FKVvu alice"
+
+  # - username: bob
+  #   name: Bob Smith
+  #   state: present
+  #   password: "$6$mysecretsalt$qJbapG68nyRab3gxvKWPUcs2g3t0oMHSHMnSKecYNpSi3CuZm.GbBqXO8BE6EI6P1JUefhA0qvD7b5LSh./PU1"
+  #   groups: ['sudo']
+  #   shell: "/bin/bash"
+  #   authorized_keys:
+  #     - public_key: "ssh-ed25519 AAAAC3NzaC1anotherfakekeyIMVIzwQXBzxxD9b8Erd1FKVvu bob"
+
+##############################################################
+# 👇 Providers - You must set at least one provider
+##############################################################
+
+providers:
+#   - name: digitalocean
+#     api_token: Set token here OR delete this line and set environment variable DO_API_TOKEN
+
+#   - name: hetzner
+#     api_token: Set token here OR delete this line and set environment variable HCLOUD_TOKEN
+
+#   - name: vultr
+#     api_token: Set token here OR delete this line and set environment variable VULTR_API_KEY
+
+##############################################################
+# 👇 Servers - You must set at least one server
+##############################################################
+
+servers:
+  # - server_name: ubuntu-2gb-ash-1
+  #   environment: production
+  #   hardware_profile: hetzner_2c_2gb_ubuntu2404
+
+  # - server_name: ubuntu-1gb-ord-2
+  #   environment: staging
+  #   hardware_profile: vultr_1c_1gb_ubuntu2404
+
+##############################################################
+# 🤖 Hardware Profiles
+##############################################################
+
+hardware_profiles:
+  # Hetzner
+  - name: hetzner_2c_2gb_ubuntu2404
+    provider: hetzner
+    profile_config:
+      location: ash
+      server_type: cpx11
+      image: ubuntu-24.04
+      backups: true
+
+  # Vultr
+  - name: vultr_1c_1gb_ubuntu2404
+    provider: vultr
+    profile_config:
+      region: ord
+      plan: vc2-1c-1gb
+      os: "Ubuntu 24.04 LTS x64"
+      backups: true
+  
+  # DigitalOcean
+  - name: digitalocean_1c_1gb_ubuntu2404
+    provider: digitalocean
+    profile_config:
+      region: nyc3
+      size: s-1vcpu-1gb
+      image: ubuntu-24-04-x64
+      backups: true
+
+##############################################################
+# 🌎 Environments
+##############################################################
+environments:
+  - name: production
+  - name: staging
+  - name: development
+
+##############################################################
+# 🤓 Advanced Server Configuration
+##############################################################
+
+# Timezone and contact settings
 server_timezone: "Etc/UTC"
-server_contact: changeme@example.com
+server_contact: info@lambdadigamma.com
 
 # If you the SSH port below, you may need to run `spin provision -p <your-default-ssh-port>`
 # to get a connection on your first provision. Otherwise, SSH will try connecting 
 # to your new port before the SSH server configuration is updated.
 ssh_port: "22"
+
+## You can set this to false to require a password for sudo.
+## If you disable passwordless sudo, you must set a password for all sudo users.
+## generate an encrypted hash with `spin mkpasswd`. Learn more:
+## https://serversideup.net/open-source/spin/docs/command-reference/mkpasswd
+use_passwordless_sudo: true
 
 ## Email Notifications
 postfix_hostname: "{{ inventory_hostname }}"
@@ -19,45 +113,9 @@ postfix_hostname: "{{ inventory_hostname }}"
 # postfix_relayhost_username: "myusername"
 # postfix_relayhost_password: "mysupersecretpassword"
 
-##############################################################
-# Deploy User
-##############################################################
-# Docker user configuration.
-docker_user:
-  username: deploy
-  uid: 9999
-  group: deploy
-  secondary_groups: "docker"
-  gid: 9999
-  ## Uncomment to set authorized SSH keys for the docker user.
-  # authorized_ssh_keys: 
-  #   - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKNJGtd7a4DBHsQi7HGrC5xz0eAEFHZ3Ogh3FEFI2345 fake@key"
-  #   - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFRfXxUZ8q9vHRcQZ6tLb0KwGHu8xjQHfYopZKLmnopQ anotherfake@key"
-
-##############################################################
-# Users
-##############################################################
-
-### Use the template below to set users and their authorized keys
-## Passwords must be set with an encrypted hash. To do this, see the Ansible FAQ.
-## Your best bet is probably using the `mkpasswd` on a Linux machine.
-## https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module
-
-# users:
-#   - username: alice
-#     name: Alice Smith
-#     state: present
-#     groups: ['adm','sudo']
-#     password: "$6$mysecretsalt$qJbapG68nyRab3gxvKWPUcs2g3t0oMHSHMnSKecYNpSi3CuZm.GbBqXO8BE6EI6P1JUefhA0qvD7b5LSh./PU1"
-#     shell: "/bin/bash"
-#     authorized_keys:
-#       - public_key: "ssh-ed25519 AAAAC3NzaC1lmyfakeublickeyMVIzwQXBzxxD9b8Erd1FKVvu alice"
-
-#   - username: bob
-#     name: Bob Smith
-#     state: present
-#     password: "$6$mysecretsalt$qJbapG68nyRab3gxvKWPUcs2g3t0oMHSHMnSKecYNpSi3CuZm.GbBqXO8BE6EI6P1JUefhA0qvD7b5LSh./PU1"
-#     groups: ['adm','sudo']
-#     shell: "/bin/bash"
-#     authorized_keys:
-#       - public_key: "ssh-ed25519 AAAAC3NzaC1anotherfakekeyIMVIzwQXBzxxD9b8Erd1FKVvu bob"
+## Deploy user customization - You can customize the deploy user below if you'd like
+# docker_user:
+#   username: deploy
+#   authorized_ssh_keys: 
+#     - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKNJGtd7a4DBHsQi7HGrC5xz0eAEFHZ3Ogh3FEFI2345 fake@key"
+#     - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFRfXxUZ8q9vHRcQZ6tLb0KwGHu8xjQHfYopZKLmnopQ anotherfake@key"
