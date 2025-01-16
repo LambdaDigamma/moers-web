@@ -7,6 +7,9 @@
             "email": "n.widart@gmail.com"
         }
     ],
+    "require": {
+        "jenssegers/model": "^1.5.3"
+    },
     "extra": {
         "laravel": {
             "providers": [],

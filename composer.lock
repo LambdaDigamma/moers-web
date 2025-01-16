@@ -1362,6 +1362,57 @@
             "time": "2023-12-03T19:50:20+00:00"
         },
         {
+            "name": "jenssegers/model",
+            "version": "v1.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jenssegers/model.git",
+                "reference": "8a81b2e6fdd49fa0372fb56c62e23de13bf0d623"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jenssegers/model/zipball/8a81b2e6fdd49fa0372fb56c62e23de13bf0d623",
+                "reference": "8a81b2e6fdd49fa0372fb56c62e23de13bf0d623",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "illuminate/support": "^4.0|^5.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "*",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jenssegers\\Model\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Segers",
+                    "homepage": "https://jenssegers.com"
+                }
+            ],
+            "description": "An Laravel eloquent-like model class, for Laravel and other frameworks",
+            "homepage": "https://github.com/jenssegers/model",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "model"
+            ],
+            "support": {
+                "issues": "https://github.com/jenssegers/model/issues",
+                "source": "https://github.com/jenssegers/model/tree/v1.5.3"
+            },
+            "time": "2024-07-25T12:44:26+00:00"
+        },
+        {
             "name": "joelbutcher/laravel-archivable",
             "version": "v1.11.0",
             "source": {

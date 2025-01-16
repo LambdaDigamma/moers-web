@@ -4,4 +4,5 @@ return [
     App\Providers\AppServiceProvider::class,
     App\Providers\HorizonServiceProvider::class,
     \Modules\Events\Providers\EventsServiceProvider::class,
+    \Modules\Waste\Providers\WasteServiceProvider::class,
 ];
