@@ -2,7 +2,7 @@
 
 namespace Modules\Parking\Database\Factories;
 
-//use Grimzy\LaravelMysqlSpatial\Types\Point;
+// use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Parking\Models\ParkingArea;
 
@@ -39,12 +39,12 @@ class ParkingAreaFactory extends Factory
     }
 
     // todo: fix this
-//    public function withLocation(): ParkingAreaFactory
-//    {
-//        return $this->state(function (array $attributes) {
-//            return [
-//                'location' => new Point($this->faker->latitude, $this->faker->longitude),
-//            ];
-//        });
-//    }
+    //    public function withLocation(): ParkingAreaFactory
+    //    {
+    //        return $this->state(function (array $attributes) {
+    //            return [
+    //                'location' => new Point($this->faker->latitude, $this->faker->longitude),
+    //            ];
+    //        });
+    //    }
 }

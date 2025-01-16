@@ -15,7 +15,9 @@ class GenerateParkingAreaSnapshot implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public ParkingArea $parkingArea;
+
     public int $width = 600;
+
     public int $height = 400;
 
     public function __construct(ParkingArea $parkingArea)
@@ -55,8 +57,8 @@ class GenerateParkingAreaSnapshot implements ShouldQueue
                     'color' => '2563EB',
                     'markerStyle' => 'large',
                     'glyphText' => 'P',
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 }

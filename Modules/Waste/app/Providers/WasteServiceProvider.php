@@ -45,10 +45,10 @@ class WasteServiceProvider extends ServiceProvider
      */
     protected function registerCommands(): void
     {
-         $this->commands([
-             ImportWasteDates::class,
-             ImportWasteStreets::class,
-         ]);
+        $this->commands([
+            ImportWasteDates::class,
+            ImportWasteStreets::class,
+        ]);
     }
 
     /**

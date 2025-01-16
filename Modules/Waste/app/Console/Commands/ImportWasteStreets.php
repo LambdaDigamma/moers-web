@@ -9,7 +9,6 @@ use Modules\Waste\Models\RubbishStreet;
 
 class ImportWasteStreets extends Command
 {
-
     protected $signature = 'waste:import-streets {file=street_register.csv : The CSV file to import}';
 
     protected $description = '';
@@ -22,7 +21,7 @@ class ImportWasteStreets extends Command
         RubbishStreet::query()->truncate();
 
         // Import the data
-        Excel::import(new WasteStreetsImport(), $file);
+        Excel::import(new WasteStreetsImport, $file);
 
         $this->info("The file {$file} has been successfully imported.");
 

@@ -4,23 +4,24 @@ namespace Modules\Parking\Models;
 
 use App\Models\Model;
 use Clickbar\Magellan\Database\Eloquent\HasPostgisColumns;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Builder;
 use Modules\Parking\Database\Factories\ParkingAreaFactory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-
 class ParkingArea extends Model implements HasMedia
 {
     use HasFactory;
-    use InteractsWithMedia;
     use HasPostgisColumns;
+    use InteractsWithMedia;
 
-    const string OPEN = "open";
-    const string CLOSED = "closed";
-    const string UNKNOWN = "unknown";
+    const string OPEN = 'open';
+
+    const string CLOSED = 'closed';
+
+    const string UNKNOWN = 'unknown';
 
     protected array $postgisColumns = [
         'location' => [

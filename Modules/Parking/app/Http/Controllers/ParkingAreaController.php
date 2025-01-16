@@ -15,21 +15,21 @@ class ParkingAreaController extends Controller
     {
         $parkingAreas = Cache::remember('api_parking_areas_index', 30, function () {
             return ParkingArea::query()
-                    ->orderByOpeningState()
-                    ->get();
+                ->orderByOpeningState()
+                ->get();
         });
 
         return new JsonResponse([
             'data' => [
                 'parking_areas' => $parkingAreas,
-            ]
+            ],
         ], Response::HTTP_OK);
     }
 
     public function show(ParkingArea $parkingArea): JsonResponse
     {
 
-        $pastOccupancy = Cache::remember('api_past_occupancy_parking_area_' . $parkingArea->id, 1, function () use ($parkingArea) {
+        $pastOccupancy = Cache::remember('api_past_occupancy_parking_area_'.$parkingArea->id, 1, function () use ($parkingArea) {
             $driver = config('database.default');
 
             if ($driver === 'pgsql') {
@@ -61,9 +61,9 @@ class ParkingAreaController extends Controller
                 'parking_area' => $parkingArea,
                 'past_occupancy' => [
                     'max_capacity' => 10,
-                    'data' => $pastOccupancy
-                ]
-            ]
+                    'data' => $pastOccupancy,
+                ],
+            ],
         ], Response::HTTP_OK);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Modules\Parking\Console\Commands;
 
-use Modules\Parking\Jobs\GenerateParkingAreaSnapshot as GenerateParkingAreaSnapshotJob;
 use Illuminate\Console\Command;
+use Modules\Parking\Jobs\GenerateParkingAreaSnapshot as GenerateParkingAreaSnapshotJob;
 use Modules\Parking\Models\ParkingArea;
 
 class GenerateParkingAreaSnapshot extends Command
@@ -26,7 +26,7 @@ class GenerateParkingAreaSnapshot extends Command
             GenerateParkingAreaSnapshotJob::dispatchSync($parkingArea);
         });
 
-        $this->info("Generated light and dark map snapshots.");
+        $this->info('Generated light and dark map snapshots.');
 
         return 0;
     }

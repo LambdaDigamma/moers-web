@@ -3,7 +3,7 @@
 use Modules\Parking\Models\ParkingArea;
 
 it('creating slug for parking area works', function () {
-    
+
     expect(ParkingArea::createSlug('Kautzstr.'))
         ->toBe('kautzstr');
 

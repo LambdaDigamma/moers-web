@@ -6,7 +6,7 @@ test('api show parking area', function () {
 
     $parkingArea = ParkingArea::factory()->create();
 
-    $this->get('/api/v1/parking-areas/' . $parkingArea->id)
+    $this->get('/api/v1/parking-areas/'.$parkingArea->id)
         ->assertOk();
 
 });

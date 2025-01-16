@@ -17,7 +17,7 @@ class ImportWasteDates extends Command
         $file = $this->argument('file');
 
         // Import the data
-        Excel::import(new WasteDatesImport(), $file);
+        Excel::import(new WasteDatesImport, $file);
 
         $this->info("The file {$file} has been successfully imported.");
 

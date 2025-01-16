@@ -21,14 +21,14 @@ class WasteStreetsImport implements ToModel, WithCustomCsvSettings, WithHeadingR
             'paper_tour' => $row['papiertonne'],
             'plastic_tour' => $row['gelber_sack'],
             'cuttings_tour' => $row['gruenschnitt'],
-            'year' => Carbon::now()->year
+            'year' => Carbon::now()->year,
         ]);
     }
 
     public function getCsvSettings(): array
     {
         return [
-            'delimiter' => ';'
+            'delimiter' => ';',
         ];
     }
 }

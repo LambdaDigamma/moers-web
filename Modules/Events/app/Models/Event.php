@@ -48,7 +48,9 @@ class Event extends Model
     public array $translatable = ['name', 'description', 'category'];
 
     public const string ATTENDANCE_MIXED = 'mixed';
+
     public const string ATTENDANCE_OFFLINE = 'offline';
+
     public const string ATTENDANCE_ONLINE = 'online';
 
     public function toArray(): array
@@ -143,6 +145,7 @@ class Event extends Model
         if ($this->extras) {
             return Str::contains(Str::lower($this->extras->get('location', '')), 'online');
         }
+
         return false;
     }
 
@@ -314,8 +317,8 @@ class Event extends Model
             })
             ->when($filters['category'] ?? null, function ($query, $category) use ($locale, $fallback) {
                 $query
-                    ->where("category->$locale", 'like', '%' . $category . '%')
-                    ->orWhere("category->$fallback", 'like', '%' . $category . '%');
+                    ->where("category->$locale", 'like', '%'.$category.'%')
+                    ->orWhere("category->$fallback", 'like', '%'.$category.'%');
             });
     }
 
@@ -332,8 +335,6 @@ class Event extends Model
     /**
      * Returns all upcoming events that have a start date
      * which is greater than now.
-     *
-     * @return Builder
      */
     public function scopeUpcoming(Builder $query): Builder
     {
@@ -413,5 +414,4 @@ class Event extends Model
             })
             ->orWhereRaw('TIMESTAMPDIFF(SECOND, start_date, end_date) < ?', [$duration_threshold]);
     }
-
 }

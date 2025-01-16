@@ -16,7 +16,7 @@ class ParkingAreaDashboardController extends Controller
 
         return new JsonResponse([
             'data' => [
-                'parking_areas' => $parkingAreas
+                'parking_areas' => $parkingAreas,
             ],
         ]);
     }

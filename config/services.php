@@ -38,13 +38,13 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT')
+        'redirect' => env('GOOGLE_REDIRECT'),
     ],
 
     'apple' => [
         'team' => env('APPLE_DEVELOPER_TEAM'),
         'maps_key_id' => env('APPLE_MAPS_KEY_ID'),
-        'maps_key' => env('APPLE_MAPS_KEY')
-    ]
+        'maps_key' => env('APPLE_MAPS_KEY'),
+    ],
 
 ];

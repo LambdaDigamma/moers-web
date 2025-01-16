@@ -18,14 +18,14 @@ class WasteDatesImport implements ToModel, WithCustomCsvSettings, WithHeadingRow
             'organic_tours' => $row['biotonne'],
             'paper_tours' => $row['papiertonne'],
             'plastic_tours' => $row['gelber_sack'],
-            'cuttings_tours' => $row['gruenschnitt']
+            'cuttings_tours' => $row['gruenschnitt'],
         ]);
     }
 
     public function getCsvSettings(): array
     {
         return [
-            'delimiter' => ';'
+            'delimiter' => ';',
         ];
     }
 }
