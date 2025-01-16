@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use LaravelArchivable\Archivable;
 use LaravelPublishable\Publishable;
 use Modules\Events\Data\Link;
@@ -42,15 +43,13 @@ class Event extends Model
         'extras' => AsCollection::class,
     ];
 
-    protected $appends = ['attendance_mode', 'duration'];
+    public $appends = ['attendance_mode', 'duration', 'is_online'];
 
     public array $translatable = ['name', 'description', 'category'];
 
-    public const ATTENDANCE_MIXED = 'mixed';
-
-    public const ATTENDANCE_OFFLINE = 'offline';
-
-    public const ATTENDANCE_ONLINE = 'online';
+    public const string ATTENDANCE_MIXED = 'mixed';
+    public const string ATTENDANCE_OFFLINE = 'offline';
+    public const string ATTENDANCE_ONLINE = 'online';
 
     public function toArray(): array
     {
@@ -128,7 +127,7 @@ class Event extends Model
         }
     }
 
-    public function getDurationAttribute()
+    public function getDurationAttribute(): ?int
     {
         if ($this->start_date && $this->end_date) {
             return abs($this->end_date->diffInMinutes($this->start_date));
@@ -137,6 +136,50 @@ class Event extends Model
         } else {
             return null;
         }
+    }
+
+    public function getIsOnlineAttribute(): bool
+    {
+        if ($this->extras) {
+            return Str::contains(Str::lower($this->extras->get('location', '')), 'online');
+        }
+        return false;
+    }
+
+    public function ticketAssignments(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Ticket::class,
+            'ticket_assignments'
+        )->using(TicketAssignment::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('header');
+    }
+
+    public function isActive(): bool
+    {
+        $now = \Illuminate\Support\Carbon::now()->toDateTimeString();
+        $deadline = Carbon::now()
+            ->addMinutes(config('mm-events.event_active_duration') * -1)
+            ->toDateTimeString();
+
+        if (
+            $this->end_date == null &&
+            $this->start_date != null &&
+            $this->start_date <= $now &&
+            $this->start_date >= $deadline
+        ) {
+            return true;
+        }
+
+        if ($this->end_date >= $now && $this->start_date <= $now) {
+            return true;
+        }
+
+        return false;
     }
 
     public function scopeActive($query): Builder
@@ -239,11 +282,12 @@ class Event extends Model
     {
         $locale = app()->getLocale();
         $fallback = config('app.fallback_locale', 'en');
+
         $query
             ->when($filters['search'] ?? null, function ($query, $search) use ($locale, $fallback) {
                 $query
-                    ->where("name->${locale}", 'like', '%'.$search.'%')
-                    ->orWhere("name->${fallback}", 'like', '%'.$search.'%');
+                    ->where("name->$locale", 'like', '%'.$search.'%')
+                    ->orWhere("name->$fallback", 'like', '%'.$search.'%');
             })
             ->when($filters['type'] ?? null, function ($query, $type) {
                 if ($type === 'upcoming') {
@@ -267,6 +311,11 @@ class Event extends Model
                 } elseif ($trashed === 'only') {
                     $query->onlyTrashed();
                 }
+            })
+            ->when($filters['category'] ?? null, function ($query, $category) use ($locale, $fallback) {
+                $query
+                    ->where("category->$locale", 'like', '%' . $category . '%')
+                    ->orWhere("category->$fallback", 'like', '%' . $category . '%');
             });
     }
 
@@ -280,11 +329,89 @@ class Event extends Model
         return $query->whereNull('extras->collection');
     }
 
-    public function ticketAssignments(): BelongsToMany
+    /**
+     * Returns all upcoming events that have a start date
+     * which is greater than now.
+     *
+     * @return Builder
+     */
+    public function scopeUpcoming(Builder $query): Builder
     {
-        return $this->belongsToMany(
-            Ticket::class,
-            'ticket_assignments'
-        )->using(TicketAssignment::class);
+        return $query
+            ->where(function ($query) {
+                $query->where('start_date', '>=', Carbon::now());
+            });
     }
+
+    public function scopeOnlyOnline(Builder $query): Builder
+    {
+        return $query
+            ->where('extras->attendance_mode', self::ATTENDANCE_ONLINE);
+    }
+
+    public function scopeOnlineAndMixed(Builder $query): Builder
+    {
+        return $query
+            ->where(function ($query) {
+                $query
+                    ->where('extras->attendance_mode', self::ATTENDANCE_ONLINE)
+                    ->orWhere('extras->attendance_mode', self::ATTENDANCE_MIXED);
+            });
+    }
+
+    public function scopeOffline(Builder $query): Builder
+    {
+        return $query
+            ->where(function ($query) {
+                $query
+                    ->where('extras->attendance_mode', self::ATTENDANCE_ONLINE)
+                    ->orWhere('extras->attendance_mode', null);
+            });
+    }
+
+    public function scopeWithDaysDuration(Builder $builder): Builder
+    {
+        return $builder
+            ->when(empty($builder->getQuery()->columns), fn ($q) => $q->select('*'))
+            ->selectRaw('datediff(end_date, start_date) as days_duration');
+    }
+
+    public function scopeWithMinutesDuration(Builder $builder): Builder
+    {
+        return $builder
+            ->when(empty($builder->getQuery()->columns), fn ($q) => $q->select('*'))
+            ->selectRaw('TIMESTAMPDIFF(MINUTE, start_date, end_date) as minutes_duration');
+    }
+
+    public function scopeWithSecondsDuration(Builder $builder): Builder
+    {
+        return $builder
+            ->when(empty($builder->getQuery()->columns), fn ($q) => $q->select('*'))
+            ->selectRaw('TIMESTAMPDIFF(MINUTE, start_date, end_date) as seconds_duration');
+    }
+
+    public function scopeOnlyLongTermEvents(Builder $query, ?int $duration_threshold = null): Builder
+    {
+        if (! $duration_threshold) {
+            $duration_threshold = config('mm-events.min_long_event_duration', 2 * 24 * 60 * 60);
+        }
+
+        return $query->whereRaw('TIMESTAMPDIFF(SECOND, start_date, end_date) >= ?', [$duration_threshold]);
+    }
+
+    public function scopeWithoutLongTermEvents(Builder $builder, ?int $duration_threshold = null): Builder
+    {
+        if (! $duration_threshold) {
+            $duration_threshold = config('mm-events.min_long_event_duration', 2 * 24 * 60 * 60);
+        }
+
+        return $builder
+            ->where(function ($query) {
+                $query
+                    ->where('start_date', '!=', null)
+                    ->whereNull('end_date');
+            })
+            ->orWhereRaw('TIMESTAMPDIFF(SECOND, start_date, end_date) < ?', [$duration_threshold]);
+    }
+
 }

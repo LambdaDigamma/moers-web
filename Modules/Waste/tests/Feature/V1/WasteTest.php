@@ -31,7 +31,6 @@ test('get rubbish street pickup list', function () {
 
     $this->get("/api/v1/rubbish/streets/{$rubbishStreet->id}/pickups")
         ->assertStatus(200)
-        ->dump()
         ->assertJson(
             fn (AssertableJson $json) => $json
                 ->has(
