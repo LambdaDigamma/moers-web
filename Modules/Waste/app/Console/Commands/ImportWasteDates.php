@@ -4,7 +4,7 @@ namespace Modules\Waste\Console\Commands;
 
 use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\Waste\Models\Imports\WasteDatesImport;
+use Modules\Waste\Imports\WasteDatesImport;
 
 class ImportWasteDates extends Command
 {

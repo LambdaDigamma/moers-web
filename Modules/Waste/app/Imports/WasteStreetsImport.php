@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Waste\Models\Imports;
+namespace Modules\Waste\Imports;
 
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;

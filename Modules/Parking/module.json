@@ -1,0 +1,11 @@
+{
+    "name": "Parking",
+    "alias": "parking",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Parking\\Providers\\ParkingServiceProvider"
+    ],
+    "files": []
+}

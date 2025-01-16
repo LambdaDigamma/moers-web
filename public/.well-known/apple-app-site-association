@@ -1,0 +1,21 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "93C29USLP6.de.okfn.niederrhein.Moers",
+        "paths": [
+          "/events",
+          "/events/*"
+        ]
+      },
+      {
+        "appID": "93C29USLP6.de.okfn.niederrhein.Moers.staging",
+        "paths": [
+          "/events",
+          "/events/*"
+        ]
+      }
+    ]
+  }
+}

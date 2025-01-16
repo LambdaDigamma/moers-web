@@ -4,7 +4,7 @@ namespace Modules\Waste\Console\Commands;
 
 use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\Waste\Models\Imports\WasteStreetsImport;
+use Modules\Waste\Imports\WasteStreetsImport;
 use Modules\Waste\Models\RubbishStreet;
 
 class ImportWasteStreets extends Command
