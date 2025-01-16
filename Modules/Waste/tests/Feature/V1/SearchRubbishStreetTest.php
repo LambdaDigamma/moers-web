@@ -10,17 +10,14 @@ test('search rubbish street by name', function () {
     $this->get('/api/v1/rubbish/streets?q=street')
         ->assertStatus(200)
         ->assertJson(
-            fn (AssertableJson $json) =>
-            $json
+            fn (AssertableJson $json) => $json
                 ->has(
                     'data',
-                    fn (AssertableJson $json) =>
-                    $json->has(1)
+                    fn (AssertableJson $json) => $json->has(1)
                         ->first(
-                            fn ($json) =>
-                                $json
-                                    ->where('name', 'Baker street')
-                                    ->etc()
+                            fn ($json) => $json
+                                ->where('name', 'Baker street')
+                                ->etc()
                         )
                 )
         );

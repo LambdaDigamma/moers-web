@@ -15,7 +15,6 @@ use Modules\Waste\Http\Controllers\V2\RubbishStreetController as RubbishStreetCo
  *
 */
 
-
 Route::group(['prefix' => '/v1', 'as' => 'v1.'], function () {
 
     Route::get('/rubbish/streets/{street}/pickups', [RubbishStreetControllerV1::class, 'show'])->name('rubbish.streets.pickups.index');

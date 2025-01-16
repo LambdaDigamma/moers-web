@@ -5,6 +5,7 @@ namespace Feature;
 use Carbon\Carbon;
 use Modules\Waste\Models\RubbishScheduleItem;
 use Modules\Waste\Models\RubbishStreet;
+
 use function Pest\Laravel\getJson;
 
 test('street list current streets', function () {
@@ -67,10 +68,10 @@ test('street pickups', function () {
         'paper_tours' => $paper,
         'plastic_tours' => 43,
         'cuttings_tours' => 44,
-        'date' => Carbon::yesterday()->toDateString()
+        'date' => Carbon::yesterday()->toDateString(),
     ]);
 
-    getJson('/api/v2/rubbish/streets/' . $rubbishStreet->id . '/pickups')
+    getJson('/api/v2/rubbish/streets/'.$rubbishStreet->id.'/pickups')
         ->assertStatus(200)
         ->assertJson($rubbishStreet->pickupItems()->toArray());
 

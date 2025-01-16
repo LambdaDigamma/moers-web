@@ -20,14 +20,14 @@ class RubbishStreetFactory extends Factory
             'paper_tour' => fake()->numberBetween(1, 10),
             'plastic_tour' => fake()->numberBetween(1, 10),
             'cuttings_tour' => fake()->numberBetween(1, 10),
-            'year' => Carbon::now()->year
+            'year' => Carbon::now()->year,
         ];
     }
 
     public function old(): RubbishStreetFactory
     {
         return $this->state([
-            'year' => Carbon::now()->subYears(fake()->numberBetween(1, 10))->year
+            'year' => Carbon::now()->subYears(fake()->numberBetween(1, 10))->year,
         ]);
     }
 }

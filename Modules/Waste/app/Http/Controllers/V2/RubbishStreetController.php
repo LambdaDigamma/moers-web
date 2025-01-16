@@ -33,6 +33,7 @@ class RubbishStreetController extends Controller
                 ->get();
 
         }
+
         return new JsonResponse($data, 200);
     }
 
