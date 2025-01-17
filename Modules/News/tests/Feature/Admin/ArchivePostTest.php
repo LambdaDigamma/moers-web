@@ -2,6 +2,7 @@
 
 use Database\Factories\UserFactory;
 use Modules\News\Models\Post;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\postJson;
 

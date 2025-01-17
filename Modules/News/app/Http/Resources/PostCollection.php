@@ -11,9 +11,7 @@ class PostCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request  $request
-     *
-     * @return Arrayable|\JsonSerializable|array
+     * @param  Request  $request
      */
     public function toArray($request): array|Arrayable|\JsonSerializable
     {

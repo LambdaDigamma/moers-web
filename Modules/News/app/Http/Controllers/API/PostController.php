@@ -2,7 +2,6 @@
 
 namespace Modules\News\Http\Controllers\API;
 
-
 use Illuminate\Http\JsonResponse;
 use Modules\News\Models\Post;
 

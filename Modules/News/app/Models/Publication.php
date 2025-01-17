@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Publication extends Pivot
 {
-    protected $table = "publications";
+    protected $table = 'publications';
 }

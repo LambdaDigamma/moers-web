@@ -24,9 +24,9 @@ return new class extends Migration
             $table->unsignedBigInteger('page_id')->nullable();
             $table->json('external_href')->nullable();
             // todo
-//            $table->foreign('page_id')->references('id')->on('pages')
-//                ->onUpdate('cascade')
-//                ->onDelete('set null');
+            //            $table->foreign('page_id')->references('id')->on('pages')
+            //                ->onUpdate('cascade')
+            //                ->onDelete('set null');
             $table->json('extras')->nullable();
             $table->timestamps();
             $table->publishedAt();
@@ -34,8 +34,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('publications', function (Blueprint $table)
-        {
+        Schema::create('publications', function (Blueprint $table) {
             $table->unsignedBigInteger('feed_id')->index();
             $table->unsignedBigInteger('post_id')->index();
 
@@ -57,5 +56,4 @@ return new class extends Migration
         Schema::dropIfExists('posts');
         Schema::dropIfExists('post_feed');
     }
-
 };

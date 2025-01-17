@@ -1,12 +1,11 @@
 <?php
 
-
 use Modules\News\Models\Feed;
 use Modules\News\Models\Post;
 use Modules\News\Models\Publication;
-use function Pest\Laravel\getJson;
-
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+use function Pest\Laravel\getJson;
 
 test('show post not published returns 404 (/api/v1/posts/id)', function () {
 

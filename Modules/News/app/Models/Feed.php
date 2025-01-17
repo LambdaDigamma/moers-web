@@ -12,12 +12,14 @@ use Modules\News\Database\Factories\FeedFactory;
 
 class Feed extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use SerializeTranslations;
+    use SoftDeletes;
 
-    protected $table = "feeds";
+    protected $table = 'feeds';
+
     protected $guarded = ['*', 'id'];
+
     public array $translatable = ['name', 'extras'];
 
     public static function newFactory(): FeedFactory

@@ -1,7 +1,7 @@
 <?php
 
-
 use Modules\News\Models\Feed;
+
 use function Pest\Laravel\getJson;
 
 test('show feed (/api/v1/feeds/id)', function () {

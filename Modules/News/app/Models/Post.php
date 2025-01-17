@@ -19,25 +19,26 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Post extends Model implements HasMedia
 {
-    use SoftDeletes;
-    use HasFactory;
     use Archivable;
-    use Publishable;
-    use SerializeTranslations;
-    use SerializeMedia;
+    use HasFactory;
     use InteractsWithMedia;
+    use Publishable;
+    use SerializeMedia;
+    use SerializeTranslations;
+    use SoftDeletes;
 
-    protected $table = "posts";
+    protected $table = 'posts';
+
     protected $guarded = ['*', 'id'];
+
     public array $translatable = ['title', 'summary', 'slug', 'external_href'];
+
     protected $appends = ['cta'];
+
     protected $casts = [
         'extras' => AsCollection::class,
     ];
 
-    /**
-     * @return BelongsToMany
-     */
     public function feeds(): BelongsToMany
     {
         return $this
@@ -75,7 +76,7 @@ class Post extends Model implements HasMedia
             });
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this
             ->addMediaConversion('preview')
@@ -85,7 +86,7 @@ class Post extends Model implements HasMedia
 
     public function getCtaAttribute()
     {
-        return $this->extras ? $this->extras->get('cta', 'read') : "read";
+        return $this->extras ? $this->extras->get('cta', 'read') : 'read';
     }
 
     public function setCtaAttribute($value): void

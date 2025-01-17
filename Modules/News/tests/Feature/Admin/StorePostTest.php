@@ -4,6 +4,7 @@ namespace LambdaDigamma\MMFeeds\Tests\Feature\Admin;
 
 use Database\Factories\UserFactory;
 use Modules\News\Models\Post;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\post;
 use function Pest\Laravel\postJson;
@@ -31,11 +32,11 @@ test('store post via json (POST /admin/posts)', function () {
         'title' => 'Title of the post',
         'summary' => 'This is a short summary',
     ])
-    ->assertStatus(302)
-    ->assertJson([
-        'title' => 'Title of the post',
-        'summary' => 'This is a short summary',
-    ]);
+        ->assertStatus(302)
+        ->assertJson([
+            'title' => 'Title of the post',
+            'summary' => 'This is a short summary',
+        ]);
 
     $post = Post::withNotPublished()->first();
 

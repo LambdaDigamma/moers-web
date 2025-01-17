@@ -3,6 +3,7 @@
 use Database\Factories\UserFactory;
 use Illuminate\Support\Carbon;
 use Modules\News\Models\Post;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\postJson;
 

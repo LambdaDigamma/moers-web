@@ -9,7 +9,6 @@ use Modules\News\Models\Feed;
 
 class FeedPostsController extends Controller
 {
-
     public function index($id): PostCollection
     {
         return new PostCollection(
@@ -23,10 +22,6 @@ class FeedPostsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     *
-     * @return void
      */
     public function store(Request $request): void
     {
@@ -36,9 +31,7 @@ class FeedPostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int  $id
-     *
-     * @return void
+     * @param  int  $id
      */
     public function show($id): void
     {
@@ -48,10 +41,7 @@ class FeedPostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int  $id
-     *
-     * @return void
+     * @param  int  $id
      */
     public function update(Request $request, $id): void
     {
@@ -61,9 +51,7 @@ class FeedPostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int  $id
-     *
-     * @return void
+     * @param  int  $id
      */
     public function destroy($id): void
     {

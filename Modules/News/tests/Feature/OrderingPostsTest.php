@@ -1,6 +1,5 @@
 <?php
 
-
 use Modules\News\Models\Feed;
 use Modules\News\Models\Post;
 

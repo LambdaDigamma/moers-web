@@ -18,7 +18,7 @@ use Modules\News\Http\Controllers\API\PostController;
 
 Route::group([
     'prefix' => 'v1/',
-    'as' => 'v1.'
+    'as' => 'v1.',
 ], function () {
 
     Route::get('/feeds/{id}', [FeedController::class, 'show'])

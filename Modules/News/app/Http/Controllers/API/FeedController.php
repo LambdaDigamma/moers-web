@@ -11,8 +11,6 @@ class FeedController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return void
      */
     public function index(): void
     {
@@ -21,10 +19,6 @@ class FeedController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request  $request
-     *
-     * @return void
      */
     public function store(Request $request): void
     {
@@ -47,8 +41,7 @@ class FeedController extends Controller
                         ->jsonPaginate(10);
                 },
             ])
-            ->findOrFail($id)
+                ->findOrFail($id)
         );
     }
-
 }

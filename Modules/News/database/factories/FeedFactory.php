@@ -16,4 +16,3 @@ class FeedFactory extends Factory
         ];
     }
 }
-
