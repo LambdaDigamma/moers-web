@@ -1,5 +1,6 @@
 {
     "Events": true,
     "Waste": true,
-    "Parking": true
+    "Parking": true,
+    "News": true
 }

@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/news",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\News\\": "app/",
+            "Modules\\News\\Database\\Factories\\": "database/factories/",
+            "Modules\\News\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\News\\Tests\\": "tests/"
+        }
+    }
+}
