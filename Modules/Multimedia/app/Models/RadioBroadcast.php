@@ -64,5 +64,4 @@ class RadioBroadcast extends Model
     {
         return RadioBroadcastFactory::new();
     }
-
 }

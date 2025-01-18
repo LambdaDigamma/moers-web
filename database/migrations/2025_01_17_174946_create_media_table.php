@@ -22,6 +22,9 @@ return new class extends Migration
             $table->unsignedBigInteger('size');
             $table->json('manipulations');
             $table->json('custom_properties');
+            $table->json('alt')->nullable();
+            $table->json('credits')->nullable();
+            $table->json('caption')->nullable();
             $table->json('generated_conversions');
             $table->json('responsive_images');
             $table->unsignedInteger('order_column')->nullable()->index();

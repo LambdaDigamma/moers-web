@@ -39,6 +39,8 @@ class Post extends Model implements HasMedia
         'extras' => AsCollection::class,
     ];
 
+    // MARK: - Relations -
+
     public function feeds(): BelongsToMany
     {
         return $this
@@ -48,20 +50,7 @@ class Post extends Model implements HasMedia
             ->orderByPivot('order');
     }
 
-    /**
-     * Orders the query with a chronological published date.
-     * Events without a start date go last.
-     */
-    public function scopeChronological(Builder $query): Builder
-    {
-        if (config('database.default') === 'pgsql') {
-            return $query
-                ->orderByRaw('published_at ASC NULLS LAST');
-        } else {
-            return $query
-                ->orderByRaw('-published_at ASC');
-        }
-    }
+    // MARK: - Media -
 
     public function registerMediaCollections(): void
     {
@@ -83,6 +72,25 @@ class Post extends Model implements HasMedia
             ->crop(300, 300)
             ->nonQueued();
     }
+
+    // MARK: - Scopes -
+
+    /**
+     * Orders the query with a chronological published date.
+     * Events without a start date go last.
+     */
+    public function scopeChronological(Builder $query): Builder
+    {
+        if (config('database.default') === 'pgsql') {
+            return $query
+                ->orderByRaw('published_at ASC NULLS LAST');
+        } else {
+            return $query
+                ->orderByRaw('-published_at ASC');
+        }
+    }
+
+    // MARK: - Accessors and Mutators -
 
     public function getCtaAttribute()
     {

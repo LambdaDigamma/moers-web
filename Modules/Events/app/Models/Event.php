@@ -2,10 +2,13 @@
 
 namespace Modules\Events\Models;
 
+use App\Traits\SerializeMedia;
+use App\Traits\SerializeTranslations;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,17 +16,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use LaravelArchivable\Archivable;
 use LaravelPublishable\Publishable;
+use Modules\Events\Data\EventsCollection;
 use Modules\Events\Data\Link;
 use Modules\Events\Database\Factories\EventFactory;
 use Modules\Events\Exceptions\InvalidLink;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-class Event extends Model
+class Event extends Model implements HasMedia
 {
     use Archivable;
     use HasFactory;
     use HasTranslations;
+    use InteractsWithMedia;
     use Publishable;
+    use SerializeMedia;
+    use SerializeTranslations;
     use SoftDeletes;
 
     protected $table = 'events';
@@ -43,7 +53,7 @@ class Event extends Model
         'extras' => AsCollection::class,
     ];
 
-    public $appends = ['attendance_mode', 'duration', 'is_online'];
+    public $appends = ['attendance_mode', 'duration', 'is_online', 'collection', 'artists'];
 
     public array $translatable = ['name', 'description', 'category'];
 
@@ -53,63 +63,92 @@ class Event extends Model
 
     public const string ATTENDANCE_ONLINE = 'online';
 
-    public function toArray(): array
+    protected static function booted(): void
     {
-        $attributes = parent::toArray();
+        static::archived(function ($event) {
+            if ($event->page_id != null) {
+                $page = $event
+                    ->page()
+                    ->withNotPublished()
+                    ->withArchived()
+                    ->withTrashed()
+                    ->get()
+                    ->first();
+                $page->archive();
+            }
+        });
 
-        foreach ($this->getTranslatableAttributes() as $name) {
-            $attributes[$name] = $this->getTranslation($name, app()->getLocale());
-        }
+        static::unarchived(function ($event) {
+            if ($event->page_id != null) {
+                $page = $event
+                    ->page()
+                    ->withNotPublished()
+                    ->withArchived()
+                    ->withTrashed()
+                    ->get()
+                    ->first();
+                $page->unArchive();
+            }
+        });
 
-        return $attributes;
+        static::published(function ($event) {
+            if ($event->page_id != null) {
+                $page = $event
+                    ->page()
+                    ->withNotPublished()
+                    ->withArchived()
+                    ->withTrashed()
+                    ->get()
+                    ->first();
+                $page->publish();
+            }
+        });
+
+        static::unpublished(function ($event) {
+            if ($event->page_id != null) {
+                $page = $event
+                    ->page()
+                    ->withNotPublished()
+                    ->withArchived()
+                    ->withTrashed()
+                    ->get()
+                    ->first();
+                $page->unpublish();
+            }
+        });
     }
 
-    protected static function newFactory(): EventFactory
+    public function registerMediaCollections(): void
     {
-        return EventFactory::new();
+        $this->addMediaCollection('header')
+            ->withResponsiveImages()
+            ->registerMediaConversions(function (Media $media) {
+                $this
+                    ->addMediaConversion('opengraph')
+                    ->width(1200)
+                    ->height(630)
+                    ->nonQueued();
+                $this
+                    ->addMediaConversion('thumbnail')
+                    ->width(400)
+                    ->keepOriginalImageFormat()
+                    ->nonQueued();
+            });
     }
 
-    /**
-     * Returns a data string ics format of the event.
-     * This can be used to download an ics file.
-     */
-    public function ics(): string
+    // MARK: - Relations -
+
+    public function ticketAssignments(): BelongsToMany
     {
-        $start_date = $this->start_date;
-        $end_date = $this->end_date;
-
-        if ($start_date == null) {
-            throw InvalidLink::noStartDateProvided();
-        } elseif ($end_date == null) {
-            $end_date = $start_date->addMinutes(config('events.event_default_duration'));
-        }
-
-        $link = Link::create($this->name, $start_date, $end_date)
-            ->description($this->description);
-
-        return $link->ics();
+        return $this->belongsToMany(
+            Ticket::class,
+            'ticket_assignments'
+        )->using(TicketAssignment::class);
     }
 
-    public function jsonLd(): array
-    {
-        $attendanceModeSchema = 'https://schema.org/OfflineEventAttendanceMode';
+    // MARK: - Attributes -
 
-        if ($this->attendance_mode == self::ATTENDANCE_ONLINE) {
-            $attendanceModeSchema = 'https://schema.org/OnlineEventAttendanceMode';
-        } elseif ($this->attendance_mode == self::ATTENDANCE_MIXED) {
-            $attendanceModeSchema = 'https://schema.org/MixedEventAttendanceMode';
-        }
-
-        return [
-            '@type' => 'Event',
-            'name' => $this->name,
-            'startDate' => $this->start_date ? $this->start_date->tz('UTC')->toAtomString() : null,
-            'endDate' => $this->end_date ? $this->end_date->tz('UTC')->toAtomString() : null,
-            'eventStatus' => $this->cancelled_at == null ? 'https://schema.org/EventScheduled' : 'https://schema.org/EventCancelled',
-            'eventAttendanceMode' => $attendanceModeSchema,
-            'description' => $this->description,
-        ];
-    }
+    // todo: rewrite this to use real Attributes
 
     public function getAttendanceModeAttribute()
     {
@@ -149,41 +188,83 @@ class Event extends Model
         return false;
     }
 
-    public function ticketAssignments(): BelongsToMany
+    public function getCollectionAttribute()
     {
-        return $this->belongsToMany(
-            Ticket::class,
-            'ticket_assignments'
-        )->using(TicketAssignment::class);
+        return $this->extras ? $this->extras->get('collection', null) : null;
     }
 
-    public function registerMediaCollections(): void
+    public function setCollectionAttribute($value): void
     {
-        $this->addMediaCollection('header');
-    }
-
-    public function isActive(): bool
-    {
-        $now = \Illuminate\Support\Carbon::now()->toDateTimeString();
-        $deadline = Carbon::now()
-            ->addMinutes(config('mm-events.event_active_duration') * -1)
-            ->toDateTimeString();
-
-        if (
-            $this->end_date == null &&
-            $this->start_date != null &&
-            $this->start_date <= $now &&
-            $this->start_date >= $deadline
-        ) {
-            return true;
+        if ($this->extras) {
+            $this->extras->put('collection', $value);
+        } else {
+            $this->extras = collect(['collection' => $value]);
         }
-
-        if ($this->end_date >= $now && $this->start_date <= $now) {
-            return true;
-        }
-
-        return false;
     }
+
+    public function getArtistsAttribute()
+    {
+        return $this->extras ? $this->extras->get('lineup', []) : [];
+    }
+
+    public function setArtistsAttribute($value): void
+    {
+        if ($this->extras) {
+            $this->extras->put('lineup', $value);
+        } else {
+            $this->extras = collect(['lineup' => $value]);
+        }
+    }
+
+    public function getTicketsAttribute()
+    {
+        return $this->extras ? $this->extras->get('tickets', null) : null;
+    }
+
+    public function setTicketsAttribute($value): void
+    {
+        if ($this->extras) {
+            $this->extras->put('tickets', $value);
+        } else {
+            $this->extras = collect(['tickets' => $value]);
+        }
+    }
+
+    protected function startDate(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if ($value === null) {
+                    return null;
+                }
+                if ($this->canAccessMeta()) {
+                    return \Illuminate\Support\Carbon::parse($value);
+                } else {
+                    return null;
+                }
+            }
+        );
+    }
+
+    protected function endDate(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+
+                if ($value === null) {
+                    return null;
+                }
+
+                if ($this->canAccessMeta()) {
+                    return Carbon::parse($value);
+                } else {
+                    return null;
+                }
+            }
+        );
+    }
+
+    // MARK: - Scopes -
 
     public function scopeActive($query): Builder
     {
@@ -344,6 +425,17 @@ class Event extends Model
             });
     }
 
+    public function scopeActiveOrUpcoming(Builder $query): Builder
+    {
+        return $query
+            ->where(function ($query) {
+                $query->upcoming();
+            })
+            ->orWhere(function ($query) {
+                $query->active();
+            });
+    }
+
     public function scopeOnlyOnline(Builder $query): Builder
     {
         return $query
@@ -413,5 +505,126 @@ class Event extends Model
                     ->whereNull('end_date');
             })
             ->orWhereRaw('TIMESTAMPDIFF(SECOND, start_date, end_date) < ?', [$duration_threshold]);
+    }
+
+    // MARK: - Utility -
+
+    /**
+     * Returns a data string ics format of the event.
+     * This can be used to download an ics file.
+     */
+    public function ics(): string
+    {
+        $start_date = $this->start_date;
+        $end_date = $this->end_date;
+
+        if ($start_date == null) {
+            throw InvalidLink::noStartDateProvided();
+        } elseif ($end_date == null) {
+            $end_date = $start_date->addMinutes(config('events.event_default_duration'));
+        }
+
+        $link = Link::create($this->name, $start_date, $end_date)
+            ->description($this->description);
+
+        return $link->ics();
+    }
+
+    public function jsonLd(): array
+    {
+        $attendanceModeSchema = 'https://schema.org/OfflineEventAttendanceMode';
+
+        if ($this->attendance_mode == self::ATTENDANCE_ONLINE) {
+            $attendanceModeSchema = 'https://schema.org/OnlineEventAttendanceMode';
+        } elseif ($this->attendance_mode == self::ATTENDANCE_MIXED) {
+            $attendanceModeSchema = 'https://schema.org/MixedEventAttendanceMode';
+        }
+
+        return [
+            '@type' => 'Event',
+            'name' => $this->name,
+            'startDate' => $this->start_date ? $this->start_date->tz('UTC')->toAtomString() : null,
+            'endDate' => $this->end_date ? $this->end_date->tz('UTC')->toAtomString() : null,
+            'eventStatus' => $this->cancelled_at == null ? 'https://schema.org/EventScheduled' : 'https://schema.org/EventCancelled',
+            'eventAttendanceMode' => $attendanceModeSchema,
+            'description' => $this->description,
+        ];
+    }
+
+    public function isActive(): bool
+    {
+        $now = \Illuminate\Support\Carbon::now()->toDateTimeString();
+        $deadline = Carbon::now()
+            ->addMinutes(config('mm-events.event_active_duration') * -1)
+            ->toDateTimeString();
+
+        if (
+            $this->end_date == null &&
+            $this->start_date != null &&
+            $this->start_date <= $now &&
+            $this->start_date >= $deadline
+        ) {
+            return true;
+        }
+
+        if ($this->end_date >= $now && $this->start_date <= $now) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function canAccessMeta(): bool
+    {
+        $value = $this->getRawOriginal('start_date');
+
+        if (! $value) {
+            return false;
+        }
+
+        $parsed = \Illuminate\Support\Carbon::parse($value);
+        $collectionName = $this->extras?->get('collection');
+
+        if ($collectionName) {
+
+            /** @var $collectionSettings EventsCollection */
+            $collectionSettings = EventsCollection::base()
+                ->first(fn ($collection) => $collection->name === $collectionName);
+
+            if ($collectionSettings) {
+                if (now()->isAfter($collectionSettings->publishMetaAt)) {
+                    return true;
+                } else {
+                    if (auth()->check() && auth()->user()->isAdmin()) {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    protected static function newFactory(): EventFactory
+    {
+        return EventFactory::new();
+    }
+
+    public function toArray(): array
+    {
+        $attributes = parent::toArray();
+
+        if (! $this->canAccessMeta()) {
+            $attributes['place'] = null;
+            $attributes['place_id'] = null;
+        }
+
+        return array_merge(
+            $attributes,
+            $this->serializeTranslations(),
+            $this->serializeMediaCollections(),
+        );
     }
 }

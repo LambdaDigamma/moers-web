@@ -28,7 +28,7 @@ class LoadRadio extends Command
                 'defaultTimeZone' => 'UTC',
             ]);
 
-            $this->info('Found ' . count($cal->events()) . ' upcoming or previous broadcasts.');
+            $this->info('Found '.count($cal->events()).' upcoming or previous broadcasts.');
 
             $broadcasts = collect($cal->events())->map(function ($event) {
                 return RadioBroadcast::updateOrCreate([
@@ -49,7 +49,7 @@ class LoadRadio extends Command
                 return [
                     $broadcast->title,
                     $broadcast->starts_at,
-                    $broadcast->ends_at
+                    $broadcast->ends_at,
                 ];
             }));
 

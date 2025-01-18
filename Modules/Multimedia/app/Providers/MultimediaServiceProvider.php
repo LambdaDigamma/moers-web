@@ -45,9 +45,9 @@ class MultimediaServiceProvider extends ServiceProvider
      */
     protected function registerCommands(): void
     {
-         $this->commands([
-             LoadRadio::class,
-         ]);
+        $this->commands([
+            LoadRadio::class,
+        ]);
     }
 
     /**
@@ -55,11 +55,11 @@ class MultimediaServiceProvider extends ServiceProvider
      */
     protected function registerCommandSchedules(): void
     {
-         $this->app->booted(function () {
-             $schedule = $this->app->make(Schedule::class);
-             $schedule->command('radio-broadcasts:load')
-                 ->cron('0 */4 * * *');
-         });
+        $this->app->booted(function () {
+            $schedule = $this->app->make(Schedule::class);
+            $schedule->command('radio-broadcasts:load')
+                ->cron('0 */4 * * *');
+        });
     }
 
     /**

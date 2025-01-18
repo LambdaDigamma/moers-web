@@ -14,11 +14,6 @@ return [
      */
     'event_active_duration' => 30,
 
-    /*
-     * This table names are used to connect with other packages.
-     */
-    'places_table' => 'mm_places',
-
     /**
      * The admin endpoints are being registered under this prefix.
      */
