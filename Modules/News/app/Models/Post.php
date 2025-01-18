@@ -4,7 +4,7 @@ namespace Modules\News\Models;
 
 use App\Traits\SerializeMedia;
 use App\Traits\SerializeTranslations;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

@@ -4,7 +4,7 @@ namespace Modules\Parking\Models;
 
 use App\Models\Model;
 use Clickbar\Magellan\Database\Eloquent\HasPostgisColumns;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Modules\Parking\Database\Factories\ParkingAreaFactory;

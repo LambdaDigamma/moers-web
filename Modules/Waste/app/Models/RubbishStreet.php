@@ -4,7 +4,7 @@ namespace Modules\Waste\Models;
 
 use App\Models\Model;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Waste\Database\Factories\RubbishStreetFactory;
 

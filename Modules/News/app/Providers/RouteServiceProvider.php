@@ -34,8 +34,9 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('anypost', function ($id) {
             return Post::query()
-                ->withTrashed()
+                ->with(['page', 'page.blocks'])
                 ->withNotPublished()
+                ->withTrashed()
                 ->withArchived()
                 ->findOrFail($id);
         });

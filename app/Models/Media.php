@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Traits\SerializeTranslations;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
 
