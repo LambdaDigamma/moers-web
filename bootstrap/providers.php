@@ -7,4 +7,5 @@ return [
     \Modules\Waste\Providers\WasteServiceProvider::class,
     \Modules\Parking\Providers\ParkingServiceProvider::class,
     \Modules\News\Providers\NewsServiceProvider::class,
+    \Modules\Multimedia\Providers\MultimediaServiceProvider::class,
 ];

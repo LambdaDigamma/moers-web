@@ -10,6 +10,7 @@
         "ext-openssl": "*",
         "clickbar/laravel-magellan": "^1.7",
         "joelbutcher/laravel-archivable": "^1.11",
+        "johngrogg/ics-parser": "^3.4",
         "lambdadigamma/laravel-publishable": "^1.0",
         "laravel-json-api/laravel": "^5.0",
         "laravel/framework": "^11.31",

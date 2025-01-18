@@ -2,5 +2,6 @@
     "Events": true,
     "Waste": true,
     "Parking": true,
-    "News": true
+    "News": true,
+    "Multimedia": true
 }
