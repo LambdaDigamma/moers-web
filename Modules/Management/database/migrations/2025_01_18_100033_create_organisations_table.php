@@ -19,8 +19,8 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('location_id')->references('id')->on('locations')
-                  ->onUpdate('cascade')
-                  ->onDelete('set null');
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
 
         Schema::create('organisation_user', function (Blueprint $table) {
