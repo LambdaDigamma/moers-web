@@ -13,14 +13,14 @@ return new class extends Migration
             $table->string('name');
             $table->mediumText('description');
             $table->bigInteger('group_id')->unsigned()->nullable();
-            //            $table->integer('entry_id')->unsigned()->nullable();
+            $table->bigInteger('location_id')->unsigned()->nullable();
             $table->string('tags', 500)->nullable();
             $table->string('logo_url', 250)->nullable();
             $table->softDeletes();
             $table->timestamps();
-            //            $table->foreign('entry_id')->references('id')->on('entries')
-            //                  ->onUpdate('cascade')
-            //                  ->onDelete('set null');
+            $table->foreign('location_id')->references('id')->on('locations')
+                  ->onUpdate('cascade')
+                  ->onDelete('set null');
         });
 
         Schema::create('organisation_user', function (Blueprint $table) {

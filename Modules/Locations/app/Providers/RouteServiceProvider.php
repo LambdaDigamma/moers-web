@@ -1,15 +1,13 @@
 <?php
 
-namespace Modules\News\Providers;
+namespace Modules\Locations\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use Modules\News\Models\Feed;
-use Modules\News\Models\Post;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected string $name = 'News';
+    protected string $name = 'Locations';
 
     /**
      * Called before routes are registered.
@@ -26,21 +24,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(): void
     {
-        Route::bind('anyfeed', function ($id) {
-            return Feed::query()
-                ->withTrashed()
-                ->findOrFail($id);
-        });
-
-        Route::bind('anypost', function ($id) {
-            return Post::query()
-//                ->with(['page', 'page.blocks'])
-                ->withNotPublished()
-                ->withTrashed()
-                ->withArchived()
-                ->findOrFail($id);
-        });
-
         $this->mapApiRoutes();
         $this->mapWebRoutes();
     }

@@ -4,5 +4,6 @@
     "Parking": true,
     "News": true,
     "Multimedia": true,
-    "Management": true
+    "Management": true,
+    "Locations": true
 }
