@@ -2,6 +2,7 @@
 
 namespace Modules\Parking\Models;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Models\Model;
 use Clickbar\Magellan\Database\Eloquent\HasPostgisColumns;
 use Illuminate\Contracts\Database\Eloquent\Builder;

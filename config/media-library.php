@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Media;
+use App\Services\MediaLibrary\ObfuscatedPathGenerator;
 
 return [
 
@@ -56,7 +57,7 @@ return [
      */
     'use_default_collection_serialization' => false,
 
-    /*
+    /*i
      * The fully qualified class name of the model used for temporary uploads.
      *
      * This model is only used in Media Library Pro (https://medialibrary.pro)
@@ -83,7 +84,7 @@ return [
     /*
      * The class that contains the strategy for determining a media file's path.
      */
-    'path_generator' => Spatie\MediaLibrary\Support\PathGenerator\DefaultPathGenerator::class,
+    'path_generator' => ObfuscatedPathGenerator::class,
 
     /*
      * The class that contains the strategy for determining how to remove files.

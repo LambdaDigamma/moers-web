@@ -36,6 +36,8 @@ class Event extends Model implements HasMedia
     use SerializeTranslations;
     use SoftDeletes;
 
+    const string HEADER_MEDIA_COLLECTION = 'header';
+
     protected $table = 'events';
 
     protected $fillable = [
@@ -120,7 +122,7 @@ class Event extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('header')
+        $this->addMediaCollection(self::HEADER_MEDIA_COLLECTION)
             ->withResponsiveImages()
             ->registerMediaConversions(function (Media $media) {
                 $this

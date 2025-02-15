@@ -5,6 +5,8 @@ use Modules\Events\Http\Controllers\EventActionController;
 use Modules\Events\Http\Controllers\EventController;
 use Modules\Events\Http\Controllers\EventPlaceController;
 
+Route::get('events', [EventController::class, 'index'])->name('events.index');
+
 Route::group([
     'prefix' => config('events.admin_prefix', 'admin'),
     'as' => config('events.admin_as', 'admin.'),
