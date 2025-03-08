@@ -16,6 +16,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::get('/maps/auth', [MapAuthController::class, 'token']);
 
-
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
