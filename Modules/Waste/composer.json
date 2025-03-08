@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "jenssegers/model": "^1.5.3"
+        "jenssegers/model": "dev-patch-1"
     },
     "extra": {
         "laravel": {
