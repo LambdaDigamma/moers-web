@@ -27,7 +27,7 @@ class LoadMoersEvent
      */
     public function __construct(public string $href)
     {
-        $this->client = new Client();
+        $this->client = new Client;
     }
 
     public function handle(): int
@@ -39,8 +39,6 @@ class LoadMoersEvent
         $venueData = $this->fetchVenueData($data);
 
         $this->updateEventExtras(event: $event, data: $data, venueData: $venueData);
-
-
 
         return 0;
     }
@@ -65,7 +63,7 @@ class LoadMoersEvent
                 'description' => $data->field_nsf_teaser_text,
                 'start_date' => $this->parseDate($data->field_evt_date?->value),
                 'end_date' => $this->parseDate($data->field_evt_date?->end_value),
-                'url' => 'https://moers.de' . $data->path->alias,
+                'url' => 'https://moers.de'.$data->path->alias,
                 'published_at' => now(),
                 'created_at' => $this->parseDate($data->created),
                 'updated_at' => $this->parseDate($data->changed),
@@ -86,7 +84,7 @@ class LoadMoersEvent
 
     private function fetchTeaserImage(Item $data, Event $event): void
     {
-        $teaserImageHref = $data->getRelationships()['field_nsf_teaser_image_ref']["links"]["related"]["href"];
+        $teaserImageHref = $data->getRelationships()['field_nsf_teaser_image_ref']['links']['related']['href'];
         /** @var Item|null $teaserImageData */
         $teaserImageData = $teaserImageHref ? Http::asJsonApi()->get($teaserImageHref)->jsonApi()->getData() : null;
 
@@ -143,5 +141,4 @@ class LoadMoersEvent
     {
         return $date ? Carbon::parse($date)->timezone('UTC') : null;
     }
-
 }

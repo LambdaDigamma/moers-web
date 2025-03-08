@@ -44,9 +44,9 @@ class EventsServiceProvider extends ServiceProvider
      */
     protected function registerCommands(): void
     {
-         $this->commands([
-             LoadMoersEvents::class,
-         ]);
+        $this->commands([
+            LoadMoersEvents::class,
+        ]);
     }
 
     /**

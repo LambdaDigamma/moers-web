@@ -2,15 +2,11 @@
 
 namespace Modules\Events\Console\Commands;
 
-use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Modules\Events\Jobs\LoadMoersEvent;
 use Swis\JsonApi\Client\Interfaces\DocumentInterface;
-use Swis\JsonApi\Client\Item;
 use Traversable;
 
 class LoadMoersEvents extends Command
@@ -20,17 +16,21 @@ class LoadMoersEvents extends Command
     protected $description = 'Load all events for the next month from moers backend.';
 
     protected Client $client;
+
     protected $hrefs;
+
     protected $currentHref;
 
     protected array $events = [];
+
     protected array $urls = [];
+
     protected array $eventUrls = [];
 
     public function __construct()
     {
         parent::__construct();
-        $this->client = new Client();
+        $this->client = new Client;
     }
 
     public function handle(): int
@@ -49,10 +49,10 @@ class LoadMoersEvents extends Command
             $this->handleDocument($document);
         }
 
-        $this->info('Found ' . count($this->eventUrls) . ' events.');
+        $this->info('Found '.count($this->eventUrls).' events.');
 
         foreach ($this->eventUrls as $eventUrl) {
-            $this->info('Loading event ' . $eventUrl);
+            $this->info('Loading event '.$eventUrl);
             LoadMoersEvent::dispatchSync($eventUrl);
         }
 
@@ -68,12 +68,12 @@ class LoadMoersEvents extends Command
         }
     }
 
-//                if (is_array($eventType) or ($eventType instanceof Traversable)) {
-//                    $category = implode(', ', $eventType);
-//                } else {
-//                    $category = $eventType;
-//                }
-//
-//                $newEvent->category = $category;
+    //                if (is_array($eventType) or ($eventType instanceof Traversable)) {
+    //                    $category = implode(', ', $eventType);
+    //                } else {
+    //                    $category = $eventType;
+    //                }
+    //
+    //                $newEvent->category = $category;
 
 }

@@ -11,10 +11,7 @@ use Modules\Events\Models\Event;
 
 class EventController extends Controller
 {
-    public function index()
-    {
-
-    }
+    public function index() {}
 
     public function store(StoreEventRequest $request): JsonResponse|RedirectResponse
     {
