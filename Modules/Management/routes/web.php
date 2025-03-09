@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Events\Http\Controllers\OrganisationEventsController;
 use Modules\Management\Http\Controllers\OrganisationController;
 
 /*
@@ -16,3 +17,5 @@ use Modules\Management\Http\Controllers\OrganisationController;
 
 Route::get('organisations/create', [OrganisationController::class, 'create'])->name('organisations.create');
 Route::post('organisations', [OrganisationController::class, 'store'])->name('organisations.store');
+Route::get('organisations/{organisation:slug}/edit', [OrganisationController::class, 'edit'])->name('organisations.edit');
+Route::get('organisations/{organisation:slug}/events', [OrganisationEventsController::class, 'index'])->name('organisations.events.index');

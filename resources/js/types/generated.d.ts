@@ -55,4 +55,17 @@ declare namespace Modules.Management.Data {
 export type CreateOrganisationProps = {
 host: string;
 };
+export type EditOrganisationProps = {
+organisation: Modules.Management.Data.Organisation;
+};
+export type Organisation = {
+name: string;
+slug: string;
+description: string;
+createdAt: any;
+};
+export type StoreOrganisationRequest = {
+name: string;
+slug: string;
+};
 }

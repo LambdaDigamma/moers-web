@@ -24,7 +24,7 @@ class Organisation extends Model implements HasMedia
 
     protected $table = 'organisations';
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'slug'];
 
     protected $appends = ['header_path', 'logo_path'];
 

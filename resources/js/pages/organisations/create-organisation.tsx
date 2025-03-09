@@ -11,7 +11,7 @@ import CreateOrganisationProps = Modules.Management.Data.CreateOrganisationProps
 
 type CreateOrganisationForm = {
     name: string;
-    handle: string;
+    slug: string;
 };
 
 const slugify = (str: string) => {
@@ -28,14 +28,14 @@ const slugify = (str: string) => {
 const CreateOrganisation = ({ host }: CreateOrganisationProps) => {
     const { data, setData, post, processing, errors, reset } = useForm<Required<CreateOrganisationForm>>({
         name: '',
-        handle: '',
+        slug: '',
     });
 
     const [handleManuallyChanged, setHandleManuallyChanged] = useState(false);
 
     useEffect(() => {
         if (!handleManuallyChanged) {
-            setData('handle', slugify(data.name));
+            setData('slug', slugify(data.name));
         }
     }, [data.name]);
 
@@ -72,17 +72,17 @@ const CreateOrganisation = ({ host }: CreateOrganisationProps) => {
                         <Field>
                             <Label>Handle</Label>
                             <InputAddon
-                                name="handle"
-                                addon={host}
-                                value={data.handle}
+                                name="slug"
+                                addon={host + '/'}
+                                value={data.slug}
                                 onChange={(e) => {
-                                    setData('handle', e.target.value);
+                                    setData('slug', e.target.value);
                                     setHandleManuallyChanged(true);
                                 }}
                                 className="max-w-md"
-                                invalid={errors.handle == undefined}
+                                invalid={errors.slug == undefined}
                             ></InputAddon>
-                            {errors.handle && <ErrorMessage>{errors.handle}</ErrorMessage>}
+                            {errors.slug && <ErrorMessage>{errors.slug}</ErrorMessage>}
                         </Field>
                         <Button
                             type="submit"

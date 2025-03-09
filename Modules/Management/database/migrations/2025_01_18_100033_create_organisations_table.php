@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('organisations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('slug', 250)->unique();
             $table->mediumText('description');
             $table->bigInteger('group_id')->unsigned()->nullable();
             $table->bigInteger('location_id')->unsigned()->nullable();

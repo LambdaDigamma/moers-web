@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 use Modules\Management\Data\CreateOrganisationProps;
+use Modules\Management\Data\EditOrganisationProps;
 use Modules\Management\Data\StoreOrganisationRequest;
+use Modules\Management\Models\Organisation;
 
 class OrganisationController extends Controller
 {
@@ -21,6 +23,21 @@ class OrganisationController extends Controller
 
     public function store(StoreOrganisationRequest $request)
     {
-        dd($request->all());
+        $organisation = Organisation::create([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'description' => '',
+        ]);
+
+        return redirect()->route('organisations.edit', $organisation);
+    }
+
+    public function edit(Organisation $organisation)
+    {
+        $props = new EditOrganisationProps(
+            organisation: \Modules\Management\Data\Organisation::from($organisation)
+        );
+
+        return inertia('organisations/edit-organisation', $props);
     }
 }

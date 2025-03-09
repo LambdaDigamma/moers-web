@@ -106,18 +106,31 @@ export const InputAddon= forwardRef(function Input(
     ref: React.ForwardedRef<HTMLInputElement>
 ) {
     return (
-        <div className="flex" data-slot="control">
-            <div className="flex shrink-0 items-center rounded-l-md bg-white px-3 text-base text-gray-500 outline outline-1 -outline-offset-1 outline-gray-300 sm:text-sm/6">
+        <div
+            data-slot="control"
+            className={clsx([
+                className,
+                // Basic layout
+                'relative flex w-full',
+                // Background color + shadow applied to inset pseudo element, so shadow blends with border in light mode
+                'before:absolute before:inset-px before:rounded-[calc(var(--radius-md)-1px)] before:bg-white before:shadow-sm',
+                // Background color is moved to control and shadow is removed in dark mode so hide `before` pseudo
+                'dark:before:hidden',
+                // Focus ring
+                'after:pointer-events-none after:absolute after:inset-0 after:rounded-md after:ring-transparent after:ring-inset sm:focus-within:after:ring-2 sm:focus-within:after:ring-blue-500',
+                // Disabled state
+                'has-data-disabled:opacity-50 has-data-disabled:before:bg-zinc-950/5 has-data-disabled:before:shadow-none',
+                // Invalid state
+                'has-data-invalid:before:shadow-red-500/10',
+            ])}
+        >
+            <div className="relative flex shrink-0 items-center rounded-l-md bg-white px-3 text-base text-gray-500 outline outline-1 -outline-offset-1 outline-gray-300 sm:text-sm/6">
                 {addon && <span>{addon}</span>}
             </div>
             <Headless.Input
                 ref={ref}
                 {...props}
-                id="company-website"
-                name="company-website"
-                type="text"
-                placeholder="www.example.com"
-                className="-ml-px block w-full grow rounded-r-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6"
+                className="relative -ml-px block w-full grow rounded-r-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-500 sm:text-sm/6"
             />
         </div>
     )
