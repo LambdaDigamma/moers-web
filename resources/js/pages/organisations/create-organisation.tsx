@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Field } from '@/components/ui/fieldset';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { ErrorMessage, Field, Label } from '@/components/ui/fieldset';
+import { Input, InputAddon } from '@/components/ui/input';
+// import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { ReactNode, useEffect, useState } from 'react';
+import { FormEventHandler, ReactNode, useEffect, useState } from 'react';
 import CreateOrganisationProps = Modules.Management.Data.CreateOrganisationProps;
 
 type CreateOrganisationForm = {
@@ -39,7 +39,8 @@ const CreateOrganisation = ({ host }: CreateOrganisationProps) => {
         }
     }, [data.name]);
 
-    const submit = () => {
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
         post(route('organisations.store'), {
             preserveScroll: true,
         });
@@ -57,27 +58,31 @@ const CreateOrganisation = ({ host }: CreateOrganisationProps) => {
                         className="space-y-6"
                         onSubmit={submit}
                     >
-                        <div>
+                        <Field>
                             <Label>Name</Label>
                             <Input
+                                name="name"
                                 value={data.name}
                                 onChange={(e) => setData('name', e.target.value)}
                                 className="max-w-md"
+                                invalid={data.name == undefined}
                             />
-                        </div>
+                            {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+                        </Field>
                         <Field>
                             <Label>Handle</Label>
-                            <div className="flex flex-row items-center space-x-2">
-                                <span className="bg-gray-50">{host}/</span>
-                                <Input
-                                    value={data.handle}
-                                    onChange={(e) => {
-                                        setData('handle', e.target.value);
-                                        setHandleManuallyChanged(true);
-                                    }}
-                                    className="max-w-md"
-                                />
-                            </div>
+                            <InputAddon
+                                name="handle"
+                                addon={host}
+                                value={data.handle}
+                                onChange={(e) => {
+                                    setData('handle', e.target.value);
+                                    setHandleManuallyChanged(true);
+                                }}
+                                className="max-w-md"
+                                invalid={errors.handle == undefined}
+                            ></InputAddon>
+                            {errors.handle && <ErrorMessage>{errors.handle}</ErrorMessage>}
                         </Field>
                         <Button
                             type="submit"

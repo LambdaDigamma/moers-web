@@ -7,7 +7,7 @@ import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AuthLayout from '@/layouts/auth-layout';
+import AuthLayout from '@/layouts/auth/auth-card-layout';
 
 type RegisterForm = {
     name: string;
@@ -32,9 +32,15 @@ export default function Register() {
     };
 
     return (
-        <AuthLayout title="Create an account" description="Enter your details below to create your account">
+        <AuthLayout
+            title="Create an account"
+            description="Enter your details below to create your account"
+        >
             <Head title="Register" />
-            <form className="flex flex-col gap-6" onSubmit={submit}>
+            <form
+                className="flex flex-col gap-6"
+                onSubmit={submit}
+            >
                 <div className="grid gap-6">
                     <div className="grid gap-2">
                         <Label htmlFor="name">Name</Label>
@@ -50,7 +56,10 @@ export default function Register() {
                             disabled={processing}
                             placeholder="Full name"
                         />
-                        <InputError message={errors.name} className="mt-2" />
+                        <InputError
+                            message={errors.name}
+                            className="mt-2"
+                        />
                     </div>
 
                     <div className="grid gap-2">
@@ -101,7 +110,12 @@ export default function Register() {
                         <InputError message={errors.password_confirmation} />
                     </div>
 
-                    <Button type="submit" className="mt-2 w-full" tabIndex={5} disabled={processing}>
+                    <Button
+                        type="submit"
+                        className="mt-2 w-full"
+                        tabIndex={5}
+                        disabled={processing}
+                    >
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Create account
                     </Button>
@@ -109,7 +123,10 @@ export default function Register() {
 
                 <div className="text-muted-foreground text-center text-sm">
                     Already have an account?{' '}
-                    <TextLink href={route('login')} tabIndex={6}>
+                    <TextLink
+                        href={route('login')}
+                        tabIndex={6}
+                    >
                         Log in
                     </TextLink>
                 </div>
