@@ -8,8 +8,5 @@ class CreateOrganisationProps extends Data
 {
     public function __construct(
         public string $host
-    )
-    {
-
-    }
+    ) {}
 }

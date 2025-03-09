@@ -8,7 +8,7 @@ return [
 
     'auto_discover_types' => [
         app_path(),
-        'modules'
+        'modules',
     ],
 
     /*
@@ -20,7 +20,7 @@ return [
     'collectors' => [
         Spatie\TypeScriptTransformer\Collectors\DefaultCollector::class,
         Spatie\TypeScriptTransformer\Collectors\EnumCollector::class,
-        \Spatie\LaravelData\Support\TypeScriptTransformer\DataTypeScriptCollector::class
+        \Spatie\LaravelData\Support\TypeScriptTransformer\DataTypeScriptCollector::class,
     ],
 
     /*

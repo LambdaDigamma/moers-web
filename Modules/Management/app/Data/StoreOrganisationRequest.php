@@ -18,8 +18,5 @@ class StoreOrganisationRequest extends Data
         #[Min(3)]
         #[Max(255)]
         public string $handle
-    )
-    {
-
-    }
+    ) {}
 }

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Management\Http\Controllers\ManagementController;
 use Modules\Management\Http\Controllers\OrganisationController;
 
 /*

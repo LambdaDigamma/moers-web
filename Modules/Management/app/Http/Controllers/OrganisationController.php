@@ -3,7 +3,6 @@
 namespace Modules\Management\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\URL;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 use Modules\Management\Data\CreateOrganisationProps;
@@ -24,5 +23,4 @@ class OrganisationController extends Controller
     {
         dd($request->all());
     }
-
 }
