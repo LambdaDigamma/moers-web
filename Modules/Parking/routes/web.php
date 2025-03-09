@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Parking\Http\Controllers\ParkingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +13,3 @@ use Modules\Parking\Http\Controllers\ParkingController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('parking', ParkingController::class)->names('parking');
-});

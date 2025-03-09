@@ -4,6 +4,7 @@ import laravel from 'laravel-vite-plugin';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import fs from "fs";
+import { watch } from "vite-plugin-watch"
 
 export default defineConfig({
     server: {
@@ -25,6 +26,10 @@ export default defineConfig({
         }),
         react(),
         tailwindcss(),
+        // watch({
+        //     pattern: ["app/{Data,Dto,Enums}/**/*.php", "Modules/**/*.php"],
+        //     command: "php artisan typescript:transform",
+        // }),
     ],
     esbuild: {
         jsx: 'automatic',

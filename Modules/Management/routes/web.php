@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Management\Http\Controllers\ManagementController;
+use Modules\Management\Http\Controllers\OrganisationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,5 @@ use Modules\Management\Http\Controllers\ManagementController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('management', ManagementController::class)->names('management');
-});
+Route::get('organisations/create', [OrganisationController::class, 'create'])->name('organisations.create');
+Route::post('organisations', [OrganisationController::class, 'store'])->name('organisations.store');
