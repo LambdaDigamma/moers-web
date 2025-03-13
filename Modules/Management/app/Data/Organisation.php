@@ -9,6 +9,8 @@ use Spatie\LaravelData\Data;
 class Organisation extends Data
 {
     public function __construct(
+        #[MapInputName('id')]
+        public int $id,
         #[MapInputName('name')]
         public string $name,
         #[MapInputName('slug')]

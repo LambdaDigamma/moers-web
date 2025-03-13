@@ -48,6 +48,7 @@ return [
         Carbon\CarbonInterface::class => 'string',
         Carbon\CarbonImmutable::class => 'string',
         Carbon\Carbon::class => 'string',
+        \Illuminate\Support\Carbon::class => 'string',
     ],
 
     /*

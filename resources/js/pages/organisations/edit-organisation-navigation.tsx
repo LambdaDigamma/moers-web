@@ -11,7 +11,7 @@ export const EditOrganisationNavigation = ({ className, ...props }: React.Compon
     return (
         <Navbar
             {...props}
-            className={clsx(className, 'px-4')}
+            className={clsx(className, '')}
         >
             {/*<Link href="/" aria-label="Home">*/}
             {/*    <Logo className="size-10 sm:size-8" />*/}
@@ -21,13 +21,13 @@ export const EditOrganisationNavigation = ({ className, ...props }: React.Compon
                     href={route('organisations.edit', [organisation.slug])}
                     current={current('organisations.edit')}
                 >
-                    Home
+                    Überblick
                 </NavbarItem>
                 <NavbarItem
                     href={route('organisations.events.index', [organisation.slug])}
                     current={current('organisations.events.*')}
                 >
-                    Events
+                    Veranstaltungen
                 </NavbarItem>
             </NavbarSection>
         </Navbar>

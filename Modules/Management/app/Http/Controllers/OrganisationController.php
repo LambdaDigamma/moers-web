@@ -9,9 +9,21 @@ use Modules\Management\Data\CreateOrganisationProps;
 use Modules\Management\Data\EditOrganisationProps;
 use Modules\Management\Data\StoreOrganisationRequest;
 use Modules\Management\Models\Organisation;
+use Spatie\LaravelData\PaginatedDataCollection;
 
 class OrganisationController extends Controller
 {
+    public function index()
+    {
+        $organisations = Organisation::query()->paginate();
+
+        $data = \Modules\Management\Data\Organisation::collect($organisations, PaginatedDataCollection::class);
+
+        return inertia("organisations/index", [
+            'organisations' => $data,
+        ]);
+    }
+
     public function create(): Response|ResponseFactory
     {
         $props = new CreateOrganisationProps(

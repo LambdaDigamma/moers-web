@@ -19,3 +19,4 @@ Route::get('organisations/create', [OrganisationController::class, 'create'])->n
 Route::post('organisations', [OrganisationController::class, 'store'])->name('organisations.store');
 Route::get('organisations/{organisation:slug}/edit', [OrganisationController::class, 'edit'])->name('organisations.edit');
 Route::get('organisations/{organisation:slug}/events', [OrganisationEventsController::class, 'index'])->name('organisations.events.index');
+Route::get('organisations', [OrganisationController::class, 'index'])->name('organisations.index');

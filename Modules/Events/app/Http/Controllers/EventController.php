@@ -5,13 +5,24 @@ namespace Modules\Events\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
+use Modules\Events\Data\Event as EventResource;
 use Modules\Events\Http\Requests\StoreEventRequest;
 use Modules\Events\Http\Requests\UpdateGeneralEvent;
 use Modules\Events\Models\Event;
 
 class EventController extends Controller
 {
-    public function index() {}
+    public function index() {
+
+        $events = Event::query()
+            ->orderBy('start_date', 'asc')
+            ->paginate(10)
+            ->through(fn(Event $event) => EventResource::from($event));
+
+        return inertia("events/index", [
+            'events' => $events
+        ]);
+    }
 
     public function store(StoreEventRequest $request): JsonResponse|RedirectResponse
     {

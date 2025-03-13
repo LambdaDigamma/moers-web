@@ -29,10 +29,24 @@ preview_url: string | null;
 };
 }
 declare namespace Modules.Events.Data {
+export type Event = {
+id: number;
+name: string;
+startDate: string | null;
+endDate: string | null;
+description: string | null;
+pageId: number | null;
+createdAt: string | null;
+updatedAt: string | null;
+publishedAt: string | null;
+cancelledAt: string | null;
+archivedAt: string | null;
+deletedAt: string | null;
+};
 export type EventsCollection = {
 id: number;
 name: string;
-publishMetaAt: any;
+publishMetaAt: string;
 isPreview: boolean;
 };
 export type Track = {
@@ -59,10 +73,12 @@ export type EditOrganisationProps = {
 organisation: Modules.Management.Data.Organisation;
 };
 export type Organisation = {
+id: number;
 name: string;
 slug: string;
 description: string;
-createdAt: any;
+createdAt: string;
+updatedAt: string;
 };
 export type StoreOrganisationRequest = {
 name: string;

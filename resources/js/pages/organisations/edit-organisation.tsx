@@ -1,3 +1,4 @@
+import { DefaultContainer } from '@/components/default-container';
 import { default as AppLayout } from '@/layouts/app-layout';
 import OrganisationLayout from '@/pages/organisations/organisation-layout';
 import { Head } from '@inertiajs/react';
@@ -8,10 +9,10 @@ const EditOrganisation = ({ organisation }: EditOrganisationProps) => {
     return (
         <>
             <Head title="Bearbeiten"></Head>
-            <div>
+            <DefaultContainer>
                 <h1 className="text-2xl font-semibold">{organisation.name}</h1>
                 {JSON.stringify(organisation)}
-            </div>
+            </DefaultContainer>
         </>
     );
 };

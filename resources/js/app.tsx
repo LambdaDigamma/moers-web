@@ -1,6 +1,7 @@
 import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/react';
+import { renderApp } from '@inertiaui/modal-react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { initializeTheme } from './hooks/use-appearance';
@@ -13,7 +14,7 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
-        root.render(<App {...props} />);
+        root.render(renderApp(App, props));
     },
     progress: {
         color: '#4B5563',
