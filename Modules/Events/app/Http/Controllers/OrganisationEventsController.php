@@ -11,8 +11,8 @@ class OrganisationEventsController
     {
         $events = Event::query()->get();
 
-        return inertia("organisations/events/index-events", [
-            'organisation' => \Modules\Management\Data\Organisation::from($organisation)
+        return inertia('organisations/events/index-events', [
+            'organisation' => \Modules\Management\Data\Organisation::from($organisation),
         ]);
     }
 }

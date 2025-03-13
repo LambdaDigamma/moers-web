@@ -8,8 +8,5 @@ class EditOrganisationProps extends Data
 {
     public function __construct(
         public Organisation $organisation
-    )
-    {
-
-    }
+    ) {}
 }

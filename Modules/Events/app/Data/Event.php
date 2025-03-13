@@ -34,8 +34,5 @@ class Event extends Data
         public ?Carbon $archivedAt,
         #[MapInputName('deleted_at')]
         public ?Carbon $deletedAt,
-    )
-    {
-
-    }
+    ) {}
 }

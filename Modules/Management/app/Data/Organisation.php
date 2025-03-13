@@ -21,8 +21,5 @@ class Organisation extends Data
         public Carbon $createdAt,
         #[MapInputName('updated_at')]
         public Carbon $updatedAt,
-    )
-    {
-
-    }
+    ) {}
 }

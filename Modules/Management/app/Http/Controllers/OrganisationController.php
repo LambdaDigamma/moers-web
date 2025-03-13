@@ -19,7 +19,7 @@ class OrganisationController extends Controller
 
         $data = \Modules\Management\Data\Organisation::collect($organisations, PaginatedDataCollection::class);
 
-        return inertia("organisations/index", [
+        return inertia('organisations/index', [
             'organisations' => $data,
         ]);
     }

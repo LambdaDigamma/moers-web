@@ -12,15 +12,16 @@ use Modules\Events\Models\Event;
 
 class EventController extends Controller
 {
-    public function index() {
+    public function index()
+    {
 
         $events = Event::query()
             ->orderBy('start_date', 'asc')
             ->paginate(10)
-            ->through(fn(Event $event) => EventResource::from($event));
+            ->through(fn (Event $event) => EventResource::from($event));
 
-        return inertia("events/index", [
-            'events' => $events
+        return inertia('events/index', [
+            'events' => $events,
         ]);
     }
 
