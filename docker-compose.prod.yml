@@ -30,7 +30,7 @@ services:
     image: ${SPIN_IMAGE_DOCKERFILE_PHP}
     environment:
       AUTORUN_ENABLED: "true" # 👈 Remove this line if you don't want Laravel Automations
-      AUTORUN_LARAVEL_MIGRATION: "false"
+      AUTORUN_LARAVEL_MIGRATION: "true"
       APP_ENV: "${SPIN_DEPLOYMENT_ENVIRONMENT}"
       PHP_OPCACHE_ENABLE: "1"
       HEALTHCHECK_PATH: "/up"
@@ -110,7 +110,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - postgres_shared:/shared
   ssh:
-    # We use an SSH image so we can securely tunnel into the Docker network with 
+    # We use an SSH image so we can securely tunnel into the Docker network with
     # tools like Sequel Pro, TablePlus, Sequel Ace, etc.
     # Learn more how to secure your tunnel here: https://github.com/serversideup/docker-ssh
     image: serversideup/docker-ssh:v3
