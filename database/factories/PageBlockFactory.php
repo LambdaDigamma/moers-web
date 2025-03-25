@@ -155,5 +155,4 @@ class PageBlockFactory extends Factory
                 'data' => $data,
             ]);
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Modules\Events\Services;
 
-use App\View\Components\Card;
 use Illuminate\Support\Carbon;
 
 class EventDateFormatter
@@ -15,11 +14,11 @@ class EventDateFormatter
 
         if ($start && $end) {
             if ($start->isSameDay($end)) {
-                return self::formatRelative($start) . '-' . $end->tz($timezone)->format('H:i');
+                return self::formatRelative($start).'-'.$end->tz($timezone)->format('H:i');
             } else {
-                return self::formatRelative($start) . ' - ' . $end->tz($timezone)->format('d.m. H:i');
+                return self::formatRelative($start).' - '.$end->tz($timezone)->format('d.m. H:i');
             }
-        } else if ($start) {
+        } elseif ($start) {
             return self::formatRelative($start);
         } else {
             return __('Unknown');
@@ -31,10 +30,11 @@ class EventDateFormatter
         $timezone = 'Europe/Berlin';
         $date = $date->tz($timezone)->locale('de_DE');
         if ($date->isToday()) {
-            return __('Today') . ', ' . $date->format('H:i');
-        } else if ($date->isTomorrow()) {
-            return __('Tomorrow') . ', ' . $date->format('H:i');
+            return __('Today').', '.$date->format('H:i');
+        } elseif ($date->isTomorrow()) {
+            return __('Tomorrow').', '.$date->format('H:i');
         }
+
         return $date->isoFormat('dd, DD.MM. HH:mm');
     }
 }

@@ -5,7 +5,9 @@ namespace App\Blocks;
 class SlotScheme
 {
     public string $identifier;
+
     public string $title;
+
     public array $allowedBlockIdentifiers = [];
 
     public function __construct($identifier, $title, $allowedBlockIdentifiers = [])
@@ -14,5 +16,4 @@ class SlotScheme
         $this->title = $title;
         $this->allowedBlockIdentifiers = $allowedBlockIdentifiers;
     }
-
 }

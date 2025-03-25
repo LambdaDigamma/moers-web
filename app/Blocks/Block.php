@@ -5,12 +5,13 @@ namespace App\Blocks;
 use App\Models\PageBlock;
 use Exception;
 use Spatie\LaravelData\Data;
-//use Spatie\MediaLibraryPro\Rules\Concerns\ValidatesMedia;
+
+// use Spatie\MediaLibraryPro\Rules\Concerns\ValidatesMedia;
 
 abstract class Block extends Data implements Blockable
 {
     // todo: validate media
-//    use ValidatesMedia;
+    //    use ValidatesMedia;
 
     public function __construct(PageBlock $block)
     {
@@ -38,7 +39,7 @@ abstract class Block extends Data implements Blockable
     public function guardAgainstType($blockTypeIdentifier): void
     {
         if ($blockTypeIdentifier != static::typeIdentifier()) {
-            throw new Exception("The type of the provided block does not match this wrapper.");
+            throw new Exception('The type of the provided block does not match this wrapper.');
         }
     }
 }

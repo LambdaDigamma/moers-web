@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait SerializeChildrenSlots 
+trait SerializeChildrenSlots
 {
     public function serializeChildrenSlots(): array
     {

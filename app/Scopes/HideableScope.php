@@ -10,17 +10,11 @@ class HideableScope implements Scope
 {
     /**
      * All of the extensions to be added to the builder.
-     *
-     * @var array
      */
     protected array $extensions = ['Hide', 'Show', 'WithHidden', 'WithoutHidden', 'OnlyHidden'];
 
     /**
      * Apply the scope to a given Eloquent query builder.
-     *
-     * @param Builder $builder
-     * @param Model $model
-     * @return void
      */
     public function apply(Builder $builder, Model $model): void
     {

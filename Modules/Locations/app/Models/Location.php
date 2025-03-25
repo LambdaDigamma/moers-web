@@ -18,9 +18,9 @@ use Spatie\Translatable\HasTranslations;
 
 class Location extends Model
 {
-    use InteractsWithMedia;
     use HasFactory;
     use HasTranslations;
+    use InteractsWithMedia;
     use SerializeTranslations;
     use SoftDeletes;
 
@@ -86,11 +86,11 @@ class Location extends Model
             'longitude' => $this->lng,
             'address' => [
                 '@type' => 'PostalAddress',
-                'streetAddress' => ($this->street_name ?? '') . ' ' . ($this->street_number ?? ''),
+                'streetAddress' => ($this->street_name ?? '').' '.($this->street_number ?? ''),
                 'addressLocality' => $this->postal_town,
                 'postalCode' => $this->postalcode,
-                'addressCountry' => $this->country_code
-            ]
+                'addressCountry' => $this->country_code,
+            ],
         ];
     }
 

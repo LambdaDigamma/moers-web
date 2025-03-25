@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Hideable;
 
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use PHPUnit\Framework\Attributes\Test;

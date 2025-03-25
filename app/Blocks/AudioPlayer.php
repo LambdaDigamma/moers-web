@@ -13,7 +13,7 @@ class AudioPlayer extends Block
         return 'audio-player';
     }
 
-    public static string $audioFileKey = "audio_file";
+    public static string $audioFileKey = 'audio_file';
 
     public function mediaCollectionRules()
     {
@@ -21,7 +21,7 @@ class AudioPlayer extends Block
             self::$audioFileKey => $this
                 ->validateSingleMedia()
                 ->extension(['mp3'])
-                ->maxItemSizeInKb(50 * 1024)
+                ->maxItemSizeInKb(50 * 1024),
         ];
     }
 

@@ -6,7 +6,6 @@ use Modules\Management\Models\Organisation;
 
 class CreateMoersFestivalOrganisationIfNeeded
 {
-
     public function execute(): Organisation
     {
         $organisation = Organisation::query()->where('slug', 'moers-festival')->first();
@@ -21,5 +20,4 @@ class CreateMoersFestivalOrganisationIfNeeded
 
         return $organisation;
     }
-
 }

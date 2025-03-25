@@ -15,8 +15,8 @@ use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 use Tiptap\Editor;
 
-class LoadMoersFestivalEvents extends Command {
-
+class LoadMoersFestivalEvents extends Command
+{
     protected $signature = 'events:load-moers-festival-events';
 
     protected $description = 'Load events from moers festival website.';
@@ -27,10 +27,12 @@ class LoadMoersFestivalEvents extends Command {
         '3' => 'festival25',
     ];
 
-    protected string $nextUpFestivalCollection = "festival24";
+    protected string $nextUpFestivalCollection = 'festival24';
 
     const string CURRENT_COLLECTION = 'festival24';
+
     const bool SET_NEW_ELEMENTS_TO_PREVIEW = false;
+
     const bool OVERRIDE_PREVIEW = true;
 
     /**
@@ -38,7 +40,7 @@ class LoadMoersFestivalEvents extends Command {
      */
     public function handle()
     {
-        $forge = new MoersFestivalConnector();
+        $forge = new MoersFestivalConnector;
         $request = new GetEventsRequest;
 
         $this->info('Loading events from Moers Festival API');
@@ -47,19 +49,19 @@ class LoadMoersFestivalEvents extends Command {
 
         $events = $response->json();
 
-        $this->info('Found ' . count($events) . ' events');
+        $this->info('Found '.count($events).' events');
 
         // Find all events that are not in the external list anymore
         $externalIds = collect($events)->pluck('id')->toArray();
 
-        $this->info('Found ' . count($externalIds) . ' external ids');
+        $this->info('Found '.count($externalIds).' external ids');
 
         $eventsToDelete = Event::query()
             ->where('extras->collection', '=', $this->nextUpFestivalCollection)
             ->whereNotIn('extras->external_id', $externalIds)
             ->get();
 
-        $this->info('Found ' . count($eventsToDelete) . ' events to delete');
+        $this->info('Found '.count($eventsToDelete).' events to delete');
 
         foreach ($eventsToDelete as $eventToDelete) {
             $this->warn("Deleting event '$eventToDelete->name'");
@@ -70,7 +72,7 @@ class LoadMoersFestivalEvents extends Command {
 
             $externalId = $event['id'];
 
-            match($event['event']) {
+            match ($event['event']) {
                 '1' => $collection = 'festival23',
                 '2' => $collection = 'festival24',
                 default => $collection = 'festival23',
@@ -78,6 +80,7 @@ class LoadMoersFestivalEvents extends Command {
 
             if ($collection != $this->nextUpFestivalCollection) {
                 $this->warn("Skipping updating event '$event[title]' because it is not in the next up festival collection");
+
                 continue;
             }
 
@@ -98,7 +101,7 @@ class LoadMoersFestivalEvents extends Command {
 
             $sametime = $event['sametime'];
             $media = $event['media'];
-            $mediaUrl = "https://www.moers-festival.de/media/" . $media;
+            $mediaUrl = 'https://www.moers-festival.de/media/'.$media;
             $besetzung = $event['besetzung'];
             $text = $event['text'];
             $text_en = $event['text_en'];
@@ -135,6 +138,7 @@ class LoadMoersFestivalEvents extends Command {
 
             if ($doNotModify) {
                 $this->warn("Event '$title' is marked as do_not_modify. Skipping...");
+
                 continue;
             }
 
@@ -162,7 +166,7 @@ class LoadMoersFestivalEvents extends Command {
                 'lineup' => $artists,
                 'collection' => $collection,
                 'open_end' => $open_end == 1,
-                'sametime' => $sametime == "" ? null : intval($sametime),
+                'sametime' => $sametime == '' ? null : intval($sametime),
                 'do_not_modify' => false,
                 'is_preview' => $preview == 1,
             ];
@@ -174,7 +178,7 @@ class LoadMoersFestivalEvents extends Command {
 
                 if ($existingHeader->file_name != $media) {
 
-                    $this->warn("Media file name changed. Deleting existing header and loading new one.");
+                    $this->warn('Media file name changed. Deleting existing header and loading new one.');
 
                     $existingHeader->delete();
                     $this->loadMedia($event, $mediaUrl);
@@ -182,7 +186,7 @@ class LoadMoersFestivalEvents extends Command {
 
             } else {
 
-                if ($media != "") {
+                if ($media != '') {
                     $this->info("Loading header media '$mediaUrl'");
                     $this->loadMedia($event, $mediaUrl);
                 } else {
@@ -246,7 +250,7 @@ class LoadMoersFestivalEvents extends Command {
         $location->street_name = $address;
         $location->postalcode = $postcode;
         $location->postal_town = $city;
-        $location->country_code = "DE";
+        $location->country_code = 'DE';
         $location->lat = $lat;
         $location->lng = $lng;
         $location->save();
@@ -271,11 +275,10 @@ class LoadMoersFestivalEvents extends Command {
         Event $event,
         string $text,
         string $text_en,
-        string $subline = "",
-        string $subline_en = "",
+        string $subline,
+        string $subline_en,
         string $collection
-    ): void
-    {
+    ): void {
 
         $page = $event->page;
 
@@ -288,18 +291,18 @@ class LoadMoersFestivalEvents extends Command {
 
         $this->info("Updating page for event '$event->name'");
 
-        $slug = $collection . Carbon::now()->format('y') . "/e/" . str($event->name)->slug()->toString();
+        $slug = $collection.Carbon::now()->format('y').'/e/'.str($event->name)->slug()->toString();
 
         $page->setTranslation('title', 'de', $event->name);
         $page->setTranslation('slug', 'de', $slug);
 
-        if ($text != "") {
+        if ($text != '') {
             $summaryDE = (new Editor)
                 ->setContent($text)
                 ->getText();
             $page->setTranslation('summary', 'de', $summaryDE);
         }
-        if ($text_en != "") {
+        if ($text_en != '') {
             $summaryEN = (new Editor)
                 ->setContent($text_en)
                 ->getText();
@@ -323,20 +326,19 @@ class LoadMoersFestivalEvents extends Command {
             ]);
         }
 
-        $documentDE = $text != "" ? (new Editor)
+        $documentDE = $text != '' ? (new Editor)
             ->setContent($text)
             ->getDocument() : null;
 
-
-        $documentEN = $text_en != "" ? (new Editor)
+        $documentEN = $text_en != '' ? (new Editor)
             ->setContent($text_en)
             ->getDocument() : null;
 
         $subline = str($subline)->trim()->toString();
         $subline_en = str($subline_en)->trim()->toString();
 
-        $formattedSubline = $subline != "" ? $subline : null;
-        $formattedSublineEN = $subline_en != "" ? $subline_en : null;
+        $formattedSubline = $subline != '' ? $subline : null;
+        $formattedSublineEN = $subline_en != '' ? $subline_en : null;
 
         $data = [
             'title' => $formattedSubline,
@@ -353,5 +355,4 @@ class LoadMoersFestivalEvents extends Command {
         $textPageBlock->save();
 
     }
-
 }

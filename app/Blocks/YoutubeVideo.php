@@ -6,6 +6,6 @@ class YoutubeVideo extends Block
 {
     public static function typeIdentifier()
     {
-        return "youtube-video";
+        return 'youtube-video';
     }
 }

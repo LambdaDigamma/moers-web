@@ -17,7 +17,7 @@ class OrganisationEventsController extends Controller
             ->chronological()
             ->paginate(20);
 
-//        return PaginatedDataCollection::
+        //        return PaginatedDataCollection::
 
     }
 }

@@ -20,8 +20,6 @@ trait Hideable
 
     /**
      * Boot the archiving trait for a model.
-     *
-     * @return void
      */
     public static function bootHideable(): void
     {
@@ -30,8 +28,6 @@ trait Hideable
 
     /**
      * Initialize the soft deleting trait for an instance.
-     *
-     * @return void
      */
     public function initializeHideable(): void
     {
@@ -43,7 +39,6 @@ trait Hideable
     /**
      * Hide the model.
      *
-     * @return bool|null
      *
      * @throws Exception
      */

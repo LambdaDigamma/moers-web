@@ -6,6 +6,6 @@ class TipTapText extends Block
 {
     public static function typeIdentifier()
     {
-        return "tiptap-text";
-    }    
+        return 'tiptap-text';
+    }
 }

@@ -21,12 +21,12 @@ use Spatie\Translatable\HasTranslations;
 
 class Page extends Model implements HasMedia
 {
-    use InteractsWithMedia;
-    use SerializeMedia;
     use Archivable;
     use HasFactory;
     use HasTranslations;
+    use InteractsWithMedia;
     use Publishable;
+    use SerializeMedia;
     use SerializeTranslations;
     use SoftDeletes;
 
@@ -109,7 +109,7 @@ class Page extends Model implements HasMedia
 
     public function getResourceUrlAttribute()
     {
-        return url('/') . $this->getFullSlugAttribute();
+        return url('/').$this->getFullSlugAttribute();
     }
 
     public function getFullSlugAttribute(): string

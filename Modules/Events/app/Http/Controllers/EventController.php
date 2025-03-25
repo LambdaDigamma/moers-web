@@ -29,9 +29,9 @@ class EventController extends Controller
     public function show(
         Event $event
     ) {
-        return inertia("events/show-event", [
+        return inertia('events/show-event', [
             'event' => EventResource::from($event),
-            'formattedDate' => EventDateFormatter::format($event->start_date, $event->end_date)
+            'formattedDate' => EventDateFormatter::format($event->start_date, $event->end_date),
         ]);
     }
 

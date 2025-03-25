@@ -30,22 +30,27 @@ class PageBlock extends Model implements HasMedia
 {
     use Expirable;
     use HasFactory;
+    use HasFactory;
     use Hideable;
+    use InteractsWithMedia;
     use Publishable;
+    use SerializeChildrenSlots;
+    use SerializeMedia;
     use SerializeTranslations;
     use SoftDeletes;
-    use InteractsWithMedia;
-    use HasFactory;
-    use SerializeMedia;
-    use SerializeChildrenSlots;
 
     protected $touches = ['page'];
+
     protected $table = 'mm_page_blocks';
+
     protected $guarded = ['*', 'id'];
+
     protected $casts = [
         'data' => 'array',
     ];
+
     protected $with = ['children'];
+
     public array $translatable = ['data'];
 
     public static function newFactory(): PageBlockFactory
@@ -105,15 +110,23 @@ class PageBlock extends Model implements HasMedia
             ->queued();
     }
 
-    public static string $typeHero = "hero";
-    public static string $typeTipTapText = "tiptap-text";
-    public static string $typePanelWithImage = "panel-with-image";
-    public static string $typePriceTable = "price-table";
-    public static string $typeTeam = "team";
-    public static string $typeTipTapTextWithIllustration = "tip-tap-text-with-illustration";
-    public static string $typeTipTapTextTwoColumns = "tip-tap-text-two-columns";
-    public static string $typeTipTapTextWithImageAndStats = "tip-tap-text-with-image-and-stats";
-    public static string $typeFacebookLive = "facebook-live";
+    public static string $typeHero = 'hero';
+
+    public static string $typeTipTapText = 'tiptap-text';
+
+    public static string $typePanelWithImage = 'panel-with-image';
+
+    public static string $typePriceTable = 'price-table';
+
+    public static string $typeTeam = 'team';
+
+    public static string $typeTipTapTextWithIllustration = 'tip-tap-text-with-illustration';
+
+    public static string $typeTipTapTextTwoColumns = 'tip-tap-text-two-columns';
+
+    public static string $typeTipTapTextWithImageAndStats = 'tip-tap-text-with-image-and-stats';
+
+    public static string $typeFacebookLive = 'facebook-live';
 
     public static function allBlockTypes()
     {
@@ -139,6 +152,7 @@ class PageBlock extends Model implements HasMedia
     public function generateBlockable()
     {
         $class = self::allBlockables()->get($this->type);
+
         return new $class($this);
     }
 
