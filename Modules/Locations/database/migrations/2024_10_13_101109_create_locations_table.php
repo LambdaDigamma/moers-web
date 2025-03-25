@@ -9,21 +9,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->double('lat');
             $table->double('lng');
-            $table->string('name');
-            $table->string('tags', 1000);
-            $table->string('street');
-            $table->string('house_number');
-            $table->string('postcode');
-            $table->string('place');
-            $table->string('url')->nullable();
+            $table->json('name');
+            $table->string('street_name')->nullable();
+            $table->string('street_number')->nullable();
+            $table->string('address_addition')->nullable();
+            $table->string('postalcode')->nullable();
+            $table->string('postal_town')->nullable();
+            $table->string('country_code')->nullable();
             $table->json('opening_hours')->nullable();
-            $table->integer('user_id')->nullable();
-            $table->boolean('is_validated')->default(true);
-            $table->softDeletes();
+            $table->json('tags')->nullable();
+            $table->string('url')->nullable();
+            $table->string('phone')->nullable();
+            $table->json('extras')->nullable();
+            $table->timestamp('validated_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

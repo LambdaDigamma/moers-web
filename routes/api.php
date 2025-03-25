@@ -14,16 +14,16 @@ Route::group([
 
     // Localization via Accept-Language header
 
-//    Route::get('/v2/organisations/{organisation:slug}/events', [OrganisationEventsController::class, 'index']);
-//    Route::get('/v2/organisations/{organisation:slug}/events/{event:slug}');
-//    Route::get('/v2/organisations/{organisation:slug}/events/{event:slug}/bulk-download');
-//    Route::get('/v2/organisations/{organisation:slug}/posts');
+//    Route::get('/v1/organisations/{organisation:slug}/events', [OrganisationEventsController::class, 'index']);
+//    Route::get('/v1/organisations/{organisation:slug}/events/{event:slug}');
+//    Route::get('/v1/organisations/{organisation:slug}/events/{event:slug}/bulk-download');
+//    Route::get('/v1/organisations/{organisation:slug}/posts');
 
     // Should also return the events at the location (used for the map of the events)
-//    Route::get('/v2/organisations/{organisation:slug}/events/{event:slug}/locations');
-//    Route::get('/v2/locations/{location:slug}');
+//    Route::get('/v1/organisations/{organisation:slug}/events/{event:slug}/locations');
+//    Route::get('/v1/locations/{location:slug}');
 
-//    Route::get('/v2/posts/{post:id}');
-//    Route::get('/v2/pages/{page:id}');
+//    Route::get('/v1/posts/{post:id}');
+//    Route::get('/v1/pages/{page:id}');
 
 });

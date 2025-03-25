@@ -9,6 +9,7 @@ use Modules\Events\Data\Event as EventResource;
 use Modules\Events\Http\Requests\StoreEventRequest;
 use Modules\Events\Http\Requests\UpdateGeneralEvent;
 use Modules\Events\Models\Event;
+use Modules\Events\Services\EventDateFormatter;
 
 class EventController extends Controller
 {
@@ -22,6 +23,15 @@ class EventController extends Controller
 
         return inertia('events/index', [
             'events' => $events,
+        ]);
+    }
+
+    public function show(
+        Event $event
+    ) {
+        return inertia("events/show-event", [
+            'event' => EventResource::from($event),
+            'formattedDate' => EventDateFormatter::format($event->start_date, $event->end_date)
         ]);
     }
 

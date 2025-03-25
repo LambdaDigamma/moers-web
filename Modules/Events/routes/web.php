@@ -6,6 +6,7 @@ use Modules\Events\Http\Controllers\EventController;
 use Modules\Events\Http\Controllers\EventPlaceController;
 
 Route::get('events', [EventController::class, 'index'])->name('events.index');
+Route::get('events/{event:id}', [EventController::class, 'show'])->name('events.show');
 
 Route::group([
     'prefix' => config('events.admin_prefix', 'admin'),

@@ -26,3 +26,4 @@ yarn-error.log
 .spin.yml
 
 .DS_Store
+storage/media-library/temp

@@ -1,6 +1,7 @@
 import { AutoDateRange } from '@/components/auto-timerange';
 import { DefaultContainer } from '@/components/default-container';
 import { Heading } from '@/components/ui/heading';
+import { Link } from '@/components/ui/link';
 import AppLayout from '@/layouts/app-layout';
 import { Head } from '@inertiajs/react';
 import { usePaginator } from 'momentum-paginator';
@@ -18,7 +19,10 @@ const EventsIndex = ({ events }: { events: Paginator<Event> }) => {
                     <Heading>Veranstaltungen</Heading>
                     <ul className="mt-4 flex flex-col gap-6">
                         {events.data.map((event) => (
-                            <li key={event.id}>
+                            <li
+                                key={event.id}
+                                className="relative"
+                            >
                                 <p className="font-medium">{event.name}</p>
                                 <p className="text-gray-500 dark:text-gray-400">
                                     {/*<AutoDateTime*/}
@@ -30,7 +34,12 @@ const EventsIndex = ({ events }: { events: Paginator<Event> }) => {
                                         end={event.endDate}
                                     />
                                 </p>
-
+                                <Link
+                                    href={route('events.show', [event.id])}
+                                    className="absolute inset-0"
+                                >
+                                    <span className="sr-only">Details</span>
+                                </Link>
                                 {/*<Link href={route('organisations.edit', [event.slug])}>{event.name}</Link>*/}
                             </li>
                         ))}

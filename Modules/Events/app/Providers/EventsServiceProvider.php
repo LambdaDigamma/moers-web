@@ -5,6 +5,7 @@ namespace Modules\Events\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Events\Console\Commands\LoadMoersEvents;
+use Modules\Events\Console\Commands\LoadMoersFestivalEvents;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -46,6 +47,7 @@ class EventsServiceProvider extends ServiceProvider
     {
         $this->commands([
             LoadMoersEvents::class,
+            LoadMoersFestivalEvents::class,
         ]);
     }
 
