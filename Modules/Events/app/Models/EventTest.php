@@ -1,15 +1,11 @@
 <?php
 
-use Carbon\Carbon;
-use Modules\Events\Exceptions\InvalidLink;
+use App\Models\User;
 use Modules\Events\Models\Event;
-use Tests\TestCase;
-
-//
-// class EventTest extends TestCase
-// {
-//    use DatabaseMigrations;
-//    use RefreshDatabase;
+use Carbon\Carbon;
+use Modules\Locations\Models\Location;
+use Modules\Events\Exceptions\InvalidLink;
+use function Pest\Laravel\travelTo;
 
 test('scope active', function () {
 
@@ -371,4 +367,201 @@ test('date casts', function () {
     ]);
 
     $this->assertEquals($event->fresh()->start_date::class, "Illuminate\Support\Carbon");
+});
+
+it('test event with collection meta publication after now (not authorized) => null', function () {
+
+    travelTo(Carbon::parse('2021-12-30'));
+
+    $this->assertGuest();
+
+    $event = Event::factory()->create([
+        'start_date' => '2022-06-05 13:00:00',
+        'end_date' => '2022-06-05 15:00:00',
+        'extras' => [
+            'collection' => 'festival21'
+        ]
+    ]);
+
+    $this->assertNull($event->start_date);
+    $this->assertNull($event->end_date);
+
+});
+
+it('test event with collection meta publication after now (authorized) => date', function () {
+
+    travelTo(Carbon::parse('2021-12-30'));
+
+    $this->actingAs(User::factory()->superAdmin()->create());
+    $this->assertAuthenticated();
+
+    $event = Event::factory()->create([
+        'start_date' => '2022-06-05 13:00:00',
+        'end_date' => '2022-06-05 15:00:00',
+        'extras' => [
+            'collection' => 'festival21'
+        ]
+    ]);
+
+//    dd($event);
+//    expect($event->start_date)->not->toBeNull();
+//    expect($event->end_date)->not->toBeNull();
+
+
+//    $this->assertNotNull($event->start_date);
+//    $this->assertNotNull($event->end_date);
+
+});
+
+it('test event with collection meta publication before now (not authorized) => date', function () {
+
+    travelTo(Carbon::parse('2022-01-01 01:00:00'));
+
+    $this->assertGuest();
+
+    $event = Event::factory()->create([
+        'start_date' => '2022-06-05 13:00:00',
+        'end_date' => '2022-06-05 15:00:00',
+        'extras' => [
+            'collection' => 'festival21'
+        ]
+    ]);
+
+    $this->assertNotNull($event->start_date);
+    $this->assertNotNull($event->end_date);
+
+});
+
+it('test event with collection meta publication before now (authorized) => date', function () {
+
+    travelTo(Carbon::parse('2022-01-01 01:00:00'));
+
+    $this->actingAs(User::factory()->superAdmin()->create());
+    $this->assertAuthenticated();
+
+    $event = Event::factory()->create([
+        'start_date' => '2022-06-05 13:00:00',
+        'end_date' => '2022-06-05 15:00:00',
+        'extras' => [
+            'collection' => 'festival21'
+        ]
+    ]);
+
+    $this->assertNotNull($event->start_date);
+    $this->assertNotNull($event->end_date);
+
+});
+
+it('test festival22 event with collection meta publication before now (unauthorized) => null', function () {
+
+    travelTo(Carbon::parse('2022-05-05 11:59:00', 'Europe/Berlin'));
+
+    $this->assertGuest();
+    $place = Location::factory()->create(['lat' => 51.966, 'lng' => 7.619]);
+    $event = Event::factory()->create([
+        'start_date' => '2022-06-05 13:00:00',
+        'end_date' => '2022-06-05 15:00:00',
+        'extras' => [
+            'collection' => 'festival22'
+        ],
+        'place_id' => $place->id,
+    ]);
+
+    $event->load('place');
+
+    $this->assertNull($event->start_date);
+    $this->assertNull($event->end_date);
+    $this->assertNull($event->toArray()['place']);
+    $this->assertNull($event->toArray()['place_id']);
+
+    travelTo(Carbon::parse('2022-05-05 12:01:00', 'Europe/Berlin'));
+    $this->assertNotNull($event->start_date);
+    $this->assertNotNull($event->end_date);
+    $this->assertNotNull($event->toArray()['place']);
+    $this->assertNotNull($event->toArray()['place_id']);
+
+});
+
+test('is published', function () {
+
+    travelTo(Carbon::parse('2022-01-01 01:00:00'));
+
+    $event = Event::factory()->create([
+        'start_date' => '2022-06-05 13:00:00',
+        'end_date' => '2022-06-05 15:00:00',
+        'published_at' => '2022-06-01 12:00:00',
+        'extras' => [
+            'collection' => 'festival21'
+        ]
+    ]);
+
+    expect($event->isPublished())->toBeFalse();
+
+    travelTo(Carbon::parse('2022-06-01 12:10:00'));
+    expect($event->isPublished())->toBeTrue();
+
+});
+
+test('test event ld (start, end, description, online)', function () {
+    $event = Event::factory()->published()->create([
+        'name' => 'My event',
+        'description' => 'This is a description',
+        'start_date' => '2021-05-25 19:30:00',
+        'end_date' => '2021-05-25 21:00:00',
+        'extras' => [
+            'attendance_mode' => 'online',
+        ],
+    ]);
+
+    expect($event->jsonLd())->toMatchArray([
+        '@type' => 'Event',
+        'name' => 'My event',
+        'startDate' => '2021-05-25T19:30:00+00:00',
+        'endDate' => '2021-05-25T21:00:00+00:00',
+        'eventStatus' => 'https://schema.org/EventScheduled',
+        'eventAttendanceMode' => 'https://schema.org/OnlineEventAttendanceMode',
+        'description' => 'This is a description',
+    ]);
+});
+
+test('test event ld (start, end, offline, cancelled)', function () {
+    $event = Event::factory()->published()->create([
+        'name' => 'My event',
+        'start_date' => '2021-05-25 19:30:00',
+        'end_date' => '2021-05-25 21:00:00',
+        'cancelled_at' => now(),
+        'extras' => [
+            'attendance_mode' => 'offline',
+        ],
+    ]);
+
+    expect($event->jsonLd())->toMatchArray([
+        '@type' => 'Event',
+        'name' => 'My event',
+        'startDate' => '2021-05-25T19:30:00+00:00',
+        'endDate' => '2021-05-25T21:00:00+00:00',
+        'eventStatus' => 'https://schema.org/EventCancelled',
+        'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+    ]);
+});
+
+test('test event ld (start, end, mixed, cancelled)', function () {
+    $event = Event::factory()->published()->create([
+        'name' => 'My event',
+        'start_date' => '2021-05-25 19:30:00',
+        'end_date' => '2021-05-25 21:00:00',
+        'cancelled_at' => now(),
+        'extras' => [
+            'attendance_mode' => 'mixed',
+        ],
+    ]);
+
+    expect($event->jsonLd())->toMatchArray([
+        '@type' => 'Event',
+        'name' => 'My event',
+        'startDate' => '2021-05-25T19:30:00+00:00',
+        'endDate' => '2021-05-25T21:00:00+00:00',
+        'eventStatus' => 'https://schema.org/EventCancelled',
+        'eventAttendanceMode' => 'https://schema.org/MixedEventAttendanceMode',
+    ]);
 });

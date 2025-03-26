@@ -6,6 +6,7 @@ use App\Blocks\TipTapTextWithMedia;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Modules\Events\Actions\CreateMoersFestivalOrganisationIfNeeded;
 use Modules\Events\Integrations\MoersFestival\MoersFestivalConnector;
 use Modules\Events\Integrations\MoersFestival\Requests\GetEventsRequest;
 use Modules\Events\Models\Event;
@@ -35,11 +36,10 @@ class LoadMoersFestivalEvents extends Command
 
     const bool OVERRIDE_PREVIEW = true;
 
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    public function handle(): void
     {
+        $organisation = (new CreateMoersFestivalOrganisationIfNeeded)->execute();
+
         $forge = new MoersFestivalConnector;
         $request = new GetEventsRequest;
 
@@ -152,6 +152,7 @@ class LoadMoersFestivalEvents extends Command
 
             $event->start_date = $time_start != null ? Carbon::parse($time_start, 'Europe/Berlin') : null;
             $event->end_date = $time_end != null ? Carbon::parse($time_end, 'Europe/Berlin') : null;
+            $event->organiation_id = $organisation->id;
 
             if ($event->start_date != null && $event->end_date != null) {
                 if ($event->start_date->gt($event->end_date)) {

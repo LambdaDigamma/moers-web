@@ -11,16 +11,18 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->json('name');
+            $table->string('slug')->nullable()->unique();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->json('description')->nullable();
             $table->unsignedBigInteger('page_id')->nullable();
             $table->string('url')->nullable();
             $table->json('category')->nullable();
-            $table->integer('organisation_id')->unsigned()->nullable();
+            $table->foreignId('organisation_id')->nullable()->constrained(table: 'organisations')->nullOnDelete();
             $table->integer('place_id')->unsigned()->nullable();
             $table->uuid('platform_id')->nullable()->unique();
             $table->json('extras')->nullable();
+            $table->foreignId('parent_event_id')->nullable()->constrained(table: 'events')->nullOnDelete();
             $table->timestamp('scheduled_at')->nullable();
             $table->timestamps();
             $table->publishedAt();

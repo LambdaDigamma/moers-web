@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "60e4c96320cd7836c79e8ae95010d07c",
+    "content-hash": "8e3e813e439881b992565d1d026a62fd",
     "packages": [
         {
             "name": "amphp/amp",
@@ -10556,6 +10556,82 @@
                 }
             ],
             "time": "2022-12-17T21:53:22+00:00"
+        },
+        {
+            "name": "silber/bouncer",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JosephSilber/bouncer.git",
+                "reference": "5d4d2b77645069978af42ceed8f4234541391294"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JosephSilber/bouncer/zipball/5d4d2b77645069978af42ceed8f4234541391294",
+                "reference": "5d4d2b77645069978af42ceed8f4234541391294",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^11.0|^12.0",
+                "illuminate/cache": "^11.0|^12.0",
+                "illuminate/container": "^11.0|^12.0",
+                "illuminate/contracts": "^11.0|^12.0",
+                "illuminate/database": "^11.0|^12.0",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "illuminate/console": "^11.0|^12.0",
+                "illuminate/events": "^11.0|^12.0",
+                "laravel/pint": "^1.14",
+                "orchestra/testbench": "^9.0|^10.0",
+                "pestphp/pest": "^3.7",
+                "phpunit/phpunit": "^11.0"
+            },
+            "suggest": {
+                "illuminate/console": "Allows running the bouncer:clean artisan command",
+                "illuminate/events": "Required for multi-tenancy support"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Bouncer": "Silber\\Bouncer\\BouncerFacade"
+                    },
+                    "providers": [
+                        "Silber\\Bouncer\\BouncerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Silber\\Bouncer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joseph Silber",
+                    "email": "contact@josephsilber.com"
+                }
+            ],
+            "description": "Eloquent roles and abilities.",
+            "keywords": [
+                "abilities",
+                "acl",
+                "capabilities",
+                "eloquent",
+                "laravel",
+                "permissions",
+                "roles"
+            ],
+            "support": {
+                "issues": "https://github.com/JosephSilber/bouncer/issues",
+                "source": "https://github.com/JosephSilber/bouncer/tree/v1.0.3"
+            },
+            "time": "2025-02-24T22:33:29+00:00"
         },
         {
             "name": "spatie/backtrace",

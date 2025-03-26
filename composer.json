@@ -33,6 +33,7 @@
         "league/flysystem-aws-s3-v3": "^3.29",
         "maatwebsite/excel": "^3.1",
         "nwidart/laravel-modules": "^12.0.1",
+        "silber/bouncer": "^1.0",
         "spatie/image": "^3.8",
         "spatie/laravel-data": "^4.11",
         "spatie/laravel-json-api-paginate": "^1.16",
@@ -64,7 +65,11 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "exclude-from-classmap": [
+            "app/**/*Test",
+            "Modules/**/*Test"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
