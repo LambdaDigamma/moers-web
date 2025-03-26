@@ -565,3 +565,18 @@ test('test event ld (start, end, mixed, cancelled)', function () {
         'eventAttendanceMode' => 'https://schema.org/MixedEventAttendanceMode',
     ]);
 });
+
+it('can have subevents and parent', function () {
+
+    $event = Event::factory()->published()->create([]);
+
+    expect($event->subEvents())->count()->toBe(0);
+
+    $subEvent = $event->subEvents()->create([
+        'name' => 'My event',
+        'published_at' => now(),
+    ]);
+
+    expect($event->fresh()->subEvents())->count()->toBe(1);
+    expect($subEvent->parentEvent()->is($event))->toBeTrue();
+});

@@ -20,9 +20,9 @@ return new class extends Migration
             $table->json('category')->nullable();
             $table->foreignId('organisation_id')->nullable()->constrained(table: 'organisations')->nullOnDelete();
             $table->integer('place_id')->unsigned()->nullable();
+            $table->foreignId('parent_event_id')->nullable()->constrained(table: 'events')->nullOnDelete();
             $table->uuid('platform_id')->nullable()->unique();
             $table->json('extras')->nullable();
-            $table->foreignId('parent_event_id')->nullable()->constrained(table: 'events')->nullOnDelete();
             $table->timestamp('scheduled_at')->nullable();
             $table->timestamps();
             $table->publishedAt();

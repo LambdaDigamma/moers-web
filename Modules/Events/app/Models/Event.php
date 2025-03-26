@@ -3,6 +3,7 @@
 namespace Modules\Events\Models;
 
 use App\Models\Page;
+use App\Models\PageBlock;
 use App\Traits\SerializeMedia;
 use App\Traits\SerializeTranslations;
 use Carbon\Carbon;
@@ -45,7 +46,7 @@ class Event extends Model implements HasMedia
     protected $table = 'events';
 
     protected $fillable = [
-        'name', 'start_date', 'end_date',
+        'name', 'slug', 'start_date', 'end_date',
         'description', 'url', 'image_path',
         'category', 'organisation_id', 'place_id',
         'extras', 'published_at', 'scheduled_at',
@@ -61,7 +62,7 @@ class Event extends Model implements HasMedia
 
     public $appends = ['attendance_mode', 'duration', 'is_online', 'collection', 'artists'];
 
-    public array $translatable = ['name', 'description', 'category'];
+    public $translatable = ['name', 'description', 'category'];
 
     public const string ATTENDANCE_MIXED = 'mixed';
 
@@ -172,9 +173,10 @@ class Event extends Model implements HasMedia
         return $this->belongsTo(self::class, 'parent_event_id', 'id');
     }
 
-    public function childrenEvents(): HasMany|Event
+    public function subEvents()
     {
-        return $this->hasMany(self::class, 'parent_event_id', 'id');
+        return $this
+            ->hasMany(Event::class, 'parent_event_id', 'id');
     }
 
     // MARK: - Attributes -
@@ -268,7 +270,6 @@ class Event extends Model implements HasMedia
                 if ($value === null) {
                     return null;
                 }
-                dump($this->canAccessMeta());
                 if ($this->canAccessMeta()) {
                     return \Illuminate\Support\Carbon::parse($value);
                 } else {

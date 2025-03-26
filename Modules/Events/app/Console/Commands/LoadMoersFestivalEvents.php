@@ -6,11 +6,13 @@ use App\Blocks\TipTapTextWithMedia;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Modules\Events\Actions\CreateMoersFestivalCollectionEvent;
 use Modules\Events\Actions\CreateMoersFestivalOrganisationIfNeeded;
 use Modules\Events\Integrations\MoersFestival\MoersFestivalConnector;
 use Modules\Events\Integrations\MoersFestival\Requests\GetEventsRequest;
 use Modules\Events\Models\Event;
 use Modules\Locations\Models\Location;
+use Modules\Management\Models\Organisation;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
@@ -18,9 +20,9 @@ use Tiptap\Editor;
 
 class LoadMoersFestivalEvents extends Command
 {
-    protected $signature = 'events:load-moers-festival-events';
-
     protected $description = 'Load events from moers festival website.';
+
+    protected $signature = 'events:load-moers-festival-events';
 
     protected array $festivalIdMap = [
         '1' => 'festival23',
@@ -39,6 +41,7 @@ class LoadMoersFestivalEvents extends Command
     public function handle(): void
     {
         $organisation = (new CreateMoersFestivalOrganisationIfNeeded)->execute();
+        $this->createMoersFestivalEvents();
 
         $forge = new MoersFestivalConnector;
         $request = new GetEventsRequest;
@@ -46,27 +49,9 @@ class LoadMoersFestivalEvents extends Command
         $this->info('Loading events from Moers Festival API');
 
         $response = $forge->send($request);
-
         $events = $response->json();
 
-        $this->info('Found '.count($events).' events');
-
-        // Find all events that are not in the external list anymore
-        $externalIds = collect($events)->pluck('id')->toArray();
-
-        $this->info('Found '.count($externalIds).' external ids');
-
-        $eventsToDelete = Event::query()
-            ->where('extras->collection', '=', $this->nextUpFestivalCollection)
-            ->whereNotIn('extras->external_id', $externalIds)
-            ->get();
-
-        $this->info('Found '.count($eventsToDelete).' events to delete');
-
-        foreach ($eventsToDelete as $eventToDelete) {
-            $this->warn("Deleting event '$eventToDelete->name'");
-            $eventToDelete->delete();
-        }
+        $this->deleteRemovedEvents($events, $organisation);
 
         foreach ($events as $event) {
 
@@ -122,6 +107,7 @@ class LoadMoersFestivalEvents extends Command
 
             $event = Event::query()
                 ->where('extras->external_id', '=', $externalId)
+                ->where('organisation_id', '=', $organisation->id)
                 ->withNotPublished()
                 ->first();
 
@@ -129,6 +115,7 @@ class LoadMoersFestivalEvents extends Command
                 $this->warn("Event '$title' not existing yet. Creating...");
                 $event = Event::create([
                     'name' => $title,
+                    'organisation_id' => $organisation->id,
                     'extras' => ['external_id' => $externalId],
                     'published_at' => now(),
                 ]);
@@ -152,7 +139,7 @@ class LoadMoersFestivalEvents extends Command
 
             $event->start_date = $time_start != null ? Carbon::parse($time_start, 'Europe/Berlin') : null;
             $event->end_date = $time_end != null ? Carbon::parse($time_end, 'Europe/Berlin') : null;
-            $event->organiation_id = $organisation->id;
+            $event->organisation_id = $organisation->id;
 
             if ($event->start_date != null && $event->end_date != null) {
                 if ($event->start_date->gt($event->end_date)) {
@@ -222,6 +209,15 @@ class LoadMoersFestivalEvents extends Command
 
         }
 
+    }
+
+    private function createMoersFestivalEvents(): void
+    {
+        $currentYear = Carbon::now()->year;
+
+        for ($i = 2023; $i <= $currentYear; $i++) {
+            (new CreateMoersFestivalCollectionEvent)->execute(year: $i);
+        }
     }
 
     public function updatePlace(
@@ -355,5 +351,33 @@ class LoadMoersFestivalEvents extends Command
         $textPageBlock->setTranslation('data', 'en', $dataEN);
         $textPageBlock->save();
 
+    }
+
+    /**
+     * @param mixed $events
+     * @param Organisation $organisation
+     * @return void
+     */
+    protected function deleteRemovedEvents(mixed $events, Organisation $organisation): void
+    {
+        $this->info('Found ' . count($events) . ' events');
+
+        // Find all events that are not in the external list anymore
+        $externalIds = collect($events)->pluck('id')->toArray();
+
+        $this->info('Found ' . count($externalIds) . ' external ids');
+
+        $eventsToDelete = Event::query()
+            ->where('extras->collection', '=', $this->nextUpFestivalCollection)
+            ->where('organisation_id', '=', $organisation->id)
+            ->whereNotIn('extras->external_id', $externalIds)
+            ->get();
+
+        $this->info('Found ' . count($eventsToDelete) . ' events to delete');
+
+        foreach ($eventsToDelete as $eventToDelete) {
+            $this->warn("Deleting event '$eventToDelete->name'");
+            $eventToDelete->delete();
+        }
     }
 }
