@@ -12,7 +12,7 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRolesAndAbilities;
+    use HasFactory, HasRolesAndAbilities, Notifiable;
 
     protected $fillable = [
         'name',

@@ -1,10 +1,11 @@
 <?php
 
 use App\Models\User;
-use Modules\Events\Models\Event;
 use Carbon\Carbon;
-use Modules\Locations\Models\Location;
 use Modules\Events\Exceptions\InvalidLink;
+use Modules\Events\Models\Event;
+use Modules\Locations\Models\Location;
+
 use function Pest\Laravel\travelTo;
 
 test('scope active', function () {
@@ -379,8 +380,8 @@ it('test event with collection meta publication after now (not authorized) => nu
         'start_date' => '2022-06-05 13:00:00',
         'end_date' => '2022-06-05 15:00:00',
         'extras' => [
-            'collection' => 'festival21'
-        ]
+            'collection' => 'festival21',
+        ],
     ]);
 
     $this->assertNull($event->start_date);
@@ -399,17 +400,16 @@ it('test event with collection meta publication after now (authorized) => date',
         'start_date' => '2022-06-05 13:00:00',
         'end_date' => '2022-06-05 15:00:00',
         'extras' => [
-            'collection' => 'festival21'
-        ]
+            'collection' => 'festival21',
+        ],
     ]);
 
-//    dd($event);
-//    expect($event->start_date)->not->toBeNull();
-//    expect($event->end_date)->not->toBeNull();
+    //    dd($event);
+    //    expect($event->start_date)->not->toBeNull();
+    //    expect($event->end_date)->not->toBeNull();
 
-
-//    $this->assertNotNull($event->start_date);
-//    $this->assertNotNull($event->end_date);
+    //    $this->assertNotNull($event->start_date);
+    //    $this->assertNotNull($event->end_date);
 
 });
 
@@ -423,8 +423,8 @@ it('test event with collection meta publication before now (not authorized) => d
         'start_date' => '2022-06-05 13:00:00',
         'end_date' => '2022-06-05 15:00:00',
         'extras' => [
-            'collection' => 'festival21'
-        ]
+            'collection' => 'festival21',
+        ],
     ]);
 
     $this->assertNotNull($event->start_date);
@@ -443,8 +443,8 @@ it('test event with collection meta publication before now (authorized) => date'
         'start_date' => '2022-06-05 13:00:00',
         'end_date' => '2022-06-05 15:00:00',
         'extras' => [
-            'collection' => 'festival21'
-        ]
+            'collection' => 'festival21',
+        ],
     ]);
 
     $this->assertNotNull($event->start_date);
@@ -462,7 +462,7 @@ it('test festival22 event with collection meta publication before now (unauthori
         'start_date' => '2022-06-05 13:00:00',
         'end_date' => '2022-06-05 15:00:00',
         'extras' => [
-            'collection' => 'festival22'
+            'collection' => 'festival22',
         ],
         'place_id' => $place->id,
     ]);
@@ -491,8 +491,8 @@ test('is published', function () {
         'end_date' => '2022-06-05 15:00:00',
         'published_at' => '2022-06-01 12:00:00',
         'extras' => [
-            'collection' => 'festival21'
-        ]
+            'collection' => 'festival21',
+        ],
     ]);
 
     expect($event->isPublished())->toBeFalse();
