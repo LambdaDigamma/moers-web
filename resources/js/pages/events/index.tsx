@@ -1,5 +1,6 @@
 import { AutoDateRange } from '@/components/auto-timerange';
 import { DefaultContainer } from '@/components/default-container';
+import { DefaultPagination } from '@/components/default-pagination';
 import { Heading } from '@/components/ui/heading';
 import { Link } from '@/components/ui/link';
 import AppLayout from '@/layouts/app-layout';
@@ -17,14 +18,14 @@ const EventsIndex = ({ events }: { events: Paginator<Event> }) => {
             <DefaultContainer>
                 <div className="mt-8">
                     <Heading>Veranstaltungen</Heading>
-                    <ul className="mt-4 flex flex-col gap-6">
+                    <ul className="mt-4 flex flex-col divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white shadow">
                         {events.data.map((event) => (
                             <li
                                 key={event.id}
-                                className="relative"
+                                className="relative px-4 py-2.5"
                             >
-                                <p className="font-medium">{event.name}</p>
-                                <p className="text-gray-500 dark:text-gray-400">
+                                <p className="text-sm font-medium">{event.name}</p>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">
                                     {/*<AutoDateTime*/}
                                     {/*    dateString={event.start_date}*/}
                                     {/*    formatString=""*/}
@@ -44,6 +45,10 @@ const EventsIndex = ({ events }: { events: Paginator<Event> }) => {
                             </li>
                         ))}
                     </ul>
+                </div>
+
+                <div className="mt-6">
+                    <DefaultPagination paginator={events}></DefaultPagination>
                 </div>
             </DefaultContainer>
         </>

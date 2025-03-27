@@ -56,25 +56,15 @@ class LoadMoersFestivalEvents extends Command
         foreach ($events as $event) {
 
             $externalId = $event['id'];
-
-            match ($event['event']) {
-                '1' => $collection = 'festival23',
-                '2' => $collection = 'festival24',
-                default => $collection = 'festival23',
-            };
-
-            if ($collection != $this->nextUpFestivalCollection) {
-                $this->warn("Skipping updating event '$event[title]' because it is not in the next up festival collection");
-
-                continue;
-            }
+            $parentEventIndex = $event['event'];
+            $year = 2022 + $parentEventIndex;
 
             $title = trim($event['title']);
             $subline = $event['subline'];
             $subline_en = $event['subline_en'];
             $standort = $event['standort'];
 
-            if ($this::SET_NEW_ELEMENTS_TO_PREVIEW && $collection == $this::CURRENT_COLLECTION) {
+            if ($this::SET_NEW_ELEMENTS_TO_PREVIEW) {
                 $time_start = Carbon::parse('2024-05-17 15:00:00', 'Europe/Berlin')->timezone('UTC');
                 $time_end = null;
                 $open_end = true;
@@ -135,11 +125,13 @@ class LoadMoersFestivalEvents extends Command
 
             $externalPlaceId = intval($standort);
 
-            $event->name = $title;
+            $startDate = $time_start != null ? Carbon::parse($time_start, 'Europe/Berlin') : null;
 
-            $event->start_date = $time_start != null ? Carbon::parse($time_start, 'Europe/Berlin') : null;
+            $event->name = $title;
+            $event->start_date = $startDate;
             $event->end_date = $time_end != null ? Carbon::parse($time_end, 'Europe/Berlin') : null;
             $event->organisation_id = $organisation->id;
+            $event->parent_event_id = (new CreateMoersFestivalCollectionEvent)->execute(year: $year)->id;
 
             if ($event->start_date != null && $event->end_date != null) {
                 if ($event->start_date->gt($event->end_date)) {
@@ -152,7 +144,7 @@ class LoadMoersFestivalEvents extends Command
             $event->extras = [
                 'external_id' => $externalId,
                 'lineup' => $artists,
-                'collection' => $collection,
+                'collection' => "moers-festival-$year",
                 'open_end' => $open_end == 1,
                 'sametime' => $sametime == '' ? null : intval($sametime),
                 'do_not_modify' => false,
@@ -189,7 +181,7 @@ class LoadMoersFestivalEvents extends Command
                 text_en: $text_en,
                 subline: $subline,
                 subline_en: $subline_en,
-                collection: $collection
+                collection: "moers-festival-$year"
             );
 
             if ($externalPlaceId != 0) {

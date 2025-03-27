@@ -9,13 +9,24 @@ class CreateMoersFestivalCollectionEvent
 
     public function execute(int $year): Event
     {
-        $event = Event::updateOrCreate([
-            'slug' => "moers-festival-$year"
-        ], [
-            'name' => "moers festival $year",
-        ]);
+        $organisation = (new CreateMoersFestivalOrganisationIfNeeded)->execute();
 
-        return $event;
+        $slug = "moers-festival-$year";
+        $event = Event::query()
+            ->withArchived()
+            ->withNotPublished()
+            ->where('slug', $slug)
+            ->first();
+
+        if ($event != null) {
+            return $event;
+        }
+
+        return Event::updateOrCreate([
+            'slug' => $slug,
+            'name' => "moers festival $year",
+            'organisation_id' => $organisation->id,
+        ]);
     }
 
 }
