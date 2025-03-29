@@ -23,6 +23,8 @@ services:
     volumes:
       - .:/var/www/html/
   postgres:
+    volumes:
+      - './.infrastructure/conf/database/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
     environment:
       POSTGRES_DB: "laravel"
       POSTGRES_USER: "postgres"

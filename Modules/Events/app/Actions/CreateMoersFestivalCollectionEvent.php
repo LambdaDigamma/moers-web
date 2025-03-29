@@ -22,10 +22,11 @@ class CreateMoersFestivalCollectionEvent
             return $event;
         }
 
-        return Event::updateOrCreate([
+        return Event::create([
             'slug' => $slug,
             'name' => "moers festival $year",
             'organisation_id' => $organisation->id,
+            'published_at' => now(),
         ]);
     }
 
