@@ -28,7 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->api(append: [
             AcceptLanguageMiddleware::class,
-            ContentLanguageMiddleware::class
+            ContentLanguageMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

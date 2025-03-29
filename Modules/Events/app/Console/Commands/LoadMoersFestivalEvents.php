@@ -345,19 +345,14 @@ class LoadMoersFestivalEvents extends Command
 
     }
 
-    /**
-     * @param mixed $events
-     * @param Organisation $organisation
-     * @return void
-     */
     protected function deleteRemovedEvents(mixed $events, Organisation $organisation): void
     {
-        $this->info('Found ' . count($events) . ' events');
+        $this->info('Found '.count($events).' events');
 
         // Find all events that are not in the external list anymore
         $externalIds = collect($events)->pluck('id')->toArray();
 
-        $this->info('Found ' . count($externalIds) . ' external ids');
+        $this->info('Found '.count($externalIds).' external ids');
 
         $eventsToDelete = Event::query()
             ->where('extras->collection', '=', $this->nextUpFestivalCollection)
@@ -365,7 +360,7 @@ class LoadMoersFestivalEvents extends Command
             ->whereNotIn('extras->external_id', $externalIds)
             ->get();
 
-        $this->info('Found ' . count($eventsToDelete) . ' events to delete');
+        $this->info('Found '.count($eventsToDelete).' events to delete');
 
         foreach ($eventsToDelete as $eventToDelete) {
             $this->warn("Deleting event '$eventToDelete->name'");

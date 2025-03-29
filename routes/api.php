@@ -10,14 +10,14 @@ Route::get('/user', function (Request $request) {
 
 Route::group([
     'middleware' => ['api'],
-    'prefix' => 'v1/'
+    'prefix' => 'v1/',
 ], function () {
 
     Route::group(['middleware' => 'cache.headers:public;max_age=0;must_revalidate;etag'], function () {
         Route::get('organisations/{organisation:slug}/events', [OrganisationEventsController::class, 'index']);
     });
 
-//        Route::get('events/{event:slug}', [OrganisationEventsController::class, 'show']);
+    //        Route::get('events/{event:slug}', [OrganisationEventsController::class, 'show']);
 
     //    Route::get('/v1/organisations/{organisation:slug}/events/{event:slug}/bulk-download');
     //    Route::get('/v1/organisations/{organisation:slug}/posts');

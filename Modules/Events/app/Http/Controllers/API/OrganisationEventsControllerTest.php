@@ -3,6 +3,7 @@
 use Illuminate\Testing\Fluent\AssertableJson;
 use Modules\Events\Actions\CreateMoersFestivalCollectionEvent;
 use Modules\Management\Models\Organisation;
+
 use function Pest\Laravel\getJson;
 
 it('returns organisation events', function () {

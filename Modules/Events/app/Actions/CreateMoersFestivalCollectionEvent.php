@@ -6,7 +6,6 @@ use Modules\Events\Models\Event;
 
 class CreateMoersFestivalCollectionEvent
 {
-
     public function execute(int $year): Event
     {
         $organisation = (new CreateMoersFestivalOrganisationIfNeeded)->execute();
@@ -29,5 +28,4 @@ class CreateMoersFestivalCollectionEvent
             'published_at' => now(),
         ]);
     }
-
 }

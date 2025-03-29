@@ -20,10 +20,10 @@ class EventController extends Controller
 
         return new EventCollection($events);
     }
-    
+
     public function show(int $id)
     {
-        $event = Cache::remember('api.events.show.' . $id, 2 * 60, function () use ($id) {
+        $event = Cache::remember('api.events.show.'.$id, 2 * 60, function () use ($id) {
             return Event::query()->with(['page', 'place'])->findOrFail($id);
         });
 
