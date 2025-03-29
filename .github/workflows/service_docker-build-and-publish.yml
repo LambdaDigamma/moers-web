@@ -30,6 +30,28 @@ jobs:
         with:
           path: vendor/
           key: ${{ runner.os }}-composer-vendor-${{ hashFiles('composer.lock') }}
+
+      - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
+        name: Configure Private Composer Sources (Lennart Fischer)
+        env:
+          TOKEN: ${{ secrets.LAMBDADIGAMMA_TOKEN }}
+        run: |
+          $DOCKER_COMPOSE_CMD \
+          run \
+          php \
+          composer config github-oauth.github.com ${{ secrets.LAMBDADIGAMMA_TOKEN }}
+
+      - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
+        name: Configure Private Composer Sources (Media Library Pro)
+        env:
+          MEDIA_LIBRARY_PRO_USERNAME: ${{ secrets.MEDIA_LIBRARY_PRO_USERNAME }}
+          MEDIA_LIBRARY_PRO_PASSWORD: ${{ secrets.MEDIA_LIBRARY_PRO_PASSWORD }}
+        run: |
+          $DOCKER_COMPOSE_CMD \
+          run \
+          php \
+          composer config http-basic.satis.spatie.be ${{ secrets.MEDIA_LIBRARY_PRO_USERNAME }} ${{ secrets.MEDIA_LIBRARY_PRO_PASSWORD }}
+
       - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
         name: List the composer packages
         continue-on-error: true
@@ -38,6 +60,13 @@ jobs:
           run \
           php \
           composer show --locked
+      - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
+        name: Configure Composer to use HTTPS
+        run: |
+          $DOCKER_COMPOSE_CMD \
+          run \
+          php \
+          composer config --global github-protocols https
       - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
         name: Install Composer dependencies
         run: |
