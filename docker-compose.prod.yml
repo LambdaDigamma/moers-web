@@ -199,6 +199,71 @@ services:
         - "traefik.http.routers.laravel-reverb.tls.certresolver=letsencryptresolver"
         - "traefik.http.services.laravel-reverb.loadbalancer.server.port=8000"
         - "traefik.http.services.laravel-reverb.loadbalancer.server.scheme=http"
+
+  minio:
+    image: 'minio/minio:latest'
+    environment:
+      MINIO_ROOT_USER: 'manager'
+      MINIO_ROOT_PASSWORD: 'cGPxUVu6rC@c'
+      MINIO_DOMAIN: "media.${SPIN_APP_DOMAIN}"
+      MINIO_SERVER_URL: "https://media.${SPIN_APP_DOMAIN}"
+      MINIO_BROWSER_REDIRECT_URL: "https://console.media.${SPIN_APP_DOMAIN}"
+    volumes:
+      - ./.infrastructure/volume_data/minio/data/:/data/minio
+    command: minio server /data/minio --console-address ":8900"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - web-public
+    deploy:
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+      labels:
+        - "traefik.enable=true"
+        # API
+        - "traefik.http.routers.minio.rule=Host(`media.${SPIN_APP_DOMAIN}`)"
+        - "traefik.http.routers.minio.entrypoints=websecure"
+        - "traefik.http.routers.minio.tls=true"
+        - "traefik.http.routers.minio.service=minio"
+        - "traefik.http.services.minio.loadbalancer.server.port=9000"
+        # Console
+        - "traefik.http.routers.minio-console.rule=Host(`console.media.${SPIN_APP_DOMAIN}`)"
+        - "traefik.http.routers.minio-console.entrypoints=websecure"
+        - "traefik.http.routers.minio-console.tls=true"
+        - "traefik.http.routers.minio-console.service=minio-console"
+        - "traefik.http.services.minio-console.loadbalancer.server.port=8900"
+  minio-user-init:
+    image: serversideup/minio-user-init:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MINIO_ADMIN_USER: "${MINIO_ADMIN_USER}"
+      MINIO_ADMIN_PASSWORD: "${MINIO_ADMIN_PASSWORD}"
+      MINIO_ALIAS: "myminio"
+      MINIO_HOST: "http://minio:9000"
+      MINIO_USER_ACCESS_KEY: "${MINIO_USER_ACCESS_KEY}"
+      MINIO_USER_SECRET_KEY: "${MINIO_USER_SECRET_KEY}"
+      MINIO_USER_BUCKET: "media"
+      MINIO_USER_BUCKET_PERMISSIONS: "s3:ListBucket,s3:GetBucketLocation"
+      MINIO_USER_OBJECT_PERMISSIONS: "s3:PutObject,s3:GetObject"
+    networks:
+      - web-public
+    deploy:
+      restart_policy:
+        condition: none
+      placement:
+        constraints:
+          - node.role == manager
+      replicas: 1
+      update_config:
+        order: stop-first
+
 configs:
   traefik:
     name: "traefik-${SPIN_MD5_HASH_TRAEFIK_YML}.yml"
