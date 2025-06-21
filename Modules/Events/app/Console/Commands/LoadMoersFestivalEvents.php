@@ -30,9 +30,9 @@ class LoadMoersFestivalEvents extends Command
         '3' => 'festival25',
     ];
 
-    protected string $nextUpFestivalCollection = 'festival24';
+    protected string $nextUpFestivalCollection = 'festival25';
 
-    const string CURRENT_COLLECTION = 'festival24';
+    const string CURRENT_COLLECTION = 'festival25';
 
     const bool SET_NEW_ELEMENTS_TO_PREVIEW = false;
 
