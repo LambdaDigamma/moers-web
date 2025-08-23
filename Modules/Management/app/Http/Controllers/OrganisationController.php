@@ -7,6 +7,7 @@ use Inertia\Response;
 use Inertia\ResponseFactory;
 use Modules\Management\Data\CreateOrganisationProps;
 use Modules\Management\Data\EditOrganisationProps;
+use Modules\Management\Data\ShowOrganisationProps;
 use Modules\Management\Data\StoreOrganisationRequest;
 use Modules\Management\Models\Organisation;
 use Spatie\LaravelData\PaginatedDataCollection;
@@ -42,6 +43,15 @@ class OrganisationController extends Controller
         ]);
 
         return redirect()->route('organisations.edit', $organisation);
+    }
+
+    public function show(Organisation $organisation)
+    {
+        $props = new ShowOrganisationProps(
+            organisation: \Modules\Management\Data\Organisation::from($organisation)
+        );
+
+        return inertia('organisations/show-organisation', $props);
     }
 
     public function edit(Organisation $organisation)

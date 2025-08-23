@@ -22,8 +22,8 @@ export const IndexEvents = ({ events }: { events: Paginator<Event> }) => {
                         </div>
                     </div>
 
-                    <div className="mt-6 rounded-xl bg-white shadow">
-                        <ul className="divide-y divide-gray-200">
+                    <div className="mt-6 rounded-xl bg-white shadow dark:bg-gray-800">
+                        <ul className="divide-y divide-gray-200 dark:divide-white/10">
                             {events.data.map((event) => {
                                 return (
                                     <li className="px-4 py-2.5">

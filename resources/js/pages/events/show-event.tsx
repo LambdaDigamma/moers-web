@@ -80,7 +80,7 @@ const ShowEvent = ({ event, formattedDate }: { event: Event; formattedDate: stri
                                 </div>
                             </section>
                         </div>
-                        <div class="lg:col-span-1 lg:col-start-3">
+                        <div className="lg:col-span-1 lg:col-start-3">
                             <section aria-labelledby="organizer-title">
                                 <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
                                     <h2

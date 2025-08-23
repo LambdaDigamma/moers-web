@@ -15,6 +15,7 @@ class ImportWasteDates extends Command
     public function handle(): int
     {
         $file = $this->argument('file');
+        $file = storage_path('static/'.$file);
 
         // Import the data
         Excel::import(new WasteDatesImport, $file);

@@ -16,6 +16,7 @@ class ImportWasteStreets extends Command
     public function handle(): int
     {
         $file = $this->argument('file');
+        $file = storage_path('static/'.$file);
 
         // Truncate the table
         RubbishStreet::query()->truncate();

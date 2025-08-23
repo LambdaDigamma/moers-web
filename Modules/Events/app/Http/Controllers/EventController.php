@@ -35,6 +35,15 @@ class EventController extends Controller
         ]);
     }
 
+    public function edit(
+        Event $event
+    )
+    {
+        return inertia('events/edit-event-general', [
+            'event' => EventResource::from($event),
+        ]);
+    }
+
     public function store(StoreEventRequest $request): JsonResponse|RedirectResponse
     {
         $event = Event::create($request->validated());

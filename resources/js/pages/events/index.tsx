@@ -14,7 +14,7 @@ const EventsIndex = ({ events }: { events: Paginator<Event> }) => {
             <DefaultContainer>
                 <div className="mt-8">
                     <Heading>Veranstaltungen</Heading>
-                    <ul className="mt-4 flex flex-col divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white shadow">
+                    <ul className="mt-4 flex flex-col divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white shadow dark:divide-white/10 dark:border-white/10 dark:bg-gray-800">
                         {events.data.map((event) => (
                             <li
                                 key={event.id}
