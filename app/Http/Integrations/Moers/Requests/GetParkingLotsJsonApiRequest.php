@@ -14,4 +14,3 @@ class GetParkingLotsJsonApiRequest extends Request
         return '/media/remote_parking_lot';
     }
 }
-

@@ -31,8 +31,8 @@ class UpdateParkingAreas extends Command
 
     private function handleApi(): void
     {
-        $api = new MoersConnector();
-        $request = new GetParkingLotsJsonApiRequest();
+        $api = new MoersConnector;
+        $request = new GetParkingLotsJsonApiRequest;
         $response = $api->send($request);
 
         if ($response->failed()) {
@@ -134,7 +134,7 @@ class UpdateParkingAreas extends Command
      */
     public function loadFromCsv(): Iterator|array
     {
-        $endpoint = "http://download.moers.de/PLS/plcinfo.csv";
+        $endpoint = 'http://download.moers.de/PLS/plcinfo.csv';
 
         $response = Http::get($endpoint);
         if ($response->ok()) {
@@ -149,6 +149,7 @@ class UpdateParkingAreas extends Command
 
             return $records;
         }
+
         return [];
     }
 
