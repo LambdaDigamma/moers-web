@@ -220,7 +220,6 @@ services:
       web-public:
         aliases: ["minio"]
     deploy:
-
       restart_policy:
         delay: 10s
         max_attempts: 10
@@ -239,31 +238,31 @@ services:
         - "traefik.http.routers.minio-console.tls=true"
         - "traefik.http.routers.minio-console.service=minio-console"
         - "traefik.http.services.minio-console.loadbalancer.server.port=8900"
-  minio-user-init:
-    image: serversideup/minio-user-init:latest
-    depends_on:
-      - minio
-    environment:
-      MINIO_ADMIN_USER: "${MINIO_ADMIN_USER}"
-      MINIO_ADMIN_PASSWORD: "${MINIO_ADMIN_PASSWORD}"
-      MINIO_ALIAS: "myminio"
-      MINIO_HOST: "https://media.${SPIN_APP_DOMAIN}:9000"
-      MINIO_USER_ACCESS_KEY: "${MINIO_USER_ACCESS_KEY}"
-      MINIO_USER_SECRET_KEY: "${MINIO_USER_SECRET_KEY}"
-      MINIO_USER_BUCKET: "media"
-      MINIO_USER_BUCKET_PERMISSIONS: "s3:ListBucket,s3:GetBucketLocation"
-      MINIO_USER_OBJECT_PERMISSIONS: "s3:PutObject,s3:GetObject"
-    networks:
-      - web-public
-    deploy:
-      restart_policy:
-        condition: none
-      placement:
-        constraints:
-          - node.role == manager
-      replicas: 1
-      update_config:
-        order: stop-first
+#  minio-user-init:
+#    image: serversideup/minio-user-init:latest
+#    depends_on:
+#      - minio
+#    environment:
+#      MINIO_ADMIN_USER: "${MINIO_ADMIN_USER}"
+#      MINIO_ADMIN_PASSWORD: "${MINIO_ADMIN_PASSWORD}"
+#      MINIO_ALIAS: "myminio"
+#      MINIO_HOST: "https://media.${SPIN_APP_DOMAIN}:9000"
+#      MINIO_USER_ACCESS_KEY: "${MINIO_USER_ACCESS_KEY}"
+#      MINIO_USER_SECRET_KEY: "${MINIO_USER_SECRET_KEY}"
+#      MINIO_USER_BUCKET: "media"
+#      MINIO_USER_BUCKET_PERMISSIONS: "s3:ListBucket,s3:GetBucketLocation"
+#      MINIO_USER_OBJECT_PERMISSIONS: "s3:PutObject,s3:GetObject"
+#    networks:
+#      - web-public
+#    deploy:
+#      restart_policy:
+#        condition: none
+#      placement:
+#        constraints:
+#          - node.role == manager
+#      replicas: 1
+#      update_config:
+#        order: stop-first
 
 configs:
   traefik:
