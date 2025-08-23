@@ -240,8 +240,7 @@ services:
   minio-user-init:
     image: serversideup/minio-user-init:latest
     depends_on:
-      minio:
-        condition: service_healthy
+      - minio
     environment:
       MINIO_ADMIN_USER: "${MINIO_ADMIN_USER}"
       MINIO_ADMIN_PASSWORD: "${MINIO_ADMIN_PASSWORD}"
