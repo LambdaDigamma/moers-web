@@ -37,8 +37,7 @@ class EventController extends Controller
 
     public function edit(
         Event $event
-    )
-    {
+    ) {
         return inertia('events/edit-event-general', [
             'event' => EventResource::from($event),
         ]);
