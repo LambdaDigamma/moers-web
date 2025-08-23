@@ -209,7 +209,7 @@ services:
       MINIO_SERVER_URL: "https://media.${SPIN_APP_DOMAIN}"
       MINIO_BROWSER_REDIRECT_URL: "https://console.media.${SPIN_APP_DOMAIN}"
     volumes:
-      - ./.infrastructure/volume_data/minio/data/:/data/minio
+      - "storage_minio:/data/minio"
     command: minio server /data/minio --console-address ":8900"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
@@ -277,5 +277,6 @@ volumes:
   postgres_shared:
   tunnel_ssh_host_keys:
   redis_data:
+  storage_minio:
 networks:
   web-public:
