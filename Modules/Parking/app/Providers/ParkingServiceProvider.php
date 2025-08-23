@@ -5,6 +5,7 @@ namespace Modules\Parking\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Parking\Console\Commands\GenerateParkingAreaSnapshot;
+use Modules\Parking\Console\Commands\UpdateParkingAreas;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -46,6 +47,7 @@ class ParkingServiceProvider extends ServiceProvider
     {
         $this->commands([
             GenerateParkingAreaSnapshot::class,
+            UpdateParkingAreas::class,
         ]);
     }
 
