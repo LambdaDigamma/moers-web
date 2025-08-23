@@ -212,13 +212,18 @@ services:
       - "storage_minio:/data/minio"
     command: minio server /data/minio --console-address ":8900"
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/ready" ]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - web-public
+      web-public:
+        aliases: ["minio"]
     deploy:
+      # Data lives on one node only
+      placement:
+         constraints:
+           - node.labels.minio==true
       restart_policy:
         delay: 10s
         max_attempts: 10
@@ -255,7 +260,10 @@ services:
       - web-public
     deploy:
       restart_policy:
-        condition: none
+        # let it exit successfully once; on failure, Swarm won't loop forever
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
       placement:
         constraints:
           - node.role == manager
