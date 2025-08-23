@@ -220,10 +220,7 @@ services:
       web-public:
         aliases: ["minio"]
     deploy:
-      # Data lives on one node only
-      placement:
-         constraints:
-           - node.labels.minio==true
+
       restart_policy:
         delay: 10s
         max_attempts: 10
@@ -260,10 +257,7 @@ services:
       - web-public
     deploy:
       restart_policy:
-        # let it exit successfully once; on failure, Swarm won't loop forever
-        condition: on-failure
-        delay: 5s
-        max_attempts: 10
+        condition: none
       placement:
         constraints:
           - node.role == manager
