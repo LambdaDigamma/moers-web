@@ -3,10 +3,11 @@
 namespace Modules\Parking\Console\Commands;
 
 use App\Http\Integrations\Moers\MoersConnector;
-use App\Http\Integrations\Moers\Requests\GetParkingLotsRequest;
+use App\Http\Integrations\Moers\Requests\GetParkingLotsJsonApiRequest;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
+use Iterator;
 use League\Csv\Reader;
 use Modules\Parking\Models\ParkingArea;
 use Modules\Parking\Models\ParkingAreaOccupancy;
@@ -19,8 +20,72 @@ class UpdateParkingAreas extends Command
 
     public function handle(): int
     {
-        $this->info('Updating parking areas from live CSV endpoint...');
+        $this->info('Updating parking areas from API endpoint...');
+        $this->handleApi();
 
+        // $this->info('Updating parking areas from live CSV endpoint...');
+        // $this->handleCsv();
+
+        return 0;
+    }
+
+    private function handleApi(): void
+    {
+        $api = new MoersConnector();
+        $request = new GetParkingLotsJsonApiRequest();
+        $response = $api->send($request);
+
+        if ($response->failed()) {
+            $this->error('Failed to fetch parking lots from the API.');
+
+            return;
+        }
+
+        $records = $response->collect()->get('data');
+        $shouldStoreCurrentOccupancy = $this->shouldStoreCurrentOccupancy();
+
+        foreach ($records as $record) {
+            $attributes = $record['attributes'];
+            $name = $attributes['name'] ?? null;
+            $openingState = $attributes['field_opening_state'] ?? ParkingArea::UNKNOWN;
+            $capacity = $attributes['field_capacity'] ?? null;
+            $occupied = $attributes['field_occupied_sites'] ?? null;
+            $timestamp = $attributes['field_timestamp'] ?? null;
+            $openingState = ParkingArea::openingStateFromString($openingState);
+
+            $parkingArea = ParkingArea::updateOrCreate(
+                ['name' => $name],
+                [
+                    'name' => $name,
+                    'slug' => ParkingArea::createSlug($name),
+                    'capacity' => $capacity,
+                    'occupied_sites' => $occupied,
+                    'current_opening_state' => $openingState,
+                    'updated_at' => Carbon::parse($timestamp),
+                ]
+            );
+
+            if ($shouldStoreCurrentOccupancy) {
+                $occupancy_rate = 0;
+                if ($capacity > 0) {
+                    $occupancy_rate = $occupied / $capacity;
+                }
+                $occupancy_rate = number_format((float) $occupancy_rate, 4, '.', '');
+
+                ParkingAreaOccupancy::create([
+                    'occupancy_rate' => $occupancy_rate,
+                    'occupied_sites' => $occupied,
+                    'capacity' => $capacity,
+                    'opening_state' => $openingState,
+                    'parking_area_id' => $parkingArea->id,
+                    'updated_at' => Carbon::parse($timestamp),
+                ]);
+            }
+        }
+    }
+
+    private function handleCsv(): void
+    {
         // Use live CSV source
         $records = $this->loadFromCsv();
         $shouldStoreCurrentOccupancy = $this->shouldStoreCurrentOccupancy();
@@ -62,14 +127,12 @@ class UpdateParkingAreas extends Command
                 ]);
             }
         }
-
-        return 0;
     }
 
     /**
      * Loads parking area records from a live CSV endpoint.
      */
-    public function loadFromCsv()
+    public function loadFromCsv(): Iterator|array
     {
         $endpoint = "http://download.moers.de/PLS/plcinfo.csv";
 
