@@ -6,11 +6,12 @@ Backend API service for the Mein Moers mobile applications, providing informatio
 
 ## API Documentation
 
-**📖 [Complete API Documentation](docs/api-documentation.md)**
+**📖 [Complete API Documentation](docs/api-documentation.md)** | **⚡ [Quick Reference](docs/api-quick-reference.md)**
 
 For developers integrating with the Mein Moers API, comprehensive documentation is available:
 
 - **[API Documentation](docs/api-documentation.md)**: Human-readable guide with examples for all endpoints
+- **[API Quick Reference](docs/api-quick-reference.md)**: Table-based overview of all endpoints
 - **[OpenAPI Specification](docs/openapi.yaml)**: Machine-readable API specification in OpenAPI 3.0 format
 
 ### Quick Links

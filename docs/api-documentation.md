@@ -187,7 +187,18 @@ Get details of a specific parking area including past occupancy data.
 ```
 
 #### GET /v1/parking/dashboard
-Get parking dashboard data with aggregated information.
+Get parking dashboard data with aggregated information about all parking areas.
+
+**Response:**
+```json
+{
+  "data": {
+    "total_capacity": 500,
+    "total_available": 250,
+    "areas": [...]
+  }
+}
+```
 
 ## Rubbish Collection API
 
@@ -383,7 +394,17 @@ Get details of a specific radio broadcast.
 ## Tracker API (v2)
 
 #### GET /v2/tracker
-Get tracker information.
+Get tracker information for monitoring and analytics purposes.
+
+**Response:**
+```json
+{
+  "data": {
+    "events": [...],
+    "metrics": {...}
+  }
+}
+```
 
 ## Admin API (v2)
 
