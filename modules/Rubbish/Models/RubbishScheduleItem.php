@@ -7,7 +7,6 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * App\Models\RubbishScheduleItem
@@ -180,7 +179,7 @@ class RubbishScheduleItem extends Model
      *
      * @param $value
      *
-     * @return \Illuminate\Support\Collection|Collection
+     * @return \Illuminate\Support\Collection
      */
     private function explodeBaseTour($value)
     {

@@ -3,10 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Imports\WasteStreetsImport;
-use App\Models\RubbishStreet;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Rubbish\Models\RubbishStreet;
 
 class ImportWasteStreets extends Command
 {
