@@ -7,7 +7,7 @@ name: Production Deployment
 on:
   push:
     branches:
-      - main
+      - master
       - reboot
 permissions:
   contents: read
