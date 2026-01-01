@@ -3,35 +3,53 @@
 namespace Database\Factories;
 
 use App\Models\Page;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class PageFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Page::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
+    public function definition(): array
     {
-        $title = $this->faker->sentence($this->faker->numberBetween(1, 3));
-        $slug = Str::of($title)
-            ->slug('-')
-            ->append('-')
-            ->append(Carbon::now()->format('mdyHis'))->__toString();
         return [
-            'title' => $title,
-            'slug' => $slug
+            'title' => ['en' => $this->faker->sentence(3)],
+            'summary' => ['en' => $this->faker->sentence(10, true)],
         ];
     }
 
+    public function published(): PageFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'published_at' => now(),
+            ];
+        });
+    }
+
+    public function notPublished(): PageFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'published_at' => null,
+            ];
+        });
+    }
+
+    public function archived(): PageFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'archived_at' => now(),
+            ];
+        });
+    }
+
+    public function notArchived(): PageFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'archived_at' => null,
+            ];
+        });
+    }
 }

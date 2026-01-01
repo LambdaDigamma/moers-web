@@ -1,0 +1,15 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls",
+            "delegate_permission/common.get_login_creds"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.lambdadigamma.moers",
+            "sha256_cert_fingerprints": [
+                "34:4E:4F:CA:E1:31:E9:0D:37:56:23:93:6D:63:30:7B:31:19:79:D5:C3:EE:99:0B:6E:DA:24:73:DF:71:E9:9D"
+            ]
+        }
+    }
+]

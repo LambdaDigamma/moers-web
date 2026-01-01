@@ -3,14 +3,16 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    # - "8080:8080" # Uncomment to enable Traefik's dashboard
+      - "8080:8080" # Uncomment to enable Traefik's dashboard
     networks:
       development:
         aliases:
-          - moers.dev.test
+          - laravel.dev.test
           - vite.dev.test
           - mailpit.dev.test
           - reverb.dev.test
+          - console.media.laravel.dev.test
+          - media.laravel.dev.test
     volumes:
       # Mount the Docker socket as read-only so Traefik can listen to events
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -19,24 +21,26 @@ services:
       - ./.infrastructure/conf/traefik/dev/certificates/:/certificates
   php:
     build:
-      target: development
+      target: development-xdebug
       args:
         USER_ID: ${SPIN_USER_ID}
         GROUP_ID: ${SPIN_GROUP_ID}
       dockerfile: Dockerfile.php
+    stop_signal: SIGTERM
     volumes:
       - .:/var/www/html/
     networks:
       - development
     depends_on:
-      - traefik
+      postgres:
+        condition: service_started
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.laravel-web.rule=Host(`moers.dev.test`) || HostRegexp(`^.+\\.ngrok-free\\.app$$`)"
+      - "traefik.http.routers.laravel-web.rule=Host(`laravel.dev.test`) || HostRegexp(`^.+\\.ngrok-free\\.app$$`)"
       - "traefik.http.routers.laravel-web.tls=true"
       - "traefik.http.routers.laravel-web.entrypoints=websecure"
-      - "traefik.http.services.laravel-web.loadbalancer.server.port=8080"
-      - "traefik.http.services.laravel-web.loadbalancer.server.scheme=http"
+      - "traefik.http.services.laravel-web.loadbalancer.server.port=8443"
+      - "traefik.http.services.laravel-web.loadbalancer.server.scheme=https"
   node:
     build:
       target: development
@@ -60,21 +64,42 @@ services:
     image: axllent/mailpit
     networks:
       - development
-    ports:
-      - "8025:8025"
-  mariadb:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mailpit.rule=Host(`mailpit.dev.test`)"
+      - "traefik.http.routers.mailpit.entrypoints=websecure"
+      - "traefik.http.routers.mailpit.tls=true"
+      - "traefik.http.services.mailpit.loadbalancer.server.port=8025"
+      - "traefik.http.services.mailpit.loadbalancer.server.scheme=http"
+  schedule:
+    build:
+      target: development
+      args:
+        USER_ID: ${SPIN_USER_ID}
+        GROUP_ID: ${SPIN_GROUP_ID}
+      dockerfile: Dockerfile.php
+    volumes:
+      - .:/var/www/html/
+    networks:
+      - development
+    depends_on:
+      php:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+  postgres:
     networks:
       - development
     volumes:
-      - ./.infrastructure/volume_data/mariadb/database_data/:/var/lib/mysql
+      - ./.infrastructure/volume_data/postgres/database_data/:/var/lib/postgresql/data
+      - './.infrastructure/conf/database/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
     environment:
-      MARIADB_ROOT_PASSWORD: "rootpassword"
-      MARIADB_DATABASE: "laravel"
-      MARIADB_USER: "mysqluser"
-      MARIADB_PASSWORD: "mysqlpassword"
+      POSTGRES_DB: "laravel"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgrespassword"
     ports:
-      - target: 3306
-        published: 3306
+      - target: 5432
+        published: 5432
         mode: host
   redis:
     command: "redis-server --appendonly yes --requirepass redispassword"
@@ -93,6 +118,11 @@ services:
       - .:/var/www/html/
     networks:
       - development
+    depends_on:
+      redis:
+        condition: service_healthy
+      php:
+        condition: service_started
   reverb:
     build:
       target: development
@@ -111,16 +141,61 @@ services:
       - "traefik.http.routers.laravel-reverb.tls=true"
       - "traefik.http.services.laravel-reverb.loadbalancer.server.port=8000"
       - "traefik.http.services.laravel-reverb.loadbalancer.server.scheme=http"
-  schedule:
-    build:
-      target: development
-      args:
-        USER_ID: ${SPIN_USER_ID}
-        GROUP_ID: ${SPIN_GROUP_ID}
-      dockerfile: Dockerfile.php
+    depends_on:
+      php:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+
+  minio:
+    image: 'minio/minio:latest'
+    environment:
+      MINIO_ROOT_USER: 'manager'
+      MINIO_ROOT_PASSWORD: 'cGPxUVu6rC@c'
+      MINIO_DOMAIN: "media.laravel.dev.test"
+      MINIO_SERVER_URL: "https://media.laravel.dev.test"
+      MINIO_BROWSER_REDIRECT_URL: "https://console.media.laravel.dev.test"
     volumes:
-      - .:/var/www/html/
+      - ./.infrastructure/volume_data/minio/data/:/data/minio
+    command: minio server /data/minio --console-address ":8900"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - development
+    labels:
+      - "traefik.enable=true"
+      # API
+      - "traefik.http.routers.minio.rule=Host(`media.laravel.dev.test`)"
+      - "traefik.http.routers.minio.entrypoints=websecure"
+      - "traefik.http.routers.minio.tls=true"
+      - "traefik.http.routers.minio.service=minio"
+      - "traefik.http.services.minio.loadbalancer.server.port=9000"
+      # Console
+      - "traefik.http.routers.minio-console.rule=Host(`console.media.laravel.dev.test`)"
+      - "traefik.http.routers.minio-console.entrypoints=websecure"
+      - "traefik.http.routers.minio-console.tls=true"
+      - "traefik.http.routers.minio-console.service=minio-console"
+      - "traefik.http.services.minio-console.loadbalancer.server.port=8900"
+  minio-user-init:
+    image: serversideup/minio-user-init:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MINIO_ADMIN_USER: "manager"
+      MINIO_ADMIN_PASSWORD: "cGPxUVu6rC@c"
+      MINIO_ALIAS: "myminio"
+      MINIO_HOST: "http://minio:9000"
+      MINIO_USER_ACCESS_KEY: "media_user"
+      MINIO_USER_SECRET_KEY: "a5hU92!aPoxxxj2@T3s$"
+      MINIO_USER_BUCKET: "media"
+      MINIO_USER_BUCKET_PERMISSIONS: "s3:ListBucket,s3:GetBucketLocation"
+      MINIO_USER_OBJECT_PERMISSIONS: "s3:PutObject,s3:GetObject"
+    networks:
+      - development
+
 networks:
   development:

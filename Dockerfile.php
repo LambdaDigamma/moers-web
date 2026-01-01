@@ -4,11 +4,11 @@
 
 # Learn more about the Server Side Up PHP Docker Images at:
 # https://serversideup.net/open-source/docker-php/
-FROM serversideup/php:8.3-fpm-nginx-alpine AS base
+FROM serversideup/php:8.4-fpm-nginx-alpine AS base
 
 ## Uncomment if you need to install additional PHP extensions
 USER root
-RUN install-php-extensions bcmath gd
+RUN install-php-extensions bcmath gd exif intl uv imagick
 
 ############################################
 # Development Image
@@ -25,14 +25,31 @@ ARG GROUP_ID
 USER root
 
 # Trust the self-signed certificate
-COPY .infrastructure/conf/traefik/dev/certificates/ssu-ca.pem /usr/local/share/ca-certificates/ssu-ca.crt
+COPY .infrastructure/conf/traefik/dev/certificates/local-ca.pem /usr/local/share/ca-certificates/local-ca.crt
 RUN update-ca-certificates
 
 # Set the user ID and group ID for www-data
 RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID  && \
     docker-php-serversideup-set-file-permissions --owner $USER_ID:$GROUP_ID --service nginx
 
-# Drop privileges back to www-data    
+# Drop privileges back to www-data
+USER www-data
+
+############################################
+# Development with xdebug Image
+############################################
+FROM development AS development-xdebug
+
+USER root
+
+RUN install-php-extensions xdebug
+
+RUN echo "xdebug.mode=debug,coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+&& echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+&& echo "xdebug.start_with_request=trigger" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+&& echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+&& echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 USER www-data
 
 ############################################
@@ -44,7 +61,8 @@ FROM base AS ci
 # so we set the ROOT user and configure
 # the PHP-FPM pool to run as www-data
 USER root
-RUN echo "user = www-data" >> /usr/local/etc/php-fpm.d/docker-php-serversideup-pool.conf && \
+RUN echo "" >> /usr/local/etc/php-fpm.d/docker-php-serversideup-pool.conf && \
+    echo "user = www-data" >> /usr/local/etc/php-fpm.d/docker-php-serversideup-pool.conf && \
     echo "group = www-data" >> /usr/local/etc/php-fpm.d/docker-php-serversideup-pool.conf
 
 ############################################
@@ -56,8 +74,5 @@ COPY --chown=www-data:www-data . /var/www/html
 # Create the SQLite directory and set the owner to www-data (remove this if you're not using SQLite)
 RUN mkdir -p /var/www/html/.infrastructure/volume_data/sqlite/ && \
     chown -R www-data:www-data /var/www/html/.infrastructure/volume_data/sqlite/
-
-# Ensure PHP-FPM gracefully stops
-STOPSIGNAL SIGQUIT
 
 USER www-data

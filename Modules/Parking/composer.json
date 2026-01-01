@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/parking",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Parking\\": "app/",
+            "Modules\\Parking\\Database\\Factories\\": "database/factories/",
+            "Modules\\Parking\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Parking\\Tests\\": "tests/"
+        }
+    }
+}

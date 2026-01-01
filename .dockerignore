@@ -1,7 +1,7 @@
 .vault-password
 .github
 .infrastructure
-!.infrastructure/conf/traefik/dev/certificates/ssu-ca.pem
+!.infrastructure/**/local-ca.pem
 Dockerfile
 docker-*.yml
 .gitlab-ci.yml

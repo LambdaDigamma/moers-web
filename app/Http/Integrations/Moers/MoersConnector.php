@@ -9,19 +9,12 @@ class MoersConnector extends Connector
 {
     use AcceptsJson;
 
-    /**
-     * The Base URL of the API
-     *
-     * @return string
-     */
     public function resolveBaseUrl(): string
     {
         return 'https://www.moers.de/jsonapi';
     }
 
     /**
-     * Default headers for every request
-     *
      * @return string[]
      */
     protected function defaultHeaders(): array
@@ -33,8 +26,6 @@ class MoersConnector extends Connector
     }
 
     /**
-     * Default HTTP client options
-     *
      * @return string[]
      */
     protected function defaultConfig(): array

@@ -1,0 +1,33 @@
+{
+    "name": "nwidart/waste",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "require": {
+        "jenssegers/model": "dev-patch-1"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Waste\\": "app/",
+            "Modules\\Waste\\Database\\Factories\\": "database/factories/",
+            "Modules\\Waste\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Waste\\Tests\\": "tests/"
+        }
+    }
+}

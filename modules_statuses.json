@@ -1,0 +1,9 @@
+{
+    "Events": true,
+    "Waste": true,
+    "Parking": true,
+    "News": true,
+    "Multimedia": true,
+    "Management": true,
+    "Locations": true
+}

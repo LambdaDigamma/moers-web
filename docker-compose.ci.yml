@@ -3,54 +3,41 @@ services:
     build:
       target: ci
       dockerfile: Dockerfile.php
-    networks:
-      - ci
     volumes:
       - .:/var/www/html/
     depends_on:
-      - mariadb
+      - postgres
   node:
     build:
       target: ci
       dockerfile: Dockerfile.node
     volumes:
       - .:/usr/src/app/
-    networks:
-      - ci
     working_dir: /usr/src/app/
   mailpit:
     image: axllent/mailpit
-    networks:
-      - ci
-  mariadb:
-    environment:
-      MARIADB_ROOT_PASSWORD: "cirootpassword"
-      MARIADB_DATABASE: "cidatabase"
-      MARIADB_USER: "ciuser"
-      MARIADB_PASSWORD: "cipassword"
-  horizon:
-    build:
-      target: ci
-      dockerfile: Dockerfile.php
-    volumes:
-      - .:/var/www/html/
-    networks:
-      - ci
-  reverb:
-    build:
-      target: ci
-      dockerfile: Dockerfile.php
-    volumes:
-      - .:/var/www/html/
-    networks:
-      - ci
   schedule:
     build:
       target: ci
       dockerfile: Dockerfile.php
     volumes:
       - .:/var/www/html/
-    networks:
-      - ci
-networks:
-  ci:
+  postgres:
+    volumes:
+      - './.infrastructure/conf/database/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+    environment:
+      POSTGRES_DB: "laravel"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgrespassword"
+  horizon:
+    build:
+      target: ci
+      dockerfile: Dockerfile.php
+    volumes:
+      - .:/var/www/html/
+  reverb:
+    build:
+      target: ci
+      dockerfile: Dockerfile.php
+    volumes:
+      - .:/var/www/html/

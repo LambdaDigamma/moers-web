@@ -1,10 +1,15 @@
 <?php
 
-use function Pest\Laravel\get;
+use App\Models\User;
 
-it('can be accessed', function () {
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-    get('/')->assertStatus(200);
-    get('/home')->assertStatus(200);
+test('guests are redirected to the login page', function () {
+    $this->get('/dashboard')->assertRedirect('/login');
+});
 
+test('authenticated users can visit the dashboard', function () {
+    $this->actingAs($user = User::factory()->create());
+
+    $this->get('/dashboard')->assertOk();
 });

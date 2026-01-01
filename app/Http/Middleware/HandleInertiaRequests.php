@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Auth;
+use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
-use Session;
+use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -13,64 +13,43 @@ class HandleInertiaRequests extends Middleware
      * The root template that's loaded on the first page visit.
      *
      * @see https://inertiajs.com/server-side-setup#root-template
+     *
      * @var string
      */
-    protected $rootView = 'layout';
+    protected $rootView = 'app';
 
     /**
      * Determines the current asset version.
      *
      * @see https://inertiajs.com/asset-versioning
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
      */
-    public function version(Request $request)
+    public function version(Request $request): ?string
     {
         return parent::version($request);
     }
 
     /**
-     * Defines the props that are shared by default.
+     * Define the props that are shared by default.
      *
      * @see https://inertiajs.com/shared-data
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
+     *
+     * @return array<string, mixed>
      */
-    public function share(Request $request)
+    public function share(Request $request): array
     {
-        return array_merge(parent::share($request), [
-            'auth' => fn () => [
-                'user' => Auth::user() ? [
-                    'id' => Auth::user()->id,
-                    'name' => Auth::user()->name,
-                    'email' => Auth::user()->email,
-                    'notifications_count' => Auth::user()->unreadNotifications()->count()
-                ] : null,
+        [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
+
+        return [
+            ...parent::share($request),
+            'name' => config('app.name'),
+            'quote' => ['message' => trim($message), 'author' => trim($author)],
+            'auth' => [
+                'user' => $request->user(),
             ],
-            'locale' => function () {
-                return app()->getLocale();
-            },
-            'language' => function () {
-                return [];
-//                return translations(
-//                    resource_path('lang/'. app()->getLocale() .'.json')
-//                );
-            },
-            'menuEntries' => function () {
-                return [
-                    'entries' => true,
-                    'events' => true,
-                    'organisations' => true,
-                    'help' => true,
-                    'polls' => false
-                ];
-            },
-            'errors' => function () {
-                return Session::get('errors')
-                    ? Session::get('errors')->getBag('default')->getMessages()
-                    : (object) [];
-            },
-            'flash' => fn () => $request->session()->only(['success', 'error']),
-        ]);
+            'ziggy' => fn (): array => [
+                ...(new Ziggy)->toArray(),
+                'location' => $request->url(),
+            ],
+        ];
     }
 }

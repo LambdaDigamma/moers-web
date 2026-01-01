@@ -2,73 +2,155 @@
 
 namespace App\Models;
 
+use App\Traits\SerializeMedia;
 use App\Traits\SerializeTranslations;
-use Eloquent;
-use Illuminate\Database\Eloquent\Collection;
+use Database\Factories\PageFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
+use LaravelArchivable\Archivable;
+use LaravelPublishable\Publishable;
+use Modules\Events\Models\Event;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Translatable\HasTranslations;
 
-/**
- * App\Models\Page
- *
- * @property int $id
- * @property array $title
- * @property array $slug
- * @property int|null $creator_id
- * @property Carbon|null $deleted_at
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Collection|PageBlock[] $blocks
- * @property-read int|null $blocks_count
- * @property-read mixed $translations
- * @method static \Illuminate\Database\Eloquent\Builder|Page filter($filters)
- * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|Page newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Page newQuery()
- * @method static Builder|Page onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Page query()
- * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|Page whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Page whereCreatorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Page whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Page whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Page whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Page whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Page whereUpdatedAt($value)
- * @method static Builder|Page withTrashed()
- * @method static Builder|Page withoutTrashed()
- * @mixin Eloquent
- * @property-read \App\Models\User|null $creator
- */
-class Page extends Model
+class Page extends Model implements HasMedia
 {
-    use SoftDeletes;
-    use SerializeTranslations;
+    use Archivable;
     use HasFactory;
+    use HasTranslations;
+    use InteractsWithMedia;
+    use Publishable;
+    use SerializeMedia;
+    use SerializeTranslations;
+    use SoftDeletes;
 
-    public $translatable = ['title', 'slug'];
+    protected $table = 'mm_pages';
 
-    public function blocks(): HasMany
+    protected $guarded = ['*', 'id'];
+
+    public array $translatable = ['title', 'slug', 'summary', 'keywords'];
+
+    public $appends = ['full_slug', 'resource_url'];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('header')
+            ->withResponsiveImages()
+            ->registerMediaConversions(function (Media $media) {
+                $this
+                    ->addMediaConversion('opengraph')
+                    ->width(1200)
+                    ->height(630)
+                    ->nonQueued();
+                $this
+                    ->addMediaConversion('thumbnail')
+                    ->width(400)
+                    ->keepOriginalImageFormat()
+                    ->nonQueued();
+            });
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('preview')
+            ->crop(300, 300)
+            ->queued();
+    }
+
+    public function resolveRouteBinding($value, $field = null): \Illuminate\Database\Eloquent\Model|Page|null
+    {
+        if ($field == 'slug') {
+            return static::findByLocalizedSlug($value);
+        } else {
+            return parent::resolveRouteBinding($value, $field);
+        }
+    }
+
+    public static function findByLocalizedSlug($slug)
+    {
+        $locale = app()->getLocale();
+        $fallback = config('app.fallback_locale', 'de');
+
+        $page = Page::with(['media', 'blocks', 'blocks.media', 'event', 'parentMenuItem'])
+            ->where("slug->${locale}", $slug)
+            ->first();
+
+        if ($page != null) {
+            return $page;
+        } else {
+            return Page::with(['media', 'blocks', 'blocks.media', 'event', 'parentMenuItem'])
+                ->where("slug->{$fallback}", $slug)
+                ->firstOrFail();
+        }
+    }
+
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class, 'id', 'page_id');
+    }
+
+    public function blocks(): Page|HasMany
     {
         return $this
-            ->hasMany(PageBlock::class, 'page_id', 'id')
+            ->hasMany(PageBlock::class)
             ->orderBy('order');
     }
 
-    public function creator(): BelongsTo
+    public function media(): MorphMany
     {
-        return $this->belongsTo(User::class, 'creator_id');
+        return $this->morphMany(config('media-library.media_model'), 'model');
     }
 
-    public function scopeFilter($query, array $filters)
+    public function getResourceUrlAttribute()
     {
-        $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->where('title', 'like', '%'.$search.'%');
-            $query->where('slug', 'like', '%'.$search.'%');
+        return url('/').$this->getFullSlugAttribute();
+    }
+
+    public function getFullSlugAttribute(): string
+    {
+        $locale = app()->getLocale();
+
+        return Str::of('/')
+            ->append($locale)
+            ->append('/')
+            ->append($this->slug)
+            ->toString();
+    }
+
+    public function toArray(): array
+    {
+        $attributes = parent::toArray();
+
+        return array_merge(
+            $attributes,
+            $this->serializeMediaCollections(),
+        );
+    }
+
+    public function scopeFilter($query, array $filters): void
+    {
+        $locale = app()->getLocale();
+        $fallback = config('app.fallback_locale', 'en');
+        $query->when($filters['search'] ?? null, function ($query, $search) use ($locale, $fallback) {
+            $query
+                ->where("title->$locale", 'like', '%'.$search.'%')
+                ->orWhere("title->$fallback", 'like', '%'.$search.'%')
+                ->orWhere("slug->$locale", 'like', '%'.$search.'%')
+                ->orWhere("slug->$fallback", 'like', '%'.$search.'%');
+        })->when($filters['type'] ?? null, function ($query, $type) {
+            if ($type === 'drafts') {
+                $query->onlyNotPublished();
+            } elseif ($type === 'archived') {
+                $query->onlyArchived();
+            } elseif ($type === 'deleted') {
+                $query->onlyTrashed();
+            }
         })->when($filters['trashed'] ?? null, function ($query, $trashed) {
             if ($trashed === 'with') {
                 $query->withTrashed();
@@ -78,4 +160,8 @@ class Page extends Model
         });
     }
 
+    protected static function newFactory(): PageFactory
+    {
+        return PageFactory::new();
+    }
 }
