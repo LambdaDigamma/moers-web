@@ -1,0 +1,914 @@
+openapi: 3.0.3
+info:
+  title: Mein Moers API
+  description: |
+    Backend API for the Mein Moers mobile applications (iOS and Android).
+    This API provides information about events, parking, rubbish collection, 
+    organizations, and other services in the city of Moers, Germany.
+  version: 2.0.0
+  contact:
+    email: meinmoers@lambdadigamma.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://{domain}/api/v1
+    description: API v1
+    variables:
+      domain:
+        default: api.example.com
+        description: API domain
+  - url: https://{domain}/api/v2
+    description: API v2
+    variables:
+      domain:
+        default: api.example.com
+        description: API domain
+
+tags:
+  - name: Authentication
+    description: User authentication and authorization
+  - name: Events
+    description: Events and activities in Moers
+  - name: Parking
+    description: Parking area information and availability
+  - name: Rubbish
+    description: Rubbish collection schedules
+  - name: Organizations
+    description: Organization management (v2 only)
+  - name: Entries
+    description: General content entries
+  - name: Polls
+    description: Community polls and voting (v2 only)
+  - name: Groups
+    description: User groups (v2 only)
+  - name: Radio
+    description: Radio broadcast information
+  - name: Admin
+    description: Administrative endpoints (v2 only)
+
+security:
+  - bearerAuth: []
+
+paths:
+  /v2/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Login to get access token
+      description: Authenticate a user and receive a JWT token
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: password123
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v2/auth/refresh:
+    get:
+      tags:
+        - Authentication
+      summary: Refresh access token
+      description: Refresh an existing JWT token
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+        '401':
+          description: Invalid or expired token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v2/auth/user:
+    get:
+      tags:
+        - Authentication
+      summary: Get authenticated user
+      description: Get information about the currently authenticated user
+      responses:
+        '200':
+          description: User information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v2/auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: Logout
+      description: Invalidate the current JWT token
+      responses:
+        '200':
+          description: Logged out successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully logged out
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/events:
+    get:
+      tags:
+        - Events
+      summary: List events
+      description: Get a paginated list of future events
+      security: []
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+        - name: per_page
+          in: query
+          description: Items per page
+          schema:
+            type: integer
+            default: 30
+            minimum: 1
+            maximum: 100
+      responses:
+        '200':
+          description: List of events retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Event'
+
+  /v1/events/{id}:
+    get:
+      tags:
+        - Events
+      summary: Get event details
+      description: Get detailed information about a specific event
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Event ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Event details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/events/overview:
+    get:
+      tags:
+        - Events
+      summary: Get events overview
+      description: Get categorized overview of events (today, featured, long-term)
+      security: []
+      responses:
+        '200':
+          description: Events overview retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  today:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+                  featured:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+                  long_term:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+
+  /v1/parking-areas:
+    get:
+      tags:
+        - Parking
+      summary: List parking areas
+      description: Get a list of all parking areas with current availability
+      security: []
+      responses:
+        '200':
+          description: Parking areas retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      parking_areas:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ParkingArea'
+
+  /v1/parking-areas/{id}:
+    get:
+      tags:
+        - Parking
+      summary: Get parking area details
+      description: Get detailed information about a specific parking area including occupancy history
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Parking area ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Parking area details retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      parking_area:
+                        $ref: '#/components/schemas/ParkingArea'
+                      past_occupancy:
+                        type: object
+                        properties:
+                          max_capacity:
+                            type: integer
+                          data:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                hour:
+                                  type: integer
+                                  description: Hour of day (0-23)
+                                occupancy_rate:
+                                  type: number
+                                  format: float
+                                  description: Average occupancy rate (0-1)
+        '404':
+          description: Parking area not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/rubbish/streets:
+    get:
+      tags:
+        - Rubbish
+      summary: List streets
+      description: Get a list of streets with rubbish collection service
+      security: []
+      responses:
+        '200':
+          description: Streets list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+
+  /v1/rubbish/streets/{street}/pickups:
+    get:
+      tags:
+        - Rubbish
+      summary: Get pickup schedule
+      description: Get rubbish collection pickup dates for a specific street
+      security: []
+      parameters:
+        - name: street
+          in: path
+          required: true
+          description: Street identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Pickup schedule retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                          description: Pickup date
+                        type:
+                          type: string
+                          description: Type of waste
+                          enum:
+                            - residual_waste
+                            - organic_waste
+                            - paper
+                            - recycling
+
+  /v2/organisations:
+    get:
+      tags:
+        - Organizations
+      summary: List organizations
+      description: Get a list of organizations
+      responses:
+        '200':
+          description: Organizations retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+    post:
+      tags:
+        - Organizations
+      summary: Create organization
+      description: Create a new organization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Organization created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /v2/organisations/{id}:
+    get:
+      tags:
+        - Organizations
+      summary: Get organization details
+      description: Get detailed information about a specific organization
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Organization ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Organization retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Organizations
+      summary: Update organization
+      description: Update an existing organization
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Organization ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Organization updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Organizations
+      summary: Delete organization
+      description: Delete an organization
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Organization ID
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Organization deleted successfully
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v2/polls:
+    get:
+      tags:
+        - Polls
+      summary: List polls
+      description: Get a list of polls
+      responses:
+        '200':
+          description: Polls retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Poll'
+    post:
+      tags:
+        - Polls
+      summary: Create poll
+      description: Create a new poll (requires create-poll permission)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                options:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      text:
+                        type: string
+      responses:
+        '201':
+          description: Poll created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poll'
+        '403':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v2/polls/{id}:
+    get:
+      tags:
+        - Polls
+      summary: Get poll details
+      description: Get detailed information about a specific poll
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Poll ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Poll retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poll'
+        '404':
+          description: Poll not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v2/polls/{id}/vote:
+    post:
+      tags:
+        - Polls
+      summary: Vote on poll
+      description: Submit a vote for a poll
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Poll ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - option_id
+              properties:
+                option_id:
+                  type: integer
+                  description: ID of the selected option
+      responses:
+        '200':
+          description: Vote submitted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Vote recorded successfully
+        '404':
+          description: Poll not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/radio-broadcasts:
+    get:
+      tags:
+        - Radio
+      summary: List radio broadcasts
+      description: Get a list of radio broadcasts
+      security: []
+      responses:
+        '200':
+          description: Radio broadcasts retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RadioBroadcast'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /v2/auth/login endpoint
+
+  schemas:
+    AuthToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: JWT access token
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+        token_type:
+          type: string
+          example: bearer
+        expires_in:
+          type: integer
+          description: Token expiration time in seconds
+          example: 3600
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Summer Festival
+        description:
+          type: string
+          example: Annual summer festival with live music and food
+        start_date:
+          type: string
+          format: date-time
+          example: 2024-06-15T10:00:00Z
+        end_date:
+          type: string
+          format: date-time
+          example: 2024-06-15T22:00:00Z
+        location:
+          type: string
+          example: City Park
+        is_featured:
+          type: boolean
+        is_long_term:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    ParkingArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Main Street Parking
+        address:
+          type: string
+          example: Main Street 123
+        capacity:
+          type: integer
+          example: 100
+          description: Total parking spaces
+        available_spaces:
+          type: integer
+          example: 45
+          description: Currently available spaces
+        is_open:
+          type: boolean
+          description: Whether the parking area is currently open
+        coordinates:
+          type: object
+          properties:
+            latitude:
+              type: number
+              format: float
+              example: 51.4518
+            longitude:
+              type: number
+              format: float
+              example: 6.6283
+
+    Organization:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Community Center
+        description:
+          type: string
+          example: Local community organization
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Poll:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Which event would you like to see?
+        description:
+          type: string
+          example: Help us decide the next community event
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              text:
+                type: string
+              vote_count:
+                type: integer
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    RadioBroadcast:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Morning Show
+        description:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+
+    PaginatedResponse:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            current_page:
+              type: integer
+              example: 1
+            from:
+              type: integer
+              example: 1
+            last_page:
+              type: integer
+              example: 10
+            per_page:
+              type: integer
+              example: 30
+            to:
+              type: integer
+              example: 30
+            total:
+              type: integer
+              example: 300
+        links:
+          type: object
+          properties:
+            first:
+              type: string
+              format: uri
+              example: https://api.example.com/api/v1/events?page=1
+            last:
+              type: string
+              format: uri
+              example: https://api.example.com/api/v1/events?page=10
+            prev:
+              type: string
+              format: uri
+              nullable: true
+              example: null
+            next:
+              type: string
+              format: uri
+              nullable: true
+              example: https://api.example.com/api/v1/events?page=2
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Resource not found
+
+    ValidationError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: The given data was invalid
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            email:
+              - The email field is required.
+            password:
+              - The password must be at least 8 characters.
