@@ -4,7 +4,7 @@ use App\Http\Controllers\MapAuthController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-//Route::get('/', [LandingPageController::class])->name('home')->uses('LandingPageController');
+// Route::get('/', [LandingPageController::class])->name('home')->uses('LandingPageController');
 
 Route::get('/', function () {
     return Inertia::render('welcome');
