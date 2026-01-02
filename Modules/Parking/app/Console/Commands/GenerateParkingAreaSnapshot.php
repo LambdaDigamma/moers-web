@@ -23,7 +23,7 @@ class GenerateParkingAreaSnapshot extends Command
         $this->info("Found {$parkingAreas->count()} parking areas.");
 
         $parkingAreas->each(function ($parkingArea) {
-            GenerateParkingAreaSnapshotJob::dispatchSync($parkingArea);
+            GenerateParkingAreaSnapshotJob::dispatch($parkingArea);
         });
 
         $this->info('Generated light and dark map snapshots.');

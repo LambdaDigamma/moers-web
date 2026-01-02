@@ -53,7 +53,7 @@ class LoadMoersEvents extends Command
 
         foreach ($this->eventUrls as $eventUrl) {
             $this->info('Loading event '.$eventUrl);
-            LoadMoersEvent::dispatchSync($eventUrl);
+            LoadMoersEvent::dispatch($eventUrl);
         }
 
         return 0;
