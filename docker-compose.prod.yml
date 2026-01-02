@@ -256,7 +256,7 @@ services:
       restart_policy:
         condition: on-failure
         delay: 5s
-        max_attempts: 5
+        max_attempts: 2
 
 configs:
   traefik:
