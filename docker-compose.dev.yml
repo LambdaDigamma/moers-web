@@ -91,7 +91,7 @@ services:
     networks:
       - development
     volumes:
-      - ./.infrastructure/volume_data/postgres/database_data/:/var/lib/postgresql/data
+      - ./.infrastructure/volume_data/postgres/database_data/:/var/lib/postgresql
       - './.infrastructure/conf/database/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
     environment:
       POSTGRES_DB: "laravel"

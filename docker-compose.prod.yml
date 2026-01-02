@@ -107,7 +107,7 @@ services:
         constraints:
           - node.role==manager
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_storage:/var/lib/postgresql
       - postgres_shared:/shared
   ssh:
     # We use an SSH image so we can securely tunnel into the Docker network with
@@ -285,7 +285,7 @@ volumes:
   storage_public:
   storage_sessions:
   storage_logs:
-  postgres_data:
+  postgres_storage:
   postgres_shared:
   tunnel_ssh_host_keys:
   redis_data:
