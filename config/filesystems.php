@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk
@@ -29,7 +28,6 @@ return [
     */
 
     'disks' => [
-
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
@@ -57,18 +55,22 @@ return [
             'throw' => false,
         ],
 
+        // RustFS-backed disk (S3-compatible). Replaces previous MinIO/media configuration.
+        // Recommended environment variables (set in your .env / deployment):
+        // RUSTFS_ACCESS_KEY, RUSTFS_SECRET_KEY, RUSTFS_REGION (optional),
+        // RUSTFS_BUCKET, RUSTFS_ENDPOINT, RUSTFS_URL (optional), RUSTFS_USE_PATH_STYLE_ENDPOINT
         'media' => [
             'driver' => 's3',
-            'key' => env('MEDIA_ACCESS_KEY_ID'),
-            'secret' => env('MEDIA_SECRET_ACCESS_KEY'),
-            'region' => 'auto',
-            'bucket' => env('MEDIA_BUCKET'),
-            'endpoint' => env('MEDIA_ENDPOINT'),
-            'url' => env('MEDIA_URL', env('MEDIA_ENDPOINT').'/'.env('MEDIA_BUCKET')),
+            'key' => env('RUSTFS_ACCESS_KEY'),
+            'secret' => env('RUSTFS_SECRET_KEY'),
+            'region' => env('RUSTFS_REGION', 'auto'),
+            'bucket' => env('RUSTFS_BUCKET', 'media'),
+            'endpoint' => env('RUSTFS_ENDPOINT'),
+            'url' => env('RUSTFS_URL', env('RUSTFS_ENDPOINT').'/'.env('RUSTFS_BUCKET')),
             'visibility' => 'public',
-            'use_path_style_endpoint' => env('MEDIA_ENDPOINT_USE_PATH_STYLE_ENDPOINT', false),
+            'use_path_style_endpoint' => env('RUSTFS_USE_PATH_STYLE_ENDPOINT', true),
+            'throw' => false,
         ],
-
     ],
 
     /*
@@ -85,5 +87,4 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
-
 ];

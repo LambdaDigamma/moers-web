@@ -147,55 +147,105 @@ services:
       postgres:
         condition: service_healthy
 
-  minio:
-    image: 'minio/minio:latest'
+  # Replace MinIO service with RustFS for development environment
+  rustfs:
+    image: 'rustfs/rustfs:latest'
+    container_name: rustfs-server
+    security_opt:
+      - "no-new-privileges:true"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
     environment:
-      MINIO_ROOT_USER: 'manager'
-      MINIO_ROOT_PASSWORD: 'cGPxUVu6rC@c'
-      MINIO_DOMAIN: "media.laravel.dev.test"
-      MINIO_SERVER_URL: "https://media.laravel.dev.test"
-      MINIO_BROWSER_REDIRECT_URL: "https://console.media.laravel.dev.test"
+      - RUSTFS_VOLUMES=/data/rustfs{0...3}
+      - RUSTFS_ADDRESS=0.0.0.0:9000
+      - RUSTFS_CONSOLE_ADDRESS=0.0.0.0:9001
+      - RUSTFS_CONSOLE_ENABLE=true
+      - RUSTFS_EXTERNAL_ADDRESS=:9000
+      - RUSTFS_CORS_ALLOWED_ORIGINS=*
+      - RUSTFS_CONSOLE_CORS_ALLOWED_ORIGINS=*
+      - RUSTFS_ACCESS_KEY=rust_admin
+      - RUSTFS_SECRET_KEY=ChangeMeDevPassword!
+      - RUSTFS_OBS_LOGGER_LEVEL=info
+      # Object cache (optional)
+      - RUSTFS_OBJECT_CACHE_ENABLE=true
+      - RUSTFS_OBJECT_CACHE_TTL_SECS=300
     volumes:
-      - ./.infrastructure/volume_data/minio/data/:/data/minio
-    command: minio server /data/minio --console-address ":8900"
+      - rustfs_data_0:/data/rustfs0
+      - rustfs_data_1:/data/rustfs1
+      - rustfs_data_2:/data/rustfs2
+      - rustfs_data_3:/data/rustfs3
+      - logs:/app/logs
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test:
+        [
+          "CMD",
+          "sh", "-c",
+          "curl -f http://localhost:9000/health && curl -f http://localhost:9001/rustfs/console/health"
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - development
+    restart: unless-stopped
     labels:
       - "traefik.enable=true"
       # API
-      - "traefik.http.routers.minio.rule=Host(`media.laravel.dev.test`)"
-      - "traefik.http.routers.minio.entrypoints=websecure"
-      - "traefik.http.routers.minio.tls=true"
-      - "traefik.http.routers.minio.service=minio"
-      - "traefik.http.services.minio.loadbalancer.server.port=9000"
+      - "traefik.http.routers.rustfs.rule=Host(`media.laravel.dev.test`)"
+      - "traefik.http.routers.rustfs.entrypoints=websecure"
+      - "traefik.http.routers.rustfs.tls=true"
+      - "traefik.http.routers.rustfs.service=rustfs"
+      - "traefik.http.services.rustfs.loadbalancer.server.port=9000"
       # Console
-      - "traefik.http.routers.minio-console.rule=Host(`console.media.laravel.dev.test`)"
-      - "traefik.http.routers.minio-console.entrypoints=websecure"
-      - "traefik.http.routers.minio-console.tls=true"
-      - "traefik.http.routers.minio-console.service=minio-console"
-      - "traefik.http.services.minio-console.loadbalancer.server.port=8900"
-  minio-user-init:
-    image: serversideup/minio-user-init:latest
+      - "traefik.http.routers.rustfs-console.rule=Host(`console.media.laravel.dev.test`)"
+      - "traefik.http.routers.rustfs-console.entrypoints=websecure"
+      - "traefik.http.routers.rustfs-console.tls=true"
+      - "traefik.http.routers.rustfs-console.service=rustfs-console"
+      - "traefik.http.services.rustfs-console.loadbalancer.server.port=9001"
+
+  volume-permission-helper:
+    image: alpine
+    volumes:
+      - rustfs_data_0:/data0
+      - rustfs_data_1:/data1
+      - rustfs_data_2:/data2
+      - rustfs_data_3:/data3
+      - logs:/logs
+    command: >
+      sh -c "
+        chown -R 10001:10001 /data0 /data1 /data2 /data3 /logs &&
+        echo 'Volume Permissions fixed' &&
+        exit 0
+      "
+    restart: "no"
+
+  # Use mc (minio client) to create the bucket and set public policy against RustFS
+  rustfs-user-init:
+    image: minio/mc:latest
     depends_on:
-      minio:
+      rustfs:
         condition: service_healthy
+    entrypoint: ["/bin/sh","-c"]
+    command: |
+      mc alias set rustfs http://rustfs:9000 ${RUSTFS_ACCESS_KEY} ${RUSTFS_SECRET_KEY} && \
+      mc mb rustfs/${RUSTFS_BUCKET} || true && \
+      mc policy set public rustfs/${RUSTFS_BUCKET} || true
     environment:
-      MINIO_ADMIN_USER: "manager"
-      MINIO_ADMIN_PASSWORD: "cGPxUVu6rC@c"
-      MINIO_ALIAS: "myminio"
-      MINIO_HOST: "http://minio:9000"
-      MINIO_USER_ACCESS_KEY: "media_user"
-      MINIO_USER_SECRET_KEY: "a5hU92!aPoxxxj2@T3s$"
-      MINIO_USER_BUCKET: "media"
-      MINIO_USER_BUCKET_PERMISSIONS: "s3:ListBucket,s3:GetBucketLocation"
-      MINIO_USER_OBJECT_PERMISSIONS: "s3:PutObject,s3:GetObject"
+      RUSTFS_ACCESS_KEY: "rust_admin"
+      RUSTFS_SECRET_KEY: "ChangeMeDevPassword!"
+      RUSTFS_BUCKET: "media"
     networks:
       - development
+
+# Named volumes for RustFS data and logs
+volumes:
+  rustfs_data_0:
+  rustfs_data_1:
+  rustfs_data_2:
+  rustfs_data_3:
+  logs:
 
 networks:
   development:
