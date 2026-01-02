@@ -235,17 +235,11 @@ services:
     image: minio/mc:latest
     entrypoint: >
       /bin/sh -c "
-      echo 'Waiting for RustFS to be healthy...';
-      # Loop until the alias set command succeeds
-      until mc alias set rustfs http://rustfs:9000 $RUSTFS_ACCESS_KEY $RUSTFS_SECRET_KEY; do
-        echo 'RustFS not ready yet. Retrying in 5 seconds...';
-        sleep 5;
-      done;
-
-      echo 'RustFS is online. Creating bucket...';
-      # Try to create bucket, ignore error if it already exists
-      mc mb rustfs/${RUSTFS_BUCKET} --ignore-existing || true;
-      echo 'Init complete.';
+      sleep 10 &&
+      mc alias set rustfs https://storage.${SPIN_APP_DOMAIN}
+        $RUSTFS_ACCESS_KEY $RUSTFS_SECRET_KEY &&
+      mc mb rustfs/${RUSTFS_BUCKET} || true &&
+      mc anonymous set download rustfs/${RUSTFS_BUCKET}
       "
     environment:
       RUSTFS_ACCESS_KEY: "${RUSTFS_ACCESS_KEY}"
@@ -255,7 +249,9 @@ services:
       - web-public
     deploy:
       restart_policy:
-        condition: none
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
 
 configs:
   traefik:
