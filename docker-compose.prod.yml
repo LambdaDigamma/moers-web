@@ -205,8 +205,15 @@ services:
     environment:
       RUSTFS_ACCESS_KEY: "${RUSTFS_ACCESS_KEY}"
       RUSTFS_SECRET_KEY: "${RUSTFS_SECRET_KEY}"
-      RUSTFS_DOMAIN: "storage.${SPIN_APP_DOMAIN}"
-      RUSTFS_SERVER_URL: "https://storage.${SPIN_APP_DOMAIN}"
+      RUSTFS_VOLUMES: '/data'
+      RUSTFS_ADDRESS: '0.0.0.0:9000'
+      RUSTFS_CONSOLE_ADDRESS: '0.0.0.0:9001'
+      RUSTFS_CONSOLE_ENABLE: 'true'
+      RUSTFS_EXTERNAL_ADDRESS: ':9000'
+      RUSTFS_CORS_ALLOWED_ORIGINS: '*'
+      RUSTFS_CONSOLE_CORS_ALLOWED_ORIGINS: '*'
+      RUSTFS_LOG_LEVEL: 'info'
+      RUSTFS_OBS_LOGGER_LEVEL: 'info'
     volumes:
       - storage_rustfs:/data
     networks:
