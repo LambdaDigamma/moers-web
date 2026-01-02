@@ -246,7 +246,7 @@ services:
     entrypoint: >
       /bin/sh -c "
       sleep 10 &&
-      mc alias set rustfs http://rustfs:9000 $RUSTFS_ACCESS_KEY $RUSTFS_SECRET_KEY &&
+      mc alias set rustfs http://rustfs:9000 \"$RUSTFS_ACCESS_KEY\" \"$RUSTFS_SECRET_KEY\" &&
       mc mb rustfs/${RUSTFS_BUCKET} --ignore-existing || true
       "
     environment:
