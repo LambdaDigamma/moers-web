@@ -215,7 +215,7 @@ services:
       RUSTFS_LOG_LEVEL: 'info'
       RUSTFS_OBS_LOGGER_LEVEL: 'info'
     volumes:
-      - storage_rustfs:/data
+      - rustfs_storage:/data
     networks:
       - web-public
     deploy:
@@ -246,7 +246,7 @@ services:
     entrypoint: >
       /bin/sh -c "
       sleep 10 &&
-      mc alias set rustfs http://rustfs:9000 \"\$RUSTFS_ACCESS_KEY\" \"\$RUSTFS_SECRET_KEY\" &&
+      mc alias set rustfs http://rustfs:9000 $RUSTFS_ACCESS_KEY $RUSTFS_SECRET_KEY &&
       mc mb rustfs/\${RUSTFS_BUCKET} --ignore-existing || true
       "
     environment:
@@ -275,6 +275,6 @@ volumes:
   postgres_shared:
   tunnel_ssh_host_keys:
   redis_data:
-  storage_rustfs:
+  rustfs_storage:
 networks:
   web-public:
