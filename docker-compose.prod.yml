@@ -255,7 +255,7 @@ services:
       - web-public
     deploy:
       restart_policy:
-        condition: on-failure
+        condition: none
 
 configs:
   traefik:
