@@ -200,68 +200,68 @@ services:
         - "traefik.http.services.laravel-reverb.loadbalancer.server.port=8000"
         - "traefik.http.services.laravel-reverb.loadbalancer.server.scheme=http"
 
-  rustfs:
-    image: rustfs/rustfs:latest
-    environment:
-      RUSTFS_ACCESS_KEY: "${RUSTFS_ACCESS_KEY}"
-      RUSTFS_SECRET_KEY: "${RUSTFS_SECRET_KEY}"
-      RUSTFS_VOLUMES: '/data'
-      RUSTFS_ADDRESS: '0.0.0.0:9000'
-      RUSTFS_CONSOLE_ADDRESS: '0.0.0.0:9001'
-      RUSTFS_CONSOLE_ENABLE: 'true'
-      RUSTFS_EXTERNAL_ADDRESS: ':9000'
-      RUSTFS_CORS_ALLOWED_ORIGINS: '*'
-      RUSTFS_CONSOLE_CORS_ALLOWED_ORIGINS: '*'
-      RUSTFS_LOG_LEVEL: 'info'
-      RUSTFS_OBS_LOGGER_LEVEL: 'info'
-    volumes:
-      - rustfs_storage:/data
-    networks:
-      - web-public
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 5s
-        order: start-first
-      labels:
-        - traefik.enable=true
-
-        - traefik.http.routers.rustfs.rule=Host(`storage.${SPIN_APP_DOMAIN}`)
-        - traefik.http.routers.rustfs.entrypoints=websecure
-        - traefik.http.routers.rustfs.tls=true
-        - traefik.http.routers.rustfs.tls.certresolver=letsencryptresolver
-        - traefik.http.routers.rustfs.service=rustfs
-        - traefik.http.services.rustfs.loadbalancer.server.port=9000
-        - traefik.http.services.rustfs.loadbalancer.server.scheme=http
-
-        - traefik.http.routers.rustfs-console.rule=Host(`console-storage.${SPIN_APP_DOMAIN}`)
-        - traefik.http.routers.rustfs-console.entrypoints=websecure
-        - traefik.http.routers.rustfs-console.tls=true
-        - traefik.http.routers.rustfs-console.tls.certresolver=letsencryptresolver
-        - traefik.http.routers.rustfs-console.service=rustfs-console
-        - traefik.http.services.rustfs-console.loadbalancer.server.port=9001
-        - traefik.http.services.rustfs-console.loadbalancer.server.scheme=http
-
-  rustfs-bucket-init:
-    image: minio/mc:latest
-    entrypoint: >
-      /bin/sh -c "
-      sleep 10 &&
-      mc alias set rustfs http://rustfs:9000 $RUSTFS_ACCESS_KEY $RUSTFS_SECRET_KEY &&
-      mc mb rustfs/\${RUSTFS_BUCKET} --ignore-existing || true
-      "
-    environment:
-      RUSTFS_ACCESS_KEY: "${RUSTFS_ACCESS_KEY}"
-      RUSTFS_SECRET_KEY: "${RUSTFS_SECRET_KEY}"
-      RUSTFS_BUCKET: "media"
-    networks:
-      - web-public
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 2
+#  rustfs:
+#    image: rustfs/rustfs:latest
+#    environment:
+#      RUSTFS_ACCESS_KEY: "${RUSTFS_ACCESS_KEY}"
+#      RUSTFS_SECRET_KEY: "${RUSTFS_SECRET_KEY}"
+#      RUSTFS_VOLUMES: '/data'
+#      RUSTFS_ADDRESS: '0.0.0.0:9000'
+#      RUSTFS_CONSOLE_ADDRESS: '0.0.0.0:9001'
+#      RUSTFS_CONSOLE_ENABLE: 'true'
+#      RUSTFS_EXTERNAL_ADDRESS: ':9000'
+#      RUSTFS_CORS_ALLOWED_ORIGINS: '*'
+#      RUSTFS_CONSOLE_CORS_ALLOWED_ORIGINS: '*'
+#      RUSTFS_LOG_LEVEL: 'info'
+#      RUSTFS_OBS_LOGGER_LEVEL: 'info'
+#    volumes:
+#      - rustfs_storage:/data
+#    networks:
+#      - web-public
+#    deploy:
+#      replicas: 1
+#      update_config:
+#        parallelism: 1
+#        delay: 5s
+#        order: start-first
+#      labels:
+#        - traefik.enable=true
+#
+#        - traefik.http.routers.rustfs.rule=Host(`storage.${SPIN_APP_DOMAIN}`)
+#        - traefik.http.routers.rustfs.entrypoints=websecure
+#        - traefik.http.routers.rustfs.tls=true
+#        - traefik.http.routers.rustfs.tls.certresolver=letsencryptresolver
+#        - traefik.http.routers.rustfs.service=rustfs
+#        - traefik.http.services.rustfs.loadbalancer.server.port=9000
+#        - traefik.http.services.rustfs.loadbalancer.server.scheme=http
+#
+#        - traefik.http.routers.rustfs-console.rule=Host(`console-storage.${SPIN_APP_DOMAIN}`)
+#        - traefik.http.routers.rustfs-console.entrypoints=websecure
+#        - traefik.http.routers.rustfs-console.tls=true
+#        - traefik.http.routers.rustfs-console.tls.certresolver=letsencryptresolver
+#        - traefik.http.routers.rustfs-console.service=rustfs-console
+#        - traefik.http.services.rustfs-console.loadbalancer.server.port=9001
+#        - traefik.http.services.rustfs-console.loadbalancer.server.scheme=http
+#
+#  rustfs-bucket-init:
+#    image: minio/mc:latest
+#    entrypoint: >
+#      /bin/sh -c "
+#      sleep 10 &&
+#      mc alias set rustfs http://rustfs:9000 $RUSTFS_ACCESS_KEY $RUSTFS_SECRET_KEY &&
+#      mc mb rustfs/\${RUSTFS_BUCKET} --ignore-existing || true
+#      "
+#    environment:
+#      RUSTFS_ACCESS_KEY: "${RUSTFS_ACCESS_KEY}"
+#      RUSTFS_SECRET_KEY: "${RUSTFS_SECRET_KEY}"
+#      RUSTFS_BUCKET: "media"
+#    networks:
+#      - web-public
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 2
 
 configs:
   traefik:
