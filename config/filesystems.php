@@ -56,9 +56,6 @@ return [
         ],
 
         // RustFS-backed disk (S3-compatible). Replaces previous MinIO/media configuration.
-        // Recommended environment variables (set in your .env / deployment):
-        // RUSTFS_ACCESS_KEY, RUSTFS_SECRET_KEY, RUSTFS_REGION (optional),
-        // RUSTFS_BUCKET, RUSTFS_ENDPOINT, RUSTFS_URL (optional), RUSTFS_USE_PATH_STYLE_ENDPOINT
         'media' => [
             'driver' => 's3',
             'key' => env('RUSTFS_ACCESS_KEY'),

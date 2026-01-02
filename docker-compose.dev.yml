@@ -150,32 +150,29 @@ services:
   # Replace MinIO service with RustFS for development environment
   rustfs:
     image: 'rustfs/rustfs:latest'
-    container_name: rustfs-server
     security_opt:
       - "no-new-privileges:true"
     ports:
       - "9000:9000"
       - "9001:9001"
     environment:
-      - RUSTFS_VOLUMES=/data/rustfs{0...3}
-      - RUSTFS_ADDRESS=0.0.0.0:9000
-      - RUSTFS_CONSOLE_ADDRESS=0.0.0.0:9001
-      - RUSTFS_CONSOLE_ENABLE=true
-      - RUSTFS_EXTERNAL_ADDRESS=:9000
-      - RUSTFS_CORS_ALLOWED_ORIGINS=*
-      - RUSTFS_CONSOLE_CORS_ALLOWED_ORIGINS=*
-      - RUSTFS_ACCESS_KEY=rust_admin
-      - RUSTFS_SECRET_KEY=ChangeMeDevPassword!
-      - RUSTFS_OBS_LOGGER_LEVEL=info
+      RUSTFS_VOLUMES: '/data'
+      RUSTFS_ADDRESS: '0.0.0.0:9000'
+      RUSTFS_CONSOLE_ADDRESS: '0.0.0.0:9001'
+      RUSTFS_CONSOLE_ENABLE: 'true'
+      RUSTFS_EXTERNAL_ADDRESS: ':9000'
+      RUSTFS_CORS_ALLOWED_ORIGINS: '*'
+      RUSTFS_CONSOLE_CORS_ALLOWED_ORIGINS: '*'
+      RUSTFS_ACCESS_KEY: 'rust'
+      RUSTFS_SECRET_KEY: 'password'
+      RUSTFS_LOG_LEVEL: 'info'
+      RUSTFS_OBS_LOGGER_LEVEL: 'info'
       # Object cache (optional)
-      - RUSTFS_OBJECT_CACHE_ENABLE=true
-      - RUSTFS_OBJECT_CACHE_TTL_SECS=300
+      RUSTFS_OBJECT_CACHE_ENABLE: true
+      RUSTFS_OBJECT_CACHE_TTL_SECS: 300
     volumes:
-      - rustfs_data_0:/data/rustfs0
-      - rustfs_data_1:/data/rustfs1
-      - rustfs_data_2:/data/rustfs2
-      - rustfs_data_3:/data/rustfs3
-      - logs:/app/logs
+      - ./.infrastructure/volume_data/rustfs/data:/data
+      - ./.infrastructure/volume_data/rustfs/logs:/app/logs
     healthcheck:
       test:
         [
@@ -208,44 +205,56 @@ services:
   volume-permission-helper:
     image: alpine
     volumes:
-      - rustfs_data_0:/data0
-      - rustfs_data_1:/data1
-      - rustfs_data_2:/data2
-      - rustfs_data_3:/data3
-      - logs:/logs
+      - ./.infrastructure/volume_data/rustfs/data:/data
+      - ./.infrastructure/volume_data/rustfs/logs:/logs
     command: >
       sh -c "
-        chown -R 10001:10001 /data0 /data1 /data2 /data3 /logs &&
+        chown -R 10001:10001 /data /logs &&
         echo 'Volume Permissions fixed' &&
         exit 0
       "
     restart: "no"
 
   # Use mc (minio client) to create the bucket and set public policy against RustFS
-  rustfs-user-init:
+#  bucket-user-init:
+#    image: serversideup/minio-user-init:latest
+#    depends_on:
+#      rustfs:
+#        condition: service_healthy
+#    networks:
+#      - development
+#    environment:
+#      MINIO_ADMIN_USER: "rust"
+#      MINIO_ADMIN_PASSWORD: "password"
+#      MINIO_ALIAS: "rustfs"
+#      MINIO_HOST: "http://rustfs:9000"
+#      MINIO_USER_ACCESS_KEY: "media_user"
+#      MINIO_USER_SECRET_KEY: "a5hU92!aPoxxxj2@T3s$"
+#      MINIO_USER_BUCKET: "media"
+#      MINIO_USER_BUCKET_PERMISSIONS: "s3:ListBucket,s3:GetBucketLocation"
+#      MINIO_USER_OBJECT_PERMISSIONS: "s3:PutObject,s3:GetObject"
+
+  rustfs-bucket-init:
     image: minio/mc:latest
     depends_on:
       rustfs:
         condition: service_healthy
-    entrypoint: ["/bin/sh","-c"]
-    command: |
-      mc alias set rustfs http://rustfs:9000 ${RUSTFS_ACCESS_KEY} ${RUSTFS_SECRET_KEY} && \
-      mc mb rustfs/${RUSTFS_BUCKET} || true && \
-      mc policy set public rustfs/${RUSTFS_BUCKET} || true
-    environment:
-      RUSTFS_ACCESS_KEY: "rust_admin"
-      RUSTFS_SECRET_KEY: "ChangeMeDevPassword!"
-      RUSTFS_BUCKET: "media"
     networks:
       - development
-
-# Named volumes for RustFS data and logs
-volumes:
-  rustfs_data_0:
-  rustfs_data_1:
-  rustfs_data_2:
-  rustfs_data_3:
-  logs:
+    entrypoint: >
+      /bin/sh -c "
+      sleep 5;
+      /usr/bin/mc alias set rustfs http://rustfs:9000 $RUSTFS_ACCESS_KEY $RUSTFS_SECRET_KEY &&
+      /usr/bin/mc mb rustfs/$RUSTFS_BUCKET || true &&
+      /usr/bin/mc anonymous set download rustfs/$RUSTFS_BUCKET
+      exit 0;
+      "
+    command: >
+    environment:
+      RUSTFS_ACCESS_KEY: rust
+      RUSTFS_SECRET_KEY: password
+      RUSTFS_BUCKET: media
+    restart: "no"
 
 networks:
   development:
