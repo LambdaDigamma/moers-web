@@ -200,59 +200,62 @@ services:
         - "traefik.http.services.laravel-reverb.loadbalancer.server.port=8000"
         - "traefik.http.services.laravel-reverb.loadbalancer.server.scheme=http"
 
-# Replace MinIO commented blocks with RustFS recommended blocks for production (kept commented to let you opt-in)
-#  rustfs:
-#    image: 'rustfs/rustfs:latest'
-#      RUSTFS_ADMIN_USER: '${MINIO_ADMIN_USER}'
-#      RUSTFS_ADMIN_PASSWORD: '${MINIO_ADMIN_PASSWORD}'
-#      RUSTFS_DOMAIN: "media.${SPIN_APP_DOMAIN}"
-#      RUSTFS_SERVER_URL: "https://media.${SPIN_APP_DOMAIN}"
-#      - "storage_rustfs:/data"
-#    command: rustfs server /data --console-address ":8900"
-#      test: [ "CMD", "curl", "-f", "http://localhost:9000/health/ready" ]
-#        aliases: ["rustfs"]
-#        - "traefik.http.routers.rustfs.rule=Host(`media.${SPIN_APP_DOMAIN}`)"
-#        - "traefik.http.routers.rustfs.entrypoints=websecure"
-#        - "traefik.http.routers.rustfs.tls=true"
-#        - "traefik.http.services.rustfs.loadbalancer.server.port=9000"
-#        - "traefik.http.routers.rustfs-console.rule=Host(`console.media.${SPIN_APP_DOMAIN}`)"
-#        - "traefik.http.routers.rustfs-console.entrypoints=websecure"
-#        - "traefik.http.routers.rustfs-console.tls=true"
-#        - "traefik.http.services.rustfs-console.loadbalancer.server.port=9001"
-#
-#  rustfs-user-init:
-#    image: minio/mc:latest
-#      - rustfs
-#      RUSTFS_ADMIN_USER: "${MINIO_ADMIN_USER}"
-#      RUSTFS_ADMIN_PASSWORD: "${MINIO_ADMIN_PASSWORD}"
-#      RUSTFS_BUCKET: "media"
-#
-# volumes:
-#  storage_rustfs:
-#    image: serversideup/minio-user-init:latest
-#    depends_on:
-#      - minio
-#    environment:
-#      MINIO_ADMIN_USER: "${MINIO_ADMIN_USER}"
-#      MINIO_ADMIN_PASSWORD: "${MINIO_ADMIN_PASSWORD}"
-#      MINIO_ALIAS: "myminio"
-#      MINIO_HOST: "https://media.${SPIN_APP_DOMAIN}:9000"
-#      MINIO_USER_ACCESS_KEY: "${MINIO_USER_ACCESS_KEY}"
-#      MINIO_USER_SECRET_KEY: "${MINIO_USER_SECRET_KEY}"
-#      MINIO_USER_BUCKET: "media"
-#      MINIO_USER_BUCKET_PERMISSIONS: "s3:ListBucket,s3:GetBucketLocation"
-#      MINIO_USER_OBJECT_PERMISSIONS: "s3:PutObject,s3:GetObject"
-#    networks:
-#      - web-public
-#    deploy:
-#      restart_policy:
-#        condition: none
-#      placement:
-#        constraints:
-#          - node.role == manager
-#      replicas: 1
-#      update_config:
-#        order: stop-first
+  rustfs:
+    image: rustfs/rustfs:latest
+    environment:
+      RUSTFS_ACCESS_KEY: "${RUSTFS_ACCESS_KEY}"
+      RUSTFS_SECRET_KEY: "${RUSTFS_SECRET_KEY}"
+      RUSTFS_DOMAIN: "storage.${SPIN_APP_DOMAIN}"
+      RUSTFS_SERVER_URL: "https://storage.${SPIN_APP_DOMAIN}"
+    volumes:
+      - storage_rustfs:/data
+    networks:
+      - web-public
+    deploy:
+      placement:
+        constraints:
+          - node.role==manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.rustfs.rule=Host(`storage.${SPIN_APP_DOMAIN}`)
+        - traefik.http.routers.rustfs.entrypoints=websecure
+        - traefik.http.routers.rustfs.tls=true
+        - traefik.http.routers.rustfs.tls.certresolver=letsencryptresolver
+        - traefik.http.services.rustfs.loadbalancer.server.port=9000
+        - traefik.http.services.rustfs.loadbalancer.server.scheme=http
+
+        - traefik.http.routers.rustfs-console.rule=Host(`console-storage.${SPIN_APP_DOMAIN}`)
+        - traefik.http.routers.rustfs-console.entrypoints=websecure
+        - traefik.http.routers.rustfs-console.tls=true
+        - traefik.http.routers.rustfs-console.tls.certresolver=letsencryptresolver
+        - traefik.http.services.rustfs-console.loadbalancer.server.port=9001
+        - traefik.http.services.rustfs-console.loadbalancer.server.scheme=http
+
+  rustfs-bucket-init:
+    image: minio/mc:latest
+    entrypoint: >
+      /bin/sh -c "
+      echo 'Waiting for RustFS to be healthy...';
+      # Loop until the alias set command succeeds
+      until mc alias set rustfs http://rustfs:9000 $RUSTFS_ACCESS_KEY $RUSTFS_SECRET_KEY; do
+        echo 'RustFS not ready yet. Retrying in 5 seconds...';
+        sleep 5;
+      done;
+
+      echo 'RustFS is online. Creating bucket...';
+      # Try to create bucket, ignore error if it already exists
+      mc mb rustfs/${RUSTFS_BUCKET} --ignore-existing || true;
+      echo 'Init complete.';
+      "
+    environment:
+      RUSTFS_ACCESS_KEY: "${RUSTFS_ACCESS_KEY}"
+      RUSTFS_SECRET_KEY: "${RUSTFS_SECRET_KEY}"
+      RUSTFS_BUCKET: "media"
+    networks:
+      - web-public
+    deploy:
+      restart_policy:
+        condition: on-failure
 
 configs:
   traefik:

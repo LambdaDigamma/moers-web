@@ -11,7 +11,7 @@ services:
           - vite.dev.test
           - mailpit.dev.test
           - reverb.dev.test
-          - console.media.laravel.dev.test
+          - console.laravel.dev.test
           - media.laravel.dev.test
     volumes:
       # Mount the Docker socket as read-only so Traefik can listen to events
@@ -149,12 +149,9 @@ services:
 
   # Replace MinIO service with RustFS for development environment
   rustfs:
-    image: 'rustfs/rustfs:latest'
+    image: rustfs/rustfs:latest
     security_opt:
       - "no-new-privileges:true"
-    ports:
-      - "9000:9000"
-      - "9001:9001"
     environment:
       RUSTFS_VOLUMES: '/data'
       RUSTFS_ADDRESS: '0.0.0.0:9000'
@@ -167,9 +164,6 @@ services:
       RUSTFS_SECRET_KEY: 'password'
       RUSTFS_LOG_LEVEL: 'info'
       RUSTFS_OBS_LOGGER_LEVEL: 'info'
-      # Object cache (optional)
-      RUSTFS_OBJECT_CACHE_ENABLE: true
-      RUSTFS_OBJECT_CACHE_TTL_SECS: 300
     volumes:
       - ./.infrastructure/volume_data/rustfs/data:/data
       - ./.infrastructure/volume_data/rustfs/logs:/app/logs
@@ -189,18 +183,24 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      # API
-      - "traefik.http.routers.rustfs.rule=Host(`media.laravel.dev.test`)"
-      - "traefik.http.routers.rustfs.entrypoints=websecure"
-      - "traefik.http.routers.rustfs.tls=true"
-      - "traefik.http.routers.rustfs.service=rustfs"
-      - "traefik.http.services.rustfs.loadbalancer.server.port=9000"
-      # Console
-      - "traefik.http.routers.rustfs-console.rule=Host(`console.media.laravel.dev.test`)"
+
+      # ---------- API ----------
+      - "traefik.http.routers.rustfs-api.rule=Host(`media.laravel.dev.test`)"
+      - "traefik.http.routers.rustfs-api.entrypoints=websecure"
+      - "traefik.http.routers.rustfs-api.tls=true"
+      - "traefik.http.routers.rustfs-api.priority=20"
+      - "traefik.http.routers.rustfs-api.service=rustfs-api-svc"
+      - "traefik.http.services.rustfs-api-svc.loadbalancer.server.port=9000"
+      - "traefik.http.services.rustfs-api-svc.loadbalancer.server.scheme=http"
+
+      # ---------- Console ----------
+      - "traefik.http.routers.rustfs-console.rule=Host(`console.laravel.dev.test`)"
       - "traefik.http.routers.rustfs-console.entrypoints=websecure"
       - "traefik.http.routers.rustfs-console.tls=true"
-      - "traefik.http.routers.rustfs-console.service=rustfs-console"
-      - "traefik.http.services.rustfs-console.loadbalancer.server.port=9001"
+      - "traefik.http.routers.rustfs-console.priority=10"
+      - "traefik.http.routers.rustfs-console.service=rustfs-console-svc"
+      - "traefik.http.services.rustfs-console-svc.loadbalancer.server.port=9001"
+      - "traefik.http.services.rustfs-console-svc.loadbalancer.server.scheme=http"
 
   volume-permission-helper:
     image: alpine
