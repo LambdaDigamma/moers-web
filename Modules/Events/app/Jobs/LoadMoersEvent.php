@@ -65,14 +65,14 @@ class LoadMoersEvent implements ShouldQueue
         return Event::updateOrCreate(
             ['extras->unid' => $data->id],
             [
-                'name'         => $data->title,
-                'description'  => $data->field_nsf_teaser_text,
-                'start_date'   => $this->parseDate($data->field_evt_date?->value),
-                'end_date'     => $this->parseDate($data->field_evt_date?->end_value),
-                'url'          => 'https://moers.de' . $data->path->alias,
+                'name' => $data->title,
+                'description' => $data->field_nsf_teaser_text,
+                'start_date' => $this->parseDate($data->field_evt_date?->value),
+                'end_date' => $this->parseDate($data->field_evt_date?->end_value),
+                'url' => 'https://moers.de'.$data->path->alias,
                 'published_at' => now(),
-                'created_at'   => $this->parseDate($data->created),
-                'updated_at'   => $this->parseDate($data->changed),
+                'created_at' => $this->parseDate($data->created),
+                'updated_at' => $this->parseDate($data->changed),
             ]
         );
     }
@@ -139,7 +139,7 @@ class LoadMoersEvent implements ShouldQueue
             ->getData();
 
         $url = isset($mediaData->uri->url)
-            ? 'https://moers.de' . $mediaData->uri->url
+            ? 'https://moers.de'.$mediaData->uri->url
             : null;
 
         unset($mediaData);
@@ -155,11 +155,11 @@ class LoadMoersEvent implements ShouldQueue
                 ->addMediaFromUrl($url)
                 ->withCustomProperties(['alt' => $altText])
                 ->toMediaCollection(Event::HEADER_MEDIA_COLLECTION);
-        } catch (FileDoesNotExist | FileIsTooBig | FileCannotBeAdded $e) {
+        } catch (FileDoesNotExist|FileIsTooBig|FileCannotBeAdded $e) {
             Log::warning('Failed to attach teaser image', [
                 'event_id' => $event->id,
-                'url'      => $url,
-                'error'    => $e->getMessage(),
+                'url' => $url,
+                'error' => $e->getMessage(),
             ]);
         }
     }
@@ -170,20 +170,20 @@ class LoadMoersEvent implements ShouldQueue
     private function updateEventExtras(Event $event, Item $data, ?Item $venueData): void
     {
         $extras = [
-            'unid'            => $data->id,
+            'unid' => $data->id,
             'attendance_mode' => Event::ATTENDANCE_OFFLINE,
-            'location'        => $data->field_venue_alt,
+            'location' => $data->field_venue_alt,
         ];
 
         if ($venueData?->field_add_address) {
             $address = $venueData->field_add_address;
 
             $extras['location'] = $venueData->name;
-            $extras['street']   = trim(
+            $extras['street'] = trim(
                 "{$address->street} {$address->house_number}{$address->houseNumberAddition}"
             );
             $extras['postcode'] = $address->zip;
-            $extras['place']    = $address->city;
+            $extras['place'] = $address->city;
         }
 
         $event->update(['extras' => $extras]);

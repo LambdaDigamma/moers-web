@@ -10,6 +10,7 @@ use Swis\JsonApi\Client\Interfaces\DocumentInterface;
 class LoadMoersEvents extends Command
 {
     protected $signature = 'events:load-moers-events';
+
     protected $description = 'Load all events for the next month from moers backend.';
 
     public function handle(): int
