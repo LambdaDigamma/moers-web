@@ -13,6 +13,7 @@ services:
           - reverb.dev.test
           - console.laravel.dev.test
           - media.laravel.dev.test
+          - meilisearch.dev.test
     volumes:
       # Mount the Docker socket as read-only so Traefik can listen to events
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -48,6 +49,7 @@ services:
         USER_ID: ${SPIN_USER_ID}
         GROUP_ID: ${SPIN_GROUP_ID}
       dockerfile: Dockerfile.node
+    command: npm run dev
     volumes:
       - .:/usr/src/app/
     working_dir: /usr/src/app/

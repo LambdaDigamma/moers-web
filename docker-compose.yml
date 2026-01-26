@@ -1,6 +1,12 @@
 services:
   traefik:
-    image: traefik:v3.7
+    image: traefik:v3.6
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
   php:
     environment:
       SSL_MODE: "full"
@@ -15,7 +21,7 @@ services:
   postgres:
     image: imresamu/postgis:18-3.6-alpine # postgis/postgis:17-3.5
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
