@@ -27,6 +27,27 @@ jobs:
       - name: Set project name
         run: |
           echo "PROJECT_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+
+      - name: Enable IPv6 (Cloudflare WARP)
+        run: |
+          # 1. Add Cloudflare's GPG key and repo
+          curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+
+          # 2. Install WARP
+          sudo apt-get update && sudo apt-get install cloudflare-warp
+
+          # 3. Configure and Connect
+          warp-cli --accept-tos registration new
+          warp-cli --accept-tos mode warp
+          warp-cli --accept-tos connect
+
+          # 4. Wait for connectivity
+          echo "Waiting for IPv6..."
+          until curl -s -6 https://ipv6.google.com > /dev/null; do
+            sleep 1
+          done
+          echo "IPv6 is ready."
       - uses: serversideup/github-action-docker-swarm-deploy@v3
         with:
           env_file_base64: "${{ secrets.PRODUCTION_ENV_FILE_BASE64 }}"
