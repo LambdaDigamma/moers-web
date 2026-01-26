@@ -34,12 +34,12 @@ jobs:
       - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
         name: Configure Private Composer Sources (Lennart Fischer)
         env:
-          TOKEN: ${{ secrets.LAMBDADIGAMMA_TOKEN }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           $DOCKER_COMPOSE_CMD \
           run \
           php \
-          composer config github-oauth.github.com ${{ secrets.LAMBDADIGAMMA_TOKEN }}
+          composer config github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
 
       - if: ${{ steps.composer-vendor-restore.outputs.cache-hit != 'true' }}
         name: Configure Private Composer Sources (Media Library Pro)
