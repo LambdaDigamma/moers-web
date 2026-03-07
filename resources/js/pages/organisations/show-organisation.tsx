@@ -3,7 +3,10 @@ import { default as AppLayout } from '@/layouts/app-layout';
 import OrganisationLayout from '@/pages/organisations/organisation-layout';
 import { Head } from '@inertiajs/react';
 import React from 'react';
-import ShowOrganisationProps = Modules.Management.Data.ShowOrganisationProps;
+
+type ShowOrganisationProps = {
+    organisation: Modules.Management.Data.Organisation;
+};
 
 const ShowOrganisation = ({ organisation }: ShowOrganisationProps) => {
     return (
