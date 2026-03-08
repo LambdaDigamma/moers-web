@@ -12,7 +12,9 @@ class PostController extends Controller
 {
     public function store(StorePostRequest $request): JsonResponse|RedirectResponse
     {
-        $post = Post::create($request->validated());
+        $post = new Post;
+        $post->forceFill($request->validated());
+        $post->save();
 
         return $request->wantsJson()
                 ? new JsonResponse($post, 302)

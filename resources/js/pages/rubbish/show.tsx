@@ -1,9 +1,10 @@
 import { DefaultContainer } from '@/components/default-container';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { usePrimaryRubbishStreet } from '@/hooks/use-primary-rubbish-street';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
-import { CalendarDays, Download, FileText, Leaf, Recycle, Trash2 } from 'lucide-react';
+import { CalendarDays, Download, FileText, Leaf, Recycle, Star, Trash2 } from 'lucide-react';
 import { ReactNode } from 'react';
 
 type PickupItem = {
@@ -67,6 +68,9 @@ function formatDate(date: string): string {
 }
 
 function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
+    const { primaryStreet, isLoaded, setPrimaryStreet, clearPrimaryStreet } = usePrimaryRubbishStreet();
+    const isPrimaryStreet = primaryStreet?.id === street.id;
+
     return (
         <>
             <Head title={`Abfallkalender ${street.name}`} />
@@ -117,6 +121,33 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                         PDF laden
                                     </a>
                                 </Button>
+                                {isLoaded ? (
+                                    isPrimaryStreet ? (
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={clearPrimaryStreet}
+                                        >
+                                            <Star className="size-4" />
+                                            Primäre Straße entfernen
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={() =>
+                                                setPrimaryStreet({
+                                                    id: street.id,
+                                                    name: street.name,
+                                                    street_addition: street.street_addition,
+                                                })
+                                            }
+                                        >
+                                            <Star className="size-4" />
+                                            Als primäre Straße speichern
+                                        </Button>
+                                    )
+                                ) : null}
                             </div>
                         </CardHeader>
                     </Card>

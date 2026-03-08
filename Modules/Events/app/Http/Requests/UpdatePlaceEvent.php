@@ -14,7 +14,7 @@ class UpdatePlaceEvent extends FormRequest
     public function rules(): array
     {
         return [
-            'place_id' => ['nullable', 'exists:places,id'],
+            'place_id' => ['nullable', 'exists:locations,id'],
         ];
     }
 }

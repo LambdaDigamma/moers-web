@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Waste\Http\Controllers\RubbishController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,4 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([], function () {});
+Route::get('abfallkalender', [RubbishController::class, 'index'])->name('rubbish.index');
+Route::get('abfallkalender/{street}', [RubbishController::class, 'show'])->name('rubbish.show');

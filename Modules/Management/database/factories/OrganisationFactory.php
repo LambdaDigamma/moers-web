@@ -11,8 +11,11 @@ class OrganisationFactory extends Factory
 
     public function definition(): array
     {
+        $name = fake()->company;
+
         return [
-            'name' => fake()->company,
+            'name' => $name,
+            'slug' => fake()->unique()->slug(3),
             'description' => fake()->sentence(20),
         ];
     }

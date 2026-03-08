@@ -1,9 +1,10 @@
 import { DefaultContainer } from '@/components/default-container';
+import { PrimaryRubbishStreetCard } from '@/components/primary-rubbish-street-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
-import { ArrowRight, Building2, CalendarRange, Newspaper, Smartphone, Trash2 } from 'lucide-react';
+import { ArrowRight, Building2, CalendarRange, Newspaper, Smartphone } from 'lucide-react';
 import { ReactNode } from 'react';
 
 type HomeProps = {
@@ -210,31 +211,7 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                         </CardContent>
                     </Card>
 
-                    <Card className="border-zinc-200 py-0 dark:border-white/10">
-                        <CardHeader className="border-b border-zinc-200/80 py-6 dark:border-white/10">
-                            <div className="flex items-center justify-between gap-4">
-                                <div>
-                                    <CardTitle className="flex items-center gap-2 text-2xl">
-                                        <Trash2 className="size-5 text-emerald-600" />
-                                        Abfallkalender
-                                    </CardTitle>
-                                    <CardDescription>Schneller Einstieg ohne Konto</CardDescription>
-                                </div>
-                            </div>
-                        </CardHeader>
-                        <CardContent className="space-y-4 py-6">
-                            <p className="text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-                                Suche deine Strasse, rufe die naechsten Abholtage auf und lade den Kalender als ICS
-                                oder PDF herunter.
-                            </p>
-                            <Button
-                                asChild
-                                className="w-full bg-emerald-700 text-white hover:bg-emerald-800"
-                            >
-                                <Link href="/abfallkalender">Strasse suchen</Link>
-                            </Button>
-                        </CardContent>
-                    </Card>
+                    <PrimaryRubbishStreetCard />
                 </div>
 
                 <div className="grid gap-6 xl:grid-cols-2">
