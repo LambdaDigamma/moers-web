@@ -17,7 +17,7 @@ type PostProps = {
 };
 
 const formatDate = (value: string | null) => {
-    if (! value) {
+    if (!value) {
         return null;
     }
 
@@ -44,7 +44,7 @@ function NewsShow({ post }: PostProps) {
                     >
                         <Link href={route('news.index')}>
                             <ChevronLeft className="size-4" />
-                            Zurueck zu den News
+                            Zurück zu den News
                         </Link>
                     </Button>
                 </div>
@@ -53,14 +53,10 @@ function NewsShow({ post }: PostProps) {
                     <CardHeader className="border-b py-8">
                         <CardDescription>{formatDate(post.published_at) ?? 'Aktuell'}</CardDescription>
                         <CardTitle className="text-3xl md:text-4xl">{post.title}</CardTitle>
-                        {post.summary ? (
-                            <div className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">
-                                {post.summary}
-                            </div>
-                        ) : null}
+                        {post.summary ? <div className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">{post.summary}</div> : null}
                     </CardHeader>
                     <CardContent className="space-y-6 py-8">
-                        <div className="max-w-3xl whitespace-pre-line text-base leading-8 text-zinc-700 dark:text-zinc-300">
+                        <div className="max-w-3xl text-base leading-8 whitespace-pre-line text-zinc-700 dark:text-zinc-300">
                             {post.summary || 'Zu diesem Beitrag liegt noch kein ausfuehrlicher Text vor.'}
                         </div>
 

@@ -1,0 +1,115 @@
+<?php
+
+use Illuminate\Support\Carbon;
+use Inertia\Testing\AssertableInertia as Assert;
+use Modules\Events\Models\Event;
+use Modules\Locations\Models\Location;
+use Modules\Management\Models\Organisation;
+
+use function Pest\Laravel\get;
+use function Pest\Laravel\travelTo;
+
+it('shows filtered public events with available filter options', function () {
+    travelTo(Carbon::parse('2026-03-08 10:00:00'));
+
+    $organisation = Organisation::factory()->create([
+        'name' => 'Moers Festival',
+        'slug' => 'moers-festival',
+    ]);
+
+    $location = Location::factory()->create([
+        'name' => 'Festivalhalle',
+        'street_name' => 'Kastell 3',
+        'postalcode' => '47441',
+        'postal_town' => 'Moers',
+    ]);
+
+    Event::factory()->published()->create([
+        'name' => 'Jazznacht',
+        'description' => 'Live in der Innenstadt',
+        'start_date' => Carbon::parse('2026-04-12 19:30:00'),
+        'end_date' => Carbon::parse('2026-04-12 22:00:00'),
+        'category' => ['de' => 'Konzert', 'en' => 'Konzert'],
+        'organisation_id' => $organisation->id,
+        'place_id' => $location->id,
+        'extras' => collect([
+            'collection' => 'moers-festival-2026',
+            'lineup' => ['Band A'],
+        ]),
+    ]);
+
+    Event::factory()->published()->create([
+        'name' => 'Buergersprechstunde',
+        'start_date' => Carbon::parse('2026-04-13 10:00:00'),
+    ]);
+
+    get("/events?search=Jazz&type=upcoming&collection=moers-festival-2026&organisation={$organisation->id}&location={$location->id}")
+        ->assertSuccessful()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('events/index')
+            ->where('filters.search', 'Jazz')
+            ->where('filters.type', 'upcoming')
+            ->where('filters.collection', 'moers-festival-2026')
+            ->where('filters.organisation', (string) $organisation->id)
+            ->where('filters.location', (string) $location->id)
+            ->has('events.data', 1)
+            ->where('events.data.0.name', 'Jazznacht')
+            ->where('events.data.0.collection', 'moers-festival-2026')
+            ->where('events.data.0.organisationName', 'Moers Festival')
+            ->where('events.data.0.locationName', 'Festivalhalle')
+            ->has('availableFilters.types', 3)
+            ->has('availableFilters.collections', 1)
+            ->where('availableFilters.collections.0', 'moers-festival-2026')
+            ->has('availableFilters.organisations', 1)
+            ->where('availableFilters.organisations.0.label', 'Moers Festival')
+            ->has('availableFilters.locations', 1)
+            ->where('availableFilters.locations.0.label', 'Festivalhalle'));
+});
+
+it('shows a public event detail page with real metadata', function () {
+    $organisation = Organisation::factory()->create([
+        'name' => 'Moers Festival',
+        'slug' => 'moers-festival',
+    ]);
+
+    $location = Location::factory()->create([
+        'name' => 'Festivalhalle',
+        'street_name' => 'Kastell 3',
+        'postalcode' => '47441',
+        'postal_town' => 'Moers',
+        'lat' => 51.451,
+        'lng' => 6.628,
+    ]);
+
+    $event = Event::factory()->published()->create([
+        'name' => 'Jazznacht',
+        'description' => 'Live in der Innenstadt',
+        'url' => 'https://example.com/jazznacht',
+        'start_date' => Carbon::parse('2026-04-12 19:30:00'),
+        'category' => ['de' => 'Konzert', 'en' => 'Konzert'],
+        'organisation_id' => $organisation->id,
+        'place_id' => $location->id,
+        'extras' => collect([
+            'collection' => 'moers-festival-2026',
+            'lineup' => ['Band A', 'Band B'],
+        ]),
+    ]);
+
+    get("/events/{$event->id}?back=%2Fevents%3Fcollection%3Dmoers-festival-2026")
+        ->assertSuccessful()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('events/show-event')
+            ->where('backUrl', '/events?collection=moers-festival-2026')
+            ->where('event.name', 'Jazznacht')
+            ->where('event.category', 'Konzert')
+            ->where('event.collection', 'moers-festival-2026')
+            ->where('event.organisationName', 'Moers Festival')
+            ->where('event.organisationSlug', 'moers-festival')
+            ->where('event.locationName', 'Festivalhalle')
+            ->where('event.street', 'Kastell 3')
+            ->where('event.postcode', '47441')
+            ->where('event.city', 'Moers')
+            ->where('event.url', 'https://example.com/jazznacht')
+            ->where('event.artists.0', 'Band A')
+            ->where('event.calendarUrl', fn ($value) => is_string($value) && str_starts_with($value, 'data:text/calendar;charset=utf8;base64,')));
+});

@@ -2,37 +2,89 @@
 
 namespace Modules\Events\Data;
 
-use Illuminate\Support\Carbon;
-use Spatie\LaravelData\Attributes\MapInputName;
+use Carbon\CarbonInterface;
+use Illuminate\Support\Str;
+use Modules\Events\Models\Event as EventModel;
 use Spatie\LaravelData\Data;
 
 class Event extends Data
 {
     public function __construct(
-        #[MapInputName('id')]
         public int $id,
-        #[MapInputName('name')]
         public string $name,
-        #[MapInputName('start_date')]
-        public ?Carbon $startDate,
-        #[MapInputName('end_date')]
-        public ?Carbon $endDate,
-        #[MapInputName('description')]
+        public ?CarbonInterface $startDate,
+        public ?CarbonInterface $endDate,
         public ?string $description,
-        #[MapInputName('pageId')]
+        public ?string $excerpt,
         public ?int $pageId,
-
-        #[MapInputName('created_at')]
-        public ?Carbon $createdAt,
-        #[MapInputName('updated_at')]
-        public ?Carbon $updatedAt,
-        #[MapInputName('published_at')]
-        public ?Carbon $publishedAt,
-        #[MapInputName('cancelled_at')]
-        public ?Carbon $cancelledAt,
-        #[MapInputName('archived_at')]
-        public ?Carbon $archivedAt,
-        #[MapInputName('deleted_at')]
-        public ?Carbon $deletedAt,
+        public ?string $url,
+        public ?string $calendarUrl,
+        public ?string $category,
+        public ?string $collection,
+        public ?string $attendanceMode,
+        public bool $isOnline,
+        public array $artists,
+        public ?string $locationName,
+        public ?string $street,
+        public ?string $postcode,
+        public ?string $city,
+        public ?float $latitude,
+        public ?float $longitude,
+        public ?string $organisationName,
+        public ?string $organisationSlug,
+        public ?string $organisationLogoPath,
+        public ?string $headerImageUrl,
+        public ?CarbonInterface $createdAt,
+        public ?CarbonInterface $updatedAt,
+        public ?CarbonInterface $publishedAt,
+        public ?CarbonInterface $cancelledAt,
+        public ?CarbonInterface $archivedAt,
+        public ?CarbonInterface $deletedAt,
     ) {}
+
+    public static function fromModel(EventModel $event): self
+    {
+        $place = $event->place;
+        $organisation = $event->organisation;
+        $description = is_string($event->description) ? trim($event->description) : null;
+
+        $calendarUrl = null;
+
+        if ($event->start_date !== null) {
+            $calendarUrl = $event->ics();
+        }
+
+        return new self(
+            id: $event->id,
+            name: $event->name,
+            startDate: $event->start_date,
+            endDate: $event->end_date,
+            description: $description,
+            excerpt: $description ? Str::of(strip_tags($description))->squish()->limit(180)->toString() : null,
+            pageId: $event->page_id,
+            url: $event->url,
+            calendarUrl: $calendarUrl,
+            category: $event->category,
+            collection: $event->collection,
+            attendanceMode: $event->attendance_mode,
+            isOnline: $event->is_online,
+            artists: $event->artists ?? [],
+            locationName: $place?->name ?? $event->extras?->get('location'),
+            street: $place?->street_name ?? $event->extras?->get('street'),
+            postcode: $place?->postalcode ?? $event->extras?->get('postcode'),
+            city: $place?->postal_town ?? $event->extras?->get('place'),
+            latitude: $place?->lat !== null ? (float) $place->lat : null,
+            longitude: $place?->lng !== null ? (float) $place->lng : null,
+            organisationName: $organisation?->name ?? $event->extras?->get('organizer'),
+            organisationSlug: $organisation?->slug,
+            organisationLogoPath: $organisation?->logo_path,
+            headerImageUrl: $event->getFirstMediaUrl(EventModel::HEADER_MEDIA_COLLECTION) ?: null,
+            createdAt: $event->created_at,
+            updatedAt: $event->updated_at,
+            publishedAt: $event->published_at,
+            cancelledAt: $event->cancelled_at,
+            archivedAt: $event->archived_at,
+            deletedAt: $event->deleted_at,
+        );
+    }
 }

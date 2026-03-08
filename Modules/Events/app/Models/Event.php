@@ -23,6 +23,7 @@ use Modules\Events\Data\Link;
 use Modules\Events\Database\Factories\EventFactory;
 use Modules\Events\Exceptions\InvalidLink;
 use Modules\Locations\Models\Location;
+use Modules\Management\Models\Organisation;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -154,6 +155,11 @@ class Event extends Model implements HasMedia
     public function page(): BelongsTo
     {
         return $this->belongsTo(Page::class, 'page_id', 'id');
+    }
+
+    public function organisation(): BelongsTo
+    {
+        return $this->belongsTo(Organisation::class, 'organisation_id', 'id');
     }
 
     public function place(): BelongsTo
@@ -393,16 +399,19 @@ class Event extends Model implements HasMedia
         return $query->where('published_at', '=', null);
     }
 
-    public function scopeFilter($query, array $filters): void
+    public function scopeFilter(Builder $query, array $filters): Builder
     {
         $locale = app()->getLocale();
         $fallback = config('app.fallback_locale', 'en');
 
-        $query
+        return $query
             ->when($filters['search'] ?? null, function ($query, $search) use ($locale, $fallback) {
                 $query
-                    ->where("name->$locale", 'like', '%'.$search.'%')
-                    ->orWhere("name->$fallback", 'like', '%'.$search.'%');
+                    ->where(function (Builder $nestedQuery) use ($search, $locale, $fallback) {
+                        $nestedQuery
+                            ->where("name->$locale", 'like', '%'.$search.'%')
+                            ->orWhere("name->$fallback", 'like', '%'.$search.'%');
+                    });
             })
             ->when($filters['type'] ?? null, function ($query, $type) {
                 if ($type === 'upcoming') {
@@ -429,8 +438,17 @@ class Event extends Model implements HasMedia
             })
             ->when($filters['category'] ?? null, function ($query, $category) use ($locale, $fallback) {
                 $query
-                    ->where("category->$locale", 'like', '%'.$category.'%')
-                    ->orWhere("category->$fallback", 'like', '%'.$category.'%');
+                    ->where(function (Builder $nestedQuery) use ($category, $locale, $fallback) {
+                        $nestedQuery
+                            ->where("category->$locale", 'like', '%'.$category.'%')
+                            ->orWhere("category->$fallback", 'like', '%'.$category.'%');
+                    });
+            })
+            ->when($filters['organisation'] ?? null, function (Builder $query, $organisation) {
+                $query->where('organisation_id', '=', $organisation);
+            })
+            ->when($filters['location'] ?? null, function (Builder $query, $location) {
+                $query->where('place_id', '=', $location);
             });
     }
 
@@ -552,7 +570,7 @@ class Event extends Model implements HasMedia
         if ($start_date == null) {
             throw InvalidLink::noStartDateProvided();
         } elseif ($end_date == null) {
-            $end_date = $start_date->addMinutes(config('events.event_default_duration'));
+            $end_date = $start_date->copy()->addMinutes(config('events.event_default_duration'));
         }
 
         $link = Link::create($this->name, $start_date, $end_date)

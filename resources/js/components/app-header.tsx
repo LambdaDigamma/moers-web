@@ -69,11 +69,6 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
           ]
         : [
               {
-                  title: 'Start',
-                  url: '/',
-                  icon: LayoutGrid,
-              },
-              {
                   title: 'Veranstaltungen',
                   url: '/events',
                   icon: Calendar,

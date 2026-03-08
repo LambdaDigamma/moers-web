@@ -1,154 +1,283 @@
+import { AutoDateRange } from '@/components/auto-timerange';
 import { DefaultContainer } from '@/components/default-container';
-import { Button } from '@/components/ui/button-catalyst';
-import { Link } from '@/components/ui/link';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Heading } from '@/components/ui/heading';
 import AppLayout from '@/layouts/app-layout';
-import { Head } from '@inertiajs/react';
+import { formatDateTime } from '@/lib/date';
+import { formatCollectionLabel, getEventAddressLabel, getEventLocationLabel, getEventMapsUrl, getEventPrimaryLabel } from '@/lib/events';
+import { Head, Link } from '@inertiajs/react';
+import { ArrowUpRight, CalendarDays, ChevronLeft, Globe, MapPin, Ticket, UserRound } from 'lucide-react';
 import { ReactNode } from 'react';
 import Event = Modules.Events.Data.Event;
 
-const ShowEvent = ({ event, formattedDate }: { event: Event; formattedDate: string }) => {
+const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
+    const primaryLabel = getEventPrimaryLabel(event);
+    const collectionLabel = formatCollectionLabel(event.collection);
+    const locationLabel = getEventLocationLabel(event);
+    const addressLabel = getEventAddressLabel(event);
+    const mapsUrl = getEventMapsUrl(event);
+
     return (
         <>
-            <Head title="Veranstaltung"></Head>
-            <DefaultContainer>
-                <main className="py-10">
-                    <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-flow-col-dense lg:grid-cols-3">
-                        <div className="space-y-6 lg:col-span-2 lg:col-start-1">
-                            <section aria-labelledby="applicant-information-title">
-                                <div className="bg-white shadow sm:rounded-lg">
-                                    <div className="px-4 py-5 sm:px-6">
-                                        <h2
-                                            id="applicant-information-title"
-                                            className="text-lg leading-6 font-medium text-gray-900"
-                                        >
-                                            {event.name}
-                                        </h2>
+            <Head title={event.name} />
+
+            <DefaultContainer className="pb-16">
+                <main className="space-y-8 py-8">
+                    <div>
+                        <Button
+                            asChild
+                            variant="ghost"
+                            className="-ml-3"
+                        >
+                            <Link href={backUrl}>
+                                <ChevronLeft className="size-4" />
+                                Zurück zur Liste
+                            </Link>
+                        </Button>
+                    </div>
+
+                    <section className="overflow-hidden rounded-[2rem] border border-zinc-200 bg-zinc-950 text-white shadow-sm dark:border-white/10">
+                        <div className="relative">
+                            {event.headerImageUrl ? (
+                                <img
+                                    src={event.headerImageUrl}
+                                    alt={event.name}
+                                    className="absolute inset-0 h-full w-full object-cover opacity-35"
+                                />
+                            ) : null}
+                            <div className="absolute inset-0 bg-linear-to-br from-zinc-950 via-zinc-950/90 to-cyan-950/80" />
+
+                            <div className="relative grid gap-8 p-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(18rem,0.8fr)] lg:p-8">
+                                <div className="space-y-6">
+                                    <div className="flex flex-wrap gap-2">
+                                        {primaryLabel ? <Badge variant="secondary">{primaryLabel}</Badge> : null}
+                                        {collectionLabel && collectionLabel !== primaryLabel ? (
+                                            <Badge variant="outline">{collectionLabel}</Badge>
+                                        ) : null}
+                                        {event.organisationName ? <Badge variant="outline">{event.organisationName}</Badge> : null}
+                                        {event.isOnline ? <Badge variant="outline">Online</Badge> : null}
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <Heading className="text-4xl leading-tight text-white sm:text-5xl">{event.name}</Heading>
+                                        <p className="max-w-3xl text-sm leading-7 text-zinc-200">
+                                            {event.excerpt ?? 'Weitere Informationen zu dieser Veranstaltung folgen.'}
+                                        </p>
                                     </div>
 
                                     {event.cancelledAt ? <EventCancelledBanner /> : null}
 
-                                    <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                                        <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                                            <div className="sm:col-span-1">
-                                                <dt className="text-sm font-medium text-gray-500">Datum</dt>
-                                                <dd className="mt-1 text-sm text-gray-900">{formattedDate}</dd>
-                                            </div>
-                                            <div className="sm:col-span-1">
-                                                <dt className="text-sm font-medium text-gray-500">Kategorie</dt>
-                                                <dd className="mt-1 text-sm text-gray-900">
-                                                    {/*@if ($event->category)*/}
-                                                    {/*{{ $event->category ?? 'n/v' }}*/}
-                                                    {/*@else*/}
-                                                    {/*n/v*/}
-                                                    {/*@endif*/}
-                                                </dd>
-                                            </div>
-                                            <div className="sm:col-span-1">
-                                                <dt className="text-sm font-medium text-gray-500">Veranstalter</dt>
-                                                <dd className="mt-1 text-sm text-gray-900">
-                                                    <div className="flex flex-row items-center space-x-2">
-                                                        <div className="size-5 rounded-full border border-gray-100 bg-white"></div>
-                                                        <span>moers festival</span>
-                                                    </div>
-                                                </dd>
-                                            </div>
-                                            <div className="sm:col-span-1">
-                                                <dt className="text-sm font-medium text-gray-500">Ort</dt>
-                                                <dd className="mt-1 text-sm text-gray-900"></dd>
-                                            </div>
-                                            <div className="sm:col-span-2">
-                                                <dt className="text-sm font-medium text-gray-500">Beschreibung</dt>
-                                                <dd className="mt-1 max-w-prose text-sm text-gray-900">
-                                                    {event.description}
-                                                    {/*{!! nl2br($event->description) !!}*/}
-                                                </dd>
-                                            </div>
-                                        </dl>
-                                    </div>
-                                    <div>
-                                        <Link
-                                            href="#"
-                                            className="block bg-gray-50 px-4 py-4 text-center text-sm font-medium text-gray-500 hover:text-gray-700 sm:rounded-b-lg"
-                                        >
-                                            Kalendereintrag laden
-                                        </Link>
-                                        {/*<a href="{{ $event->ics() }}" download="{{$event->name}}.ics"*/}
-                                        {/*   class="block px-4 py-4 text-sm font-medium text-center text-gray-500 bg-gray-50 hover:text-gray-700 sm:rounded-b-lg">*/}
-                                        {/*    Kalendereintrag laden*/}
-                                        {/*</a>*/}
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                        <div className="lg:col-span-1 lg:col-start-3">
-                            <section aria-labelledby="organizer-title">
-                                <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-                                    <h2
-                                        id="organizer-title"
-                                        className="text-xs font-semibold tracking-wider text-blue-500 uppercase"
-                                    >
-                                        Organisator
-                                    </h2>
-                                    <p
-                                        id="organizer"
-                                        className="mt-1 text-lg font-medium text-gray-900"
-                                    >
-                                        {/*@if ($event->extras)*/}
-                                        {/*{{ $event->extras->get('organizer', 'n/v') }}*/}
-                                        {/*@endif*/}
-                                    </p>
-                                </div>
-                            </section>
-                            <section
-                                aria-labelledby="location-title"
-                                className="mt-6"
-                            >
-                                <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-                                    <h2
-                                        id="location-title"
-                                        className="text-xs font-semibold tracking-wider text-blue-500 uppercase"
-                                    >
-                                        Veranstaltungsort
-                                    </h2>
-
-                                    <div className="mt-1">
-                                        <address className="text-sm leading-none text-gray-900">
-                                            <p
-                                                id="location"
-                                                className="text-lg leading-6 font-medium text-gray-900"
-                                            >
-                                                {/*@if ($event->extras && $event->extras->get('location'))*/}
-                                                {/*{{$event->extras->get('location')}}<br/>*/}
-                                                {/*@endif*/}
-                                            </p>
-                                            <div className="mt-3 space-y-2">
-                                                <p>
-                                                    {/*@if ($event->extras && $event->extras->get('street'))*/}
-                                                    {/*{{$event->extras->get('street')}}<br/>*/}
-                                                    {/*@endif*/}
-                                                </p>
-                                                <p>
-                                                    {/*@if ($event->extras && $event->extras->get('postcode'))*/}
-                                                    {/*{{$event->extras->get('postcode') . " " . $event->extras->get('place')}}*/}
-                                                    {/*@endif*/}
-                                                </p>
-                                            </div>
-                                        </address>
-                                    </div>
-
-                                    <div className="mt-6 h-44 overflow-hidden rounded-lg bg-gray-100">
-                                        <img
-                                            src="#"
-                                            alt=""
-                                            className="h-full w-full object-cover"
+                                    <div className="grid gap-3 sm:grid-cols-2">
+                                        <FeaturePill
+                                            icon={<CalendarDays className="size-4" />}
+                                            label="Termin"
+                                            value={
+                                                event.startDate ? (
+                                                    <AutoDateRange
+                                                        start={event.startDate}
+                                                        end={event.endDate}
+                                                    />
+                                                ) : (
+                                                    'Termin wird noch bekanntgegeben'
+                                                )
+                                            }
+                                        />
+                                        <FeaturePill
+                                            icon={<MapPin className="size-4" />}
+                                            label="Ort"
+                                            value={locationLabel ?? 'Ort wird noch bekanntgegeben'}
                                         />
                                     </div>
-                                    <div className="mt-6 flex flex-col justify-stretch">
-                                        <Button color="yellow">Navigation starten</Button>
-                                        {/*<x-button>Navigation starten</x-button>*/}
-                                    </div>
                                 </div>
-                            </section>
+
+                                <Card className="border-white/10 bg-white/10 py-0 text-white shadow-none backdrop-blur">
+                                    <CardHeader className="px-6 pt-6">
+                                        <CardTitle>Auf einen Blick</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="space-y-5 px-6 pb-6">
+                                        <DetailItem
+                                            icon={<CalendarDays className="size-4" />}
+                                            label="Beginn"
+                                            value={
+                                                event.startDate
+                                                    ? (formatDateTime(event.startDate, { dateStyle: 'full', timeStyle: 'short' }) ?? 'n/v')
+                                                    : 'n/v'
+                                            }
+                                        />
+                                        <DetailItem
+                                            icon={<UserRound className="size-4" />}
+                                            label="Veranstalter"
+                                            value={event.organisationName ?? 'n/v'}
+                                        />
+                                        <DetailItem
+                                            icon={<MapPin className="size-4" />}
+                                            label="Adresse"
+                                            value={addressLabel ?? locationLabel ?? 'n/v'}
+                                        />
+                                        <div className="flex flex-wrap gap-3">
+                                            {event.calendarUrl ? (
+                                                <Button
+                                                    asChild
+                                                    variant="secondary"
+                                                    className="bg-white text-zinc-950 hover:bg-white/90"
+                                                >
+                                                    <a
+                                                        href={event.calendarUrl}
+                                                        download={`${event.name}.ics`}
+                                                    >
+                                                        <Ticket className="size-4" />
+                                                        Kalendereintrag
+                                                    </a>
+                                                </Button>
+                                            ) : null}
+
+                                            {mapsUrl ? (
+                                                <Button
+                                                    asChild
+                                                    variant="outline"
+                                                    className="border-white/15 bg-transparent text-white hover:bg-white/10 hover:text-white"
+                                                >
+                                                    <a
+                                                        href={mapsUrl}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                    >
+                                                        <MapPin className="size-4" />
+                                                        Route oeffnen
+                                                    </a>
+                                                </Button>
+                                            ) : null}
+
+                                            {event.url ? (
+                                                <Button
+                                                    asChild
+                                                    variant="outline"
+                                                    className="border-white/15 bg-transparent text-white hover:bg-white/10 hover:text-white"
+                                                >
+                                                    <a
+                                                        href={event.url}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                    >
+                                                        <ArrowUpRight className="size-4" />
+                                                        Originalquelle
+                                                    </a>
+                                                </Button>
+                                            ) : null}
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div className="grid gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,0.9fr)]">
+                        <Card className="rounded-[2rem] py-0">
+                            <CardHeader className="px-6 pt-6">
+                                <CardTitle>Beschreibung</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-5 px-6 pb-6">
+                                <p className="text-sm leading-7 whitespace-pre-line text-zinc-700 dark:text-zinc-300">
+                                    {event.description ?? 'Zu dieser Veranstaltung liegt derzeit noch keine Beschreibung vor.'}
+                                </p>
+                            </CardContent>
+                        </Card>
+
+                        <div className="space-y-6">
+                            <Card className="rounded-[2rem] py-0">
+                                <CardHeader className="px-6 pt-6">
+                                    <CardTitle>Veranstaltungsort</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-3 px-6 pb-6 text-sm leading-6 text-zinc-700 dark:text-zinc-300">
+                                    <p className="font-medium text-zinc-950 dark:text-white">{locationLabel ?? 'Ort wird noch bekanntgegeben'}</p>
+                                    {addressLabel ? <p>{addressLabel}</p> : null}
+                                    {mapsUrl ? (
+                                        <a
+                                            href={mapsUrl}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="inline-flex items-center gap-2 text-sm font-medium text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
+                                        >
+                                            <MapPin className="size-4" />
+                                            Navigation starten
+                                        </a>
+                                    ) : null}
+                                </CardContent>
+                            </Card>
+
+                            {event.organisationName || event.organisationSlug ? (
+                                <Card className="rounded-[2rem] py-0">
+                                    <CardHeader className="px-6 pt-6">
+                                        <CardTitle>Veranstalter</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="space-y-4 px-6 pb-6">
+                                        <div className="flex items-center gap-3">
+                                            {event.organisationLogoPath ? (
+                                                <img
+                                                    src={event.organisationLogoPath}
+                                                    alt={event.organisationName ?? 'Organisation'}
+                                                    className="size-12 rounded-full border border-zinc-200 bg-white object-cover dark:border-white/10"
+                                                />
+                                            ) : (
+                                                <div className="flex size-12 items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-white/5">
+                                                    <UserRound className="size-5 text-zinc-400" />
+                                                </div>
+                                            )}
+
+                                            <div>
+                                                <p className="font-medium text-zinc-950 dark:text-white">
+                                                    {event.organisationName ?? 'Organisation'}
+                                                </p>
+                                                {event.organisationSlug ? (
+                                                    <Link
+                                                        href={route('organisations.show', [event.organisationSlug])}
+                                                        className="inline-flex items-center gap-1 text-sm text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
+                                                    >
+                                                        Profil ansehen
+                                                        <ArrowUpRight className="size-4" />
+                                                    </Link>
+                                                ) : null}
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ) : null}
+
+                            {event.artists.length > 0 ? (
+                                <Card className="rounded-[2rem] py-0">
+                                    <CardHeader className="px-6 pt-6">
+                                        <CardTitle>Mitwirkende</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="px-6 pb-6">
+                                        <div className="flex flex-wrap gap-2">
+                                            {event.artists.map((artist) => (
+                                                <Badge
+                                                    key={artist}
+                                                    variant="outline"
+                                                >
+                                                    {artist}
+                                                </Badge>
+                                            ))}
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ) : null}
+
+                            {event.isOnline ? (
+                                <Card className="rounded-[2rem] py-0">
+                                    <CardHeader className="px-6 pt-6">
+                                        <CardTitle>Teilnahme</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="px-6 pb-6">
+                                        <div className="flex items-start gap-3 text-sm leading-6 text-zinc-700 dark:text-zinc-300">
+                                            <Globe className="mt-0.5 size-4 shrink-0 text-zinc-400" />
+                                            <p>Diese Veranstaltung ist online verfuegbar oder findet digital statt.</p>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ) : null}
                         </div>
                     </div>
                 </main>
@@ -157,35 +286,34 @@ const ShowEvent = ({ event, formattedDate }: { event: Event; formattedDate: stri
     );
 };
 
-const EventCancelledBanner = () => {
+function FeaturePill({ icon, label, value }: { icon: ReactNode; label: string; value: ReactNode }) {
     return (
-        <div className="border-t border-gray-200">
-            <div className="border-l-4 border-red-400 bg-red-50 p-4">
-                <div className="flex">
-                    <div className="flex-shrink-0">
-                        <svg
-                            className="h-5 w-5 text-red-400"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            aria-hidden="true"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </div>
-                    <div className="ml-3">
-                        <p className="text-sm text-red-700">Diese Veranstaltung wurde abgesagt.</p>
-                    </div>
-                </div>
+        <div className="rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur">
+            <div className="flex items-center gap-2 text-xs font-medium tracking-[0.18em] text-zinc-300 uppercase">
+                {icon}
+                <span>{label}</span>
             </div>
+            <div className="mt-2 text-sm leading-6 text-white">{value}</div>
         </div>
     );
+}
+
+function DetailItem({ icon, label, value }: { icon: ReactNode; label: string; value: ReactNode }) {
+    return (
+        <div className="space-y-1">
+            <div className="flex items-center gap-2 text-xs font-medium tracking-[0.18em] text-zinc-300 uppercase">
+                {icon}
+                <span>{label}</span>
+            </div>
+            <div className="text-sm leading-6 text-white">{value}</div>
+        </div>
+    );
+}
+
+const EventCancelledBanner = () => {
+    return <div className="rounded-2xl border border-red-400/40 bg-red-500/15 p-4 text-sm text-red-100">Diese Veranstaltung wurde abgesagt.</div>;
 };
 
-ShowEvent.layout = (page: ReactNode) => <AppLayout children={page} />;
+ShowEvent.layout = (page: ReactNode) => <AppLayout>{page}</AppLayout>;
 
 export default ShowEvent;
