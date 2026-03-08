@@ -62,6 +62,9 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
 
                                     <div className="space-y-3">
                                         <Heading className="text-4xl leading-tight text-white sm:text-5xl">{event.name}</Heading>
+                                        {event.subtitle ? (
+                                            <p className="text-sm font-medium tracking-[0.12em] text-amber-200 uppercase">{event.subtitle}</p>
+                                        ) : null}
                                         <p className="max-w-3xl text-sm leading-7 text-zinc-200">
                                             {event.excerpt ?? 'Weitere Informationen zu dieser Veranstaltung folgen.'}
                                         </p>
@@ -230,6 +233,11 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                                 <p className="font-medium text-zinc-950 dark:text-white">
                                                     {event.organisationName ?? 'Organisation'}
                                                 </p>
+                                                {event.organizerStreet || event.organizerPostcode || event.organizerCity ? (
+                                                    <p className="text-sm text-zinc-600 dark:text-zinc-300">
+                                                        {[event.organizerStreet, [event.organizerPostcode, event.organizerCity].filter(Boolean).join(' ')].filter(Boolean).join(', ')}
+                                                    </p>
+                                                ) : null}
                                                 {event.organisationSlug ? (
                                                     <Link
                                                         href={route('organisations.show', [event.organisationSlug])}
@@ -240,6 +248,36 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                                     </Link>
                                                 ) : null}
                                             </div>
+                                        </div>
+
+                                        <div className="flex flex-col gap-2 text-sm">
+                                            {event.organizerPhone ? (
+                                                <a
+                                                    href={`tel:${event.organizerPhone}`}
+                                                    className="text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
+                                                >
+                                                    {event.organizerPhone}
+                                                </a>
+                                            ) : null}
+                                            {event.organizerEmail ? (
+                                                <a
+                                                    href={`mailto:${event.organizerEmail}`}
+                                                    className="text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
+                                                >
+                                                    {event.organizerEmail}
+                                                </a>
+                                            ) : null}
+                                            {event.organizerWebsite ? (
+                                                <a
+                                                    href={event.organizerWebsite}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="inline-flex items-center gap-1 text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
+                                                >
+                                                    Webseite
+                                                    <ArrowUpRight className="size-4" />
+                                                </a>
+                                            ) : null}
                                         </div>
                                     </CardContent>
                                 </Card>

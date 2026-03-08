@@ -4,29 +4,32 @@ namespace Modules\Events\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
+use Modules\Events\Data\Event as EventData;
 use Modules\Events\Models\Event;
-use Modules\Events\Resources\EventCollection;
+use Spatie\LaravelData\PaginatedDataCollection;
 
 class EventController extends Controller
 {
-    public function index(): EventCollection
+    public function index(): PaginatedDataCollection
     {
         $events = Event::query()
-            // ->with('place')
             ->chronological()
-            ->with(['place'])
+            ->with(['media', 'place', 'organisation.media'])
             ->future()
             ->jsonPaginate();
 
-        return new EventCollection($events);
+        return EventData::collect(
+            $events->through(fn (Event $event) => EventData::fromModel($event)),
+            PaginatedDataCollection::class,
+        );
     }
 
-    public function show(int $id)
+    public function show(int $id): EventData
     {
         $event = Cache::remember('api.events.show.'.$id, 2 * 60, function () use ($id) {
-            return Event::query()->with(['page', 'place'])->findOrFail($id);
+            return Event::query()->with(['media', 'page', 'place', 'organisation.media'])->findOrFail($id);
         });
 
-        return new EventCollection($event);
+        return EventData::fromModel($event);
     }
 }

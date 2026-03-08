@@ -16,6 +16,8 @@ class Event extends Data
         public ?CarbonInterface $endDate,
         public ?string $description,
         public ?string $excerpt,
+        public ?string $teaser,
+        public ?string $subtitle,
         public ?int $pageId,
         public ?string $url,
         public ?string $calendarUrl,
@@ -33,6 +35,12 @@ class Event extends Data
         public ?string $organisationName,
         public ?string $organisationSlug,
         public ?string $organisationLogoPath,
+        public ?string $organizerStreet,
+        public ?string $organizerPostcode,
+        public ?string $organizerCity,
+        public ?string $organizerPhone,
+        public ?string $organizerEmail,
+        public ?string $organizerWebsite,
         public ?string $headerImageUrl,
         public ?CarbonInterface $createdAt,
         public ?CarbonInterface $updatedAt,
@@ -47,6 +55,7 @@ class Event extends Data
         $place = $event->place;
         $organisation = $event->organisation;
         $description = is_string($event->description) ? trim($event->description) : null;
+        $teaser = $event->extras?->get('teaser');
 
         $calendarUrl = null;
 
@@ -60,7 +69,9 @@ class Event extends Data
             startDate: $event->start_date,
             endDate: $event->end_date,
             description: $description,
-            excerpt: $description ? Str::of(strip_tags($description))->squish()->limit(180)->toString() : null,
+            excerpt: ($teaser ?: $description) ? Str::of(strip_tags($teaser ?: $description))->squish()->limit(180)->toString() : null,
+            teaser: $teaser,
+            subtitle: $event->extras?->get('subtitle'),
             pageId: $event->page_id,
             url: $event->url,
             calendarUrl: $calendarUrl,
@@ -78,6 +89,12 @@ class Event extends Data
             organisationName: $organisation?->name ?? $event->extras?->get('organizer'),
             organisationSlug: $organisation?->slug,
             organisationLogoPath: $organisation?->logo_path,
+            organizerStreet: $event->extras?->get('organizer_street'),
+            organizerPostcode: $event->extras?->get('organizer_postcode'),
+            organizerCity: $event->extras?->get('organizer_place'),
+            organizerPhone: $event->extras?->get('organizer_phone'),
+            organizerEmail: $event->extras?->get('organizer_email'),
+            organizerWebsite: $event->extras?->get('organizer_website'),
             headerImageUrl: $event->getFirstMediaUrl(EventModel::HEADER_MEDIA_COLLECTION) ?: null,
             createdAt: $event->created_at,
             updatedAt: $event->updated_at,

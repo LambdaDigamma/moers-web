@@ -9,7 +9,7 @@ import { formatCollectionLabel, getEventMonthGroupKey, getEventMonthGroupLabel }
 import { EventRow } from '@/pages/events/event-row';
 import { type SharedData } from '@/types';
 import { Head, InfiniteScroll, router, usePage } from '@inertiajs/react';
-import { Search, SlidersHorizontal, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { ReactNode, useEffect, useState } from 'react';
 import Event = Modules.Events.Data.Event;
 
@@ -130,17 +130,6 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                                     Die Liste ist nach Monaten gruppiert, passt die Datumsanzeige an das Geraet der Nutzer an und laesst sich nach
                                     Zeitraum, Reihe, Veranstalter und Ort filtern.
                                 </p>
-                            </div>
-
-                            <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3 text-sm shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-                                <div className="flex items-center gap-3">
-                                    <SlidersHorizontal className="size-4 text-zinc-500" />
-                                    <span className="text-zinc-600 dark:text-zinc-300">
-                                        {events.meta?.total
-                                            ? `${events.meta.total} Veranstaltungen gesamt`
-                                            : `${events.data.length} Veranstaltungen geladen`}
-                                    </span>
-                                </div>
                             </div>
                         </div>
                     </section>
