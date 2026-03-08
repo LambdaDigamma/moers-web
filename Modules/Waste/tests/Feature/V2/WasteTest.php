@@ -26,6 +26,15 @@ test('street list old and new streets', function () {
         ->assertJsonCount(8);
 });
 
+test('street list finds ascii umlaut variants', function () {
+    RubbishStreet::factory()->create(['name' => 'Goethestraße']);
+
+    getJson('/api/v2/rubbish/streets?q=Goethestrasse')
+        ->assertStatus(200)
+        ->assertJsonCount(1)
+        ->assertJsonFragment(['name' => 'Goethestraße']);
+});
+
 test('street pickups', function () {
 
     $residual = 1;

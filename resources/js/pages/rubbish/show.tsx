@@ -1,12 +1,13 @@
 import { DefaultContainer } from '@/components/default-container';
+import { RubbishStreetSearch } from '@/components/rubbish-street-search';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { usePrimaryRubbishStreet } from '@/hooks/use-primary-rubbish-street';
-import { cn } from '@/lib/utils';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
+import { cn } from '@/lib/utils';
+import { Head } from '@inertiajs/react';
 import { CalendarDays, ChevronLeft, ChevronRight, Download, FileText, Leaf, Recycle, Star, Trash2 } from 'lucide-react';
 import { ReactNode, useEffect, useState } from 'react';
 
@@ -140,25 +141,21 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
         <>
             <Head title={`Abfallkalender ${street.name}`} />
 
-            <DefaultContainer className="py-8">
+            <DefaultContainer className="space-y-6 py-6">
+                <RubbishStreetSearch
+                    activeStreet={street}
+                    initialQuery={street.name}
+                />
+
                 <div className="space-y-6">
                     <Card className="border-emerald-200 bg-linear-to-r from-emerald-50 via-white to-lime-50 py-0 dark:border-emerald-500/20 dark:from-emerald-500/10 dark:via-transparent dark:to-lime-500/5">
                         <CardHeader className="gap-4 py-5">
                             <div className="flex flex-wrap items-start justify-between gap-4">
-                                <div className="space-y-2">
-                                    <Link
-                                        href="/abfallkalender"
-                                        className="inline-flex items-center gap-1 text-sm font-medium text-emerald-700 transition hover:text-emerald-800"
-                                    >
-                                        <ChevronLeft className="size-4" />
-                                        Zurück zur Suche
-                                    </Link>
-                                    <div>
-                                        <CardTitle className="text-3xl tracking-tight text-zinc-950">{street.name}</CardTitle>
-                                        <CardDescription className="mt-1 text-base text-zinc-700">
-                                            {street.street_addition || 'Abfallkalender und Terminübersicht'}
-                                        </CardDescription>
-                                    </div>
+                                <div>
+                                    <CardTitle className="text-3xl tracking-tight text-zinc-950">{street.name}</CardTitle>
+                                    <CardDescription className="mt-1 text-base text-zinc-700">
+                                        {street.street_addition || 'Abfallkalender und Terminübersicht'}
+                                    </CardDescription>
                                 </div>
 
                                 <div className="flex flex-wrap gap-2">
@@ -237,7 +234,6 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                     <div className="flex items-center justify-between gap-4">
                                         <div>
                                             <CardTitle className="text-lg">Termine</CardTitle>
-                                            <CardDescription>Scrollbare Liste der nächsten Abholungen</CardDescription>
                                         </div>
                                         <Badge
                                             variant="outline"
@@ -248,7 +244,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                     </div>
                                 </CardHeader>
                                 <CardContent className="p-0">
-                                    <div className="max-h-[34rem] overflow-y-auto p-3">
+                                    <div className="max-h-136 overflow-y-auto p-3">
                                         <div className="space-y-2">
                                             {pickupGroups.map((group) => (
                                                 <div
@@ -265,18 +261,18 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                             </div>
                                                         </div>
                                                         <div className="flex flex-wrap justify-end gap-2">
-                                                        {group.items.map((item, index) => {
-                                                            const meta = pickupMeta[item.type];
+                                                            {group.items.map((item, index) => {
+                                                                const meta = pickupMeta[item.type];
 
-                                                            return (
-                                                                <Badge
-                                                                    key={`${group.date}-${item.type}-${index}`}
-                                                                    className={cn('rounded-full px-3 py-1 text-xs font-medium', meta.badgeClass)}
-                                                                >
-                                                                    {meta.label}
-                                                                </Badge>
-                                                            );
-                                                        })}
+                                                                return (
+                                                                    <Badge
+                                                                        key={`${group.date}-${item.type}-${index}`}
+                                                                        className={cn('rounded-full px-3 py-1 text-xs font-medium', meta.badgeClass)}
+                                                                    >
+                                                                        {meta.label}
+                                                                    </Badge>
+                                                                );
+                                                            })}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -291,7 +287,6 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                     <div className="flex items-center justify-between gap-3">
                                         <div>
                                             <CardTitle className="text-lg">Kalender</CardTitle>
-                                            <CardDescription>Fahre über markierte Tage für Details</CardDescription>
                                         </div>
                                         {monthKeys.length > 1 ? (
                                             <div className="flex items-center gap-1">
@@ -326,17 +321,14 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                 <div className="text-base font-semibold text-zinc-950 capitalize dark:text-white">
                                                     {formatMonthLabel(selectedMonth)}
                                                 </div>
-                                                <Badge
-                                                    variant="outline"
-                                                    className="rounded-full px-3 py-1"
-                                                >
-                                                    {pickupGroups.filter((group) => group.date.startsWith(selectedMonth)).length} Tage
-                                                </Badge>
                                             </div>
 
-                                            <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium uppercase tracking-[0.16em] text-zinc-400">
+                                            <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium tracking-[0.16em] text-zinc-400 uppercase">
                                                 {weekdayLabels.map((label) => (
-                                                    <div key={label} className="py-1">
+                                                    <div
+                                                        key={label}
+                                                        className="py-1"
+                                                    >
                                                         {label}
                                                     </div>
                                                 ))}
@@ -391,7 +383,10 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                                         {dayItems.map((item, index) => (
                                                                             <Badge
                                                                                 key={`${key}-${item.type}-${index}`}
-                                                                                className={cn('rounded-full px-2.5 py-1 text-[11px] font-medium', pickupMeta[item.type].badgeClass)}
+                                                                                className={cn(
+                                                                                    'rounded-full px-2.5 py-1 text-[11px] font-medium',
+                                                                                    pickupMeta[item.type].badgeClass,
+                                                                                )}
                                                                             >
                                                                                 {pickupMeta[item.type].label}
                                                                             </Badge>

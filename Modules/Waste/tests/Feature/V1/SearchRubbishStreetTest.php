@@ -22,3 +22,22 @@ test('search rubbish street by name', function () {
                 )
         );
 });
+
+test('search rubbish street by ascii umlaut variant', function () {
+    RubbishStreet::factory()->create(['name' => 'Goethestraße']);
+
+    $this->get('/api/v1/rubbish/streets?q=Goethestrasse')
+        ->assertStatus(200)
+        ->assertJson(
+            fn (AssertableJson $json) => $json
+                ->has(
+                    'data',
+                    fn (AssertableJson $json) => $json->has(1)
+                        ->first(
+                            fn ($json) => $json
+                                ->where('name', 'Goethestraße')
+                                ->etc()
+                        )
+                )
+        );
+});
