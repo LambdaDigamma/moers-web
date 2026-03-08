@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { Icon } from '@/components/icon';
+import { AppearanceDropdown } from '@/components/appearance-dropdown';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -11,27 +12,9 @@ import { useInitials } from '@/hooks/use-initials';
 import { cn } from '@/lib/utils';
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { Calendar, Handshake, LayoutGrid, Menu, Search } from 'lucide-react';
+import { Calendar, Handshake, LayoutGrid, Menu, Newspaper, Trash2 } from 'lucide-react';
 import AppLogo from './app-logo';
 import AppLogoIcon from './app-logo-icon';
-
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Übersicht',
-        url: '/dashboard',
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Veranstaltungen',
-        url: '/events',
-        icon: Calendar,
-    },
-    {
-        title: 'Organisationen',
-        url: route('organisations.index'),
-        icon: Handshake,
-    },
-];
 
 const rightNavItems: NavItem[] = [
     // {
@@ -56,6 +39,64 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
     const page = usePage<SharedData>();
     const { auth } = page.props;
     const getInitials = useInitials();
+    const mainNavItems: NavItem[] = auth.user
+        ? [
+              {
+                  title: 'Übersicht',
+                  url: '/dashboard',
+                  icon: LayoutGrid,
+              },
+              {
+                  title: 'Veranstaltungen',
+                  url: '/events',
+                  icon: Calendar,
+              },
+              {
+                  title: 'News',
+                  url: route('news.index'),
+                  icon: Newspaper,
+              },
+              {
+                  title: 'Organisationen',
+                  url: route('organisations.index'),
+                  icon: Handshake,
+              },
+              {
+                  title: 'Abfallkalender',
+                  url: '/abfallkalender',
+                  icon: Trash2,
+              },
+          ]
+        : [
+              {
+                  title: 'Start',
+                  url: '/',
+                  icon: LayoutGrid,
+              },
+              {
+                  title: 'Veranstaltungen',
+                  url: '/events',
+                  icon: Calendar,
+              },
+              {
+                  title: 'News',
+                  url: route('news.index'),
+                  icon: Newspaper,
+              },
+              {
+                  title: 'Organisationen',
+                  url: route('organisations.index'),
+                  icon: Handshake,
+              },
+              {
+                  title: 'Abfallkalender',
+                  url: '/abfallkalender',
+                  icon: Trash2,
+              },
+          ];
+
+    const homeUrl = auth.user ? '/dashboard' : '/';
+
     return (
         <>
             <div className="border-sidebar-border/80 border-b">
@@ -101,6 +142,10 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         </div>
 
                                         <div className="flex flex-col space-y-4">
+                                            <div className="flex items-center justify-between rounded-lg border border-zinc-200 px-3 py-2 dark:border-white/10">
+                                                <span className="font-medium">Darstellung</span>
+                                                <AppearanceDropdown />
+                                            </div>
                                             {rightNavItems.map((item) => (
                                                 <a
                                                     key={item.title}
@@ -125,11 +170,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         </Sheet>
                     </div>
 
-                    <Link
-                        href="/dashboard"
-                        prefetch
-                        className="flex items-center space-x-2"
-                    >
+                    <Link href={homeUrl} prefetch className="flex items-center space-x-2">
                         <AppLogo />
                     </Link>
 
@@ -169,13 +210,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
 
                     <div className="ml-auto flex items-center space-x-2">
                         <div className="relative flex items-center space-x-1">
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="group h-9 w-9 cursor-pointer"
-                            >
-                                <Search className="!size-5 opacity-80 group-hover:opacity-100" />
-                            </Button>
+                            <AppearanceDropdown />
                             <div className="hidden lg:flex">
                                 {rightNavItems.map((item) => (
                                     <TooltipProvider
@@ -207,7 +242,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 ))}
                             </div>
                         </div>
-                        {auth.user && (
+                        {auth.user ? (
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button
@@ -232,6 +267,21 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                     <UserMenuContent user={auth.user} />
                                 </DropdownMenuContent>
                             </DropdownMenu>
+                        ) : (
+                            <div className="flex items-center gap-2">
+                                <Link
+                                    href={route('login')}
+                                    className="inline-flex h-9 items-center rounded-md px-3 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 hover:text-zinc-950"
+                                >
+                                    Log in
+                                </Link>
+                                <Link
+                                    href={route('register')}
+                                    className="inline-flex h-9 items-center rounded-md bg-zinc-950 px-3 text-sm font-medium text-white transition hover:bg-zinc-800"
+                                >
+                                    Registrieren
+                                </Link>
+                            </div>
                         )}
                     </div>
                 </div>

@@ -1,14 +1,13 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MapAuthController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Route::get('/', [LandingPageController::class])->name('home')->uses('LandingPageController');
-
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
+Route::get('/', HomeController::class)->name('home');
+Route::redirect('/ios', 'https://apps.apple.com/de/app/mein-moers/id1305862555?mt=8')->name('apps.ios');
+Route::redirect('/android', 'https://play.google.com/store/apps/details?id=com.lambdadigamma.moers')->name('apps.android');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {

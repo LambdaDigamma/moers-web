@@ -2,9 +2,14 @@ import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/react';
 import { renderApp } from '@inertiaui/modal-react';
+import { configureEcho } from '@laravel/echo-react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { initializeTheme } from './hooks/use-appearance';
+
+configureEcho({
+    broadcaster: 'reverb',
+});
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
