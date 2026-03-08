@@ -46,11 +46,11 @@ class EventController extends Controller
                     ['value' => 'all', 'label' => 'Alle Termine'],
                 ],
                 'collections' => Event::query()
-                    ->whereNotNull('extras->collection')
-                    ->orderBy('extras->collection')
-                    ->pluck('extras->collection')
+                    ->get()
+                    ->map(fn (Event $event) => $event->collection)
                     ->filter()
                     ->unique()
+                    ->sort()
                     ->values()
                     ->all(),
                 'categories' => Event::query()
