@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use function Pest\Laravel\artisan;
 
 class DebugLoadAll extends Command
 {
