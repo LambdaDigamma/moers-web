@@ -62,5 +62,12 @@ it('shows the public rubbish detail page', function () {
             ->has('pickupGroups', 1)
             ->where('pickupGroups.0.date', '2026-01-03')
             ->has('pickupGroups.0.items', 1)
-            ->where('pickupGroups.0.items.0.type', 'plastic'));
+            ->where('pickupGroups.0.items.0.type', 'plastic')
+            ->where('downloads.pdf_download_url', 'https://abfallkalender.enni.de/pdf-kalender/ackerweg')
+            ->where('downloads.pdf_view_url', 'https://abfallkalender.enni.de/assets/addons/pdfout/vendor/web/viewer.html?file=%2Fpdf-kalender%2Fackerweg')
+            ->where('downloads.full_pdf_url', 'https://abfallkalender.enni.de/media/abfallkalender_2026.pdf')
+            ->where('downloads.ics_download_url', 'https://abfallkalender.enni.de/ics-kalender/ackerweg')
+            ->where('downloads.apple_calendar_url', 'webcal://abfallkalender.enni.de/ics-kalender/ackerweg')
+            ->where('downloads.google_calendar_url', 'https://calendar.google.com/calendar/r?cid=webcal://abfallkalender.enni.de/ics-kalender/ackerweg')
+            ->where('downloads.outlook_calendar_url', 'https://outlook.office.com/calendar/0/addfromweb?url=https://abfallkalender.enni.de/ics-kalender/ackerweg'));
 });

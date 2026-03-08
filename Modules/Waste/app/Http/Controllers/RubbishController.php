@@ -5,6 +5,7 @@ namespace Modules\Waste\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Response;
 use Modules\Waste\Models\RubbishStreet;
 
@@ -64,6 +65,10 @@ class RubbishController extends Controller
 
     public function show(RubbishStreet $street): Response
     {
+        $streetSlug = $this->streetSlug($street->name);
+        $year = now()->year;
+        $icsUrl = "https://abfallkalender.enni.de/ics-kalender/{$streetSlug}";
+
         $pickupGroups = $street->pickupItems()
             ->groupBy(fn ($item) => $item['date'])
             ->map(fn ($items, $date) => [
@@ -81,9 +86,23 @@ class RubbishController extends Controller
             ],
             'pickupGroups' => $pickupGroups,
             'downloads' => [
-                'ics_url' => 'https://cms.sbm-moers.de/abfk/ical/'.now()->year."-{$street->id}.ics",
-                'pdf_url' => "https://cms.sbm-moers.de/abfk/abfallkalender_moers.php?h=0&streetid={$street->id}&rw=0&newjear=".now()->year,
+                'pdf_download_url' => "https://abfallkalender.enni.de/pdf-kalender/{$streetSlug}",
+                'pdf_view_url' => 'https://abfallkalender.enni.de/assets/addons/pdfout/vendor/web/viewer.html?file='.rawurlencode("/pdf-kalender/{$streetSlug}"),
+                'full_pdf_url' => "https://abfallkalender.enni.de/media/abfallkalender_{$year}.pdf",
+                'ics_download_url' => $icsUrl,
+                'ics_subscribe_url' => $icsUrl,
+                'apple_calendar_url' => "webcal://abfallkalender.enni.de/ics-kalender/{$streetSlug}",
+                'google_calendar_url' => "https://calendar.google.com/calendar/r?cid=webcal://abfallkalender.enni.de/ics-kalender/{$streetSlug}",
+                'outlook_calendar_url' => "https://outlook.office.com/calendar/0/addfromweb?url={$icsUrl}",
             ],
         ]);
+    }
+
+    protected function streetSlug(string $streetName): string
+    {
+        return Str::of(Str::lower($streetName))
+            ->replace(['ä', 'ö', 'ü', 'ß'], ['ae', 'oe', 'ue', 'ss'])
+            ->slug('-')
+            ->toString();
     }
 }

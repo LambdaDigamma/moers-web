@@ -8,7 +8,7 @@ import { usePrimaryRubbishStreet } from '@/hooks/use-primary-rubbish-street';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { Head } from '@inertiajs/react';
-import { CalendarDays, ChevronLeft, ChevronRight, Download, FileText, Leaf, Recycle, Star, Trash2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, FileText, Leaf, Recycle, Trash2 } from 'lucide-react';
 import { ReactNode, useEffect, useState } from 'react';
 
 type PickupItem = {
@@ -29,8 +29,14 @@ type RubbishShowProps = {
     };
     pickupGroups: PickupGroup[];
     downloads: {
-        ics_url: string;
-        pdf_url: string;
+        pdf_download_url: string;
+        pdf_view_url: string;
+        full_pdf_url: string;
+        ics_download_url: string;
+        ics_subscribe_url: string;
+        apple_calendar_url: string;
+        google_calendar_url: string;
+        outlook_calendar_url: string;
     };
 };
 
@@ -158,63 +164,66 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                     </CardDescription>
                                 </div>
 
-                                <div className="flex flex-wrap gap-2">
-                                    <Button
-                                        asChild
-                                        variant="outline"
-                                        size="sm"
-                                    >
-                                        <a
-                                            href={downloads.ics_url}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                        >
-                                            <CalendarDays className="size-4" />
-                                            Kalender
-                                        </a>
-                                    </Button>
-                                    <Button
-                                        asChild
-                                        size="sm"
-                                        className="bg-emerald-700 text-white hover:bg-emerald-800"
-                                    >
-                                        <a
-                                            href={downloads.pdf_url}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                        >
-                                            <Download className="size-4" />
-                                            PDF
-                                        </a>
-                                    </Button>
+                                <div className="flex flex-col items-start gap-3 sm:items-end">
+                                    <div className="space-y-1">
+                                        <div className="text-[11px] font-semibold tracking-[0.18em] text-zinc-500 uppercase">Downloads</div>
+                                        <div className="flex flex-wrap gap-2">
+                                            <Button asChild variant="secondary" size="sm">
+                                                <a href={downloads.pdf_download_url} target="_blank" rel="noreferrer" download>
+                                                    PDF
+                                                </a>
+                                            </Button>
+                                            <Button asChild variant="outline" size="sm">
+                                                <a href={downloads.ics_download_url} target="_blank" rel="noreferrer" download>
+                                                    ICS
+                                                </a>
+                                            </Button>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-1">
+                                        <div className="text-[11px] font-semibold tracking-[0.18em] text-zinc-500 uppercase">Kalender-Abo</div>
+                                        <div className="flex flex-wrap gap-2">
+                                            <Button asChild variant="ghost" size="sm">
+                                                <a href={downloads.apple_calendar_url}>Apple</a>
+                                            </Button>
+                                            <Button asChild variant="ghost" size="sm">
+                                                <a href={downloads.google_calendar_url} target="_blank" rel="noreferrer">
+                                                    Google
+                                                </a>
+                                            </Button>
+                                            <Button asChild variant="ghost" size="sm">
+                                                <a href={downloads.outlook_calendar_url} target="_blank" rel="noreferrer">
+                                                    Outlook
+                                                </a>
+                                            </Button>
+                                        </div>
+                                    </div>
+
                                     {isLoaded ? (
-                                        isPrimaryStreet ? (
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                                size="sm"
-                                                onClick={clearPrimaryStreet}
-                                            >
-                                                <Star className="size-4" />
-                                                Gespeichert
-                                            </Button>
-                                        ) : (
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                                size="sm"
-                                                onClick={() =>
-                                                    setPrimaryStreet({
-                                                        id: street.id,
-                                                        name: street.name,
-                                                        street_addition: street.street_addition,
-                                                    })
-                                                }
-                                            >
-                                                <Star className="size-4" />
-                                                Primär
-                                            </Button>
-                                        )
+                                        <div className="space-y-1">
+                                            <div className="text-[11px] font-semibold tracking-[0.18em] text-zinc-500 uppercase">Persönlich</div>
+                                            {isPrimaryStreet ? (
+                                                <Button type="button" variant="outline" size="sm" onClick={clearPrimaryStreet}>
+                                                    Gespeichert
+                                                </Button>
+                                            ) : (
+                                                <Button
+                                                    type="button"
+                                                    variant="outline"
+                                                    size="sm"
+                                                    onClick={() =>
+                                                        setPrimaryStreet({
+                                                            id: street.id,
+                                                            name: street.name,
+                                                            street_addition: street.street_addition,
+                                                        })
+                                                    }
+                                                >
+                                                    Primär
+                                                </Button>
+                                            )}
+                                        </div>
                                     ) : null}
                                 </div>
                             </div>
