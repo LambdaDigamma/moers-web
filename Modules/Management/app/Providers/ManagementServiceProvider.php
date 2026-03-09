@@ -43,7 +43,9 @@ class ManagementServiceProvider extends ServiceProvider
      */
     protected function registerCommands(): void
     {
-        // $this->commands([]);
+        $this->commands([
+            \Modules\Management\Console\ExtractOrganisers::class,
+        ]);
     }
 
     /**
