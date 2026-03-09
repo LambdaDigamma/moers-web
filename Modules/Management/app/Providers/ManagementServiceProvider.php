@@ -3,7 +3,10 @@
 namespace Modules\Management\Providers;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Management\Models\Organisation;
+use Modules\Management\Policies\OrganisationPolicy;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -21,6 +24,8 @@ class ManagementServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::policy(Organisation::class, OrganisationPolicy::class);
+
         $this->registerCommands();
         $this->registerCommandSchedules();
         $this->registerTranslations();

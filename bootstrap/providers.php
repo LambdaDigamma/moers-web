@@ -5,6 +5,7 @@ return [
     App\Providers\HorizonServiceProvider::class,
     Modules\Events\Providers\EventsServiceProvider::class,
     Modules\Multimedia\Providers\MultimediaServiceProvider::class,
+    Modules\Management\Providers\ManagementServiceProvider::class,
     Modules\News\Providers\NewsServiceProvider::class,
     Modules\Parking\Providers\ParkingServiceProvider::class,
     Modules\Waste\Providers\WasteServiceProvider::class,

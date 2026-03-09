@@ -38,6 +38,16 @@ class User extends Authenticatable
         return $this->can('access:admin');
     }
 
+    public function organisations(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(\Modules\Management\Models\Organisation::class);
+    }
+
+    public function belongsToOrganisation(\Modules\Management\Models\Organisation $organisation): bool
+    {
+        return $this->organisations()->where('organisations.id', $organisation->id)->exists();
+    }
+
     protected static function newFactory(): Factory|UserFactory
     {
         return UserFactory::new();

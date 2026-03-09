@@ -63,7 +63,9 @@ class OrganisationController extends Controller
     public function show(Organisation $organisation)
     {
         $props = new ShowOrganisationProps(
-            organisation: \Modules\Management\Data\Organisation::from($organisation)
+            organisation: \Modules\Management\Data\Organisation::from($organisation),
+            canEdit: auth()->user()?->can('update', $organisation) ?? false,
+            canCreateEvents: auth()->user()?->can('createEvents', $organisation) ?? false,
         );
 
         return inertia('organisations/show-organisation', $props);
@@ -71,6 +73,8 @@ class OrganisationController extends Controller
 
     public function edit(Organisation $organisation)
     {
+        $this->authorize('update', $organisation);
+
         $props = new EditOrganisationProps(
             organisation: \Modules\Management\Data\Organisation::from($organisation)
         );

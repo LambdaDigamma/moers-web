@@ -22,6 +22,7 @@ class OrganisationEventsController
         return inertia('organisations/events/index-events', [
             'organisation' => OrganisationData::from($organisation),
             'events' => $events,
+            'canCreateEvents' => auth()->user()?->can('createEvents', $organisation) ?? false,
         ]);
     }
 }
