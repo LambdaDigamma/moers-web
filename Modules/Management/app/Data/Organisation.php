@@ -17,6 +17,8 @@ class Organisation extends Data
         public string $slug,
         #[MapInputName('description')]
         public string $description,
+        #[MapInputName('logo_path')]
+        public ?string $logoPath,
         #[MapInputName('created_at')]
         public Carbon $createdAt,
         #[MapInputName('updated_at')]

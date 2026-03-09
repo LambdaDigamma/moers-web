@@ -14,14 +14,23 @@ use Spatie\LaravelData\PaginatedDataCollection;
 
 class OrganisationController extends Controller
 {
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
-        $organisations = Organisation::query()->paginate();
+        $filters = [
+            'search' => trim($request->string('search')->toString()),
+        ];
+
+        $organisations = Organisation::query()
+            ->filter($filters)
+            ->orderBy('name')
+            ->paginate(12)
+            ->withQueryString();
 
         $data = \Modules\Management\Data\Organisation::collect($organisations, PaginatedDataCollection::class);
 
         return inertia('organisations/index', [
             'organisations' => $data,
+            'filters' => $filters,
         ]);
     }
 
