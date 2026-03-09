@@ -164,12 +164,12 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                 />
 
                 <div className="space-y-6">
-                    <Card className="border-emerald-200 bg-linear-to-r from-emerald-50 via-white to-lime-50 py-0 dark:border-emerald-500/20 dark:from-emerald-500/10 dark:via-transparent dark:to-lime-500/5">
+                    <Card className="border-emerald-200 bg-linear-to-r from-emerald-50 via-white to-lime-50 py-0 dark:border-emerald-500/20 dark:from-emerald-500/10 dark:via-emerald-500/5 dark:to-lime-500/10">
                         <CardHeader className="gap-4 py-5">
                             <div className="flex flex-wrap items-start justify-between gap-4">
                                 <div>
-                                    <CardTitle className="text-3xl tracking-tight text-zinc-950">{street.name}</CardTitle>
-                                    <CardDescription className="mt-1 text-base text-zinc-700">
+                                    <CardTitle className="text-3xl tracking-tight text-zinc-950 dark:text-white">{street.name}</CardTitle>
+                                    <CardDescription className="mt-1 text-base text-zinc-700 dark:text-zinc-300">
                                         {street.street_addition || 'Abfallkalender und Terminübersicht'}
                                     </CardDescription>
                                 </div>
@@ -289,7 +289,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
 
                     {pickupGroups.length === 0 ? (
                         <Card>
-                            <CardContent className="py-8 text-sm text-zinc-600">
+                            <CardContent className="py-8 text-sm text-zinc-600 dark:text-zinc-400">
                                 Für diese Straße sind aktuell keine kommenden Termine hinterlegt.
                             </CardContent>
                         </Card>
@@ -303,7 +303,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                         </div>
                                         <Badge
                                             variant="outline"
-                                            className="rounded-full px-3 py-1"
+                                            className="rounded-full px-3 py-1 dark:border-white/10 dark:bg-white/5"
                                         >
                                             {pickupGroups.length} Einträge
                                         </Badge>
@@ -316,7 +316,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                 key={monthKey}
                                                 className="relative"
                                             >
-                                                <div className="sticky top-0 z-10 border-y border-zinc-200 bg-zinc-50/95 px-4 py-2 text-[10px] font-bold tracking-wider text-zinc-500 uppercase backdrop-blur dark:border-white/5 dark:bg-zinc-900/95">
+                                                <div className="sticky top-0 z-10 border-y border-zinc-200 bg-zinc-50/95 px-4 py-2 text-[10px] font-bold tracking-wider text-zinc-500 uppercase backdrop-blur dark:border-white/10 dark:bg-zinc-950/95 dark:text-zinc-400">
                                                     {formatMonthLabel(monthKey)}
                                                 </div>
                                                 <div className="divide-y divide-zinc-100 dark:divide-white/5">
@@ -333,14 +333,14 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                                         'group flex items-center justify-between gap-4 px-4 py-2.5 transition-colors',
                                                                         isToday
                                                                             ? 'bg-emerald-50/50 dark:bg-emerald-500/10'
-                                                                            : 'hover:bg-zinc-50 dark:hover:bg-white/[0.01]',
+                                                                            : 'hover:bg-zinc-50 dark:hover:bg-white/5',
                                                                     )}
                                                                 >
                                                                     <div className="flex flex-col">
                                                                         <span
                                                                             className={cn(
                                                                                 'text-sm font-semibold',
-                                                                                isToday ? 'text-emerald-700 dark:text-emerald-400' : 'text-zinc-950 dark:text-white',
+                                                                                isToday ? 'text-emerald-700 dark:text-emerald-400' : 'text-zinc-950 dark:text-zinc-200',
                                                                             )}
                                                                         >
                                                                             {new Intl.DateTimeFormat('de-DE', {
@@ -413,12 +413,12 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                     {selectedMonth ? (
                                         <>
                                             <div className="flex items-center justify-between gap-3">
-                                                <div className="text-base font-semibold text-zinc-950 capitalize dark:text-white">
+                                                <div className="text-base font-semibold text-zinc-950 capitalize dark:text-zinc-200">
                                                     {formatMonthLabel(selectedMonth)}
                                                 </div>
                                             </div>
 
-                                            <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium tracking-[0.16em] text-zinc-400 uppercase">
+                                            <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium tracking-[0.16em] text-zinc-400 uppercase dark:text-zinc-500">
                                                 {weekdayLabels.map((label) => (
                                                     <div
                                                         key={label}
@@ -441,7 +441,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                             className={cn(
                                                                 'flex aspect-square min-h-14 flex-col justify-between rounded-xl border px-2 py-2 text-left transition',
                                                                 isCurrentMonth
-                                                                    ? 'border-zinc-200 bg-white hover:border-emerald-300 dark:border-white/10 dark:bg-white/[0.02] dark:hover:border-emerald-500/30'
+                                                                    ? 'border-zinc-200 bg-white hover:border-emerald-300 dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-500/30'
                                                                     : 'border-transparent bg-zinc-50 text-zinc-300 dark:bg-transparent dark:text-zinc-700',
                                                                 dayItems.length > 0 && isCurrentMonth
                                                                     ? 'ring-1 ring-emerald-100 dark:ring-emerald-500/10'
