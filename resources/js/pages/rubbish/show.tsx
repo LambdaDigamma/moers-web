@@ -3,7 +3,6 @@ import { RubbishStreetSearch } from '@/components/rubbish-street-search';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,6 +11,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { usePrimaryRubbishStreet } from '@/hooks/use-primary-rubbish-street';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
@@ -340,7 +340,9 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                                         <span
                                                                             className={cn(
                                                                                 'text-sm font-semibold',
-                                                                                isToday ? 'text-emerald-700 dark:text-emerald-400' : 'text-zinc-950 dark:text-zinc-200',
+                                                                                isToday
+                                                                                    ? 'text-emerald-700 dark:text-emerald-400'
+                                                                                    : 'text-zinc-950 dark:text-zinc-200',
                                                                             )}
                                                                         >
                                                                             {new Intl.DateTimeFormat('de-DE', {
@@ -446,10 +448,16 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                                 dayItems.length > 0 && isCurrentMonth
                                                                     ? 'ring-1 ring-emerald-100 dark:ring-emerald-500/10'
                                                                     : '',
-                                                                isToday && 'ring-2 ring-emerald-500 border-emerald-500 bg-emerald-50/30 dark:bg-emerald-500/10',
+                                                                isToday &&
+                                                                    'border-emerald-500 bg-emerald-50/30 ring-2 ring-emerald-500 dark:bg-emerald-500/10',
                                                             )}
                                                         >
-                                                            <span className={cn('text-sm font-medium', isToday && 'font-bold text-emerald-700 dark:text-emerald-400')}>
+                                                            <span
+                                                                className={cn(
+                                                                    'text-sm font-medium',
+                                                                    isToday && 'font-bold text-emerald-700 dark:text-emerald-400',
+                                                                )}
+                                                            >
                                                                 {day.getDate()}
                                                             </span>
                                                             <div className="flex flex-wrap gap-1">

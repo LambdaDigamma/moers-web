@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Carbon;
 use Inertia\Response;
 use Modules\Events\Models\Event;
-use Modules\Management\Models\Organisation;
 use Modules\News\Models\Feed;
 use Modules\News\Models\Post;
 use Modules\Parking\Models\ParkingArea;
@@ -46,18 +45,6 @@ class HomeController extends Controller
             ])
             ->all();
 
-        $featuredOrganisations = Organisation::query()
-            ->orderBy('name')
-            ->limit(6)
-            ->get()
-            ->map(fn (Organisation $organisation) => [
-                'id' => $organisation->id,
-                'name' => $organisation->name,
-                'slug' => $organisation->slug,
-                'description' => $organisation->description,
-            ])
-            ->all();
-
         $parkingAreas = ParkingArea::query()
             ->orderByOpeningState()
             ->limit(4)
@@ -78,13 +65,11 @@ class HomeController extends Controller
                     ->where('start_date', '>=', Carbon::now()->startOfDay())
                     ->count(),
                 'news_posts' => Post::query()->count(),
-                'organisations' => Organisation::query()->count(),
                 'rubbish_streets' => RubbishStreet::query()->current()->count(),
                 'parking_spaces' => ParkingArea::query()->sum('capacity'),
             ],
             'upcomingEvents' => $upcomingEvents,
             'latestNews' => $latestNews,
-            'featuredOrganisations' => $featuredOrganisations,
             'parkingAreas' => $parkingAreas,
             'mobileApps' => [
                 'ios_url' => route('apps.ios'),

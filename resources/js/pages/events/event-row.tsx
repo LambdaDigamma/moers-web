@@ -20,12 +20,16 @@ export const EventRow: React.FC<{ event: Event; currentUrl?: string }> = ({ even
                         <div className="min-w-18 rounded-2xl border border-zinc-200 bg-zinc-50 px-3 py-3 text-center dark:border-white/10 dark:bg-white/5">
                             {dateBadge ? (
                                 <>
-                                    <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">{dateBadge.weekday}</p>
+                                    <p className="text-[11px] font-medium tracking-[0.18em] text-zinc-500 uppercase dark:text-zinc-400">
+                                        {dateBadge.weekday}
+                                    </p>
                                     <p className="mt-1 text-3xl font-semibold text-zinc-950 dark:text-white">{dateBadge.day}</p>
-                                    <p className="text-xs font-medium uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-400">{dateBadge.month}</p>
+                                    <p className="text-xs font-medium tracking-[0.16em] text-zinc-500 uppercase dark:text-zinc-400">
+                                        {dateBadge.month}
+                                    </p>
                                 </>
                             ) : (
-                                <div className="flex min-h-20 items-center justify-center text-xs font-medium uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
+                                <div className="flex min-h-20 items-center justify-center text-xs font-medium tracking-[0.18em] text-zinc-500 uppercase dark:text-zinc-400">
                                     Termin
                                     <br />
                                     offen

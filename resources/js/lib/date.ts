@@ -21,10 +21,7 @@ export function formatMonthYear(value: string | Date | null | undefined): string
     }).format(date);
 }
 
-export function formatDateTime(
-    value: string | Date | null | undefined,
-    options: Intl.DateTimeFormatOptions = {},
-): string | null {
+export function formatDateTime(value: string | Date | null | undefined, options: Intl.DateTimeFormatOptions = {}): string | null {
     const date = toDate(value);
 
     if (date == null) {
@@ -50,9 +47,7 @@ export function formatEventDateRange(start: string | Date | null | undefined, en
     }
 
     const sameDay =
-        startDate.getFullYear() === endDate.getFullYear() &&
-        startDate.getMonth() === endDate.getMonth() &&
-        startDate.getDate() === endDate.getDate();
+        startDate.getFullYear() === endDate.getFullYear() && startDate.getMonth() === endDate.getMonth() && startDate.getDate() === endDate.getDate();
 
     if (sameDay) {
         const datePart = new Intl.DateTimeFormat(undefined, {

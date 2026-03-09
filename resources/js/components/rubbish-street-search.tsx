@@ -1,7 +1,7 @@
-import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react';
 import { Button } from '@/components/ui/button';
 import { InputGroup } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react';
 import { router } from '@inertiajs/react';
 import { LoaderCircle, MapPinned, Search, Sparkles, X } from 'lucide-react';
 import { FormEvent, useEffect, useRef, useState } from 'react';
@@ -163,11 +163,14 @@ export function RubbishStreetSearch({
                                     onSubmit={handleSubmit}
                                     onFocus={handleFocus}
                                     onBlur={handleBlur}
-                                    className="rounded-[2rem] border border-zinc-200/80 bg-white/95 p-2 shadow-lg shadow-zinc-950/8 ring-1 ring-black/5 backdrop-blur dark:border-white/10 dark:bg-zinc-950/90 dark:ring-white/10"
+                                    className="rounded-[2rem] border border-zinc-200/80 bg-white/95 p-2 shadow-lg ring-1 shadow-zinc-950/8 ring-black/5 backdrop-blur dark:border-white/10 dark:bg-zinc-950/90 dark:ring-white/10"
                                 >
                                     <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
                                         <InputGroup className="w-full">
-                                            <Search data-slot="icon" className="size-5" />
+                                            <Search
+                                                data-slot="icon"
+                                                className="size-5"
+                                            />
                                             <ComboboxInput<RubbishStreetListItem | null>
                                                 autoFocus={autoOpen}
                                                 displayValue={(street) => street?.name ?? ''}
@@ -188,7 +191,7 @@ export function RubbishStreetSearch({
                                                 }}
                                                 placeholder="Straße suchen"
                                                 aria-label="Straße suchen"
-                                                className="block w-full rounded-[1.3rem] border-0 bg-transparent py-3 pr-12 pl-11 text-base text-zinc-950 outline-hidden ring-0 dark:text-white"
+                                                className="block w-full rounded-[1.3rem] border-0 bg-transparent py-3 pr-12 pl-11 text-base text-zinc-950 ring-0 outline-hidden dark:text-white"
                                             />
                                             {query !== '' ? (
                                                 <button
@@ -220,7 +223,7 @@ export function RubbishStreetSearch({
                                 </form>
 
                                 {showResults ? (
-                                    <div className="absolute inset-x-0 top-full mt-3 overflow-hidden rounded-3xl border border-zinc-200/80 bg-white shadow-2xl shadow-zinc-950/10 ring-1 ring-black/5 dark:border-white/10 dark:bg-zinc-950 dark:ring-white/10">
+                                    <div className="absolute inset-x-0 top-full mt-3 overflow-hidden rounded-3xl border border-zinc-200/80 bg-white shadow-2xl ring-1 shadow-zinc-950/10 ring-black/5 dark:border-white/10 dark:bg-zinc-950 dark:ring-white/10">
                                         {activeStreet ? (
                                             <div className="flex items-center gap-2 border-b border-zinc-200/80 bg-emerald-50/80 px-4 py-3 text-sm text-emerald-900 dark:border-white/10 dark:bg-emerald-500/10 dark:text-emerald-100">
                                                 <Sparkles className="size-4" />
@@ -229,23 +232,36 @@ export function RubbishStreetSearch({
                                         ) : null}
 
                                         {results.length > 0 ? (
-                                            <ComboboxOptions static className="max-h-96 overflow-y-auto py-2 outline-hidden">
+                                            <ComboboxOptions
+                                                static
+                                                className="max-h-96 overflow-y-auto py-2 outline-hidden"
+                                            >
                                                 {results.map((street) => {
                                                     const isActiveStreet = activeStreet?.id === street.id;
 
                                                     return (
-                                                        <ComboboxOption key={street.id} value={street} as="div">
+                                                        <ComboboxOption
+                                                            key={street.id}
+                                                            value={street}
+                                                            as="div"
+                                                        >
                                                             {({ focus }) => (
                                                                 <div
                                                                     className={cn(
                                                                         'flex cursor-pointer items-center justify-between gap-4 px-4 py-3 transition',
-                                                                        focus ? 'bg-emerald-50 dark:bg-emerald-500/10' : 'hover:bg-zinc-50 dark:hover:bg-white/5',
+                                                                        focus
+                                                                            ? 'bg-emerald-50 dark:bg-emerald-500/10'
+                                                                            : 'hover:bg-zinc-50 dark:hover:bg-white/5',
                                                                     )}
                                                                 >
                                                                     <div className="min-w-0">
-                                                                        <div className="truncate font-medium text-zinc-950 dark:text-white">{street.name}</div>
+                                                                        <div className="truncate font-medium text-zinc-950 dark:text-white">
+                                                                            {street.name}
+                                                                        </div>
                                                                         {street.street_addition ? (
-                                                                            <div className="truncate text-sm text-zinc-500 dark:text-zinc-400">{street.street_addition}</div>
+                                                                            <div className="truncate text-sm text-zinc-500 dark:text-zinc-400">
+                                                                                {street.street_addition}
+                                                                            </div>
                                                                         ) : null}
                                                                     </div>
                                                                     {isActiveStreet ? (

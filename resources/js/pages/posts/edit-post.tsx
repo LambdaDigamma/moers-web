@@ -61,7 +61,7 @@ const EditPost = ({ post }: { post: EditablePost | null }) => {
                         <Label htmlFor="summary">Zusammenfassung</Label>
                         <textarea
                             id="summary"
-                            className="min-h-32 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none"
+                            className="border-input min-h-32 w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none"
                             value={form.data.summary}
                             onChange={(event) => form.setData('summary', event.target.value)}
                         />

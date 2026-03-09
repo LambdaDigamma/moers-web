@@ -60,11 +60,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                         <div className="grid gap-12 lg:grid-cols-[1fr_400px]">
                             <div className="flex flex-col justify-center space-y-6">
                                 <div className="flex flex-wrap gap-2">
-                                    {primaryLabel ? (
-                                        <Badge className="bg-emerald-600 text-white shadow-none">
-                                            {primaryLabel}
-                                        </Badge>
-                                    ) : null}
+                                    {primaryLabel ? <Badge className="bg-emerald-600 text-white shadow-none">{primaryLabel}</Badge> : null}
                                     {collectionLabel && collectionLabel !== primaryLabel ? (
                                         <Badge
                                             variant="secondary"
@@ -80,9 +76,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                         {event.name}
                                     </Heading>
                                     {event.subtitle ? (
-                                        <p className="text-lg font-medium text-emerald-600 dark:text-emerald-400 sm:text-xl">
-                                            {event.subtitle}
-                                        </p>
+                                        <p className="text-lg font-medium text-emerald-600 sm:text-xl dark:text-emerald-400">{event.subtitle}</p>
                                     ) : null}
                                 </div>
 
@@ -146,9 +140,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                         <div className="space-y-12">
                             {leadText ? (
                                 <div className="border-l-4 border-emerald-500 pl-6">
-                                    <p className="text-xl font-medium leading-relaxed text-zinc-800 dark:text-zinc-200 italic">
-                                        {leadText}
-                                    </p>
+                                    <p className="text-xl leading-relaxed font-medium text-zinc-800 italic dark:text-zinc-200">{leadText}</p>
                                 </div>
                             ) : null}
 
@@ -162,14 +154,14 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                             </section>
 
                             {event.artists.length > 0 ? (
-                                <section className="space-y-6 pt-6 border-t border-zinc-100 dark:border-white/5">
+                                <section className="space-y-6 border-t border-zinc-100 pt-6 dark:border-white/5">
                                     <Heading className="text-xl font-bold text-zinc-950 dark:text-white">Mitwirkende</Heading>
                                     <div className="flex flex-wrap gap-2">
                                         {event.artists.map((artist) => (
                                             <Badge
                                                 key={artist}
                                                 variant="outline"
-                                                className="rounded-lg px-3 py-1 text-sm border-zinc-200 dark:border-white/10"
+                                                className="rounded-lg border-zinc-200 px-3 py-1 text-sm dark:border-white/10"
                                             >
                                                 {artist}
                                             </Badge>
@@ -185,7 +177,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                 <CardHeader className="px-6 pt-6 pb-2">
                                     <CardTitle className="text-sm font-semibold text-zinc-950 dark:text-white">Informationen</CardTitle>
                                 </CardHeader>
-                                <CardContent className="space-y-6 px-6 pb-6 pt-2">
+                                <CardContent className="space-y-6 px-6 pt-2 pb-6">
                                     <div className="space-y-5">
                                         <DetailItem
                                             icon={<CalendarDays className="size-4" />}
@@ -267,7 +259,8 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                 <Card className="rounded-3xl border-zinc-200 bg-zinc-50/50 p-2 shadow-sm dark:border-white/5 dark:bg-zinc-900/50">
                                     <CardHeader className="px-6 pt-6 pb-2">
                                         <CardTitle className="text-sm font-semibold text-zinc-950 dark:text-white">Veranstalter</CardTitle>
-                                    </CardHeader>                                    <CardContent className="space-y-6 px-6 pb-6 pt-2">
+                                    </CardHeader>{' '}
+                                    <CardContent className="space-y-6 px-6 pt-2 pb-6">
                                         <div className="flex items-center gap-4">
                                             {event.organisationLogoPath ? (
                                                 <img
@@ -352,7 +345,7 @@ function DetailItem({ icon, label, value }: { icon: ReactNode; label: string; va
                 <span className="text-zinc-400 dark:text-zinc-500">{icon}</span>
                 <span>{label}</span>
             </div>
-            <div className="text-sm font-medium text-zinc-950 dark:text-zinc-200 leading-relaxed">{value}</div>
+            <div className="text-sm leading-relaxed font-medium text-zinc-950 dark:text-zinc-200">{value}</div>
         </div>
     );
 }

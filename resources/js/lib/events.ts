@@ -6,9 +6,7 @@ export function formatCollectionLabel(collection: string | null | undefined): st
         return null;
     }
 
-    return collection
-        .replaceAll('-', ' ')
-        .replace(/\b\w/g, (letter) => letter.toUpperCase());
+    return collection.replaceAll('-', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 export function getEventPrimaryLabel(event: Event): string | null {

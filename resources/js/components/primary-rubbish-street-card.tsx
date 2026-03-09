@@ -45,7 +45,7 @@ export function PrimaryRubbishStreetCard() {
     const [isLoadingPickups, setIsLoadingPickups] = useState(false);
 
     useEffect(() => {
-        if (! primaryStreet) {
+        if (!primaryStreet) {
             setPickupItems([]);
 
             return;
@@ -62,7 +62,7 @@ export function PrimaryRubbishStreetCard() {
             },
         })
             .then(async (response) => {
-                if (! response.ok) {
+                if (!response.ok) {
                     throw new Error('Unable to load pickups');
                 }
 
@@ -78,7 +78,7 @@ export function PrimaryRubbishStreetCard() {
                 setPickupItems([]);
             })
             .finally(() => {
-                if (! abortController.signal.aborted) {
+                if (!abortController.signal.aborted) {
                     setIsLoadingPickups(false);
                 }
             });

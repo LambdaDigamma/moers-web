@@ -1,6 +1,6 @@
+import { AppearanceDropdown } from '@/components/appearance-dropdown';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { Icon } from '@/components/icon';
-import { AppearanceDropdown } from '@/components/appearance-dropdown';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -165,7 +165,11 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         </Sheet>
                     </div>
 
-                    <Link href={homeUrl} prefetch className="flex items-center space-x-2">
+                    <Link
+                        href={homeUrl}
+                        prefetch
+                        className="flex items-center space-x-2"
+                    >
                         <AppLogo />
                     </Link>
 
@@ -173,32 +177,32 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                     <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
                         <NavigationMenu className="flex h-full items-stretch">
                             <NavigationMenuList className="flex h-full items-stretch space-x-2">
-                                {mainNavItems.map((item, index) => (
-                                    <NavigationMenuItem
-                                        key={index}
-                                        className="relative flex h-full items-center"
-                                    >
-                                        <Link
-                                            href={item.url}
-                                            className={cn(
-                                                navigationMenuTriggerStyle(),
-                                                page.url === item.url && activeItemStyles,
-                                                'h-9 cursor-pointer px-3',
-                                            )}
+                                {mainNavItems.map((item, index) => {
+                                    const isActive = item.url === '/' ? page.url === '/' : page.url.startsWith(item.url);
+
+                                    return (
+                                        <NavigationMenuItem
+                                            key={index}
+                                            className="relative flex h-full items-center"
                                         >
-                                            {item.icon && (
-                                                <Icon
-                                                    iconNode={item.icon}
-                                                    className="mr-2 h-4 w-4"
-                                                />
+                                            <Link
+                                                href={item.url}
+                                                className={cn(navigationMenuTriggerStyle(), isActive && activeItemStyles, 'h-9 cursor-pointer px-3')}
+                                            >
+                                                {item.icon && (
+                                                    <Icon
+                                                        iconNode={item.icon}
+                                                        className="mr-2 h-4 w-4"
+                                                    />
+                                                )}
+                                                {item.title}
+                                            </Link>
+                                            {isActive && (
+                                                <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
                                             )}
-                                            {item.title}
-                                        </Link>
-                                        {page.url === item.url && (
-                                            <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
-                                        )}
-                                    </NavigationMenuItem>
-                                ))}
+                                        </NavigationMenuItem>
+                                    );
+                                })}
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
