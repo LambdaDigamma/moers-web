@@ -55,7 +55,24 @@ class Event extends Data
         $place = $event->place;
         $organisation = $event->organisation;
         $description = is_string($event->description) ? trim($event->description) : null;
+
+        if ($description) {
+            $description = preg_replace('/^((Inhalt|Vorlesen)\s+)+/im', '', $description);
+
+            if ($event->name && Str::startsWith(Str::lower(trim($description)), Str::lower($event->name))) {
+                $description = trim(substr(trim($description), strlen($event->name)));
+            }
+
+            $description = trim($description);
+        }
+
         $teaser = $event->extras?->get('teaser');
+
+        $subtitle = $event->extras?->get('subtitle');
+
+        if ($subtitle === 'Inhalt' || $subtitle === 'Vorlesen') {
+            $subtitle = null;
+        }
 
         $calendarUrl = null;
 
@@ -71,7 +88,7 @@ class Event extends Data
             description: $description,
             excerpt: ($teaser ?: $description) ? Str::of(strip_tags($teaser ?: $description))->squish()->limit(180)->toString() : null,
             teaser: $teaser,
-            subtitle: $event->extras?->get('subtitle'),
+            subtitle: $subtitle,
             pageId: $event->page_id,
             url: $event->url,
             calendarUrl: $calendarUrl,

@@ -218,8 +218,8 @@ class Event extends Model implements HasMedia
 
     public function getIsOnlineAttribute(): bool
     {
-        if ($this->extras) {
-            return Str::contains(Str::lower($this->extras->get('location', '')), 'online');
+        if ($this->extras && $this->extras->get('location')) {
+            return Str::contains(Str::lower($this->extras->get('location')), 'online');
         }
 
         return false;
