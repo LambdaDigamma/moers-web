@@ -136,6 +136,8 @@ function dateKey(date: Date): string {
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
+const todayKey = dateKey(new Date());
+
 function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
     const { primaryStreet, isLoaded, setPrimaryStreet, clearPrimaryStreet } = usePrimaryRubbishStreet();
     const isPrimaryStreet = primaryStreet?.id === street.id;
@@ -308,40 +310,69 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                     </div>
                                 </CardHeader>
                                 <CardContent className="p-0">
-                                    <div className="max-h-136 overflow-y-auto p-3">
-                                        <div className="space-y-2">
-                                            {pickupGroups.map((group) => (
-                                                <div
-                                                    key={group.date}
-                                                    className="rounded-xl border border-zinc-200 bg-white px-3 py-3 shadow-xs dark:border-white/10 dark:bg-white/[0.02]"
-                                                >
-                                                    <div className="flex flex-wrap items-start justify-between gap-3">
-                                                        <div className="space-y-1">
-                                                            <div className="text-sm font-semibold text-zinc-950 dark:text-white">
-                                                                {formatListDate(group.date)}
-                                                            </div>
-                                                            <div className="text-xs text-zinc-500 dark:text-zinc-400">
-                                                                {formatLongDate(group.date)}
-                                                            </div>
-                                                        </div>
-                                                        <div className="flex flex-wrap justify-end gap-2">
-                                                            {group.items.map((item, index) => {
-                                                                const meta = pickupMeta[item.type];
-
-                                                                return (
-                                                                    <Badge
-                                                                        key={`${group.date}-${item.type}-${index}`}
-                                                                        className={cn('rounded-full px-3 py-1 text-xs font-medium', meta.badgeClass)}
-                                                                    >
-                                                                        {meta.label}
-                                                                    </Badge>
-                                                                );
-                                                            })}
-                                                        </div>
-                                                    </div>
+                                    <div className="max-h-136 overflow-y-auto">
+                                        {monthKeys.map((monthKey) => (
+                                            <div
+                                                key={monthKey}
+                                                className="relative"
+                                            >
+                                                <div className="sticky top-0 z-10 border-y border-zinc-200 bg-zinc-50/95 px-4 py-2 text-[10px] font-bold tracking-wider text-zinc-500 uppercase backdrop-blur dark:border-white/5 dark:bg-zinc-900/95">
+                                                    {formatMonthLabel(monthKey)}
                                                 </div>
-                                            ))}
-                                        </div>
+                                                <div className="divide-y divide-zinc-100 dark:divide-white/5">
+                                                    {pickupGroups
+                                                        .filter((group) => group.date.startsWith(monthKey))
+                                                        .map((group) => {
+                                                            const date = new Date(group.date);
+                                                            const isToday = group.date === todayKey;
+
+                                                            return (
+                                                                <div
+                                                                    key={group.date}
+                                                                    className={cn(
+                                                                        'group flex items-center justify-between gap-4 px-4 py-2.5 transition-colors',
+                                                                        isToday
+                                                                            ? 'bg-emerald-50/50 dark:bg-emerald-500/10'
+                                                                            : 'hover:bg-zinc-50 dark:hover:bg-white/[0.01]',
+                                                                    )}
+                                                                >
+                                                                    <div className="flex flex-col">
+                                                                        <span
+                                                                            className={cn(
+                                                                                'text-sm font-semibold',
+                                                                                isToday ? 'text-emerald-700 dark:text-emerald-400' : 'text-zinc-950 dark:text-white',
+                                                                            )}
+                                                                        >
+                                                                            {new Intl.DateTimeFormat('de-DE', {
+                                                                                weekday: 'short',
+                                                                                day: '2-digit',
+                                                                                month: 'long',
+                                                                            }).format(date)}
+                                                                        </span>
+                                                                    </div>
+                                                                    <div className="flex flex-wrap justify-end gap-1.5">
+                                                                        {group.items.map((item, index) => {
+                                                                            const meta = pickupMeta[item.type];
+
+                                                                            return (
+                                                                                <Badge
+                                                                                    key={`${group.date}-${item.type}-${index}`}
+                                                                                    className={cn(
+                                                                                        'h-6 rounded-full px-2.5 text-xs font-medium shadow-none',
+                                                                                        meta.badgeClass,
+                                                                                    )}
+                                                                                >
+                                                                                    {meta.label}
+                                                                                </Badge>
+                                                                            );
+                                                                        })}
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </CardContent>
                             </Card>
@@ -403,6 +434,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                     const key = dateKey(day);
                                                     const dayItems = pickupMap[key] ?? [];
                                                     const isCurrentMonth = key.startsWith(selectedMonth);
+                                                    const isToday = key === todayKey;
 
                                                     const cell = (
                                                         <div
@@ -414,9 +446,12 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                                 dayItems.length > 0 && isCurrentMonth
                                                                     ? 'ring-1 ring-emerald-100 dark:ring-emerald-500/10'
                                                                     : '',
+                                                                isToday && 'ring-2 ring-emerald-500 border-emerald-500 bg-emerald-50/30 dark:bg-emerald-500/10',
                                                             )}
                                                         >
-                                                            <span className="text-sm font-medium">{day.getDate()}</span>
+                                                            <span className={cn('text-sm font-medium', isToday && 'font-bold text-emerald-700 dark:text-emerald-400')}>
+                                                                {day.getDate()}
+                                                            </span>
                                                             <div className="flex flex-wrap gap-1">
                                                                 {dayItems.slice(0, 3).map((item, index) => (
                                                                     <span
