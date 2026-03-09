@@ -14,6 +14,11 @@ use Spatie\LaravelData\PaginatedDataCollection;
 
 class OrganisationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     public function index(\Illuminate\Http\Request $request)
     {
         $filters = [
@@ -31,6 +36,7 @@ class OrganisationController extends Controller
         return inertia('organisations/index', [
             'organisations' => $data,
             'filters' => $filters,
+            'canCreate' => auth()->check(),
         ]);
     }
 
