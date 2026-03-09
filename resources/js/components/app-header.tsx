@@ -1,4 +1,5 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
+import { Icon } from '@/components/icon';
 import { AppearanceDropdown } from '@/components/appearance-dropdown';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -6,7 +7,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/compon
 import {
     NavigationMenu,
     NavigationMenuItem,
-    NavigationMenuLink,
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
@@ -124,21 +124,22 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                     <div className="flex h-full flex-col justify-between text-sm">
                                         <div className="flex flex-col space-y-4">
-                                            {mainNavItems.map((item) => {
-                                                const NavIcon = item.icon;
-
-                                                return (
-                                                    <SheetClose asChild key={item.title}>
-                                                        <Link
-                                                            href={item.url}
-                                                            className="flex items-center space-x-2 font-medium"
-                                                        >
-                                                            {NavIcon && <NavIcon className="h-5 w-5" />}
-                                                            <span>{item.title}</span>
-                                                        </Link>
-                                                    </SheetClose>
-                                                );
-                                            })}
+                                            {mainNavItems.map((item) => (
+                                                <SheetClose asChild key={item.title}>
+                                                    <Link
+                                                        href={item.url}
+                                                        className="flex items-center space-x-2 font-medium"
+                                                    >
+                                                        {item.icon && (
+                                                            <Icon
+                                                                iconNode={item.icon}
+                                                                className="h-5 w-5"
+                                                            />
+                                                        )}
+                                                        <span>{item.title}</span>
+                                                    </Link>
+                                                </SheetClose>
+                                            ))}
                                         </div>
 
                                         <div className="flex flex-col space-y-4">
@@ -146,22 +147,23 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                                 <span className="font-medium">Darstellung</span>
                                                 <AppearanceDropdown />
                                             </div>
-                                            {rightNavItems.map((item) => {
-                                                const NavIcon = item.icon;
-
-                                                return (
-                                                    <a
-                                                        key={item.title}
-                                                        href={item.url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="flex items-center space-x-2 font-medium"
-                                                    >
-                                                        {NavIcon && <NavIcon className="h-5 w-5" />}
-                                                        <span>{item.title}</span>
-                                                    </a>
-                                                );
-                                            })}
+                                            {rightNavItems.map((item) => (
+                                                <a
+                                                    key={item.title}
+                                                    href={item.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center space-x-2 font-medium"
+                                                >
+                                                    {item.icon && (
+                                                        <Icon
+                                                            iconNode={item.icon}
+                                                            className="h-5 w-5"
+                                                        />
+                                                    )}
+                                                    <span>{item.title}</span>
+                                                </a>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -177,33 +179,32 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                     <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
                         <NavigationMenu className="flex h-full items-stretch">
                             <NavigationMenuList className="flex h-full items-stretch space-x-2">
-                                {mainNavItems.map((item) => {
-                                    const NavIcon = item.icon;
-
-                                    return (
-                                        <NavigationMenuItem
-                                            key={item.title}
-                                            className="relative flex h-full items-center"
-                                        >
-                                            <NavigationMenuLink asChild>
-                                                <Link
-                                                    href={item.url}
-                                                    className={cn(
-                                                        navigationMenuTriggerStyle(),
-                                                        page.url === item.url && activeItemStyles,
-                                                        'h-9 cursor-pointer px-3',
-                                                    )}
-                                                >
-                                                    {NavIcon && <NavIcon className="mr-2 h-4 w-4" />}
-                                                    {item.title}
-                                                </Link>
-                                            </NavigationMenuLink>
-                                            {page.url === item.url && (
-                                                <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
+                                {mainNavItems.map((item) => (
+                                    <NavigationMenuItem
+                                        key={item.title}
+                                        className="relative flex h-full items-center"
+                                    >
+                                        <Link
+                                            href={item.url}
+                                            className={cn(
+                                                navigationMenuTriggerStyle(),
+                                                page.url === item.url && activeItemStyles,
+                                                'h-9 cursor-pointer px-3',
                                             )}
-                                        </NavigationMenuItem>
-                                    );
-                                })}
+                                        >
+                                            {item.icon && (
+                                                <Icon
+                                                    iconNode={item.icon}
+                                                    className="mr-2 h-4 w-4"
+                                                />
+                                            )}
+                                            {item.title}
+                                        </Link>
+                                        {page.url === item.url && (
+                                            <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
+                                        )}
+                                    </NavigationMenuItem>
+                                ))}
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
@@ -212,33 +213,34 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         <div className="relative flex items-center space-x-1">
                             <AppearanceDropdown />
                             <div className="hidden lg:flex">
-                                {rightNavItems.map((item) => {
-                                    const NavIcon = item.icon;
-
-                                    return (
-                                        <TooltipProvider
-                                            key={item.title}
-                                            delayDuration={0}
-                                        >
-                                            <Tooltip>
-                                                <TooltipTrigger>
-                                                    <a
-                                                        href={item.url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="group text-accent-foreground ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring ml-1 inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-                                                    >
-                                                        <span className="sr-only">{item.title}</span>
-                                                        {NavIcon && <NavIcon className="size-5 opacity-80 group-hover:opacity-100" />}
-                                                    </a>
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p>{item.title}</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    );
-                                })}
+                                {rightNavItems.map((item) => (
+                                    <TooltipProvider
+                                        key={item.title}
+                                        delayDuration={0}
+                                    >
+                                        <Tooltip>
+                                            <TooltipTrigger>
+                                                <a
+                                                    href={item.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="group text-accent-foreground ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring ml-1 inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+                                                >
+                                                    <span className="sr-only">{item.title}</span>
+                                                    {item.icon && (
+                                                        <Icon
+                                                            iconNode={item.icon}
+                                                            className="size-5 opacity-80 group-hover:opacity-100"
+                                                        />
+                                                    )}
+                                                </a>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>{item.title}</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
+                                ))}
                             </div>
                         </div>
                         {auth.user ? (
