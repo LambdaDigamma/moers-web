@@ -86,12 +86,20 @@ it('shows a public event detail page with real metadata', function () {
         'description' => 'Live in der Innenstadt',
         'url' => 'https://example.com/jazznacht',
         'start_date' => Carbon::parse('2026-04-12 19:30:00'),
+        'end_date' => Carbon::parse('2026-04-12 22:00:00'),
         'category' => ['de' => 'Konzert', 'en' => 'Konzert'],
         'organisation_id' => $organisation->id,
         'place_id' => $location->id,
         'extras' => collect([
             'collection' => 'moers-festival-2026',
+            'teaser' => 'Ein Abend zwischen Festivalenergie und Clubkonzert.',
             'lineup' => ['Band A', 'Band B'],
+            'organizer_street' => 'Kastell 5',
+            'organizer_postcode' => '47441',
+            'organizer_place' => 'Moers',
+            'organizer_phone' => '+49 2841 123456',
+            'organizer_email' => 'tickets@festival.test',
+            'organizer_website' => 'https://festival.test',
         ]),
     ]);
 
@@ -109,7 +117,14 @@ it('shows a public event detail page with real metadata', function () {
             ->where('event.street', 'Kastell 3')
             ->where('event.postcode', '47441')
             ->where('event.city', 'Moers')
+            ->where('event.teaser', 'Ein Abend zwischen Festivalenergie und Clubkonzert.')
             ->where('event.url', 'https://example.com/jazznacht')
             ->where('event.artists.0', 'Band A')
+            ->where('event.organizerStreet', 'Kastell 5')
+            ->where('event.organizerPostcode', '47441')
+            ->where('event.organizerCity', 'Moers')
+            ->where('event.organizerPhone', '+49 2841 123456')
+            ->where('event.organizerEmail', 'tickets@festival.test')
+            ->where('event.organizerWebsite', 'https://festival.test')
             ->where('event.calendarUrl', fn ($value) => is_string($value) && str_starts_with($value, 'data:text/calendar;charset=utf8;base64,')));
 });

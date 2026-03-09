@@ -27,11 +27,11 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
         .join(', ');
     const hasOrganizerDetails = Boolean(
         event.organisationName ||
-            event.organisationSlug ||
-            organizerAddress ||
-            event.organizerPhone ||
-            event.organizerEmail ||
-            event.organizerWebsite,
+        event.organisationSlug ||
+        organizerAddress ||
+        event.organizerPhone ||
+        event.organizerEmail ||
+        event.organizerWebsite,
     );
     const hasPlanningSidebar = Boolean(addressLabel || mapsUrl || hasOrganizerDetails || event.isOnline);
 
@@ -220,8 +220,10 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                     ) : null}
                                 </CardContent>
                             </Card>
+                        </div>
 
-                            {hasPlanningSidebar ? (
+                        {hasPlanningSidebar ? (
+                            <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
                                 <Card className="rounded-[2rem] py-0">
                                     <CardHeader className="px-6 pt-6">
                                         <CardTitle>Kontakt & Teilnahme</CardTitle>
@@ -232,9 +234,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                                 icon={<MapPin className="size-4" />}
                                                 title="Anreise"
                                             >
-                                                {locationLabel ? (
-                                                    <p className="font-medium text-zinc-950 dark:text-white">{locationLabel}</p>
-                                                ) : null}
+                                                {locationLabel ? <p className="font-medium text-zinc-950 dark:text-white">{locationLabel}</p> : null}
                                                 {addressLabel ? <p>{addressLabel}</p> : null}
                                                 {mapsUrl ? (
                                                     <a
@@ -329,8 +329,8 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                         ) : null}
                                     </CardContent>
                                 </Card>
-                            ) : null}
-                        </div>
+                            </aside>
+                        ) : null}
                     </div>
                 </main>
             </DefaultContainer>
