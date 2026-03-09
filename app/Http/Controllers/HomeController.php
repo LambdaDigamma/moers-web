@@ -8,6 +8,7 @@ use Modules\Events\Models\Event;
 use Modules\Management\Models\Organisation;
 use Modules\News\Models\Feed;
 use Modules\News\Models\Post;
+use Modules\Parking\Models\ParkingArea;
 use Modules\Waste\Models\RubbishStreet;
 
 class HomeController extends Controller
@@ -57,6 +58,19 @@ class HomeController extends Controller
             ])
             ->all();
 
+        $parkingAreas = ParkingArea::query()
+            ->orderByOpeningState()
+            ->limit(4)
+            ->get()
+            ->map(fn (ParkingArea $area) => [
+                'id' => $area->id,
+                'name' => $area->name,
+                'capacity' => $area->capacity,
+                'occupied' => $area->occupied_sites,
+                'state' => $area->current_opening_state,
+            ])
+            ->all();
+
         return inertia('home', [
             'stats' => [
                 'upcoming_events' => Event::query()
@@ -66,10 +80,12 @@ class HomeController extends Controller
                 'news_posts' => Post::query()->count(),
                 'organisations' => Organisation::query()->count(),
                 'rubbish_streets' => RubbishStreet::query()->current()->count(),
+                'parking_spaces' => ParkingArea::query()->sum('capacity'),
             ],
             'upcomingEvents' => $upcomingEvents,
             'latestNews' => $latestNews,
             'featuredOrganisations' => $featuredOrganisations,
+            'parkingAreas' => $parkingAreas,
             'mobileApps' => [
                 'ios_url' => route('apps.ios'),
                 'android_url' => route('apps.android'),
