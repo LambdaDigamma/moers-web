@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/compon
 import {
     NavigationMenu,
     NavigationMenuItem,
+    NavigationMenuLink,
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
@@ -184,22 +185,24 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         key={item.title}
                                         className="relative flex h-full items-center"
                                     >
-                                        <Link
-                                            href={item.url}
-                                            className={cn(
-                                                navigationMenuTriggerStyle(),
-                                                page.url === item.url && activeItemStyles,
-                                                'h-9 cursor-pointer px-3',
-                                            )}
-                                        >
-                                            {item.icon && (
-                                                <Icon
-                                                    iconNode={item.icon}
-                                                    className="mr-2 h-4 w-4"
-                                                />
-                                            )}
-                                            {item.title}
-                                        </Link>
+                                        <NavigationMenuLink asChild>
+                                            <Link
+                                                href={item.url}
+                                                className={cn(
+                                                    navigationMenuTriggerStyle(),
+                                                    page.url === item.url && activeItemStyles,
+                                                    'h-9 cursor-pointer px-3',
+                                                )}
+                                            >
+                                                {item.icon && (
+                                                    <Icon
+                                                        iconNode={item.icon}
+                                                        className="mr-2 h-4 w-4"
+                                                    />
+                                                )}
+                                                {item.title}
+                                            </Link>
+                                        </NavigationMenuLink>
                                         {page.url === item.url && (
                                             <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
                                         )}
