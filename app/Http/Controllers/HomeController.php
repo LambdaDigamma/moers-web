@@ -6,6 +6,7 @@ use Illuminate\Support\Carbon;
 use Inertia\Response;
 use Modules\Events\Models\Event;
 use Modules\Management\Models\Organisation;
+use Modules\News\Models\Feed;
 use Modules\News\Models\Post;
 use Modules\Waste\Models\RubbishStreet;
 
@@ -29,6 +30,7 @@ class HomeController extends Controller
             ->all();
 
         $latestNews = Post::query()
+            ->with(['feeds', 'media'])
             ->orderByDesc('published_at')
             ->limit(3)
             ->get()
@@ -37,6 +39,9 @@ class HomeController extends Controller
                 'title' => $post->title,
                 'summary' => $post->summary,
                 'published_at' => $post->published_at?->toIso8601String(),
+                'external_href' => $post->external_href,
+                'source_name' => $post->feeds->map(fn (Feed $feed) => $feed->name)->filter()->first(),
+                'header_image_url' => $post->getFirstMediaUrl('header') ?: null,
             ])
             ->all();
 

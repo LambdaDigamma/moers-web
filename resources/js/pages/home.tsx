@@ -25,6 +25,9 @@ type HomeProps = {
         title: string;
         summary: string | null;
         published_at: string | null;
+        external_href: string | null;
+        source_name: string | null;
+        header_image_url: string | null;
     }[];
     featuredOrganisations: {
         id: number;
@@ -39,7 +42,7 @@ type HomeProps = {
 };
 
 const formatDate = (value: string | null, options: Intl.DateTimeFormatOptions) => {
-    if (! value) {
+    if (!value) {
         return null;
     }
 
@@ -64,8 +67,8 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                                     Lokale Informationen für Moers – einfach und direkt.
                                 </h1>
                                 <p className="max-w-2xl text-base leading-7 text-zinc-700 md:text-lg dark:text-zinc-300">
-                                    Aktuelle Nachrichten, Veranstaltungen und der Abfallkalender für deine Straße.
-                                    Alles an einem Ort, auch ohne Login nutzbar. Für unterwegs gibt es die Apps weiterhin für iPhone und Android.
+                                    Aktuelle Nachrichten, Veranstaltungen und der Abfallkalender für deine Straße. Alles an einem Ort, auch ohne Login
+                                    nutzbar. Für unterwegs gibt es die Apps weiterhin für iPhone und Android.
                                 </p>
                             </div>
 
@@ -121,8 +124,8 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                                 <div className="space-y-3">
                                     <h2 className="text-2xl font-semibold">Moers in der Tasche</h2>
                                     <p className="text-sm leading-6 text-zinc-200">
-                                        Die mobilen Apps bleiben der schnellste Weg für Push-Nachrichten, den
-                                        Abfallkalender und lokale Infos unterwegs.
+                                        Die mobilen Apps bleiben der schnellste Weg für Push-Nachrichten, den Abfallkalender und lokale Infos
+                                        unterwegs.
                                     </p>
                                 </div>
                             </div>
@@ -135,7 +138,7 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                                     className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-4 transition hover:bg-white/10"
                                 >
                                     <div>
-                                        <div className="text-xs uppercase tracking-[0.18em] text-zinc-400">iPhone und iPad</div>
+                                        <div className="text-xs tracking-[0.18em] text-zinc-400 uppercase">iPhone und iPad</div>
                                         <div className="mt-1 text-lg font-medium">Im App Store laden</div>
                                     </div>
                                     <ArrowRight className="size-5 text-zinc-300" />
@@ -147,7 +150,7 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                                     className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-4 transition hover:bg-white/10"
                                 >
                                     <div>
-                                        <div className="text-xs uppercase tracking-[0.18em] text-zinc-400">Android</div>
+                                        <div className="text-xs tracking-[0.18em] text-zinc-400 uppercase">Android</div>
                                         <div className="mt-1 text-lg font-medium">Bei Google Play laden</div>
                                     </div>
                                     <ArrowRight className="size-5 text-zinc-300" />
@@ -243,29 +246,74 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                                 <ul className="divide-y divide-zinc-200 dark:divide-white/10">
                                     {latestNews.map((post) => (
                                         <li key={post.id}>
-                                            <Link
-                                                href={route('news.show', [post.id])}
-                                                className="block px-6 py-4 transition hover:bg-zinc-50 dark:hover:bg-white/5"
-                                            >
-                                                <div className="font-medium text-zinc-950 dark:text-white">{post.title}</div>
-                                                <div className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-                                                    {post.summary ?? 'Keine Kurzbeschreibung hinterlegt.'}
-                                                </div>
-                                                <div className="mt-3 text-xs uppercase tracking-[0.16em] text-zinc-400">
-                                                    {formatDate(post.published_at, {
-                                                        day: '2-digit',
-                                                        month: 'long',
-                                                        year: 'numeric',
-                                                    }) ?? 'Neu'}
-                                                </div>
-                                            </Link>
+                                            {post.external_href ? (
+                                                <a
+                                                    href={post.external_href}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="flex gap-4 px-6 py-4 transition hover:bg-zinc-50 dark:hover:bg-white/5"
+                                                >
+                                                    {post.header_image_url ? (
+                                                        <img
+                                                            src={post.header_image_url}
+                                                            alt={post.title}
+                                                            className="size-20 rounded-2xl object-cover"
+                                                        />
+                                                    ) : null}
+                                                    <div className="min-w-0">
+                                                        <div className="flex flex-wrap items-center gap-2">
+                                                            <div className="font-medium text-zinc-950 dark:text-white">{post.title}</div>
+                                                            {post.source_name ? (
+                                                                <span className="rounded-full bg-sky-100 px-2.5 py-1 text-[11px] font-medium tracking-[0.12em] text-sky-700 uppercase dark:bg-sky-500/15 dark:text-sky-200">
+                                                                    {post.source_name}
+                                                                </span>
+                                                            ) : null}
+                                                        </div>
+                                                        <div className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                                                            {post.summary ?? 'Zur Meldung beim Originalanbieter wechseln.'}
+                                                        </div>
+                                                        <div className="mt-3 text-xs tracking-[0.16em] text-zinc-400 uppercase">
+                                                            {formatDate(post.published_at, {
+                                                                day: '2-digit',
+                                                                month: 'long',
+                                                                year: 'numeric',
+                                                            }) ?? 'Neu'}
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            ) : (
+                                                <Link
+                                                    href={route('news.show', [post.id])}
+                                                    className="flex gap-4 px-6 py-4 transition hover:bg-zinc-50 dark:hover:bg-white/5"
+                                                >
+                                                    {post.header_image_url ? (
+                                                        <img
+                                                            src={post.header_image_url}
+                                                            alt={post.title}
+                                                            className="size-20 rounded-2xl object-cover"
+                                                        />
+                                                    ) : null}
+                                                    <div className="min-w-0">
+                                                        <div className="font-medium text-zinc-950 dark:text-white">{post.title}</div>
+                                                        <div className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                                                            {post.summary ?? 'Keine Kurzbeschreibung hinterlegt.'}
+                                                        </div>
+                                                        <div className="mt-3 text-xs tracking-[0.16em] text-zinc-400 uppercase">
+                                                            {formatDate(post.published_at, {
+                                                                day: '2-digit',
+                                                                month: 'long',
+                                                                year: 'numeric',
+                                                            }) ?? 'Neu'}
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            )}
                                         </li>
                                     ))}
                                 </ul>
                             )}
                         </CardContent>
                     </Card>
-
 
                     <Card className="border-zinc-200 py-0 dark:border-white/10">
                         <CardHeader className="border-b border-zinc-200/80 py-6 dark:border-white/10">
@@ -287,9 +335,7 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                         </CardHeader>
                         <CardContent className="grid gap-3 py-6 sm:grid-cols-2">
                             {featuredOrganisations.length === 0 ? (
-                                <div className="text-sm text-zinc-500 dark:text-zinc-400">
-                                    Aktuell sind keine Organisationen hinterlegt.
-                                </div>
+                                <div className="text-sm text-zinc-500 dark:text-zinc-400">Aktuell sind keine Organisationen hinterlegt.</div>
                             ) : (
                                 featuredOrganisations.map((organisation) => (
                                     <Link

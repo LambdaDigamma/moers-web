@@ -4,6 +4,7 @@ use Illuminate\Support\Carbon;
 use Inertia\Testing\AssertableInertia as Assert;
 use Modules\Events\Models\Event;
 use Modules\Management\Models\Organisation;
+use Modules\News\Models\Feed;
 use Modules\News\Models\Post;
 use Modules\Waste\Models\RubbishStreet;
 
@@ -22,10 +23,14 @@ it('shows the public landing page with overview data', function () {
         'start_date' => Carbon::parse('2026-03-01 12:00:00'),
     ]);
 
-    Post::factory()->published()->create([
+    $post = Post::factory()->published()->create([
         'title' => 'Neue Meldung',
         'summary' => 'Wichtige Information aus Moers',
+        'external_href' => 'https://example.com/news/neue-meldung',
     ]);
+    Feed::factory()->create([
+        'name' => 'NRZ',
+    ])->posts()->attach($post, ['order' => 0]);
     Post::factory()->notPublished()->create([
         'title' => 'Interner Entwurf',
     ]);
@@ -50,6 +55,9 @@ it('shows the public landing page with overview data', function () {
             ->where('upcomingEvents.0.name', 'Fruehlingskonzert')
             ->has('latestNews', 1)
             ->where('latestNews.0.title', 'Neue Meldung')
+            ->where('latestNews.0.external_href', 'https://example.com/news/neue-meldung')
+            ->where('latestNews.0.header_image_url', null)
+            ->where('latestNews.0.source_name', 'NRZ')
             ->has('featuredOrganisations', 1)
             ->where('featuredOrganisations.0.slug', 'kulturverein')
             ->where('mobileApps.ios_url', route('apps.ios'))

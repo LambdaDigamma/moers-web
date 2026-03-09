@@ -2,8 +2,10 @@
 
 namespace Modules\News\Providers;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\News\Console\Commands\ImportExternalPostsCommand;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -43,7 +45,9 @@ class NewsServiceProvider extends ServiceProvider
      */
     protected function registerCommands(): void
     {
-        // $this->commands([]);
+        $this->commands([
+            ImportExternalPostsCommand::class,
+        ]);
     }
 
     /**
@@ -51,10 +55,11 @@ class NewsServiceProvider extends ServiceProvider
      */
     protected function registerCommandSchedules(): void
     {
-        // $this->app->booted(function () {
-        //     $schedule = $this->app->make(Schedule::class);
-        //     $schedule->command('inspire')->hourly();
-        // });
+        $this->app->booted(function () {
+            $schedule = $this->app->make(Schedule::class);
+            $schedule->command('posts:import-external')
+                ->cron(config('news.rss_import_cron', '15 * * * *'));
+        });
     }
 
     /**

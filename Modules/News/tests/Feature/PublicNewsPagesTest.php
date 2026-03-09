@@ -8,10 +8,16 @@ use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
 it('shows published news on the public index', function () {
-    Post::factory()->published()->create([
+    $post = Post::factory()->published()->create([
         'title' => 'Stadtfest startet',
         'summary' => 'Am Wochenende beginnt das Stadtfest.',
+        'external_href' => 'https://example.com/stadtfest',
     ]);
+    $feed = \Modules\News\Models\Feed::factory()->create([
+        'name' => 'Rheinische Post',
+    ]);
+    $feed->posts()->attach($post, ['order' => 0]);
+
     Post::factory()->notPublished()->create([
         'title' => 'Nur intern',
     ]);
@@ -21,7 +27,10 @@ it('shows published news on the public index', function () {
         ->assertInertia(fn (Assert $page) => $page
             ->component('news/index')
             ->has('posts.data', 1)
-            ->where('posts.data.0.title', 'Stadtfest startet'));
+            ->where('posts.data.0.title', 'Stadtfest startet')
+            ->where('posts.data.0.external_href', 'https://example.com/stadtfest')
+            ->where('posts.data.0.header_image_url', null)
+            ->where('posts.data.0.source_name', 'Rheinische Post'));
 });
 
 it('shows a public news detail page for published posts', function () {
