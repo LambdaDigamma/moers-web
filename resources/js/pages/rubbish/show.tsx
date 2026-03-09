@@ -4,11 +4,19 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { usePrimaryRubbishStreet } from '@/hooks/use-primary-rubbish-street';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { Head } from '@inertiajs/react';
-import { ChevronLeft, ChevronRight, FileText, Leaf, Recycle, Trash2 } from 'lucide-react';
+import { CalendarPlus, ChevronLeft, ChevronRight, Download, FileText, Leaf, Recycle, Star, Trash2 } from 'lucide-react';
 import { ReactNode, useEffect, useState } from 'react';
 
 type PickupItem = {
@@ -164,67 +172,114 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                     </CardDescription>
                                 </div>
 
-                                <div className="flex flex-col items-start gap-3 sm:items-end">
-                                    <div className="space-y-1">
-                                        <div className="text-[11px] font-semibold tracking-[0.18em] text-zinc-500 uppercase">Downloads</div>
-                                        <div className="flex flex-wrap gap-2">
-                                            <Button asChild variant="secondary" size="sm">
-                                                <a href={downloads.pdf_download_url} target="_blank" rel="noreferrer" download>
-                                                    PDF
-                                                </a>
-                                            </Button>
-                                            <Button asChild variant="outline" size="sm">
-                                                <a href={downloads.ics_download_url} target="_blank" rel="noreferrer" download>
-                                                    ICS
-                                                </a>
-                                            </Button>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-1">
-                                        <div className="text-[11px] font-semibold tracking-[0.18em] text-zinc-500 uppercase">Kalender-Abo</div>
-                                        <div className="flex flex-wrap gap-2">
-                                            <Button asChild variant="ghost" size="sm">
-                                                <a href={downloads.apple_calendar_url}>Apple</a>
-                                            </Button>
-                                            <Button asChild variant="ghost" size="sm">
-                                                <a href={downloads.google_calendar_url} target="_blank" rel="noreferrer">
-                                                    Google
-                                                </a>
-                                            </Button>
-                                            <Button asChild variant="ghost" size="sm">
-                                                <a href={downloads.outlook_calendar_url} target="_blank" rel="noreferrer">
-                                                    Outlook
-                                                </a>
-                                            </Button>
-                                        </div>
-                                    </div>
-
+                                <div className="flex flex-wrap items-center gap-3 sm:justify-end">
                                     {isLoaded ? (
-                                        <div className="space-y-1">
-                                            <div className="text-[11px] font-semibold tracking-[0.18em] text-zinc-500 uppercase">Persönlich</div>
-                                            {isPrimaryStreet ? (
-                                                <Button type="button" variant="outline" size="sm" onClick={clearPrimaryStreet}>
-                                                    Gespeichert
-                                                </Button>
-                                            ) : (
+                                        <Button
+                                            type="button"
+                                            variant={isPrimaryStreet ? 'secondary' : 'outline'}
+                                            size="sm"
+                                            onClick={
+                                                isPrimaryStreet
+                                                    ? clearPrimaryStreet
+                                                    : () =>
+                                                          setPrimaryStreet({
+                                                              id: street.id,
+                                                              name: street.name,
+                                                              street_addition: street.street_addition,
+                                                          })
+                                            }
+                                            className={cn(
+                                                'h-9 rounded-full px-4 font-medium transition-all',
+                                                isPrimaryStreet && 'bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-500',
+                                            )}
+                                        >
+                                            <Star className={cn('mr-2 size-4', isPrimaryStreet && 'fill-current')} />
+                                            {isPrimaryStreet ? 'Gespeichert' : 'Meine Straße'}
+                                        </Button>
+                                    ) : null}
+
+                                    <div className="hidden h-8 w-px bg-zinc-200 sm:block dark:bg-white/10" />
+
+                                    <div className="flex items-center gap-2">
+                                        <Button
+                                            asChild
+                                            variant="outline"
+                                            size="sm"
+                                            className="h-9 rounded-full px-4"
+                                        >
+                                            <a
+                                                href={downloads.pdf_download_url}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                download
+                                            >
+                                                <Download className="mr-2 size-4" />
+                                                PDF
+                                            </a>
+                                        </Button>
+
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
                                                 <Button
-                                                    type="button"
                                                     variant="outline"
                                                     size="sm"
-                                                    onClick={() =>
-                                                        setPrimaryStreet({
-                                                            id: street.id,
-                                                            name: street.name,
-                                                            street_addition: street.street_addition,
-                                                        })
-                                                    }
+                                                    className="h-9 rounded-full px-4"
                                                 >
-                                                    Primär
+                                                    <CalendarPlus className="mr-2 size-4" />
+                                                    Abonnieren
                                                 </Button>
-                                            )}
-                                        </div>
-                                    ) : null}
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent
+                                                align="end"
+                                                className="w-56"
+                                            >
+                                                <DropdownMenuLabel className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">
+                                                    Downloads
+                                                </DropdownMenuLabel>
+                                                <DropdownMenuItem asChild>
+                                                    <a
+                                                        href={downloads.ics_download_url}
+                                                        download
+                                                        className="cursor-pointer"
+                                                    >
+                                                        ICS Kalenderdatei
+                                                    </a>
+                                                </DropdownMenuItem>
+                                                <DropdownMenuSeparator />
+                                                <DropdownMenuLabel className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">
+                                                    Kalender-Abo
+                                                </DropdownMenuLabel>
+                                                <DropdownMenuItem asChild>
+                                                    <a
+                                                        href={downloads.apple_calendar_url}
+                                                        className="cursor-pointer"
+                                                    >
+                                                        Apple Kalender
+                                                    </a>
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem asChild>
+                                                    <a
+                                                        href={downloads.google_calendar_url}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="cursor-pointer"
+                                                    >
+                                                        Google Kalender
+                                                    </a>
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem asChild>
+                                                    <a
+                                                        href={downloads.outlook_calendar_url}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="cursor-pointer"
+                                                    >
+                                                        Outlook Kalender
+                                                    </a>
+                                                </DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </div>
                                 </div>
                             </div>
                         </CardHeader>

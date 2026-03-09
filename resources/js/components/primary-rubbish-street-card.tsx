@@ -147,7 +147,6 @@ export function PrimaryRubbishStreetCard() {
                                                     ) : (
                                                         <Trash2 className="size-4" />
                                                     )}
-                                                    {pickupMeta[pickup.type].label}
                                                 </div>
                                             </div>
                                             <div className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-medium ${pickupMeta[pickup.type].tone}`}>

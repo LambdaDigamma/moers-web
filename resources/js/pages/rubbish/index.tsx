@@ -41,7 +41,7 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
                                 <div>
                                     <CardTitle className="text-2xl text-zinc-950">Abfallkalender</CardTitle>
                                     <CardDescription className="mt-1 text-sm text-zinc-700">
-                                        Suche deine Straße direkt oben und springe ohne Umweg in die Termine.
+                                        Suche deine Straße für alle Abholtermine.
                                     </CardDescription>
                                 </div>
                             </div>
@@ -50,10 +50,10 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
                             <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3">
                                 <div className="flex items-center gap-2 text-sm font-medium text-zinc-950">
                                     <Compass className="size-4 text-emerald-600" />
-                                    Schnell wechseln
+                                    Schnell finden
                                 </div>
                                 <p className="mt-1 text-sm leading-6 text-zinc-600">
-                                    Die Ergebnisliste schwebt direkt unter der Suche. Ein Klick öffnet sofort die passende Straße.
+                                    Gib einfach deinen Straßennamen ein und wähle den passenden Vorschlag aus.
                                 </p>
                             </div>
                             <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3">

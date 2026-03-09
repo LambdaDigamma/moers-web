@@ -34,12 +34,12 @@ function NewsIndex({ posts }: { posts: Paginator<NewsPost> }) {
                 <Card className="py-0">
                     <CardHeader className="border-b py-6">
                         <CardTitle className="text-3xl">News</CardTitle>
-                        <CardDescription>Oeffentliche Meldungen und kurze Updates aus Moers</CardDescription>
+                        <CardDescription>Aktuelle Meldungen und Updates aus Moers</CardDescription>
                     </CardHeader>
                     <CardContent className="p-0">
                         {posts.data.length === 0 ? (
                             <div className="px-6 py-10 text-sm text-zinc-500 dark:text-zinc-400">
-                                Aktuell sind keine Beitraege veroeffentlicht.
+                                Aktuell sind keine Beiträge veröffentlicht.
                             </div>
                         ) : (
                             <ul className="divide-y divide-zinc-200 dark:divide-white/10">

@@ -56,16 +56,16 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                     <div className="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(18rem,0.9fr)]">
                         <section className="space-y-6">
                             <div className="inline-flex items-center rounded-full border border-emerald-200/80 bg-white/80 px-3 py-1 text-xs font-medium tracking-[0.18em] text-emerald-800 uppercase shadow-sm backdrop-blur dark:border-emerald-500/30 dark:bg-white/5 dark:text-emerald-200">
-                                Stadtinfos, Veranstaltungen und Services an einem Ort
+                                Alle städtischen Services auf einen Blick
                             </div>
 
                             <div className="space-y-4">
                                 <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-zinc-950 md:text-6xl dark:text-white">
-                                    Mein Moers macht lokale Informationen auch ohne Login sofort nutzbar.
+                                    Lokale Informationen für Moers – einfach und direkt.
                                 </h1>
                                 <p className="max-w-2xl text-base leading-7 text-zinc-700 md:text-lg dark:text-zinc-300">
-                                    Nachrichten, Veranstaltungen, Organisationen und der Abfallkalender sind jetzt direkt
-                                    oeffentlich erreichbar. Fuer unterwegs gibt es die Apps weiterhin fuer iPhone und Android.
+                                    Aktuelle Nachrichten, Veranstaltungen und der Abfallkalender für deine Straße.
+                                    Alles an einem Ort, auch ohne Login nutzbar. Für unterwegs gibt es die Apps weiterhin für iPhone und Android.
                                 </p>
                             </div>
 
@@ -80,7 +80,7 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                                     asChild
                                     variant="outline"
                                 >
-                                    <Link href="/abfallkalender">Abfallkalender oeffnen</Link>
+                                    <Link href="/abfallkalender">Abfallkalender öffnen</Link>
                                 </Button>
                             </div>
 
@@ -105,7 +105,7 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                                 </Card>
                                 <Card className="border-white/70 bg-white/80 py-4 shadow-md backdrop-blur dark:border-white/10 dark:bg-white/5">
                                     <CardHeader className="gap-2 pb-0">
-                                        <CardDescription>Abfallkalender-Strassen</CardDescription>
+                                        <CardDescription>Abfallkalender</CardDescription>
                                         <CardTitle className="text-3xl">{stats.rubbish_streets}</CardTitle>
                                     </CardHeader>
                                 </Card>
@@ -121,11 +121,12 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                                 <div className="space-y-3">
                                     <h2 className="text-2xl font-semibold">Moers in der Tasche</h2>
                                     <p className="text-sm leading-6 text-zinc-200">
-                                        Die mobilen Apps bleiben der schnellste Weg fuer Push-Nachrichten, den
+                                        Die mobilen Apps bleiben der schnellste Weg für Push-Nachrichten, den
                                         Abfallkalender und lokale Infos unterwegs.
                                     </p>
                                 </div>
                             </div>
+
                             <CardContent className="space-y-4 p-6">
                                 <a
                                     href={mobileApps.ios_url}
@@ -165,9 +166,9 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                                 <div>
                                     <CardTitle className="flex items-center gap-2 text-2xl">
                                         <CalendarRange className="size-5 text-emerald-600" />
-                                        Naechste Veranstaltungen
+                                        Nächste Veranstaltungen
                                     </CardTitle>
-                                    <CardDescription>Oeffentlich sichtbar und direkt aufrufbar</CardDescription>
+                                    <CardDescription>Öffentlich sichtbar und direkt aufrufbar</CardDescription>
                                 </div>
                                 <Button
                                     asChild
@@ -223,7 +224,7 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                                         <Newspaper className="size-5 text-sky-600" />
                                         Aktuelle Nachrichten
                                     </CardTitle>
-                                    <CardDescription>Neu im oeffentlichen Bereich</CardDescription>
+                                    <CardDescription>Neu im öffentlichen Bereich</CardDescription>
                                 </div>
                                 <Button
                                     asChild
@@ -236,7 +237,7 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                         <CardContent className="p-0">
                             {latestNews.length === 0 ? (
                                 <div className="px-6 py-8 text-sm text-zinc-500 dark:text-zinc-400">
-                                    Aktuell sind keine Nachrichten veroeffentlicht.
+                                    Aktuell sind keine Nachrichten veröffentlicht.
                                 </div>
                             ) : (
                                 <ul className="divide-y divide-zinc-200 dark:divide-white/10">
@@ -264,6 +265,7 @@ function Home({ stats, upcomingEvents, latestNews, featuredOrganisations, mobile
                             )}
                         </CardContent>
                     </Card>
+
 
                     <Card className="border-zinc-200 py-0 dark:border-white/10">
                         <CardHeader className="border-b border-zinc-200/80 py-6 dark:border-white/10">

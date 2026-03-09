@@ -18,6 +18,22 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
     const locationLabel = getEventLocationLabel(event);
     const addressLabel = getEventAddressLabel(event);
     const mapsUrl = getEventMapsUrl(event);
+    const description = event.description?.trim() ?? null;
+    const normalizedDescription = description?.replace(/\s+/g, ' ').trim() ?? null;
+    const normalizedExcerpt = event.excerpt?.replace(/\s+/g, ' ').trim() ?? null;
+    const leadText = event.teaser?.trim() ?? (normalizedExcerpt && normalizedExcerpt !== normalizedDescription ? event.excerpt : null);
+    const organizerAddress = [event.organizerStreet, [event.organizerPostcode, event.organizerCity].filter(Boolean).join(' ')]
+        .filter(Boolean)
+        .join(', ');
+    const hasOrganizerDetails = Boolean(
+        event.organisationName ||
+            event.organisationSlug ||
+            organizerAddress ||
+            event.organizerPhone ||
+            event.organizerEmail ||
+            event.organizerWebsite,
+    );
+    const hasPlanningSidebar = Boolean(addressLabel || mapsUrl || hasOrganizerDetails || event.isOnline);
 
     return (
         <>
@@ -56,7 +72,6 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                         {collectionLabel && collectionLabel !== primaryLabel ? (
                                             <Badge variant="outline">{collectionLabel}</Badge>
                                         ) : null}
-                                        {event.organisationName ? <Badge variant="outline">{event.organisationName}</Badge> : null}
                                         {event.isOnline ? <Badge variant="outline">Online</Badge> : null}
                                     </div>
 
@@ -65,9 +80,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                         {event.subtitle ? (
                                             <p className="text-sm font-medium tracking-[0.12em] text-amber-200 uppercase">{event.subtitle}</p>
                                         ) : null}
-                                        <p className="max-w-3xl text-sm leading-7 text-zinc-200">
-                                            {event.excerpt ?? 'Weitere Informationen zu dieser Veranstaltung folgen.'}
-                                        </p>
+                                        {leadText ? <p className="max-w-3xl text-sm leading-7 text-zinc-200">{leadText}</p> : null}
                                     </div>
 
                                     {event.cancelledAt ? <EventCancelledBanner /> : null}
@@ -90,14 +103,14 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                         <FeaturePill
                                             icon={<MapPin className="size-4" />}
                                             label="Ort"
-                                            value={locationLabel ?? 'Ort wird noch bekanntgegeben'}
+                                            value={locationLabel ?? (event.isOnline ? 'Online-Veranstaltung' : 'Ort wird noch bekanntgegeben')}
                                         />
                                     </div>
                                 </div>
 
                                 <Card className="border-white/10 bg-white/10 py-0 text-white shadow-none backdrop-blur">
                                     <CardHeader className="px-6 pt-6">
-                                        <CardTitle>Auf einen Blick</CardTitle>
+                                        <CardTitle>Planen</CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-5 px-6 pb-6">
                                         <DetailItem
@@ -109,15 +122,17 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                                     : 'n/v'
                                             }
                                         />
-                                        <DetailItem
-                                            icon={<UserRound className="size-4" />}
-                                            label="Veranstalter"
-                                            value={event.organisationName ?? 'n/v'}
-                                        />
+                                        {event.endDate ? (
+                                            <DetailItem
+                                                icon={<CalendarDays className="size-4" />}
+                                                label="Ende"
+                                                value={formatDateTime(event.endDate, { dateStyle: 'full', timeStyle: 'short' }) ?? 'n/v'}
+                                            />
+                                        ) : null}
                                         <DetailItem
                                             icon={<MapPin className="size-4" />}
                                             label="Adresse"
-                                            value={addressLabel ?? locationLabel ?? 'n/v'}
+                                            value={addressLabel ?? locationLabel ?? (event.isOnline ? 'Online-Veranstaltung' : 'n/v')}
                                         />
                                         <div className="flex flex-wrap gap-3">
                                             {event.calendarUrl ? (
@@ -148,7 +163,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                                         rel="noreferrer"
                                                     >
                                                         <MapPin className="size-4" />
-                                                        Route oeffnen
+                                                        Route öffnen
                                                     </a>
                                                 </Button>
                                             ) : null}
@@ -177,142 +192,141 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                     </section>
 
                     <div className="grid gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,0.9fr)]">
-                        <Card className="rounded-[2rem] py-0">
-                            <CardHeader className="px-6 pt-6">
-                                <CardTitle>Beschreibung</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-5 px-6 pb-6">
-                                <p className="text-sm leading-7 whitespace-pre-line text-zinc-700 dark:text-zinc-300">
-                                    {event.description ?? 'Zu dieser Veranstaltung liegt derzeit noch keine Beschreibung vor.'}
-                                </p>
-                            </CardContent>
-                        </Card>
-
                         <div className="space-y-6">
                             <Card className="rounded-[2rem] py-0">
                                 <CardHeader className="px-6 pt-6">
-                                    <CardTitle>Veranstaltungsort</CardTitle>
+                                    <CardTitle>Über die Veranstaltung</CardTitle>
                                 </CardHeader>
-                                <CardContent className="space-y-3 px-6 pb-6 text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-                                    <p className="font-medium text-zinc-950 dark:text-white">{locationLabel ?? 'Ort wird noch bekanntgegeben'}</p>
-                                    {addressLabel ? <p>{addressLabel}</p> : null}
-                                    {mapsUrl ? (
-                                        <a
-                                            href={mapsUrl}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="inline-flex items-center gap-2 text-sm font-medium text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
-                                        >
-                                            <MapPin className="size-4" />
-                                            Navigation starten
-                                        </a>
+                                <CardContent className="space-y-5 px-6 pb-6">
+                                    <p className="text-sm leading-7 whitespace-pre-line text-zinc-700 dark:text-zinc-300">
+                                        {description ?? leadText ?? 'Zu dieser Veranstaltung liegt derzeit noch keine Beschreibung vor.'}
+                                    </p>
+                                    {event.artists.length > 0 ? (
+                                        <div className="space-y-3 border-t border-zinc-200 pt-5 dark:border-white/10">
+                                            <p className="text-xs font-medium tracking-[0.18em] text-zinc-500 uppercase dark:text-zinc-400">
+                                                Mitwirkende
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {event.artists.map((artist) => (
+                                                    <Badge
+                                                        key={artist}
+                                                        variant="outline"
+                                                    >
+                                                        {artist}
+                                                    </Badge>
+                                                ))}
+                                            </div>
+                                        </div>
                                     ) : null}
                                 </CardContent>
                             </Card>
 
-                            {event.organisationName || event.organisationSlug ? (
+                            {hasPlanningSidebar ? (
                                 <Card className="rounded-[2rem] py-0">
                                     <CardHeader className="px-6 pt-6">
-                                        <CardTitle>Veranstalter</CardTitle>
+                                        <CardTitle>Kontakt & Teilnahme</CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-4 px-6 pb-6">
-                                        <div className="flex items-center gap-3">
-                                            {event.organisationLogoPath ? (
-                                                <img
-                                                    src={event.organisationLogoPath}
-                                                    alt={event.organisationName ?? 'Organisation'}
-                                                    className="size-12 rounded-full border border-zinc-200 bg-white object-cover dark:border-white/10"
-                                                />
-                                            ) : (
-                                                <div className="flex size-12 items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-white/5">
-                                                    <UserRound className="size-5 text-zinc-400" />
-                                                </div>
-                                            )}
-
-                                            <div>
-                                                <p className="font-medium text-zinc-950 dark:text-white">
-                                                    {event.organisationName ?? 'Organisation'}
-                                                </p>
-                                                {event.organizerStreet || event.organizerPostcode || event.organizerCity ? (
-                                                    <p className="text-sm text-zinc-600 dark:text-zinc-300">
-                                                        {[event.organizerStreet, [event.organizerPostcode, event.organizerCity].filter(Boolean).join(' ')].filter(Boolean).join(', ')}
-                                                    </p>
+                                        {addressLabel || mapsUrl ? (
+                                            <SidebarSection
+                                                icon={<MapPin className="size-4" />}
+                                                title="Anreise"
+                                            >
+                                                {locationLabel ? (
+                                                    <p className="font-medium text-zinc-950 dark:text-white">{locationLabel}</p>
                                                 ) : null}
-                                                {event.organisationSlug ? (
-                                                    <Link
-                                                        href={route('organisations.show', [event.organisationSlug])}
-                                                        className="inline-flex items-center gap-1 text-sm text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
+                                                {addressLabel ? <p>{addressLabel}</p> : null}
+                                                {mapsUrl ? (
+                                                    <a
+                                                        href={mapsUrl}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="inline-flex items-center gap-2 text-sm font-medium text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
                                                     >
-                                                        Profil ansehen
-                                                        <ArrowUpRight className="size-4" />
-                                                    </Link>
+                                                        <MapPin className="size-4" />
+                                                        Navigation starten
+                                                    </a>
                                                 ) : null}
-                                            </div>
-                                        </div>
+                                            </SidebarSection>
+                                        ) : null}
 
-                                        <div className="flex flex-col gap-2 text-sm">
-                                            {event.organizerPhone ? (
-                                                <a
-                                                    href={`tel:${event.organizerPhone}`}
-                                                    className="text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
-                                                >
-                                                    {event.organizerPhone}
-                                                </a>
-                                            ) : null}
-                                            {event.organizerEmail ? (
-                                                <a
-                                                    href={`mailto:${event.organizerEmail}`}
-                                                    className="text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
-                                                >
-                                                    {event.organizerEmail}
-                                                </a>
-                                            ) : null}
-                                            {event.organizerWebsite ? (
-                                                <a
-                                                    href={event.organizerWebsite}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="inline-flex items-center gap-1 text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
-                                                >
-                                                    Webseite
-                                                    <ArrowUpRight className="size-4" />
-                                                </a>
-                                            ) : null}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ) : null}
+                                        {hasOrganizerDetails ? (
+                                            <SidebarSection
+                                                icon={<UserRound className="size-4" />}
+                                                title="Veranstalter"
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    {event.organisationLogoPath ? (
+                                                        <img
+                                                            src={event.organisationLogoPath}
+                                                            alt={event.organisationName ?? 'Organisation'}
+                                                            className="size-12 rounded-full border border-zinc-200 bg-white object-cover dark:border-white/10"
+                                                        />
+                                                    ) : (
+                                                        <div className="flex size-12 items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-white/5">
+                                                            <UserRound className="size-5 text-zinc-400" />
+                                                        </div>
+                                                    )}
 
-                            {event.artists.length > 0 ? (
-                                <Card className="rounded-[2rem] py-0">
-                                    <CardHeader className="px-6 pt-6">
-                                        <CardTitle>Mitwirkende</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="px-6 pb-6">
-                                        <div className="flex flex-wrap gap-2">
-                                            {event.artists.map((artist) => (
-                                                <Badge
-                                                    key={artist}
-                                                    variant="outline"
-                                                >
-                                                    {artist}
-                                                </Badge>
-                                            ))}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ) : null}
+                                                    <div className="min-w-0">
+                                                        <p className="font-medium text-zinc-950 dark:text-white">
+                                                            {event.organisationName ?? 'Organisation'}
+                                                        </p>
+                                                        {organizerAddress ? (
+                                                            <p className="text-sm text-zinc-600 dark:text-zinc-300">{organizerAddress}</p>
+                                                        ) : null}
+                                                        {event.organisationSlug ? (
+                                                            <Link
+                                                                href={route('organisations.show', [event.organisationSlug])}
+                                                                className="inline-flex items-center gap-1 text-sm text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
+                                                            >
+                                                                Profil ansehen
+                                                                <ArrowUpRight className="size-4" />
+                                                            </Link>
+                                                        ) : null}
+                                                    </div>
+                                                </div>
 
-                            {event.isOnline ? (
-                                <Card className="rounded-[2rem] py-0">
-                                    <CardHeader className="px-6 pt-6">
-                                        <CardTitle>Teilnahme</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="px-6 pb-6">
-                                        <div className="flex items-start gap-3 text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-                                            <Globe className="mt-0.5 size-4 shrink-0 text-zinc-400" />
-                                            <p>Diese Veranstaltung ist online verfuegbar oder findet digital statt.</p>
-                                        </div>
+                                                <div className="flex flex-col gap-2 text-sm">
+                                                    {event.organizerPhone ? (
+                                                        <a
+                                                            href={`tel:${event.organizerPhone}`}
+                                                            className="text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
+                                                        >
+                                                            {event.organizerPhone}
+                                                        </a>
+                                                    ) : null}
+                                                    {event.organizerEmail ? (
+                                                        <a
+                                                            href={`mailto:${event.organizerEmail}`}
+                                                            className="text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
+                                                        >
+                                                            {event.organizerEmail}
+                                                        </a>
+                                                    ) : null}
+                                                    {event.organizerWebsite ? (
+                                                        <a
+                                                            href={event.organizerWebsite}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            className="inline-flex items-center gap-1 text-cyan-700 hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
+                                                        >
+                                                            Webseite
+                                                            <ArrowUpRight className="size-4" />
+                                                        </a>
+                                                    ) : null}
+                                                </div>
+                                            </SidebarSection>
+                                        ) : null}
+
+                                        {event.isOnline ? (
+                                            <SidebarSection
+                                                icon={<Globe className="size-4" />}
+                                                title="Teilnahme"
+                                            >
+                                                <p>Diese Veranstaltung ist online verfügbar oder findet digital statt.</p>
+                                            </SidebarSection>
+                                        ) : null}
                                     </CardContent>
                                 </Card>
                             ) : null}
@@ -345,6 +359,18 @@ function DetailItem({ icon, label, value }: { icon: ReactNode; label: string; va
             </div>
             <div className="text-sm leading-6 text-white">{value}</div>
         </div>
+    );
+}
+
+function SidebarSection({ icon, title, children }: { icon: ReactNode; title: string; children: ReactNode }) {
+    return (
+        <section className="space-y-3 border-b border-zinc-200 pb-4 last:border-b-0 last:pb-0 dark:border-white/10">
+            <div className="flex items-center gap-2 text-xs font-medium tracking-[0.18em] text-zinc-500 uppercase dark:text-zinc-400">
+                {icon}
+                <span>{title}</span>
+            </div>
+            <div className="space-y-3 text-sm leading-6 text-zinc-700 dark:text-zinc-300">{children}</div>
+        </section>
     );
 }
 

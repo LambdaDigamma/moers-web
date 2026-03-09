@@ -11,7 +11,7 @@ type ShowOrganisationProps = {
 const ShowOrganisation = ({ organisation }: ShowOrganisationProps) => {
     return (
         <>
-            <Head title="Bearbeiten"></Head>
+            <Head title={organisation.name}></Head>
             <DefaultContainer>
                 <h1 className="text-2xl font-semibold">{organisation.name}</h1>
                 {JSON.stringify(organisation)}

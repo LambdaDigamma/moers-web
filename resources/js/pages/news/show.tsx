@@ -57,7 +57,7 @@ function NewsShow({ post }: PostProps) {
                     </CardHeader>
                     <CardContent className="space-y-6 py-8">
                         <div className="max-w-3xl text-base leading-8 whitespace-pre-line text-zinc-700 dark:text-zinc-300">
-                            {post.summary || 'Zu diesem Beitrag liegt noch kein ausfuehrlicher Text vor.'}
+                            {post.summary || 'Zu diesem Beitrag liegt noch kein ausführlicher Text vor.'}
                         </div>
 
                         {post.external_href ? (

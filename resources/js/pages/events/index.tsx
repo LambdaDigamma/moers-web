@@ -127,8 +127,7 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                                 <p className="text-sm font-medium tracking-[0.24em] text-zinc-500 uppercase dark:text-zinc-400">Terminkalender</p>
                                 <Heading className="text-3xl sm:text-4xl">Veranstaltungen in Moers finden</Heading>
                                 <p className="max-w-2xl text-sm leading-6 text-zinc-600 dark:text-zinc-300">
-                                    Die Liste ist nach Monaten gruppiert, passt die Datumsanzeige an das Geraet der Nutzer an und laesst sich nach
-                                    Zeitraum, Reihe, Veranstalter und Ort filtern.
+                                    Entdecke kommende Termine, sortiert nach Monaten und filterbar nach deinen Interessen.
                                 </p>
                             </div>
                         </div>
@@ -165,7 +164,7 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                                         onValueChange={(value) => updateFilter('type', value)}
                                     >
                                         <SelectTrigger id="event-type">
-                                            <SelectValue placeholder="Zeitraum waehlen" />
+                                            <SelectValue placeholder="Zeitraum wählen" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {availableFilters.types.map((option) => (

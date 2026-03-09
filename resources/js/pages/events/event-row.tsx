@@ -80,7 +80,7 @@ export const EventRow: React.FC<{ event: Event; currentUrl?: string }> = ({ even
                             {event.isOnline ? (
                                 <div className="flex items-start gap-2">
                                     <Globe className="mt-0.5 size-4 shrink-0 text-zinc-400" />
-                                    <span>Online verfuegbar</span>
+                                    <span>Online verfügbar</span>
                                 </div>
                             ) : null}
                         </div>

@@ -112,7 +112,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 side="left"
                                 className="bg-sidebar flex h-full w-64 flex-col items-stretch justify-between"
                             >
-                                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                                <SheetTitle className="sr-only">Navigationsmenü</SheetTitle>
                                 <SheetHeader className="flex justify-start text-left">
                                     <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
                                 </SheetHeader>
@@ -268,7 +268,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                     href={route('login')}
                                     className="inline-flex h-9 items-center rounded-md px-3 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 hover:text-zinc-950"
                                 >
-                                    Log in
+                                    Login
                                 </Link>
                                 <Link
                                     href={route('register')}
