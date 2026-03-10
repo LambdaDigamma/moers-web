@@ -82,7 +82,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                 <DefaultContainer className="py-8 md:py-16 lg:py-24">
                     <div className="grid items-center gap-12 lg:grid-cols-2">
                         <section className="space-y-6 md:space-y-8">
-                            <div className="inline-flex items-center rounded-full border border-emerald-200/60 bg-white/50 px-3 py-1 text-[10px] font-semibold tracking-wider text-emerald-800 uppercase shadow-xs backdrop-blur-sm dark:border-emerald-500/20 dark:bg-white/5 dark:text-emerald-300">
+                            <div className="inline-flex items-center rounded-full border border-emerald-200/60 bg-white/50 px-3 py-1 text-xs font-medium tracking-wide text-emerald-800 shadow-xs backdrop-blur-sm dark:border-emerald-500/20 dark:bg-white/5 dark:text-emerald-300">
                                 <Star className="mr-2 size-3 fill-current" />
                                 Alles für Moers in einer App
                             </div>
@@ -109,7 +109,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                     disabled
                                 />
                                 <div className="absolute inset-y-0 right-2 flex items-center">
-                                    <span className="hidden rounded-lg bg-zinc-50 px-2 py-1 text-[10px] font-bold tracking-wider text-zinc-400 uppercase sm:inline-block dark:bg-white/5">
+                                    <span className="hidden rounded-lg bg-zinc-50 px-2 py-1 text-xs font-medium text-zinc-400 sm:inline-block dark:bg-white/5">
                                         Bald verfügbar
                                     </span>
                                 </div>
@@ -129,7 +129,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                 <div className="hidden h-8 w-px bg-zinc-200 sm:block dark:bg-white/10" />
                                 <Link
                                     href={route('events.index')}
-                                    className="text-sm font-semibold text-emerald-600 transition hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
+                                    className="text-sm font-medium text-emerald-600 transition hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
                                 >
                                     Web-Version nutzen <ArrowRight className="ml-1 inline size-4" />
                                 </Link>
@@ -203,15 +203,15 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                 >
                                                     <div className="flex items-center gap-4">
                                                         <div className="flex size-12 flex-col items-center justify-center rounded-xl bg-zinc-100 transition-colors group-hover:bg-emerald-50 dark:bg-white/5 dark:group-hover:bg-emerald-500/10">
-                                                            <div className="text-[9px] font-bold tracking-wider text-emerald-700 uppercase dark:text-emerald-400">
+                                                            <div className="text-xs font-medium tracking-wide text-emerald-700 dark:text-emerald-400">
                                                                 {formatDate(event.start_date, { month: 'short' })}
                                                             </div>
-                                                            <div className="text-lg font-bold text-zinc-950 dark:text-white leading-none">
+                                                            <div className="text-lg font-medium text-zinc-950 dark:text-white leading-none">
                                                                 {formatDate(event.start_date, { day: '2-digit' })}
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <div className="line-clamp-1 text-base font-semibold text-zinc-950 transition-colors group-hover:text-emerald-600 dark:text-white">
+                                                            <div className="line-clamp-1 text-base font-medium text-zinc-950 transition-colors group-hover:text-emerald-600 dark:text-white">
                                                                 {event.name}
                                                             </div>
                                                             <div className="mt-0.5 flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
@@ -219,7 +219,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                                     {formatDate(event.start_date, { hour: '2-digit', minute: '2-digit' })} Uhr
                                                                 </span>
                                                                 {event.location && (
-                                                                    <span className="flex max-w-[180px] items-center gap-1.5 truncate">
+                                                                    <span className="flex max-w-[180px] items-center gap-1.5 truncate font-medium">
                                                                         <MapPin className="size-3" />
                                                                         {event.location}
                                                                     </span>
@@ -283,15 +283,15 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                     <div className="space-y-2">
                                                         <div className="flex items-center gap-2.5">
                                                             {post.source_name && (
-                                                                <span className="rounded-full bg-sky-50 px-2 py-0.5 text-[9px] font-bold tracking-wider text-sky-700 uppercase dark:bg-sky-500/10 dark:text-sky-400">
+                                                                <span className="rounded-full bg-sky-50 px-2 py-0.5 text-xs font-medium tracking-wide text-sky-700 dark:bg-sky-500/10 dark:text-sky-400">
                                                                     {post.source_name}
                                                                 </span>
                                                             )}
-                                                            <span className="text-[10px] font-medium text-zinc-400 uppercase">
+                                                            <span className="text-xs font-medium text-zinc-400">
                                                                 {formatDate(post.published_at, { day: '2-digit', month: 'long' })}
                                                             </span>
                                                         </div>
-                                                        <h3 className="line-clamp-2 text-lg font-bold text-zinc-950 transition-colors group-hover:text-sky-600 dark:text-white">
+                                                        <h3 className="line-clamp-2 text-lg font-medium text-zinc-950 transition-colors group-hover:text-sky-600 dark:text-white">
                                                             {post.title}
                                                         </h3>
                                                         <p className="line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
@@ -329,8 +329,8 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                 className="flex items-center justify-between px-5 py-4"
                                             >
                                                 <div className="space-y-0.5">
-                                                    <div className="text-sm font-semibold text-zinc-950 dark:text-white">{area.name}</div>
-                                                    <div className="flex items-center gap-1.5 text-[9px] font-bold tracking-wide uppercase">
+                                                    <div className="text-sm font-medium text-zinc-950 dark:text-white">{area.name}</div>
+                                                    <div className="flex items-center gap-1.5 text-xs font-medium tracking-wide">
                                                         <span
                                                             className={`size-1.5 rounded-full ${area.state === 'open' ? 'bg-emerald-500' : 'bg-zinc-300'}`}
                                                         />
@@ -341,7 +341,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                 </div>
                                                 <div className="flex flex-col items-end">
                                                     <div
-                                                        className={`text-xl font-black tracking-tighter tabular-nums ${
+                                                        className={`text-xl font-medium tracking-tighter tabular-nums ${
                                                             area.capacity && area.occupied && area.capacity - area.occupied < 10
                                                                 ? 'text-amber-500'
                                                                 : 'text-zinc-950 dark:text-white'
@@ -349,7 +349,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                     >
                                                         {area.capacity ? Math.max(0, area.capacity - area.occupied!) : '—'}
                                                     </div>
-                                                    <div className="text-[9px] font-bold tracking-widest text-zinc-400 uppercase">Frei</div>
+                                                    <div className="text-xs font-medium tracking-wide text-zinc-400">Frei</div>
                                                 </div>
                                             </li>
                                         ))
@@ -359,8 +359,8 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                 </ul>
                                 <div className="bg-zinc-50/50 px-5 py-3 dark:bg-white/5">
                                     <div className="flex items-center justify-between">
-                                        <div className="text-[10px] font-medium text-zinc-500">Gesamtparkplätze</div>
-                                        <div className="text-[10px] font-bold text-zinc-950 uppercase dark:text-white">
+                                        <div className="text-xs font-medium text-zinc-500">Gesamtparkplätze</div>
+                                        <div className="text-xs font-medium text-zinc-950 dark:text-white">
                                             {stats.parking_spaces} Plätze
                                         </div>
                                     </div>
@@ -380,7 +380,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                             Deine Stadt. Deine App.
                         </h2>
                         <p className="mt-4 text-base leading-relaxed text-zinc-400">
-                            Die „Mein Moers“-App vereint alle wichtigen Services unserer Stadt in einer Anwendung. Konzipiert für den schnellen
+                            Die „Mein Moers“-App vereint alle wichtigen Services unserer Stadt in einer Anwendung. Konzipiert for den schnellen
                             Zugriff von unterwegs.
                         </p>
                     </div>
@@ -433,7 +433,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                 >
                                     <feature.icon className="size-6" />
                                 </div>
-                                <h3 className="mb-2 text-lg font-bold text-white">{feature.title}</h3>
+                                <h3 className="mb-2 text-lg font-medium text-white">{feature.title}</h3>
                                 <p className="text-sm leading-relaxed text-zinc-400">{feature.description}</p>
                             </div>
                         ))}

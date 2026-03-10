@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { usePrimaryRubbishStreet } from '@/hooks/use-primary-rubbish-street';
 import { Link } from '@inertiajs/react';
-import { CalendarDays, ChevronRight, FileText, Home, Leaf, MapPinned, Recycle, Star, Trash2 } from 'lucide-react';
+import { CalendarDays, ChevronRight, Home, MapPinned, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 type PickupItem = {
@@ -87,111 +87,94 @@ export function PrimaryRubbishStreetCard() {
     }, [primaryStreet]);
 
     return (
-        <Card className="border-zinc-200 py-0 dark:border-white/10">
-            <CardHeader className="border-b border-zinc-200/80 py-5 dark:border-white/10">
-                <CardTitle className="flex items-center gap-2 text-xl">
-                    <Home className="size-4.5 text-emerald-600" />
+        <Card className="border-zinc-200 py-0 shadow-xs dark:border-white/10">
+            <CardHeader className="border-b border-zinc-100 py-4 dark:border-white/5">
+                <CardTitle className="flex items-center gap-2.5 text-lg font-bold">
+                    <Home className="size-4 text-emerald-600" />
                     Meine Straße
                 </CardTitle>
-                <CardDescription>Lokale Auswahl für deinen Abfallkalender</CardDescription>
+                <CardDescription className="text-xs">Lokale Auswahl für deinen Abfallkalender</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4 py-5">
+            <CardContent className="space-y-5 p-0 py-4">
                 {!isLoaded ? (
-                    <div className="rounded-2xl border border-dashed border-zinc-200 px-4 py-6 text-sm text-zinc-500 dark:border-white/10 dark:text-zinc-400">
-                        Lokale Auswahl wird geladen …
-                    </div>
+                    <div className="px-5 py-4 text-xs text-zinc-500 dark:text-zinc-400">Lokale Auswahl wird geladen …</div>
                 ) : primaryStreet ? (
                     <>
-                        <div className="rounded-2xl border border-emerald-200 bg-linear-to-r from-emerald-50 to-emerald-100/50 px-4 py-3.5 dark:border-emerald-500/20 dark:from-emerald-500/10 dark:to-emerald-500/5">
-                            <div className="flex items-center gap-2 text-xs font-medium tracking-[0.16em] text-emerald-800 uppercase dark:text-emerald-200">
-                                <Star className="size-4" />
+                        <div className="px-5">
+                            <div className="flex items-center gap-1.5 text-xs font-medium tracking-wide text-emerald-700 dark:text-emerald-400">
+                                <Star className="size-3 fill-current" />
                                 Ausgewählt
                             </div>
-                            <div className="mt-1.5 text-2xl font-semibold tracking-tight text-zinc-950 dark:text-white">{primaryStreet.name}</div>
-                            {primaryStreet.street_addition ? (
-                                <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">{primaryStreet.street_addition}</div>
-                            ) : null}
+                            <div className="mt-0.5 text-xl font-semibold tracking-tight text-zinc-950 dark:text-white">{primaryStreet.name}</div>
+                            {primaryStreet.street_addition && (
+                                <div className="text-xs text-zinc-500 dark:text-zinc-400">{primaryStreet.street_addition}</div>
+                            )}
                         </div>
 
-                        <div className="space-y-3">
-                            <div className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-200">
-                                <CalendarDays className="size-4 text-emerald-600" />
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 px-5 text-xs font-medium tracking-wide text-zinc-400">
+                                <CalendarDays className="size-3.5 text-emerald-600" />
                                 Nächste Termine
                             </div>
 
                             {isLoadingPickups ? (
-                                <div className="space-y-2">
+                                <div className="space-y-px divide-y divide-zinc-100 dark:divide-white/5">
                                     {[0, 1, 2].map((index) => (
                                         <div
                                             key={index}
-                                            className="h-16 animate-pulse rounded-2xl bg-zinc-100 dark:bg-white/5"
+                                            className="h-12 animate-pulse bg-zinc-50/50 dark:bg-white/5"
                                         />
                                     ))}
                                 </div>
                             ) : pickupItems.length > 0 ? (
-                                <div className="space-y-2">
+                                <div className="divide-y divide-zinc-100 border-y border-zinc-100 dark:divide-white/5 dark:border-white/5">
                                     {pickupItems.map((pickup, index) => (
                                         <div
                                             key={`${pickup.date}-${pickup.type}-${index}`}
-                                            className="flex items-center justify-between gap-3 rounded-xl border border-zinc-200 px-3.5 py-2.5 dark:border-white/10"
+                                            className="flex items-center justify-between gap-3 px-5 py-2.5 transition-colors hover:bg-zinc-50/50 dark:hover:bg-white/5"
                                         >
-                                            <div className="min-w-0">
-                                                <div className="text-sm font-medium text-zinc-950 dark:text-white">{formatDate(pickup.date)}</div>
-                                                <div className="mt-0.5 flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-300">
-                                                    {pickup.type === 'organic' || pickup.type === 'cuttings' ? (
-                                                        <Leaf className="size-4" />
-                                                    ) : pickup.type === 'paper' ? (
-                                                        <FileText className="size-4" />
-                                                    ) : pickup.type === 'plastic' ? (
-                                                        <Recycle className="size-4" />
-                                                    ) : (
-                                                        <Trash2 className="size-4" />
-                                                    )}
-                                                </div>
-                                            </div>
-                                            <div className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-medium ${pickupMeta[pickup.type].tone}`}>
+                                            <div className="text-sm font-medium text-zinc-950 dark:text-white">{formatDate(pickup.date)}</div>
+                                            <div className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${pickupMeta[pickup.type].tone}`}>
                                                 {pickupMeta[pickup.type].label}
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             ) : (
-                                <div className="rounded-xl border border-dashed border-zinc-200 px-4 py-4 text-sm text-zinc-500 dark:border-white/10 dark:text-zinc-400">
-                                    Aktuell konnten keine kommenden Abholtermine geladen werden.
+                                <div className="px-5 py-4 text-xs text-zinc-500 dark:text-zinc-400">
+                                    Keine kommenden Abholtermine gefunden.
                                 </div>
                             )}
                         </div>
 
-                        <div>
+                        <div className="px-5">
                             <Link
                                 href={`/abfallkalender/${primaryStreet.id}`}
-                                className="inline-flex items-center gap-1 text-sm font-medium text-emerald-700 transition hover:text-emerald-800 dark:text-emerald-300 dark:hover:text-emerald-200"
+                                className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 transition hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
                             >
                                 Alle Termine ansehen
-                                <ChevronRight className="size-4" />
+                                <ChevronRight className="size-3.5" />
                             </Link>
                         </div>
                     </>
                 ) : (
-                    <div className="rounded-2xl border border-dashed border-emerald-200 bg-linear-to-br from-emerald-50/80 via-white to-lime-50/70 px-4 py-5 dark:border-emerald-500/20 dark:from-emerald-500/10 dark:via-transparent dark:to-lime-500/5">
-                        <div className="flex items-start gap-3">
-                            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-white text-emerald-700 shadow-sm ring-1 ring-emerald-200 dark:bg-white/10 dark:text-emerald-200 dark:ring-emerald-500/20">
-                                <MapPinned className="size-5" />
-                            </div>
+                    <div className="px-5">
+                        <div className="flex items-start gap-3 rounded-2xl border border-dashed border-emerald-200 bg-emerald-50/30 p-4 dark:border-emerald-500/20 dark:bg-emerald-500/5">
+                            <MapPinned className="mt-0.5 size-4 shrink-0 text-emerald-600" />
                             <div className="min-w-0">
-                                <div className="text-sm font-medium text-zinc-950 dark:text-white">Noch keine Straße gewählt</div>
-                                <p className="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
-                                    Wähle eine Straße aus und sie erscheint hier künftig mit den nächsten Abholterminen.
+                                <div className="text-sm font-bold text-zinc-950 dark:text-white">Keine Straße gewählt</div>
+                                <p className="mt-1 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                                    Wähle eine Straße aus, um Abholtermine zu sehen.
                                 </p>
                             </div>
                         </div>
 
                         <Link
                             href="/abfallkalender"
-                            className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-emerald-700 transition hover:text-emerald-800 dark:text-emerald-300 dark:hover:text-emerald-200"
+                            className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-emerald-600 transition hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
                         >
                             Straße auswählen
-                            <ChevronRight className="size-4" />
+                            <ChevronRight className="size-3.5" />
                         </Link>
                     </div>
                 )}
