@@ -134,16 +134,16 @@ export function PrimaryRubbishStreetCard() {
                                             className="flex items-center justify-between gap-3 px-5 py-2.5 transition-colors hover:bg-zinc-50/50 dark:hover:bg-white/5"
                                         >
                                             <div className="text-sm font-medium text-zinc-950 dark:text-white">{formatDate(pickup.date)}</div>
-                                            <div className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${pickupMeta[pickup.type].tone}`}>
+                                            <div
+                                                className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${pickupMeta[pickup.type].tone}`}
+                                            >
                                                 {pickupMeta[pickup.type].label}
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             ) : (
-                                <div className="px-5 py-4 text-xs text-zinc-500 dark:text-zinc-400">
-                                    Keine kommenden Abholtermine gefunden.
-                                </div>
+                                <div className="px-5 py-4 text-xs text-zinc-500 dark:text-zinc-400">Keine kommenden Abholtermine gefunden.</div>
                             )}
                         </div>
 

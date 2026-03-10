@@ -67,7 +67,7 @@ const MobileAppBadge = ({ href, platform }: { href: string; platform: 'ios' | 'a
             <img
                 src="https://play.google.com/intl/en_us/badges/static/images/badges/de_badge_web_generic.png"
                 alt="Get it on Google Play"
-                className="h-14 w-auto -my-2"
+                className="-my-2 h-14 w-auto"
             />
         )}
     </a>
@@ -206,7 +206,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                             <div className="text-xs font-medium tracking-wide text-emerald-700 dark:text-emerald-400">
                                                                 {formatDate(event.start_date, { month: 'short' })}
                                                             </div>
-                                                            <div className="text-lg font-medium text-zinc-950 dark:text-white leading-none">
+                                                            <div className="text-lg leading-none font-medium text-zinc-950 dark:text-white">
                                                                 {formatDate(event.start_date, { day: '2-digit' })}
                                                             </div>
                                                         </div>
@@ -360,9 +360,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                 <div className="bg-zinc-50/50 px-5 py-3 dark:bg-white/5">
                                     <div className="flex items-center justify-between">
                                         <div className="text-xs font-medium text-zinc-500">Gesamtparkplätze</div>
-                                        <div className="text-xs font-medium text-zinc-950 dark:text-white">
-                                            {stats.parking_spaces} Plätze
-                                        </div>
+                                        <div className="text-xs font-medium text-zinc-950 dark:text-white">{stats.parking_spaces} Plätze</div>
                                     </div>
                                 </div>
                             </CardContent>
@@ -376,9 +374,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_rgba(5,150,105,0.05),_transparent_50%),radial-gradient(circle_at_70%_80%,_rgba(2,132,199,0.05),_transparent_50%)]" />
                 <DefaultContainer className="relative">
                     <div className="max-w-2xl">
-                        <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-                            Deine Stadt. Deine App.
-                        </h2>
+                        <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">Deine Stadt. Deine App.</h2>
                         <p className="mt-4 text-base leading-relaxed text-zinc-400">
                             Die „Mein Moers“-App vereint alle wichtigen Services unserer Stadt in einer Anwendung. Konzipiert for den schnellen
                             Zugriff von unterwegs.

@@ -2,7 +2,7 @@ import { DefaultContainer } from '@/components/default-container';
 import { PageHeader } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
-import { Input } from '@/components/ui/input';
+import { Input, InputGroup } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
@@ -142,17 +142,17 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                                     >
                                         Suche
                                     </Label>
-                                    <div className="relative">
-                                        <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-zinc-400" />
+                                    <InputGroup>
+                                        <Search data-slot="icon" />
                                         <Input
                                             id="event-search"
                                             type="search"
                                             value={values.search}
                                             onChange={(event) => setValues((current) => ({ ...current, search: event.target.value }))}
                                             placeholder="Titel, Stichwort oder Reihe"
-                                            className="h-11 rounded-xl border-zinc-200 bg-zinc-50 pl-9 dark:border-white/10 dark:bg-zinc-950"
+                                            className="h-11 rounded-xl border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-zinc-950"
                                         />
-                                    </div>
+                                    </InputGroup>
                                 </div>
 
                                 <div className="space-y-2">

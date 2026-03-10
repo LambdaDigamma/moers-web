@@ -15,7 +15,7 @@ interface PageHeaderProps {
 export function PageHeader({ title, description, badge, actions, children, className }: PageHeaderProps) {
     return (
         <div className={cn('relative', className)}>
-            <header className="relative overflow-hidden border-b border-zinc-200 bg-white py-16 dark:border-white/5 dark:bg-zinc-900/50 lg:py-20">
+            <header className="relative overflow-hidden border-b border-zinc-200 bg-white py-16 lg:py-20 dark:border-white/5 dark:bg-zinc-900/50">
                 <div className="absolute inset-0 bg-linear-to-br from-emerald-500/5 via-transparent to-sky-500/5" />
                 <DefaultContainer className="relative">
                     <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">

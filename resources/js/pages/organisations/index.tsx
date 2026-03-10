@@ -1,8 +1,8 @@
 import { DefaultContainer } from '@/components/default-container';
 import { PageHeader } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { Card } from '@/components/ui/card';
+import { Input, InputGroup } from '@/components/ui/input';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link, router } from '@inertiajs/react';
 import { ArrowUpRight, Plus, Search, UserRound } from 'lucide-react';
@@ -56,15 +56,18 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                         )
                     }
                 >
-                    <div className="relative max-w-md">
-                        <Search className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-zinc-400" />
+                    <InputGroup className="max-w-md">
+                        <Search
+                            data-slot="icon"
+                            className="size-5"
+                        />
                         <Input
                             placeholder="Nach Namen oder Beschreibung suchen..."
-                            className="h-12 rounded-2xl border-zinc-200 bg-white pl-12 shadow-lg ring-offset-emerald-500 focus-visible:ring-emerald-500 dark:border-white/10 dark:bg-zinc-900"
+                            className="h-12 rounded-2xl border-zinc-200 bg-white shadow-lg ring-offset-emerald-500 focus-visible:ring-emerald-500 dark:border-white/10 dark:bg-zinc-900"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
-                    </div>
+                    </InputGroup>
                 </PageHeader>
 
                 <DefaultContainer className="py-12">
@@ -79,7 +82,7 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                                     <Card className="h-full border-zinc-200 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-xl dark:border-white/5 dark:bg-zinc-900">
                                         <div className="flex items-start justify-between gap-6">
                                             <div className="flex-1 space-y-2">
-                                                <h3 className="text-xl font-bold text-zinc-950 transition group-hover:text-emerald-600 dark:text-white dark:group-hover:text-emerald-400">
+                                                <h3 className="line-clamp-1 text-xl font-bold text-zinc-950 transition group-hover:text-emerald-600 dark:text-white dark:group-hover:text-emerald-400">
                                                     {org.name}
                                                 </h3>
                                                 <p className="line-clamp-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">

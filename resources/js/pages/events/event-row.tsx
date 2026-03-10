@@ -6,11 +6,7 @@ import { CalendarDays, Globe, MapPin, UserRound } from 'lucide-react';
 import React from 'react';
 import Event = Modules.Events.Data.Event;
 
-export const EventRow: React.FC<{ event: Event; currentUrl?: string; showParent?: boolean }> = ({
-    event,
-    currentUrl,
-    showParent = true,
-}) => {
+export const EventRow: React.FC<{ event: Event; currentUrl?: string; showParent?: boolean }> = ({ event, currentUrl, showParent = true }) => {
     const dateBadge = getEventDateBadge(event);
     const locationLabel = getEventLocationLabel(event);
     const primaryLabel = getEventPrimaryLabel(event);

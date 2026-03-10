@@ -39,9 +39,7 @@ const ParkingIndex = ({ parkingAreas }: Props) => {
                             >
                                 <Card className="h-full border-zinc-200 bg-white transition-all hover:-translate-y-1 hover:shadow-lg dark:border-white/5 dark:bg-zinc-900">
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-                                        <CardTitle className="text-xl font-bold text-zinc-950 dark:text-white">
-                                            {area.name}
-                                        </CardTitle>
+                                        <CardTitle className="text-xl font-bold text-zinc-950 dark:text-white">{area.name}</CardTitle>
                                         <Badge
                                             className={
                                                 area.state === 'open'
@@ -50,24 +48,26 @@ const ParkingIndex = ({ parkingAreas }: Props) => {
                                             }
                                             variant="outline"
                                         >
-                                            <span className={`mr-1.5 size-1.5 rounded-full ${area.state === 'open' ? 'bg-emerald-500' : 'bg-zinc-400'}`} />
+                                            <span
+                                                className={`mr-1.5 size-1.5 rounded-full ${area.state === 'open' ? 'bg-emerald-500' : 'bg-zinc-400'}`}
+                                            />
                                             {area.state === 'open' ? 'Geöffnet' : 'Geschlossen'}
                                         </Badge>
                                     </CardHeader>
                                     <CardContent>
                                         <div className="flex items-baseline gap-2">
-                                            <div className={`text-4xl font-black tracking-tighter tabular-nums ${
-                                                area.capacity && area.occupied && area.capacity - area.occupied < 10
-                                                    ? 'text-amber-500'
-                                                    : 'text-zinc-950 dark:text-white'
-                                            }`}>
+                                            <div
+                                                className={`text-4xl font-black tracking-tighter tabular-nums ${
+                                                    area.capacity && area.occupied && area.capacity - area.occupied < 10
+                                                        ? 'text-amber-500'
+                                                        : 'text-zinc-950 dark:text-white'
+                                                }`}
+                                            >
                                                 {area.capacity ? Math.max(0, area.capacity - area.occupied!) : '—'}
                                             </div>
-                                            <div className="text-sm font-bold text-zinc-500">
-                                                / {area.capacity ?? '—'} frei
-                                            </div>
+                                            <div className="text-sm font-bold text-zinc-500">/ {area.capacity ?? '—'} frei</div>
                                         </div>
-                                        
+
                                         <div className="mt-6 flex items-center justify-between text-sm">
                                             <div className="text-zinc-500">Details & Historie</div>
                                             <ArrowRight className="size-4 text-zinc-400 transition-transform group-hover:translate-x-1" />

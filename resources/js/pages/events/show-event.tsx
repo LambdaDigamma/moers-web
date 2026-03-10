@@ -9,7 +9,7 @@ import { formatDateTime } from '@/lib/date';
 import { formatCollectionLabel, getEventAddressLabel, getEventLocationLabel, getEventMapsUrl, getEventPrimaryLabel } from '@/lib/events';
 import { EventRow } from '@/pages/events/event-row';
 import { Head, Link } from '@inertiajs/react';
-import { ArrowRight, ArrowUpRight, CalendarDays, ChevronLeft, Globe, MapPin, Ticket, UserRound } from 'lucide-react';
+import { ArrowUpRight, CalendarDays, ChevronLeft, Globe, MapPin, Ticket, UserRound } from 'lucide-react';
 import { ReactNode } from 'react';
 import Event = Modules.Events.Data.Event;
 

@@ -3,7 +3,7 @@ import { PageHeader } from '@/components/page-header';
 import { RubbishStreetSearch } from '@/components/rubbish-street-search';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -349,7 +349,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                         <div className="text-xs font-bold text-zinc-400 uppercase">
                                                             {formatListDate(group.date).split(' ')[0]}
                                                         </div>
-                                                        <div className="text-xl font-black tabular-nums text-zinc-950 dark:text-white">
+                                                        <div className="text-xl font-black text-zinc-950 tabular-nums dark:text-white">
                                                             {formatListDate(group.date).split(' ')[1].split('.')[0]}
                                                         </div>
                                                     </div>
@@ -390,7 +390,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                         </div>
                                                     ))}
                                                 </div>
-                                                <div className="grid grid-cols-7 gap-px rounded-xl border border-zinc-100 bg-zinc-100 overflow-hidden dark:border-white/5 dark:bg-white/5">
+                                                <div className="grid grid-cols-7 gap-px overflow-hidden rounded-xl border border-zinc-100 bg-zinc-100 dark:border-white/5 dark:bg-white/5">
                                                     {calendarDays.map((day) => {
                                                         const key = dateKey(day);
                                                         const isCurrentMonth = selectedMonth === key.slice(0, 7);
@@ -401,7 +401,9 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                             <div
                                                                 className={cn(
                                                                     'min-h-[80px] bg-white p-2 transition-colors dark:bg-zinc-900',
-                                                                    !isCurrentMonth ? 'bg-zinc-50/50 text-zinc-300 dark:bg-zinc-950/50 dark:text-zinc-700' : '',
+                                                                    !isCurrentMonth
+                                                                        ? 'bg-zinc-50/50 text-zinc-300 dark:bg-zinc-950/50 dark:text-zinc-700'
+                                                                        : '',
                                                                     isToday &&
                                                                         'border-emerald-500 bg-emerald-50/30 ring-2 ring-emerald-500 dark:bg-emerald-500/10',
                                                                 )}
