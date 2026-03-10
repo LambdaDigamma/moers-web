@@ -11,6 +11,16 @@ class ParkingAreaOccupancyFactory extends Factory
 
     public function definition(): array
     {
-        return [];
+        $capacity = fake()->numberBetween(50, 500);
+        $occupied = fake()->numberBetween(0, $capacity);
+
+        return [
+            'occupancy_rate' => $occupied / $capacity,
+            'occupied_sites' => $occupied,
+            'capacity' => $capacity,
+            'opening_state' => 'open',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
     }
 }

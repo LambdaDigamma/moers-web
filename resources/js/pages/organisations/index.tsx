@@ -1,8 +1,8 @@
 import { DefaultContainer } from '@/components/default-container';
+import { IsolatedSearchField } from '@/components/isolated-search-field';
 import { PageHeader } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Input, InputGroup } from '@/components/ui/input';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link, router } from '@inertiajs/react';
 import { ArrowUpRight, Plus, Search, UserRound } from 'lucide-react';
@@ -56,18 +56,12 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                         )
                     }
                 >
-                    <InputGroup className="max-w-md">
-                        <Search
-                            data-slot="icon"
-                            className="size-5"
-                        />
-                        <Input
-                            placeholder="Nach Namen oder Beschreibung suchen..."
-                            className="h-12 rounded-2xl border-zinc-200 bg-white shadow-lg ring-offset-emerald-500 focus-visible:ring-emerald-500 dark:border-white/10 dark:bg-zinc-900"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                    </InputGroup>
+                    <IsolatedSearchField
+                        containerClassName="max-w-md"
+                        placeholder="Nach Namen oder Beschreibung suchen..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
                 </PageHeader>
 
                 <DefaultContainer className="py-12">
@@ -145,6 +139,7 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                                     {link.url ? (
                                         <Link
                                             href={link.url}
+                                            preserveScroll
                                             dangerouslySetInnerHTML={{ __html: link.label }}
                                         />
                                     ) : (

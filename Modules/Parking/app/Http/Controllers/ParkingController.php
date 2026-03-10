@@ -37,19 +37,19 @@ class ParkingController extends Controller
 
             if ($driver === 'pgsql') {
                 return DB::table('parking_area_occupancies')
-                    ->selectRaw('AVG(occupancy_rate) AS occupancy_rate, EXTRACT(HOUR FROM created_at) AS hour')
+                    ->selectRaw('AVG(occupancy_rate) AS occupancy_rate, EXTRACT(HOUR FROM DATE_TRUNC(\'hour\', created_at)) AS hour, DATE_TRUNC(\'hour\', created_at) as hour_timestamp')
                     ->where('parking_area_id', $parkingArea->id)
                     ->whereRaw('created_at >= NOW() - INTERVAL \'23 hours\'')
-                    ->groupBy('hour')
-                    ->orderBy('hour')
+                    ->groupBy('hour_timestamp')
+                    ->orderBy('hour_timestamp')
                     ->get();
             } else {
                 return DB::table('parking_area_occupancies')
-                    ->selectRaw('avg(occupancy_rate) as occupancy_rate, HOUR(created_at) as hour')
+                    ->selectRaw('avg(occupancy_rate) as occupancy_rate, HOUR(created_at) as hour, DATE_FORMAT(created_at, "%Y-%m-%d %H:00:00") as hour_timestamp')
                     ->where('parking_area_id', $parkingArea->id)
                     ->whereRaw('created_at >= NOW() - INTERVAL 23 HOUR')
-                    ->groupBy('hour')
-                    ->orderBy('created_at')
+                    ->groupBy('hour_timestamp')
+                    ->orderBy('hour_timestamp')
                     ->get();
             }
         });
@@ -87,6 +87,8 @@ class ParkingController extends Controller
             ],
             'pastOccupancy' => $pastOccupancy,
             'imageUrl' => $imageUrl,
+            'lat' => $lat,
+            'lng' => $lng,
             'googleMapsUrl' => $lat && $lng ? "https://www.google.com/maps/dir/?api=1&destination=$lat,$lng" : null,
         ]);
     }

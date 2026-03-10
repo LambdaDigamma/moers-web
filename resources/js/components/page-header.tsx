@@ -1,6 +1,7 @@
 import { DefaultContainer } from '@/components/default-container';
 import { Heading } from '@/components/ui/heading';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
 
 interface PageHeaderProps {
@@ -19,10 +20,13 @@ export function PageHeader({ title, description, badge, actions, children, class
                 <div className="absolute inset-0 bg-linear-to-br from-emerald-500/5 via-transparent to-sky-500/5" />
                 <DefaultContainer className="relative">
                     <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-                        <div className="max-w-2xl space-y-6">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="max-w-2xl space-y-6"
+                        >
                             {badge && (
                                 <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50/50 px-3 py-1 text-xs font-medium tracking-wide text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-400">
-                                    <div className="size-1.5 animate-pulse rounded-full bg-emerald-500" />
                                     {badge}
                                 </div>
                             )}
@@ -32,15 +36,33 @@ export function PageHeader({ title, description, badge, actions, children, class
                                 </Heading>
                                 {description && <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">{description}</p>}
                             </div>
-                        </div>
-                        {actions && <div className="flex shrink-0 gap-3">{actions}</div>}
+                        </motion.div>
+
+                        {actions && (
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.1 }}
+                                className="flex shrink-0 gap-3"
+                            >
+                                {actions}
+                            </motion.div>
+                        )}
                     </div>
                 </DefaultContainer>
             </header>
 
             {children && (
                 <div className="relative z-10 -mt-10 lg:-mt-12">
-                    <DefaultContainer>{children}</DefaultContainer>
+                    <DefaultContainer>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            {children}
+                        </motion.div>
+                    </DefaultContainer>
                 </div>
             )}
         </div>

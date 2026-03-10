@@ -6,7 +6,10 @@ export const DefaultPagination: React.FC<{ paginator: Paginator<object> }> = ({ 
         <Pagination>
             <PaginationContent>
                 <PaginationItem>
-                    <PaginationPrevious href={paginator.meta?.prev_page_url ?? '#'} />
+                    <PaginationPrevious
+                        href={paginator.meta?.prev_page_url ?? '#'}
+                        preserveScroll
+                    />
                 </PaginationItem>
                 {paginator.links?.slice(1, -1).map(({ url, label, active }) => {
                     return (
@@ -14,13 +17,17 @@ export const DefaultPagination: React.FC<{ paginator: Paginator<object> }> = ({ 
                             <PaginationLink
                                 href={url ?? '#'}
                                 isActive={active}
+                                preserveScroll
                                 dangerouslySetInnerHTML={{ __html: label }}
                             ></PaginationLink>
                         </PaginationItem>
                     );
                 })}
                 <PaginationItem>
-                    <PaginationNext href={paginator.meta?.next_page_url ?? '#'} />
+                    <PaginationNext
+                        href={paginator.meta?.next_page_url ?? '#'}
+                        preserveScroll
+                    />
                 </PaginationItem>
             </PaginationContent>
         </Pagination>
