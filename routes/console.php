@@ -29,3 +29,6 @@ Schedule::command(ImportAdolfinumNews::class)->hourly();
 // Multimedia
 Schedule::command(LoadRadio::class)->everyFiveMinutes();
 Schedule::command(LoadMediathekFeed::class)->hourly();
+
+// Sitemap
+Schedule::command(\App\Console\Commands\GenerateSitemap::class)->hourly();
