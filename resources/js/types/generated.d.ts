@@ -68,6 +68,8 @@ declare namespace Modules.Events.Data {
         cancelledAt: string | null;
         archivedAt: string | null;
         deletedAt: string | null;
+        subEvents: Array<Modules.Events.Data.Event> | null;
+        parentEvent: Modules.Events.Data.Event | null;
     };
     export type EventsCollection = {
         id: number;

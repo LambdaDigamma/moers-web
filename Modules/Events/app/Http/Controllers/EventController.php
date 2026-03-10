@@ -98,7 +98,8 @@ class EventController extends Controller
         Request $request,
         Event $event
     ): Response {
-        $event->loadMissing(['media', 'place', 'organisation.media']);
+        $event->loadMissing(['media', 'place', 'organisation.media', 'parentEvent']);
+        $event->load(['subEvents' => fn ($query) => $event->subEvents()->orderBy('start_date')->with(['place', 'media'])]);
 
         $backUrl = $request->string('back')->toString();
 

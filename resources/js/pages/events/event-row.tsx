@@ -6,7 +6,11 @@ import { CalendarDays, Globe, MapPin, UserRound } from 'lucide-react';
 import React from 'react';
 import Event = Modules.Events.Data.Event;
 
-export const EventRow: React.FC<{ event: Event; currentUrl?: string }> = ({ event, currentUrl }) => {
+export const EventRow: React.FC<{ event: Event; currentUrl?: string; showParent?: boolean }> = ({
+    event,
+    currentUrl,
+    showParent = true,
+}) => {
     const dateBadge = getEventDateBadge(event);
     const locationLabel = getEventLocationLabel(event);
     const primaryLabel = getEventPrimaryLabel(event);
@@ -40,6 +44,14 @@ export const EventRow: React.FC<{ event: Event; currentUrl?: string }> = ({ even
 
                     <div className="min-w-0 flex-1 space-y-3">
                         <div className="flex flex-wrap gap-2">
+                            {showParent && event.parentEvent && (
+                                <Badge
+                                    variant="outline"
+                                    className="border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                                >
+                                    Teil von {event.parentEvent.name}
+                                </Badge>
+                            )}
                             {primaryLabel ? <Badge variant="secondary">{primaryLabel}</Badge> : null}
                             {event.organisationName ? <Badge variant="outline">{event.organisationName}</Badge> : null}
                             {event.isOnline ? <Badge variant="outline">Online</Badge> : null}

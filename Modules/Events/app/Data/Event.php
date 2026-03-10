@@ -6,6 +6,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Support\Str;
 use Modules\Events\Models\Event as EventModel;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\DataCollection;
 
 class Event extends Data
 {
@@ -48,9 +49,12 @@ class Event extends Data
         public ?CarbonInterface $cancelledAt,
         public ?CarbonInterface $archivedAt,
         public ?CarbonInterface $deletedAt,
+        /** @var DataCollection<int, \Modules\Events\Data\Event>|null */
+        public ?DataCollection $subEvents = null,
+        public ?self $parentEvent = null,
     ) {}
 
-    public static function fromModel(EventModel $event): self
+    public static function fromModel(EventModel $event, bool $includeRelations = true): self
     {
         $place = $event->place;
         $organisation = $event->organisation;
@@ -78,6 +82,16 @@ class Event extends Data
 
         if ($event->start_date !== null) {
             $calendarUrl = $event->ics();
+        }
+
+        $subEvents = null;
+        if ($includeRelations && $event->relationLoaded('subEvents')) {
+            $subEvents = self::collect($event->subEvents->map(fn (EventModel $e) => self::fromModel($e, false)), DataCollection::class);
+        }
+
+        $parentEvent = null;
+        if ($includeRelations && $event->relationLoaded('parentEvent') && $event->parentEvent) {
+            $parentEvent = self::fromModel($event->parentEvent, false);
         }
 
         return new self(
@@ -119,6 +133,8 @@ class Event extends Data
             cancelledAt: $event->cancelled_at,
             archivedAt: $event->archived_at,
             deletedAt: $event->deleted_at,
+            subEvents: $subEvents,
+            parentEvent: $parentEvent,
         );
     }
 }

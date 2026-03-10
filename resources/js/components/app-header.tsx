@@ -58,12 +58,12 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
               },
               {
                   title: 'News',
-                  url: route('news.index'),
+                  url: '/news',
                   icon: Newspaper,
               },
               {
                   title: 'Organisationen',
-                  url: route('organisations.index'),
+                  url: '/organisations',
                   icon: Handshake,
               },
               {
@@ -85,12 +85,12 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
               },
               {
                   title: 'News',
-                  url: route('news.index'),
+                  url: '/news',
                   icon: Newspaper,
               },
               {
                   title: 'Organisationen',
-                  url: route('organisations.index'),
+                  url: '/organisations',
                   icon: Handshake,
               },
               {

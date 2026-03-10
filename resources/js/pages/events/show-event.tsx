@@ -7,8 +7,9 @@ import { Heading } from '@/components/ui/heading';
 import AppLayout from '@/layouts/app-layout';
 import { formatDateTime } from '@/lib/date';
 import { formatCollectionLabel, getEventAddressLabel, getEventLocationLabel, getEventMapsUrl, getEventPrimaryLabel } from '@/lib/events';
+import { EventRow } from '@/pages/events/event-row';
 import { Head, Link } from '@inertiajs/react';
-import { ArrowUpRight, CalendarDays, ChevronLeft, Globe, MapPin, Ticket, UserRound } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, CalendarDays, ChevronLeft, Globe, MapPin, Ticket, UserRound } from 'lucide-react';
 import { ReactNode } from 'react';
 import Event = Modules.Events.Data.Event;
 
@@ -72,6 +73,15 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                 </div>
 
                                 <div className="space-y-4">
+                                    {event.parentEvent && (
+                                        <Link
+                                            href={route('events.show', [event.parentEvent.id])}
+                                            className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-600 hover:text-emerald-500"
+                                        >
+                                            <ChevronLeft className="size-3" />
+                                            Teil von: {event.parentEvent.name}
+                                        </Link>
+                                    )}
                                     <Heading className="text-4xl font-bold tracking-tight text-zinc-950 sm:text-5xl lg:text-6xl dark:text-white">
                                         {event.name}
                                     </Heading>
@@ -169,6 +179,29 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                     </div>
                                 </section>
                             ) : null}
+
+                            {event.subEvents && event.subEvents.length > 0 && (
+                                <section className="space-y-6 border-t border-zinc-100 pt-12 dark:border-white/5">
+                                    <div className="flex items-center justify-between">
+                                        <Heading className="text-2xl font-bold text-zinc-950 dark:text-white">Programm / Einzeltermine</Heading>
+                                        <Badge
+                                            variant="secondary"
+                                            className="rounded-full"
+                                        >
+                                            {event.subEvents.length} Termine
+                                        </Badge>
+                                    </div>
+                                    <div className="grid gap-4">
+                                        {event.subEvents.map((subEvent) => (
+                                            <EventRow
+                                                key={subEvent.id}
+                                                event={subEvent}
+                                                showParent={false}
+                                            />
+                                        ))}
+                                    </div>
+                                </section>
+                            )}
                         </div>
 
                         {/* Sidebar */}

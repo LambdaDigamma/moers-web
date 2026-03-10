@@ -120,7 +120,13 @@ class LoadMoersFestivalEvents extends Command
             }
 
             $artists = collect(explode(PHP_EOL, str($besetzung)->trim()->toString()))
+                ->flatMap(function ($line) {
+                    // Split by comma NOT inside parentheses
+                    return preg_split('/\s*,\s*(?![^(]*\))/', $line, -1, PREG_SPLIT_NO_EMPTY);
+                })
                 ->map(fn ($artist) => str($artist)->trim()->toString())
+                ->filter()
+                ->values()
                 ->toArray();
 
             $externalPlaceId = intval($standort);
@@ -201,6 +207,28 @@ class LoadMoersFestivalEvents extends Command
 
         }
 
+        $this->syncParentEventDates();
+    }
+
+    private function syncParentEventDates(): void
+    {
+        $this->info('Syncing parent event dates...');
+        $parentEventIds = Event::whereNotNull('parent_event_id')->distinct()->pluck('parent_event_id');
+
+        foreach ($parentEventIds as $parentId) {
+            $parent = Event::find($parentId);
+            if (! $parent) {
+                continue;
+            }
+
+            $earliestStart = $parent->subEvents()->min('start_date');
+            $latestEnd = $parent->subEvents()->max('end_date');
+
+            $parent->update([
+                'start_date' => $earliestStart,
+                'end_date' => $latestEnd,
+            ]);
+        }
     }
 
     private function createMoersFestivalEvents(): void
