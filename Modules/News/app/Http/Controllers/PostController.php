@@ -22,7 +22,7 @@ class PostController extends Controller
             ->with('media')
             ->withNotPublished()
             ->chronological()
-            ->paginate(10)
+            ->paginate(9)
             ->withQueryString();
 
         return inertia('posts/index', [
@@ -87,7 +87,7 @@ class PostController extends Controller
             ->with(['feeds', 'media'])
             ->when($request->user() !== null, fn ($query) => $query->withNotPublished())
             ->orderByDesc('published_at')
-            ->paginate(10)
+            ->paginate(9)
             ->through(fn (Post $post) => [
                 'id' => $post->id,
                 'title' => $post->title,

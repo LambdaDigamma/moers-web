@@ -82,7 +82,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                 <DefaultContainer className="py-8 md:py-16 lg:py-24">
                     <div className="grid items-center gap-12 lg:grid-cols-2">
                         <section className="space-y-6 md:space-y-8">
-                            <div className="inline-flex items-center rounded-full border border-emerald-200/60 bg-white/50 px-3 py-1 text-xs font-medium tracking-wide text-emerald-800 shadow-xs backdrop-blur-sm dark:border-emerald-500/20 dark:bg-white/5 dark:text-emerald-300">
+                            <div className="inline-flex items-center rounded-full border border-accent-200/60 bg-white/50 px-3 py-1 text-xs font-medium tracking-wide text-accent-800 shadow-xs backdrop-blur-sm dark:border-accent-500/20 dark:bg-white/5 dark:text-accent-300">
                                 <Star className="mr-2 size-3 fill-current" />
                                 Alles für Moers in einer App
                             </div>
@@ -104,7 +104,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                 </div>
                                 <input
                                     type="text"
-                                    className="h-12 w-full rounded-xl border-0 bg-white px-12 text-base shadow-xs ring-1 ring-zinc-200 focus:ring-2 focus:ring-emerald-500 dark:bg-zinc-900 dark:ring-white/10"
+                                    className="h-12 w-full rounded-xl border-0 bg-white px-12 text-base shadow-xs ring-1 ring-zinc-200 focus:ring-2 focus:ring-accent-500 dark:bg-zinc-900 dark:ring-white/10"
                                     placeholder="Suchen in Moers..."
                                     disabled
                                 />
@@ -129,7 +129,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                 <div className="hidden h-8 w-px bg-zinc-200 sm:block dark:bg-white/10" />
                                 <Link
                                     href={route('events.index')}
-                                    className="text-sm font-medium text-emerald-600 transition hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
+                                    className="text-sm font-medium text-accent-600 transition hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300"
                                 >
                                     Web-Version nutzen <ArrowRight className="ml-1 inline size-4" />
                                 </Link>
@@ -137,8 +137,8 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                         </section>
 
                         <div className="relative hidden lg:block">
-                            <div className="absolute -top-12 -right-12 size-96 rounded-full bg-emerald-500/10 blur-3xl" />
-                            <div className="absolute -bottom-12 -left-12 size-96 rounded-full bg-sky-500/10 blur-3xl" />
+                            <div className="absolute -top-12 -right-12 size-96 rounded-full bg-accent-500/10 blur-3xl" />
+                            <div className="absolute -bottom-12 -left-12 size-96 rounded-full bg-accent-500/10 blur-3xl" />
 
                             <div className="relative flex justify-center">
                                 {/* Main Phone Mockup */}
@@ -146,7 +146,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                     <div className="absolute top-0 left-1/2 h-6 w-24 -translate-x-1/2 rounded-b-2xl bg-zinc-900" />
                                     <div className="h-full overflow-hidden rounded-[2rem] bg-zinc-100 p-4 dark:bg-zinc-900">
                                         <div className="mt-8 space-y-4">
-                                            <div className="h-4 w-20 rounded-full bg-emerald-500/20" />
+                                            <div className="h-4 w-20 rounded-full bg-accent-500/20" />
                                             <div className="h-24 rounded-2xl bg-white shadow-sm dark:bg-white/5" />
                                             <div className="h-32 rounded-2xl bg-white shadow-sm dark:bg-white/5" />
                                             <div className="h-24 rounded-2xl bg-white shadow-sm dark:bg-white/5" />
@@ -173,7 +173,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                 <div className="flex items-center justify-between gap-4">
                                     <div>
                                         <CardTitle className="flex items-center gap-2.5 text-xl font-bold">
-                                            <CalendarRange className="size-5 text-emerald-600" />
+                                            <CalendarRange className="size-5 text-accent-600" />
                                             Veranstaltungen
                                         </CardTitle>
                                         <CardDescription className="text-sm">Was ist los in unserer Stadt?</CardDescription>
@@ -202,8 +202,8 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                     className="group flex items-center justify-between gap-6 px-6 py-4 transition hover:bg-zinc-50 dark:hover:bg-white/5"
                                                 >
                                                     <div className="flex items-center gap-4">
-                                                        <div className="flex size-12 flex-col items-center justify-center rounded-xl bg-zinc-100 transition-colors group-hover:bg-emerald-50 dark:bg-white/5 dark:group-hover:bg-emerald-500/10">
-                                                            <div className="text-xs font-medium tracking-wide text-emerald-700 dark:text-emerald-400">
+                                                        <div className="flex size-12 flex-col items-center justify-center rounded-xl bg-zinc-100 transition-colors group-hover:bg-accent-50 dark:bg-white/5 dark:group-hover:bg-accent-500/10">
+                                                            <div className="text-xs font-medium tracking-wide text-accent-700 dark:text-accent-400">
                                                                 {formatDate(event.start_date, { month: 'short' })}
                                                             </div>
                                                             <div className="text-lg leading-none font-medium text-zinc-950 dark:text-white">
@@ -211,7 +211,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <div className="line-clamp-1 text-base font-medium text-zinc-950 transition-colors group-hover:text-emerald-600 dark:text-white">
+                                                            <div className="line-clamp-1 text-base font-medium text-zinc-950 transition-colors group-hover:text-accent-600 dark:text-white">
                                                                 {event.name}
                                                             </div>
                                                             <div className="mt-0.5 flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
@@ -227,7 +227,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <ArrowRight className="size-4 text-zinc-300 transition-all group-hover:translate-x-1 group-hover:text-emerald-600" />
+                                                    <ArrowRight className="size-4 text-zinc-300 transition-all group-hover:translate-x-1 group-hover:text-accent-600" />
                                                 </Link>
                                             </li>
                                         ))}
@@ -242,7 +242,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                 <div className="flex items-center justify-between gap-4">
                                     <div>
                                         <CardTitle className="flex items-center gap-2.5 text-xl font-bold">
-                                            <Newspaper className="size-5 text-sky-600" />
+                                            <Newspaper className="size-5 text-accent-600" />
                                             Aktuelles
                                         </CardTitle>
                                         <CardDescription className="text-sm">Nachrichten aus Moers und Umgebung</CardDescription>
@@ -283,7 +283,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                     <div className="space-y-2">
                                                         <div className="flex items-center gap-2.5">
                                                             {post.source_name && (
-                                                                <span className="rounded-full bg-sky-50 px-2 py-0.5 text-xs font-medium tracking-wide text-sky-700 dark:bg-sky-500/10 dark:text-sky-400">
+                                                                <span className="rounded-full bg-accent-50 px-2 py-0.5 text-xs font-medium tracking-wide text-accent-700 dark:bg-accent-500/10 dark:text-accent-400">
                                                                     {post.source_name}
                                                                 </span>
                                                             )}
@@ -291,7 +291,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                                 {formatDate(post.published_at, { day: '2-digit', month: 'long' })}
                                                             </span>
                                                         </div>
-                                                        <h3 className="line-clamp-2 text-lg font-medium text-zinc-950 transition-colors group-hover:text-sky-600 dark:text-white">
+                                                        <h3 className="line-clamp-2 text-lg font-medium text-zinc-950 transition-colors group-hover:text-accent-600 dark:text-white">
                                                             {post.title}
                                                         </h3>
                                                         <p className="line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
@@ -315,7 +315,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                         <Card className="overflow-hidden border-zinc-200 py-0 shadow-xs dark:border-white/10">
                             <CardHeader className="border-b border-zinc-100 py-4 dark:border-white/5">
                                 <CardTitle className="flex items-center gap-2.5 text-lg font-bold">
-                                    <CircleParking className="size-4 text-indigo-600" />
+                                    <CircleParking className="size-4 text-accent-600" />
                                     Parkhäuser Live
                                 </CardTitle>
                                 <CardDescription className="text-xs">Aktuelle Belegung im Zentrum</CardDescription>
@@ -332,9 +332,9 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                     <div className="text-sm font-medium text-zinc-950 dark:text-white">{area.name}</div>
                                                     <div className="flex items-center gap-1.5 text-xs font-medium tracking-wide">
                                                         <span
-                                                            className={`size-1.5 rounded-full ${area.state === 'open' ? 'bg-emerald-500' : 'bg-zinc-300'}`}
+                                                            className={`size-1.5 rounded-full ${area.state === 'open' ? 'bg-accent-500' : 'bg-zinc-300'}`}
                                                         />
-                                                        <span className={area.state === 'open' ? 'text-emerald-600' : 'text-zinc-500'}>
+                                                        <span className={area.state === 'open' ? 'text-accent-600' : 'text-zinc-500'}>
                                                             {area.state === 'open' ? 'Geöffnet' : 'Geschlossen'}
                                                         </span>
                                                     </div>
@@ -343,7 +343,7 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                     <div
                                                         className={`text-xl font-medium tracking-tighter tabular-nums ${
                                                             area.capacity && area.occupied && area.capacity - area.occupied < 10
-                                                                ? 'text-amber-500'
+                                                                ? 'text-accent-500'
                                                                 : 'text-zinc-950 dark:text-white'
                                                         }`}
                                                     >
@@ -387,19 +387,19 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                 title: 'Abfallkalender',
                                 description: 'Wähle deine Straße und lass dich am Vorabend an die Müllabfuhr erinnern.',
                                 icon: Leaf,
-                                color: 'bg-emerald-500',
+                                color: 'bg-accent-500',
                             },
                             {
                                 title: 'Live Parkdaten',
                                 description: 'Finde immer den nächsten freien Parkplatz – in Echtzeit aktualisiert.',
                                 icon: CircleParking,
-                                color: 'bg-indigo-500',
+                                color: 'bg-accent-500',
                             },
                             {
                                 title: 'Stadt-News',
                                 description: 'Die neuesten Meldungen der Stadtverwaltung und lokaler Medien.',
                                 icon: Newspaper,
-                                color: 'bg-sky-500',
+                                color: 'bg-accent-500',
                             },
                             {
                                 title: 'Event-Highlights',

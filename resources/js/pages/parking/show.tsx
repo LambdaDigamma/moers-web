@@ -62,21 +62,21 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                     label: 'Belegung',
                     data,
                     fill: true,
-                    borderColor: 'rgb(5, 150, 105)', // Emerald-600
+                    borderColor: 'rgb(217, 119, 6)', // Amber-600
                     borderWidth: 2,
                     backgroundColor: (context: any) => {
                         const chart = context.chart;
                         const { ctx, chartArea } = chart;
                         if (!chartArea) return null;
                         const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                        gradient.addColorStop(0, 'rgba(16, 185, 129, 0.1)');
-                        gradient.addColorStop(1, 'rgba(16, 185, 129, 0)');
+                        gradient.addColorStop(0, 'rgba(245, 158, 11, 0.1)'); // Amber-500
+                        gradient.addColorStop(1, 'rgba(245, 158, 11, 0)');
                         return gradient;
                     },
                     tension: 0.3,
                     pointRadius: 0,
                     pointHoverRadius: 4,
-                    pointHoverBackgroundColor: 'rgb(5, 150, 105)',
+                    pointHoverBackgroundColor: 'rgb(217, 119, 6)', // Amber-600
                     pointHoverBorderColor: '#fff',
                     pointHoverBorderWidth: 2,
                 },
@@ -156,7 +156,7 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                                 asChild
                                 variant="ghost"
                                 size="sm"
-                                className="-ml-2 h-8 text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400"
+                                className="-ml-2 h-8 text-zinc-500 hover:text-accent-600 dark:hover:text-accent-400"
                             >
                                 <Link href={route('parking-areas.index')}>
                                     <ArrowLeft className="mr-1.5 size-4" />
@@ -173,7 +173,7 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                                 className="space-y-3"
                             >
                                 <div className="flex items-center gap-3">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm">
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-600 text-white shadow-sm">
                                         <CircleParking className="size-6" />
                                     </div>
                                     <div>
@@ -182,13 +182,13 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                                         </Heading>
                                         <div className="flex flex-wrap items-center gap-3 mt-0.5 text-sm text-zinc-500">
                                             <div className="flex items-center gap-1.5">
-                                                <MapPin className="size-3.5 text-emerald-600" />
+                                                <MapPin className="size-3.5 text-accent-600" />
                                                 Moers Innenstadt
                                             </div>
                                             <div className="h-1 w-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
                                             <div className="flex items-center gap-1.5 font-medium">
                                                 <div
-                                                    className={`size-1.5 rounded-full ${parkingArea.state === 'open' ? 'bg-emerald-500' : 'bg-zinc-300'}`}
+                                                    className={`size-1.5 rounded-full ${parkingArea.state === 'open' ? 'bg-accent-500' : 'bg-zinc-300'}`}
                                                 />
                                                 {parkingArea.state === 'open' ? 'Jetzt geöffnet' : 'Aktuell geschlossen'}
                                             </div>
@@ -207,7 +207,7 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                                     <Button
                                         asChild
                                         size="default"
-                                        className="rounded-xl bg-emerald-600 font-bold text-white shadow-sm hover:bg-emerald-700"
+                                        className="rounded-xl bg-accent-600 font-bold text-white shadow-sm hover:bg-accent-700"
                                     >
                                         <a
                                             href={googleMapsUrl}
@@ -253,7 +253,7 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                                                         cy="50"
                                                     />
                                                     <motion.circle
-                                                        className="text-emerald-600 stroke-current"
+                                                        className="text-accent-600 stroke-current"
                                                         strokeWidth="6"
                                                         strokeLinecap="round"
                                                         fill="transparent"
@@ -289,13 +289,13 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                                         <div className="mt-4 space-y-2 border-t border-zinc-50 pt-4 dark:border-white/5">
                                             <div className="flex items-center justify-between text-xs font-bold">
                                                 <span className="text-zinc-400 uppercase tracking-wider">Auslastung</span>
-                                                <span className={occupancyPercentage > 90 ? 'text-amber-500' : 'text-emerald-600'}>
+                                                <span className={occupancyPercentage > 90 ? 'text-amber-500' : 'text-accent-600'}>
                                                     {occupancyPercentage}%
                                                 </span>
                                             </div>
                                             <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-white/10">
                                                 <motion.div
-                                                    className={`h-full ${occupancyPercentage > 90 ? 'bg-amber-500' : 'bg-emerald-600'}`}
+                                                    className={`h-full ${occupancyPercentage > 90 ? 'bg-amber-500' : 'bg-accent-600'}`}
                                                     initial={{ width: 0 }}
                                                     animate={{ width: `${occupancyPercentage}%` }}
                                                     transition={{ duration: 0.8 }}
@@ -315,10 +315,10 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                                 initial={{ opacity: 0, y: 5 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5 }}
-                                className="rounded-xl border border-emerald-100 bg-emerald-50/30 p-4 dark:border-emerald-500/10 dark:bg-emerald-500/5"
+                                className="rounded-xl border border-accent-100 bg-accent-50/30 p-4 dark:border-accent-500/10 dark:bg-accent-500/5"
                             >
                                 <div className="flex gap-3">
-                                    <Info className="size-4 shrink-0 text-emerald-600" />
+                                    <Info className="size-4 shrink-0 text-accent-600" />
                                     <div className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
                                         Die Daten werden automatisch von den Parkhaussystemen übermittelt und alle 5 Minuten aktualisiert.
                                     </div>
@@ -340,7 +340,7 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                                                 <CardTitle className="text-base font-bold">Historischer Verlauf</CardTitle>
                                                 <CardDescription className="text-xs">Belegung der letzten 24 Stunden</CardDescription>
                                             </div>
-                                            <TrendingUp className="size-4 text-emerald-600" />
+                                            <TrendingUp className="size-4 text-accent-600" />
                                         </div>
                                     </CardHeader>
                                     <CardContent className="pt-6">
@@ -392,7 +392,7 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                                             <div className="absolute inset-x-3 bottom-3 md:inset-x-auto md:right-3 md:bottom-3 md:w-72">
                                                 <div className="rounded-xl border border-white/20 bg-white/95 p-4 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-zinc-900/95">
                                                     <div className="mb-3 flex items-center gap-3">
-                                                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-600 text-white">
+                                                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-600 text-white">
                                                             <MapPin className="size-4" />
                                                         </div>
                                                         <div className="min-w-0">
@@ -408,7 +408,7 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
                                                             <Button
                                                                 asChild
                                                                 size="sm"
-                                                                className="flex-1 rounded-lg bg-emerald-600 text-[11px] font-bold text-white shadow-sm hover:bg-emerald-700"
+                                                                className="flex-1 rounded-lg bg-accent-600 text-[11px] font-bold text-white shadow-sm hover:bg-accent-700"
                                                             >
                                                                 <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
                                                                     <Navigation className="mr-1 size-3" />

@@ -16,11 +16,11 @@ const pickupMeta: Record<PickupItem['type'], { label: string; tone: string }> = 
     },
     organic: {
         label: 'Biotonne',
-        tone: 'bg-emerald-600 text-white',
+        tone: 'bg-accent-600 text-white',
     },
     paper: {
         label: 'Papier',
-        tone: 'bg-sky-600 text-white',
+        tone: 'bg-accent-600 text-white',
     },
     plastic: {
         label: 'Gelber Sack',
@@ -28,7 +28,7 @@ const pickupMeta: Record<PickupItem['type'], { label: string; tone: string }> = 
     },
     cuttings: {
         label: 'Grünschnitt',
-        tone: 'bg-lime-600 text-white',
+        tone: 'bg-accent-600 text-white',
     },
 };
 
@@ -90,7 +90,7 @@ export function PrimaryRubbishStreetCard() {
         <Card className="border-zinc-200 py-0 shadow-xs dark:border-white/10">
             <CardHeader className="border-b border-zinc-100 py-4 dark:border-white/5">
                 <CardTitle className="flex items-center gap-2.5 text-lg font-bold">
-                    <Home className="size-4 text-emerald-600" />
+                    <Home className="size-4 text-accent-600" />
                     Meine Straße
                 </CardTitle>
                 <CardDescription className="text-xs">Lokale Auswahl für deinen Abfallkalender</CardDescription>
@@ -101,7 +101,7 @@ export function PrimaryRubbishStreetCard() {
                 ) : primaryStreet ? (
                     <>
                         <div className="px-5">
-                            <div className="flex items-center gap-1.5 text-xs font-medium tracking-wide text-emerald-700 dark:text-emerald-400">
+                            <div className="flex items-center gap-1.5 text-xs font-medium tracking-wide text-accent-700 dark:text-accent-400">
                                 <Star className="size-3 fill-current" />
                                 Ausgewählt
                             </div>
@@ -113,7 +113,7 @@ export function PrimaryRubbishStreetCard() {
 
                         <div className="space-y-2">
                             <div className="flex items-center gap-2 px-5 text-xs font-medium tracking-wide text-zinc-400">
-                                <CalendarDays className="size-3.5 text-emerald-600" />
+                                <CalendarDays className="size-3.5 text-accent-600" />
                                 Nächste Termine
                             </div>
 
@@ -150,7 +150,7 @@ export function PrimaryRubbishStreetCard() {
                         <div className="px-5">
                             <Link
                                 href={`/abfallkalender/${primaryStreet.id}`}
-                                className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 transition hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
+                                className="inline-flex items-center gap-1 text-xs font-medium text-accent-600 transition hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300"
                             >
                                 Alle Termine ansehen
                                 <ChevronRight className="size-3.5" />
@@ -159,8 +159,8 @@ export function PrimaryRubbishStreetCard() {
                     </>
                 ) : (
                     <div className="px-5">
-                        <div className="flex items-start gap-3 rounded-2xl border border-dashed border-emerald-200 bg-emerald-50/30 p-4 dark:border-emerald-500/20 dark:bg-emerald-500/5">
-                            <MapPinned className="mt-0.5 size-4 shrink-0 text-emerald-600" />
+                        <div className="flex items-start gap-3 rounded-2xl border border-dashed border-accent-200 bg-accent-50/30 p-4 dark:border-accent-500/20 dark:bg-accent-500/5">
+                            <MapPinned className="mt-0.5 size-4 shrink-0 text-accent-600" />
                             <div className="min-w-0">
                                 <div className="text-sm font-bold text-zinc-950 dark:text-white">Keine Straße gewählt</div>
                                 <p className="mt-1 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
@@ -171,7 +171,7 @@ export function PrimaryRubbishStreetCard() {
 
                         <Link
                             href="/abfallkalender"
-                            className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-emerald-600 transition hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
+                            className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-accent-600 transition hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300"
                         >
                             Straße auswählen
                             <ChevronRight className="size-3.5" />

@@ -46,7 +46,7 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                             <Button
                                 asChild
                                 size="lg"
-                                className="rounded-2xl bg-zinc-950 px-8 text-white shadow-xl shadow-emerald-500/10 hover:bg-zinc-800 dark:bg-emerald-600 dark:hover:bg-emerald-700"
+                                className="rounded-2xl bg-zinc-950 px-8 text-white shadow-xl shadow-accent-500/10 hover:bg-zinc-800 dark:bg-accent-600 dark:hover:bg-accent-700"
                             >
                                 <Link href={route('organisations.create')}>
                                     <Plus className="mr-2 size-5" />
@@ -76,13 +76,13 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                                     <Card className="h-full border-zinc-200 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-xl dark:border-white/5 dark:bg-zinc-900">
                                         <div className="flex items-start justify-between gap-6">
                                             <div className="flex-1 space-y-2">
-                                                <h3 className="line-clamp-1 text-xl font-bold text-zinc-950 transition group-hover:text-emerald-600 dark:text-white dark:group-hover:text-emerald-400">
+                                                <h3 className="line-clamp-1 text-xl font-bold text-zinc-950 transition group-hover:text-accent-600 dark:text-white dark:group-hover:text-accent-400">
                                                     {org.name}
                                                 </h3>
                                                 <p className="line-clamp-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                                                     {org.description || 'Diese Organisation hat noch keine Beschreibung hinterlegt.'}
                                                 </p>
-                                                <div className="flex items-center pt-2 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                                                <div className="flex items-center pt-2 text-xs font-bold text-accent-600 dark:text-accent-400">
                                                     Profil entdecken
                                                     <ArrowUpRight className="ml-1 size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                                                 </div>
@@ -117,7 +117,7 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                                 <Button
                                     variant="link"
                                     onClick={() => setSearch('')}
-                                    className="mt-4 text-emerald-600"
+                                    className="mt-4 text-accent-600"
                                 >
                                     Suche zurücksetzen
                                 </Button>

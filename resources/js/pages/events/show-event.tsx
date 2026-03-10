@@ -61,7 +61,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                         <div className="grid gap-12 lg:grid-cols-[1fr_400px]">
                             <div className="flex flex-col justify-center space-y-6">
                                 <div className="flex flex-wrap gap-2">
-                                    {primaryLabel ? <Badge className="bg-emerald-600 text-white shadow-none">{primaryLabel}</Badge> : null}
+                                    {primaryLabel ? <Badge className="bg-accent-600 text-white shadow-none">{primaryLabel}</Badge> : null}
                                     {collectionLabel && collectionLabel !== primaryLabel ? (
                                         <Badge
                                             variant="secondary"
@@ -76,7 +76,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                     {event.parentEvent && (
                                         <Link
                                             href={route('events.show', [event.parentEvent.id])}
-                                            className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-600 hover:text-emerald-500"
+                                            className="inline-flex items-center gap-1 text-sm font-semibold text-accent-600 hover:text-accent-500"
                                         >
                                             <ChevronLeft className="size-3" />
                                             Teil von: {event.parentEvent.name}
@@ -86,7 +86,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                         {event.name}
                                     </Heading>
                                     {event.subtitle ? (
-                                        <p className="text-lg font-medium text-emerald-600 sm:text-xl dark:text-emerald-400">{event.subtitle}</p>
+                                        <p className="text-lg font-medium text-accent-600 sm:text-xl dark:text-accent-400">{event.subtitle}</p>
                                     ) : null}
                                 </div>
 
@@ -149,7 +149,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                         {/* Main Content */}
                         <div className="space-y-12">
                             {leadText ? (
-                                <div className="border-l-4 border-emerald-500 pl-6">
+                                <div className="border-l-4 border-accent-500 pl-6">
                                     <p className="text-xl leading-relaxed font-medium text-zinc-800 italic dark:text-zinc-200">{leadText}</p>
                                 </div>
                             ) : null}
@@ -239,7 +239,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                         {event.calendarUrl ? (
                                             <Button
                                                 asChild
-                                                className="w-full justify-start rounded-xl bg-zinc-950 text-white hover:bg-zinc-800 dark:bg-emerald-600 dark:hover:bg-emerald-700"
+                                                className="w-full justify-start rounded-xl bg-zinc-950 text-white hover:bg-zinc-800 dark:bg-accent-600 dark:hover:bg-accent-700"
                                             >
                                                 <a
                                                     href={event.calendarUrl}
@@ -314,7 +314,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                                 {event.organisationSlug ? (
                                                     <Link
                                                         href={route('organisations.show', [event.organisationSlug])}
-                                                        className="mt-0.5 inline-flex items-center text-xs font-semibold text-emerald-600 hover:text-emerald-500"
+                                                        className="mt-0.5 inline-flex items-center text-xs font-semibold text-accent-600 hover:text-accent-500"
                                                     >
                                                         Profil anzeigen
                                                         <ArrowUpRight className="ml-1 size-3" />
@@ -338,7 +338,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                                     value={
                                                         <a
                                                             href={`tel:${event.organizerPhone}`}
-                                                            className="hover:text-emerald-600"
+                                                            className="hover:text-accent-600"
                                                         >
                                                             {event.organizerPhone}
                                                         </a>
@@ -352,7 +352,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                                     value={
                                                         <a
                                                             href={`mailto:${event.organizerEmail}`}
-                                                            className="hover:text-emerald-600"
+                                                            className="hover:text-accent-600"
                                                         >
                                                             {event.organizerEmail}
                                                         </a>

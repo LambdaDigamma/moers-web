@@ -53,7 +53,7 @@ const ParkingIndex = ({ parkingAreas }: Props) => {
                                     href={route('parking-areas.show', [area.slug])}
                                     className="group block h-full"
                                 >
-                                    <Card className="h-full border-zinc-200 bg-white py-0 shadow-xs transition-all duration-200 hover:border-emerald-200 hover:shadow-sm dark:border-white/10 dark:bg-zinc-900 dark:hover:border-emerald-500/20">
+                                    <Card className="h-full border-zinc-200 bg-white py-0 shadow-xs transition-all duration-200 hover:border-accent-200 hover:shadow-sm dark:border-white/10 dark:bg-zinc-900 dark:hover:border-accent-500/20">
                                         <CardHeader className="flex flex-row items-start justify-between space-y-0 border-b border-zinc-100 py-4 dark:border-white/5">
                                             <div className="space-y-0.5">
                                                 <CardTitle className="text-lg font-bold tracking-tight text-zinc-950 dark:text-white">
@@ -68,7 +68,7 @@ const ParkingIndex = ({ parkingAreas }: Props) => {
                                                 variant="outline"
                                                 className={`rounded-full border-none px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
                                                     area.state === 'open'
-                                                        ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
+                                                        ? 'bg-accent-500/10 text-accent-700 dark:text-accent-400'
                                                         : 'bg-zinc-100 text-zinc-600 dark:bg-white/5 dark:text-zinc-400'
                                                 }`}
                                             >
@@ -80,7 +80,7 @@ const ParkingIndex = ({ parkingAreas }: Props) => {
                                                 <div
                                                     className={`text-4xl font-bold tracking-tighter tabular-nums ${
                                                         area.capacity && area.occupied && area.capacity - area.occupied < 10
-                                                            ? 'text-amber-500'
+                                                            ? 'text-accent-500'
                                                             : 'text-zinc-950 dark:text-white'
                                                     }`}
                                                 >
@@ -96,8 +96,8 @@ const ParkingIndex = ({ parkingAreas }: Props) => {
                                                 <motion.div
                                                     className={`h-full ${
                                                         area.capacity && area.occupied && (area.occupied / area.capacity) > 0.9
-                                                            ? 'bg-amber-500'
-                                                            : 'bg-emerald-600'
+                                                            ? 'bg-accent-500'
+                                                            : 'bg-accent-600'
                                                     }`}
                                                     initial={{ width: 0 }}
                                                     animate={{
@@ -112,10 +112,10 @@ const ParkingIndex = ({ parkingAreas }: Props) => {
                                             </div>
 
                                             <div className="mt-6 flex items-center justify-between pt-1">
-                                                <span className="text-[11px] font-bold tracking-widest text-emerald-600 uppercase dark:text-emerald-400">
+                                                <span className="text-[11px] font-bold tracking-widest text-accent-600 uppercase dark:text-accent-400">
                                                     Details & Historie
                                                 </span>
-                                                <ArrowRight className="size-4 text-zinc-300 transition-transform group-hover:translate-x-1 group-hover:text-emerald-600" />
+                                                <ArrowRight className="size-4 text-zinc-300 transition-transform group-hover:translate-x-1 group-hover:text-accent-600" />
                                             </div>
                                         </CardContent>
                                     </Card>

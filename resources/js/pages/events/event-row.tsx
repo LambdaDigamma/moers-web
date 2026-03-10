@@ -43,7 +43,7 @@ export const EventRow: React.FC<{ event: Event; currentUrl?: string; showParent?
                             {showParent && event.parentEvent && (
                                 <Badge
                                     variant="outline"
-                                    className="border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                                    className="border-accent-500/20 bg-accent-500/10 text-accent-700 dark:text-accent-400"
                                 >
                                     Teil von {event.parentEvent.name}
                                 </Badge>

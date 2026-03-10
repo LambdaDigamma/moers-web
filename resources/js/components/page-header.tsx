@@ -17,7 +17,7 @@ export function PageHeader({ title, description, badge, actions, children, class
     return (
         <div className={cn('relative', className)}>
             <header className="relative overflow-hidden border-b border-zinc-200 bg-white py-16 lg:py-20 dark:border-white/5 dark:bg-zinc-900/50">
-                <div className="absolute inset-0 bg-linear-to-br from-emerald-500/5 via-transparent to-sky-500/5" />
+                <div className="absolute inset-0 bg-linear-to-br from-accent-500/5 via-transparent to-accent-500/5" />
                 <DefaultContainer className="relative">
                     <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
                         <motion.div
@@ -26,7 +26,7 @@ export function PageHeader({ title, description, badge, actions, children, class
                             className="max-w-2xl space-y-6"
                         >
                             {badge && (
-                                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50/50 px-3 py-1 text-xs font-medium tracking-wide text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-400">
+                                <div className="inline-flex items-center gap-2 rounded-full border border-accent-200 bg-accent-50/50 px-3 py-1 text-xs font-medium tracking-wide text-accent-700 dark:border-accent-500/20 dark:bg-accent-500/10 dark:text-accent-400">
                                     {badge}
                                 </div>
                             )}

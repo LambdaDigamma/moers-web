@@ -69,14 +69,14 @@ const pickupMeta: Record<
     organic: {
         label: 'Biotonne',
         icon: Leaf,
-        badgeClass: 'bg-emerald-600 text-white',
-        dotClass: 'bg-emerald-600',
+        badgeClass: 'bg-accent-600 text-white',
+        dotClass: 'bg-accent-600',
     },
     paper: {
         label: 'Papier',
         icon: FileText,
-        badgeClass: 'bg-sky-600 text-white',
-        dotClass: 'bg-sky-600',
+        badgeClass: 'bg-accent-600 text-white',
+        dotClass: 'bg-accent-600',
     },
     plastic: {
         label: 'Gelber Sack',
@@ -87,8 +87,8 @@ const pickupMeta: Record<
     cuttings: {
         label: 'Grünschnitt',
         icon: Leaf,
-        badgeClass: 'bg-lime-600 text-white',
-        dotClass: 'bg-lime-600',
+        badgeClass: 'bg-accent-600 text-white',
+        dotClass: 'bg-accent-600',
     },
 };
 
@@ -163,7 +163,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                     badge={
                         <Link
                             href={route('rubbish.index')}
-                            className="flex items-center gap-1.5 transition-colors hover:text-emerald-900 dark:hover:text-emerald-300"
+                            className="flex items-center gap-1.5 transition-colors hover:text-accent-900 dark:hover:text-accent-300"
                         >
                             <ChevronLeft className="size-3.5" />
                             Abfallkalender Übersicht
@@ -190,7 +190,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                     }
                                     className={cn(
                                         'h-9 rounded-full px-4 font-medium transition-all',
-                                        isPrimaryStreet && 'bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-500',
+                                        isPrimaryStreet && 'bg-accent-600 text-white hover:bg-accent-700 dark:bg-accent-500',
                                     )}
                                 >
                                     <Star className={cn('mr-2 size-4', isPrimaryStreet && 'fill-current')} />
@@ -342,7 +342,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                     key={group.date}
                                                     className={cn(
                                                         'flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-4 transition-all dark:border-white/5 dark:bg-zinc-900',
-                                                        group.date === todayKey && 'border-emerald-500 bg-emerald-50/30 ring-1 ring-emerald-500',
+                                                        group.date === todayKey && 'border-accent-500 bg-accent-50/30 ring-1 ring-accent-500',
                                                     )}
                                                 >
                                                     <div className="flex flex-col items-center border-r border-zinc-100 pr-4 dark:border-white/5">
@@ -405,13 +405,13 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                                         ? 'bg-zinc-50/50 text-zinc-300 dark:bg-zinc-950/50 dark:text-zinc-700'
                                                                         : '',
                                                                     isToday &&
-                                                                        'border-emerald-500 bg-emerald-50/30 ring-2 ring-emerald-500 dark:bg-emerald-500/10',
+                                                                        'border-accent-500 bg-accent-50/30 ring-2 ring-accent-500 dark:bg-accent-500/10',
                                                                 )}
                                                             >
                                                                 <span
                                                                     className={cn(
                                                                         'text-sm font-medium',
-                                                                        isToday && 'font-bold text-emerald-700 dark:text-emerald-400',
+                                                                        isToday && 'font-bold text-accent-700 dark:text-accent-400',
                                                                     )}
                                                                 >
                                                                     {day.getDate()}

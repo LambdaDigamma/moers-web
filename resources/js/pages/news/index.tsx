@@ -42,9 +42,9 @@ function NewsCard({ post }: { post: NewsPost }) {
                         className="aspect-[16/9] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                     />
                 ) : (
-                    <div className="flex aspect-[16/9] items-center justify-center bg-linear-to-br from-sky-100 via-white to-amber-100 dark:from-sky-500/15 dark:via-zinc-950 dark:to-amber-500/10">
+                    <div className="flex aspect-[16/9] items-center justify-center bg-linear-to-br from-accent-100 via-white to-accent-100 dark:from-accent-500/15 dark:via-zinc-950 dark:to-accent-500/10">
                         <div className="flex size-16 items-center justify-center rounded-full border border-white/70 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/10">
-                            <Newspaper className="size-7 text-sky-700 dark:text-sky-300" />
+                            <Newspaper className="size-7 text-accent-700 dark:text-accent-300" />
                         </div>
                     </div>
                 )}
@@ -69,7 +69,7 @@ function NewsCard({ post }: { post: NewsPost }) {
                         {post.summary ?? 'Zur Meldung beim Originalanbieter wechseln.'}
                     </p>
                 </div>
-                <div className="mt-auto flex items-center gap-2 text-sm font-medium text-sky-700 dark:text-sky-300">
+                <div className="mt-auto flex items-center gap-2 text-sm font-medium text-accent-700 dark:text-accent-300">
                     <span>{isExternal ? 'Originalbeitrag öffnen' : 'Beitrag ansehen'}</span>
                     {isExternal ? <ArrowUpRight className="size-4" /> : <ArrowRight className="size-4" />}
                 </div>

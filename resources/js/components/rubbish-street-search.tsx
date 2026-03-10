@@ -225,7 +225,7 @@ export function RubbishStreetSearch({
                                 {showResults ? (
                                     <div className="absolute inset-x-0 top-full mt-3 overflow-hidden rounded-3xl border border-zinc-200/80 bg-white shadow-2xl ring-1 shadow-zinc-950/10 ring-black/5 dark:border-white/10 dark:bg-zinc-950 dark:ring-white/10">
                                         {activeStreet ? (
-                                            <div className="flex items-center gap-2 border-b border-zinc-200/80 bg-emerald-50/80 px-4 py-3 text-sm text-emerald-900 dark:border-white/10 dark:bg-emerald-500/10 dark:text-emerald-100">
+                                            <div className="flex items-center gap-2 border-b border-zinc-200/80 bg-accent-50/80 px-4 py-3 text-sm text-accent-900 dark:border-white/10 dark:bg-accent-500/10 dark:text-accent-100">
                                                 <Sparkles className="size-4" />
                                                 Aktuell geöffnet: <span className="font-semibold">{activeStreet.name}</span>
                                             </div>
@@ -250,7 +250,7 @@ export function RubbishStreetSearch({
                                                                     className={cn(
                                                                         'flex cursor-pointer items-center justify-between gap-4 px-4 py-3 transition',
                                                                         focus
-                                                                            ? 'bg-emerald-50 dark:bg-emerald-500/10'
+                                                                            ? 'bg-accent-50 dark:bg-accent-500/10'
                                                                             : 'hover:bg-zinc-50 dark:hover:bg-white/5',
                                                                     )}
                                                                 >
@@ -265,7 +265,7 @@ export function RubbishStreetSearch({
                                                                         ) : null}
                                                                     </div>
                                                                     {isActiveStreet ? (
-                                                                        <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-200">
+                                                                        <span className="rounded-full bg-accent-100 px-2.5 py-1 text-xs font-medium text-accent-800 dark:bg-accent-500/15 dark:text-accent-200">
                                                                             Aktuell
                                                                         </span>
                                                                     ) : null}

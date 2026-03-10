@@ -49,10 +49,10 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
                 <DefaultContainer className="py-12">
                     <div className="space-y-12">
                         <div className="max-w-3xl">
-                            <Card className="rounded-2xl border-emerald-200 bg-linear-to-br from-emerald-50 via-white to-lime-50 dark:border-emerald-500/20 dark:from-emerald-500/10 dark:via-zinc-900 dark:to-lime-500/10">
+                            <Card className="rounded-2xl border-accent-200 bg-linear-to-br from-accent-50 via-white to-accent-50 dark:border-accent-500/20 dark:from-accent-500/10 dark:via-zinc-900 dark:to-accent-500/10">
                                 <CardHeader className="pb-4">
                                     <div className="flex items-center gap-3">
-                                        <div className="flex size-11 items-center justify-center rounded-2xl bg-white text-emerald-700 shadow-sm ring-1 ring-emerald-200 dark:bg-zinc-950 dark:ring-white/10">
+                                        <div className="flex size-11 items-center justify-center rounded-2xl bg-white text-accent-700 shadow-sm ring-1 ring-accent-200 dark:bg-zinc-950 dark:ring-white/10">
                                             <Search className="size-5" />
                                         </div>
                                         <div>
@@ -66,7 +66,7 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
                                 <CardContent className="grid gap-3 sm:grid-cols-2">
                                     <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3 dark:border-white/5 dark:bg-white/5">
                                         <div className="flex items-center gap-2 text-sm font-medium text-zinc-950 dark:text-white">
-                                            <Smartphone className="size-4 text-emerald-600 dark:text-emerald-400" />
+                                            <Smartphone className="size-4 text-accent-600 dark:text-accent-400" />
                                             Mobile App & Push
                                         </div>
                                         <p className="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
@@ -75,7 +75,7 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
                                     </div>
                                     <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3 dark:border-white/5 dark:bg-white/5">
                                         <div className="flex items-center gap-2 text-sm font-medium text-zinc-950 dark:text-white">
-                                            <Calendar className="size-4 text-emerald-600 dark:text-emerald-400" />
+                                            <Calendar className="size-4 text-accent-600 dark:text-accent-400" />
                                             Kalender-Abo
                                         </div>
                                         <p className="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
@@ -94,7 +94,7 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
                                     <Link
                                         key={street.id}
                                         href={route('rubbish.show', [street.id])}
-                                        className="group flex items-center justify-between rounded-2xl border border-zinc-200 bg-white px-5 py-4 transition hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 dark:border-white/10 dark:bg-zinc-900 dark:hover:border-emerald-500/30"
+                                        className="group flex items-center justify-between rounded-2xl border border-zinc-200 bg-white px-5 py-4 transition hover:border-accent-300 hover:shadow-lg hover:shadow-accent-500/5 dark:border-white/10 dark:bg-zinc-900 dark:hover:border-accent-500/30"
                                     >
                                         <div className="min-w-0">
                                             <div className="truncate font-medium text-zinc-950 dark:text-white">{street.name}</div>
@@ -102,7 +102,7 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
                                                 <div className="truncate text-xs text-zinc-500 dark:text-zinc-400">{street.street_addition}</div>
                                             )}
                                         </div>
-                                        <ChevronRight className="size-5 shrink-0 text-zinc-400 transition group-hover:translate-x-0.5 group-hover:text-emerald-500" />
+                                        <ChevronRight className="size-5 shrink-0 text-zinc-400 transition group-hover:translate-x-0.5 group-hover:text-accent-500" />
                                     </Link>
                                 ))}
                             </div>

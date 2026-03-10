@@ -61,7 +61,7 @@
 
 {{--                <p class="p-4 mt-10 text-center text-gray-600">--}}
 {{--                    Ein Projekt von--}}
-{{--                    <a class="text-blue-500 border-b" href="https://lambdadigamma.com/" target="_blank">--}}
+{{--                    <a class="text-accent-500 border-b" href="https://lambdadigamma.com/" target="_blank">--}}
 {{--                        Lennart Fischer.--}}
 {{--                    </a>--}}
 {{--                </p>--}}

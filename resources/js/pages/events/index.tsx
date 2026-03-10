@@ -278,7 +278,7 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                                 <div className="flex flex-wrap items-center gap-3">
                                     <Button
                                         type="submit"
-                                        className="rounded-xl bg-zinc-950 px-6 text-white hover:bg-zinc-800 dark:bg-emerald-600 dark:hover:bg-emerald-700"
+                                        className="rounded-xl bg-zinc-950 px-6 text-white hover:bg-zinc-800 dark:bg-accent-600 dark:hover:bg-accent-700"
                                     >
                                         Filter anwenden
                                     </Button>
