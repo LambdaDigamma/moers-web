@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\GenerateSitemap;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -31,4 +32,4 @@ Schedule::command(LoadRadio::class)->everyFiveMinutes();
 Schedule::command(LoadMediathekFeed::class)->hourly();
 
 // Sitemap
-Schedule::command(\App\Console\Commands\GenerateSitemap::class)->hourly();
+Schedule::command(GenerateSitemap::class)->hourly();
