@@ -5,6 +5,7 @@ namespace Modules\Management\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Management\Console\ExtractOrganisers;
 use Modules\Management\Models\Organisation;
 use Modules\Management\Policies\OrganisationPolicy;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -49,7 +50,7 @@ class ManagementServiceProvider extends ServiceProvider
     protected function registerCommands(): void
     {
         $this->commands([
-            \Modules\Management\Console\ExtractOrganisers::class,
+            ExtractOrganisers::class,
         ]);
     }
 

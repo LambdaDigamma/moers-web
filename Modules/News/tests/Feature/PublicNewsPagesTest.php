@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
+use Modules\News\Models\Feed;
 use Modules\News\Models\Post;
 
 use function Pest\Laravel\actingAs;
@@ -13,7 +14,7 @@ it('shows published news on the public index', function () {
         'summary' => 'Am Wochenende beginnt das Stadtfest.',
         'external_href' => 'https://example.com/stadtfest',
     ]);
-    $feed = \Modules\News\Models\Feed::factory()->create([
+    $feed = Feed::factory()->create([
         'name' => 'Rheinische Post',
     ]);
     $feed->posts()->attach($post, ['order' => 0]);

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
+use Modules\News\Console\Commands\ImportExternalPostsCommand;
 use Modules\News\Models\Feed;
 use Modules\News\Models\Post;
 
@@ -118,11 +119,11 @@ it('imports external rss posts and updates existing entries', function () {
 });
 
 it('extracts an image url from rss-specific fields', function () {
-    $command = app(\Modules\News\Console\Commands\ImportExternalPostsCommand::class);
-    $method = new \ReflectionMethod($command, 'resolveImageUrl');
+    $command = app(ImportExternalPostsCommand::class);
+    $method = new ReflectionMethod($command, 'resolveImageUrl');
     $method->setAccessible(true);
 
-    $item = new \SimpleXMLElement(<<<'XML'
+    $item = new SimpleXMLElement(<<<'XML'
         <item xmlns:media="http://search.yahoo.com/mrss/">
             <title>Bildbeitrag</title>
             <description><![CDATA[<p>Beschreibung <img src="https://example.test/fallback.jpg" /></p>]]></description>
@@ -134,11 +135,11 @@ it('extracts an image url from rss-specific fields', function () {
 });
 
 it('extracts rp image urls from the gera namespace', function () {
-    $command = app(\Modules\News\Console\Commands\ImportExternalPostsCommand::class);
-    $method = new \ReflectionMethod($command, 'resolveImageUrl');
+    $command = app(ImportExternalPostsCommand::class);
+    $method = new ReflectionMethod($command, 'resolveImageUrl');
     $method->setAccessible(true);
 
-    $item = new \SimpleXMLElement(<<<'XML'
+    $item = new SimpleXMLElement(<<<'XML'
         <item xmlns:gera="http://rp-online/rss/namespace">
             <title>RP Beitrag</title>
             <gera:imageUrl>https://example.test/gera.jpg</gera:imageUrl>

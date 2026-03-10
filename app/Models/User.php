@@ -6,8 +6,10 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Modules\Management\Models\Organisation;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 class User extends Authenticatable
@@ -38,12 +40,12 @@ class User extends Authenticatable
         return $this->can('access:admin');
     }
 
-    public function organisations(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function organisations(): BelongsToMany
     {
-        return $this->belongsToMany(\Modules\Management\Models\Organisation::class);
+        return $this->belongsToMany(Organisation::class);
     }
 
-    public function belongsToOrganisation(\Modules\Management\Models\Organisation $organisation): bool
+    public function belongsToOrganisation(Organisation $organisation): bool
     {
         return $this->organisations()->where('organisations.id', $organisation->id)->exists();
     }

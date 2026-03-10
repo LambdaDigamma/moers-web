@@ -1,10 +1,13 @@
 <?php
 
+use LambdaDigamma\MMPages\Models\Page;
+use LambdaDigamma\MMPages\Models\PageBlock;
+
 return [
 
-    'page_model' => LambdaDigamma\MMPages\Models\Page::class,
+    'page_model' => Page::class,
 
-    'page_block_model' => LambdaDigamma\MMPages\Models\PageBlock::class,
+    'page_block_model' => PageBlock::class,
 
     /**
      * The api endpoints are being registered

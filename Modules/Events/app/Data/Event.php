@@ -49,7 +49,7 @@ class Event extends Data
         public ?CarbonInterface $cancelledAt,
         public ?CarbonInterface $archivedAt,
         public ?CarbonInterface $deletedAt,
-        /** @var DataCollection<int, \Modules\Events\Data\Event>|null */
+        /** @var DataCollection<int, Event>|null */
         public ?DataCollection $subEvents = null,
         public ?self $parentEvent = null,
     ) {}

@@ -1,10 +1,13 @@
 <?php
 
+use Modules\News\Models\Feed;
+use Modules\News\Models\Post;
+
 return [
 
-    'feed_model' => \Modules\News\Models\Feed::class,
+    'feed_model' => Feed::class,
 
-    'post_model' => \Modules\News\Models\Post::class,
+    'post_model' => Post::class,
 
     /**
      * The api endpoints are being registered

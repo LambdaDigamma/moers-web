@@ -18,7 +18,7 @@ class ImportAdolfinumNews extends Command
      */
     public function handle(): int
     {
-        $xml = XmlParser::load('https://adolfinum.de/share/aktuelles.xml');
+        $xml = XMLParser::load('https://adolfinum.de/share/aktuelles.xml');
 
         $data = $xml->parse([
             'page' => ['uses' => 'channel.atom:link[::rel="next"]'],

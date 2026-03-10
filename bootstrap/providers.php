@@ -1,12 +1,21 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+use App\Providers\HorizonServiceProvider;
+use Modules\Events\Providers\EventsServiceProvider;
+use Modules\Management\Providers\ManagementServiceProvider;
+use Modules\Multimedia\Providers\MultimediaServiceProvider;
+use Modules\News\Providers\NewsServiceProvider;
+use Modules\Parking\Providers\ParkingServiceProvider;
+use Modules\Waste\Providers\WasteServiceProvider;
+
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\HorizonServiceProvider::class,
-    Modules\Events\Providers\EventsServiceProvider::class,
-    Modules\Multimedia\Providers\MultimediaServiceProvider::class,
-    Modules\Management\Providers\ManagementServiceProvider::class,
-    Modules\News\Providers\NewsServiceProvider::class,
-    Modules\Parking\Providers\ParkingServiceProvider::class,
-    Modules\Waste\Providers\WasteServiceProvider::class,
+    AppServiceProvider::class,
+    HorizonServiceProvider::class,
+    EventsServiceProvider::class,
+    MultimediaServiceProvider::class,
+    ManagementServiceProvider::class,
+    NewsServiceProvider::class,
+    ParkingServiceProvider::class,
+    WasteServiceProvider::class,
 ];

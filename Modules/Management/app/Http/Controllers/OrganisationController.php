@@ -3,6 +3,7 @@
 namespace Modules\Management\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 use Modules\Management\Data\CreateOrganisationProps;
@@ -19,7 +20,7 @@ class OrganisationController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
 
-    public function index(\Illuminate\Http\Request $request)
+    public function index(Request $request)
     {
         $filters = [
             'search' => trim($request->string('search')->toString()),

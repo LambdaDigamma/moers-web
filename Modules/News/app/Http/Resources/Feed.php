@@ -2,6 +2,8 @@
 
 namespace Modules\News\Http\Resources;
 
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Feed extends JsonResource
@@ -9,9 +11,9 @@ class Feed extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      */
-    public function toArray($request): array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+    public function toArray($request): array|Arrayable|\JsonSerializable
     {
         return parent::toArray($request);
     }
