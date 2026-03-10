@@ -30,3 +30,4 @@ storage/media-library/temp
 auth.json
 
 old
+/public/sitemap.xml

@@ -42,6 +42,7 @@
         "spatie/laravel-data": "^4.11",
         "spatie/laravel-json-api-paginate": "^1.16",
         "spatie/laravel-medialibrary": "^11.13",
+        "spatie/laravel-sitemap": "^8.0",
         "spatie/laravel-translatable": "^6.0",
         "spatie/laravel-typescript-transformer": "^2.5",
         "spatie/opening-hours": "^4.1.3",

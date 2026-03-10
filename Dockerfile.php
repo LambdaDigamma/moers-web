@@ -49,6 +49,10 @@ USER root
 FROM base AS deploy
 COPY --chown=www-data:www-data . /var/www/html
 
+# Copy entrypoint scripts
+USER root
+COPY --chmod=755 .infrastructure/conf/platform-entrypoint.d/ /etc/entrypoint.d/
+
 # Create the SQLite directory and set the owner to www-data (remove this if you're not using SQLite)
 RUN mkdir -p /var/www/html/.infrastructure/volume_data/sqlite/ && \
     chown -R www-data:www-data /var/www/html/.infrastructure/volume_data/sqlite/
