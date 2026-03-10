@@ -82,6 +82,7 @@ class UpdateParkingAreas extends Command
                     'capacity' => $capacity,
                     'opening_state' => $openingState,
                     'parking_area_id' => $parkingArea->id,
+                    'created_at' => now(),
                     'updated_at' => Carbon::parse($timestamp),
                 ]);
             }
@@ -127,6 +128,7 @@ class UpdateParkingAreas extends Command
                     'capacity' => $capacity,
                     'opening_state' => $openingState,
                     'parking_area_id' => $parkingArea->id,
+                    'created_at' => now(),
                     'updated_at' => Carbon::createFromTimestampMsUTC($timestamp),
                 ]);
             }
@@ -169,7 +171,7 @@ class UpdateParkingAreas extends Command
         $lastUpdated = $lastOccupancy->created_at;
 
         if ($lastUpdated) {
-            $diffInMinutes = now()->diffInMinutes($lastUpdated);
+            $diffInMinutes = abs(now()->diffInMinutes($lastUpdated));
             $shouldStoreCurrentOccupancy = $diffInMinutes >= 5;
             $this->info("Last persisting of occupancy was {$diffInMinutes} minutes ago.");
 
