@@ -576,6 +576,10 @@ class Event extends Model implements HasMedia
         $link = Link::create($this->name, $start_date, $end_date)
             ->description($this->description);
 
+        if ($this->place) {
+            $link->address($this->place->name);
+        }
+
         return $link->ics();
     }
 

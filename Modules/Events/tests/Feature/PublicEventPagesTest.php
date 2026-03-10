@@ -128,3 +128,19 @@ it('shows a public event detail page with real metadata', function () {
             ->where('event.organizerWebsite', 'https://festival.test')
             ->where('event.calendarUrl', fn ($value) => is_string($value) && str_starts_with($value, 'data:text/calendar;charset=utf8;base64,')));
 });
+
+it('handles events with null description correctly', function () {
+    $event = Event::factory()->published()->create([
+        'name' => 'Event ohne Beschreibung',
+        'description' => null,
+        'start_date' => Carbon::parse('2026-04-12 19:30:00'),
+    ]);
+
+    get('/events?type=all')
+        ->assertSuccessful()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('events/index')
+            ->has('events.data', 1)
+            ->where('events.data.0.name', 'Event ohne Beschreibung')
+            ->where('events.data.0.calendarUrl', fn ($value) => is_string($value)));
+});

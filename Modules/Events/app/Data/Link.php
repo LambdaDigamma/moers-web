@@ -11,10 +11,10 @@ use Modules\Events\Generators\Ics;
 
 /**
  * @property-read string $title
+ * @property-read ?string $description
  * @property-read DateTimeInterface|DateTime|\DateTimeImmutable $from
  * @property-read DateTimeInterface|DateTime|\DateTimeImmutable $to
- * @property-read string $description
- * @property-read string $address
+ * @property-read ?string $address
  * @property-read bool $allDay
  */
 class Link
@@ -25,7 +25,7 @@ class Link
 
     public DateTimeInterface|DateTime $to;
 
-    public string $description;
+    public ?string $description = null;
 
     public bool $allDay;
 
@@ -63,14 +63,14 @@ class Link
         return new self($title, $from, $to, true);
     }
 
-    public function description(string $description): static
+    public function description(?string $description): static
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function address(string $address): static
+    public function address(?string $address): static
     {
         $this->address = $address;
 
