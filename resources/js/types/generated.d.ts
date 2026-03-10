@@ -111,3 +111,14 @@ declare namespace Modules.Management.Data {
         slug: string;
     };
 }
+declare namespace Modules.Parking.Data {
+    export type ParkingArea = {
+        id: number;
+        name: string;
+        slug: string;
+        capacity: number | null;
+        occupied: number | null;
+        state: string | null;
+        updated_at: string | null;
+    };
+}

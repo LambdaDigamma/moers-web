@@ -27,8 +27,8 @@ class GenerateParkingAreaSnapshot implements ShouldQueue
 
     public function handle(): void
     {
-        $lng = $this->parkingArea->location->getLng();
-        $lat = $this->parkingArea->location->getLat();
+        $lng = $this->parkingArea->location->getLongitude();
+        $lat = $this->parkingArea->location->getLatitude();
 
         $light = $this->generate($lat, $lng, false);
         $dark = $this->generate($lat, $lng, true);

@@ -12,7 +12,7 @@ import { useInitials } from '@/hooks/use-initials';
 import { cn } from '@/lib/utils';
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { Calendar, Handshake, LayoutGrid, Menu, Newspaper, Trash2 } from 'lucide-react';
+import { Calendar, CircleParking, Handshake, LayoutGrid, Menu, Newspaper, Trash2 } from 'lucide-react';
 import AppLogo from './app-logo';
 import AppLogoIcon from './app-logo-icon';
 
@@ -52,6 +52,11 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                   icon: Calendar,
               },
               {
+                  title: 'Parken',
+                  url: '/parking-areas',
+                  icon: CircleParking,
+              },
+              {
                   title: 'News',
                   url: route('news.index'),
                   icon: Newspaper,
@@ -72,6 +77,11 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                   title: 'Veranstaltungen',
                   url: '/events',
                   icon: Calendar,
+              },
+              {
+                  title: 'Parken',
+                  url: '/parking-areas',
+                  icon: CircleParking,
               },
               {
                   title: 'News',

@@ -4,6 +4,7 @@ namespace Modules\Parking\Console\Commands;
 
 use App\Http\Integrations\Moers\MoersConnector;
 use App\Http\Integrations\Moers\Requests\GetParkingLotsJsonApiRequest;
+use Clickbar\Magellan\Data\Geometries\Point;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -51,6 +52,8 @@ class UpdateParkingAreas extends Command
             $capacity = $attributes['field_capacity'] ?? null;
             $occupied = $attributes['field_occupied_sites'] ?? null;
             $timestamp = $attributes['field_timestamp'] ?? null;
+            $lat = $attributes['field_geo_point']['lat'] ?? null;
+            $lon = $attributes['field_geo_point']['lon'] ?? null;
             $openingState = ParkingArea::openingStateFromString($openingState);
 
             $parkingArea = ParkingArea::updateOrCreate(
@@ -61,6 +64,7 @@ class UpdateParkingAreas extends Command
                     'capacity' => $capacity,
                     'occupied_sites' => $occupied,
                     'current_opening_state' => $openingState,
+                    'location' => $lat && $lon ? Point::makeGeodetic($lat, $lon) : null,
                     'updated_at' => Carbon::parse($timestamp),
                 ]
             );

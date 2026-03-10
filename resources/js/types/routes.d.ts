@@ -139,6 +139,13 @@ declare module 'momentum-trail' {
                 parameters: ['parkingArea'];
                 bindings: { parkingArea: 'id' };
             };
+            'parking-areas.index': { uri: 'parking-areas'; methods: ['GET', 'HEAD'] };
+            'parking-areas.show': {
+                uri: 'parking-areas\/{parkingArea}';
+                methods: ['GET', 'HEAD'];
+                parameters: ['parkingArea'];
+                bindings: { parkingArea: 'slug' };
+            };
             'api.v1.feeds.show': { uri: 'api\/v1\/feeds\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
             'api.v1.feeds.posts.index': { uri: 'api\/v1\/feeds\/{id}\/posts'; methods: ['GET', 'HEAD']; parameters: ['id'] };
             'api.v1.posts.show': { uri: 'api\/v1\/posts\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
@@ -253,6 +260,7 @@ declare module 'momentum-trail' {
             'api.v2.rubbish.streets.*': [];
             'api.v2.rubbish.streets.pickups.*': [];
             'api.v1.parking-areas.*': [];
+            'parking-areas.*': [];
             'api.v1.feeds.*': [];
             'api.v1.feeds.posts.*': [];
             'api.v1.posts.*': [];
