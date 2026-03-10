@@ -52,6 +52,7 @@ class HomeController extends Controller
             ->map(fn (ParkingArea $area) => [
                 'id' => $area->id,
                 'name' => $area->name,
+                'slug' => $area->slug,
                 'capacity' => $area->capacity,
                 'occupied' => $area->occupied_sites,
                 'state' => $area->current_opening_state,
