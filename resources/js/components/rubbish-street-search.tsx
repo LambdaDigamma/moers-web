@@ -142,7 +142,7 @@ export function RubbishStreetSearch({
 
     return (
         <div className={cn('sticky top-4 z-30', className)}>
-            <div className="mx-auto w-full max-w-4xl">
+            <div className="mx-auto w-full">
                 <Combobox
                     value={selectedStreet}
                     onChange={(street) => {

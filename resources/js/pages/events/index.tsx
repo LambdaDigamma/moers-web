@@ -1,4 +1,5 @@
 import { DefaultContainer } from '@/components/default-container';
+import { PageHeader } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Input } from '@/components/ui/input';
@@ -119,31 +120,28 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
         <>
             <Head title="Veranstaltungen" />
 
-            <DefaultContainer className="pb-16">
-                <div className="mt-8 space-y-8">
-                    <section className="overflow-hidden rounded-[2rem] border border-zinc-200 bg-linear-to-br from-amber-50 via-white to-cyan-50 p-6 shadow-sm dark:border-white/10 dark:from-amber-500/10 dark:via-zinc-950 dark:to-cyan-500/10">
-                        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-                            <div className="max-w-3xl space-y-3">
-                                <p className="text-sm font-medium tracking-[0.24em] text-zinc-500 uppercase dark:text-zinc-400">Terminkalender</p>
-                                <Heading className="text-3xl sm:text-4xl">Veranstaltungen in Moers finden</Heading>
-                                <p className="max-w-2xl text-sm leading-6 text-zinc-600 dark:text-zinc-300">
-                                    Entdecke kommende Termine, sortiert nach Monaten und filterbar nach deinen Interessen.
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section className="rounded-[2rem] border border-zinc-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-950">
+            <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+                <PageHeader
+                    badge="Terminkalender"
+                    title="Veranstaltungen in Moers finden"
+                    description="Entdecke kommende Termine, sortiert nach Monaten und filterbar nach deinen Interessen."
+                >
+                    <section className="rounded-[2.5rem] border border-zinc-200 bg-white p-6 shadow-xl dark:border-white/10 dark:bg-zinc-900">
                         <form
-                            className="space-y-4"
+                            className="space-y-6"
                             onSubmit={(event) => {
                                 event.preventDefault();
                                 applyFilters(values);
                             }}
                         >
-                            <div className="grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_repeat(4,minmax(0,1fr))]">
+                            <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_repeat(4,minmax(0,1fr))]">
                                 <div className="space-y-2">
-                                    <Label htmlFor="event-search">Suche</Label>
+                                    <Label
+                                        htmlFor="event-search"
+                                        className="text-zinc-950 dark:text-white"
+                                    >
+                                        Suche
+                                    </Label>
                                     <div className="relative">
                                         <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-zinc-400" />
                                         <Input
@@ -152,18 +150,26 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                                             value={values.search}
                                             onChange={(event) => setValues((current) => ({ ...current, search: event.target.value }))}
                                             placeholder="Titel, Stichwort oder Reihe"
-                                            className="pl-9"
+                                            className="h-11 rounded-xl border-zinc-200 bg-zinc-50 pl-9 dark:border-white/10 dark:bg-zinc-950"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="event-type">Zeitraum</Label>
+                                    <Label
+                                        htmlFor="event-type"
+                                        className="text-zinc-950 dark:text-white"
+                                    >
+                                        Zeitraum
+                                    </Label>
                                     <Select
                                         value={values.type || 'all'}
                                         onValueChange={(value) => updateFilter('type', value)}
                                     >
-                                        <SelectTrigger id="event-type">
+                                        <SelectTrigger
+                                            id="event-type"
+                                            className="h-11 rounded-xl border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-zinc-950"
+                                        >
                                             <SelectValue placeholder="Zeitraum wählen" />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -180,12 +186,20 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="event-collection">Reihe</Label>
+                                    <Label
+                                        htmlFor="event-collection"
+                                        className="text-zinc-950 dark:text-white"
+                                    >
+                                        Reihe
+                                    </Label>
                                     <Select
                                         value={values.collection || 'all'}
                                         onValueChange={(value) => updateFilter('collection', value === 'all' ? '' : value)}
                                     >
-                                        <SelectTrigger id="event-collection">
+                                        <SelectTrigger
+                                            id="event-collection"
+                                            className="h-11 rounded-xl border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-zinc-950"
+                                        >
                                             <SelectValue placeholder="Alle Reihen" />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -203,12 +217,20 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="event-organisation">Veranstalter</Label>
+                                    <Label
+                                        htmlFor="event-organisation"
+                                        className="text-zinc-950 dark:text-white"
+                                    >
+                                        Veranstalter
+                                    </Label>
                                     <Select
                                         value={values.organisation || 'all'}
                                         onValueChange={(value) => updateFilter('organisation', value === 'all' ? '' : value)}
                                     >
-                                        <SelectTrigger id="event-organisation">
+                                        <SelectTrigger
+                                            id="event-organisation"
+                                            className="h-11 rounded-xl border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-zinc-950"
+                                        >
                                             <SelectValue placeholder="Alle Veranstalter" />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -226,12 +248,20 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="event-location">Ort</Label>
+                                    <Label
+                                        htmlFor="event-location"
+                                        className="text-zinc-950 dark:text-white"
+                                    >
+                                        Ort
+                                    </Label>
                                     <Select
                                         value={values.location || 'all'}
                                         onValueChange={(value) => updateFilter('location', value === 'all' ? '' : value)}
                                     >
-                                        <SelectTrigger id="event-location">
+                                        <SelectTrigger
+                                            id="event-location"
+                                            className="h-11 rounded-xl border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-zinc-950"
+                                        >
                                             <SelectValue placeholder="Alle Orte" />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -249,48 +279,33 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                                 </div>
                             </div>
 
-                            {availableFilters.categories.length > 0 ? (
-                                <div className="space-y-2 lg:max-w-sm">
-                                    <Label htmlFor="event-category">Kategorie</Label>
-                                    <Select
-                                        value={values.category || 'all'}
-                                        onValueChange={(value) => updateFilter('category', value === 'all' ? '' : value)}
+                            <div className="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-100 pt-6 dark:border-white/5">
+                                <div className="flex flex-wrap items-center gap-3">
+                                    <Button
+                                        type="submit"
+                                        className="rounded-xl bg-zinc-950 px-6 text-white hover:bg-zinc-800 dark:bg-emerald-600 dark:hover:bg-emerald-700"
                                     >
-                                        <SelectTrigger id="event-category">
-                                            <SelectValue placeholder="Alle Kategorien" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="all">Alle Kategorien</SelectItem>
-                                            {availableFilters.categories.map((category) => (
-                                                <SelectItem
-                                                    key={category}
-                                                    value={category}
-                                                >
-                                                    {category}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                                        Filter anwenden
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        onClick={resetFilters}
+                                        className="rounded-xl border-zinc-200 dark:border-white/10"
+                                    >
+                                        <X className="mr-2 size-4" />
+                                        Filter zurücksetzen
+                                    </Button>
                                 </div>
-                            ) : null}
-
-                            <div className="flex flex-wrap items-center gap-3">
-                                <Button type="submit">Filter anwenden</Button>
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={resetFilters}
-                                >
-                                    <X className="size-4" />
-                                    Filter zurücksetzen
-                                </Button>
-                                <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                                <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
                                     {activeFilterCount === 0 ? 'Keine aktiven Filter' : `${activeFilterCount} aktive Filter`}
                                 </span>
                             </div>
                         </form>
                     </section>
+                </PageHeader>
 
+                <DefaultContainer className="py-12">
                     {events.data.length === 0 ? (
                         <section className="rounded-[2rem] border border-dashed border-zinc-300 bg-zinc-50 px-6 py-12 text-center dark:border-white/15 dark:bg-white/5">
                             <Heading level={2}>Keine Veranstaltungen gefunden</Heading>
@@ -355,8 +370,8 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
                             </div>
                         </InfiniteScroll>
                     )}
-                </div>
-            </DefaultContainer>
+                </DefaultContainer>
+            </div>
         </>
     );
 };

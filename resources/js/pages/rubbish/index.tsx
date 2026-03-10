@@ -1,9 +1,11 @@
 import { DefaultContainer } from '@/components/default-container';
+import { DefaultPagination } from '@/components/default-pagination';
+import { PageHeader } from '@/components/page-header';
 import { RubbishStreetSearch } from '@/components/rubbish-street-search';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { Head } from '@inertiajs/react';
-import { Compass, Search } from 'lucide-react';
+import { Head, Link } from '@inertiajs/react';
+import { Calendar, ChevronRight, Search, Smartphone, Trash2 } from 'lucide-react';
 import { ReactNode } from 'react';
 
 type RubbishStreetListItem = {
@@ -16,7 +18,7 @@ type RubbishIndexProps = {
     filters: {
         q: string;
     };
-    streets: RubbishStreetListItem[];
+    streets: Paginator<RubbishStreetListItem>;
 };
 
 function RubbishIndex({ filters, streets }: RubbishIndexProps) {
@@ -24,49 +26,94 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
         <>
             <Head title="Abfallkalender" />
 
-            <DefaultContainer className="space-y-6 py-6">
-                <RubbishStreetSearch
-                    initialQuery={filters.q}
-                    initialResults={streets}
-                    autoOpen={Boolean(filters.q)}
-                />
+            <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+                <PageHeader
+                    badge={
+                        <div className="flex items-center gap-2">
+                            <Trash2 className="size-3.5" />
+                            Entsorgungstermine
+                        </div>
+                    }
+                    title="Abfallkalender Moers"
+                    description="Finden Sie schnell und einfach die nächsten Abholtermine für Ihre Straße. Geben Sie dazu einfach Ihren Straßennamen in das Suchfeld ein."
+                >
+                    <div className="max-w-2xl">
+                        <RubbishStreetSearch
+                            initialQuery={filters.q}
+                            initialResults={streets.data}
+                            autoOpen={Boolean(filters.q)}
+                        />
+                    </div>
+                </PageHeader>
 
-                <div className="mx-auto max-w-3xl pt-2">
-                    <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 via-white to-lime-50">
-                        <CardHeader className="pb-4">
-                            <div className="flex items-center gap-3">
-                                <div className="flex size-11 items-center justify-center rounded-2xl bg-white text-emerald-700 shadow-sm ring-1 ring-emerald-200">
-                                    <Search className="size-5" />
-                                </div>
-                                <div>
-                                    <CardTitle className="text-2xl text-zinc-950">Abfallkalender</CardTitle>
-                                    <CardDescription className="mt-1 text-sm text-zinc-700">
-                                        Suche deine Straße für alle Abholtermine.
-                                    </CardDescription>
-                                </div>
+                <DefaultContainer className="py-12">
+                    <div className="space-y-12">
+                        <div className="max-w-3xl">
+                            <Card className="rounded-2xl border-emerald-200 bg-linear-to-br from-emerald-50 via-white to-lime-50 dark:border-emerald-500/20 dark:from-emerald-500/10 dark:via-zinc-900 dark:to-lime-500/10">
+                                <CardHeader className="pb-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="flex size-11 items-center justify-center rounded-2xl bg-white text-emerald-700 shadow-sm ring-1 ring-emerald-200 dark:bg-zinc-950 dark:ring-white/10">
+                                            <Search className="size-5" />
+                                        </div>
+                                        <div>
+                                            <CardTitle className="text-2xl text-zinc-950 dark:text-white">Abfallkalender</CardTitle>
+                                            <CardDescription className="mt-1 text-sm text-zinc-700 dark:text-zinc-400">
+                                                Finden Sie Ihre Straße für alle Abholtermine.
+                                            </CardDescription>
+                                        </div>
+                                    </div>
+                                </CardHeader>
+                                <CardContent className="grid gap-3 sm:grid-cols-2">
+                                    <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3 dark:border-white/5 dark:bg-white/5">
+                                        <div className="flex items-center gap-2 text-sm font-medium text-zinc-950 dark:text-white">
+                                            <Smartphone className="size-4 text-emerald-600 dark:text-emerald-400" />
+                                            Mobile App & Push
+                                        </div>
+                                        <p className="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                                            Nutzen Sie unsere App für automatische Erinnerungen direkt auf Ihr Smartphone.
+                                        </p>
+                                    </div>
+                                    <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3 dark:border-white/5 dark:bg-white/5">
+                                        <div className="flex items-center gap-2 text-sm font-medium text-zinc-950 dark:text-white">
+                                            <Calendar className="size-4 text-emerald-600 dark:text-emerald-400" />
+                                            Kalender-Abo
+                                        </div>
+                                        <p className="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                                            Abonnieren Sie alle Termine als iCal-Kalender für Ihr Outlook, Google oder Apple Kalender.
+                                        </p>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+
+                        <div className="space-y-6">
+                            <h2 className="text-2xl font-bold tracking-tight text-zinc-950 dark:text-white">Alle Straßen</h2>
+
+                            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                {streets.data.map((street) => (
+                                    <Link
+                                        key={street.id}
+                                        href={route('rubbish.show', [street.id])}
+                                        className="group flex items-center justify-between rounded-2xl border border-zinc-200 bg-white px-5 py-4 transition hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 dark:border-white/10 dark:bg-zinc-900 dark:hover:border-emerald-500/30"
+                                    >
+                                        <div className="min-w-0">
+                                            <div className="truncate font-medium text-zinc-950 dark:text-white">{street.name}</div>
+                                            {street.street_addition && (
+                                                <div className="truncate text-xs text-zinc-500 dark:text-zinc-400">{street.street_addition}</div>
+                                            )}
+                                        </div>
+                                        <ChevronRight className="size-5 shrink-0 text-zinc-400 transition group-hover:translate-x-0.5 group-hover:text-emerald-500" />
+                                    </Link>
+                                ))}
                             </div>
-                        </CardHeader>
-                        <CardContent className="grid gap-3 sm:grid-cols-2">
-                            <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3">
-                                <div className="flex items-center gap-2 text-sm font-medium text-zinc-950">
-                                    <Compass className="size-4 text-emerald-600" />
-                                    Schnell finden
-                                </div>
-                                <p className="mt-1 text-sm leading-6 text-zinc-600">
-                                    Gib einfach deinen Straßennamen ein und wähle den passenden Vorschlag aus.
-                                </p>
+
+                            <div className="pt-8">
+                                <DefaultPagination paginator={streets} />
                             </div>
-                            <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3">
-                                <div className="text-sm font-medium text-zinc-950">Schreibweise egal</div>
-                                <p className="mt-1 text-sm leading-6 text-zinc-600">
-                                    Auch Eingaben wie <span className="font-medium text-zinc-950">Goethestrasse</span> finden weiterhin{' '}
-                                    <span className="font-medium text-zinc-950">Goethestraße</span>.
-                                </p>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
-            </DefaultContainer>
+                        </div>
+                    </div>
+                </DefaultContainer>
+            </div>
         </>
     );
 }

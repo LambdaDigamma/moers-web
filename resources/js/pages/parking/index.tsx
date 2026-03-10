@@ -1,7 +1,7 @@
 import { DefaultContainer } from '@/components/default-container';
+import { PageHeader } from '@/components/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Heading } from '@/components/ui/heading';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
 import { ArrowRight, CircleParking } from 'lucide-react';
@@ -18,25 +18,16 @@ const ParkingIndex = ({ parkingAreas }: Props) => {
             <Head title="Parken in Moers" />
 
             <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-                <header className="relative overflow-hidden border-b border-zinc-200 bg-white py-16 dark:border-white/5 dark:bg-zinc-900/50">
-                    <div className="absolute inset-0 bg-linear-to-br from-indigo-500/5 via-transparent to-sky-500/5" />
-                    <DefaultContainer className="relative">
-                        <div className="max-w-2xl space-y-6">
-                            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50/50 px-3 py-1 text-xs font-medium tracking-wide text-indigo-700 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-400">
-                                <CircleParking className="size-3.5" />
-                                Echtzeit-Parkdaten
-                            </div>
-                            <div className="space-y-4">
-                                <Heading className="text-4xl font-bold tracking-tight text-zinc-950 sm:text-5xl dark:text-white">
-                                    Parken in Moers
-                                </Heading>
-                                <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-                                    Finden Sie freie Parkplätze in der Moerser Innenstadt. Wir zeigen Ihnen die aktuelle Belegung und Öffnungszeiten der wichtigsten Parkhäuser und Parkplätze.
-                                </p>
-                            </div>
+                <PageHeader
+                    badge={
+                        <div className="flex items-center gap-2">
+                            <CircleParking className="size-3.5" />
+                            Echtzeit-Parkdaten
                         </div>
-                    </DefaultContainer>
-                </header>
+                    }
+                    title="Parken in Moers"
+                    description="Finden Sie freie Parkplätze in der Moerser Innenstadt. Wir zeigen Ihnen die aktuelle Belegung und Öffnungszeiten der wichtigsten Parkhäuser und Parkplätze."
+                />
 
                 <DefaultContainer className="py-12">
                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

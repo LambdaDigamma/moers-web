@@ -1,5 +1,6 @@
 import { DefaultContainer } from '@/components/default-container';
 import { DefaultPagination } from '@/components/default-pagination';
+import { PageHeader } from '@/components/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
@@ -104,46 +105,36 @@ function NewsIndex({ posts }: { posts: Paginator<NewsPost> }) {
         <>
             <Head title="News" />
 
-            <DefaultContainer className="space-y-8 py-10">
-                <section className="overflow-hidden rounded-[2rem] border border-zinc-200 bg-linear-to-br from-sky-50 via-white to-amber-50 p-6 shadow-sm dark:border-white/10 dark:from-sky-500/10 dark:via-zinc-950 dark:to-amber-500/10">
-                    <div className="max-w-3xl space-y-4">
-                        <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/90 px-3 py-1 text-xs font-medium tracking-[0.18em] text-sky-800 uppercase shadow-sm dark:border-sky-500/20 dark:bg-white/5 dark:text-sky-200">
-                            <Newspaper className="size-3.5" />
-                            Lokale Berichterstattung
-                        </div>
-                        <div className="space-y-2">
-                            <h1 className="text-3xl font-semibold tracking-tight text-zinc-950 sm:text-4xl dark:text-white">
-                                News aus und über Moers
-                            </h1>
-                            <p className="max-w-2xl text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                                Aggregiert aus regionalen Quellen. Die Beiträge bleiben bei den Originalanbietern, werden hier aber gesammelt, datiert
-                                und mit Vorschau sichtbar gemacht.
-                            </p>
-                        </div>
+            <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+                <PageHeader
+                    badge="Lokale Berichterstattung"
+                    title="News aus und über Moers"
+                    description="Aggregiert aus regionalen Quellen. Die Beiträge bleiben bei den Originalanbietern, werden hier aber gesammelt, datiert und mit Vorschau sichtbar gemacht."
+                />
+
+                <DefaultContainer className="py-12">
+                    {posts.data.length === 0 ? (
+                        <Card className="border-dashed py-0">
+                            <CardContent className="px-6 py-12 text-center text-sm text-zinc-500 dark:text-zinc-400">
+                                Aktuell sind keine Beiträge veröffentlicht.
+                            </CardContent>
+                        </Card>
+                    ) : (
+                        <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                            {posts.data.map((post) => (
+                                <NewsCard
+                                    key={post.id}
+                                    post={post}
+                                />
+                            ))}
+                        </section>
+                    )}
+
+                    <div className="pt-12">
+                        <DefaultPagination paginator={posts} />
                     </div>
-                </section>
-
-                {posts.data.length === 0 ? (
-                    <Card className="border-dashed py-0">
-                        <CardContent className="px-6 py-12 text-center text-sm text-zinc-500 dark:text-zinc-400">
-                            Aktuell sind keine Beiträge veröffentlicht.
-                        </CardContent>
-                    </Card>
-                ) : (
-                    <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                        {posts.data.map((post) => (
-                            <NewsCard
-                                key={post.id}
-                                post={post}
-                            />
-                        ))}
-                    </section>
-                )}
-
-                <div className="pt-2">
-                    <DefaultPagination paginator={posts} />
-                </div>
-            </DefaultContainer>
+                </DefaultContainer>
+            </div>
         </>
     );
 }

@@ -103,6 +103,8 @@ declare namespace Modules.Management.Data {
         name: string;
         slug: string;
         description: string;
+        logoPath?: string | null;
+        headerPath?: string | null;
         createdAt: string;
         updatedAt: string;
     };

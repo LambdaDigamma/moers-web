@@ -1,4 +1,5 @@
 import { DefaultContainer } from '@/components/default-container';
+import { PageHeader } from '@/components/page-header';
 import { RubbishStreetSearch } from '@/components/rubbish-street-search';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -15,7 +16,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { usePrimaryRubbishStreet } from '@/hooks/use-primary-rubbish-street';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { CalendarPlus, ChevronLeft, ChevronRight, Download, FileText, Leaf, Recycle, Star, Trash2 } from 'lucide-react';
 import { ReactNode, useEffect, useState } from 'react';
 
@@ -157,362 +158,316 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
         <>
             <Head title={`Abfallkalender ${street.name}`} />
 
-            <DefaultContainer className="space-y-6 py-6">
-                <RubbishStreetSearch
-                    activeStreet={street}
-                    initialQuery={street.name}
-                />
+            <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+                <PageHeader
+                    badge={
+                        <Link
+                            href={route('rubbish.index')}
+                            className="flex items-center gap-1.5 transition-colors hover:text-emerald-900 dark:hover:text-emerald-300"
+                        >
+                            <ChevronLeft className="size-3.5" />
+                            Abfallkalender Übersicht
+                        </Link>
+                    }
+                    title={street.name}
+                    description={street.street_addition || 'Abfallkalender und Terminübersicht'}
+                    actions={
+                        <div className="flex flex-wrap items-center gap-3">
+                            {isLoaded ? (
+                                <Button
+                                    type="button"
+                                    variant={isPrimaryStreet ? 'secondary' : 'outline'}
+                                    size="sm"
+                                    onClick={
+                                        isPrimaryStreet
+                                            ? clearPrimaryStreet
+                                            : () =>
+                                                  setPrimaryStreet({
+                                                      id: street.id,
+                                                      name: street.name,
+                                                      street_addition: street.street_addition,
+                                                  })
+                                    }
+                                    className={cn(
+                                        'h-9 rounded-full px-4 font-medium transition-all',
+                                        isPrimaryStreet && 'bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-500',
+                                    )}
+                                >
+                                    <Star className={cn('mr-2 size-4', isPrimaryStreet && 'fill-current')} />
+                                    {isPrimaryStreet ? 'Gespeichert' : 'Meine Straße'}
+                                </Button>
+                            ) : null}
 
-                <div className="space-y-6">
-                    <Card className="border-emerald-200 bg-linear-to-r from-emerald-50 via-white to-lime-50 py-0 dark:border-emerald-500/20 dark:from-emerald-500/10 dark:via-emerald-500/5 dark:to-lime-500/10">
-                        <CardHeader className="gap-4 py-5">
-                            <div className="flex flex-wrap items-start justify-between gap-4">
-                                <div>
-                                    <CardTitle className="text-3xl tracking-tight text-zinc-950 dark:text-white">{street.name}</CardTitle>
-                                    <CardDescription className="mt-1 text-base text-zinc-700 dark:text-zinc-300">
-                                        {street.street_addition || 'Abfallkalender und Terminübersicht'}
-                                    </CardDescription>
-                                </div>
+                            <div className="hidden h-8 w-px bg-zinc-200 sm:block dark:bg-white/10" />
 
-                                <div className="flex flex-wrap items-center gap-3 sm:justify-end">
-                                    {isLoaded ? (
+                            <div className="flex items-center gap-2">
+                                <Button
+                                    asChild
+                                    variant="outline"
+                                    size="sm"
+                                    className="h-9 rounded-full px-4"
+                                >
+                                    <a
+                                        href={downloads.pdf_download_url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        download
+                                    >
+                                        <Download className="mr-2 size-4" />
+                                        PDF
+                                    </a>
+                                </Button>
+
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
                                         <Button
-                                            type="button"
-                                            variant={isPrimaryStreet ? 'secondary' : 'outline'}
-                                            size="sm"
-                                            onClick={
-                                                isPrimaryStreet
-                                                    ? clearPrimaryStreet
-                                                    : () =>
-                                                          setPrimaryStreet({
-                                                              id: street.id,
-                                                              name: street.name,
-                                                              street_addition: street.street_addition,
-                                                          })
-                                            }
-                                            className={cn(
-                                                'h-9 rounded-full px-4 font-medium transition-all',
-                                                isPrimaryStreet && 'bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-500',
-                                            )}
-                                        >
-                                            <Star className={cn('mr-2 size-4', isPrimaryStreet && 'fill-current')} />
-                                            {isPrimaryStreet ? 'Gespeichert' : 'Meine Straße'}
-                                        </Button>
-                                    ) : null}
-
-                                    <div className="hidden h-8 w-px bg-zinc-200 sm:block dark:bg-white/10" />
-
-                                    <div className="flex items-center gap-2">
-                                        <Button
-                                            asChild
                                             variant="outline"
                                             size="sm"
                                             className="h-9 rounded-full px-4"
                                         >
+                                            <CalendarPlus className="mr-2 size-4" />
+                                            Abonnieren
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent
+                                        align="end"
+                                        className="w-56"
+                                    >
+                                        <DropdownMenuLabel className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">
+                                            Downloads
+                                        </DropdownMenuLabel>
+                                        <DropdownMenuItem asChild>
                                             <a
-                                                href={downloads.pdf_download_url}
+                                                href={downloads.ics_download_url}
+                                                download
+                                                className="cursor-pointer"
+                                            >
+                                                ICS Kalenderdatei
+                                            </a>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuLabel className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">
+                                            Kalender-Abo
+                                        </DropdownMenuLabel>
+                                        <DropdownMenuItem asChild>
+                                            <a
+                                                href={downloads.apple_calendar_url}
+                                                className="cursor-pointer"
+                                            >
+                                                Apple Kalender
+                                            </a>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem asChild>
+                                            <a
+                                                href={downloads.google_calendar_url}
                                                 target="_blank"
                                                 rel="noreferrer"
-                                                download
+                                                className="cursor-pointer"
                                             >
-                                                <Download className="mr-2 size-4" />
-                                                PDF
+                                                Google Kalender
                                             </a>
-                                        </Button>
-
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                    className="h-9 rounded-full px-4"
-                                                >
-                                                    <CalendarPlus className="mr-2 size-4" />
-                                                    Abonnieren
-                                                </Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent
-                                                align="end"
-                                                className="w-56"
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem asChild>
+                                            <a
+                                                href={downloads.outlook_calendar_url}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="cursor-pointer"
                                             >
-                                                <DropdownMenuLabel className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">
-                                                    Downloads
-                                                </DropdownMenuLabel>
-                                                <DropdownMenuItem asChild>
-                                                    <a
-                                                        href={downloads.ics_download_url}
-                                                        download
-                                                        className="cursor-pointer"
-                                                    >
-                                                        ICS Kalenderdatei
-                                                    </a>
-                                                </DropdownMenuItem>
-                                                <DropdownMenuSeparator />
-                                                <DropdownMenuLabel className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">
-                                                    Kalender-Abo
-                                                </DropdownMenuLabel>
-                                                <DropdownMenuItem asChild>
-                                                    <a
-                                                        href={downloads.apple_calendar_url}
-                                                        className="cursor-pointer"
-                                                    >
-                                                        Apple Kalender
-                                                    </a>
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem asChild>
-                                                    <a
-                                                        href={downloads.google_calendar_url}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        className="cursor-pointer"
-                                                    >
-                                                        Google Kalender
-                                                    </a>
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem asChild>
-                                                    <a
-                                                        href={downloads.outlook_calendar_url}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        className="cursor-pointer"
-                                                    >
-                                                        Outlook Kalender
-                                                    </a>
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    </div>
-                                </div>
+                                                Outlook / Web
+                                            </a>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </div>
-                        </CardHeader>
-                    </Card>
+                        </div>
+                    }
+                >
+                    <div className="max-w-2xl">
+                        <RubbishStreetSearch
+                            activeStreet={street}
+                            initialQuery={street.name}
+                        />
+                    </div>
+                </PageHeader>
 
+                <DefaultContainer className="py-12">
                     {pickupGroups.length === 0 ? (
-                        <Card>
-                            <CardContent className="py-8 text-sm text-zinc-600 dark:text-zinc-400">
-                                Für diese Straße sind aktuell keine kommenden Termine hinterlegt.
-                            </CardContent>
-                        </Card>
+                        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-zinc-300 py-24 text-center dark:border-white/10">
+                            <Trash2 className="size-12 text-zinc-300 dark:text-zinc-700" />
+                            <h3 className="mt-4 text-lg font-semibold text-zinc-950 dark:text-white">Keine Termine verfügbar</h3>
+                            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                                Für diese Straße wurden aktuell keine Abholtermine gefunden.
+                            </p>
+                        </div>
                     ) : (
-                        <div className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)]">
-                            <Card className="py-0">
-                                <CardHeader className="border-b border-zinc-200/80 py-4 dark:border-white/10">
-                                    <div className="flex items-center justify-between gap-4">
-                                        <div>
-                                            <CardTitle className="text-lg">Termine</CardTitle>
-                                        </div>
-                                        <Badge
-                                            variant="outline"
-                                            className="rounded-full px-3 py-1 dark:border-white/10 dark:bg-white/5"
-                                        >
-                                            {pickupGroups.length} Einträge
-                                        </Badge>
-                                    </div>
-                                </CardHeader>
-                                <CardContent className="p-0">
-                                    <div className="max-h-136 overflow-y-auto">
-                                        {monthKeys.map((monthKey) => (
-                                            <div
-                                                key={monthKey}
-                                                className="relative"
-                                            >
-                                                <div className="sticky top-0 z-10 border-y border-zinc-200 bg-zinc-50/95 px-4 py-2 text-[10px] font-bold tracking-wider text-zinc-500 uppercase backdrop-blur dark:border-white/10 dark:bg-zinc-950/95 dark:text-zinc-400">
-                                                    {formatMonthLabel(monthKey)}
-                                                </div>
-                                                <div className="divide-y divide-zinc-100 dark:divide-white/5">
-                                                    {pickupGroups
-                                                        .filter((group) => group.date.startsWith(monthKey))
-                                                        .map((group) => {
-                                                            const date = new Date(group.date);
-                                                            const isToday = group.date === todayKey;
+                        <div className="space-y-8">
+                            {/* Month Navigation - Spans full width */}
+                            <div className="flex items-center justify-between gap-4 rounded-[2.5rem] border border-zinc-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900">
+                                <Button
+                                    variant="ghost"
+                                    size="lg"
+                                    className="h-14 w-14 rounded-full"
+                                    disabled={monthIndex <= 0}
+                                    onClick={() => setSelectedMonth(monthKeys[monthIndex - 1])}
+                                >
+                                    <ChevronLeft className="size-6" />
+                                </Button>
 
-                                                            return (
-                                                                <div
-                                                                    key={group.date}
-                                                                    className={cn(
-                                                                        'group flex items-center justify-between gap-4 px-4 py-2.5 transition-colors',
-                                                                        isToday
-                                                                            ? 'bg-emerald-50/50 dark:bg-emerald-500/10'
-                                                                            : 'hover:bg-zinc-50 dark:hover:bg-white/5',
-                                                                    )}
-                                                                >
-                                                                    <div className="flex flex-col">
-                                                                        <span
-                                                                            className={cn(
-                                                                                'text-sm font-semibold',
-                                                                                isToday
-                                                                                    ? 'text-emerald-700 dark:text-emerald-400'
-                                                                                    : 'text-zinc-950 dark:text-zinc-200',
-                                                                            )}
-                                                                        >
-                                                                            {new Intl.DateTimeFormat('de-DE', {
-                                                                                weekday: 'short',
-                                                                                day: '2-digit',
-                                                                                month: 'long',
-                                                                            }).format(date)}
-                                                                        </span>
-                                                                    </div>
-                                                                    <div className="flex flex-wrap justify-end gap-1.5">
-                                                                        {group.items.map((item, index) => {
-                                                                            const meta = pickupMeta[item.type];
+                                <div className="text-2xl font-black tracking-tight text-zinc-950 dark:text-white">
+                                    {selectedMonth ? formatMonthLabel(selectedMonth) : ''}
+                                </div>
 
-                                                                            return (
-                                                                                <Badge
-                                                                                    key={`${group.date}-${item.type}-${index}`}
-                                                                                    className={cn(
-                                                                                        'h-6 rounded-full px-2.5 text-xs font-medium shadow-none',
-                                                                                        meta.badgeClass,
-                                                                                    )}
-                                                                                >
-                                                                                    {meta.label}
-                                                                                </Badge>
-                                                                            );
-                                                                        })}
-                                                                    </div>
-                                                                </div>
-                                                            );
-                                                        })}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
+                                <Button
+                                    variant="ghost"
+                                    size="lg"
+                                    className="h-14 w-14 rounded-full"
+                                    disabled={monthIndex >= monthKeys.length - 1}
+                                    onClick={() => setSelectedMonth(monthKeys[monthIndex + 1])}
+                                >
+                                    <ChevronRight className="size-6" />
+                                </Button>
+                            </div>
 
-                            <Card className="py-0">
-                                <CardHeader className="border-b border-zinc-200/80 py-4 dark:border-white/10">
-                                    <div className="flex items-center justify-between gap-3">
-                                        <div>
-                                            <CardTitle className="text-lg">Kalender</CardTitle>
-                                        </div>
-                                        {monthKeys.length > 1 ? (
-                                            <div className="flex items-center gap-1">
-                                                <Button
-                                                    type="button"
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="size-8"
-                                                    disabled={monthIndex <= 0}
-                                                    onClick={() => setSelectedMonth(monthKeys[monthIndex - 1])}
+                            <div className="grid gap-8 lg:grid-cols-12">
+                                {/* Desktop: List */}
+                                <div className="space-y-6 lg:col-span-5">
+                                    <h2 className="text-xl font-bold text-zinc-950 dark:text-white">Termine in diesem Monat</h2>
+
+                                    <div className="space-y-3">
+                                        {pickupGroups
+                                            .filter((group) => group.date.startsWith(selectedMonth))
+                                            .map((group) => (
+                                                <div
+                                                    key={group.date}
+                                                    className={cn(
+                                                        'flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-4 transition-all dark:border-white/5 dark:bg-zinc-900',
+                                                        group.date === todayKey && 'border-emerald-500 bg-emerald-50/30 ring-1 ring-emerald-500',
+                                                    )}
                                                 >
-                                                    <ChevronLeft className="size-4" />
-                                                </Button>
-                                                <Button
-                                                    type="button"
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="size-8"
-                                                    disabled={monthIndex === -1 || monthIndex >= monthKeys.length - 1}
-                                                    onClick={() => setSelectedMonth(monthKeys[monthIndex + 1])}
-                                                >
-                                                    <ChevronRight className="size-4" />
-                                                </Button>
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                </CardHeader>
-                                <CardContent className="space-y-4 p-4">
-                                    {selectedMonth ? (
-                                        <>
-                                            <div className="flex items-center justify-between gap-3">
-                                                <div className="text-base font-semibold text-zinc-950 capitalize dark:text-zinc-200">
-                                                    {formatMonthLabel(selectedMonth)}
-                                                </div>
-                                            </div>
-
-                                            <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium tracking-[0.16em] text-zinc-400 uppercase dark:text-zinc-500">
-                                                {weekdayLabels.map((label) => (
-                                                    <div
-                                                        key={label}
-                                                        className="py-1"
-                                                    >
-                                                        {label}
+                                                    <div className="flex flex-col items-center border-r border-zinc-100 pr-4 dark:border-white/5">
+                                                        <div className="text-xs font-bold text-zinc-400 uppercase">
+                                                            {formatListDate(group.date).split(' ')[0]}
+                                                        </div>
+                                                        <div className="text-xl font-black tabular-nums text-zinc-950 dark:text-white">
+                                                            {formatListDate(group.date).split(' ')[1].split('.')[0]}
+                                                        </div>
                                                     </div>
-                                                ))}
-                                            </div>
-
-                                            <div className="grid grid-cols-7 gap-1.5">
-                                                {calendarDays.map((day) => {
-                                                    const key = dateKey(day);
-                                                    const dayItems = pickupMap[key] ?? [];
-                                                    const isCurrentMonth = key.startsWith(selectedMonth);
-                                                    const isToday = key === todayKey;
-
-                                                    const cell = (
-                                                        <div
-                                                            className={cn(
-                                                                'flex aspect-square min-h-14 flex-col justify-between rounded-xl border px-2 py-2 text-left transition',
-                                                                isCurrentMonth
-                                                                    ? 'border-zinc-200 bg-white hover:border-emerald-300 dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-500/30'
-                                                                    : 'border-transparent bg-zinc-50 text-zinc-300 dark:bg-transparent dark:text-zinc-700',
-                                                                dayItems.length > 0 && isCurrentMonth
-                                                                    ? 'ring-1 ring-emerald-100 dark:ring-emerald-500/10'
-                                                                    : '',
-                                                                isToday &&
-                                                                    'border-emerald-500 bg-emerald-50/30 ring-2 ring-emerald-500 dark:bg-emerald-500/10',
-                                                            )}
-                                                        >
-                                                            <span
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {group.items.map((item, index) => (
+                                                            <Badge
+                                                                key={`${group.date}-${item.type}-${index}`}
                                                                 className={cn(
-                                                                    'text-sm font-medium',
-                                                                    isToday && 'font-bold text-emerald-700 dark:text-emerald-400',
+                                                                    'rounded-full px-3 py-1 text-xs font-semibold',
+                                                                    pickupMeta[item.type].badgeClass,
                                                                 )}
                                                             >
-                                                                {day.getDate()}
-                                                            </span>
-                                                            <div className="flex flex-wrap gap-1">
-                                                                {dayItems.slice(0, 3).map((item, index) => (
-                                                                    <span
-                                                                        key={`${key}-${item.type}-${index}`}
-                                                                        className={cn('size-1.5 rounded-full', pickupMeta[item.type].dotClass)}
-                                                                    />
-                                                                ))}
-                                                            </div>
+                                                                <Trash2 className="mr-1.5 size-3" />
+                                                                {pickupMeta[item.type].label}
+                                                            </Badge>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                    </div>
+                                </div>
+
+                                {/* Desktop: Calendar View */}
+                                <Card className="overflow-hidden rounded-3xl lg:col-span-7">
+                                    <CardHeader className="border-b border-zinc-100 px-6 py-4 dark:border-white/5">
+                                        <CardTitle className="text-base font-bold">Kalenderansicht</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="p-6">
+                                        {selectedMonth ? (
+                                            <>
+                                                <div className="mb-4 grid grid-cols-7 gap-1">
+                                                    {weekdayLabels.map((label) => (
+                                                        <div
+                                                            key={label}
+                                                            className="py-2 text-center text-[10px] font-bold tracking-wider text-zinc-400 uppercase"
+                                                        >
+                                                            {label}
                                                         </div>
-                                                    );
+                                                    ))}
+                                                </div>
+                                                <div className="grid grid-cols-7 gap-px rounded-xl border border-zinc-100 bg-zinc-100 overflow-hidden dark:border-white/5 dark:bg-white/5">
+                                                    {calendarDays.map((day) => {
+                                                        const key = dateKey(day);
+                                                        const isCurrentMonth = selectedMonth === key.slice(0, 7);
+                                                        const isToday = key === todayKey;
+                                                        const dayItems = pickupMap[key] || [];
 
-                                                    if (!isCurrentMonth || dayItems.length === 0) {
-                                                        return <div key={key}>{cell}</div>;
-                                                    }
-
-                                                    return (
-                                                        <Tooltip key={key}>
-                                                            <TooltipTrigger asChild>
-                                                                <div>{cell}</div>
-                                                            </TooltipTrigger>
-                                                            <TooltipContent
-                                                                className="max-w-56 rounded-xl px-4 py-3 text-left"
-                                                                side="top"
+                                                        const cell = (
+                                                            <div
+                                                                className={cn(
+                                                                    'min-h-[80px] bg-white p-2 transition-colors dark:bg-zinc-900',
+                                                                    !isCurrentMonth ? 'bg-zinc-50/50 text-zinc-300 dark:bg-zinc-950/50 dark:text-zinc-700' : '',
+                                                                    isToday &&
+                                                                        'border-emerald-500 bg-emerald-50/30 ring-2 ring-emerald-500 dark:bg-emerald-500/10',
+                                                                )}
                                                             >
-                                                                <div className="space-y-2">
-                                                                    <div className="text-sm font-semibold">{formatLongDate(key)}</div>
-                                                                    <div className="flex flex-wrap gap-1.5">
-                                                                        {dayItems.map((item, index) => (
-                                                                            <Badge
-                                                                                key={`${key}-${item.type}-${index}`}
-                                                                                className={cn(
-                                                                                    'rounded-full px-2.5 py-1 text-[11px] font-medium',
-                                                                                    pickupMeta[item.type].badgeClass,
-                                                                                )}
-                                                                            >
-                                                                                {pickupMeta[item.type].label}
-                                                                            </Badge>
-                                                                        ))}
-                                                                    </div>
+                                                                <span
+                                                                    className={cn(
+                                                                        'text-sm font-medium',
+                                                                        isToday && 'font-bold text-emerald-700 dark:text-emerald-400',
+                                                                    )}
+                                                                >
+                                                                    {day.getDate()}
+                                                                </span>
+                                                                <div className="flex flex-wrap gap-1">
+                                                                    {dayItems.slice(0, 3).map((item, index) => (
+                                                                        <span
+                                                                            key={`${key}-${item.type}-${index}`}
+                                                                            className={cn('size-1.5 rounded-full', pickupMeta[item.type].dotClass)}
+                                                                        />
+                                                                    ))}
                                                                 </div>
-                                                            </TooltipContent>
-                                                        </Tooltip>
-                                                    );
-                                                })}
-                                            </div>
-                                        </>
-                                    ) : null}
-                                </CardContent>
-                            </Card>
+                                                            </div>
+                                                        );
+
+                                                        if (!isCurrentMonth || dayItems.length === 0) {
+                                                            return <div key={key}>{cell}</div>;
+                                                        }
+
+                                                        return (
+                                                            <Tooltip key={key}>
+                                                                <TooltipTrigger asChild>
+                                                                    <div>{cell}</div>
+                                                                </TooltipTrigger>
+                                                                <TooltipContent
+                                                                    className="max-w-56 rounded-xl px-4 py-3 text-left"
+                                                                    side="top"
+                                                                >
+                                                                    <div className="space-y-2">
+                                                                        <div className="text-sm font-semibold">{formatLongDate(key)}</div>
+                                                                        <div className="flex flex-wrap gap-1.5">
+                                                                            {dayItems.map((item, index) => (
+                                                                                <Badge
+                                                                                    key={`${key}-${item.type}-${index}`}
+                                                                                    className={cn(
+                                                                                        'rounded-full px-2.5 py-1 text-[11px] font-medium',
+                                                                                        pickupMeta[item.type].badgeClass,
+                                                                                    )}
+                                                                                >
+                                                                                    {pickupMeta[item.type].label}
+                                                                                </Badge>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                </TooltipContent>
+                                                            </Tooltip>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </>
+                                        ) : null}
+                                    </CardContent>
+                                </Card>
+                            </div>
                         </div>
                     )}
-                </div>
-            </DefaultContainer>
+                </DefaultContainer>
+            </div>
         </>
     );
 }

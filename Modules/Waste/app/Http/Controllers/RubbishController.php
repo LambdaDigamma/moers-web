@@ -26,8 +26,8 @@ class RubbishController extends Controller
                 });
             })
             ->orderBy('name')
-            ->limit(20)
-            ->get(['id', 'name', 'street_addition']);
+            ->paginate(50)
+            ->withQueryString();
 
         return inertia('rubbish/index', [
             'filters' => [
