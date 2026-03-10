@@ -205,7 +205,8 @@ class ImportExternalPostsCommand extends Command
         $item->registerXPathNamespace('media', 'http://search.yahoo.com/mrss/');
         $item->registerXPathNamespace('gera', 'http://rp-online/rss/namespace');
 
-        $geraImageUrl = trim((string) $item->xpath('string(gera:imageUrl[1])'));
+        $geraImageElements = $item->xpath('gera:imageUrl[1]');
+        $geraImageUrl = (is_array($geraImageElements) && isset($geraImageElements[0])) ? trim((string) $geraImageElements[0]) : '';
 
         if ($geraImageUrl !== '') {
             return $geraImageUrl;
