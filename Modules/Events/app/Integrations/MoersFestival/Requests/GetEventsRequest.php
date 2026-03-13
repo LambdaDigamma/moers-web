@@ -9,8 +9,20 @@ class GetEventsRequest extends Request
 {
     protected Method $method = Method::GET;
 
+    public function __construct(public bool $showPreview)
+    {
+
+    }
+
     public function resolveEndpoint(): string
     {
         return '/appdata';
+    }
+
+    protected function defaultQuery(): array
+    {
+        return [
+            'showpreview' => $this->showPreview ? '1' : '0',
+        ];
     }
 }

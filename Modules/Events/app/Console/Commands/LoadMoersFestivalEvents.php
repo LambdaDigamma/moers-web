@@ -26,7 +26,7 @@ class LoadMoersFestivalEvents extends Command
 
     const bool SET_NEW_ELEMENTS_TO_PREVIEW = false;
 
-    const bool OVERRIDE_PREVIEW = true;
+    const bool OVERRIDE_PREVIEW = false;
 
     public function handle(): void
     {
@@ -34,7 +34,7 @@ class LoadMoersFestivalEvents extends Command
         $this->createMoersFestivalEvents();
 
         $forge = new MoersFestivalConnector;
-        $request = new GetEventsRequest;
+        $request = new GetEventsRequest(showPreview: true);
 
         $this->info('Loading events from Moers Festival API');
 
