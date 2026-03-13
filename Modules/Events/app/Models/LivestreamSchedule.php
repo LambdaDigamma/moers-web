@@ -14,6 +14,11 @@ class LivestreamSchedule extends Model
 
     protected $guarded = ['*', 'id'];
 
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
+
     public function livestreamItems(): HasMany
     {
         return $this->hasMany(LivestreamItem::class);

@@ -24,16 +24,6 @@ class LoadMoersFestivalEvents extends Command
 
     protected $signature = 'events:load-moers-festival-events';
 
-    protected array $festivalIdMap = [
-        '1' => 'festival23',
-        '2' => 'festival24',
-        '3' => 'festival25',
-    ];
-
-    protected string $nextUpFestivalCollection = 'festival25';
-
-    const string CURRENT_COLLECTION = 'festival25';
-
     const bool SET_NEW_ELEMENTS_TO_PREVIEW = false;
 
     const bool OVERRIDE_PREVIEW = true;
@@ -383,7 +373,7 @@ class LoadMoersFestivalEvents extends Command
         $this->info('Found '.count($externalIds).' external ids');
 
         $eventsToDelete = Event::query()
-            ->where('extras->collection', '=', $this->nextUpFestivalCollection)
+            ->where('extras->collection', '=', config('festival.current_collection'))
             ->where('organisation_id', '=', $organisation->id)
             ->whereNotIn('extras->external_id', $externalIds)
             ->get();
