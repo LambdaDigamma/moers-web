@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Page;
+use Modules\Events\Enums\ScheduleDisplay;
 use Modules\Events\Models\Event;
 use Modules\Locations\Models\Location;
 use stdClass;
@@ -70,6 +71,13 @@ class FestivalCompatSerializer
 
         if (is_array($extras) && $legacyCollection !== null) {
             $extras['collection'] = $legacyCollection;
+        }
+
+        if (is_array($extras)) {
+            $extras['schedule_display'] = ScheduleDisplay::fromValue(
+                is_string($extras['schedule_display'] ?? null) ? $extras['schedule_display'] : null,
+                legacyPreview: (bool) ($extras['is_preview'] ?? false),
+            )->value;
         }
 
         $payload['extras'] = $extras;

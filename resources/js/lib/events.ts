@@ -55,7 +55,7 @@ export function buildEventHref(eventId: number, currentUrl?: string): string {
 }
 
 export function getEventMonthGroupKey(event: Event): string {
-    if (event.startDate == null) {
+    if (!event.showsDateComponent || event.startDate == null) {
         return 'undated';
     }
 
@@ -65,7 +65,7 @@ export function getEventMonthGroupKey(event: Event): string {
 }
 
 export function getEventMonthGroupLabel(event: Event): string {
-    if (event.startDate == null) {
+    if (!event.showsDateComponent || event.startDate == null) {
         return 'Ohne Termin';
     }
 
@@ -76,7 +76,7 @@ export function getEventMonthGroupLabel(event: Event): string {
 }
 
 export function getEventDateBadge(event: Event): { weekday: string; day: string; month: string } | null {
-    if (event.startDate == null) {
+    if (!event.showsDateComponent || event.startDate == null) {
         return null;
     }
 

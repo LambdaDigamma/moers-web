@@ -18,6 +18,9 @@ type HomeProps = {
         id: number;
         name: string;
         start_date: string | null;
+        scheduleDisplay: string;
+        showsDateComponent: boolean;
+        showsTimeComponent: boolean;
         location: string | null;
     }[];
     latestNews: {
@@ -203,12 +206,22 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                 >
                                                     <div className="flex items-center gap-4">
                                                         <div className="flex size-12 flex-col items-center justify-center rounded-xl bg-zinc-100 transition-colors group-hover:bg-accent-50 dark:bg-white/5 dark:group-hover:bg-accent-500/10">
-                                                            <div className="text-xs font-medium tracking-wide text-accent-700 dark:text-accent-400">
-                                                                {formatDate(event.start_date, { month: 'short' })}
-                                                            </div>
-                                                            <div className="text-lg leading-none font-medium text-zinc-950 dark:text-white">
-                                                                {formatDate(event.start_date, { day: '2-digit' })}
-                                                            </div>
+                                                            {event.showsDateComponent && event.start_date ? (
+                                                                <>
+                                                                    <div className="text-xs font-medium tracking-wide text-accent-700 dark:text-accent-400">
+                                                                        {formatDate(event.start_date, { month: 'short' })}
+                                                                    </div>
+                                                                    <div className="text-lg leading-none font-medium text-zinc-950 dark:text-white">
+                                                                        {formatDate(event.start_date, { day: '2-digit' })}
+                                                                    </div>
+                                                                </>
+                                                            ) : (
+                                                                <div className="text-center text-[10px] leading-tight font-medium tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
+                                                                    Termin
+                                                                    <br />
+                                                                    offen
+                                                                </div>
+                                                            )}
                                                         </div>
                                                         <div>
                                                             <div className="line-clamp-1 text-base font-medium text-zinc-950 transition-colors group-hover:text-accent-600 dark:text-white">
@@ -216,7 +229,11 @@ function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: H
                                                             </div>
                                                             <div className="mt-0.5 flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
                                                                 <span className="flex items-center gap-1.5 font-medium">
-                                                                    {formatDate(event.start_date, { hour: '2-digit', minute: '2-digit' })} Uhr
+                                                                    {event.showsTimeComponent && event.start_date
+                                                                        ? `${formatDate(event.start_date, { hour: '2-digit', minute: '2-digit' })} Uhr`
+                                                                        : event.showsDateComponent && event.start_date
+                                                                            ? (formatDate(event.start_date, { dateStyle: 'medium' }) ?? 'Termin wird noch bekanntgegeben')
+                                                                        : 'Termin wird noch bekanntgegeben'}
                                                                 </span>
                                                                 {event.location && (
                                                                     <span className="flex max-w-[180px] items-center gap-1.5 truncate font-medium">

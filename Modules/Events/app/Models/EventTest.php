@@ -209,6 +209,20 @@ test('ics export fails no dates', function () {
     $this->assertStringStartsWith('data:text/calendar;charset=utf8;base64,', $event->ics());
 });
 
+test('invalid end date is reset to null and does not break ics export', function () {
+    $startDate = Carbon::parse('2026-05-22 11:30:00');
+
+    $event = Event::factory()
+        ->published()
+        ->create([
+            'start_date' => $startDate,
+            'end_date' => Carbon::parse('2025-06-09 18:00:00'),
+        ]);
+
+    expect($event->fresh()->end_date)->toBeNull();
+    $this->assertStringStartsWith('data:text/calendar;charset=utf8;base64,', $event->fresh()->ics());
+});
+
 test('publish', function () {
     $event = Event::factory()
         ->upcomingToday()
@@ -564,6 +578,28 @@ test('test event ld (start, end, mixed, cancelled)', function () {
         'eventStatus' => 'https://schema.org/EventCancelled',
         'eventAttendanceMode' => 'https://schema.org/MixedEventAttendanceMode',
     ]);
+});
+
+test('it derives schedule display accessors from explicit and legacy extras', function () {
+    $previewEvent = Event::factory()->make([
+        'extras' => collect([
+            'is_preview' => true,
+        ]),
+    ]);
+
+    expect($previewEvent->schedule_display)->toBe('date')
+        ->and($previewEvent->shows_date_component)->toBeTrue()
+        ->and($previewEvent->shows_time_component)->toBeFalse();
+
+    $hiddenEvent = Event::factory()->make([
+        'extras' => collect([
+            'schedule_display' => 'hidden',
+        ]),
+    ]);
+
+    expect($hiddenEvent->schedule_display)->toBe('hidden')
+        ->and($hiddenEvent->shows_date_component)->toBeFalse()
+        ->and($hiddenEvent->shows_time_component)->toBeFalse();
 });
 
 it('can have subevents and parent', function () {

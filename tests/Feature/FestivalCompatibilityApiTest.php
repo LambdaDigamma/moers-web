@@ -139,28 +139,30 @@ test('festival events endpoints keep the legacy payload shape', function () {
 
 test('festival event endpoints preserve preview flags', function () {
     $event = createFestivalEvent([
-        'start_date' => null,
-        'end_date' => null,
         'extras' => [
             'external_id' => 77,
             'lineup' => ['Preview Artist'],
             'collection' => 'moers-festival-2026',
             'open_end' => false,
+            'schedule_display' => 'date',
             'is_preview' => true,
         ],
     ]);
 
     getJson('https://moers.app/api/v1/festival/events')
         ->assertOk()
-        ->assertJsonPath('data.0.extras.is_preview', true);
+        ->assertJsonPath('data.0.extras.is_preview', true)
+        ->assertJsonPath('data.0.extras.schedule_display', 'date');
 
     getJson("https://moers.app/api/v1/festival/events/{$event->id}")
         ->assertOk()
-        ->assertJsonPath('data.extras.is_preview', true);
+        ->assertJsonPath('data.extras.is_preview', true)
+        ->assertJsonPath('data.extras.schedule_display', 'date');
 
     getJson("https://moers.app/api/v1/festival/festival/events/{$event->id}")
         ->assertOk()
-        ->assertJsonPath('data.event.extras.is_preview', true);
+        ->assertJsonPath('data.event.extras.is_preview', true)
+        ->assertJsonPath('data.event.extras.schedule_display', 'date');
 });
 
 test('festival venues endpoints filter by the current collection', function () {

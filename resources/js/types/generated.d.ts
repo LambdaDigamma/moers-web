@@ -41,6 +41,9 @@ declare namespace Modules.Events.Data {
         pageId: number | null;
         url: string | null;
         calendarUrl: string | null;
+        scheduleDisplay: string;
+        showsDateComponent: boolean;
+        showsTimeComponent: boolean;
         category: string | null;
         collection: string | null;
         attendanceMode: string | null;

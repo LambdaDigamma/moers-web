@@ -21,6 +21,7 @@ use LaravelPublishable\Publishable;
 use Modules\Events\Data\EventsCollection;
 use Modules\Events\Data\Link;
 use Modules\Events\Database\Factories\EventFactory;
+use Modules\Events\Enums\ScheduleDisplay;
 use Modules\Events\Exceptions\InvalidLink;
 use Modules\Locations\Models\Location;
 use Modules\Management\Models\Organisation;
@@ -71,6 +72,10 @@ class Event extends Model implements HasMedia
 
     protected static function booted(): void
     {
+        static::saving(function (self $event) {
+            $event->end_date = self::normalizeEndDate($event->start_date, $event->end_date);
+        });
+
         static::archived(function ($event) {
             if ($event->page_id != null) {
                 $page = $event
@@ -242,6 +247,36 @@ class Event extends Model implements HasMedia
     public function getArtistsAttribute()
     {
         return $this->extras ? $this->extras->get('lineup', []) : [];
+    }
+
+    public function scheduleDisplayMode(): ScheduleDisplay
+    {
+        $value = $this->extras?->get('schedule_display');
+
+        return ScheduleDisplay::fromValue(
+            is_string($value) ? $value : null,
+            legacyPreview: (bool) ($this->extras?->get('is_preview') ?? false),
+        );
+    }
+
+    public function getScheduleDisplayAttribute(): string
+    {
+        return $this->scheduleDisplayMode()->value;
+    }
+
+    public function getShowsDateComponentAttribute(): bool
+    {
+        return $this->scheduleDisplayMode()->showsDateComponent();
+    }
+
+    public function getShowsTimeComponentAttribute(): bool
+    {
+        return $this->scheduleDisplayMode()->showsTimeComponent();
+    }
+
+    public function getIsPreviewAttribute(): bool
+    {
+        return $this->scheduleDisplayMode() === ScheduleDisplay::DATE;
     }
 
     public function setArtistsAttribute($value): void
@@ -565,7 +600,7 @@ class Event extends Model implements HasMedia
     public function ics(): string
     {
         $start_date = $this->start_date;
-        $end_date = $this->end_date;
+        $end_date = self::normalizeEndDate($start_date, $this->end_date);
 
         if ($start_date == null) {
             throw InvalidLink::noStartDateProvided();
@@ -679,5 +714,14 @@ class Event extends Model implements HasMedia
             $this->serializeTranslations(),
             $this->serializeMediaCollections(),
         );
+    }
+
+    private static function normalizeEndDate(?Carbon $start_date, ?Carbon $end_date): ?Carbon
+    {
+        if ($start_date !== null && $end_date !== null && $end_date->lt($start_date)) {
+            return null;
+        }
+
+        return $end_date;
     }
 }

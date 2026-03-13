@@ -129,6 +129,41 @@ it('shows a public event detail page with real metadata', function () {
             ->where('event.calendarUrl', fn ($value) => is_string($value) && str_starts_with($value, 'data:text/calendar;charset=utf8;base64,')));
 });
 
+it('falls back from legacy preview flags to a date-only schedule on public pages', function () {
+    $event = Event::factory()->published()->create([
+        'name' => 'Preview Konzert',
+        'start_date' => Carbon::parse('2026-04-12 19:30:00'),
+        'end_date' => Carbon::parse('2026-04-12 22:00:00'),
+        'extras' => collect([
+            'collection' => 'moers-festival-2026',
+            'is_preview' => true,
+        ]),
+    ]);
+
+    get("/events/{$event->id}")
+        ->assertSuccessful()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('events/show-event')
+            ->where('event.name', 'Preview Konzert')
+            ->where('event.startDate', fn ($value) => is_string($value))
+            ->where('event.endDate', fn ($value) => is_string($value))
+            ->where('event.scheduleDisplay', 'date')
+            ->where('event.showsDateComponent', true)
+            ->where('event.showsTimeComponent', false)
+            ->where('event.calendarUrl', null));
+
+    get('/events?type=all')
+        ->assertSuccessful()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('events/index')
+            ->where('events.data.0.startDate', fn ($value) => is_string($value))
+            ->where('events.data.0.endDate', fn ($value) => is_string($value))
+            ->where('events.data.0.scheduleDisplay', 'date')
+            ->where('events.data.0.showsDateComponent', true)
+            ->where('events.data.0.showsTimeComponent', false)
+            ->where('events.data.0.calendarUrl', null));
+});
+
 it('handles events with null description correctly', function () {
     $event = Event::factory()->published()->create([
         'name' => 'Event ohne Beschreibung',

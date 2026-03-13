@@ -25,6 +25,9 @@ class HomeController extends Controller
                 'id' => $event->id,
                 'name' => $event->name,
                 'start_date' => $event->start_date?->toIso8601String(),
+                'scheduleDisplay' => $event->schedule_display,
+                'showsDateComponent' => $event->shows_date_component,
+                'showsTimeComponent' => $event->shows_time_component,
                 'location' => $event->place?->name,
             ])
             ->all();
