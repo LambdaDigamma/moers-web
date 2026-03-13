@@ -64,10 +64,11 @@ export const EventRow: React.FC<{ event: Event; currentUrl?: string; showParent?
                             <div className="flex items-start gap-2">
                                 <CalendarDays className="mt-0.5 size-4 shrink-0 text-zinc-400" />
                                 <span>
-                                    {event.startDate ? (
+                                    {event.showsDateComponent && event.startDate ? (
                                         <AutoDateRange
                                             start={event.startDate}
                                             end={event.endDate}
+                                            showTime={event.showsTimeComponent}
                                         />
                                     ) : (
                                         'Termin wird noch bekanntgegeben'

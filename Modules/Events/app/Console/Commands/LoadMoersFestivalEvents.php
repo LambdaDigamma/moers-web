@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Modules\Events\Actions\CreateMoersFestivalCollectionEvent;
 use Modules\Events\Actions\CreateMoersFestivalOrganisationIfNeeded;
+use Modules\Events\Enums\ScheduleDisplay;
 use Modules\Events\Integrations\MoersFestival\MoersFestivalConnector;
 use Modules\Events\Integrations\MoersFestival\Requests\GetEventsRequest;
 use Modules\Events\Models\Event;
@@ -155,6 +156,7 @@ class LoadMoersFestivalEvents extends Command
                 'open_end' => $open_end == 1,
                 'sametime' => $sametime == '' ? null : intval($sametime),
                 'do_not_modify' => false,
+                'schedule_display' => $preview == 1 ? ScheduleDisplay::DATE->value : ScheduleDisplay::DATE_TIME->value,
                 'is_preview' => $preview == 1,
             ];
             $event->updated_at = $lastchanged != null ? Carbon::parse($lastchanged, 'Europe/Berlin') : null;

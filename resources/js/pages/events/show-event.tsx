@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Heading } from '@/components/ui/heading';
 import AppLayout from '@/layouts/app-layout';
-import { formatDateTime } from '@/lib/date';
 import { formatCollectionLabel, getEventAddressLabel, getEventLocationLabel, getEventMapsUrl, getEventPrimaryLabel } from '@/lib/events';
 import { EventRow } from '@/pages/events/event-row';
 import { Head, Link } from '@inertiajs/react';
@@ -35,6 +34,15 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
         event.organizerWebsite,
     );
     const hasPlanningSidebar = Boolean(addressLabel || mapsUrl || hasOrganizerDetails || event.isOnline);
+    const hasVisibleDate = event.showsDateComponent && event.startDate;
+    const scheduleSummary = hasVisibleDate ? (
+        <AutoDateRange
+            start={event.startDate}
+            end={event.endDate}
+            showTime={event.showsTimeComponent}
+        />
+    ) : 'Termin offen';
+    const scheduleLabel = event.showsDateComponent ? (event.showsTimeComponent ? 'Beginn' : 'Datum') : 'Termin';
 
     return (
         <>
@@ -99,14 +107,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                         <div>
                                             <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">Datum</p>
                                             <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                                                {event.startDate ? (
-                                                    <AutoDateRange
-                                                        start={event.startDate}
-                                                        end={event.endDate}
-                                                    />
-                                                ) : (
-                                                    'Termin offen'
-                                                )}
+                                                {scheduleSummary}
                                             </div>
                                         </div>
                                     </div>
@@ -214,18 +215,14 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                     <div className="space-y-5">
                                         <DetailItem
                                             icon={<CalendarDays className="size-4" />}
-                                            label="Beginn"
-                                            value={
-                                                event.startDate
-                                                    ? (formatDateTime(event.startDate, { dateStyle: 'full', timeStyle: 'short' }) ?? 'n/v')
-                                                    : 'n/v'
-                                            }
+                                            label={scheduleLabel}
+                                            value={scheduleSummary}
                                         />
-                                        {event.endDate ? (
+                                        {event.showsTimeComponent && event.endDate ? (
                                             <DetailItem
                                                 icon={<CalendarDays className="size-4" />}
                                                 label="Voraussichtliches Ende"
-                                                value={formatDateTime(event.endDate, { dateStyle: 'full', timeStyle: 'short' }) ?? 'n/v'}
+                                                value={<AutoDateRange start={event.endDate} end={event.endDate} />}
                                             />
                                         ) : null}
                                         <DetailItem

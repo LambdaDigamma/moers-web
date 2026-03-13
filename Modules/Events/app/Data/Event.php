@@ -22,6 +22,9 @@ class Event extends Data
         public ?int $pageId,
         public ?string $url,
         public ?string $calendarUrl,
+        public string $scheduleDisplay,
+        public bool $showsDateComponent,
+        public bool $showsTimeComponent,
         public ?string $category,
         public ?string $collection,
         public ?string $attendanceMode,
@@ -78,9 +81,13 @@ class Event extends Data
             $subtitle = null;
         }
 
+        $scheduleDisplay = $event->scheduleDisplayMode();
+        $startDate = $event->start_date;
+        $endDate = $event->end_date;
+
         $calendarUrl = null;
 
-        if ($event->start_date !== null) {
+        if ($startDate !== null && $scheduleDisplay->showsTimeComponent()) {
             $calendarUrl = $event->ics();
         }
 
@@ -97,8 +104,8 @@ class Event extends Data
         return new self(
             id: $event->id,
             name: $event->name,
-            startDate: $event->start_date,
-            endDate: $event->end_date,
+            startDate: $startDate,
+            endDate: $endDate,
             description: $description,
             excerpt: ($teaser ?: $description) ? Str::of(strip_tags($teaser ?: $description))->squish()->limit(180)->toString() : null,
             teaser: $teaser,
@@ -106,6 +113,9 @@ class Event extends Data
             pageId: $event->page_id,
             url: $event->url,
             calendarUrl: $calendarUrl,
+            scheduleDisplay: $scheduleDisplay->value,
+            showsDateComponent: $scheduleDisplay->showsDateComponent(),
+            showsTimeComponent: $scheduleDisplay->showsTimeComponent(),
             category: $event->category,
             collection: $event->collection,
             attendanceMode: $event->attendance_mode,

@@ -4,10 +4,11 @@ import React from 'react';
 interface DateRangeProps {
     start: string | null;
     end: string | null;
+    showTime?: boolean;
 }
 
-export const AutoDateRange: React.FC<DateRangeProps> = ({ start, end }) => {
-    const formattedRange = formatEventDateRange(start, end);
+export const AutoDateRange: React.FC<DateRangeProps> = ({ start, end, showTime = true }) => {
+    const formattedRange = formatEventDateRange(start, end, { showTime });
 
     if (!start || formattedRange == null) {
         return <span role="alert">Ungueltiger Zeitraum</span>;
