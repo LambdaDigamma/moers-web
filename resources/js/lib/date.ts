@@ -49,57 +49,49 @@ export function formatEventDateRange(
     }
 
     if (!showTime) {
+        const dateFormatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: 'medium',
+        });
+
         if (endDate == null) {
-            return new Intl.DateTimeFormat(undefined, {
-                dateStyle: 'medium',
-            }).format(startDate);
+            return dateFormatter.format(startDate);
         }
 
         const sameDay =
             startDate.getFullYear() === endDate.getFullYear() && startDate.getMonth() === endDate.getMonth() && startDate.getDate() === endDate.getDate();
 
         if (sameDay) {
-            return new Intl.DateTimeFormat(undefined, {
-                dateStyle: 'medium',
-            }).format(startDate);
+            return dateFormatter.format(startDate);
         }
 
-        return `${new Intl.DateTimeFormat(undefined, {
-            dateStyle: 'medium',
-        }).format(startDate)} - ${new Intl.DateTimeFormat(undefined, {
-            dateStyle: 'medium',
-        }).format(endDate)}`;
+        return `${dateFormatter.format(startDate)} - ${dateFormatter.format(endDate)}`;
     }
 
+    const dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+    });
+    const dateFormatter = new Intl.DateTimeFormat(undefined, {
+        dateStyle: 'medium',
+    });
+    const timeFormatter = new Intl.DateTimeFormat(undefined, {
+        timeStyle: 'short',
+    });
+
     if (endDate == null) {
-        return new Intl.DateTimeFormat(undefined, {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-        }).format(startDate);
+        return dateTimeFormatter.format(startDate);
     }
 
     const sameDay =
         startDate.getFullYear() === endDate.getFullYear() && startDate.getMonth() === endDate.getMonth() && startDate.getDate() === endDate.getDate();
 
     if (sameDay) {
-        const datePart = new Intl.DateTimeFormat(undefined, {
-            dateStyle: 'medium',
-        }).format(startDate);
-        const startTimePart = new Intl.DateTimeFormat(undefined, {
-            timeStyle: 'short',
-        }).format(startDate);
-        const endTimePart = new Intl.DateTimeFormat(undefined, {
-            timeStyle: 'short',
-        }).format(endDate);
+        const datePart = dateFormatter.format(startDate);
+        const startTimePart = timeFormatter.format(startDate);
+        const endTimePart = timeFormatter.format(endDate);
 
         return `${datePart}, ${startTimePart} - ${endTimePart}`;
     }
 
-    return `${new Intl.DateTimeFormat(undefined, {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-    }).format(startDate)} - ${new Intl.DateTimeFormat(undefined, {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-    }).format(endDate)}`;
+    return `${dateTimeFormatter.format(startDate)} - ${dateTimeFormatter.format(endDate)}`;
 }
