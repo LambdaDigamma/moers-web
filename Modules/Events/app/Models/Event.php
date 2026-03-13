@@ -276,6 +276,13 @@ class Event extends Model implements HasMedia
 
     public function getIsPreviewAttribute(): bool
     {
+        $legacyPreview = $this->extras?->get('is_preview');
+
+        if ($legacyPreview !== null) {
+            return (bool) $legacyPreview;
+        }
+
+        // Fallback to legacy behavior: treat date-only schedule display as preview.
         return $this->scheduleDisplayMode() === ScheduleDisplay::DATE;
     }
 
