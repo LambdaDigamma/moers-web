@@ -22,7 +22,8 @@ class LoadMoersFestivalEvents extends Command
 {
     protected $description = 'Load events from moers festival website.';
 
-    protected $signature = 'events:load-moers-festival-events';
+    protected $signature = 'events:load-moers-festival-events
+                            {--skip-previous-years : Skip importing festival events from years before the configured current collection}';
 
     const bool SET_NEW_ELEMENTS_TO_PREVIEW = false;
 
@@ -30,8 +31,14 @@ class LoadMoersFestivalEvents extends Command
 
     public function handle(): void
     {
+        $skipPreviousYears = (bool) $this->option('skip-previous-years');
+        $currentFestivalYear = $this->currentFestivalYear();
+
         $organisation = (new CreateMoersFestivalOrganisationIfNeeded)->execute();
-        $this->createMoersFestivalEvents();
+        $this->createMoersFestivalEvents(
+            skipPreviousYears: $skipPreviousYears,
+            currentFestivalYear: $currentFestivalYear
+        );
 
         $forge = new MoersFestivalConnector;
         $request = new GetEventsRequest(showPreview: true);
@@ -39,15 +46,19 @@ class LoadMoersFestivalEvents extends Command
         $this->info('Loading events from Moers Festival API');
 
         $response = $forge->send($request);
-        $events = $response->json();
+        $events = $this->filterEventsForImport(
+            events: $response->json(),
+            skipPreviousYears: $skipPreviousYears,
+            currentFestivalYear: $currentFestivalYear
+        );
 
         $this->deleteRemovedEvents($events, $organisation);
 
         foreach ($events as $event) {
 
             $externalId = $event['id'];
-            $parentEventIndex = $event['event'];
-            $year = 2022 + $parentEventIndex;
+            $parentEventIndex = (int) $event['event'];
+            $year = $this->festivalYearFromParentEventIndex($parentEventIndex);
 
             $title = trim($event['title']);
             $subline = $event['subline'];
@@ -221,13 +232,67 @@ class LoadMoersFestivalEvents extends Command
         }
     }
 
-    private function createMoersFestivalEvents(): void
+    private function createMoersFestivalEvents(bool $skipPreviousYears, int $currentFestivalYear): void
     {
-        $currentYear = Carbon::now()->year;
+        if ($skipPreviousYears) {
+            (new CreateMoersFestivalCollectionEvent)->execute(year: $currentFestivalYear);
 
-        for ($i = 2023; $i <= $currentYear; $i++) {
+            return;
+        }
+
+        $finalYear = max(Carbon::now()->year, $currentFestivalYear);
+
+        for ($i = 2023; $i <= $finalYear; $i++) {
             (new CreateMoersFestivalCollectionEvent)->execute(year: $i);
         }
+    }
+
+    private function currentFestivalYear(): int
+    {
+        $configuredCollection = config('festival.current_collection');
+
+        if (is_string($configuredCollection) && preg_match('/(\d{4})$/', $configuredCollection, $matches) === 1) {
+            return (int) $matches[1];
+        }
+
+        $fallbackYear = Carbon::now()->year;
+
+        $this->warn("Could not parse the current festival year from '".strval($configuredCollection)."'. Falling back to {$fallbackYear}.");
+
+        return $fallbackYear;
+    }
+
+    private function festivalYearFromParentEventIndex(int $parentEventIndex): int
+    {
+        return 2022 + $parentEventIndex;
+    }
+
+    private function filterEventsForImport(array $events, bool $skipPreviousYears, int $currentFestivalYear): array
+    {
+        if (! $skipPreviousYears) {
+            return $events;
+        }
+
+        $skippedEvents = 0;
+
+        $filteredEvents = collect($events)
+            ->filter(function (array $event) use ($currentFestivalYear, &$skippedEvents) {
+                $year = $this->festivalYearFromParentEventIndex((int) ($event['event'] ?? 0));
+
+                if ($year < $currentFestivalYear) {
+                    $skippedEvents++;
+
+                    return false;
+                }
+
+                return true;
+            })
+            ->values()
+            ->all();
+
+        $this->info("Skipping {$skippedEvents} events from festival years before {$currentFestivalYear}.");
+
+        return $filteredEvents;
     }
 
     public function updatePlace(
