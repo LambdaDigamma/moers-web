@@ -46,13 +46,13 @@ Route::group([
         ->middleware('cache.headers:public;max_age=0;must_revalidate;etag')
         ->name('events.show');
 
-    Route::get('festival/content', [FestivalCompatController::class, 'festivalContent'])
+    Route::get('content', [FestivalCompatController::class, 'festivalContent'])
         ->middleware('cache.headers:public;max_age=600;etag')
-        ->name('festival.content');
+        ->name('content');
 
-    Route::get('festival/events/{id}', [FestivalCompatController::class, 'festivalEventShow'])
+    Route::get('events/{id}/page', [FestivalCompatController::class, 'festivalEventShow'])
         ->middleware('cache.headers:public;max_age=600;etag')
-        ->name('festival.events.show');
+        ->name('event.page.show');
 
     Route::get('locations', [FestivalCompatController::class, 'locationsIndex'])
         ->middleware('cache.headers:public;max_age=600;etag')

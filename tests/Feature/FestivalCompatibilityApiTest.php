@@ -168,12 +168,12 @@ test('festival events endpoints keep the legacy payload shape', function () {
         ->assertJsonPath('data.place.id', $event->place_id)
         ->assertJsonPath('data.collection', 'festival26');
 
-    getJson('https://moers.app/api/v1/festival/festival/content')
+    getJson('https://moers.app/api/v1/festival/content')
         ->assertOk()
         ->assertJsonPath('data.0.page.id', $event->page_id)
         ->assertJsonPath('data.0.page.blocks.0.type', 'tip-tap-text');
 
-    $festivalEvent = getJson("https://moers.app/api/v1/festival/festival/events/{$event->id}");
+    $festivalEvent = getJson("https://moers.app/api/v1/festival/events/{$event->id}/page");
 
     $festivalEvent->assertOk()
         ->assertJsonPath('data.event.id', $event->id)
@@ -206,7 +206,7 @@ test('festival event endpoints preserve preview flags', function () {
         ->assertJsonPath('data.extras.is_preview', true)
         ->assertJsonPath('data.extras.schedule_display', 'date');
 
-    getJson("https://moers.app/api/v1/festival/festival/events/{$event->id}")
+    getJson("https://moers.app/api/v1/festival/events/{$event->id}/page")
         ->assertOk()
         ->assertJsonPath('data.event.extras.is_preview', true)
         ->assertJsonPath('data.event.extras.schedule_display', 'date');
