@@ -23,24 +23,24 @@ return new class extends Migration
 
         // 2. Ensure Instagram feed exists and has the correct identifier
         $instagramFeed = Feed::query()->where('identifier', 'moers-festival-instagram')->first();
-        if (!$instagramFeed) {
-             // Try to find by name if identifier is missing
-             $instagramFeed = Feed::query()
+        if (! $instagramFeed) {
+            // Try to find by name if identifier is missing
+            $instagramFeed = Feed::query()
                 ->where('name->en', 'Instagram')
                 ->orWhere('name->de', 'Instagram')
                 ->first();
 
-             if ($instagramFeed) {
-                 $instagramFeed->update(['identifier' => 'moers-festival-instagram']);
-             } else {
-                 $instagramFeed = Feed::create([
-                     'identifier' => 'moers-festival-instagram',
-                     'name' => [
-                         'en' => 'Instagram',
-                         'de' => 'Instagram',
-                     ],
-                 ]);
-             }
+            if ($instagramFeed) {
+                $instagramFeed->update(['identifier' => 'moers-festival-instagram']);
+            } else {
+                $instagramFeed = Feed::create([
+                    'identifier' => 'moers-festival-instagram',
+                    'name' => [
+                        'en' => 'Instagram',
+                        'de' => 'Instagram',
+                    ],
+                ]);
+            }
         }
     }
 

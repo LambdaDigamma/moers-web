@@ -40,7 +40,8 @@ class LoadInstagramPosts extends Command
             $response = Http::timeout(30)->get($url);
 
             if (! $response->successful()) {
-                $this->error('Failed to fetch RSS feed. Status: ' . $response->status());
+                $this->error('Failed to fetch RSS feed. Status: '.$response->status());
+
                 return self::FAILURE;
             }
 
@@ -48,6 +49,7 @@ class LoadInstagramPosts extends Command
 
             if (! $rss) {
                 $this->error('Failed to parse RSS feed.');
+
                 return self::FAILURE;
             }
 
@@ -57,7 +59,7 @@ class LoadInstagramPosts extends Command
             // Resolve the feed by identifier
             $feed = Feed::query()->byIdentifier('moers-festival-instagram')->first();
 
-            if (!$feed) {
+            if (! $feed) {
                 $this->warn('Moers Festival Instagram feed not found by identifier. Creating it...');
                 $feed = Feed::create([
                     'identifier' => 'moers-festival-instagram',
@@ -85,7 +87,7 @@ class LoadInstagramPosts extends Command
                     $publishedAt = Carbon::parse((string) $item->pubDate);
                 }
 
-                $this->line('Processing post: ' . $title);
+                $this->line('Processing post: '.$title);
 
                 $post = Post::query()
                     ->withNotPublished()
@@ -93,7 +95,7 @@ class LoadInstagramPosts extends Command
                     ->first();
 
                 if (! $post) {
-                    $post = new Post();
+                    $post = new Post;
                     $post->forceFill([
                         'title' => $title,
                         'external_href' => $link,
@@ -122,10 +124,10 @@ class LoadInstagramPosts extends Command
                 // Handle Media
                 if ($imageUrl && $post->getFirstMedia('header') === null) {
                     try {
-                        $this->info('Adding media to post: ' . $title);
+                        $this->info('Adding media to post: '.$title);
                         $post->addMediaFromUrl($imageUrl)->toMediaCollection('header');
                     } catch (Throwable $e) {
-                        $this->warn('Could not download image: ' . $e->getMessage());
+                        $this->warn('Could not download image: '.$e->getMessage());
                     }
                 }
 
@@ -138,8 +140,9 @@ class LoadInstagramPosts extends Command
             $this->info("Successfully processed $count Instagram posts.");
 
         } catch (Throwable $e) {
-            $this->error('An error occurred: ' . $e->getMessage());
+            $this->error('An error occurred: '.$e->getMessage());
             report($e);
+
             return self::FAILURE;
         }
 

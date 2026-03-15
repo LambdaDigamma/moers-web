@@ -4,9 +4,9 @@ namespace Modules\Events\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Events\Console\Commands\LoadInstagramPosts;
 use Modules\Events\Console\Commands\LoadMoersEvents;
 use Modules\Events\Console\Commands\LoadMoersFestivalEvents;
-use Modules\Events\Console\Commands\LoadInstagramPosts;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
