@@ -72,19 +72,32 @@ class ImportExternalPostsCommand extends Command
     {
         $feed = Feed::query()
             ->withTrashed()
-            ->where(function ($query) use ($source) {
-                $query
-                    ->where('name->en', $source['name'])
-                    ->orWhere('name->de', $source['name']);
-            })
+            ->byIdentifier($source['key'])
             ->first();
 
         if ($feed === null) {
+            $feed = Feed::query()
+                ->withTrashed()
+                ->where(function ($query) use ($source) {
+                    $query
+                        ->where('name->en', $source['name'])
+                        ->orWhere('name->de', $source['name']);
+                })
+                ->first();
+        }
+
+        if ($feed === null) {
             $feed = new Feed;
+            $feed->identifier = $source['key'];
             $feed->setTranslations('name', [
                 'en' => $source['name'],
                 'de' => $source['name'],
             ]);
+            $feed->save();
+        }
+
+        if ($feed->identifier === null) {
+            $feed->identifier = $source['key'];
             $feed->save();
         }
 

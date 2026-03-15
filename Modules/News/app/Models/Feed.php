@@ -27,6 +27,23 @@ class Feed extends Model
         return FeedFactory::new();
     }
 
+    public function scopeByIdentifier(Builder $query, string $identifier): Builder
+    {
+        return $query->where('identifier', $identifier);
+    }
+
+    public function scopeByIdOrIdentifier(Builder $query, string|int $idOrIdentifier): Builder
+    {
+        if (is_numeric($idOrIdentifier)) {
+            return $query->where(function ($query) use ($idOrIdentifier) {
+                $query->where('id', $idOrIdentifier)
+                    ->orWhere('identifier', $idOrIdentifier);
+            });
+        }
+
+        return $query->where('identifier', $idOrIdentifier);
+    }
+
     public function posts(): BelongsToMany
     {
         return $this

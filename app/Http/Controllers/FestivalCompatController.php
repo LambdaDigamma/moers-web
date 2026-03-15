@@ -165,26 +165,26 @@ class FestivalCompatController extends Controller
         );
     }
 
-    public function feedShow(int $id): FeedResource
+    public function feedShow(string|int $id): FeedResource
     {
-        $resolvedFeedId = $this->resolveFeedId($id);
-
         return new FeedResource(
-            Feed::with([
-                'posts' => fn ($query) => $query
-                    ->with(['media'])
-                    ->chronological()
-                    ->jsonPaginate($this->feedPostsPerPage()),
-            ])->findOrFail($resolvedFeedId)
+            Feed::query()
+                ->byIdOrIdentifier($id)
+                ->with([
+                    'posts' => fn ($query) => $query
+                        ->with(['media'])
+                        ->chronological()
+                        ->jsonPaginate($this->feedPostsPerPage()),
+                ])->firstOrFail()
         );
     }
 
-    public function feedPostsIndex(int $id): PostCollection
+    public function feedPostsIndex(string|int $id): PostCollection
     {
-        $resolvedFeedId = $this->resolveFeedId($id);
-
         return new PostCollection(
-            Feed::findOrFail($resolvedFeedId)
+            Feed::query()
+                ->byIdOrIdentifier($id)
+                ->firstOrFail()
                 ->posts()
                 ->with(['media'])
                 ->chronological()
@@ -278,16 +278,16 @@ class FestivalCompatController extends Controller
 
     private function festivalNewsPostsQuery(): Builder
     {
-        $sourceFeedId = config('festival.news.source_feed_id');
+        $identifiers = ['moers-festival-news', 'moers-festival-instagram'];
         $pageSlugPatterns = $this->festivalNewsPageSlugPatterns();
 
         return Post::query()
-            ->where(function (Builder $query) use ($sourceFeedId, $pageSlugPatterns) {
+            ->where(function (Builder $query) use ($identifiers, $pageSlugPatterns) {
                 $hasConstraint = false;
 
-                if (is_int($sourceFeedId)) {
+                if ($identifiers !== []) {
                     $hasConstraint = true;
-                    $query->whereHas('feeds', fn (Builder $feedQuery) => $feedQuery->whereKey($sourceFeedId));
+                    $query->whereHas('feeds', fn (Builder $feedQuery) => $feedQuery->whereIn('identifier', $identifiers));
                 }
 
                 if ($pageSlugPatterns !== []) {
@@ -333,11 +333,6 @@ class FestivalCompatController extends Controller
             ->unique()
             ->values()
             ->all();
-    }
-
-    private function resolveFeedId(int $id): int
-    {
-        return (int) config("festival.feed_aliases.$id", $id);
     }
 
     private function paginatedResponse(LengthAwarePaginator $paginator, callable $map): JsonResponse

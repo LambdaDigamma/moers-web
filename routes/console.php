@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 use Modules\Events\Console\Commands\LoadMoersEvents;
 use Modules\Events\Console\Commands\LoadMoersFestivalEvents;
+use Modules\Events\Console\Commands\LoadInstagramPosts;
 use Modules\Multimedia\Console\Commands\LoadMediathekFeed;
 use Modules\Multimedia\Console\Commands\LoadRadio;
 use Modules\News\Console\Commands\ImportAdolfinumNews;
@@ -22,6 +23,7 @@ Schedule::command(UpdateParkingAreas::class)->everyFiveMinutes();
 // Events
 Schedule::command(LoadMoersEvents::class)->everyFourHours();
 Schedule::command(LoadMoersFestivalEvents::class)->daily();
+Schedule::command(LoadInstagramPosts::class)->everyTenMinutes();
 
 // News & Posts
 Schedule::command(ImportExternalPostsCommand::class)->hourly();
