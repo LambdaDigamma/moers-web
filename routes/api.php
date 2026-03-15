@@ -74,6 +74,10 @@ Route::group([
         ->middleware('cache.headers:public;max_age=3600;etag')
         ->name('pages.show');
 
+    Route::get('news', [FestivalCompatController::class, 'newsIndex'])
+        ->middleware('cache.headers:public;max_age=300;etag')
+        ->name('news.index');
+
     Route::get('feeds/{id}', [FestivalCompatController::class, 'feedShow'])
         ->middleware('cache.headers:public;max_age=300;etag')
         ->name('feeds.show');

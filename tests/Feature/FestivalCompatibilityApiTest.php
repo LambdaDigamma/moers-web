@@ -21,6 +21,8 @@ beforeEach(function () {
         'festival.current_collection' => 'moers-festival-2026',
         'festival.stream.url' => 'https://moers.app/live/stream.m3u8',
         'festival.feed_aliases' => [3 => 3],
+        'festival.news.source_feed_id' => null,
+        'festival.news.page_slug_sections' => ['n', 'news', 'neuigkeiten'],
     ]);
 });
 
@@ -90,6 +92,51 @@ function createFestivalEvent(array $overrides = []): Event
         ->toMediaCollection('header');
 
     return $event;
+}
+
+function createFestivalNewsPost(array $postOverrides = [], array $pageOverrides = []): Post
+{
+    $page = Page::factory()->published()->create(array_replace_recursive([
+        'title' => ['en' => 'Festival News Page'],
+        'slug' => ['en' => '/festival26/news/festival-update'],
+        'summary' => ['en' => 'A festival news page'],
+    ], $pageOverrides));
+
+    PageBlock::factory()->published()->create([
+        'page_id' => $page->id,
+        'type' => 'tip-tap-text',
+        'order' => 1,
+        'data' => [
+            'en' => [
+                'text' => [
+                    'type' => 'doc',
+                    'content' => [
+                        [
+                            'type' => 'paragraph',
+                            'content' => [
+                                [
+                                    'type' => 'text',
+                                    'text' => 'Festival news body copy.',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ]);
+
+    $post = Post::factory()->published()->create(array_replace_recursive([
+        'title' => ['en' => 'Festival Update'],
+        'summary' => ['en' => 'Important update'],
+        'page_id' => $page->id,
+    ], $postOverrides));
+
+    $post
+        ->addMedia(UploadedFile::fake()->image('post-header.jpg'))
+        ->toMediaCollection('header');
+
+    return $post;
 }
 
 test('festival events endpoints keep the legacy payload shape', function () {
@@ -231,6 +278,52 @@ test('festival pages and news endpoints are available under the compat prefix', 
     getJson("https://moers.app/api/v1/festival/posts/{$post->id}")
         ->assertOk()
         ->assertJsonPath('data.id', $post->id);
+});
+
+test('festival news endpoint returns posts from a configured festival feed', function () {
+    $feed = Feed::factory()->create([
+        'id' => 7,
+        'name' => ['en' => 'Festival News'],
+    ]);
+
+    $post = Post::factory()->published()->create([
+        'title' => ['en' => 'Festival Feed Update'],
+        'summary' => ['en' => 'Update from configured feed'],
+    ]);
+
+    $post
+        ->addMedia(UploadedFile::fake()->image('festival-feed-header.jpg'))
+        ->toMediaCollection('header');
+
+    $feed->posts()->attach($post->id, ['order' => 1]);
+
+    config(['festival.news.source_feed_id' => $feed->id]);
+
+    getJson('https://moers.app/api/v1/festival/news?page[size]=1&page[number]=1')
+        ->assertOk()
+        ->assertJsonPath('data.0.id', $post->id)
+        ->assertJsonPath('meta.path', 'https://moers.app/api/v1/festival/news');
+});
+
+test('festival news endpoint returns page-backed festival posts without touching old feeds', function () {
+    Feed::factory()->create([
+        'id' => 3,
+        'name' => ['en' => 'NRZ'],
+    ]);
+
+    $genericPost = Post::factory()->published()->create([
+        'title' => ['en' => 'Generic City News'],
+        'summary' => ['en' => 'Should stay out of the festival endpoint'],
+    ]);
+
+    Feed::findOrFail(3)->posts()->attach($genericPost->id, ['order' => 1]);
+
+    $festivalPost = createFestivalNewsPost();
+
+    getJson('https://moers.app/api/v1/festival/news?page[size]=10&page[number]=1')
+        ->assertOk()
+        ->assertJsonPath('data.0.id', $festivalPost->id)
+        ->assertJsonMissing(['id' => $genericPost->id]);
 });
 
 test('festival stream and tracker endpoints resolve from the new backend', function () {

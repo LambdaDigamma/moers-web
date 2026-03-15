@@ -152,20 +152,29 @@ class FestivalCompatController extends Controller
         ]);
     }
 
+    public function newsIndex(): JsonResponse
+    {
+        $posts = $this->festivalNewsPostsQuery()
+            ->with(['media'])
+            ->chronological()
+            ->jsonPaginate($this->feedPostsPerPage());
+
+        return $this->paginatedResponse(
+            $posts,
+            fn (Post $post) => $post->toArray()
+        );
+    }
+
     public function feedShow(int $id): FeedResource
     {
         $resolvedFeedId = $this->resolveFeedId($id);
-        $sizeParameter = config('json-api-paginate.size_parameter');
-        $paginationParameter = config('json-api-paginate.pagination_parameter');
-        $defaultSize = config('festival.pagination.feed_posts');
-        $size = (int) request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
 
         return new FeedResource(
             Feed::with([
                 'posts' => fn ($query) => $query
                     ->with(['media'])
                     ->chronological()
-                    ->jsonPaginate($size),
+                    ->jsonPaginate($this->feedPostsPerPage()),
             ])->findOrFail($resolvedFeedId)
         );
     }
@@ -256,6 +265,74 @@ class FestivalCompatController extends Controller
     private function currentCollection(): string
     {
         return config('festival.current_collection');
+    }
+
+    private function feedPostsPerPage(): int
+    {
+        $sizeParameter = config('json-api-paginate.size_parameter');
+        $paginationParameter = config('json-api-paginate.pagination_parameter');
+        $defaultSize = config('festival.pagination.feed_posts');
+
+        return (int) request()->input($paginationParameter.'.'.$sizeParameter, $defaultSize);
+    }
+
+    private function festivalNewsPostsQuery(): Builder
+    {
+        $sourceFeedId = config('festival.news.source_feed_id');
+        $pageSlugPatterns = $this->festivalNewsPageSlugPatterns();
+
+        return Post::query()
+            ->where(function (Builder $query) use ($sourceFeedId, $pageSlugPatterns) {
+                $hasConstraint = false;
+
+                if (is_int($sourceFeedId)) {
+                    $hasConstraint = true;
+                    $query->whereHas('feeds', fn (Builder $feedQuery) => $feedQuery->whereKey($sourceFeedId));
+                }
+
+                if ($pageSlugPatterns !== []) {
+                    $method = $hasConstraint ? 'orWhereHas' : 'whereHas';
+
+                    $query->{$method}('page', function (Builder $pageQuery) use ($pageSlugPatterns) {
+                        $pageQuery->where(function (Builder $localizedSlugQuery) use ($pageSlugPatterns) {
+                            foreach (['de', 'en'] as $locale) {
+                                foreach ($pageSlugPatterns as $pattern) {
+                                    $localizedSlugQuery->orWhere("slug->{$locale}", 'like', $pattern);
+                                }
+                            }
+                        });
+                    });
+
+                    $hasConstraint = true;
+                }
+
+                if (! $hasConstraint) {
+                    $query->whereRaw('1 = 0');
+                }
+            });
+    }
+
+    private function festivalNewsPageSlugPatterns(): array
+    {
+        $legacyCollection = $this->serializer->legacyCollectionName($this->currentCollection());
+
+        if ($legacyCollection === null) {
+            return [];
+        }
+
+        return collect(config('festival.news.page_slug_sections', []))
+            ->filter(fn (mixed $section) => is_string($section) && $section !== '')
+            ->flatMap(function (string $section) use ($legacyCollection) {
+                $normalizedSection = trim($section, '/');
+
+                return [
+                    "/{$legacyCollection}/{$normalizedSection}/%",
+                    "{$legacyCollection}/{$normalizedSection}/%",
+                ];
+            })
+            ->unique()
+            ->values()
+            ->all();
     }
 
     private function resolveFeedId(int $id): int

@@ -2,12 +2,14 @@
 
 namespace Modules\News\Models;
 
+use App\Models\Page;
 use App\Traits\SerializeMedia;
 use App\Traits\SerializeTranslations;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaravelArchivable\Archivable;
@@ -48,6 +50,11 @@ class Post extends Model implements HasMedia
             ->as('publication')
             ->using(Publication::class)
             ->orderByPivot('order');
+    }
+
+    public function page(): BelongsTo
+    {
+        return $this->belongsTo(Page::class, 'page_id');
     }
 
     // MARK: - Media -
