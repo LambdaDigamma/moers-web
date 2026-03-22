@@ -45,3 +45,11 @@ services:
     healthcheck:
       test: ["CMD", "healthcheck-reverb"]
       start_period: 10s
+  ssr:
+    command: node bootstrap/ssr/ssr.js
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:13714/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
