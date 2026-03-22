@@ -2,7 +2,12 @@
 # --file Dockerfile.ssr. Requires BuildKit (enabled by default in Docker 23+
 # and Docker Compose v2).
 node_modules
+# Exclude all vendor packages except tightenco/ziggy, which vite.config.ts
+# aliases as 'ziggy-js' and is required by the SSR build.
 vendor
+!vendor/tightenco
+!vendor/tightenco/ziggy
+!vendor/tightenco/ziggy/**
 public/build
 bootstrap/ssr
 bootstrap/cache
