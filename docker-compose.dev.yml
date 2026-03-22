@@ -58,8 +58,6 @@ services:
   ssr:
     build:
       dockerfile: Dockerfile.ssr
-    volumes:
-      - .:/app/
     command: node bootstrap/ssr/ssr.js
     networks:
       - development

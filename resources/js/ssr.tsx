@@ -14,16 +14,16 @@ createServer((page) =>
         pages: './pages',
         setup: ({ App, props }) => {
 
-            const page = props.initialPage;
+            const initialPage = props.initialPage;
 
             /* eslint-disable */
             // @ts-expect-error
             global.route<RouteName> = (name, params, absolute) =>
                 route(name, params as any, absolute, {
                     // @ts-expect-error
-                    ...page.props.ziggy,
+                    ...initialPage.props.ziggy,
                     // @ts-expect-error
-                    location: new URL(page.props.ziggy.location),
+                    location: new URL(initialPage.props.ziggy.location),
                 });
             /* eslint-enable */
 
