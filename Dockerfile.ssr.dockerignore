@@ -1,3 +1,6 @@
+# This file is automatically picked up by Docker BuildKit when building with
+# --file Dockerfile.ssr. Requires BuildKit (enabled by default in Docker 23+
+# and Docker Compose v2).
 node_modules
 vendor
 public/build

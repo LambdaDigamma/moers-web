@@ -41,3 +41,7 @@ services:
       dockerfile: Dockerfile.php
     volumes:
       - .:/var/www/html/
+  ssr:
+    build:
+      target: deploy
+      dockerfile: Dockerfile.ssr
