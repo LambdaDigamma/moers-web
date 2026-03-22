@@ -20,8 +20,15 @@ jobs:
       dockerfile: "./Dockerfile.php"
       environment: production
     secrets: inherit
+  build-ssr:
+    uses: ./.github/workflows/service_docker-build-and-publish.yml
+    with:
+      docker-tags: "ghcr.io/lambdadigamma/moers-web-ssr:${{ github.sha }}"
+      dockerfile: "./Dockerfile.ssr"
+      environment: production
+    secrets: inherit
   deploy:
-    needs: build
+    needs: [build, build-ssr]
     runs-on: ubuntu-24.04
     steps:
       - name: Set project name
@@ -61,6 +68,7 @@ jobs:
           ssh_remote_known_hosts: "${{ secrets.SSH_REMOTE_KNOWN_HOSTS }}"
           stack_name: "${{ env.PROJECT_NAME }}"
         env:
-          SPIN_IMAGE_DOCKERFILE_PHP: "ghcr.io/lambdadigamma/moers-web:${{ github.sha }}" # ${{ github.repository }}
+          SPIN_IMAGE_DOCKERFILE_PHP: "ghcr.io/lambdadigamma/moers-web:${{ github.sha }}"
+          SPIN_IMAGE_DOCKERFILE_SSR: "ghcr.io/lambdadigamma/moers-web-ssr:${{ github.sha }}"
           SPIN_DEPLOYMENT_ENVIRONMENT: production
           AUTHORIZED_KEYS: "${{ secrets.AUTHORIZED_KEYS }}"

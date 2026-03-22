@@ -199,6 +199,33 @@ services:
         - "traefik.http.services.laravel-reverb.loadbalancer.server.port=8000"
         - "traefik.http.services.laravel-reverb.loadbalancer.server.scheme=http"
 
+  ssr:
+    image: ${SPIN_IMAGE_DOCKERFILE_SSR}
+    networks:
+      - web-public
+    command: node bootstrap/ssr/ssr.js
+    deploy:
+      replicas: 1
+      update_config:
+        failure_action: rollback
+        parallelism: 1
+        delay: 5s
+        order: start-first
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 10s
+        max_attempts: 3
+        window: 120s
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:13714/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
   rustfs:
     image: rustfs/rustfs:latest
     environment:
