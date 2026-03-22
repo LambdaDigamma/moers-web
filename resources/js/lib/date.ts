@@ -33,6 +33,7 @@ export function formatDateTime(value: string | Date | null | undefined, options:
 
 type EventDateRangeOptions = {
     showTime?: boolean;
+    isMultiDay?: boolean;
 };
 
 export function formatEventDateRange(
@@ -42,11 +43,27 @@ export function formatEventDateRange(
 ): string | null {
     const startDate = toDate(start);
     const endDate = toDate(end);
-    const { showTime = true } = options;
+    const { showTime = true, isMultiDay } = options;
 
     if (startDate == null) {
         return null;
     }
+
+    const isEffectivelySameDay = (s: Date, e: Date) => {
+        if (isMultiDay !== undefined) {
+            return !isMultiDay;
+        }
+
+        if (s.getFullYear() === e.getFullYear() && s.getMonth() === e.getMonth() && s.getDate() === e.getDate()) {
+            return true;
+        }
+
+        const nextDayAt6am = new Date(s);
+        nextDayAt6am.setDate(s.getDate() + 1);
+        nextDayAt6am.setHours(6, 0, 0, 0);
+
+        return e <= nextDayAt6am;
+    };
 
     if (!showTime) {
         const dateFormatter = new Intl.DateTimeFormat(undefined, {
@@ -57,10 +74,7 @@ export function formatEventDateRange(
             return dateFormatter.format(startDate);
         }
 
-        const sameDay =
-            startDate.getFullYear() === endDate.getFullYear() && startDate.getMonth() === endDate.getMonth() && startDate.getDate() === endDate.getDate();
-
-        if (sameDay) {
+        if (isEffectivelySameDay(startDate, endDate)) {
             return dateFormatter.format(startDate);
         }
 
@@ -82,10 +96,7 @@ export function formatEventDateRange(
         return dateTimeFormatter.format(startDate);
     }
 
-    const sameDay =
-        startDate.getFullYear() === endDate.getFullYear() && startDate.getMonth() === endDate.getMonth() && startDate.getDate() === endDate.getDate();
-
-    if (sameDay) {
+    if (isEffectivelySameDay(startDate, endDate)) {
         const datePart = dateFormatter.format(startDate);
         const startTimePart = timeFormatter.format(startDate);
         const endTimePart = timeFormatter.format(endDate);

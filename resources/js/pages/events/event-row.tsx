@@ -69,6 +69,7 @@ export const EventRow: React.FC<{ event: Event; currentUrl?: string; showParent?
                                             start={event.startDate}
                                             end={event.endDate}
                                             showTime={event.showsTimeComponent}
+                                            isMultiDay={event.isMultiDay}
                                         />
                                     ) : (
                                         'Termin wird noch bekanntgegeben'

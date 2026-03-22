@@ -60,7 +60,7 @@ class Event extends Model implements HasMedia
         'extras' => AsCollection::class,
     ];
 
-    public $appends = ['attendance_mode', 'duration', 'is_online', 'collection', 'artists'];
+    public $appends = ['attendance_mode', 'duration', 'is_online', 'collection', 'artists', 'is_multi_day'];
 
     public $translatable = ['name', 'description', 'category'];
 
@@ -69,6 +69,26 @@ class Event extends Model implements HasMedia
     public const string ATTENDANCE_OFFLINE = 'offline';
 
     public const string ATTENDANCE_ONLINE = 'online';
+
+    public function getIsMultiDayAttribute(): bool
+    {
+        if (! $this->start_date || ! $this->end_date) {
+            return false;
+        }
+
+        $timezone = 'Europe/Berlin';
+        $start = $this->start_date->copy()->tz($timezone);
+        $end = $this->end_date->copy()->tz($timezone);
+
+        if ($start->isSameDay($end)) {
+            return false;
+        }
+
+        // If it ends before 6 AM the next day, we don't consider it multi-day
+        $nextDayAt6am = $start->copy()->addDay()->startOfDay()->addHours(6);
+
+        return $end->gt($nextDayAt6am);
+    }
 
     protected static function booted(): void
     {

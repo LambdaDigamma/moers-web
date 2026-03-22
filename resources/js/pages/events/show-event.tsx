@@ -40,6 +40,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
             start={event.startDate}
             end={event.endDate}
             showTime={event.showsTimeComponent}
+            isMultiDay={event.isMultiDay}
         />
     ) : 'Termin offen';
     const scheduleLabel = event.showsDateComponent ? (event.showsTimeComponent ? 'Beginn' : 'Datum') : 'Termin';

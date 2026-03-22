@@ -13,7 +13,10 @@ class EventDateFormatter
         $end = $end?->tz($timezone);
 
         if ($start && $end) {
-            if ($start->isSameDay($end)) {
+            $nextDayAt6am = $start->copy()->addDay()->startOfDay()->addHours(6);
+            $isEffectivelySameDay = $start->isSameDay($end) || $end->lte($nextDayAt6am);
+
+            if ($isEffectivelySameDay) {
                 return self::formatRelative($start).'-'.$end->tz($timezone)->format('H:i');
             } else {
                 return self::formatRelative($start).' - '.$end->tz($timezone)->format('d.m. H:i');

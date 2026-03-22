@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Services\FestivalCompatSerializer;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
@@ -129,7 +130,7 @@ class FestivalCompatController extends Controller
             ->whereKey($id)
             ->whereHas('events', fn (Builder $query) => $this->applyCurrentFestivalConstraint($query)->activeOrUpcoming())
             ->with([
-                'events' => fn (Builder $query) => $this->applyCurrentFestivalConstraint($query)
+                'events' => fn (HasMany $query) => $this->applyCurrentFestivalConstraint($query)
                     ->activeOrUpcoming()
                     ->with('media')
                     ->chronological(),
