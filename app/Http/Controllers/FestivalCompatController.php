@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Services\FestivalCompatSerializer;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
@@ -81,7 +81,7 @@ class FestivalCompatController extends Controller
     {
         $locations = $this->festivalLocationsQuery()
             ->with([
-                'events' => fn (Builder $query) => $this->applyCurrentFestivalConstraint($query)
+                'events' => fn (Relation $query) => $this->applyCurrentFestivalConstraint($query)
                     ->with('media')
                     ->chronological(),
             ])
@@ -99,7 +99,7 @@ class FestivalCompatController extends Controller
         $location = $this->festivalLocationsQuery()
             ->whereKey($id)
             ->with([
-                'events' => fn (Builder $query) => $this->applyCurrentFestivalConstraint($query)
+                'events' => fn (Relation $query) => $this->applyCurrentFestivalConstraint($query)
                     ->with('media')
                     ->chronological(),
             ])
@@ -130,7 +130,7 @@ class FestivalCompatController extends Controller
             ->whereKey($id)
             ->whereHas('events', fn (Builder $query) => $this->applyCurrentFestivalConstraint($query)->activeOrUpcoming())
             ->with([
-                'events' => fn (HasMany $query) => $this->applyCurrentFestivalConstraint($query)
+                'events' => fn (Relation $query) => $this->applyCurrentFestivalConstraint($query)
                     ->activeOrUpcoming()
                     ->with('media')
                     ->chronological(),
@@ -213,7 +213,7 @@ class FestivalCompatController extends Controller
     {
         $schedule = LivestreamSchedule::query()
             ->with([
-                'events' => fn (Builder $query) => $this->applyCurrentFestivalConstraint($query)
+                'events' => fn (Relation $query) => $this->applyCurrentFestivalConstraint($query)
                     ->with(['place', 'media'])
                     ->chronological(),
             ])
@@ -256,7 +256,7 @@ class FestivalCompatController extends Controller
             ->orderBy('id');
     }
 
-    private function applyCurrentFestivalConstraint(Builder $query): Builder
+    private function applyCurrentFestivalConstraint(Builder|Relation $query): Builder|Relation
     {
         return $query
             ->where('extras->collection', $this->currentCollection())
