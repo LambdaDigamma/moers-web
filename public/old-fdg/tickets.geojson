@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Tickets_Neu",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": null, "name": "Ticket & Info & moerschandise", "type": "tickets" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 6.617976115569137, 51.439818865508443 ], [ 6.617919141477607, 51.439840540955501 ], [ 6.617984300052504, 51.439919005174424 ], [ 6.618041790042052, 51.439898901233434 ], [ 6.617976115569137, 51.439818865508443 ] ] ] ] } }
+]
+}

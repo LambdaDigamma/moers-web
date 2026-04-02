@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Bikes_Neu",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": null, "name": "moersbikes", "type": "moersbikes" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 6.62187297626555, 51.44150231484327 ], [ 6.621819999461803, 51.441448530719256 ], [ 6.621654433620645, 51.441498268509662 ], [ 6.621705407860049, 51.441556711009149 ], [ 6.62187297626555, 51.44150231484327 ] ] ] ] } }
+]
+}
