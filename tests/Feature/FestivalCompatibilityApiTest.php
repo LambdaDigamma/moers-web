@@ -26,6 +26,38 @@ beforeEach(function () {
     ]);
 });
 
+test('festival ios app update endpoint returns disabled defaults', function () {
+    config([
+        'festival.ios_app_update.force_update' => false,
+        'festival.ios_app_update.enable_closing' => false,
+    ]);
+
+    getJson('/api/v1/festival/update/app/ios')
+        ->assertOk()
+        ->assertJson([
+            'data' => [
+                'force_update' => false,
+                'enable_closing' => false,
+            ],
+        ]);
+});
+
+test('festival ios app update endpoint returns configured force update values', function () {
+    config([
+        'festival.ios_app_update.force_update' => true,
+        'festival.ios_app_update.enable_closing' => true,
+    ]);
+
+    getJson('/api/v1/festival/update/app/ios')
+        ->assertOk()
+        ->assertJson([
+            'data' => [
+                'force_update' => true,
+                'enable_closing' => true,
+            ],
+        ]);
+});
+
 function createFestivalEvent(array $overrides = []): Event
 {
     $page = Page::factory()->published()->create([
