@@ -26,6 +26,10 @@ class LoadMoersFestivalEvents extends Command
     protected $signature = 'events:load-moers-festival-events
                             {--skip-previous-years : Skip importing festival events from years before the configured current collection}';
 
+    private const string SOURCE_TIMEZONE = 'Europe/Berlin';
+
+    private const string STORAGE_TIMEZONE = 'UTC';
+
     const bool SET_NEW_ELEMENTS_TO_PREVIEW = false;
 
     const bool OVERRIDE_PREVIEW = false;
@@ -133,11 +137,11 @@ class LoadMoersFestivalEvents extends Command
 
             $externalPlaceId = intval($standort);
 
-            $startDate = $time_start != null ? Carbon::parse($time_start, 'Europe/Berlin') : null;
+            $startDate = $this->parseFestivalDate($time_start);
 
             $event->name = $title;
             $event->start_date = $startDate;
-            $event->end_date = $time_end != null ? Carbon::parse($time_end, 'Europe/Berlin') : null;
+            $event->end_date = $this->parseFestivalDate($time_end);
             $event->organisation_id = $organisation->id;
             $event->parent_event_id = (new CreateMoersFestivalCollectionEvent)->execute(year: $year)->id;
 
@@ -211,6 +215,24 @@ class LoadMoersFestivalEvents extends Command
         }
 
         $this->syncParentEventDates();
+    }
+
+    private function parseFestivalDate(Carbon|string|null $value): ?Carbon
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        if (is_string($value) && trim($value) === '') {
+            return null;
+        }
+
+        if ($value instanceof Carbon) {
+            return $value->copy()->timezone(self::STORAGE_TIMEZONE);
+        }
+
+        return Carbon::parse($value, self::SOURCE_TIMEZONE)
+            ->timezone(self::STORAGE_TIMEZONE);
     }
 
     private function syncParentEventDates(): void
