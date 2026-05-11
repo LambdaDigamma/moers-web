@@ -29,4 +29,9 @@ return [
             'Momentan läuft kein Livestream. Komme bald wieder, um Dir den Livestream anzusehen.'
         ),
     ],
+
+    'ios_app_update' => [
+        'force_update' => env('FESTIVAL_IOS_FORCE_UPDATE', false),
+        'enable_closing' => env('FESTIVAL_IOS_FORCE_UPDATE_ENABLE_CLOSING', false),
+    ],
 ];

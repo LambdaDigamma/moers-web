@@ -209,6 +209,16 @@ class FestivalCompatController extends Controller
         ]);
     }
 
+    public function iosAppUpdate(): JsonResponse
+    {
+        return response()->json([
+            'data' => [
+                'force_update' => (bool) config('festival.ios_app_update.force_update', false),
+                'enable_closing' => (bool) config('festival.ios_app_update.enable_closing', false),
+            ],
+        ]);
+    }
+
     public function streamIndex(): JsonResponse
     {
         $schedule = LivestreamSchedule::query()
