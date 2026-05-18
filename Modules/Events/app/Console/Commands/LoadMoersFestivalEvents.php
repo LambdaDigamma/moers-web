@@ -201,8 +201,8 @@ class LoadMoersFestivalEvents extends Command
                 $place = $this->updatePlace(
                     externalPlaceId: $externalPlaceId,
                     name: $standort_name,
-                    lat: floatval($standort_lat),
-                    lng: floatval($standort_lng),
+                    lat: $standort_lat,
+                    lng: $standort_lng,
                     address: $standort_adresse,
                     postcode: $standort_plz,
                     city: $standort_city
@@ -322,15 +322,18 @@ class LoadMoersFestivalEvents extends Command
     public function updatePlace(
         int $externalPlaceId,
         string $name,
-        float $lat, float $lng,
-        string $address,
-        string $postcode,
-        string $city
+        mixed $lat,
+        mixed $lng,
+        mixed $address,
+        mixed $postcode,
+        mixed $city
     ): Location {
 
         $location = Location::query()
             ->where('extras->external_id', '=', $externalPlaceId)
             ->first();
+
+        $isNewLocation = ! $location;
 
         if (! $location) {
             $location = Location::make([
@@ -343,16 +346,109 @@ class LoadMoersFestivalEvents extends Command
         $location->extras = [
             'external_id' => $externalPlaceId,
         ];
-        $location->street_name = $address;
-        $location->postalcode = $postcode;
-        $location->postal_town = $city;
-        $location->country_code = 'DE';
-        $location->lat = $lat;
-        $location->lng = $lng;
+        $this->updateLocationStringAttribute($location, 'street_name', $address);
+        $this->updateLocationStringAttribute($location, 'postalcode', $postcode);
+        $this->updateLocationStringAttribute($location, 'postal_town', $city);
+        $this->updateLocationCountryCode($location, 'DE');
+
+        $coordinates = $this->normalizeCoordinatePair($lat, $lng);
+
+        if ($coordinates !== null) {
+            $location->lat = $coordinates['lat'];
+            $location->lng = $coordinates['lng'];
+        } elseif ($isNewLocation) {
+            $location->lat = 0.0;
+            $location->lng = 0.0;
+        }
+
         $location->save();
 
         return $location;
 
+    }
+
+    private function updateLocationStringAttribute(Location $location, string $attribute, mixed $value): void
+    {
+        $normalizedValue = $this->normalizeFilledString($value);
+
+        if ($normalizedValue === null) {
+            return;
+        }
+
+        $location->{$attribute} = $normalizedValue;
+    }
+
+    private function updateLocationCountryCode(Location $location, mixed $value): void
+    {
+        if ($this->normalizeFilledString($location->country_code) !== null) {
+            return;
+        }
+
+        $countryCode = $this->normalizeCountryCode($value);
+
+        if ($countryCode === null) {
+            return;
+        }
+
+        $location->country_code = $countryCode;
+    }
+
+    private function normalizeFilledString(mixed $value): ?string
+    {
+        if (
+            ! is_string($value)
+            && ! is_int($value)
+            && ! is_float($value)
+            && ! $value instanceof \Stringable
+        ) {
+            return null;
+        }
+
+        $normalizedValue = trim((string) $value);
+
+        return $normalizedValue === '' ? null : $normalizedValue;
+    }
+
+    private function normalizeCountryCode(mixed $value): ?string
+    {
+        $countryCode = $this->normalizeFilledString($value);
+
+        if ($countryCode === null) {
+            return null;
+        }
+
+        $countryCode = strtoupper($countryCode);
+
+        return preg_match('/^[A-Z]{2}$/', $countryCode) === 1 ? $countryCode : null;
+    }
+
+    /**
+     * @return array{lat: float, lng: float}|null
+     */
+    private function normalizeCoordinatePair(mixed $lat, mixed $lng): ?array
+    {
+        $normalizedLat = $this->normalizeCoordinate($lat);
+        $normalizedLng = $this->normalizeCoordinate($lng);
+
+        if ($normalizedLat === null || $normalizedLng === null) {
+            return null;
+        }
+
+        return [
+            'lat' => $normalizedLat,
+            'lng' => $normalizedLng,
+        ];
+    }
+
+    private function normalizeCoordinate(mixed $value): ?float
+    {
+        $normalizedValue = $this->normalizeFilledString($value);
+
+        if ($normalizedValue === null || ! is_numeric($normalizedValue)) {
+            return null;
+        }
+
+        return (float) $normalizedValue;
     }
 
     public function loadMedia(Event $event, string $mediaUrl): void
