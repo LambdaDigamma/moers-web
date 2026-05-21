@@ -184,6 +184,71 @@ it('updates filled Moers Festival location values while preserving blank address
         ->and($location->lng)->toEqual(6.624567);
 });
 
+it('preserves manually curated Moers Festival venue data when venue extras disable modification', function () {
+    config([
+        'app.timezone' => 'UTC',
+        'app.url' => 'https://moers.app',
+        'festival.current_collection' => 'moers-festival-2026',
+    ]);
+
+    $location = Location::factory()->create([
+        'name' => 'Curated Festivalhalle',
+        'street_name' => 'Curated Street 12',
+        'postalcode' => '47441',
+        'postal_town' => 'Moers',
+        'country_code' => 'NL',
+        'lat' => 51.451234,
+        'lng' => 6.624567,
+        'extras' => [
+            'external_id' => 17,
+            'do_not_modify' => true,
+            'curated_note' => 'Keep local editorial venue data.',
+        ],
+    ]);
+
+    Saloon::fake([
+        GetEventsRequest::class => MockResponse::make([
+            moersFestivalEventPayload([
+                'id' => 504,
+                'standort' => 17,
+                'standort_name' => 'Incoming API Stage',
+                'standort_adresse' => 'Incoming Street 99',
+                'standort_city' => 'Duisburg',
+                'standort_plz' => '47051',
+                'standort_lng' => '6.762329',
+                'standort_lat' => '51.434407',
+            ]),
+        ]),
+    ]);
+
+    artisan('events:load-moers-festival-events', ['--skip-previous-years' => true])
+        ->assertSuccessful();
+
+    Saloon::assertSent(GetEventsRequest::class);
+
+    $event = Event::query()
+        ->where('extras->external_id', 504)
+        ->where('extras->collection', 'moers-festival-2026')
+        ->firstOrFail();
+
+    $location->refresh();
+
+    expect(Location::query()->count())->toBe(1)
+        ->and($event->place_id)->toBe($location->id)
+        ->and($location->name)->toBe('Curated Festivalhalle')
+        ->and($location->street_name)->toBe('Curated Street 12')
+        ->and($location->postalcode)->toBe('47441')
+        ->and($location->postal_town)->toBe('Moers')
+        ->and($location->country_code)->toBe('NL')
+        ->and($location->lat)->toEqual(51.451234)
+        ->and($location->lng)->toEqual(6.624567)
+        ->and($location->extras)->toMatchArray([
+            'external_id' => 17,
+            'do_not_modify' => true,
+            'curated_note' => 'Keep local editorial venue data.',
+        ]);
+});
+
 function moersFestivalEventPayload(array $overrides = []): array
 {
     return array_replace([

@@ -342,8 +342,17 @@ class LoadMoersFestivalEvents extends Command
             ]);
         }
 
+        $extras = is_array($location->extras) ? $location->extras : [];
+
+        if (($extras['do_not_modify'] ?? false) === true) {
+            $this->warn("Location '$location->name' is marked as do_not_modify. Skipping...");
+
+            return $location;
+        }
+
         $location->name = $name;
         $location->extras = [
+            ...$extras,
             'external_id' => $externalPlaceId,
         ];
         $this->updateLocationStringAttribute($location, 'street_name', $address);
