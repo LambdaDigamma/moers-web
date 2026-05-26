@@ -26,6 +26,38 @@ beforeEach(function () {
     ]);
 });
 
+test('festival ios app update endpoint returns disabled defaults', function () {
+    config([
+        'festival.ios_app_update.force_update' => false,
+        'festival.ios_app_update.enable_closing' => false,
+    ]);
+
+    getJson('/api/v1/festival/update/app/ios')
+        ->assertOk()
+        ->assertJson([
+            'data' => [
+                'force_update' => false,
+                'enable_closing' => false,
+            ],
+        ]);
+});
+
+test('festival ios app update endpoint returns configured force update values', function () {
+    config([
+        'festival.ios_app_update.force_update' => true,
+        'festival.ios_app_update.enable_closing' => true,
+    ]);
+
+    getJson('/api/v1/festival/update/app/ios')
+        ->assertOk()
+        ->assertJson([
+            'data' => [
+                'force_update' => true,
+                'enable_closing' => true,
+            ],
+        ]);
+});
+
 function createFestivalEvent(array $overrides = []): Event
 {
     $page = Page::factory()->published()->create([
@@ -70,6 +102,10 @@ function createFestivalEvent(array $overrides = []): Event
         'tags' => ['en' => 'Hall'],
         'extras' => ['external_id' => 15],
     ]);
+
+    $location
+        ->addMedia(UploadedFile::fake()->image('location-header.jpg'))
+        ->toMediaCollection('header');
 
     $event = Event::factory()->published()->create(array_replace_recursive([
         'name' => ['en' => 'Opening Night'],
@@ -157,6 +193,7 @@ test('festival events endpoints keep the legacy payload shape', function () {
         ->assertJsonPath('data.0.collection', 'festival26')
         ->assertJsonPath('data.0.extras.collection', 'festival26')
         ->assertJsonPath('data.0.place.id', $event->place_id)
+        ->assertJsonPath('data.0.place.media_collections.header.0.collection_name', 'header')
         ->assertJsonPath('meta.path', 'https://moers.app/api/v1/festival/events');
 
     expect($index->json('data.0.media_collections.header.0.full_url'))
@@ -220,19 +257,23 @@ test('festival venues endpoints filter by the current collection', function () {
     $venueList->assertOk()
         ->assertJsonPath('data.0.id', $event->place_id)
         ->assertJsonPath('data.0.events.0.id', $event->id)
-        ->assertJsonPath('data.0.events.0.collection', 'festival26');
+        ->assertJsonPath('data.0.events.0.collection', 'festival26')
+        ->assertJsonPath('data.0.media_collections.header.0.collection_name', 'header');
 
     getJson("https://moers.app/api/v1/festival/locations/{$event->place_id}")
         ->assertOk()
         ->assertJsonPath('data.id', $event->place_id)
+        ->assertJsonPath('data.media_collections.header.0.collection_name', 'header')
         ->assertJsonPath('data.events.0.id', $event->id);
 
     getJson('https://moers.app/api/v1/festival/map/venues')
         ->assertOk()
-        ->assertJsonPath('data.0.id', $event->place_id);
+        ->assertJsonPath('data.0.id', $event->place_id)
+        ->assertJsonPath('data.0.media_collections.header.0.collection_name', 'header');
 
     getJson("https://moers.app/api/v1/festival/map/venues/{$event->place_id}")
         ->assertOk()
+        ->assertJsonPath('data.media_collections.header.0.collection_name', 'header')
         ->assertJsonPath('data.events.0.id', $event->id);
 });
 

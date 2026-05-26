@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Locations\Http\Controllers\LocationsController;
+use Modules\Locations\Http\Controllers\API\LocationsController;
 
 /*
  *--------------------------------------------------------------------------
@@ -15,5 +15,6 @@ use Modules\Locations\Http\Controllers\LocationsController;
 */
 
 Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('locations', LocationsController::class)->names('locations');
+    Route::get('locations', [LocationsController::class, 'index'])->name('locations.index');
+    Route::get('locations/{location}', [LocationsController::class, 'show'])->name('locations.show');
 });

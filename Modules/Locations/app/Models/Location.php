@@ -3,6 +3,7 @@
 namespace Modules\Locations\Models;
 
 use App\Models\Page;
+use App\Traits\SerializeMedia;
 use App\Traits\SerializeTranslations;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,15 +13,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Events\Models\Event;
 use Modules\Locations\Database\factories\LocationFactory;
+use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-class Location extends Model
+class Location extends Model implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
     use InteractsWithMedia;
+    use SerializeMedia;
     use SerializeTranslations;
     use SoftDeletes;
 
@@ -68,13 +71,21 @@ class Location extends Model
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('header')
-            ->singleFile()
+            ->withResponsiveImages()
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('opengraph')
                     ->width(1200)
                     ->height(630);
             });
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->crop(300, 300)
+            ->nonQueued();
     }
 
     public function jsonLd(): array
@@ -97,5 +108,16 @@ class Location extends Model
     public static function newFactory(): LocationFactory
     {
         return LocationFactory::new();
+    }
+
+    public function toArray(): array
+    {
+        $attributes = parent::toArray();
+
+        return array_merge(
+            $attributes,
+            $this->serializeTranslations(),
+            $this->serializeMediaCollections(),
+        );
     }
 }

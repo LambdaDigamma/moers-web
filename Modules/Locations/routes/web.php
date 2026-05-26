@@ -14,6 +14,10 @@ use Modules\Locations\Http\Controllers\LocationsController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('locations', LocationsController::class)->names('locations');
+Route::middleware(['web', 'auth', 'admin.access'])->group(function () {
+    Route::get('locations/create', [LocationsController::class, 'create'])->name('locations.create');
+    Route::post('locations', [LocationsController::class, 'store'])->name('locations.store');
+    Route::get('locations/{location}/edit', [LocationsController::class, 'edit'])->name('locations.edit');
+    Route::put('locations/{location}', [LocationsController::class, 'update'])->name('locations.update');
+    Route::delete('locations/{location}', [LocationsController::class, 'destroy'])->name('locations.destroy');
 });

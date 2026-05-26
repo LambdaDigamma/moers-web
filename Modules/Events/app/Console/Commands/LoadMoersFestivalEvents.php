@@ -570,6 +570,11 @@ class LoadMoersFestivalEvents extends Command
             ->where('extras->collection', '=', config('festival.current_collection'))
             ->where('organisation_id', '=', $organisation->id)
             ->whereNotIn('extras->external_id', $externalIds)
+            ->where(function ($query) {
+                $query
+                    ->whereNull('extras->do_not_modify')
+                    ->orWhere('extras->do_not_modify', false);
+            })
             ->get();
 
         $this->info('Found '.count($eventsToDelete).' events to delete');

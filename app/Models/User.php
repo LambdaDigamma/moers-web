@@ -37,7 +37,10 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this->can('access:admin');
+        return $this->can('access:admin')
+            || $this->can('access-admin')
+            || $this->isA('admin')
+            || $this->isA('superadmin');
     }
 
     public function organisations(): BelongsToMany

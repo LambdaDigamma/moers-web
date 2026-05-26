@@ -1,5 +1,6 @@
 <?php
 
+use Modules\Events\Actions\CreateMoersFestivalOrganisationIfNeeded;
 use Modules\Events\Enums\ScheduleDisplay;
 use Modules\Events\Integrations\MoersFestival\Requests\GetEventsRequest;
 use Modules\Events\Models\Event;
@@ -68,6 +69,93 @@ it('stores imported Moers Festival event dates as UTC and exposes UTC API dates'
         ->assertJsonPath('data.0.start_date', '2026-05-21T16:30:00.000000Z')
         ->assertJsonPath('data.0.end_date', '2026-05-21T17:35:00.000000Z')
         ->assertJsonPath('data.0.extras.schedule_display', ScheduleDisplay::DATE_TIME->value);
+});
+
+it('preserves manually curated Moers Festival event data when event extras disable modification', function () {
+    config([
+        'app.timezone' => 'UTC',
+        'app.url' => 'https://moers.app',
+        'festival.current_collection' => 'moers-festival-2026',
+    ]);
+
+    $organisation = (new CreateMoersFestivalOrganisationIfNeeded)->execute();
+
+    $event = Event::factory()->create([
+        'name' => 'Curated Festival Event',
+        'organisation_id' => $organisation->id,
+        'start_date' => '2026-05-20 10:00:00',
+        'end_date' => '2026-05-20 11:00:00',
+        'extras' => [
+            'external_id' => 501,
+            'collection' => 'moers-festival-2026',
+            'do_not_modify' => true,
+            'lineup' => ['Curated Artist'],
+        ],
+        'published_at' => now(),
+    ]);
+
+    Saloon::fake([
+        GetEventsRequest::class => MockResponse::make([
+            moersFestivalEventPayload([
+                'id' => 501,
+                'title' => 'Incoming Festival Event',
+                'time_start' => '2026-05-21 18:30:00',
+                'time_end' => '2026-05-21 19:35:00',
+                'besetzung' => 'Incoming Artist',
+                'preview' => 1,
+            ]),
+        ]),
+    ]);
+
+    artisan('events:load-moers-festival-events', ['--skip-previous-years' => true])
+        ->assertSuccessful();
+
+    Saloon::assertSent(GetEventsRequest::class);
+
+    $event->refresh();
+
+    expect($event->name)->toBe('Curated Festival Event')
+        ->and($event->getRawOriginal('start_date'))->toBe('2026-05-20 10:00:00')
+        ->and($event->getRawOriginal('end_date'))->toBe('2026-05-20 11:00:00')
+        ->and($event->extras->all())->toMatchArray([
+            'external_id' => 501,
+            'collection' => 'moers-festival-2026',
+            'do_not_modify' => true,
+            'lineup' => ['Curated Artist'],
+        ]);
+});
+
+it('keeps manually curated Moers Festival events when missing from the reload payload', function () {
+    config([
+        'app.timezone' => 'UTC',
+        'app.url' => 'https://moers.app',
+        'festival.current_collection' => 'moers-festival-2026',
+    ]);
+
+    $organisation = (new CreateMoersFestivalOrganisationIfNeeded)->execute();
+
+    $event = Event::factory()->create([
+        'name' => 'Curated Removed Festival Event',
+        'organisation_id' => $organisation->id,
+        'extras' => [
+            'external_id' => 505,
+            'collection' => 'moers-festival-2026',
+            'do_not_modify' => true,
+        ],
+        'published_at' => now(),
+    ]);
+
+    Saloon::fake([
+        GetEventsRequest::class => MockResponse::make([]),
+    ]);
+
+    artisan('events:load-moers-festival-events', ['--skip-previous-years' => true])
+        ->assertSuccessful();
+
+    Saloon::assertSent(GetEventsRequest::class);
+
+    expect(Event::query()->whereKey($event->id)->exists())->toBeTrue()
+        ->and(Event::withTrashed()->find($event->id)?->trashed())->toBeFalse();
 });
 
 it('preserves manually edited Moers Festival location fields when incoming venue values are blank', function (mixed $blankValue) {

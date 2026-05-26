@@ -26,7 +26,7 @@ class FestivalCompatController extends Controller
     public function eventsIndex(): JsonResponse
     {
         $events = $this->festivalEventsQuery()
-            ->with(['place', 'media'])
+            ->with(['place.media', 'media'])
             ->paginate(config('festival.pagination.events'));
 
         return $this->paginatedResponse(
@@ -38,7 +38,7 @@ class FestivalCompatController extends Controller
     public function eventsShow(int $id): JsonResponse
     {
         $event = $this->festivalEventsQuery()
-            ->with(['page.blocks.children', 'place', 'media'])
+            ->with(['page.blocks.children', 'place.media', 'media'])
             ->findOrFail($id);
 
         return response()->json([
@@ -49,7 +49,7 @@ class FestivalCompatController extends Controller
     public function festivalContent(): JsonResponse
     {
         $events = $this->festivalEventsQuery()
-            ->with(['page.blocks.children', 'place', 'media'])
+            ->with(['page.blocks.children', 'place.media', 'media'])
             ->paginate(config('festival.pagination.content'));
 
         return $this->paginatedResponse(
@@ -61,7 +61,7 @@ class FestivalCompatController extends Controller
     public function festivalEventShow(int $id): JsonResponse
     {
         $event = $this->festivalEventsQuery()
-            ->with(['page.blocks.children', 'place', 'media'])
+            ->with(['page.blocks.children', 'place.media', 'media'])
             ->findOrFail($id);
 
         $eventPayload = $this->serializer->event($event);
@@ -81,8 +81,9 @@ class FestivalCompatController extends Controller
     {
         $locations = $this->festivalLocationsQuery()
             ->with([
+                'media',
                 'events' => fn (Relation $query) => $this->applyCurrentFestivalConstraint($query)
-                    ->with('media')
+                    ->with(['media', 'place.media'])
                     ->chronological(),
             ])
             ->get()
@@ -99,8 +100,9 @@ class FestivalCompatController extends Controller
         $location = $this->festivalLocationsQuery()
             ->whereKey($id)
             ->with([
+                'media',
                 'events' => fn (Relation $query) => $this->applyCurrentFestivalConstraint($query)
-                    ->with('media')
+                    ->with(['media', 'place.media'])
                     ->chronological(),
             ])
             ->firstOrFail();
@@ -114,6 +116,7 @@ class FestivalCompatController extends Controller
     {
         $locations = Location::query()
             ->whereHas('events', fn (Builder $query) => $this->applyCurrentFestivalConstraint($query)->activeOrUpcoming())
+            ->with('media')
             ->orderBy('id')
             ->get()
             ->map(fn (Location $location) => $this->serializer->place($location))
@@ -130,9 +133,10 @@ class FestivalCompatController extends Controller
             ->whereKey($id)
             ->whereHas('events', fn (Builder $query) => $this->applyCurrentFestivalConstraint($query)->activeOrUpcoming())
             ->with([
+                'media',
                 'events' => fn (Relation $query) => $this->applyCurrentFestivalConstraint($query)
                     ->activeOrUpcoming()
-                    ->with('media')
+                    ->with(['media', 'place.media'])
                     ->chronological(),
             ])
             ->firstOrFail();
@@ -209,12 +213,22 @@ class FestivalCompatController extends Controller
         ]);
     }
 
+    public function iosAppUpdate(): JsonResponse
+    {
+        return response()->json([
+            'data' => [
+                'force_update' => (bool) config('festival.ios_app_update.force_update', false),
+                'enable_closing' => (bool) config('festival.ios_app_update.enable_closing', false),
+            ],
+        ]);
+    }
+
     public function streamIndex(): JsonResponse
     {
         $schedule = LivestreamSchedule::query()
             ->with([
                 'events' => fn (Relation $query) => $this->applyCurrentFestivalConstraint($query)
-                    ->with(['place', 'media'])
+                    ->with(['place.media', 'media'])
                     ->chronological(),
             ])
             ->where(function (Builder $query) {

@@ -48,6 +48,7 @@ declare namespace Modules.Events.Data {
         collection: string | null;
         attendanceMode: string | null;
         isOnline: boolean;
+        isMultiDay: boolean;
         artists: Array<string>;
         locationName: string | null;
         street: string | null;
