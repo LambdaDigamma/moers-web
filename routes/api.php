@@ -93,6 +93,10 @@ Route::group([
     Route::get('stream', [FestivalCompatController::class, 'streamIndex'])
         ->middleware('cache.headers:public;max_age=60;etag')
         ->name('stream.index');
+
+    Route::get('update/app/ios', [FestivalCompatController::class, 'iosAppUpdate'])
+        ->middleware('cache.headers:public;max_age=0;must_revalidate;etag')
+        ->name('update.app.ios');
 });
 
 Route::group([
