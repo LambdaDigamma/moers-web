@@ -7,12 +7,13 @@ use Kreait\Firebase\Messaging\MulticastSendReport;
 use Kreait\Firebase\Messaging\SendReport;
 use Laravel\Prompts\Key;
 use Laravel\Prompts\Prompt;
+use Mockery\MockInterface;
 
 afterEach(function (): void {
     Prompt::interactive(false);
 });
 
-function bindPushMessagingMock(): Mockery\MockInterface
+function bindPushMessagingMock(): MockInterface
 {
     $messaging = Mockery::mock(Messaging::class);
 
