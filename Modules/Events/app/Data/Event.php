@@ -85,6 +85,16 @@ class Event extends Data
         $scheduleDisplay = $event->scheduleDisplayMode();
         $startDate = $event->start_date;
         $endDate = $event->end_date;
+        $latitude = $place?->lat !== null ? (float) $place->lat : null;
+        $longitude = $place?->lng !== null ? (float) $place->lng : null;
+
+        if ($latitude === null && is_numeric($event->extras?->get('latitude'))) {
+            $latitude = (float) $event->extras?->get('latitude');
+        }
+
+        if ($longitude === null && is_numeric($event->extras?->get('longitude'))) {
+            $longitude = (float) $event->extras?->get('longitude');
+        }
 
         $calendarUrl = null;
 
@@ -127,8 +137,8 @@ class Event extends Data
             street: $place?->street_name ?? $event->extras?->get('street'),
             postcode: $place?->postalcode ?? $event->extras?->get('postcode'),
             city: $place?->postal_town ?? $event->extras?->get('place'),
-            latitude: $place?->lat !== null ? (float) $place->lat : null,
-            longitude: $place?->lng !== null ? (float) $place->lng : null,
+            latitude: $latitude,
+            longitude: $longitude,
             organisationName: $organisation?->name ?? $event->extras?->get('organizer'),
             organisationSlug: $organisation?->slug,
             organisationLogoPath: $organisation?->logo_path,

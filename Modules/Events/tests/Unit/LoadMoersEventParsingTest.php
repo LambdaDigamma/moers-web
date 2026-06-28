@@ -56,3 +56,34 @@ it('extracts rich content and organiser details from a moers event page', functi
         ->and($parsed['organizer_email'])->toBe('Info@Schlosstheater-Moers.de')
         ->and($parsed['organizer_website'])->toBe('https://www.schlosstheater-moers.de');
 });
+
+it('splits condensed address lines from moers event pages', function () {
+    $html = <<<'HTML'
+    <html>
+        <body>
+            <main>
+                <h1>Trödelmarkt Repelen</h1>
+                <p>Komm nach Repelen: Hier wird Trödeln jedes Mal zum Erlebnis.</p>
+                <p>Event details</p>
+                <p>Veranstaltungsort</p>
+                <p>Markt 1-347445 Moers</p>
+                <p>Veranstalter</p>
+                <p>Firma</p>
+                <p>WMV Märkte & Mehr UG</p>
+                <p>Adresse</p>
+                <p>Hooghe Weg 247906 Kempen</p>
+            </main>
+        </body>
+    </html>
+    HTML;
+
+    $job = new LoadMoersEvent('https://example.com/event');
+    $parsed = $job->parseEventPageHtml($html, 'Trödelmarkt Repelen');
+
+    expect($parsed['street'])->toBe('Markt 1-3')
+        ->and($parsed['postcode'])->toBe('47445')
+        ->and($parsed['place'])->toBe('Moers')
+        ->and($parsed['organizer_street'])->toBe('Hooghe Weg 2')
+        ->and($parsed['organizer_postcode'])->toBe('47906')
+        ->and($parsed['organizer_place'])->toBe('Kempen');
+});

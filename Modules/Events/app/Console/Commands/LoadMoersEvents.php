@@ -15,7 +15,7 @@ class LoadMoersEvents extends Command
 
     public function handle(): int
     {
-        $url = 'https://www.moers.de/jsonapi/node/event';
+        $url = 'https://www.moers.de/jsonapi/node/event?filter[status]=1';
         $count = 0;
 
         do {
