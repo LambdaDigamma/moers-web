@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Modules\Events\Models\Event;
+use Modules\Management\Actions\ResolveImportedOrganisation;
+use Modules\Management\Models\Organisation;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
@@ -39,8 +41,9 @@ class LoadMoersEvent implements ShouldQueue
         $contentItems = $this->fetchRelatedItems($data, 'field_nsf_content_ref');
         $contentDescription = $this->extractContentDescription($contentItems);
         $category = $this->fetchCategory($data);
+        $organisation = $this->resolveOrganisation($organizerData);
 
-        $event = $this->updateOrCreateEvent($data);
+        $event = $this->updateOrCreateEvent($data, $organisation);
         $this->fetchHeaderImage($data, $event, $contentItems);
 
         $pageData = $event->url ? $this->fetchEventPageData($event->url, $event->name) : [];
@@ -49,7 +52,7 @@ class LoadMoersEvent implements ShouldQueue
         $this->updateEventExtras($event, $data, $venueData, $organizerData, $pageData);
 
         // Explicitly free memory
-        unset($data, $pageData, $venueData, $organizerData, $contentItems, $contentDescription, $category);
+        unset($data, $pageData, $venueData, $organizerData, $contentItems, $contentDescription, $category, $organisation);
 
         return 0;
     }
@@ -68,20 +71,26 @@ class LoadMoersEvent implements ShouldQueue
     /**
      * Update or create the event.
      */
-    private function updateOrCreateEvent(Item $data): Event
+    private function updateOrCreateEvent(Item $data, ?Organisation $organisation): Event
     {
+        $attributes = [
+            'name' => $data->title,
+            'description' => $data->field_nsf_teaser_text,
+            'start_date' => $this->parseDate($data->field_evt_date?->value),
+            'end_date' => $this->parseDate($data->field_evt_date?->end_value),
+            'url' => 'https://moers.de'.$data->path->alias,
+            'published_at' => now(),
+            'created_at' => $this->parseDate($data->created),
+            'updated_at' => $this->parseDate($data->changed),
+        ];
+
+        if ($organisation) {
+            $attributes['organisation_id'] = $organisation->id;
+        }
+
         return Event::updateOrCreate(
             ['extras->unid' => $data->id],
-            [
-                'name' => $data->title,
-                'description' => $data->field_nsf_teaser_text,
-                'start_date' => $this->parseDate($data->field_evt_date?->value),
-                'end_date' => $this->parseDate($data->field_evt_date?->end_value),
-                'url' => 'https://moers.de'.$data->path->alias,
-                'published_at' => now(),
-                'created_at' => $this->parseDate($data->created),
-                'updated_at' => $this->parseDate($data->changed),
-            ]
+            $attributes,
         );
     }
 
@@ -96,6 +105,32 @@ class LoadMoersEvent implements ShouldQueue
     private function fetchOrganizerData(Item $data): ?Item
     {
         return $this->fetchRelatedItem($data, 'field_evt_media_organizer_ref');
+    }
+
+    private function resolveOrganisation(?Item $organizerData): ?Organisation
+    {
+        if (! $organizerData) {
+            return null;
+        }
+
+        $organizer = $this->extractOrganizerData($organizerData);
+
+        if (! $organizer['organizer']) {
+            return null;
+        }
+
+        return app(ResolveImportedOrganisation::class)->handle(
+            name: $organizer['organizer'],
+            externalSource: 'moers:media.company',
+            externalId: $organizerData->id,
+            externalUrl: data_get($organizerData->getLinks(), 'self')?->getHref(),
+            email: $organizer['organizer_email'],
+            phone: $organizer['organizer_phone'],
+            websiteUrl: $organizer['organizer_website'],
+            street: $organizer['organizer_street'],
+            postcode: $organizer['organizer_postcode'],
+            city: $organizer['organizer_place'],
+        );
     }
 
     /**

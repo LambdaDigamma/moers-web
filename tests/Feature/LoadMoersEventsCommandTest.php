@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Modules\Events\Jobs\LoadMoersEvent;
 use Modules\Events\Models\Event;
+use Modules\Management\Actions\ResolveImportedOrganisation;
+use Modules\Management\Models\Organisation;
 use Tests\Fakes\FakeMediaDownloader;
 
 use function Pest\Laravel\artisan;
@@ -135,8 +137,10 @@ it('imports structured Moers venue content category and organizer data', functio
     (new LoadMoersEvent($eventHref))->handle();
 
     $event = Event::query()->firstOrFail();
+    $organisation = Organisation::query()->sole();
 
     expect($event->name)->toBe('Trödelmarkt Repelen')
+        ->and($event->organisation_id)->toBe($organisation->id)
         ->and($event->description)->toBe('Komm nach Repelen: Hier wird Trödeln jedes Mal zum Erlebnis.')
         ->and($event->category)->toBe('Maerkte')
         ->and($event->extras->get('location'))->toBe('Markt 1-3, 47445 Moers')
@@ -153,6 +157,18 @@ it('imports structured Moers venue content category and organizer data', functio
         ->and($event->extras->get('organizer_email'))->toBe('wmv@example.test')
         ->and($event->extras->get('organizer_website'))->toBe('https://example.test');
 
+    expect($organisation->name)->toBe('WMV Märkte & Mehr UG')
+        ->and($organisation->slug)->toBe('wmv-markte-mehr-ug')
+        ->and($organisation->external_source)->toBe('moers:media.company')
+        ->and($organisation->external_id)->toBe('organizer-1')
+        ->and($organisation->external_url)->toBe('https://www.moers.de/jsonapi/media/company/organizer-1?resourceVersion=id%3A2')
+        ->and($organisation->email)->toBe('wmv@example.test')
+        ->and($organisation->phone)->toBe('0 21 52 / 15 91')
+        ->and($organisation->website_url)->toBe('https://example.test')
+        ->and($organisation->street)->toBe('Hooghe Weg 2')
+        ->and($organisation->postcode)->toBe('47906')
+        ->and($organisation->city)->toBe('Kempen');
+
     getJson('/api/v1/events/'.$event->id)
         ->assertSuccessful()
         ->assertJsonPath('locationName', 'Markt 1-3, 47445 Moers')
@@ -162,9 +178,117 @@ it('imports structured Moers venue content category and organizer data', functio
         ->assertJsonPath('latitude', 51.489071)
         ->assertJsonPath('longitude', 6.601121)
         ->assertJsonPath('organisationName', 'WMV Märkte & Mehr UG')
+        ->assertJsonPath('organisationSlug', 'wmv-markte-mehr-ug')
         ->assertJsonPath('organizerStreet', 'Hooghe Weg 2')
         ->assertJsonPath('organizerPostcode', '47906')
         ->assertJsonPath('organizerCity', 'Kempen');
+});
+
+it('fuzzy matches Moers organizers to existing organisations before creating new ones', function () {
+    $organisation = Organisation::factory()->create([
+        'name' => 'Schutzenverein Moers Vinn 1903',
+        'slug' => 'schutzenverein-moers-vinn-1903',
+        'description' => 'Curated organisation description',
+    ]);
+
+    $eventHref = 'https://www.moers.de/jsonapi/node/event/event-1?resourceVersion=id%3A1';
+    $organizerHref = 'https://www.moers.de/jsonapi/node/event/event-1/field_evt_media_organizer_ref?resourceVersion=id%3A1';
+    $organizerAddressHref = 'https://www.moers.de/jsonapi/media/company/organizer-1/field_msf_address_ref?resourceVersion=id%3A2';
+
+    Http::preventStrayRequests();
+    Http::fake([
+        $eventHref => Http::response(moersJsonApiDocument(moersEventResource([
+            'attributes' => [
+                'title' => 'Eulenschießen',
+                'path' => ['alias' => '/veranstaltungen/eulenschiessen-0'],
+            ],
+            'relationships' => [
+                'field_evt_media_organizer_ref' => moersRelationship($organizerHref),
+            ],
+        ])), 200, moersJsonApiHeaders()),
+        $organizerHref => Http::response(moersJsonApiDocument(moersCompanyResource([
+            'id' => '8592b34d-2dfb-4a3d-a8e8-fd157b9024e0',
+            'name' => 'Schützenverein Moers-Vinn 1903 e.V.',
+            'field_com_company' => 'Schützenverein Moers-Vinn 1903 e.V.',
+            'field_msf_email' => 'info@vinn03.de',
+            'field_msf_homepage' => ['uri' => 'http://www.vinn03.de'],
+            'field_msf_phone' => '0 28 41 / 3 33 46',
+            'relationships' => [
+                'field_msf_address_ref' => moersRelationship($organizerAddressHref),
+            ],
+        ])), 200, moersJsonApiHeaders()),
+        $organizerAddressHref => Http::response(moersJsonApiDocument(moersAddressResource([
+            'id' => 'organizer-address-1',
+            'name' => 'Vinner Straße 63, 47447 Moers',
+            'field_add_address' => [
+                'street' => 'Vinner Straße',
+                'houseNumber' => '63',
+                'zip' => '47447',
+                'city' => 'Moers',
+            ],
+        ])), 200, moersJsonApiHeaders()),
+        'https://moers.de/veranstaltungen/eulenschiessen-0' => Http::response(
+            '<html><body><main><h1>Eulenschießen</h1><p>Event details</p></main></body></html>',
+            200,
+        ),
+    ]);
+
+    (new LoadMoersEvent($eventHref))->handle();
+
+    $event = Event::query()->sole();
+    $organisation->refresh();
+
+    expect(Organisation::query()->count())->toBe(1)
+        ->and($event->organisation_id)->toBe($organisation->id)
+        ->and($organisation->description)->toBe('Curated organisation description')
+        ->and($organisation->external_source)->toBe('moers:media.company')
+        ->and($organisation->external_id)->toBe('8592b34d-2dfb-4a3d-a8e8-fd157b9024e0')
+        ->and($organisation->email)->toBe('info@vinn03.de')
+        ->and($organisation->phone)->toBe('0 28 41 / 3 33 46')
+        ->and($organisation->website_url)->toBe('http://www.vinn03.de')
+        ->and($organisation->street)->toBe('Vinner Straße 63')
+        ->and($organisation->postcode)->toBe('47447')
+        ->and($organisation->city)->toBe('Moers');
+});
+
+it('refreshes non-null fields for externally matched organisations without clearing missing upstream fields', function () {
+    $organisation = Organisation::factory()->create([
+        'name' => 'Stadt Moers',
+        'slug' => 'stadt-moers',
+        'external_source' => 'moers:media.company',
+        'external_id' => 'company-1',
+        'external_url' => 'https://www.moers.de/old',
+        'email' => 'old@example.test',
+        'phone' => '0 28 41 / 201-0',
+        'website_url' => 'https://old.example.test',
+        'street' => 'Alte Strasse 1',
+        'postcode' => '47441',
+        'city' => 'Moers',
+    ]);
+
+    $resolved = app(ResolveImportedOrganisation::class)->handle(
+        name: 'Stadt Moers',
+        externalSource: 'moers:media.company',
+        externalId: 'company-1',
+        externalUrl: 'https://www.moers.de/jsonapi/media/company/company-1?resourceVersion=id%3A2',
+        email: null,
+        phone: '0 28 41 / 201-1',
+        websiteUrl: null,
+        street: 'Rathausplatz 1',
+        postcode: null,
+        city: 'Moers',
+    );
+
+    $organisation->refresh();
+
+    expect($resolved->is($organisation))->toBeTrue()
+        ->and($organisation->external_url)->toBe('https://www.moers.de/jsonapi/media/company/company-1?resourceVersion=id%3A2')
+        ->and($organisation->email)->toBe('old@example.test')
+        ->and($organisation->phone)->toBe('0 28 41 / 201-1')
+        ->and($organisation->website_url)->toBe('https://old.example.test')
+        ->and($organisation->street)->toBe('Rathausplatz 1')
+        ->and($organisation->postcode)->toBe('47441')
+        ->and($organisation->city)->toBe('Moers');
 });
 
 it('uses a text with media content image as header image when the teaser image is missing', function () {
@@ -335,6 +459,7 @@ it('keeps existing structured Moers event data when related resources fail', fun
     (new LoadMoersEvent($eventHref))->handle();
 
     $event = Event::query()->sole();
+    $organisationId = $event->organisation_id;
 
     $event->extras = $event->extras->merge(['custom' => 'bleibt']);
     $event->save();
@@ -361,6 +486,8 @@ it('keeps existing structured Moers event data when related resources fail', fun
     $event->refresh();
 
     expect(Event::query()->count())->toBe(1)
+        ->and(Organisation::query()->count())->toBe(1)
+        ->and($event->organisation_id)->toBe($organisationId)
         ->and($event->category)->toBe('Maerkte')
         ->and($event->extras->get('location'))->toBe('Markt 1-3, 47445 Moers')
         ->and($event->extras->get('street'))->toBe('Markt 1-3')
@@ -461,6 +588,11 @@ function moersCompanyResource(array $attributes): array
     $resource = [
         'type' => 'media--company',
         'id' => $id,
+        'links' => [
+            'self' => [
+                'href' => "https://www.moers.de/jsonapi/media/company/{$id}?resourceVersion=id%3A2",
+            ],
+        ],
         'attributes' => $attributes,
         'relationships' => $relationships,
     ];
