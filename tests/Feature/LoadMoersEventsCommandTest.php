@@ -3,8 +3,10 @@
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Modules\Events\Jobs\LoadMoersEvent;
 use Modules\Events\Models\Event;
+use Tests\Fakes\FakeMediaDownloader;
 
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\getJson;
@@ -165,6 +167,91 @@ it('imports structured Moers venue content category and organizer data', functio
         ->assertJsonPath('organizerCity', 'Kempen');
 });
 
+it('uses a text with media content image as header image when the teaser image is missing', function () {
+    config(['media-library.media_downloader' => FakeMediaDownloader::class]);
+    Storage::fake('media');
+
+    $eventHref = 'https://www.moers.de/jsonapi/node/event/event-1?resourceVersion=id%3A1';
+    $teaserHref = 'https://www.moers.de/jsonapi/node/event/event-1/field_nsf_teaser_image_ref?resourceVersion=id%3A1';
+    $contentHref = 'https://www.moers.de/jsonapi/node/event/event-1/field_nsf_content_ref?resourceVersion=id%3A1';
+    $contentMediaHref = 'https://www.moers.de/jsonapi/paragraph/text_with_media/content-1/field_media_ref?resourceVersion=id%3A2';
+    $contentMediaFileHref = 'https://www.moers.de/jsonapi/media/image/media-1/field_media_image?resourceVersion=id%3A3';
+
+    Http::preventStrayRequests();
+    Http::fake([
+        $eventHref => Http::response(moersJsonApiDocument(moersEventResource([
+            'attributes' => [
+                'title' => 'Eulenschießen',
+                'path' => ['alias' => '/veranstaltungen/eulenschiessen-0'],
+                'field_nsf_teaser_text' => 'Traditionelles Eulenschießen.',
+            ],
+            'relationships' => [
+                'field_nsf_teaser_image_ref' => moersRelationship($teaserHref),
+                'field_nsf_content_ref' => moersRelationship($contentHref, true),
+            ],
+        ])), 200, moersJsonApiHeaders()),
+        $teaserHref => Http::response(moersJsonApiDocument(null), 200, moersJsonApiHeaders()),
+        $contentHref => Http::response(moersJsonApiDocument([
+            [
+                'type' => 'paragraph--text_with_media',
+                'id' => 'content-1',
+                'attributes' => [
+                    'field_text' => [
+                        'processed' => '<p>Unter dem Motto „Wer wird Meistereule 2026?“ treffen sich alle zum Eulenschießen.</p>',
+                    ],
+                ],
+                'relationships' => [
+                    'field_media_ref' => moersRelationship($contentMediaHref),
+                ],
+            ],
+        ]), 200, moersJsonApiHeaders()),
+        $contentMediaHref => Http::response(moersJsonApiDocument([
+            'type' => 'media--image',
+            'id' => 'media-1',
+            'attributes' => [
+                'name' => 'eulenschiessen.jpg',
+            ],
+            'relationships' => [
+                'field_media_image' => [
+                    'data' => [
+                        'type' => 'file--file',
+                        'id' => 'file-1',
+                        'meta' => [
+                            'alt' => 'Eine Person, die eine Eule aus Holz bemalt.',
+                        ],
+                    ],
+                    'links' => [
+                        'related' => ['href' => $contentMediaFileHref],
+                    ],
+                ],
+            ],
+        ]), 200, moersJsonApiHeaders()),
+        $contentMediaFileHref => Http::response(moersJsonApiDocument([
+            'type' => 'file--file',
+            'id' => 'file-1',
+            'attributes' => [
+                'uri' => [
+                    'url' => '/sites/default/files/2026-06/eulenschiessen.jpg',
+                ],
+            ],
+        ]), 200, moersJsonApiHeaders()),
+        'https://moers.de/veranstaltungen/eulenschiessen-0' => Http::response(
+            '<html><body><main><h1>Eulenschießen</h1><p>Event details</p></main></body></html>',
+            200,
+        ),
+    ]);
+
+    (new LoadMoersEvent($eventHref))->handle();
+
+    $event = Event::query()->sole();
+    $media = $event->getFirstMedia(Event::HEADER_MEDIA_COLLECTION);
+
+    expect($event->description)->toBe('Unter dem Motto „Wer wird Meistereule 2026?“ treffen sich alle zum Eulenschießen.')
+        ->and($media)->not->toBeNull()
+        ->and($media->file_name)->toBe('eulenschiessen.jpg')
+        ->and($media->getCustomProperty('alt'))->toBe('Eine Person, die eine Eule aus Holz bemalt.');
+});
+
 it('keeps existing structured Moers event data when related resources fail', function () {
     $eventHref = 'https://www.moers.de/jsonapi/node/event/event-1?resourceVersion=id%3A1';
     $venueHref = 'https://www.moers.de/jsonapi/node/event/event-1/field_evt_media_venue_ref?resourceVersion=id%3A1';
@@ -298,7 +385,7 @@ function moersJsonApiHeaders(): array
     return ['Content-Type' => 'application/vnd.api+json'];
 }
 
-function moersJsonApiDocument(array $data): array
+function moersJsonApiDocument(mixed $data): array
 {
     return [
         'jsonapi' => ['version' => '1.0'],

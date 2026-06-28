@@ -34,21 +34,22 @@ class LoadMoersEvent implements ShouldQueue
             return 0;
         }
 
-        $event = $this->updateOrCreateEvent($data);
-
-        $this->fetchTeaserImage($data, $event);
-
         $venueData = $this->fetchVenueData($data);
         $organizerData = $this->fetchOrganizerData($data);
-        $contentDescription = $this->fetchContentDescription($data);
+        $contentItems = $this->fetchRelatedItems($data, 'field_nsf_content_ref');
+        $contentDescription = $this->extractContentDescription($contentItems);
         $category = $this->fetchCategory($data);
+
+        $event = $this->updateOrCreateEvent($data);
+        $this->fetchHeaderImage($data, $event, $contentItems);
+
         $pageData = $event->url ? $this->fetchEventPageData($event->url, $event->name) : [];
 
         $this->updateEventContent($event, $data, $pageData, $contentDescription, $category);
         $this->updateEventExtras($event, $data, $venueData, $organizerData, $pageData);
 
         // Explicitly free memory
-        unset($data, $pageData, $venueData, $organizerData, $contentDescription, $category);
+        unset($data, $pageData, $venueData, $organizerData, $contentItems, $contentDescription, $category);
 
         return 0;
     }
@@ -97,9 +98,11 @@ class LoadMoersEvent implements ShouldQueue
         return $this->fetchRelatedItem($data, 'field_evt_media_organizer_ref');
     }
 
-    private function fetchContentDescription(Item $data): ?string
+    /**
+     * @param  array<int, Item>  $contentItems
+     */
+    private function extractContentDescription(array $contentItems): ?string
     {
-        $contentItems = $this->fetchRelatedItems($data, 'field_nsf_content_ref');
         $contentBlocks = [];
 
         foreach ($contentItems as $contentItem) {
@@ -212,62 +215,86 @@ class LoadMoersEvent implements ShouldQueue
     }
 
     /**
-     * Fetch and attach teaser image.
+     * @param  array<int, Item>  $contentItems
      */
-    private function fetchTeaserImage(Item $data, Event $event): void
+    private function fetchHeaderImage(Item $data, Event $event, array $contentItems): void
     {
-        $teaserHref = $data
-            ->getRelationships()['field_nsf_teaser_image_ref']['links']['related']['href']
-            ?? null;
+        $imageData = $this->resolveTeaserImageData($data)
+            ?? $this->resolveContentImageData($contentItems);
 
-        if (! $teaserHref) {
+        if ($imageData === null) {
             return;
         }
 
-        $teaserItem = Http::asJsonApi()
-            ->get($teaserHref)
-            ->jsonApi()
-            ->getData();
+        $this->replaceHeaderImage($event, $imageData['url'], $imageData['alt']);
+    }
 
-        if (! $teaserItem) {
-            return;
+    /**
+     * @return array{url: string, alt: ?string}|null
+     */
+    private function resolveTeaserImageData(Item $data): ?array
+    {
+        return $this->resolveImageDataFromMediaItem(
+            $this->fetchRelatedItem($data, 'field_nsf_teaser_image_ref'),
+        );
+    }
+
+    /**
+     * @param  array<int, Item>  $contentItems
+     * @return array{url: string, alt: ?string}|null
+     */
+    private function resolveContentImageData(array $contentItems): ?array
+    {
+        foreach ($contentItems as $contentItem) {
+            $imageData = $this->resolveImageDataFromMediaItem(
+                $this->fetchRelatedItem($contentItem, 'field_media_ref'),
+            );
+
+            if ($imageData !== null) {
+                return $imageData;
+            }
         }
 
-        $meta = $teaserItem->field_media_image?->getMeta();
-        $altText = $meta['alt'] ?? null;
+        return null;
+    }
 
-        $mediaHref = $teaserItem
-            ->getRelationships()['field_media_image']['links']['related']['href']
-            ?? null;
-
-        unset($teaserItem, $meta);
-
-        if (! $mediaHref) {
-            return;
+    /**
+     * @return array{url: string, alt: ?string}|null
+     */
+    private function resolveImageDataFromMediaItem(?Item $mediaItem): ?array
+    {
+        if (! $mediaItem) {
+            return null;
         }
 
-        $mediaData = Http::asJsonApi()
-            ->get($mediaHref)
-            ->jsonApi()
-            ->getData();
+        foreach (['field_media_image', 'thumbnail'] as $relationship) {
+            $meta = $mediaItem->{$relationship}?->getMeta();
+            $fileItem = $this->fetchRelatedItem($mediaItem, $relationship);
 
-        $url = isset($mediaData->uri->url)
-            ? 'https://moers.de'.$mediaData->uri->url
-            : null;
+            if (! isset($fileItem?->uri->url)) {
+                continue;
+            }
 
-        unset($mediaData);
-
-        if (! $url) {
-            return;
+            return [
+                'url' => 'https://moers.de'.$fileItem->uri->url,
+                'alt' => $meta['alt'] ?? null,
+            ];
         }
 
+        return null;
+    }
+
+    private function replaceHeaderImage(Event $event, string $url, ?string $altText): void
+    {
         try {
-            $event->clearMediaCollection(Event::HEADER_MEDIA_COLLECTION);
+            $existingMedia = $event->getMedia(Event::HEADER_MEDIA_COLLECTION);
 
             $event
                 ->addMediaFromUrl($url)
                 ->withCustomProperties(['alt' => $altText])
                 ->toMediaCollection(Event::HEADER_MEDIA_COLLECTION);
+
+            $existingMedia->each->delete();
         } catch (FileDoesNotExist|FileIsTooBig|FileCannotBeAdded $e) {
             Log::warning('Failed to attach teaser image', [
                 'event_id' => $event->id,
