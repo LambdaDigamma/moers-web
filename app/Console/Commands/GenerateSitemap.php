@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Page;
 use Illuminate\Console\Command;
 use Modules\Events\Models\Event;
 use Modules\Management\Models\Organisation;
@@ -101,19 +100,6 @@ class GenerateSitemap extends Command
             $sitemap->add(Url::create(route('rubbish.show', $street->id))
                 ->setPriority(0.4)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
-        });
-
-        // Custom Pages
-        Page::all()->each(function (Page $page) use ($sitemap) {
-            $locales = config('api-language.supported_locales', ['de', 'en']);
-            foreach ($locales as $locale) {
-                app()->setLocale($locale);
-
-                $sitemap->add(Url::create(url($page->full_slug))
-                    ->setPriority(0.5)
-                    ->setLastModificationDate($page->updated_at)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
-            }
         });
 
         $sitemap->writeToFile(public_path('sitemap.xml'));
