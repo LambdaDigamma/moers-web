@@ -1,11 +1,13 @@
 import { DefaultContainer } from '@/components/default-container';
 import { DefaultPagination } from '@/components/default-pagination';
 import { PageHeader } from '@/components/page-header';
+import { SeoHead } from '@/components/seo-head';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
-import { ArrowRight, ArrowUpRight, Newspaper } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import { ArrowRight, ArrowUpRight, ListTree, Newspaper, Pencil } from 'lucide-react';
 import { ReactNode } from 'react';
 
 type NewsPost = {
@@ -42,9 +44,9 @@ function NewsCard({ post }: { post: NewsPost }) {
                         className="aspect-[16/9] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                     />
                 ) : (
-                    <div className="flex aspect-[16/9] items-center justify-center bg-linear-to-br from-accent-100 via-white to-accent-100 dark:from-accent-500/15 dark:via-zinc-950 dark:to-accent-500/10">
+                    <div className="from-accent-100 to-accent-100 dark:from-accent-500/15 dark:to-accent-500/10 flex aspect-[16/9] items-center justify-center bg-linear-to-br via-white dark:via-zinc-950">
                         <div className="flex size-16 items-center justify-center rounded-full border border-white/70 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/10">
-                            <Newspaper className="size-7 text-accent-700 dark:text-accent-300" />
+                            <Newspaper className="text-accent-700 dark:text-accent-300 size-7" />
                         </div>
                     </div>
                 )}
@@ -69,7 +71,7 @@ function NewsCard({ post }: { post: NewsPost }) {
                         {post.summary ?? 'Zur Meldung beim Originalanbieter wechseln.'}
                     </p>
                 </div>
-                <div className="mt-auto flex items-center gap-2 text-sm font-medium text-accent-700 dark:text-accent-300">
+                <div className="text-accent-700 dark:text-accent-300 mt-auto flex items-center gap-2 text-sm font-medium">
                     <span>{isExternal ? 'Originalbeitrag öffnen' : 'Beitrag ansehen'}</span>
                     {isExternal ? <ArrowUpRight className="size-4" /> : <ArrowRight className="size-4" />}
                 </div>
@@ -100,10 +102,13 @@ function NewsCard({ post }: { post: NewsPost }) {
     );
 }
 
-function NewsIndex({ posts }: { posts: Paginator<NewsPost> }) {
+function NewsIndex({ posts, canManageNews = false }: { posts: Paginator<NewsPost>; canManageNews?: boolean }) {
     return (
         <>
-            <Head title="News" />
+            <SeoHead
+                title="Aktuelle News aus Moers"
+                description="Aktuelle Nachrichten und Meldungen aus Moers, gesammelt aus regionalen Quellen und übersichtlich mit Vorschau dargestellt."
+            />
 
             <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
                 <PageHeader
@@ -113,6 +118,29 @@ function NewsIndex({ posts }: { posts: Paginator<NewsPost> }) {
                 />
 
                 <DefaultContainer className="py-12">
+                    {canManageNews ? (
+                        <div className="mb-8 flex flex-wrap justify-end gap-2">
+                            <Button
+                                asChild
+                                variant="outline"
+                            >
+                                <Link href={route('posts.index')}>
+                                    <Pencil className="size-4" />
+                                    Posts verwalten
+                                </Link>
+                            </Button>
+                            <Button
+                                asChild
+                                variant="outline"
+                            >
+                                <Link href={route('feeds.index')}>
+                                    <ListTree className="size-4" />
+                                    Feeds verwalten
+                                </Link>
+                            </Button>
+                        </div>
+                    ) : null}
+
                     {posts.data.length === 0 ? (
                         <Card className="border-dashed py-0">
                             <CardContent className="px-6 py-12 text-center text-sm text-zinc-500 dark:text-zinc-400">

@@ -11,6 +11,16 @@ use Modules\Waste\Models\RubbishStreet;
 use function Pest\Laravel\get;
 use function Pest\Laravel\travelTo;
 
+it('renders Inertia-managed SEO head elements', function () {
+    get('/')
+        ->assertSuccessful()
+        ->assertSee('<title data-inertia', false)
+        ->assertSee('data-inertia="description"', false)
+        ->assertSee('data-inertia="og:title"', false)
+        ->assertSee('data-inertia="twitter:card"', false)
+        ->assertDontSee('<title inertia>', false);
+});
+
 it('shows the public landing page with overview data', function () {
     travelTo(Carbon::parse('2026-03-08 10:00:00'));
 

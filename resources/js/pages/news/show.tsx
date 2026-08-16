@@ -1,8 +1,9 @@
 import { DefaultContainer } from '@/components/default-container';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { SeoHead } from '@/components/seo-head';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { ArrowUpRight, ChevronLeft } from 'lucide-react';
 import { ReactNode } from 'react';
 
@@ -33,7 +34,11 @@ const formatDate = (value: string | null) => {
 function NewsShow({ post }: PostProps) {
     return (
         <>
-            <Head title={post.title} />
+            <SeoHead
+                title={post.title}
+                description={post.summary ?? `Aktuelle Meldung aus Moers: ${post.title}.`}
+                type="article"
+            />
 
             <DefaultContainer className="py-10">
                 <div className="mb-6">

@@ -3,8 +3,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Heading } from '@/components/ui/heading';
+import { SeoHead } from '@/components/seo-head';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import {
     CategoryScale,
     Chart as ChartJS,
@@ -141,7 +142,10 @@ const ParkingShow = ({ parkingArea, pastOccupancy, imageUrl, googleMapsUrl, lat,
 
     return (
         <>
-            <Head title={`${parkingArea.name} - Parken in Moers`} />
+            <SeoHead
+                title={`${parkingArea.name} - Parken in Moers`}
+                description={`Aktuelle Belegung, Öffnungsstatus und Standortinformationen für ${parkingArea.name} in Moers.`}
+            />
 
             <div className="min-h-screen bg-[#FDFDFC] dark:bg-zinc-950">
                 {/* Header Section */}

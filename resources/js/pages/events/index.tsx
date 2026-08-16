@@ -1,6 +1,7 @@
 import { DefaultContainer } from '@/components/default-container';
 import { IsolatedSearchField } from '@/components/isolated-search-field';
 import { PageHeader } from '@/components/page-header';
+import { SeoHead } from '@/components/seo-head';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
@@ -10,7 +11,7 @@ import AppLayout from '@/layouts/app-layout';
 import { formatCollectionLabel, getEventMonthGroupKey, getEventMonthGroupLabel } from '@/lib/events';
 import { EventRow } from '@/pages/events/event-row';
 import { type SharedData } from '@/types';
-import { Head, InfiniteScroll, router, usePage } from '@inertiajs/react';
+import { InfiniteScroll, router, usePage } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Filter, Search, SlidersHorizontal, X } from 'lucide-react';
 import { ReactNode, useEffect, useState } from 'react';
@@ -135,7 +136,10 @@ const EventsIndex = ({ events, filters, availableFilters }: EventsIndexProps) =>
 
     return (
         <>
-            <Head title="Veranstaltungen" />
+            <SeoHead
+                title="Veranstaltungen in Moers"
+                description="Entdecke kommende Veranstaltungen in Moers: Kultur, Musik, Sport und weitere Termine übersichtlich nach deinen Interessen."
+            />
 
             <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
                 <PageHeader

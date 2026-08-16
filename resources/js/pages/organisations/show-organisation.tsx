@@ -1,7 +1,7 @@
 import { DefaultContainer } from '@/components/default-container';
+import { SeoHead } from '@/components/seo-head';
 import { default as AppLayout } from '@/layouts/app-layout';
 import OrganisationLayout from '@/pages/organisations/organisation-layout';
-import { Head } from '@inertiajs/react';
 import React from 'react';
 
 type ShowOrganisationProps = {
@@ -13,7 +13,11 @@ type ShowOrganisationProps = {
 const ShowOrganisation = ({ organisation, canEdit, canCreateEvents }: ShowOrganisationProps) => {
     return (
         <>
-            <Head title={organisation.name} />
+            <SeoHead
+                title={organisation.name}
+                description={organisation.description || `${organisation.name} stellt sich vor und informiert über Angebote in Moers.`}
+                imageUrl={organisation.logoPath}
+            />
             <DefaultContainer className="py-12">
                 <div className="max-w-3xl space-y-8">
                     <div className="space-y-4">

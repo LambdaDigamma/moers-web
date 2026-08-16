@@ -1,5 +1,6 @@
 import { DefaultContainer } from '@/components/default-container';
 import { PageHeader } from '@/components/page-header';
+import { SeoHead } from '@/components/seo-head';
 import { RubbishStreetSearch } from '@/components/rubbish-street-search';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,7 +17,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { usePrimaryRubbishStreet } from '@/hooks/use-primary-rubbish-street';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { CalendarPlus, ChevronLeft, ChevronRight, Download, FileText, Leaf, Recycle, Star, Trash2 } from 'lucide-react';
 import { ReactNode, useEffect, useState } from 'react';
 
@@ -156,7 +157,10 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
 
     return (
         <>
-            <Head title={`Abfallkalender ${street.name}`} />
+            <SeoHead
+                title={`Abfallkalender ${street.name}`}
+                description={`Abholtermine für ${street.name} in Moers. Zeige die nächsten Termine an und lade den Kalender für deine Straße herunter.`}
+            />
 
             <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
                 <PageHeader

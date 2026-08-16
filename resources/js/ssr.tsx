@@ -3,8 +3,8 @@ import { createInertiaApp, type ResolvedComponent } from '@inertiajs/react';
 import createServer from '@inertiajs/react/server';
 import ReactDOMServer from 'react-dom/server';
 import { route, type RouteName } from 'ziggy-js';
+import { formatPageTitle } from './lib/seo';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const pages = import.meta.glob<{ default: ResolvedComponent }>('./pages/**/*.tsx', { eager: true });
 
 type ZiggyProps = {
@@ -17,7 +17,7 @@ createServer((page) =>
     createInertiaApp({
         page,
         render: ReactDOMServer.renderToString,
-        title: (title) => (title ? `${title} - ${appName}` : appName),
+        title: formatPageTitle,
         resolve: (name) => {
             const resolvedPage = pages[`./pages/${name}.tsx`];
 

@@ -1,17 +1,21 @@
 import { DefaultContainer } from '@/components/default-container';
+import { SeoHead } from '@/components/seo-head';
 import { Button } from '@/components/ui/button-catalyst';
 import { Heading } from '@/components/ui/heading';
 import { default as AppLayout } from '@/layouts/app-layout';
 import { EventRow } from '@/pages/events/event-row';
 import OrganisationLayout from '@/pages/organisations/organisation-layout';
-import { Head } from '@inertiajs/react';
 import React from 'react';
 import Event = Modules.Events.Data.Event;
+import Organisation = Modules.Management.Data.Organisation;
 
-export const IndexEvents = ({ events, canCreateEvents }: { events: Paginator<Event>; canCreateEvents?: boolean }) => {
+export const IndexEvents = ({ organisation, events, canCreateEvents }: { organisation: Organisation; events: Paginator<Event>; canCreateEvents?: boolean }) => {
     return (
         <>
-            <Head title="Veranstaltungen" />
+            <SeoHead
+                title={`Veranstaltungen von ${organisation.name}`}
+                description={`Kommende Veranstaltungen von ${organisation.name} in Moers und Umgebung.`}
+            />
             <DefaultContainer className="py-8">
                 <div className="flex w-full flex-wrap items-end justify-between gap-4 border-b border-zinc-950/10 pb-6 dark:border-white/10">
                     <div>

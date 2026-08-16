@@ -2,9 +2,10 @@ import { DefaultContainer } from '@/components/default-container';
 import { DefaultPagination } from '@/components/default-pagination';
 import { PageHeader } from '@/components/page-header';
 import { RubbishStreetSearch } from '@/components/rubbish-street-search';
+import { SeoHead } from '@/components/seo-head';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Calendar, ChevronRight, Search, Smartphone, Trash2 } from 'lucide-react';
 import { ReactNode } from 'react';
 
@@ -24,7 +25,10 @@ type RubbishIndexProps = {
 function RubbishIndex({ filters, streets }: RubbishIndexProps) {
     return (
         <>
-            <Head title="Abfallkalender" />
+            <SeoHead
+                title="Abfallkalender für Moers"
+                description="Finde die nächsten Abholtermine für deine Straße in Moers und nutze den Abfallkalender für Erinnerungen und Downloads."
+            />
 
             <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
                 <PageHeader

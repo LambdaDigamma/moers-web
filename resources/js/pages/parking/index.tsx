@@ -1,9 +1,10 @@
 import { DefaultContainer } from '@/components/default-container';
 import { PageHeader } from '@/components/page-header';
+import { SeoHead } from '@/components/seo-head';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CircleParking, MapPin } from 'lucide-react';
 import { ReactNode } from 'react';
@@ -31,7 +32,10 @@ const item = {
 const ParkingIndex = ({ parkingAreas }: Props) => {
     return (
         <>
-            <Head title="Parken in Moers" />
+            <SeoHead
+                title="Parken in Moers"
+                description="Finde freie Parkplätze in Moers und sieh die aktuelle Belegung der wichtigsten Parkhäuser in der Innenstadt."
+            />
 
             <div className="min-h-screen bg-[#FDFDFC] dark:bg-zinc-950">
                 <PageHeader

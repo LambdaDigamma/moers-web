@@ -1,9 +1,10 @@
 import { DefaultContainer } from '@/components/default-container';
 import { PrimaryRubbishStreetCard } from '@/components/primary-rubbish-street-card';
+import { SeoHead } from '@/components/seo-head';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { ArrowRight, CalendarRange, CircleParking, Leaf, MapPin, Newspaper, Radio, Search, Smartphone, Star } from 'lucide-react';
 import { ReactNode } from 'react';
 
@@ -79,7 +80,10 @@ const MobileAppBadge = ({ href, platform }: { href: string; platform: 'ios' | 'a
 function Home({ stats, upcomingEvents, latestNews, parkingAreas, mobileApps }: HomeProps) {
     return (
         <>
-            <Head title="Mein Moers" />
+            <SeoHead
+                title="Moers digital – Termine und Services"
+                description="Mein Moers bündelt Veranstaltungen, News, Parkplätze, Organisationen und den Abfallkalender für die Stadt Moers."
+            />
 
             <div className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(238,242,255,0.8),_transparent_40%),radial-gradient(circle_at_top_right,_rgba(209,250,229,0.7),_transparent_40%),linear-gradient(180deg,_#fbfbf9_0%,_#ffffff_100%)] dark:bg-[radial-gradient(circle_at_top_left,_rgba(37,99,235,0.1),_transparent_40%),radial-gradient(circle_at_top_right,_rgba(16,185,129,0.1),_transparent_40%),linear-gradient(180deg,_#09090b_0%,_#111827_100%)]">
                 <DefaultContainer className="py-8 md:py-16 lg:py-24">

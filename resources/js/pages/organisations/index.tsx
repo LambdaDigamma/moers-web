@@ -1,10 +1,11 @@
 import { DefaultContainer } from '@/components/default-container';
 import { IsolatedSearchField } from '@/components/isolated-search-field';
 import { PageHeader } from '@/components/page-header';
+import { SeoHead } from '@/components/seo-head';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link, router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { ArrowUpRight, Plus, Search, UserRound } from 'lucide-react';
 import { ReactNode, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
@@ -34,7 +35,10 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
 
     return (
         <>
-            <Head title="Organisationen" />
+            <SeoHead
+                title="Organisationen in Moers"
+                description="Entdecke Vereine, Initiativen und Organisationen in Moers und finde passende Ansprechpartner und Angebote."
+            />
 
             <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
                 <PageHeader

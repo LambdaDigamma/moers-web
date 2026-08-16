@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Page;
+use App\Models\PageBlock;
 use Database\Factories\UserFactory;
 use Illuminate\Support\Carbon;
 use Modules\News\Models\Post;
@@ -8,7 +10,7 @@ use function Pest\Laravel\actingAs;
 use function Pest\Laravel\postJson;
 
 test('unpublished post can be published now', function () {
-    actingAs(UserFactory::new()->create());
+    actingAs(UserFactory::new()->admin()->create());
     $post = Post::factory()->create();
     expect($post->published_at)->toBeNull();
 
@@ -17,8 +19,14 @@ test('unpublished post can be published now', function () {
 });
 
 test('unpublished post can be published at specific time', function () {
-    actingAs(UserFactory::new()->create());
-    $post = Post::factory()->create();
+    actingAs(UserFactory::new()->admin()->create());
+    $page = Page::factory()->notPublished()->create();
+    $block = PageBlock::factory()
+        ->for($page)
+        ->create([
+            'type' => 'tiptap-text',
+        ]);
+    $post = Post::factory()->create(['page_id' => $page->id]);
     expect($post->published_at)->toBeNull();
 
     $publishAt = Carbon::now()->addMinutes(60);
@@ -29,14 +37,30 @@ test('unpublished post can be published at specific time', function () {
 
     expect(Post::query()->withNotPublished()->find($post->id)->published_at->toDateTimeString())
         ->toBe($publishAt->toDateTimeString());
+
+    expect($page->refresh()->published_at?->toDateTimeString())
+        ->toBe($publishAt->toDateTimeString())
+        ->and($block->refresh()->published_at?->toDateTimeString())
+        ->toBe($publishAt->toDateTimeString());
 });
 
 test('published post can be unpublished', function () {
-    actingAs(UserFactory::new()->create());
-    $post = Post::factory()->published()->create();
+    actingAs(UserFactory::new()->admin()->create());
+    $page = Page::factory()->published()->create();
+    $block = PageBlock::factory()
+        ->published()
+        ->for($page)
+        ->create([
+            'type' => 'tiptap-text',
+        ]);
+    $post = Post::factory()->published()->create(['page_id' => $page->id]);
     expect($post->published_at)->not->toBeNull();
 
     postJson("/admin/posts/{$post->id}/unpublish")->assertStatus(200);
     expect(Post::query()->withNotPublished()->find($post->id)->published_at)
+        ->toBeNull()
+        ->and($page->refresh()->published_at)
+        ->toBeNull()
+        ->and($block->refresh()->published_at)
         ->toBeNull();
 });

@@ -31,7 +31,20 @@
         }
     </style>
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    @inertiaHead
+
+    @if (! ($__inertiaSsrResponse ?? false))
+        <title data-inertia>{{ config('app.name', 'Mein Moers') }}</title>
+        <meta data-inertia="description" name="description" content="{{ config('app.name', 'Mein Moers') }} bündelt Veranstaltungen, News, Parkplätze, Organisationen und den Abfallkalender für die Stadt Moers.">
+        <meta data-inertia="og:title" property="og:title" content="{{ config('app.name', 'Mein Moers') }}">
+        <meta data-inertia="og:description" property="og:description" content="{{ config('app.name', 'Mein Moers') }} bündelt Veranstaltungen, News, Parkplätze, Organisationen und den Abfallkalender für die Stadt Moers.">
+        <meta data-inertia="og:type" property="og:type" content="website">
+        <meta data-inertia="og:site_name" property="og:site_name" content="{{ config('app.name', 'Mein Moers') }}">
+        <meta data-inertia="og:url" property="og:url" content="{{ url()->current() }}">
+        <meta data-inertia="twitter:card" name="twitter:card" content="summary">
+        <meta data-inertia="twitter:title" name="twitter:title" content="{{ config('app.name', 'Mein Moers') }}">
+        <meta data-inertia="twitter:description" name="twitter:description" content="{{ config('app.name', 'Mein Moers') }} bündelt Veranstaltungen, News, Parkplätze, Organisationen und den Abfallkalender für die Stadt Moers.">
+    @endif
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
@@ -40,7 +53,6 @@
     @viteReactRefresh
     @trail
     @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
-    @inertiaHead
 </head>
 <body class="font-sans antialiased">
 @inertia

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use Database\Factories\UserFactory;
 use Inertia\Testing\AssertableInertia as Assert;
 use Modules\News\Models\Feed;
 use Modules\News\Models\Post;
@@ -55,7 +55,7 @@ it('does not expose unpublished news publicly', function () {
         ->assertNotFound();
 });
 
-it('shows unpublished news to signed in users on the same listing', function () {
+it('shows unpublished news to admin users on the same listing', function () {
     Post::factory()->published()->create([
         'title' => 'Oeffentlich',
     ]);
@@ -63,7 +63,7 @@ it('shows unpublished news to signed in users on the same listing', function () 
         'title' => 'Entwurf',
     ]);
 
-    actingAs(User::factory()->create());
+    actingAs(UserFactory::new()->admin()->create());
 
     get('/news')
         ->assertSuccessful()
@@ -72,12 +72,12 @@ it('shows unpublished news to signed in users on the same listing', function () 
             ->has('posts.data', 2));
 });
 
-it('shows unpublished news details to signed in users on the same route', function () {
+it('shows unpublished news details to admin users on the same route', function () {
     $post = Post::factory()->notPublished()->create([
         'title' => 'Interner Entwurf',
     ]);
 
-    actingAs(User::factory()->create());
+    actingAs(UserFactory::new()->admin()->create());
 
     get("/news/{$post->id}")
         ->assertSuccessful()
