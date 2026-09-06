@@ -1,7 +1,6 @@
 import { Navbar, NavbarItem, NavbarSection } from '@/components/ui/navbar';
 import { usePage } from '@inertiajs/react';
 import clsx from 'clsx';
-import { current } from 'momentum-trail';
 import React from 'react';
 import Organisation = Modules.Management.Data.Organisation;
 
@@ -19,13 +18,13 @@ export const EditOrganisationNavigation = ({ className, ...props }: React.Compon
             <NavbarSection>
                 <NavbarItem
                     href={route('organisations.edit', [organisation.slug])}
-                    current={current('organisations.edit')}
+                    current={route().current('organisations.edit')}
                 >
                     Überblick
                 </NavbarItem>
                 <NavbarItem
                     href={route('organisations.events.index', [organisation.slug])}
-                    current={current('organisations.events.*')}
+                    current={route().current('organisations.events.*')}
                 >
                     Veranstaltungen
                 </NavbarItem>

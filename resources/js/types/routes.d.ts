@@ -1,349 +1,665 @@
-import 'momentum-trail';
-
-declare module 'momentum-trail' {
-    export interface RouterGlobal {
-        url: 'https:\/\/laravel.dev.test';
-        port: null;
-        defaults: [];
-        routes: {
-            'l5-swagger.default.api': { uri: 'api\/documentation'; methods: ['GET', 'HEAD'] };
-            'l5-swagger.default.docs': { uri: 'docs'; methods: ['GET', 'HEAD'] };
-            'l5-swagger.default.asset': { uri: 'docs\/asset\/{asset}'; methods: ['GET', 'HEAD']; parameters: ['asset'] };
-            'l5-swagger.default.oauth2_callback': { uri: 'api\/oauth2-callback'; methods: ['GET', 'HEAD'] };
-            'api.v1.apple-maps.token': { uri: 'api\/v1\/apple-maps\/token'; methods: ['GET', 'HEAD'] };
-            'api.v1.apple-maps.geocode': { uri: 'api\/v1\/apple-maps\/geocode'; methods: ['GET', 'HEAD'] };
-            'api.v1.apple-maps.annotation.preview': { uri: 'api\/v1\/apple-maps\/annotation\/preview'; methods: ['GET', 'HEAD'] };
-            'api.v1.pages.show': { uri: 'api\/v1\/pages\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'api.v1.admin.page.blocks.index': { uri: 'api\/v1\/admin\/pages\/{pageId}\/blocks'; methods: ['GET', 'HEAD']; parameters: ['pageId'] };
-            'api.v1.admin.page-blocks.children': {
-                uri: 'api\/v1\/admin\/page-blocks\/{pageBlockId}\/children';
-                methods: ['GET', 'HEAD'];
-                parameters: ['pageBlockId'];
-            };
-            'admin.pages.blocks.store': { uri: 'admin\/pages\/{anypage}\/blocks'; methods: ['POST']; parameters: ['anypage'] };
-            'admin.pages.blocks.order': { uri: 'admin\/pages\/{anypage}\/blocks\/order'; methods: ['POST']; parameters: ['anypage'] };
-            'admin.blocks.show': { uri: 'admin\/blocks\/{anyblock}\/show'; methods: ['POST']; parameters: ['anyblock'] };
-            'admin.blocks.hide': { uri: 'admin\/blocks\/{anyblock}\/hide'; methods: ['POST']; parameters: ['anyblock'] };
-            'admin.blocks.publish': { uri: 'admin\/blocks\/{anyblock}\/publish'; methods: ['POST']; parameters: ['anyblock'] };
-            'admin.blocks.unpublish': { uri: 'admin\/blocks\/{anyblock}\/unpublish'; methods: ['POST']; parameters: ['anyblock'] };
-            'admin.blocks.expire': { uri: 'admin\/blocks\/{anyblock}\/expire'; methods: ['POST']; parameters: ['anyblock'] };
-            'admin.blocks.unexpire': { uri: 'admin\/blocks\/{anyblock}\/unexpire'; methods: ['POST']; parameters: ['anyblock'] };
-            'admin.blocks.delete': { uri: 'admin\/blocks\/{anyblock}'; methods: ['DELETE']; parameters: ['anyblock'] };
-            'admin.blocks.restore': { uri: 'admin\/blocks\/{anyblock}\/restore'; methods: ['POST']; parameters: ['anyblock'] };
-            'admin.pages.delete': { uri: 'admin\/pages\/{anypage}'; methods: ['DELETE']; parameters: ['anypage'] };
-            'admin.pages.restore': { uri: 'admin\/pages\/{anypage}\/restore'; methods: ['POST']; parameters: ['anypage'] };
-            'admin.pages.publish': { uri: 'admin\/pages\/{anypage}\/publish'; methods: ['POST']; parameters: ['anypage'] };
-            'admin.pages.unpublish': { uri: 'admin\/pages\/{anypage}\/unpublish'; methods: ['POST']; parameters: ['anypage'] };
-            'admin.pages.archive': { uri: 'admin\/pages\/{anypage}\/archive'; methods: ['POST']; parameters: ['anypage'] };
-            'admin.pages.unarchive': { uri: 'admin\/pages\/{anypage}\/unarchive'; methods: ['POST']; parameters: ['anypage'] };
-            'admin.editor.menu.index': { uri: 'admin\/editor\/menu'; methods: ['GET', 'HEAD'] };
-            'admin.page-blocks.children.order': {
-                uri: 'admin\/page-blocks\/{anypageblock}\/children\/order';
-                methods: ['POST'];
-                parameters: ['anypageblock'];
-            };
-            'boost.browser-logs': { uri: '_boost\/browser-logs'; methods: ['POST'] };
-            'horizon.stats.index': { uri: 'horizon\/api\/stats'; methods: ['GET', 'HEAD'] };
-            'horizon.workload.index': { uri: 'horizon\/api\/workload'; methods: ['GET', 'HEAD'] };
-            'horizon.masters.index': { uri: 'horizon\/api\/masters'; methods: ['GET', 'HEAD'] };
-            'horizon.monitoring.index': { uri: 'horizon\/api\/monitoring'; methods: ['GET', 'HEAD'] };
-            'horizon.monitoring.store': { uri: 'horizon\/api\/monitoring'; methods: ['POST'] };
-            'horizon.monitoring-tag.paginate': { uri: 'horizon\/api\/monitoring\/{tag}'; methods: ['GET', 'HEAD']; parameters: ['tag'] };
-            'horizon.monitoring-tag.destroy': {
-                uri: 'horizon\/api\/monitoring\/{tag}';
-                methods: ['DELETE'];
-                wheres: { tag: '.*' };
-                parameters: ['tag'];
-            };
-            'horizon.jobs-metrics.index': { uri: 'horizon\/api\/metrics\/jobs'; methods: ['GET', 'HEAD'] };
-            'horizon.jobs-metrics.show': { uri: 'horizon\/api\/metrics\/jobs\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'horizon.queues-metrics.index': { uri: 'horizon\/api\/metrics\/queues'; methods: ['GET', 'HEAD'] };
-            'horizon.queues-metrics.show': { uri: 'horizon\/api\/metrics\/queues\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'horizon.jobs-batches.index': { uri: 'horizon\/api\/batches'; methods: ['GET', 'HEAD'] };
-            'horizon.jobs-batches.show': { uri: 'horizon\/api\/batches\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'horizon.jobs-batches.retry': { uri: 'horizon\/api\/batches\/retry\/{id}'; methods: ['POST']; parameters: ['id'] };
-            'horizon.pending-jobs.index': { uri: 'horizon\/api\/jobs\/pending'; methods: ['GET', 'HEAD'] };
-            'horizon.completed-jobs.index': { uri: 'horizon\/api\/jobs\/completed'; methods: ['GET', 'HEAD'] };
-            'horizon.silenced-jobs.index': { uri: 'horizon\/api\/jobs\/silenced'; methods: ['GET', 'HEAD'] };
-            'horizon.failed-jobs.index': { uri: 'horizon\/api\/jobs\/failed'; methods: ['GET', 'HEAD'] };
-            'horizon.failed-jobs.show': { uri: 'horizon\/api\/jobs\/failed\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'horizon.retry-jobs.show': { uri: 'horizon\/api\/jobs\/retry\/{id}'; methods: ['POST']; parameters: ['id'] };
-            'horizon.jobs.show': { uri: 'horizon\/api\/jobs\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'horizon.index': { uri: 'horizon\/{view?}'; methods: ['GET', 'HEAD']; wheres: { view: '(.*)' }; parameters: ['view'] };
-            'passport.token': { uri: 'oauth\/token'; methods: ['POST'] };
-            'passport.authorizations.authorize': { uri: 'oauth\/authorize'; methods: ['GET', 'HEAD'] };
-            'passport.token.refresh': { uri: 'oauth\/token\/refresh'; methods: ['POST'] };
-            'passport.authorizations.approve': { uri: 'oauth\/authorize'; methods: ['POST'] };
-            'passport.authorizations.deny': { uri: 'oauth\/authorize'; methods: ['DELETE'] };
-            'passport.tokens.index': { uri: 'oauth\/tokens'; methods: ['GET', 'HEAD'] };
-            'passport.tokens.destroy': { uri: 'oauth\/tokens\/{token_id}'; methods: ['DELETE']; parameters: ['token_id'] };
-            'passport.clients.index': { uri: 'oauth\/clients'; methods: ['GET', 'HEAD'] };
-            'passport.clients.store': { uri: 'oauth\/clients'; methods: ['POST'] };
-            'passport.clients.update': { uri: 'oauth\/clients\/{client_id}'; methods: ['PUT']; parameters: ['client_id'] };
-            'passport.clients.destroy': { uri: 'oauth\/clients\/{client_id}'; methods: ['DELETE']; parameters: ['client_id'] };
-            'passport.scopes.index': { uri: 'oauth\/scopes'; methods: ['GET', 'HEAD'] };
-            'passport.personal.tokens.index': { uri: 'oauth\/personal-access-tokens'; methods: ['GET', 'HEAD'] };
-            'passport.personal.tokens.store': { uri: 'oauth\/personal-access-tokens'; methods: ['POST'] };
-            'passport.personal.tokens.destroy': { uri: 'oauth\/personal-access-tokens\/{token_id}'; methods: ['DELETE']; parameters: ['token_id'] };
-            'sanctum.csrf-cookie': { uri: 'sanctum\/csrf-cookie'; methods: ['GET', 'HEAD'] };
-            'festival.v1.events.index': { uri: 'api\/v1\/festival\/events'; methods: ['GET', 'HEAD'] };
-            'festival.v1.events.show': { uri: 'api\/v1\/festival\/events\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'festival.v1.content': { uri: 'api\/v1\/festival\/content'; methods: ['GET', 'HEAD'] };
-            'festival.v1.event.page.show': { uri: 'api\/v1\/festival\/events\/{id}\/page'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'festival.v1.locations.index': { uri: 'api\/v1\/festival\/locations'; methods: ['GET', 'HEAD'] };
-            'festival.v1.locations.show': { uri: 'api\/v1\/festival\/locations\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'festival.v1.map.venues.index': { uri: 'api\/v1\/festival\/map\/venues'; methods: ['GET', 'HEAD'] };
-            'festival.v1.map.venues.show': { uri: 'api\/v1\/festival\/map\/venues\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'festival.v1.pages.show': { uri: 'api\/v1\/festival\/pages\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'festival.v1.news.index': { uri: 'api\/v1\/festival\/news'; methods: ['GET', 'HEAD'] };
-            'festival.v1.feeds.show': { uri: 'api\/v1\/festival\/feeds\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'festival.v1.feeds.posts.index': { uri: 'api\/v1\/festival\/feeds\/{id}\/posts'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'festival.v1.posts.show': { uri: 'api\/v1\/festival\/posts\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'festival.v1.stream.index': { uri: 'api\/v1\/festival\/stream'; methods: ['GET', 'HEAD'] };
-            'festival.v1.update.app.ios': { uri: 'api\/v1\/festival\/update\/app\/ios'; methods: ['GET', 'HEAD'] };
-            'v2.tracker.index': { uri: 'api\/v2\/tracker'; methods: ['GET', 'HEAD'] };
-            home: { uri: '\/'; methods: ['GET', 'HEAD'] };
-            'apps.ios': { uri: 'ios'; methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'] };
-            'apps.android': { uri: 'android'; methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'] };
-            dashboard: { uri: 'dashboard'; methods: ['GET', 'HEAD'] };
-            'profile.edit': { uri: 'settings\/profile'; methods: ['GET', 'HEAD'] };
-            'profile.update': { uri: 'settings\/profile'; methods: ['PATCH'] };
-            'profile.destroy': { uri: 'settings\/profile'; methods: ['DELETE'] };
-            'password.edit': { uri: 'settings\/password'; methods: ['GET', 'HEAD'] };
-            'password.update': { uri: 'settings\/password'; methods: ['PUT'] };
-            appearance: { uri: 'settings\/appearance'; methods: ['GET', 'HEAD'] };
-            register: { uri: 'register'; methods: ['GET', 'HEAD'] };
-            login: { uri: 'login'; methods: ['GET', 'HEAD'] };
-            'password.request': { uri: 'forgot-password'; methods: ['GET', 'HEAD'] };
-            'password.email': { uri: 'forgot-password'; methods: ['POST'] };
-            'password.reset': { uri: 'reset-password\/{token}'; methods: ['GET', 'HEAD']; parameters: ['token'] };
-            'password.store': { uri: 'reset-password'; methods: ['POST'] };
-            'verification.notice': { uri: 'verify-email'; methods: ['GET', 'HEAD'] };
-            'verification.verify': { uri: 'verify-email\/{id}\/{hash}'; methods: ['GET', 'HEAD']; parameters: ['id', 'hash'] };
-            'verification.send': { uri: 'email\/verification-notification'; methods: ['POST'] };
-            'password.confirm': { uri: 'confirm-password'; methods: ['GET', 'HEAD'] };
-            logout: { uri: 'logout'; methods: ['POST'] };
-            'api.v1.events.index': { uri: 'api\/v1\/events'; methods: ['GET', 'HEAD'] };
-            'api.v1.events.show': { uri: 'api\/v1\/events\/{event}'; methods: ['GET', 'HEAD']; parameters: ['event'] };
-            'events.index': { uri: 'events'; methods: ['GET', 'HEAD'] };
-            'events.show': { uri: 'events\/{event}'; methods: ['GET', 'HEAD']; parameters: ['event']; bindings: { event: 'id' } };
-            'events.place.update': { uri: 'events\/{anyevent}\/place'; methods: ['PUT']; parameters: ['anyevent'] };
-            'events.edit': { uri: 'events\/{anyevent}\/edit'; methods: ['GET', 'HEAD']; parameters: ['anyevent'] };
-            'events.venue.edit': { uri: 'events\/{anyevent}\/venue\/edit'; methods: ['GET', 'HEAD']; parameters: ['anyevent'] };
-            'events.update': { uri: 'events\/{anyevent}'; methods: ['PUT']; parameters: ['anyevent'] };
-            'events.store': { uri: 'events'; methods: ['POST'] };
-            'events.archive': { uri: 'events\/{anyevent}\/archive'; methods: ['POST']; parameters: ['anyevent'] };
-            'events.unarchive': { uri: 'events\/{anyevent}\/unarchive'; methods: ['POST']; parameters: ['anyevent'] };
-            'events.publish': { uri: 'events\/{anyevent}\/publish'; methods: ['POST']; parameters: ['anyevent'] };
-            'events.unpublish': { uri: 'events\/{anyevent}\/unpublish'; methods: ['POST']; parameters: ['anyevent'] };
-            'api.locations.index': { uri: 'api\/v1\/locations'; methods: ['GET', 'HEAD'] };
-            'api.locations.show': {
-                uri: 'api\/v1\/locations\/{location}';
-                methods: ['GET', 'HEAD'];
-                parameters: ['location'];
-                bindings: { location: 'id' };
-            };
-            'locations.create': { uri: 'locations\/create'; methods: ['GET', 'HEAD'] };
-            'locations.store': { uri: 'locations'; methods: ['POST'] };
-            'locations.edit': {
-                uri: 'locations\/{location}\/edit';
-                methods: ['GET', 'HEAD'];
-                parameters: ['location'];
-                bindings: { location: 'id' };
-            };
-            'locations.update': { uri: 'locations\/{location}'; methods: ['PUT']; parameters: ['location']; bindings: { location: 'id' } };
-            'locations.destroy': { uri: 'locations\/{location}'; methods: ['DELETE']; parameters: ['location']; bindings: { location: 'id' } };
-            'api.management.index': { uri: 'api\/v1\/management'; methods: ['GET', 'HEAD'] };
-            'api.management.store': { uri: 'api\/v1\/management'; methods: ['POST'] };
-            'api.management.show': { uri: 'api\/v1\/management\/{management}'; methods: ['GET', 'HEAD']; parameters: ['management'] };
-            'api.management.update': { uri: 'api\/v1\/management\/{management}'; methods: ['PUT', 'PATCH']; parameters: ['management'] };
-            'api.management.destroy': { uri: 'api\/v1\/management\/{management}'; methods: ['DELETE']; parameters: ['management'] };
-            'organisations.create': { uri: 'organisations\/create'; methods: ['GET', 'HEAD'] };
-            'organisations.store': { uri: 'organisations'; methods: ['POST'] };
-            'organisations.show': {
-                uri: 'organisations\/{organisation}';
-                methods: ['GET', 'HEAD'];
-                parameters: ['organisation'];
-                bindings: { organisation: 'slug' };
-            };
-            'organisations.edit': {
-                uri: 'organisations\/{organisation}\/edit';
-                methods: ['GET', 'HEAD'];
-                parameters: ['organisation'];
-                bindings: { organisation: 'slug' };
-            };
-            'organisations.events.index': {
-                uri: 'organisations\/{organisation}\/events';
-                methods: ['GET', 'HEAD'];
-                parameters: ['organisation'];
-                bindings: { organisation: 'slug' };
-            };
-            'organisations.index': { uri: 'organisations'; methods: ['GET', 'HEAD'] };
-            'api.v1.api.v1.radio-broadcasts.index': { uri: 'api\/v1\/radio-broadcasts'; methods: ['GET', 'HEAD'] };
-            'api.v1.api.v1.radio-broadcasts.show': {
-                uri: 'api\/v1\/radio-broadcasts\/{radioBroadcast}';
-                methods: ['GET', 'HEAD'];
-                parameters: ['radioBroadcast'];
-                bindings: { radioBroadcast: 'id' };
-            };
-            'api.v1.feeds.show': { uri: 'api\/v1\/feeds\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'api.v1.feeds.posts.index': { uri: 'api\/v1\/feeds\/{id}\/posts'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'api.v1.posts.show': { uri: 'api\/v1\/posts\/{id}'; methods: ['GET', 'HEAD']; parameters: ['id'] };
-            'news.index': { uri: 'news'; methods: ['GET', 'HEAD'] };
-            'news.show': { uri: 'news\/{anypost}'; methods: ['GET', 'HEAD']; parameters: ['anypost']; bindings: { anypost: 'id' } };
-            'posts.index': { uri: 'posts'; methods: ['GET', 'HEAD'] };
-            'posts.create': { uri: 'posts\/create'; methods: ['GET', 'HEAD'] };
-            'posts.edit': { uri: 'posts\/{anypost}\/edit'; methods: ['GET', 'HEAD']; parameters: ['anypost']; bindings: { anypost: 'id' } };
-            'posts.store': { uri: 'posts'; methods: ['POST'] };
-            'posts.update': { uri: 'posts\/{anypost}'; methods: ['PUT']; parameters: ['anypost']; bindings: { anypost: 'id' } };
-            'posts.publish': { uri: 'posts\/{anypost}\/publish'; methods: ['POST']; parameters: ['anypost'] };
-            'posts.unpublish': { uri: 'posts\/{anypost}\/unpublish'; methods: ['POST']; parameters: ['anypost'] };
-            'posts.archive': { uri: 'posts\/{anypost}\/archive'; methods: ['POST']; parameters: ['anypost'] };
-            'posts.unarchive': { uri: 'posts\/{anypost}\/unarchive'; methods: ['POST']; parameters: ['anypost'] };
-            'feeds.index': { uri: 'feeds'; methods: ['GET', 'HEAD'] };
-            'feeds.create': { uri: 'feeds\/create'; methods: ['GET', 'HEAD'] };
-            'feeds.store': { uri: 'feeds'; methods: ['POST'] };
-            'feeds.edit': { uri: 'feeds\/{anyfeed}\/edit'; methods: ['GET', 'HEAD']; parameters: ['anyfeed']; bindings: { anyfeed: 'id' } };
-            'feeds.update': { uri: 'feeds\/{anyfeed}'; methods: ['PUT']; parameters: ['anyfeed']; bindings: { anyfeed: 'id' } };
-            'feeds.destroy': { uri: 'feeds\/{anyfeed}'; methods: ['DELETE']; parameters: ['anyfeed']; bindings: { anyfeed: 'id' } };
-            'feeds.restore': { uri: 'feeds\/{anyfeed}\/restore'; methods: ['POST']; parameters: ['anyfeed']; bindings: { anyfeed: 'id' } };
-            'admin.posts.store': { uri: 'admin\/posts'; methods: ['POST'] };
-            'admin.posts.publish': { uri: 'admin\/posts\/{anypost}\/publish'; methods: ['POST']; parameters: ['anypost'] };
-            'admin.posts.unpublish': { uri: 'admin\/posts\/{anypost}\/unpublish'; methods: ['POST']; parameters: ['anypost'] };
-            'admin.posts.archive': { uri: 'admin\/posts\/{anypost}\/archive'; methods: ['POST']; parameters: ['anypost'] };
-            'admin.posts.unarchive': { uri: 'admin\/posts\/{anypost}\/unarchive'; methods: ['POST']; parameters: ['anypost'] };
-            'api.v1.parking-areas.dashboard': { uri: 'api\/v1\/parking\/dashboard'; methods: ['GET', 'HEAD'] };
-            'api.v1.parking-areas.index': { uri: 'api\/v1\/parking-areas'; methods: ['GET', 'HEAD'] };
-            'api.v1.parking-areas.show': {
-                uri: 'api\/v1\/parking-areas\/{parkingArea}';
-                methods: ['GET', 'HEAD'];
-                parameters: ['parkingArea'];
-                bindings: { parkingArea: 'id' };
-            };
-            'parking-areas.index': { uri: 'parking-areas'; methods: ['GET', 'HEAD'] };
-            'parking-areas.show': {
-                uri: 'parking-areas\/{parkingArea}';
-                methods: ['GET', 'HEAD'];
-                parameters: ['parkingArea'];
-                bindings: { parkingArea: 'slug' };
-            };
-            'api.v1.rubbish.streets.pickups.index': {
-                uri: 'api\/v1\/rubbish\/streets\/{street}\/pickups';
-                methods: ['GET', 'HEAD'];
-                parameters: ['street'];
-                bindings: { street: 'id' };
-            };
-            'api.v1.rubbish.streets.index': { uri: 'api\/v1\/rubbish\/streets'; methods: ['GET', 'HEAD'] };
-            'api.v2.rubbish.streets.pickups.index': {
-                uri: 'api\/v2\/rubbish\/streets\/{street}\/pickups';
-                methods: ['GET', 'HEAD'];
-                parameters: ['street'];
-                bindings: { street: 'id' };
-            };
-            'api.v2.rubbish.streets.index': { uri: 'api\/v2\/rubbish\/streets'; methods: ['GET', 'HEAD'] };
-            'rubbish.index': { uri: 'abfallkalender'; methods: ['GET', 'HEAD'] };
-            'rubbish.show': { uri: 'abfallkalender\/{street}'; methods: ['GET', 'HEAD']; parameters: ['street']; bindings: { street: 'id' } };
-            'storage.local': { uri: 'storage\/{path}'; methods: ['GET', 'HEAD']; wheres: { path: '.*' }; parameters: ['path'] };
-            'storage.local.upload': { uri: 'storage\/{path}'; methods: ['PUT']; wheres: { path: '.*' }; parameters: ['path'] };
-        };
-        wildcards: {
-            'l5-swagger.*': [];
-            'l5-swagger.default.*': [];
-            'api.*': [];
-            'api.v1.*': [];
-            'api.v1.apple-maps.*': [];
-            'api.v1.apple-maps.annotation.*': [];
-            'api.v1.pages.*': [];
-            'api.v1.admin.*': [];
-            'api.v1.admin.page.*': [];
-            'api.v1.admin.page.blocks.*': [];
-            'api.v1.admin.page-blocks.*': [];
-            'admin.*': [];
-            'admin.pages.*': [];
-            'admin.pages.blocks.*': [];
-            'admin.blocks.*': [];
-            'admin.editor.*': [];
-            'admin.editor.menu.*': [];
-            'admin.page-blocks.*': [];
-            'admin.page-blocks.children.*': [];
-            'boost.*': [];
-            'horizon.*': [];
-            'horizon.stats.*': [];
-            'horizon.workload.*': [];
-            'horizon.masters.*': [];
-            'horizon.monitoring.*': [];
-            'horizon.monitoring-tag.*': [];
-            'horizon.jobs-metrics.*': [];
-            'horizon.queues-metrics.*': [];
-            'horizon.jobs-batches.*': [];
-            'horizon.pending-jobs.*': [];
-            'horizon.completed-jobs.*': [];
-            'horizon.silenced-jobs.*': [];
-            'horizon.failed-jobs.*': [];
-            'horizon.retry-jobs.*': [];
-            'horizon.jobs.*': [];
-            'passport.*': [];
-            'passport.authorizations.*': [];
-            'passport.token.*': [];
-            'passport.tokens.*': [];
-            'passport.clients.*': [];
-            'passport.scopes.*': [];
-            'passport.personal.*': [];
-            'passport.personal.tokens.*': [];
-            'sanctum.*': [];
-            'festival.*': [];
-            'festival.v1.*': [];
-            'festival.v1.events.*': [];
-            'festival.v1.event.*': [];
-            'festival.v1.event.page.*': [];
-            'festival.v1.locations.*': [];
-            'festival.v1.map.*': [];
-            'festival.v1.map.venues.*': [];
-            'festival.v1.pages.*': [];
-            'festival.v1.news.*': [];
-            'festival.v1.feeds.*': [];
-            'festival.v1.feeds.posts.*': [];
-            'festival.v1.posts.*': [];
-            'festival.v1.stream.*': [];
-            'festival.v1.update.*': [];
-            'festival.v1.update.app.*': [];
-            'v2.*': [];
-            'v2.tracker.*': [];
-            'apps.*': [];
-            'profile.*': [];
-            'password.*': [];
-            'verification.*': [];
-            'api.v1.events.*': [];
-            'events.*': [];
-            'events.place.*': [];
-            'events.venue.*': [];
-            'api.locations.*': [];
-            'locations.*': [];
-            'api.management.*': [];
-            'organisations.*': [];
-            'organisations.events.*': [];
-            'api.v1.api.*': [];
-            'api.v1.api.v1.*': [];
-            'api.v1.api.v1.radio-broadcasts.*': [];
-            'api.v1.feeds.*': [];
-            'api.v1.feeds.posts.*': [];
-            'api.v1.posts.*': [];
-            'news.*': [];
-            'posts.*': [];
-            'feeds.*': [];
-            'admin.posts.*': [];
-            'api.v1.parking-areas.*': [];
-            'parking-areas.*': [];
-            'api.v1.rubbish.*': [];
-            'api.v1.rubbish.streets.*': [];
-            'api.v1.rubbish.streets.pickups.*': [];
-            'api.v2.*': [];
-            'api.v2.rubbish.*': [];
-            'api.v2.rubbish.streets.*': [];
-            'api.v2.rubbish.streets.pickups.*': [];
-            'rubbish.*': [];
-            'storage.*': [];
-            'storage.local.*': [];
-        };
-    }
+/* This file is generated by Ziggy. */
+declare module 'ziggy-js' {
+  interface RouteList {
+    "l5-swagger.default.api": [],
+    "l5-swagger.default.docs": [],
+    "l5-swagger.default.asset": [
+        {
+            "name": "asset",
+            "required": true
+        }
+    ],
+    "l5-swagger.default.oauth2_callback": [],
+    "api.v1.apple-maps.token": [],
+    "api.v1.apple-maps.geocode": [],
+    "api.v1.apple-maps.annotation.preview": [],
+    "api.v1.pages.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "api.v1.admin.page.blocks.index": [
+        {
+            "name": "pageId",
+            "required": true
+        }
+    ],
+    "api.v1.admin.page-blocks.children": [
+        {
+            "name": "pageBlockId",
+            "required": true
+        }
+    ],
+    "admin.pages.blocks.store": [
+        {
+            "name": "anypage",
+            "required": true
+        }
+    ],
+    "admin.pages.blocks.order": [
+        {
+            "name": "anypage",
+            "required": true
+        }
+    ],
+    "admin.blocks.show": [
+        {
+            "name": "anyblock",
+            "required": true
+        }
+    ],
+    "admin.blocks.hide": [
+        {
+            "name": "anyblock",
+            "required": true
+        }
+    ],
+    "admin.blocks.publish": [
+        {
+            "name": "anyblock",
+            "required": true
+        }
+    ],
+    "admin.blocks.unpublish": [
+        {
+            "name": "anyblock",
+            "required": true
+        }
+    ],
+    "admin.blocks.expire": [
+        {
+            "name": "anyblock",
+            "required": true
+        }
+    ],
+    "admin.blocks.unexpire": [
+        {
+            "name": "anyblock",
+            "required": true
+        }
+    ],
+    "admin.blocks.delete": [
+        {
+            "name": "anyblock",
+            "required": true
+        }
+    ],
+    "admin.blocks.restore": [
+        {
+            "name": "anyblock",
+            "required": true
+        }
+    ],
+    "admin.pages.delete": [
+        {
+            "name": "anypage",
+            "required": true
+        }
+    ],
+    "admin.pages.restore": [
+        {
+            "name": "anypage",
+            "required": true
+        }
+    ],
+    "admin.pages.publish": [
+        {
+            "name": "anypage",
+            "required": true
+        }
+    ],
+    "admin.pages.unpublish": [
+        {
+            "name": "anypage",
+            "required": true
+        }
+    ],
+    "admin.pages.archive": [
+        {
+            "name": "anypage",
+            "required": true
+        }
+    ],
+    "admin.pages.unarchive": [
+        {
+            "name": "anypage",
+            "required": true
+        }
+    ],
+    "admin.editor.menu.index": [],
+    "admin.page-blocks.children.order": [
+        {
+            "name": "anypageblock",
+            "required": true
+        }
+    ],
+    "boost.browser-logs": [],
+    "horizon.stats.index": [],
+    "horizon.workload.index": [],
+    "horizon.masters.index": [],
+    "horizon.monitoring.index": [],
+    "horizon.monitoring.store": [],
+    "horizon.monitoring-tag.paginate": [
+        {
+            "name": "tag",
+            "required": true
+        }
+    ],
+    "horizon.monitoring-tag.destroy": [
+        {
+            "name": "tag",
+            "required": true
+        }
+    ],
+    "horizon.jobs-metrics.index": [],
+    "horizon.jobs-metrics.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "horizon.queues-metrics.index": [],
+    "horizon.queues-metrics.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "horizon.jobs-batches.index": [],
+    "horizon.jobs-batches.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "horizon.jobs-batches.retry": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "horizon.pending-jobs.index": [],
+    "horizon.completed-jobs.index": [],
+    "horizon.silenced-jobs.index": [],
+    "horizon.failed-jobs.index": [],
+    "horizon.failed-jobs.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "horizon.retry-jobs.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "horizon.jobs.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "horizon.index": [
+        {
+            "name": "view",
+            "required": false
+        }
+    ],
+    "passport.token": [],
+    "passport.authorizations.authorize": [],
+    "passport.token.refresh": [],
+    "passport.authorizations.approve": [],
+    "passport.authorizations.deny": [],
+    "passport.tokens.index": [],
+    "passport.tokens.destroy": [
+        {
+            "name": "token_id",
+            "required": true
+        }
+    ],
+    "passport.clients.index": [],
+    "passport.clients.store": [],
+    "passport.clients.update": [
+        {
+            "name": "client_id",
+            "required": true
+        }
+    ],
+    "passport.clients.destroy": [
+        {
+            "name": "client_id",
+            "required": true
+        }
+    ],
+    "passport.scopes.index": [],
+    "passport.personal.tokens.index": [],
+    "passport.personal.tokens.store": [],
+    "passport.personal.tokens.destroy": [
+        {
+            "name": "token_id",
+            "required": true
+        }
+    ],
+    "sanctum.csrf-cookie": [],
+    "festival.v1.events.index": [],
+    "festival.v1.events.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "festival.v1.content": [],
+    "festival.v1.event.page.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "festival.v1.locations.index": [],
+    "festival.v1.locations.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "festival.v1.map.venues.index": [],
+    "festival.v1.map.venues.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "festival.v1.pages.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "festival.v1.news.index": [],
+    "festival.v1.feeds.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "festival.v1.feeds.posts.index": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "festival.v1.posts.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "festival.v1.stream.index": [],
+    "festival.v1.update.app.ios": [],
+    "v2.tracker.index": [],
+    "home": [],
+    "apps.ios": [],
+    "apps.android": [],
+    "legal.privacy": [],
+    "legal.tac": [],
+    "legal.imprint": [],
+    "dashboard": [],
+    "profile.edit": [],
+    "profile.update": [],
+    "profile.destroy": [],
+    "password.edit": [],
+    "password.update": [],
+    "appearance": [],
+    "register": [],
+    "login": [],
+    "password.request": [],
+    "password.email": [],
+    "password.reset": [
+        {
+            "name": "token",
+            "required": true
+        }
+    ],
+    "password.store": [],
+    "verification.notice": [],
+    "verification.verify": [
+        {
+            "name": "id",
+            "required": true
+        },
+        {
+            "name": "hash",
+            "required": true
+        }
+    ],
+    "verification.send": [],
+    "password.confirm": [],
+    "logout": [],
+    "api.v1.events.index": [],
+    "api.v1.events.show": [
+        {
+            "name": "event",
+            "required": true
+        }
+    ],
+    "events.index": [],
+    "events.show": [
+        {
+            "name": "event",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "events.place.update": [
+        {
+            "name": "anyevent",
+            "required": true
+        }
+    ],
+    "events.edit": [
+        {
+            "name": "anyevent",
+            "required": true
+        }
+    ],
+    "events.venue.edit": [
+        {
+            "name": "anyevent",
+            "required": true
+        }
+    ],
+    "events.update": [
+        {
+            "name": "anyevent",
+            "required": true
+        }
+    ],
+    "events.store": [],
+    "events.archive": [
+        {
+            "name": "anyevent",
+            "required": true
+        }
+    ],
+    "events.unarchive": [
+        {
+            "name": "anyevent",
+            "required": true
+        }
+    ],
+    "events.publish": [
+        {
+            "name": "anyevent",
+            "required": true
+        }
+    ],
+    "events.unpublish": [
+        {
+            "name": "anyevent",
+            "required": true
+        }
+    ],
+    "api.locations.index": [],
+    "api.locations.show": [
+        {
+            "name": "location",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "locations.create": [],
+    "locations.store": [],
+    "locations.edit": [
+        {
+            "name": "location",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "locations.update": [
+        {
+            "name": "location",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "locations.destroy": [
+        {
+            "name": "location",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "api.management.index": [],
+    "api.management.store": [],
+    "api.management.show": [
+        {
+            "name": "management",
+            "required": true
+        }
+    ],
+    "api.management.update": [
+        {
+            "name": "management",
+            "required": true
+        }
+    ],
+    "api.management.destroy": [
+        {
+            "name": "management",
+            "required": true
+        }
+    ],
+    "organisations.create": [],
+    "organisations.store": [],
+    "organisations.show": [
+        {
+            "name": "organisation",
+            "required": true,
+            "binding": "slug"
+        }
+    ],
+    "organisations.edit": [
+        {
+            "name": "organisation",
+            "required": true,
+            "binding": "slug"
+        }
+    ],
+    "organisations.events.index": [
+        {
+            "name": "organisation",
+            "required": true,
+            "binding": "slug"
+        }
+    ],
+    "organisations.index": [],
+    "api.v1.api.v1.radio-broadcasts.index": [],
+    "api.v1.api.v1.radio-broadcasts.show": [
+        {
+            "name": "radioBroadcast",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "api.v1.feeds.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "api.v1.feeds.posts.index": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "api.v1.posts.show": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "news.index": [],
+    "news.show": [
+        {
+            "name": "anypost",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "posts.index": [],
+    "posts.create": [],
+    "posts.edit": [
+        {
+            "name": "anypost",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "posts.store": [],
+    "posts.update": [
+        {
+            "name": "anypost",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "posts.publish": [
+        {
+            "name": "anypost",
+            "required": true
+        }
+    ],
+    "posts.unpublish": [
+        {
+            "name": "anypost",
+            "required": true
+        }
+    ],
+    "posts.archive": [
+        {
+            "name": "anypost",
+            "required": true
+        }
+    ],
+    "posts.unarchive": [
+        {
+            "name": "anypost",
+            "required": true
+        }
+    ],
+    "feeds.index": [],
+    "feeds.create": [],
+    "feeds.store": [],
+    "feeds.edit": [
+        {
+            "name": "anyfeed",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "feeds.update": [
+        {
+            "name": "anyfeed",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "feeds.destroy": [
+        {
+            "name": "anyfeed",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "feeds.restore": [
+        {
+            "name": "anyfeed",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "admin.posts.store": [],
+    "admin.posts.publish": [
+        {
+            "name": "anypost",
+            "required": true
+        }
+    ],
+    "admin.posts.unpublish": [
+        {
+            "name": "anypost",
+            "required": true
+        }
+    ],
+    "admin.posts.archive": [
+        {
+            "name": "anypost",
+            "required": true
+        }
+    ],
+    "admin.posts.unarchive": [
+        {
+            "name": "anypost",
+            "required": true
+        }
+    ],
+    "api.v1.parking-areas.dashboard": [],
+    "api.v1.parking-areas.index": [],
+    "api.v1.parking-areas.show": [
+        {
+            "name": "parkingArea",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "parking-areas.index": [],
+    "parking-areas.show": [
+        {
+            "name": "parkingArea",
+            "required": true,
+            "binding": "slug"
+        }
+    ],
+    "api.v1.rubbish.streets.pickups.index": [
+        {
+            "name": "street",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "api.v1.rubbish.streets.index": [],
+    "api.v2.rubbish.streets.pickups.index": [
+        {
+            "name": "street",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "api.v2.rubbish.streets.index": [],
+    "rubbish.index": [],
+    "rubbish.show": [
+        {
+            "name": "street",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "storage.local": [
+        {
+            "name": "path",
+            "required": true
+        }
+    ],
+    "storage.local.upload": [
+        {
+            "name": "path",
+            "required": true
+        }
+    ]
 }
+}
+export {};
