@@ -18,6 +18,7 @@ it('renders Inertia-managed SEO head elements', function () {
         ->assertSee('data-inertia="description"', false)
         ->assertSee('data-inertia="og:title"', false)
         ->assertSee('data-inertia="twitter:card"', false)
+        ->assertDontSee('@trail')
         ->assertDontSee('<title inertia>', false);
 });
 
