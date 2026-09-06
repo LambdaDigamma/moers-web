@@ -62,7 +62,7 @@ services:
     networks:
       - development
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:13714/health"]
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:13714/health"]
       interval: 30s
       timeout: 10s
       retries: 3
