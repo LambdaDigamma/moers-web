@@ -9,6 +9,10 @@ Route::get('/', HomeController::class)->name('home');
 Route::redirect('/ios', 'https://apps.apple.com/de/app/mein-moers/id1305862555?mt=8')->name('apps.ios');
 Route::redirect('/android', 'https://play.google.com/store/apps/details?id=com.lambdadigamma.moers')->name('apps.android');
 
+Route::get('/legal/privacy', fn () => Inertia::render('legal/privacy'))->name('legal.privacy');
+Route::get('/legal/tac', fn () => Inertia::render('legal/terms'))->name('legal.tac');
+Route::redirect('/legal/imprint', 'https://inventas.io/impressum', 301)->name('legal.imprint');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');

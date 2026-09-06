@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/react';
 type SeoHeadProps = {
     title: string;
     description: string;
+    canonicalUrl?: string | null;
     imageUrl?: string | null;
     type?: 'article' | 'website';
 };
@@ -22,13 +23,20 @@ function getCurrentUrl(): string | null {
     return `${window.location.origin}${window.location.pathname}`;
 }
 
-export function SeoHead({ title, description, imageUrl, type = 'website' }: SeoHeadProps) {
+export function SeoHead({ title, description, canonicalUrl, imageUrl, type = 'website' }: SeoHeadProps) {
     const fullTitle = formatPageTitle(title);
     const normalizedDescription = normalizeDescription(description);
-    const currentUrl = getCurrentUrl();
+    const currentUrl = canonicalUrl ?? getCurrentUrl();
 
     return (
         <Head title={title}>
+            {currentUrl ? (
+                <link
+                    head-key="canonical"
+                    rel="canonical"
+                    href={currentUrl}
+                />
+            ) : null}
             <meta
                 head-key="description"
                 name="description"
