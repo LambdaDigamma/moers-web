@@ -1,184 +1,108 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { usePrimaryRubbishStreet } from '@/hooks/use-primary-rubbish-street';
+import { rubbishPickupMeta, useRubbishPickups } from '@/hooks/use-rubbish-pickups';
+import { dayDifference, formatDate, formatRelativeDay, formatShortDate } from '@/lib/date-format';
+import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-import { CalendarDays, ChevronRight, Home, MapPinned, Star } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { CalendarDays, ChevronRight, MapPinned } from 'lucide-react';
 
-type PickupItem = {
-    date: string;
-    type: 'organic' | 'paper' | 'residual' | 'plastic' | 'cuttings';
-};
-
-const pickupMeta: Record<PickupItem['type'], { label: string; tone: string }> = {
-    residual: {
-        label: 'Restmüll',
-        tone: 'bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-950',
-    },
-    organic: {
-        label: 'Biotonne',
-        tone: 'bg-accent-600 text-white',
-    },
-    paper: {
-        label: 'Papier',
-        tone: 'bg-accent-600 text-white',
-    },
-    plastic: {
-        label: 'Gelber Sack',
-        tone: 'bg-amber-300 text-zinc-950',
-    },
-    cuttings: {
-        label: 'Grünschnitt',
-        tone: 'bg-accent-600 text-white',
-    },
-};
-
-const formatDate = (value: string) =>
-    new Intl.DateTimeFormat('de-DE', {
-        weekday: 'short',
-        day: '2-digit',
-        month: '2-digit',
-    }).format(new Date(value));
-
-export function PrimaryRubbishStreetCard() {
+export function PrimaryRubbishStreetCard({ className }: { className?: string }) {
     const { primaryStreet, isLoaded } = usePrimaryRubbishStreet();
-    const [pickupItems, setPickupItems] = useState<PickupItem[]>([]);
-    const [isLoadingPickups, setIsLoadingPickups] = useState(false);
-
-    useEffect(() => {
-        if (!primaryStreet) {
-            setPickupItems([]);
-
-            return;
-        }
-
-        const abortController = new AbortController();
-
-        setIsLoadingPickups(true);
-
-        fetch(`/api/v1/rubbish/streets/${primaryStreet.id}/pickups`, {
-            signal: abortController.signal,
-            headers: {
-                Accept: 'application/json',
-            },
-        })
-            .then(async (response) => {
-                if (!response.ok) {
-                    throw new Error('Unable to load pickups');
-                }
-
-                const payload = (await response.json()) as { data?: PickupItem[] };
-
-                setPickupItems((payload.data ?? []).slice(0, 4));
-            })
-            .catch((error: unknown) => {
-                if (error instanceof DOMException && error.name === 'AbortError') {
-                    return;
-                }
-
-                setPickupItems([]);
-            })
-            .finally(() => {
-                if (!abortController.signal.aborted) {
-                    setIsLoadingPickups(false);
-                }
-            });
-
-        return () => abortController.abort();
-    }, [primaryStreet]);
+    const { pickups, isLoading } = useRubbishPickups(primaryStreet?.id ?? null);
+    const [nextPickup, ...laterPickups] = pickups;
 
     return (
-        <Card className="border-zinc-200 py-0 shadow-xs dark:border-white/10">
-            <CardHeader className="border-b border-zinc-100 py-4 dark:border-white/5">
-                <CardTitle className="flex items-center gap-2.5 text-lg font-bold">
-                    <Home className="size-4 text-accent-600" />
-                    Meine Straße
-                </CardTitle>
-                <CardDescription className="text-xs">Lokale Auswahl für deinen Abfallkalender</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-5 p-0 py-4">
-                {!isLoaded ? (
-                    <div className="px-5 py-4 text-xs text-zinc-500 dark:text-zinc-400">Lokale Auswahl wird geladen …</div>
-                ) : primaryStreet ? (
-                    <>
-                        <div className="px-5">
-                            <div className="flex items-center gap-1.5 text-xs font-medium tracking-wide text-accent-700 dark:text-accent-400">
-                                <Star className="size-3 fill-current" />
-                                Ausgewählt
-                            </div>
-                            <div className="mt-0.5 text-xl font-semibold tracking-tight text-zinc-950 dark:text-white">{primaryStreet.name}</div>
-                            {primaryStreet.street_addition && (
-                                <div className="text-xs text-zinc-500 dark:text-zinc-400">{primaryStreet.street_addition}</div>
-                            )}
-                        </div>
-
-                        <div className="space-y-2">
-                            <div className="flex items-center gap-2 px-5 text-xs font-medium tracking-wide text-zinc-400">
-                                <CalendarDays className="size-3.5 text-accent-600" />
-                                Nächste Termine
-                            </div>
-
-                            {isLoadingPickups ? (
-                                <div className="space-y-px divide-y divide-zinc-100 dark:divide-white/5">
-                                    {[0, 1, 2].map((index) => (
-                                        <div
-                                            key={index}
-                                            className="h-12 animate-pulse bg-zinc-50/50 dark:bg-white/5"
-                                        />
-                                    ))}
-                                </div>
-                            ) : pickupItems.length > 0 ? (
-                                <div className="divide-y divide-zinc-100 border-y border-zinc-100 dark:divide-white/5 dark:border-white/5">
-                                    {pickupItems.map((pickup, index) => (
-                                        <div
-                                            key={`${pickup.date}-${pickup.type}-${index}`}
-                                            className="flex items-center justify-between gap-3 px-5 py-2.5 transition-colors hover:bg-zinc-50/50 dark:hover:bg-white/5"
-                                        >
-                                            <div className="text-sm font-medium text-zinc-950 dark:text-white">{formatDate(pickup.date)}</div>
-                                            <div
-                                                className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${pickupMeta[pickup.type].tone}`}
-                                            >
-                                                {pickupMeta[pickup.type].label}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="px-5 py-4 text-xs text-zinc-500 dark:text-zinc-400">Keine kommenden Abholtermine gefunden.</div>
-                            )}
-                        </div>
-
-                        <div className="px-5">
+        <section className={cn('border-border bg-card text-card-foreground flex flex-col overflow-hidden rounded-xl border', className)}>
+            <header className="border-border flex items-center justify-between gap-4 border-b px-[22px] py-[18px]">
+                <div className="flex min-w-0 flex-col gap-0.5">
+                    <h3 className="font-display tracking-title text-lg leading-[22px] font-semibold">Meine Straße</h3>
+                    {primaryStreet ? (
+                        <p className="text-muted-foreground truncate text-[13px] leading-4">
+                            {primaryStreet.name}
+                            {primaryStreet.street_addition && ` (${primaryStreet.street_addition})`}
+                            {' · '}
                             <Link
-                                href={`/abfallkalender/${primaryStreet.id}`}
-                                className="inline-flex items-center gap-1 text-xs font-medium text-accent-600 transition hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300"
+                                href={route('rubbish.index')}
+                                className="hover:text-foreground underline-offset-4 hover:underline"
                             >
-                                Alle Termine ansehen
-                                <ChevronRight className="size-3.5" />
+                                ändern
                             </Link>
-                        </div>
-                    </>
-                ) : (
-                    <div className="px-5">
-                        <div className="flex items-start gap-3 rounded-2xl border border-dashed border-accent-200 bg-accent-50/30 p-4 dark:border-accent-500/20 dark:bg-accent-500/5">
-                            <MapPinned className="mt-0.5 size-4 shrink-0 text-accent-600" />
-                            <div className="min-w-0">
-                                <div className="text-sm font-bold text-zinc-950 dark:text-white">Keine Straße gewählt</div>
-                                <p className="mt-1 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
-                                    Wähle eine Straße aus, um Abholtermine zu sehen.
-                                </p>
-                            </div>
-                        </div>
-
-                        <Link
-                            href="/abfallkalender"
-                            className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-accent-600 transition hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300"
-                        >
-                            Straße auswählen
-                            <ChevronRight className="size-3.5" />
-                        </Link>
-                    </div>
+                        </p>
+                    ) : (
+                        <p className="text-muted-foreground text-[13px] leading-4">Lokale Auswahl für deinen Abfallkalender</p>
+                    )}
+                </div>
+                {primaryStreet && (
+                    <Link
+                        href={route('rubbish.show', [primaryStreet.id])}
+                        className="border-border text-foreground hover:bg-accent flex size-9 shrink-0 items-center justify-center rounded-md border transition-colors"
+                    >
+                        <CalendarDays
+                            className="size-[18px]"
+                            strokeWidth={1.75}
+                        />
+                        <span className="sr-only">Alle Abholtermine ansehen</span>
+                    </Link>
                 )}
-            </CardContent>
-        </Card>
+            </header>
+
+            {!isLoaded || isLoading ? (
+                <div className="divide-border divide-y">
+                    {[0, 1, 2].map((index) => (
+                        <div
+                            key={index}
+                            className="bg-muted/60 h-[47px] animate-pulse"
+                        />
+                    ))}
+                </div>
+            ) : !primaryStreet ? (
+                <div className="flex flex-col gap-4 p-[22px]">
+                    <div className="border-border bg-muted flex items-start gap-3 rounded-lg border border-dashed p-4">
+                        <MapPinned className="text-muted-foreground mt-0.5 size-4 shrink-0" />
+                        <div className="min-w-0">
+                            <p className="text-sm font-semibold">Keine Straße gewählt</p>
+                            <p className="text-muted-foreground mt-1 text-[13px] leading-relaxed">
+                                Wähle deine Straße, um die nächsten Abholtermine zu sehen.
+                            </p>
+                        </div>
+                    </div>
+                    <Link
+                        href={route('rubbish.index')}
+                        className="text-foreground inline-flex items-center gap-1 text-sm font-semibold"
+                    >
+                        Straße auswählen
+                        <ChevronRight className="size-4" />
+                    </Link>
+                </div>
+            ) : !nextPickup ? (
+                <p className="text-muted-foreground px-[22px] py-6 text-sm">Keine kommenden Abholtermine gefunden.</p>
+            ) : (
+                <ul className="divide-border divide-y">
+                    <li className="bg-muted flex items-center gap-3.5 px-[22px] py-[18px]">
+                        <span className={cn('size-2.5 shrink-0 rounded-full', rubbishPickupMeta[nextPickup.type].dotClassName)} />
+                        <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                            <span className="leading-5 font-semibold">{rubbishPickupMeta[nextPickup.type].label}</span>
+                            <span className="text-muted-foreground text-[13px] leading-4">
+                                {formatDate(nextPickup.date, { weekday: 'long', day: 'numeric', month: 'long' })}
+                            </span>
+                        </div>
+                        {dayDifference(nextPickup.date) <= 1 && (
+                            <span className="bg-accent-100 text-accent-800 dark:bg-accent-500/15 dark:text-accent-300 shrink-0 rounded-full px-2.5 py-1 text-xs leading-4 font-semibold">
+                                {formatRelativeDay(nextPickup.date)}
+                            </span>
+                        )}
+                    </li>
+                    {laterPickups.map((pickup, index) => (
+                        <li
+                            key={`${pickup.date}-${pickup.type}-${index}`}
+                            className="flex items-center gap-3.5 px-[22px] py-3.5"
+                        >
+                            <span className={cn('size-2.5 shrink-0 rounded-full', rubbishPickupMeta[pickup.type].dotClassName)} />
+                            <span className="flex-1 text-[15px] leading-[18px] font-medium">{rubbishPickupMeta[pickup.type].label}</span>
+                            <span className="text-muted-foreground text-sm leading-[18px] tabular-nums">{formatShortDate(pickup.date)}</span>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </section>
     );
 }

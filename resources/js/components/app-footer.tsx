@@ -1,40 +1,92 @@
+import AppLogo from '@/components/app-logo';
 import { Link } from '@inertiajs/react';
 
+type FooterLink = {
+    label: string;
+    href: string;
+    isExternal?: boolean;
+};
+
 const linkClassName =
-    'rounded-sm text-zinc-600 underline-offset-4 transition-colors hover:text-zinc-950 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-600 dark:text-zinc-400 dark:hover:text-white';
+    'rounded-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring';
+
+const getFooterColumns = (): { title: string; links: FooterLink[] }[] => [
+    {
+        title: 'Entdecken',
+        links: [
+            { label: 'Veranstaltungen', href: route('events.index') },
+            { label: 'Nachrichten', href: route('news.index') },
+            { label: 'Vereine & Organisationen', href: route('organisations.index') },
+        ],
+    },
+    {
+        title: 'Services',
+        links: [
+            { label: 'Abfallkalender', href: route('rubbish.index') },
+            { label: 'Parken', href: route('parking-areas.index') },
+        ],
+    },
+    {
+        title: 'Rechtliches',
+        links: [
+            { label: 'Impressum', href: 'https://inventas.io/impressum', isExternal: true },
+            { label: 'Datenschutz', href: route('legal.privacy') },
+            { label: 'Nutzungsbedingungen', href: route('legal.tac') },
+        ],
+    },
+];
 
 export function AppFooter() {
     return (
-        <footer className="border-t border-zinc-200 bg-white dark:border-white/10 dark:bg-zinc-950">
-            <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-zinc-500 dark:text-zinc-500">&copy; {new Date().getFullYear()} Inventas GmbH</p>
+        <footer className="border-border bg-background border-t">
+            <div className="max-w-page mx-auto flex w-full flex-col gap-10 px-4 pt-14 pb-10">
+                <div className="flex flex-col justify-between gap-10 md:flex-row">
+                    <div className="flex max-w-xs flex-col gap-3.5">
+                        <div className="flex items-center gap-2.5">
+                            <AppLogo />
+                        </div>
+                        <p className="text-muted-foreground text-sm leading-[22px]">Termine, Nachrichten und Services für die Grafenstadt Moers.</p>
+                    </div>
 
-                <nav
-                    aria-label="Rechtliche Hinweise"
-                    className="flex flex-wrap gap-x-5 gap-y-2"
-                >
-                    <Link
-                        href={route('legal.privacy')}
-                        className={linkClassName}
-                    >
-                        Datenschutz
-                    </Link>
-                    <Link
-                        href={route('legal.tac')}
-                        className={linkClassName}
-                    >
-                        Nutzungsbedingungen
-                    </Link>
-                    <a
-                        href="https://inventas.io/impressum"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={linkClassName}
-                    >
-                        Impressum
-                        <span className="sr-only"> (öffnet in einem neuen Tab)</span>
-                    </a>
-                </nav>
+                    <div className="flex flex-wrap gap-10 md:gap-20">
+                        {getFooterColumns().map((column) => (
+                            <nav
+                                key={column.title}
+                                aria-label={column.title}
+                                className="flex flex-col gap-3 text-sm leading-[18px]"
+                            >
+                                <span className="text-foreground font-semibold">{column.title}</span>
+                                {column.links.map((link) =>
+                                    link.isExternal ? (
+                                        <a
+                                            key={link.label}
+                                            href={link.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={linkClassName}
+                                        >
+                                            {link.label}
+                                            <span className="sr-only"> (öffnet in einem neuen Tab)</span>
+                                        </a>
+                                    ) : (
+                                        <Link
+                                            key={link.label}
+                                            href={link.href}
+                                            className={linkClassName}
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    ),
+                                )}
+                            </nav>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="border-border text-muted-foreground flex flex-col gap-2 border-t pt-6 text-[13px] leading-4 sm:flex-row sm:justify-between">
+                    <p>&copy; {new Date().getFullYear()} Inventas GmbH</p>
+                    <p>Gemacht in Moers</p>
+                </div>
             </div>
         </footer>
     );

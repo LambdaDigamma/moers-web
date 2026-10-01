@@ -29,13 +29,20 @@ const rightNavItems: NavItem[] = [
     // },
 ];
 
-const activeItemStyles = 'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
+const activeItemStyles = 'text-foreground';
+
+const heroNavItemStyles =
+    'bg-transparent text-[15px] font-medium text-hero-muted hover:bg-hero-surface hover:text-hero-foreground focus:bg-hero-surface focus:text-hero-foreground';
+
+export type AppHeaderVariant = 'default' | 'hero';
 
 interface AppHeaderProps {
     breadcrumbs?: BreadcrumbItem[];
+    variant?: AppHeaderVariant;
 }
 
-export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
+export function AppHeader({ breadcrumbs = [], variant = 'default' }: AppHeaderProps) {
+    const isHero = variant === 'hero';
     const page = usePage<SharedData>();
     const { auth } = page.props;
     const getInitials = useInitials();
@@ -57,7 +64,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                   icon: CircleParking,
               },
               {
-                  title: 'News',
+                  title: 'Nachrichten',
                   url: '/news',
                   icon: Newspaper,
               },
@@ -79,12 +86,17 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                   icon: Calendar,
               },
               {
+                  title: 'Abfallkalender',
+                  url: '/abfallkalender',
+                  icon: Trash2,
+              },
+              {
                   title: 'Parken',
                   url: '/parking-areas',
                   icon: CircleParking,
               },
               {
-                  title: 'News',
+                  title: 'Nachrichten',
                   url: '/news',
                   icon: Newspaper,
               },
@@ -93,19 +105,14 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                   url: '/organisations',
                   icon: Handshake,
               },
-              {
-                  title: 'Abfallkalender',
-                  url: '/abfallkalender',
-                  icon: Trash2,
-              },
           ];
 
     const homeUrl = auth.user ? '/dashboard' : '/';
 
     return (
         <>
-            <div className="border-sidebar-border/80 border-b">
-                <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
+            <div className={cn('border-b', isHero ? 'border-hero-divider text-hero-foreground absolute inset-x-0 top-0 z-20' : 'border-border')}>
+                <div className={cn('md:max-w-page mx-auto flex items-center px-4', isHero ? 'h-[72px]' : 'h-16')}>
                     {/* Mobile Menu */}
                     <div className="lg:hidden">
                         <Sheet>
@@ -113,7 +120,8 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="mr-2 h-[34px] w-[34px]"
+                                    aria-label="Navigationsmenü öffnen"
+                                    className={cn('mr-2 h-[34px] w-[34px]', isHero && 'hover:bg-hero-surface hover:text-hero-foreground')}
                                 >
                                     <Menu className="h-5 w-5" />
                                 </Button>
@@ -124,7 +132,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                             >
                                 <SheetTitle className="sr-only">Navigationsmenü</SheetTitle>
                                 <SheetHeader className="flex justify-start text-left">
-                                    <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
+                                    <AppLogoIcon className="text-foreground h-6 w-6 fill-current" />
                                 </SheetHeader>
                                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                     <div className="flex h-full flex-col justify-between text-sm">
@@ -147,7 +155,15 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         </div>
 
                                         <div className="flex flex-col space-y-4">
-                                            <div className="flex items-center justify-between rounded-lg border border-zinc-200 px-3 py-2 dark:border-white/10">
+                                            {!auth.user && (
+                                                <Button
+                                                    asChild
+                                                    variant="outline"
+                                                >
+                                                    <Link href={route('login')}>Anmelden</Link>
+                                                </Button>
+                                            )}
+                                            <div className="border-border flex items-center justify-between rounded-lg border px-3 py-2">
                                                 <span className="font-medium">Darstellung</span>
                                                 <AppearanceDropdown />
                                             </div>
@@ -184,7 +200,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
+                    <div className={cn('hidden h-full items-center space-x-6 lg:flex', isHero ? 'mx-auto' : 'ml-6')}>
                         <NavigationMenu className="flex h-full items-stretch">
                             <NavigationMenuList className="flex h-full items-stretch space-x-2">
                                 {mainNavItems.map((item, index) => {
@@ -197,19 +213,16 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         >
                                             <Link
                                                 href={item.url}
-                                                className={cn(navigationMenuTriggerStyle(), isActive && activeItemStyles, 'h-9 cursor-pointer px-3')}
-                                            >
-                                                {item.icon && (
-                                                    <Icon
-                                                        iconNode={item.icon}
-                                                        className="mr-2 h-4 w-4"
-                                                    />
+                                                className={cn(
+                                                    navigationMenuTriggerStyle(),
+                                                    isHero ? heroNavItemStyles : 'text-muted-foreground hover:text-foreground',
+                                                    isActive && (isHero ? 'text-hero-foreground' : activeItemStyles),
+                                                    'h-9 cursor-pointer px-3',
                                                 )}
+                                            >
                                                 {item.title}
                                             </Link>
-                                            {isActive && (
-                                                <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
-                                            )}
+                                            {isActive && <div className="bg-accent-500 absolute bottom-0 left-0 h-0.5 w-full translate-y-px"></div>}
                                         </NavigationMenuItem>
                                     );
                                 })}
@@ -217,9 +230,9 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         </NavigationMenu>
                     </div>
 
-                    <div className="ml-auto flex items-center space-x-2">
+                    <div className={cn('flex items-center space-x-2', isHero ? 'ml-auto lg:ml-0' : 'ml-auto')}>
                         <div className="relative flex items-center space-x-1">
-                            <AppearanceDropdown />
+                            <AppearanceDropdown className={cn('hidden lg:inline-flex', isHero && 'lg:hidden')} />
                             <div className="hidden lg:flex">
                                 {rightNavItems.map((item) => (
                                     <TooltipProvider
@@ -280,13 +293,23 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                             <div className="flex items-center gap-2">
                                 <Link
                                     href={route('login')}
-                                    className="inline-flex h-9 items-center rounded-md px-3 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 hover:text-zinc-950"
+                                    className={cn(
+                                        'hidden items-center rounded-md font-medium transition sm:inline-flex',
+                                        isHero
+                                            ? cn(heroNavItemStyles, 'h-[38px] px-3.5')
+                                            : 'text-muted-foreground hover:bg-accent hover:text-foreground h-9 px-3 text-sm',
+                                    )}
                                 >
-                                    Login
+                                    Anmelden
                                 </Link>
                                 <Link
                                     href={route('register')}
-                                    className="inline-flex h-9 items-center rounded-md bg-zinc-950 px-3 text-sm font-medium text-white transition hover:bg-zinc-800"
+                                    className={cn(
+                                        'inline-flex items-center rounded-lg font-semibold transition',
+                                        isHero
+                                            ? 'bg-hero-foreground text-graphit-900 hover:bg-hero-foreground/90 h-[38px] px-4 text-[15px]'
+                                            : 'bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3.5 text-sm',
+                                    )}
                                 >
                                     Registrieren
                                 </Link>
@@ -296,8 +319,8 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                 </div>
             </div>
             {breadcrumbs.length > 1 && (
-                <div className="border-sidebar-border/70 flex w-full border-b">
-                    <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
+                <div className="border-border flex w-full border-b">
+                    <div className="text-muted-foreground md:max-w-page mx-auto flex h-12 w-full items-center justify-start px-4">
                         <Breadcrumbs breadcrumbs={breadcrumbs} />
                     </div>
                 </div>

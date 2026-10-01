@@ -8,6 +8,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Appearance, useAppearance } from '@/hooks/use-appearance';
+import { cn } from '@/lib/utils';
 import { Laptop, Moon, SunMedium } from 'lucide-react';
 
 const appearanceOptions: { value: Appearance; label: string }[] = [
@@ -16,7 +17,7 @@ const appearanceOptions: { value: Appearance; label: string }[] = [
     { value: 'system', label: 'Automatisch' },
 ];
 
-export function AppearanceDropdown() {
+export function AppearanceDropdown({ className }: { className?: string }) {
     const { appearance, updateAppearance } = useAppearance();
 
     return (
@@ -25,7 +26,7 @@ export function AppearanceDropdown() {
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="group h-9 w-9"
+                    className={cn('group h-9 w-9', className)}
                 >
                     {appearance === 'light' ? (
                         <SunMedium className="size-4 opacity-80 group-hover:opacity-100" />
