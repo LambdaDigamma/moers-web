@@ -7,7 +7,83 @@ use Modules\Locations\Models\Location;
 use Modules\Management\Models\Organisation;
 
 use function Pest\Laravel\get;
+use function Pest\Laravel\getJson;
 use function Pest\Laravel\travelTo;
+
+it('shows and filters events stored under the other supported locale', function (string $locale, string $storedLocale) {
+    app()->setLocale($locale);
+    config(['app.fallback_locale' => $locale]);
+
+    $event = Event::factory()->published()->create([
+        'name' => [$storedLocale => 'Jazznacht'],
+        'description' => [$storedLocale => 'Live in der Innenstadt'],
+        'category' => [$storedLocale => 'Konzert'],
+        'start_date' => now()->addDay(),
+    ]);
+
+    get('/events')
+        ->assertSuccessful()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('events/index')
+            ->has('events.data', 1)
+            ->where('events.data.0.name', 'Jazznacht')
+            ->where('events.data.0.description', 'Live in der Innenstadt')
+            ->where('events.data.0.category', 'Konzert')
+            ->where('availableFilters.categories.0', 'Konzert'));
+
+    get('/events?search=Jazz&type=upcoming&category=Konzert')
+        ->assertSuccessful()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('events/index')
+            ->has('events.data', 1)
+            ->where('events.data.0.name', 'Jazznacht'));
+
+    get("/events/{$event->id}")
+        ->assertSuccessful()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('events/show-event')
+            ->where('event.name', 'Jazznacht')
+            ->where('event.description', 'Live in der Innenstadt')
+            ->where('event.category', 'Konzert'));
+
+    getJson('/api/v1/events')
+        ->assertSuccessful()
+        ->assertJsonPath('data.0.name', 'Jazznacht');
+
+    getJson("/api/v1/events/{$event->id}")
+        ->assertSuccessful()
+        ->assertJsonPath('name', 'Jazznacht');
+
+    expect($event->fresh()->getTranslations('name'))->toBe([$storedLocale => 'Jazznacht']);
+})->with([
+    'legacy English keys on German pages' => ['de', 'en'],
+    'German keys on English pages' => ['en', 'de'],
+]);
+
+it('prefers the event title in the current locale', function (string $locale, string $expectedName) {
+    app()->setLocale($locale);
+    config(['app.fallback_locale' => $locale]);
+
+    $event = Event::factory()->published()->create([
+        'name' => ['de' => 'Jazznacht', 'en' => 'Jazz night'],
+        'start_date' => now()->addDay(),
+    ]);
+
+    get('/events')
+        ->assertSuccessful()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('events/index')
+            ->where('events.data.0.name', $expectedName));
+
+    get("/events/{$event->id}")
+        ->assertSuccessful()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('events/show-event')
+            ->where('event.name', $expectedName));
+})->with([
+    'German title' => ['de', 'Jazznacht'],
+    'English title' => ['en', 'Jazz night'],
+]);
 
 it('shows filtered public events with available filter options', function () {
     travelTo(Carbon::parse('2026-03-08 10:00:00'));

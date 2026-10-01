@@ -70,6 +70,18 @@ class Event extends Model implements HasMedia
 
     public const string ATTENDANCE_ONLINE = 'online';
 
+    /**
+     * Older German imports use English translation keys.
+     */
+    public function getFallbackLocale(): string
+    {
+        return match ($this->getLocale()) {
+            'de' => 'en',
+            'en' => 'de',
+            default => config('app.fallback_locale', 'de'),
+        };
+    }
+
     public function getIsMultiDayAttribute(): bool
     {
         if (! $this->start_date || ! $this->end_date) {
@@ -464,7 +476,7 @@ class Event extends Model implements HasMedia
     public function scopeFilter(Builder $query, array $filters): Builder
     {
         $locale = app()->getLocale();
-        $fallback = config('app.fallback_locale', 'en');
+        $fallback = $this->getFallbackLocale();
 
         return $query
             ->when($filters['search'] ?? null, function ($query, $search) use ($locale, $fallback) {
