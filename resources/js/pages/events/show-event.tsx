@@ -1,10 +1,10 @@
 import { AutoDateRange } from '@/components/auto-timerange';
 import { DefaultContainer } from '@/components/default-container';
+import { SeoHead } from '@/components/seo-head';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Heading } from '@/components/ui/heading';
-import { SeoHead } from '@/components/seo-head';
 import AppLayout from '@/layouts/app-layout';
 import { formatCollectionLabel, getEventAddressLabel, getEventLocationLabel, getEventMapsUrl, getEventPrimaryLabel } from '@/lib/events';
 import { EventRow } from '@/pages/events/event-row';
@@ -34,7 +34,6 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
         event.organizerEmail ||
         event.organizerWebsite,
     );
-    const hasPlanningSidebar = Boolean(addressLabel || mapsUrl || hasOrganizerDetails || event.isOnline);
     const hasVisibleDate = event.showsDateComponent && event.startDate;
     const scheduleSummary = hasVisibleDate ? (
         <AutoDateRange
@@ -43,7 +42,9 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
             showTime={event.showsTimeComponent}
             isMultiDay={event.isMultiDay}
         />
-    ) : 'Termin offen';
+    ) : (
+        'Termin offen'
+    );
     const scheduleLabel = event.showsDateComponent ? (event.showsTimeComponent ? 'Beginn' : 'Datum') : 'Termin';
 
     return (
@@ -55,9 +56,9 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                 type="article"
             />
 
-            <div className="min-h-screen bg-white dark:bg-zinc-950">
+            <div className="bg-background min-h-screen">
                 {/* Header Section */}
-                <header className="border-b border-zinc-200 bg-zinc-50 py-12 dark:border-white/5 dark:bg-zinc-900/50">
+                <header className="border-border bg-background border-b py-12 md:py-16">
                     <DefaultContainer>
                         <div className="mb-8 flex">
                             <Button
@@ -76,11 +77,11 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                         <div className="grid gap-12 lg:grid-cols-[1fr_400px]">
                             <div className="flex flex-col justify-center space-y-6">
                                 <div className="flex flex-wrap gap-2">
-                                    {primaryLabel ? <Badge className="bg-accent-600 text-white shadow-none">{primaryLabel}</Badge> : null}
+                                    {primaryLabel ? <Badge variant="secondary">{primaryLabel}</Badge> : null}
                                     {collectionLabel && collectionLabel !== primaryLabel ? (
                                         <Badge
                                             variant="secondary"
-                                            className="bg-zinc-200 text-zinc-700 dark:bg-white/10 dark:text-zinc-300"
+                                            className="bg-secondary text-secondary-foreground"
                                         >
                                             {collectionLabel}
                                         </Badge>
@@ -91,41 +92,37 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                     {event.parentEvent && (
                                         <Link
                                             href={route('events.show', [event.parentEvent.id])}
-                                            className="inline-flex items-center gap-1 text-sm font-semibold text-accent-600 hover:text-accent-500"
+                                            className="text-accent-600 hover:text-accent-500 inline-flex items-center gap-1 text-sm font-semibold"
                                         >
                                             <ChevronLeft className="size-3" />
                                             Teil von: {event.parentEvent.name}
                                         </Link>
                                     )}
-                                    <Heading className="text-4xl font-bold tracking-tight text-zinc-950 sm:text-5xl lg:text-6xl dark:text-white">
+                                    <h1 className="font-display tracking-display text-4xl leading-tight font-semibold sm:text-5xl lg:text-[56px]">
                                         {event.name}
-                                    </Heading>
-                                    {event.subtitle ? (
-                                        <p className="text-lg font-medium text-accent-600 sm:text-xl dark:text-accent-400">{event.subtitle}</p>
-                                    ) : null}
+                                    </h1>
+                                    {event.subtitle ? <p className="text-muted-foreground text-lg leading-7 sm:text-xl">{event.subtitle}</p> : null}
                                 </div>
 
                                 {/* Sneak Peek Info */}
                                 <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
                                     <div className="flex items-center gap-2.5">
                                         <div className="flex size-10 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-zinc-200 dark:bg-white/5 dark:ring-white/10">
-                                            <CalendarDays className="size-5 text-zinc-500 dark:text-zinc-400" />
+                                            <CalendarDays className="text-muted-foreground size-5" />
                                         </div>
                                         <div>
-                                            <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">Datum</p>
-                                            <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                                                {scheduleSummary}
-                                            </div>
+                                            <p className="text-muted-foreground text-xs font-medium">Datum</p>
+                                            <div className="text-foreground text-sm font-semibold">{scheduleSummary}</div>
                                         </div>
                                     </div>
 
                                     <div className="flex items-center gap-2.5">
                                         <div className="flex size-10 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-zinc-200 dark:bg-white/5 dark:ring-white/10">
-                                            <MapPin className="size-5 text-zinc-500 dark:text-zinc-400" />
+                                            <MapPin className="text-muted-foreground size-5" />
                                         </div>
                                         <div>
-                                            <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">Ort</p>
-                                            <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                                            <p className="text-muted-foreground text-xs font-medium">Ort</p>
+                                            <p className="text-foreground text-sm font-semibold">
                                                 {locationLabel ?? (event.isOnline ? 'Online' : 'Moers')}
                                             </p>
                                         </div>
@@ -140,7 +137,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                             </div>
 
                             {event.headerImageUrl ? (
-                                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-zinc-200 shadow-2xl dark:bg-white/5">
+                                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-zinc-200 shadow-none dark:bg-white/5">
                                     <img
                                         src={event.headerImageUrl}
                                         alt={event.name}
@@ -157,15 +154,20 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                         {/* Main Content */}
                         <div className="space-y-12">
                             {leadText ? (
-                                <div className="border-l-4 border-accent-500 pl-6">
-                                    <p className="text-xl leading-relaxed font-medium text-zinc-800 italic dark:text-zinc-200">{leadText}</p>
+                                <div>
+                                    <p className="text-foreground text-xl leading-8">{leadText}</p>
                                 </div>
                             ) : null}
 
                             <section className="space-y-6">
-                                <Heading className="text-2xl font-bold text-zinc-950 dark:text-white">Über die Veranstaltung</Heading>
+                                <Heading
+                                    level={2}
+                                    className="text-foreground text-2xl font-semibold"
+                                >
+                                    Über die Veranstaltung
+                                </Heading>
                                 <div className="prose prose-zinc dark:prose-invert max-w-none">
-                                    <p className="text-lg leading-8 whitespace-pre-line text-zinc-700 dark:text-zinc-300">
+                                    <p className="text-muted-foreground text-lg leading-8 whitespace-pre-line">
                                         {description ?? 'Zu dieser Veranstaltung liegt derzeit noch keine ausführliche Beschreibung vor.'}
                                     </p>
                                 </div>
@@ -173,7 +175,12 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
 
                             {event.artists.length > 0 ? (
                                 <section className="space-y-6 border-t border-zinc-100 pt-6 dark:border-white/5">
-                                    <Heading className="text-xl font-bold text-zinc-950 dark:text-white">Mitwirkende</Heading>
+                                    <Heading
+                                        level={2}
+                                        className="text-foreground text-xl font-semibold"
+                                    >
+                                        Mitwirkende
+                                    </Heading>
                                     <div className="flex flex-wrap gap-2">
                                         {event.artists.map((artist) => (
                                             <Badge
@@ -191,7 +198,12 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                             {event.subEvents && event.subEvents.length > 0 && (
                                 <section className="space-y-6 border-t border-zinc-100 pt-12 dark:border-white/5">
                                     <div className="flex items-center justify-between">
-                                        <Heading className="text-2xl font-bold text-zinc-950 dark:text-white">Programm / Einzeltermine</Heading>
+                                        <Heading
+                                            level={2}
+                                            className="text-foreground text-2xl font-semibold"
+                                        >
+                                            Programm / Einzeltermine
+                                        </Heading>
                                         <Badge
                                             variant="secondary"
                                             className="rounded-full"
@@ -214,9 +226,9 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
 
                         {/* Sidebar */}
                         <aside className="space-y-8">
-                            <Card className="rounded-3xl border-zinc-200 bg-zinc-50/50 p-2 shadow-sm dark:border-white/5 dark:bg-zinc-900/50">
+                            <Card className="border-border bg-card gap-4 rounded-xl shadow-none">
                                 <CardHeader className="px-6 pt-6 pb-2">
-                                    <CardTitle className="text-sm font-semibold text-zinc-950 dark:text-white">Informationen</CardTitle>
+                                    <CardTitle className="text-foreground text-sm font-semibold">Informationen</CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-6 px-6 pt-2 pb-6">
                                     <div className="space-y-5">
@@ -229,7 +241,12 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                             <DetailItem
                                                 icon={<CalendarDays className="size-4" />}
                                                 label="Voraussichtliches Ende"
-                                                value={<AutoDateRange start={event.endDate} end={event.endDate} />}
+                                                value={
+                                                    <AutoDateRange
+                                                        start={event.endDate}
+                                                        end={event.endDate}
+                                                    />
+                                                }
                                             />
                                         ) : null}
                                         <DetailItem
@@ -243,7 +260,7 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                         {event.calendarUrl ? (
                                             <Button
                                                 asChild
-                                                className="w-full justify-start rounded-xl bg-zinc-950 text-white hover:bg-zinc-800 dark:bg-accent-600 dark:hover:bg-accent-700"
+                                                className="w-full justify-start rounded-xl"
                                             >
                                                 <a
                                                     href={event.calendarUrl}
@@ -293,9 +310,9 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                             </Card>
 
                             {hasOrganizerDetails ? (
-                                <Card className="rounded-3xl border-zinc-200 bg-zinc-50/50 p-2 shadow-sm dark:border-white/5 dark:bg-zinc-900/50">
+                                <Card className="border-border bg-card gap-4 rounded-xl shadow-none">
                                     <CardHeader className="px-6 pt-6 pb-2">
-                                        <CardTitle className="text-sm font-semibold text-zinc-950 dark:text-white">Veranstalter</CardTitle>
+                                        <CardTitle className="text-foreground text-sm font-semibold">Veranstalter</CardTitle>
                                     </CardHeader>{' '}
                                     <CardContent className="space-y-6 px-6 pt-2 pb-6">
                                         <div className="flex items-center gap-4">
@@ -312,13 +329,11 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
                                             )}
 
                                             <div className="min-w-0 flex-1">
-                                                <p className="truncate font-bold text-zinc-950 dark:text-white">
-                                                    {event.organisationName ?? 'Organisation'}
-                                                </p>
+                                                <p className="text-foreground truncate font-semibold">{event.organisationName ?? 'Organisation'}</p>
                                                 {event.organisationSlug ? (
                                                     <Link
                                                         href={route('organisations.show', [event.organisationSlug])}
-                                                        className="mt-0.5 inline-flex items-center text-xs font-semibold text-accent-600 hover:text-accent-500"
+                                                        className="text-accent-600 hover:text-accent-500 mt-0.5 inline-flex items-center text-xs font-semibold"
                                                     >
                                                         Profil anzeigen
                                                         <ArrowUpRight className="ml-1 size-3" />
@@ -378,11 +393,11 @@ const ShowEvent = ({ event, backUrl }: { event: Event; backUrl: string }) => {
 function DetailItem({ icon, label, value }: { icon: ReactNode; label: string; value: ReactNode }) {
     return (
         <div className="space-y-1">
-            <div className="flex items-center gap-2 text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                <span className="text-zinc-400 dark:text-zinc-500">{icon}</span>
+            <div className="text-muted-foreground flex items-center gap-2 text-xs font-medium">
+                <span className="text-muted-foreground">{icon}</span>
                 <span>{label}</span>
             </div>
-            <div className="text-sm leading-relaxed font-medium text-zinc-950 dark:text-zinc-200">{value}</div>
+            <div className="text-foreground text-sm leading-relaxed font-medium">{value}</div>
         </div>
     );
 }

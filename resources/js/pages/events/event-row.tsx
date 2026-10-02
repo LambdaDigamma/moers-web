@@ -1,122 +1,70 @@
 import { AutoDateRange } from '@/components/auto-timerange';
+import { DateChip } from '@/components/date-chip';
 import { Badge } from '@/components/ui/badge';
-import { buildEventHref, getEventDateBadge, getEventLocationLabel, getEventPrimaryLabel } from '@/lib/events';
+import { dayDifference } from '@/lib/date-format';
+import { buildEventHref, getEventLocationLabel, getEventPrimaryLabel } from '@/lib/events';
 import { Link } from '@inertiajs/react';
-import { CalendarDays, Globe, MapPin, UserRound } from 'lucide-react';
+import { ChevronRight, Globe, MapPin } from 'lucide-react';
 import React from 'react';
 import Event = Modules.Events.Data.Event;
 
 export const EventRow: React.FC<{ event: Event; currentUrl?: string; showParent?: boolean }> = ({ event, currentUrl, showParent = true }) => {
-    const dateBadge = getEventDateBadge(event);
     const locationLabel = getEventLocationLabel(event);
     const primaryLabel = getEventPrimaryLabel(event);
-
     return (
-        <article className="group relative overflow-hidden rounded-3xl border border-zinc-200/80 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg dark:border-white/10 dark:bg-zinc-900">
-            <div className="absolute inset-0 bg-linear-to-br from-amber-500/0 via-transparent to-cyan-500/0 opacity-0 transition group-hover:from-amber-500/6 group-hover:to-cyan-500/6 group-hover:opacity-100" />
-            <div className="relative flex flex-col gap-4 md:flex-row md:items-start">
-                <div className="flex flex-1 gap-4">
-                    <div className="flex shrink-0 items-start">
-                        <div className="min-w-18 rounded-2xl border border-zinc-200 bg-zinc-50 px-3 py-3 text-center dark:border-white/10 dark:bg-white/5">
-                            {dateBadge ? (
-                                <>
-                                    <p className="text-[11px] font-medium tracking-[0.18em] text-zinc-500 uppercase dark:text-zinc-400">
-                                        {dateBadge.weekday}
-                                    </p>
-                                    <p className="mt-1 text-3xl font-semibold text-zinc-950 dark:text-white">{dateBadge.day}</p>
-                                    <p className="text-xs font-medium tracking-[0.16em] text-zinc-500 uppercase dark:text-zinc-400">
-                                        {dateBadge.month}
-                                    </p>
-                                </>
-                            ) : (
-                                <div className="flex min-h-20 items-center justify-center text-xs font-medium tracking-[0.18em] text-zinc-500 uppercase dark:text-zinc-400">
-                                    Termin
-                                    <br />
-                                    offen
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="min-w-0 flex-1 space-y-3">
-                        <div className="flex flex-wrap gap-2">
-                            {showParent && event.parentEvent && (
-                                <Badge
-                                    variant="outline"
-                                    className="border-accent-500/20 bg-accent-500/10 text-accent-700 dark:text-accent-400"
-                                >
-                                    Teil von {event.parentEvent.name}
-                                </Badge>
-                            )}
-                            {primaryLabel ? <Badge variant="secondary">{primaryLabel}</Badge> : null}
-                            {event.organisationName ? <Badge variant="outline">{event.organisationName}</Badge> : null}
-                            {event.isOnline ? <Badge variant="outline">Online</Badge> : null}
-                        </div>
-
-                        <div className="space-y-2">
-                            <h3 className="text-lg font-semibold text-zinc-950 dark:text-white">{event.name}</h3>
-                            <p className="line-clamp-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
-                                {event.excerpt ?? 'Weitere Informationen folgen.'}
-                            </p>
-                        </div>
-
-                        <div className="grid gap-2 text-sm text-zinc-600 sm:grid-cols-2 dark:text-zinc-300">
-                            <div className="flex items-start gap-2">
-                                <CalendarDays className="mt-0.5 size-4 shrink-0 text-zinc-400" />
-                                <span>
-                                    {event.showsDateComponent && event.startDate ? (
-                                        <AutoDateRange
-                                            start={event.startDate}
-                                            end={event.endDate}
-                                            showTime={event.showsTimeComponent}
-                                            isMultiDay={event.isMultiDay}
-                                        />
-                                    ) : (
-                                        'Termin wird noch bekanntgegeben'
-                                    )}
-                                </span>
-                            </div>
-
-                            {locationLabel ? (
-                                <div className="flex items-start gap-2">
-                                    <MapPin className="mt-0.5 size-4 shrink-0 text-zinc-400" />
-                                    <span>{locationLabel}</span>
-                                </div>
-                            ) : null}
-
-                            {event.organisationName ? (
-                                <div className="flex items-start gap-2">
-                                    <UserRound className="mt-0.5 size-4 shrink-0 text-zinc-400" />
-                                    <span>{event.organisationName}</span>
-                                </div>
-                            ) : null}
-
-                            {event.isOnline ? (
-                                <div className="flex items-start gap-2">
-                                    <Globe className="mt-0.5 size-4 shrink-0 text-zinc-400" />
-                                    <span>Online verfügbar</span>
-                                </div>
-                            ) : null}
-                        </div>
-                    </div>
-                </div>
-
-                {event.headerImageUrl ? (
-                    <div className="overflow-hidden rounded-2xl border border-zinc-200/80 bg-zinc-100 md:w-44 dark:border-white/10 dark:bg-white/5">
-                        <img
-                            src={event.headerImageUrl}
-                            alt={event.name}
-                            className="aspect-[4/3] h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                        />
-                    </div>
-                ) : null}
-            </div>
-
+        <article>
             <Link
                 href={buildEventHref(event.id, currentUrl)}
-                className="absolute inset-0"
+                className="group hover:bg-muted focus-visible:outline-ring flex items-start gap-4 px-4 py-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] sm:gap-5 sm:px-6"
             >
-                <span className="sr-only">Details zu {event.name}</span>
+                <DateChip
+                    date={event.showsDateComponent ? event.startDate : null}
+                    isHighlighted={event.startDate !== null && dayDifference(event.startDate) === 0}
+                />
+                <div className="flex min-w-0 flex-1 flex-col gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="font-display tracking-title text-lg leading-snug font-semibold group-hover:underline">{event.name}</h3>
+                        {primaryLabel && <Badge variant="secondary">{primaryLabel}</Badge>}
+                    </div>
+                    {showParent && event.parentEvent && <p className="text-muted-foreground text-xs">Teil von {event.parentEvent.name}</p>}
+                    {event.excerpt && <p className="text-muted-foreground line-clamp-2 text-sm leading-6">{event.excerpt}</p>}
+                    <div className="text-muted-foreground flex flex-wrap gap-x-4 gap-y-1 text-sm leading-5">
+                        <span>
+                            {event.showsDateComponent && event.startDate ? (
+                                <AutoDateRange
+                                    start={event.startDate}
+                                    end={event.endDate}
+                                    showTime={event.showsTimeComponent}
+                                    isMultiDay={event.isMultiDay}
+                                />
+                            ) : (
+                                'Termin wird noch bekanntgegeben'
+                            )}
+                        </span>
+                        {locationLabel && (
+                            <span className="flex items-center gap-1.5">
+                                <MapPin className="size-3.5 shrink-0" />
+                                {locationLabel}
+                            </span>
+                        )}
+                        {event.organisationName && <span>{event.organisationName}</span>}
+                        {event.isOnline && (
+                            <span className="flex items-center gap-1.5">
+                                <Globe className="size-3.5" />
+                                Online verfügbar
+                            </span>
+                        )}
+                    </div>
+                </div>
+                {event.headerImageUrl && (
+                    <img
+                        src={event.headerImageUrl}
+                        alt=""
+                        loading="lazy"
+                        className="hidden h-24 w-32 shrink-0 rounded-lg object-cover lg:block"
+                    />
+                )}
+                <ChevronRight className="text-muted-foreground mt-4 size-[18px] shrink-0 transition-transform group-hover:translate-x-0.5" />
             </Link>
         </article>
     );

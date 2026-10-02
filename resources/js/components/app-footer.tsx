@@ -1,4 +1,5 @@
 import AppLogo from '@/components/app-logo';
+import { DefaultContainer } from '@/components/default-container';
 import { Link } from '@inertiajs/react';
 
 type FooterLink = {
@@ -39,7 +40,7 @@ const getFooterColumns = (): { title: string; links: FooterLink[] }[] => [
 export function AppFooter() {
     return (
         <footer className="border-border bg-background border-t">
-            <div className="max-w-page mx-auto flex w-full flex-col gap-10 px-4 pt-14 pb-10">
+            <DefaultContainer className="flex flex-col gap-10 pt-14 pb-10">
                 <div className="flex flex-col justify-between gap-10 md:flex-row">
                     <div className="flex max-w-xs flex-col gap-3.5">
                         <div className="flex items-center gap-2.5">
@@ -87,7 +88,7 @@ export function AppFooter() {
                     <p>&copy; {new Date().getFullYear()} Inventas GmbH</p>
                     <p>Gemacht in Moers</p>
                 </div>
-            </div>
+            </DefaultContainer>
         </footer>
     );
 }

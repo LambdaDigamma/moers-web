@@ -141,7 +141,7 @@ export function RubbishStreetSearch({
     };
 
     return (
-        <div className={cn('sticky top-4 z-30', className)}>
+        <div className={cn('relative', className)}>
             <div className="mx-auto w-full">
                 <Combobox
                     value={selectedStreet}
@@ -163,7 +163,7 @@ export function RubbishStreetSearch({
                                     onSubmit={handleSubmit}
                                     onFocus={handleFocus}
                                     onBlur={handleBlur}
-                                    className="rounded-[2rem] border border-zinc-200/80 bg-white/95 p-2 shadow-lg ring-1 shadow-zinc-950/8 ring-black/5 backdrop-blur dark:border-white/10 dark:bg-zinc-950/90 dark:ring-white/10"
+                                    className="border-border bg-card focus-within:ring-ring/50 rounded-xl border p-2 focus-within:ring-2"
                                 >
                                     <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
                                         <InputGroup className="w-full">
@@ -191,7 +191,7 @@ export function RubbishStreetSearch({
                                                 }}
                                                 placeholder="Straße suchen"
                                                 aria-label="Straße suchen"
-                                                className="block w-full rounded-[1.3rem] border-0 bg-transparent py-3 pr-12 pl-11 text-base text-zinc-950 ring-0 outline-hidden dark:text-white"
+                                                className="text-foreground block w-full rounded-lg border-0 bg-transparent py-3 pr-12 pl-11 text-base outline-hidden"
                                             />
                                             {query !== '' ? (
                                                 <button
@@ -214,7 +214,7 @@ export function RubbishStreetSearch({
                                             type="submit"
                                             size="sm"
                                             variant="outline"
-                                            className="h-12 rounded-full border-zinc-200 bg-white px-4 text-zinc-700 shadow-none hover:bg-zinc-50 dark:border-white/10 dark:bg-white/5 dark:text-zinc-200 dark:hover:bg-white/10"
+                                            className="h-12 px-4"
                                         >
                                             {isLoading ? <LoaderCircle className="size-4 animate-spin" /> : <Search className="size-4" />}
                                             Finden
@@ -223,9 +223,9 @@ export function RubbishStreetSearch({
                                 </form>
 
                                 {showResults ? (
-                                    <div className="absolute inset-x-0 top-full mt-3 overflow-hidden rounded-3xl border border-zinc-200/80 bg-white shadow-2xl ring-1 shadow-zinc-950/10 ring-black/5 dark:border-white/10 dark:bg-zinc-950 dark:ring-white/10">
+                                    <div className="border-border bg-popover absolute inset-x-0 top-full z-30 mt-2 overflow-hidden rounded-xl border shadow-lg">
                                         {activeStreet ? (
-                                            <div className="flex items-center gap-2 border-b border-zinc-200/80 bg-accent-50/80 px-4 py-3 text-sm text-accent-900 dark:border-white/10 dark:bg-accent-500/10 dark:text-accent-100">
+                                            <div className="border-border bg-muted flex items-center gap-2 border-b px-4 py-3 text-sm">
                                                 <Sparkles className="size-4" />
                                                 Aktuell geöffnet: <span className="font-semibold">{activeStreet.name}</span>
                                             </div>
@@ -249,23 +249,19 @@ export function RubbishStreetSearch({
                                                                 <div
                                                                     className={cn(
                                                                         'flex cursor-pointer items-center justify-between gap-4 px-4 py-3 transition',
-                                                                        focus
-                                                                            ? 'bg-accent-50 dark:bg-accent-500/10'
-                                                                            : 'hover:bg-zinc-50 dark:hover:bg-white/5',
+                                                                        focus ? 'bg-muted' : 'hover:bg-muted',
                                                                     )}
                                                                 >
                                                                     <div className="min-w-0">
-                                                                        <div className="truncate font-medium text-zinc-950 dark:text-white">
-                                                                            {street.name}
-                                                                        </div>
+                                                                        <div className="text-foreground truncate font-medium">{street.name}</div>
                                                                         {street.street_addition ? (
-                                                                            <div className="truncate text-sm text-zinc-500 dark:text-zinc-400">
+                                                                            <div className="text-muted-foreground truncate text-sm">
                                                                                 {street.street_addition}
                                                                             </div>
                                                                         ) : null}
                                                                     </div>
                                                                     {isActiveStreet ? (
-                                                                        <span className="rounded-full bg-accent-100 px-2.5 py-1 text-xs font-medium text-accent-800 dark:bg-accent-500/15 dark:text-accent-200">
+                                                                        <span className="bg-secondary text-secondary-foreground rounded-full px-2.5 py-1 text-xs font-medium">
                                                                             Aktuell
                                                                         </span>
                                                                     ) : null}
@@ -280,8 +276,8 @@ export function RubbishStreetSearch({
                                                 <div className="mx-auto flex size-11 items-center justify-center rounded-full bg-zinc-100 text-zinc-500 dark:bg-white/5 dark:text-zinc-400">
                                                     <MapPinned className="size-5" />
                                                 </div>
-                                                <div className="mt-3 text-sm font-medium text-zinc-950 dark:text-white">Keine Straße gefunden</div>
-                                                <div className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                                                <div className="text-foreground mt-3 text-sm font-medium">Keine Straße gefunden</div>
+                                                <div className="text-muted-foreground mt-1 text-sm">
                                                     Prüfe die Schreibweise oder versuche einen anderen Straßennamen.
                                                 </div>
                                             </div>

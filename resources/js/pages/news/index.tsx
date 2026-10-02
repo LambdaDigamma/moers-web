@@ -1,131 +1,39 @@
 import { DefaultContainer } from '@/components/default-container';
 import { DefaultPagination } from '@/components/default-pagination';
+import { NewsPreview } from '@/components/news-preview';
 import { PageHeader } from '@/components/page-header';
 import { SeoHead } from '@/components/seo-head';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
 import AppLayout from '@/layouts/app-layout';
+import { type HomeNewsPost } from '@/types/home';
 import { Link } from '@inertiajs/react';
-import { ArrowRight, ArrowUpRight, ListTree, Newspaper, Pencil } from 'lucide-react';
+import { ListTree, Newspaper, Pencil } from 'lucide-react';
 import { ReactNode } from 'react';
 
-type NewsPost = {
-    id: number;
-    title: string;
-    summary: string | null;
-    published_at: string | null;
-    external_href: string | null;
-    source_name: string | null;
-    header_image_url: string | null;
-};
-
-const formatDate = (value: string | null) => {
-    if (!value) {
-        return 'Neu';
-    }
-
-    return new Intl.DateTimeFormat('de-DE', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-    }).format(new Date(value));
-};
-
-function NewsCard({ post }: { post: NewsPost }) {
-    const isExternal = post.external_href !== null;
-    const content = (
-        <Card className="group h-full overflow-hidden border-zinc-200/80 py-0 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg dark:border-white/10 dark:bg-zinc-950">
-            <div className="relative">
-                {post.header_image_url ? (
-                    <img
-                        src={post.header_image_url}
-                        alt={post.title}
-                        className="aspect-[16/9] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                    />
-                ) : (
-                    <div className="from-accent-100 to-accent-100 dark:from-accent-500/15 dark:to-accent-500/10 flex aspect-[16/9] items-center justify-center bg-linear-to-br via-white dark:via-zinc-950">
-                        <div className="flex size-16 items-center justify-center rounded-full border border-white/70 bg-white/80 shadow-sm dark:border-white/10 dark:bg-white/10">
-                            <Newspaper className="text-accent-700 dark:text-accent-300 size-7" />
-                        </div>
-                    </div>
-                )}
-                <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                    {post.source_name ? <Badge className="bg-white/90 text-zinc-900 hover:bg-white">{post.source_name}</Badge> : null}
-                    {isExternal ? (
-                        <Badge
-                            variant="outline"
-                            className="border-white/70 bg-zinc-950/65 text-white backdrop-blur"
-                        >
-                            Externer Link
-                        </Badge>
-                    ) : null}
-                </div>
-            </div>
-
-            <CardContent className="flex h-full flex-col gap-4 p-6">
-                <div className="text-xs font-medium tracking-[0.18em] text-zinc-400 uppercase">{formatDate(post.published_at)}</div>
-                <div className="space-y-3">
-                    <h2 className="text-xl leading-snug font-semibold text-zinc-950 dark:text-white">{post.title}</h2>
-                    <p className="line-clamp-4 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
-                        {post.summary ?? 'Zur Meldung beim Originalanbieter wechseln.'}
-                    </p>
-                </div>
-                <div className="text-accent-700 dark:text-accent-300 mt-auto flex items-center gap-2 text-sm font-medium">
-                    <span>{isExternal ? 'Originalbeitrag öffnen' : 'Beitrag ansehen'}</span>
-                    {isExternal ? <ArrowUpRight className="size-4" /> : <ArrowRight className="size-4" />}
-                </div>
-            </CardContent>
-        </Card>
-    );
-
-    if (isExternal) {
-        return (
-            <a
-                href={post.external_href ?? '#'}
-                target="_blank"
-                rel="noreferrer"
-                className="block h-full"
-            >
-                {content}
-            </a>
-        );
-    }
-
-    return (
-        <Link
-            href={route('news.show', [post.id])}
-            className="block h-full"
-        >
-            {content}
-        </Link>
-    );
-}
-
-function NewsIndex({ posts, canManageNews = false }: { posts: Paginator<NewsPost>; canManageNews?: boolean }) {
+function NewsIndex({ posts, canManageNews = false }: { posts: Paginator<HomeNewsPost>; canManageNews?: boolean }) {
+    const [leadPost, ...remainingPosts] = posts.data;
+    const topPosts = remainingPosts.slice(0, 3);
+    const morePosts = remainingPosts.slice(3);
     return (
         <>
             <SeoHead
                 title="Aktuelle News aus Moers"
                 description="Aktuelle Nachrichten und Meldungen aus Moers, gesammelt aus regionalen Quellen und übersichtlich mit Vorschau dargestellt."
             />
-
-            <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-                <PageHeader
-                    badge="Lokale Berichterstattung"
-                    title="News aus und über Moers"
-                    description="Aggregiert aus regionalen Quellen. Die Beiträge bleiben bei den Originalanbietern, werden hier aber gesammelt, datiert und mit Vorschau sichtbar gemacht."
-                />
-
-                <DefaultContainer className="py-12">
-                    {canManageNews ? (
-                        <div className="mb-8 flex flex-wrap justify-end gap-2">
+            <PageHeader
+                badge="Nachrichten"
+                title="Aktuelles aus Moers"
+                description="Nachrichten aus der Stadt und der Region. Alle Meldungen mit Quelle, Datum und einem direkten Link zum Beitrag."
+                actions={
+                    canManageNews && (
+                        <>
                             <Button
                                 asChild
                                 variant="outline"
                             >
                                 <Link href={route('posts.index')}>
-                                    <Pencil className="size-4" />
+                                    <Pencil data-icon="inline-start" />
                                     Posts verwalten
                                 </Link>
                             </Button>
@@ -134,39 +42,69 @@ function NewsIndex({ posts, canManageNews = false }: { posts: Paginator<NewsPost
                                 variant="outline"
                             >
                                 <Link href={route('feeds.index')}>
-                                    <ListTree className="size-4" />
+                                    <ListTree data-icon="inline-start" />
                                     Feeds verwalten
                                 </Link>
                             </Button>
-                        </div>
-                    ) : null}
-
-                    {posts.data.length === 0 ? (
-                        <Card className="border-dashed py-0">
-                            <CardContent className="px-6 py-12 text-center text-sm text-zinc-500 dark:text-zinc-400">
-                                Aktuell sind keine Beiträge veröffentlicht.
-                            </CardContent>
-                        </Card>
-                    ) : (
-                        <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                            {posts.data.map((post) => (
-                                <NewsCard
-                                    key={post.id}
-                                    post={post}
-                                />
-                            ))}
+                        </>
+                    )
+                }
+            />
+            <DefaultContainer className="flex flex-col gap-12 py-12 md:py-16">
+                {!leadPost ? (
+                    <Empty>
+                        <EmptyHeader>
+                            <EmptyMedia variant="icon">
+                                <Newspaper />
+                            </EmptyMedia>
+                            <EmptyTitle>Keine Nachrichten verfügbar</EmptyTitle>
+                            <EmptyDescription>Aktuell sind keine Beiträge veröffentlicht.</EmptyDescription>
+                        </EmptyHeader>
+                    </Empty>
+                ) : (
+                    <>
+                        <section
+                            aria-label="Aktuelle Nachrichten"
+                            className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)]"
+                        >
+                            <NewsPreview
+                                post={leadPost}
+                                variant="lead"
+                            />
+                            <ul className="divide-border flex flex-col divide-y">
+                                {topPosts.map((post) => (
+                                    <li
+                                        key={post.id}
+                                        className="py-6 first:pt-0 last:pb-0"
+                                    >
+                                        <NewsPreview
+                                            post={post}
+                                            variant="row"
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
                         </section>
-                    )}
-
-                    <div className="pt-12">
+                        {morePosts.length > 0 && (
+                            <section
+                                aria-label="Weitere Nachrichten"
+                                className="border-border grid gap-x-8 gap-y-12 border-t pt-12 sm:grid-cols-2 lg:grid-cols-3"
+                            >
+                                {morePosts.map((post) => (
+                                    <NewsPreview
+                                        key={post.id}
+                                        post={post}
+                                    />
+                                ))}
+                            </section>
+                        )}
                         <DefaultPagination paginator={posts} />
-                    </div>
-                </DefaultContainer>
-            </div>
+                    </>
+                )}
+            </DefaultContainer>
         </>
     );
 }
 
 NewsIndex.layout = (page: ReactNode) => <AppLayout children={page} />;
-
 export default NewsIndex;

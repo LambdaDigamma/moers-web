@@ -1,7 +1,7 @@
 import { DefaultContainer } from '@/components/default-container';
 import { PageHeader } from '@/components/page-header';
-import { SeoHead } from '@/components/seo-head';
 import { RubbishStreetSearch } from '@/components/rubbish-street-search';
+import { SeoHead } from '@/components/seo-head';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -64,32 +64,32 @@ const pickupMeta: Record<
     residual: {
         label: 'Restmüll',
         icon: Trash2,
-        badgeClass: 'bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-950',
-        dotClass: 'bg-zinc-950 dark:bg-zinc-100',
+        badgeClass: 'bg-waste-residual text-background',
+        dotClass: 'bg-waste-residual',
     },
     organic: {
         label: 'Biotonne',
         icon: Leaf,
-        badgeClass: 'bg-accent-600 text-white',
-        dotClass: 'bg-accent-600',
+        badgeClass: 'bg-waste-organic/10 text-waste-organic',
+        dotClass: 'bg-waste-organic',
     },
     paper: {
         label: 'Papier',
         icon: FileText,
-        badgeClass: 'bg-accent-600 text-white',
-        dotClass: 'bg-accent-600',
+        badgeClass: 'bg-waste-paper/10 text-waste-paper',
+        dotClass: 'bg-waste-paper',
     },
     plastic: {
         label: 'Gelber Sack',
         icon: Recycle,
-        badgeClass: 'bg-amber-300 text-zinc-950',
-        dotClass: 'bg-amber-400',
+        badgeClass: 'bg-waste-plastic/20 text-foreground',
+        dotClass: 'bg-waste-plastic',
     },
     cuttings: {
         label: 'Grünschnitt',
         icon: Leaf,
-        badgeClass: 'bg-accent-600 text-white',
-        dotClass: 'bg-accent-600',
+        badgeClass: 'bg-waste-cuttings/10 text-waste-cuttings',
+        dotClass: 'bg-waste-cuttings',
     },
 };
 
@@ -162,12 +162,12 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                 description={`Abholtermine für ${street.name} in Moers. Zeige die nächsten Termine an und lade den Kalender für deine Straße herunter.`}
             />
 
-            <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+            <div className="bg-background min-h-screen">
                 <PageHeader
                     badge={
                         <Link
                             href={route('rubbish.index')}
-                            className="flex items-center gap-1.5 transition-colors hover:text-accent-900 dark:hover:text-accent-300"
+                            className="hover:text-accent-900 dark:hover:text-accent-300 flex items-center gap-1.5 transition-colors"
                         >
                             <ChevronLeft className="size-3.5" />
                             Abfallkalender Übersicht
@@ -180,7 +180,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                             {isLoaded ? (
                                 <Button
                                     type="button"
-                                    variant={isPrimaryStreet ? 'secondary' : 'outline'}
+                                    variant={isPrimaryStreet ? 'default' : 'outline'}
                                     size="sm"
                                     onClick={
                                         isPrimaryStreet
@@ -192,10 +192,8 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                       street_addition: street.street_addition,
                                                   })
                                     }
-                                    className={cn(
-                                        'h-9 rounded-full px-4 font-medium transition-all',
-                                        isPrimaryStreet && 'bg-accent-600 text-white hover:bg-accent-700 dark:bg-accent-500',
-                                    )}
+                                    aria-pressed={isPrimaryStreet}
+                                    className="h-9 px-4"
                                 >
                                     <Star className={cn('mr-2 size-4', isPrimaryStreet && 'fill-current')} />
                                     {isPrimaryStreet ? 'Gespeichert' : 'Meine Straße'}
@@ -209,7 +207,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                     asChild
                                     variant="outline"
                                     size="sm"
-                                    className="h-9 rounded-full px-4"
+                                    className="h-9 px-4"
                                 >
                                     <a
                                         href={downloads.pdf_download_url}
@@ -227,7 +225,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                         <Button
                                             variant="outline"
                                             size="sm"
-                                            className="h-9 rounded-full px-4"
+                                            className="h-9 px-4"
                                         >
                                             <CalendarPlus className="mr-2 size-4" />
                                             Abonnieren
@@ -237,7 +235,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                         align="end"
                                         className="w-56"
                                     >
-                                        <DropdownMenuLabel className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">
+                                        <DropdownMenuLabel className="text-[10px] font-semibold tracking-wider text-zinc-500 uppercase">
                                             Downloads
                                         </DropdownMenuLabel>
                                         <DropdownMenuItem asChild>
@@ -250,7 +248,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                             </a>
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
-                                        <DropdownMenuLabel className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">
+                                        <DropdownMenuLabel className="text-[10px] font-semibold tracking-wider text-zinc-500 uppercase">
                                             Kalender-Abo
                                         </DropdownMenuLabel>
                                         <DropdownMenuItem asChild>
@@ -297,35 +295,35 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
 
                 <DefaultContainer className="py-12">
                     {pickupGroups.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-zinc-300 py-24 text-center dark:border-white/10">
+                        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-zinc-300 py-24 text-center dark:border-white/10">
                             <Trash2 className="size-12 text-zinc-300 dark:text-zinc-700" />
-                            <h3 className="mt-4 text-lg font-semibold text-zinc-950 dark:text-white">Keine Termine verfügbar</h3>
-                            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-                                Für diese Straße wurden aktuell keine Abholtermine gefunden.
-                            </p>
+                            <h3 className="text-foreground mt-4 text-lg font-semibold">Keine Termine verfügbar</h3>
+                            <p className="text-muted-foreground mt-2 text-sm">Für diese Straße wurden aktuell keine Abholtermine gefunden.</p>
                         </div>
                     ) : (
                         <div className="space-y-8">
                             {/* Month Navigation - Spans full width */}
-                            <div className="flex items-center justify-between gap-4 rounded-[2.5rem] border border-zinc-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900">
+                            <div className="border-border bg-card flex items-center justify-between gap-4 rounded-xl border p-4">
                                 <Button
                                     variant="ghost"
                                     size="lg"
-                                    className="h-14 w-14 rounded-full"
+                                    className="size-10"
+                                    aria-label="Vorheriger Monat"
                                     disabled={monthIndex <= 0}
                                     onClick={() => setSelectedMonth(monthKeys[monthIndex - 1])}
                                 >
                                     <ChevronLeft className="size-6" />
                                 </Button>
 
-                                <div className="text-2xl font-black tracking-tight text-zinc-950 dark:text-white">
+                                <div className="font-display tracking-heading text-foreground text-2xl font-semibold">
                                     {selectedMonth ? formatMonthLabel(selectedMonth) : ''}
                                 </div>
 
                                 <Button
                                     variant="ghost"
                                     size="lg"
-                                    className="h-14 w-14 rounded-full"
+                                    className="size-10"
+                                    aria-label="Nächster Monat"
                                     disabled={monthIndex >= monthKeys.length - 1}
                                     onClick={() => setSelectedMonth(monthKeys[monthIndex + 1])}
                                 >
@@ -336,7 +334,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                             <div className="grid gap-8 lg:grid-cols-12">
                                 {/* Desktop: List */}
                                 <div className="space-y-6 lg:col-span-5">
-                                    <h2 className="text-xl font-bold text-zinc-950 dark:text-white">Termine in diesem Monat</h2>
+                                    <h2 className="text-foreground text-xl font-semibold">Termine in diesem Monat</h2>
 
                                     <div className="space-y-3">
                                         {pickupGroups
@@ -345,15 +343,15 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                 <div
                                                     key={group.date}
                                                     className={cn(
-                                                        'flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-4 transition-all dark:border-white/5 dark:bg-zinc-900',
-                                                        group.date === todayKey && 'border-accent-500 bg-accent-50/30 ring-1 ring-accent-500',
+                                                        'border-border bg-card flex items-center gap-4 rounded-lg border p-4 transition-colors',
+                                                        group.date === todayKey && 'border-accent-500 bg-accent-50/30 ring-accent-500 ring-1',
                                                     )}
                                                 >
-                                                    <div className="flex flex-col items-center border-r border-zinc-100 pr-4 dark:border-white/5">
-                                                        <div className="text-xs font-bold text-zinc-400 uppercase">
+                                                    <div className="border-border flex flex-col items-center border-r pr-4">
+                                                        <div className="text-xs font-semibold text-zinc-400 uppercase">
                                                             {formatListDate(group.date).split(' ')[0]}
                                                         </div>
-                                                        <div className="text-xl font-black text-zinc-950 tabular-nums dark:text-white">
+                                                        <div className="text-xl font-semibold text-zinc-950 tabular-nums dark:text-white">
                                                             {formatListDate(group.date).split(' ')[1].split('.')[0]}
                                                         </div>
                                                     </div>
@@ -377,9 +375,9 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                 </div>
 
                                 {/* Desktop: Calendar View */}
-                                <Card className="overflow-hidden rounded-3xl lg:col-span-7">
-                                    <CardHeader className="border-b border-zinc-100 px-6 py-4 dark:border-white/5">
-                                        <CardTitle className="text-base font-bold">Kalenderansicht</CardTitle>
+                                <Card className="overflow-hidden py-0 shadow-none lg:col-span-7">
+                                    <CardHeader className="border-border border-b px-6 py-4">
+                                        <CardTitle className="text-base font-semibold">Kalenderansicht</CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-6">
                                         {selectedMonth ? (
@@ -388,7 +386,7 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                     {weekdayLabels.map((label) => (
                                                         <div
                                                             key={label}
-                                                            className="py-2 text-center text-[10px] font-bold tracking-wider text-zinc-400 uppercase"
+                                                            className="py-2 text-center text-[10px] font-semibold tracking-wider text-zinc-400 uppercase"
                                                         >
                                                             {label}
                                                         </div>
@@ -404,18 +402,16 @@ function RubbishShow({ street, pickupGroups, downloads }: RubbishShowProps) {
                                                         const cell = (
                                                             <div
                                                                 className={cn(
-                                                                    'min-h-[80px] bg-white p-2 transition-colors dark:bg-zinc-900',
-                                                                    !isCurrentMonth
-                                                                        ? 'bg-zinc-50/50 text-zinc-300 dark:bg-zinc-950/50 dark:text-zinc-700'
-                                                                        : '',
+                                                                    'bg-card min-h-[80px] p-2 transition-colors',
+                                                                    !isCurrentMonth ? 'bg-muted text-muted-foreground' : '',
                                                                     isToday &&
-                                                                        'border-accent-500 bg-accent-50/30 ring-2 ring-accent-500 dark:bg-accent-500/10',
+                                                                        'border-accent-500 bg-accent-50/30 ring-accent-500 dark:bg-accent-500/10 ring-2',
                                                                 )}
                                                             >
                                                                 <span
                                                                     className={cn(
                                                                         'text-sm font-medium',
-                                                                        isToday && 'font-bold text-accent-700 dark:text-accent-400',
+                                                                        isToday && 'text-accent-700 dark:text-accent-400 font-semibold',
                                                                     )}
                                                                 >
                                                                     {day.getDate()}

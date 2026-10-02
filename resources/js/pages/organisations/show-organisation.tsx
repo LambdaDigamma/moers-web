@@ -10,7 +10,7 @@ type ShowOrganisationProps = {
     canCreateEvents?: boolean;
 };
 
-const ShowOrganisation = ({ organisation, canEdit, canCreateEvents }: ShowOrganisationProps) => {
+const ShowOrganisation = ({ organisation }: ShowOrganisationProps) => {
     return (
         <>
             <SeoHead
@@ -21,8 +21,8 @@ const ShowOrganisation = ({ organisation, canEdit, canCreateEvents }: ShowOrgani
             <DefaultContainer className="py-12">
                 <div className="max-w-3xl space-y-8">
                     <div className="space-y-4">
-                        <h2 className="text-xl font-bold text-zinc-950 dark:text-white">Über uns</h2>
-                        <p className="leading-relaxed whitespace-pre-line text-zinc-600 dark:text-zinc-400">{organisation.description}</p>
+                        <h2 className="text-foreground text-xl font-semibold">Über uns</h2>
+                        <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{organisation.description}</p>
                     </div>
 
                     {/* Add more info like contact, social links etc here later */}

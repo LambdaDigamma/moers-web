@@ -6,7 +6,7 @@ import {
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import {Link} from "@inertiajs/react";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
@@ -59,7 +59,7 @@ function PaginationLink({
       data-active={isActive}
       className={cn(
         buttonVariants({
-          variant: isActive ? "outline" : "ghost",
+          variant: isActive ? "default" : "ghost",
           size: buttonSize ?? "icon",
         }),
         className
@@ -75,13 +75,13 @@ function PaginationPrevious({
 }: PaginationArrowProps) {
   return (
     <PaginationLink
-      aria-label="Go to previous page"
+      aria-label="Vorherige Seite"
       buttonSize="default"
       className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
       {...props}
     >
       <ChevronLeftIcon />
-      <span className="hidden sm:block">Previous</span>
+      <span className="hidden sm:block">Zurück</span>
     </PaginationLink>
   )
 }
@@ -92,12 +92,12 @@ function PaginationNext({
 }: PaginationArrowProps) {
   return (
     <PaginationLink
-      aria-label="Go to next page"
+      aria-label="Nächste Seite"
       buttonSize="default"
       className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
       {...props}
     >
-      <span className="hidden sm:block">Next</span>
+      <span className="hidden sm:block">Weiter</span>
       <ChevronRightIcon />
     </PaginationLink>
   )
@@ -115,7 +115,7 @@ function PaginationEllipsis({
       {...props}
     >
       <MoreHorizontalIcon className="size-4" />
-      <span className="sr-only">More pages</span>
+      <span className="sr-only">Weitere Seiten</span>
     </span>
   )
 }

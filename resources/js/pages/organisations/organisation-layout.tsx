@@ -25,8 +25,8 @@ export default ({ children, ...props }: OrganisationLayoutProps) => {
         <div {...props}>
             <DetailHeader
                 content={
-                    <div className="flex items-center gap-6">
-                        <div className="aspect-square w-20 shrink-0 overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 dark:border-white/5 dark:bg-white/10">
+                    <div className="flex items-start gap-4 sm:items-center sm:gap-6">
+                        <div className="border-border bg-muted size-14 shrink-0 overflow-hidden rounded-lg border sm:size-20">
                             {organisation.logoPath ? (
                                 <img
                                     src={organisation.logoPath}
@@ -39,14 +39,18 @@ export default ({ children, ...props }: OrganisationLayoutProps) => {
                                 </div>
                             )}
                         </div>
-                        <div className="space-y-1">
-                            <h1 className="text-3xl font-bold tracking-tight text-zinc-950 dark:text-white">{organisation.name}</h1>
-                            <p className="line-clamp-2 max-w-2xl text-zinc-600 dark:text-zinc-400">{organisation.description}</p>
+                        <div className="flex min-w-0 flex-col gap-2">
+                            <h1 className="font-display tracking-heading text-foreground text-2xl leading-tight font-semibold sm:text-4xl">
+                                {organisation.name}
+                            </h1>
+                            <p className="text-muted-foreground line-clamp-2 max-w-2xl">{organisation.description}</p>
                         </div>
                     </div>
                 }
                 actions={canEdit && <Button href={route('organisations.edit', [organisation.slug])}>Bearbeiten</Button>}
-                navigation={<EditOrganisationNavigation />}
+                navigation={
+                    <EditOrganisationNavigation overviewRoute={route().current('organisations.edit') ? 'organisations.edit' : 'organisations.show'} />
+                }
             ></DetailHeader>
             {children}
         </div>

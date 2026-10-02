@@ -30,7 +30,7 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
                 description="Finde die nächsten Abholtermine für deine Straße in Moers und nutze den Abfallkalender für Erinnerungen und Downloads."
             />
 
-            <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+            <div className="bg-background min-h-screen">
                 <PageHeader
                     badge={
                         <div className="flex items-center gap-2">
@@ -53,36 +53,36 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
                 <DefaultContainer className="py-12">
                     <div className="space-y-12">
                         <div className="max-w-3xl">
-                            <Card className="rounded-2xl border-accent-200 bg-linear-to-br from-accent-50 via-white to-accent-50 dark:border-accent-500/20 dark:from-accent-500/10 dark:via-zinc-900 dark:to-accent-500/10">
+                            <Card className="bg-muted gap-5 shadow-none">
                                 <CardHeader className="pb-4">
                                     <div className="flex items-center gap-3">
-                                        <div className="flex size-11 items-center justify-center rounded-2xl bg-white text-accent-700 shadow-sm ring-1 ring-accent-200 dark:bg-zinc-950 dark:ring-white/10">
+                                        <div className="text-foreground flex size-11 items-center justify-center rounded-lg">
                                             <Search className="size-5" />
                                         </div>
                                         <div>
-                                            <CardTitle className="text-2xl text-zinc-950 dark:text-white">Abfallkalender</CardTitle>
-                                            <CardDescription className="mt-1 text-sm text-zinc-700 dark:text-zinc-400">
+                                            <CardTitle className="text-foreground text-2xl">Abfallkalender</CardTitle>
+                                            <CardDescription className="text-muted-foreground mt-1 text-sm">
                                                 Finden Sie Ihre Straße für alle Abholtermine.
                                             </CardDescription>
                                         </div>
                                     </div>
                                 </CardHeader>
                                 <CardContent className="grid gap-3 sm:grid-cols-2">
-                                    <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3 dark:border-white/5 dark:bg-white/5">
-                                        <div className="flex items-center gap-2 text-sm font-medium text-zinc-950 dark:text-white">
-                                            <Smartphone className="size-4 text-accent-600 dark:text-accent-400" />
+                                    <div className="border-border rounded-lg border px-4 py-3">
+                                        <div className="text-foreground flex items-center gap-2 text-sm font-medium">
+                                            <Smartphone className="text-accent-600 dark:text-accent-400 size-4" />
                                             Mobile App & Push
                                         </div>
-                                        <p className="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                                        <p className="text-muted-foreground mt-1 text-sm leading-6">
                                             Nutzen Sie unsere App für automatische Erinnerungen direkt auf Ihr Smartphone.
                                         </p>
                                     </div>
-                                    <div className="rounded-2xl border border-white/70 bg-white/80 px-4 py-3 dark:border-white/5 dark:bg-white/5">
-                                        <div className="flex items-center gap-2 text-sm font-medium text-zinc-950 dark:text-white">
-                                            <Calendar className="size-4 text-accent-600 dark:text-accent-400" />
+                                    <div className="border-border rounded-lg border px-4 py-3">
+                                        <div className="text-foreground flex items-center gap-2 text-sm font-medium">
+                                            <Calendar className="text-accent-600 dark:text-accent-400 size-4" />
                                             Kalender-Abo
                                         </div>
-                                        <p className="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                                        <p className="text-muted-foreground mt-1 text-sm leading-6">
                                             Abonnieren Sie alle Termine als iCal-Kalender für Ihr Outlook, Google oder Apple Kalender.
                                         </p>
                                     </div>
@@ -91,22 +91,22 @@ function RubbishIndex({ filters, streets }: RubbishIndexProps) {
                         </div>
 
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold tracking-tight text-zinc-950 dark:text-white">Alle Straßen</h2>
+                            <h2 className="text-foreground text-2xl font-semibold tracking-tight">Alle Straßen</h2>
 
                             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                                 {streets.data.map((street) => (
                                     <Link
                                         key={street.id}
                                         href={route('rubbish.show', [street.id])}
-                                        className="group flex items-center justify-between rounded-2xl border border-zinc-200 bg-white px-5 py-4 transition hover:border-accent-300 hover:shadow-lg hover:shadow-accent-500/5 dark:border-white/10 dark:bg-zinc-900 dark:hover:border-accent-500/30"
+                                        className="group border-border bg-card hover:bg-muted focus-visible:outline-ring flex items-center justify-between gap-3 rounded-xl border px-5 py-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4"
                                     >
                                         <div className="min-w-0">
-                                            <div className="truncate font-medium text-zinc-950 dark:text-white">{street.name}</div>
+                                            <div className="text-foreground truncate font-medium">{street.name}</div>
                                             {street.street_addition && (
-                                                <div className="truncate text-xs text-zinc-500 dark:text-zinc-400">{street.street_addition}</div>
+                                                <div className="text-muted-foreground truncate text-xs">{street.street_addition}</div>
                                             )}
                                         </div>
-                                        <ChevronRight className="size-5 shrink-0 text-zinc-400 transition group-hover:translate-x-0.5 group-hover:text-accent-500" />
+                                        <ChevronRight className="text-muted-foreground size-[18px] shrink-0 transition-transform group-hover:translate-x-0.5" />
                                     </Link>
                                 ))}
                             </div>

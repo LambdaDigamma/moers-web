@@ -112,7 +112,7 @@ export function AppHeader({ breadcrumbs = [], variant = 'default' }: AppHeaderPr
     return (
         <>
             <div className={cn('border-b', isHero ? 'border-hero-divider text-hero-foreground absolute inset-x-0 top-0 z-20' : 'border-border')}>
-                <div className={cn('md:max-w-page mx-auto flex items-center px-4', isHero ? 'h-[72px]' : 'h-16')}>
+                <div className="max-w-page mx-auto flex h-[72px] items-center px-4 sm:px-6 lg:px-8">
                     {/* Mobile Menu */}
                     <div className="lg:hidden">
                         <Sheet>
@@ -215,10 +215,13 @@ export function AppHeader({ breadcrumbs = [], variant = 'default' }: AppHeaderPr
                                                 href={item.url}
                                                 className={cn(
                                                     navigationMenuTriggerStyle(),
-                                                    isHero ? heroNavItemStyles : 'text-muted-foreground hover:text-foreground',
+                                                    isHero
+                                                        ? heroNavItemStyles
+                                                        : 'text-muted-foreground hover:text-foreground text-[15px] font-medium',
                                                     isActive && (isHero ? 'text-hero-foreground' : activeItemStyles),
                                                     'h-9 cursor-pointer px-3',
                                                 )}
+                                                aria-current={isActive ? 'page' : undefined}
                                             >
                                                 {item.title}
                                             </Link>
@@ -297,7 +300,7 @@ export function AppHeader({ breadcrumbs = [], variant = 'default' }: AppHeaderPr
                                         'hidden items-center rounded-md font-medium transition sm:inline-flex',
                                         isHero
                                             ? cn(heroNavItemStyles, 'h-[38px] px-3.5')
-                                            : 'text-muted-foreground hover:bg-accent hover:text-foreground h-9 px-3 text-sm',
+                                            : 'text-muted-foreground hover:bg-accent hover:text-foreground h-[38px] px-3.5 text-[15px]',
                                     )}
                                 >
                                     Anmelden
@@ -308,7 +311,7 @@ export function AppHeader({ breadcrumbs = [], variant = 'default' }: AppHeaderPr
                                         'inline-flex items-center rounded-lg font-semibold transition',
                                         isHero
                                             ? 'bg-hero-foreground text-graphit-900 hover:bg-hero-foreground/90 h-[38px] px-4 text-[15px]'
-                                            : 'bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3.5 text-sm',
+                                            : 'bg-primary text-primary-foreground hover:bg-primary/90 h-[38px] px-4 text-[15px]',
                                     )}
                                 >
                                     Registrieren

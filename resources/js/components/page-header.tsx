@@ -1,7 +1,5 @@
 import { DefaultContainer } from '@/components/default-container';
-import { Heading } from '@/components/ui/heading';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
 
 interface PageHeaderProps {
@@ -16,55 +14,21 @@ interface PageHeaderProps {
 export function PageHeader({ title, description, badge, actions, children, className }: PageHeaderProps) {
     return (
         <div className={cn('relative', className)}>
-            <header className="relative overflow-hidden border-b border-zinc-200 bg-white py-16 lg:py-20 dark:border-white/5 dark:bg-zinc-900/50">
-                <div className="absolute inset-0 bg-linear-to-br from-accent-500/5 via-transparent to-accent-500/5" />
-                <DefaultContainer className="relative">
-                    <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="max-w-2xl space-y-6"
-                        >
-                            {badge && (
-                                <div className="inline-flex items-center gap-2 rounded-full border border-accent-200 bg-accent-50/50 px-3 py-1 text-xs font-medium tracking-wide text-accent-700 dark:border-accent-500/20 dark:bg-accent-500/10 dark:text-accent-400">
-                                    {badge}
-                                </div>
-                            )}
-                            <div className="space-y-4">
-                                <Heading className="text-4xl font-bold tracking-tight text-zinc-950 sm:text-5xl lg:text-6xl dark:text-white">
-                                    {title}
-                                </Heading>
-                                {description && <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">{description}</p>}
-                            </div>
-                        </motion.div>
-
-                        {actions && (
-                            <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.1 }}
-                                className="flex shrink-0 gap-3"
-                            >
-                                {actions}
-                            </motion.div>
-                        )}
+            <header className="border-border bg-background border-b">
+                <DefaultContainer className="flex flex-col gap-8 py-12 md:py-16">
+                    <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+                        <div className="flex max-w-3xl min-w-0 flex-col gap-3">
+                            {badge && <div className="text-eyebrow text-accent-700 dark:text-accent-400">{badge}</div>}
+                            <h1 className="font-display tracking-display text-foreground text-4xl leading-tight font-semibold sm:text-5xl lg:text-[56px]">
+                                {title}
+                            </h1>
+                            {description && <p className="text-muted-foreground max-w-2xl text-base leading-7 sm:text-lg">{description}</p>}
+                        </div>
+                        {actions && <div className="flex shrink-0 flex-wrap items-center gap-3">{actions}</div>}
                     </div>
+                    {children && <div className="relative">{children}</div>}
                 </DefaultContainer>
             </header>
-
-            {children && (
-                <div className="relative z-10 -mt-10 lg:-mt-12">
-                    <DefaultContainer>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                        >
-                            {children}
-                        </motion.div>
-                    </DefaultContainer>
-                </div>
-            )}
         </div>
     );
 }

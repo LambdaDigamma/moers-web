@@ -2,137 +2,95 @@ import { DefaultContainer } from '@/components/default-container';
 import { PageHeader } from '@/components/page-header';
 import { SeoHead } from '@/components/seo-head';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
 import AppLayout from '@/layouts/app-layout';
+import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-import { motion } from 'framer-motion';
-import { ArrowRight, CircleParking, MapPin } from 'lucide-react';
+import { ArrowRight, CircleParking } from 'lucide-react';
 import { ReactNode } from 'react';
 import ParkingArea = Modules.Parking.Data.ParkingArea;
 
-interface Props {
-    parkingAreas: ParkingArea[];
-}
-
-const container = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.05,
-        },
-    },
-};
-
-const item = {
-    hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0 },
-};
-
-const ParkingIndex = ({ parkingAreas }: Props) => {
-    return (
-        <>
-            <SeoHead
-                title="Parken in Moers"
-                description="Finde freie Parkplätze in Moers und sieh die aktuelle Belegung der wichtigsten Parkhäuser in der Innenstadt."
-            />
-
-            <div className="min-h-screen bg-[#FDFDFC] dark:bg-zinc-950">
-                <PageHeader
-                    badge="Live-Status"
-                    title="Parken in Moers"
-                    description="Finden Sie schnell und einfach freie Parkplätze in der Innenstadt. Wir zeigen Ihnen die aktuelle Belegung der wichtigsten Parkhäuser in Echtzeit."
-                />
-
-                <DefaultContainer className="py-12">
-                    <motion.div
-                        variants={container}
-                        initial="hidden"
-                        animate="show"
-                        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-                    >
-                        {parkingAreas.map((area) => (
-                            <motion.div key={area.id} variants={item}>
-                                <Link
-                                    href={route('parking-areas.show', [area.slug])}
-                                    className="group block h-full"
-                                >
-                                    <Card className="h-full border-zinc-200 bg-white py-0 shadow-xs transition-all duration-200 hover:border-accent-200 hover:shadow-sm dark:border-white/10 dark:bg-zinc-900 dark:hover:border-accent-500/20">
-                                        <CardHeader className="flex flex-row items-start justify-between space-y-0 border-b border-zinc-100 py-4 dark:border-white/5">
-                                            <div className="space-y-0.5">
-                                                <CardTitle className="text-lg font-bold tracking-tight text-zinc-950 dark:text-white">
-                                                    {area.name}
-                                                </CardTitle>
-                                                <div className="flex items-center gap-1 text-xs font-medium text-zinc-500">
-                                                    <MapPin className="size-3" />
-                                                    Moers Innenstadt
-                                                </div>
-                                            </div>
-                                            <Badge
-                                                variant="outline"
-                                                className={`rounded-full border-none px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
-                                                    area.state === 'open'
-                                                        ? 'bg-accent-500/10 text-accent-700 dark:text-accent-400'
-                                                        : 'bg-zinc-100 text-zinc-600 dark:bg-white/5 dark:text-zinc-400'
-                                                }`}
-                                            >
-                                                {area.state === 'open' ? 'Offen' : 'Zu'}
+const ParkingIndex = ({ parkingAreas }: { parkingAreas: ParkingArea[] }) => (
+    <>
+        <SeoHead
+            title="Parken in Moers"
+            description="Finde freie Parkplätze in Moers und sieh die aktuelle Belegung der wichtigsten Parkhäuser in der Innenstadt."
+        />
+        <PageHeader
+            badge="Parkhäuser live"
+            title="Parken in Moers"
+            description="Freie Plätze, Öffnungsstatus und aktuelle Belegung der Parkhäuser in der Innenstadt auf einen Blick."
+        />
+        <DefaultContainer className="py-12 md:py-16">
+            {parkingAreas.length === 0 ? (
+                <Empty>
+                    <EmptyHeader>
+                        <EmptyMedia variant="icon">
+                            <CircleParking />
+                        </EmptyMedia>
+                        <EmptyTitle>Keine Parkdaten verfügbar</EmptyTitle>
+                        <EmptyDescription>Aktuell liegen keine Informationen zu den Parkhäusern vor.</EmptyDescription>
+                    </EmptyHeader>
+                </Empty>
+            ) : (
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {parkingAreas.map((area) => {
+                        const freeSpaces = area.capacity === null ? null : Math.max(0, area.capacity - (area.occupied ?? 0));
+                        const occupancy = area.capacity ? Math.min(100, ((area.occupied ?? 0) / area.capacity) * 100) : 0;
+                        const isOpen = area.state === 'open';
+                        const almostFull = isOpen && occupancy > 90;
+                        return (
+                            <Link
+                                key={area.id}
+                                href={route('parking-areas.show', [area.slug])}
+                                className="group focus-visible:outline-ring rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4"
+                            >
+                                <Card className="group-hover:bg-muted h-full gap-5 shadow-none transition-colors">
+                                    <CardHeader className="gap-2">
+                                        <div className="flex items-start justify-between gap-3">
+                                            <CardTitle>
+                                                <h2 className="font-display tracking-title text-xl leading-snug">{area.name}</h2>
+                                            </CardTitle>
+                                            <Badge variant="outline">
+                                                <span className={cn('size-1.5 rounded-full', isOpen ? 'bg-success' : 'bg-muted-foreground')} />
+                                                {isOpen ? 'Offen' : 'Geschlossen'}
                                             </Badge>
-                                        </CardHeader>
-                                        <CardContent className="pt-5 pb-4">
-                                            <div className="flex items-end gap-1.5 mb-5">
-                                                <div
-                                                    className={`text-4xl font-bold tracking-tighter tabular-nums ${
-                                                        area.capacity && area.occupied && area.capacity - area.occupied < 10
-                                                            ? 'text-accent-500'
-                                                            : 'text-zinc-950 dark:text-white'
-                                                    }`}
-                                                >
-                                                    {area.capacity ? Math.max(0, area.capacity - area.occupied!) : '—'}
-                                                </div>
-                                                <div className="pb-1 text-xs font-semibold text-zinc-400 uppercase tracking-wider">
-                                                    von {area.capacity ?? '—'} frei
-                                                </div>
-                                            </div>
-
-                                            {/* Minimal Progress Bar */}
-                                            <div className="h-1 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-white/10">
-                                                <motion.div
-                                                    className={`h-full ${
-                                                        area.capacity && area.occupied && (area.occupied / area.capacity) > 0.9
-                                                            ? 'bg-accent-500'
-                                                            : 'bg-accent-600'
-                                                    }`}
-                                                    initial={{ width: 0 }}
-                                                    animate={{
-                                                        width: `${
-                                                            area.capacity && area.occupied
-                                                                ? Math.min(100, (area.occupied / area.capacity) * 100)
-                                                                : 0
-                                                        }%`,
-                                                    }}
-                                                    transition={{ duration: 0.8, ease: 'easeOut' }}
-                                                />
-                                            </div>
-
-                                            <div className="mt-6 flex items-center justify-between pt-1">
-                                                <span className="text-[11px] font-bold tracking-widest text-accent-600 uppercase dark:text-accent-400">
-                                                    Details & Historie
-                                                </span>
-                                                <ArrowRight className="size-4 text-zinc-300 transition-transform group-hover:translate-x-1 group-hover:text-accent-600" />
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                </Link>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </DefaultContainer>
-            </div>
-        </>
-    );
-};
+                                        </div>
+                                        <CardDescription>Moers Innenstadt</CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="flex flex-col gap-4">
+                                        <div className="flex items-baseline gap-2">
+                                            <span
+                                                className={cn(
+                                                    'font-display tracking-heading text-4xl font-semibold tabular-nums',
+                                                    almostFull && 'text-warning',
+                                                )}
+                                            >
+                                                {isOpen ? (freeSpaces ?? '–') : '–'}
+                                            </span>
+                                            <span className="text-muted-foreground text-sm">von {area.capacity ?? '–'} Plätzen frei</span>
+                                        </div>
+                                        <div className="bg-secondary h-1 overflow-hidden rounded-sm">
+                                            <div
+                                                className={cn('h-full', almostFull ? 'bg-warning' : 'bg-foreground')}
+                                                style={{ width: `${isOpen ? occupancy : 0}%` }}
+                                            />
+                                        </div>
+                                    </CardContent>
+                                    <CardFooter className="mt-auto justify-between text-sm font-semibold">
+                                        Details und Verlauf
+                                        <ArrowRight className="text-muted-foreground size-4 transition-transform group-hover:translate-x-0.5" />
+                                    </CardFooter>
+                                </Card>
+                            </Link>
+                        );
+                    })}
+                </div>
+            )}
+        </DefaultContainer>
+    </>
+);
 
 ParkingIndex.layout = (page: ReactNode) => <AppLayout>{page}</AppLayout>;
-
 export default ParkingIndex;

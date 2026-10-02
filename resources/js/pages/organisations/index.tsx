@@ -1,9 +1,11 @@
 import { DefaultContainer } from '@/components/default-container';
+import { DefaultPagination } from '@/components/default-pagination';
 import { IsolatedSearchField } from '@/components/isolated-search-field';
 import { PageHeader } from '@/components/page-header';
 import { SeoHead } from '@/components/seo-head';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
 import AppLayout from '@/layouts/app-layout';
 import { Link, router } from '@inertiajs/react';
 import { ArrowUpRight, Plus, Search, UserRound } from 'lucide-react';
@@ -12,11 +14,7 @@ import { useDebounce } from 'use-debounce';
 import Organisation = Modules.Management.Data.Organisation;
 
 interface Props {
-    organisations: {
-        data: Organisation[];
-        links: any[];
-        meta: any;
-    };
+    organisations: Paginator<Organisation>;
     filters: {
         search: string;
     };
@@ -31,7 +29,7 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
         if (debouncedSearch !== filters.search) {
             router.get(route('organisations.index'), { search: debouncedSearch }, { preserveState: true, replace: true });
         }
-    }, [debouncedSearch]);
+    }, [debouncedSearch, filters.search]);
 
     return (
         <>
@@ -40,7 +38,7 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                 description="Entdecke Vereine, Initiativen und Organisationen in Moers und finde passende Ansprechpartner und Angebote."
             />
 
-            <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+            <div className="bg-background min-h-screen">
                 <PageHeader
                     badge="Community-Netzwerk"
                     title="Partner & Organisationen"
@@ -50,7 +48,7 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                             <Button
                                 asChild
                                 size="lg"
-                                className="rounded-2xl bg-zinc-950 px-8 text-white shadow-xl shadow-accent-500/10 hover:bg-zinc-800 dark:bg-accent-600 dark:hover:bg-accent-700"
+                                className="rounded-lg px-6"
                             >
                                 <Link href={route('organisations.create')}>
                                     <Plus className="mr-2 size-5" />
@@ -62,6 +60,7 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                 >
                     <IsolatedSearchField
                         containerClassName="max-w-md"
+                        aria-label="Organisationen suchen"
                         placeholder="Nach Namen oder Beschreibung suchen..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
@@ -75,84 +74,68 @@ const OrganisationsIndex = ({ organisations, filters, canCreate }: Props) => {
                                 <Link
                                     key={org.id}
                                     href={route('organisations.show', [org.slug])}
-                                    className="group"
+                                    className="group focus-visible:outline-ring rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4"
                                 >
-                                    <Card className="h-full border-zinc-200 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-xl dark:border-white/5 dark:bg-zinc-900">
-                                        <div className="flex items-start justify-between gap-6">
-                                            <div className="flex-1 space-y-2">
-                                                <h3 className="line-clamp-1 text-xl font-bold text-zinc-950 transition group-hover:text-accent-600 dark:text-white dark:group-hover:text-accent-400">
-                                                    {org.name}
-                                                </h3>
-                                                <p className="line-clamp-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                                    <Card className="group-hover:bg-muted h-full gap-5 shadow-none transition-colors">
+                                        <CardHeader className="flex-row items-start justify-between gap-6">
+                                            <div className="flex min-w-0 flex-1 flex-col gap-2">
+                                                <CardTitle>
+                                                    <h2 className="font-display tracking-title line-clamp-2 text-xl leading-snug group-hover:underline">
+                                                        {org.name}
+                                                    </h2>
+                                                </CardTitle>
+                                                <CardDescription className="line-clamp-3 leading-6">
                                                     {org.description || 'Diese Organisation hat noch keine Beschreibung hinterlegt.'}
-                                                </p>
-                                                <div className="flex items-center pt-2 text-xs font-bold text-accent-600 dark:text-accent-400">
-                                                    Profil entdecken
-                                                    <ArrowUpRight className="ml-1 size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                                                </div>
+                                                </CardDescription>
                                             </div>
-
-                                            <div className="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-zinc-100 bg-zinc-50 dark:border-white/5 dark:bg-white/5">
+                                            <div className="border-border bg-muted flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border sm:size-20">
                                                 {org.logoPath ? (
                                                     <img
                                                         src={org.logoPath}
-                                                        alt={org.name}
-                                                        className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                                                        alt=""
+                                                        loading="lazy"
+                                                        className="size-full object-cover"
                                                     />
                                                 ) : (
-                                                    <UserRound className="size-10 text-zinc-300 dark:text-zinc-700" />
+                                                    <UserRound className="text-muted-foreground size-8" />
                                                 )}
                                             </div>
-                                        </div>
+                                        </CardHeader>
+                                        <CardFooter className="mt-auto gap-1 text-sm font-semibold">
+                                            Profil entdecken
+                                            <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                        </CardFooter>
                                     </Card>
                                 </Link>
                             ))}
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center py-24 text-center">
-                            <div className="flex size-16 items-center justify-center rounded-full bg-zinc-100 dark:bg-white/5">
-                                <Search className="size-8 text-zinc-400" />
-                            </div>
-                            <h3 className="mt-4 text-lg font-semibold text-zinc-950 dark:text-white">Keine Organisationen gefunden</h3>
-                            <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-                                {search ? `Ihre Suche nach "${search}" ergab keine Treffer.` : 'Es wurden noch keine Organisationen angelegt.'}
-                            </p>
+                        <Empty>
+                            <EmptyHeader>
+                                <EmptyMedia variant="icon">
+                                    <Search />
+                                </EmptyMedia>
+                                <EmptyTitle>Keine Organisationen gefunden</EmptyTitle>
+                                <EmptyDescription>
+                                    {search ? `Ihre Suche nach "${search}" ergab keine Treffer.` : 'Es wurden noch keine Organisationen angelegt.'}
+                                </EmptyDescription>
+                            </EmptyHeader>
                             {search && (
-                                <Button
-                                    variant="link"
-                                    onClick={() => setSearch('')}
-                                    className="mt-4 text-accent-600"
-                                >
-                                    Suche zurücksetzen
-                                </Button>
+                                <EmptyContent>
+                                    <Button
+                                        variant="outline"
+                                        onClick={() => setSearch('')}
+                                    >
+                                        Suche zurücksetzen
+                                    </Button>
+                                </EmptyContent>
                             )}
-                        </div>
+                        </Empty>
                     )}
 
-                    {/* Simple Pagination Placeholder */}
-                    {organisations.meta.last_page > 1 && organisations.links && (
-                        <div className="mt-12 flex justify-center gap-2">
-                            {organisations.links.map((link: any, i: number) => (
-                                <Button
-                                    key={i}
-                                    variant={link.active ? 'default' : 'outline'}
-                                    disabled={!link.url}
-                                    asChild={!!link.url}
-                                    className="rounded-lg"
-                                >
-                                    {link.url ? (
-                                        <Link
-                                            href={link.url}
-                                            preserveScroll
-                                            dangerouslySetInnerHTML={{ __html: link.label }}
-                                        />
-                                    ) : (
-                                        <span dangerouslySetInnerHTML={{ __html: link.label }} />
-                                    )}
-                                </Button>
-                            ))}
-                        </div>
-                    )}
+                    <div className="pt-12">
+                        <DefaultPagination paginator={organisations} />
+                    </div>
                 </DefaultContainer>
             </div>
         </>

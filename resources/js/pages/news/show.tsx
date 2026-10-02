@@ -1,7 +1,7 @@
 import { DefaultContainer } from '@/components/default-container';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { PageHeader } from '@/components/page-header';
 import { SeoHead } from '@/components/seo-head';
+import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { Link } from '@inertiajs/react';
 import { ArrowUpRight, ChevronLeft } from 'lucide-react';
@@ -40,48 +40,43 @@ function NewsShow({ post }: PostProps) {
                 type="article"
             />
 
-            <DefaultContainer className="py-10">
-                <div className="mb-6">
+            <PageHeader
+                badge="Nachrichten"
+                title={post.title}
+                description={formatDate(post.published_at) ?? 'Aktuell'}
+                actions={
                     <Button
                         asChild
-                        variant="ghost"
-                        className="px-0"
+                        variant="outline"
                     >
                         <Link href={route('news.index')}>
-                            <ChevronLeft className="size-4" />
-                            Zurück zu den News
+                            <ChevronLeft data-icon="inline-start" />
+                            Alle Nachrichten
                         </Link>
                     </Button>
-                </div>
-
-                <Card className="mx-auto max-w-4xl py-0">
-                    <CardHeader className="border-b py-8">
-                        <CardDescription>{formatDate(post.published_at) ?? 'Aktuell'}</CardDescription>
-                        <CardTitle className="text-3xl md:text-4xl">{post.title}</CardTitle>
-                        {post.summary ? <div className="max-w-3xl text-base leading-7 text-zinc-700 dark:text-zinc-300">{post.summary}</div> : null}
-                    </CardHeader>
-                    <CardContent className="space-y-6 py-8">
-                        <div className="max-w-3xl text-base leading-8 whitespace-pre-line text-zinc-700 dark:text-zinc-300">
-                            {post.summary || 'Zu diesem Beitrag liegt noch kein ausführlicher Text vor.'}
-                        </div>
-
-                        {post.external_href ? (
-                            <Button
-                                asChild
-                                variant="outline"
+                }
+            />
+            <DefaultContainer className="py-12 md:py-16">
+                <article className="flex max-w-3xl flex-col items-start gap-8">
+                    <p className="text-muted-foreground text-lg leading-8 whitespace-pre-line">
+                        {post.summary || 'Zu diesem Beitrag liegt noch kein ausführlicher Text vor.'}
+                    </p>
+                    {post.external_href && (
+                        <Button
+                            asChild
+                            variant="outline"
+                        >
+                            <a
+                                href={post.external_href}
+                                target="_blank"
+                                rel="noreferrer"
                             >
-                                <a
-                                    href={post.external_href}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    Extern weiterlesen
-                                    <ArrowUpRight className="size-4" />
-                                </a>
-                            </Button>
-                        ) : null}
-                    </CardContent>
-                </Card>
+                                Extern weiterlesen
+                                <ArrowUpRight data-icon="inline-end" />
+                            </a>
+                        </Button>
+                    )}
+                </article>
             </DefaultContainer>
         </>
     );

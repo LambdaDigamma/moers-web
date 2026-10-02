@@ -1,7 +1,6 @@
 import { DefaultContainer } from '@/components/default-container';
 import { SeoHead } from '@/components/seo-head';
 import { Button } from '@/components/ui/button-catalyst';
-import { Heading } from '@/components/ui/heading';
 import { default as AppLayout } from '@/layouts/app-layout';
 import { EventRow } from '@/pages/events/event-row';
 import OrganisationLayout from '@/pages/organisations/organisation-layout';
@@ -9,17 +8,25 @@ import React from 'react';
 import Event = Modules.Events.Data.Event;
 import Organisation = Modules.Management.Data.Organisation;
 
-export const IndexEvents = ({ organisation, events, canCreateEvents }: { organisation: Organisation; events: Paginator<Event>; canCreateEvents?: boolean }) => {
+export const IndexEvents = ({
+    organisation,
+    events,
+    canCreateEvents,
+}: {
+    organisation: Organisation;
+    events: Paginator<Event>;
+    canCreateEvents?: boolean;
+}) => {
     return (
         <>
             <SeoHead
                 title={`Veranstaltungen von ${organisation.name}`}
                 description={`Kommende Veranstaltungen von ${organisation.name} in Moers und Umgebung.`}
             />
-            <DefaultContainer className="py-8">
-                <div className="flex w-full flex-wrap items-end justify-between gap-4 border-b border-zinc-950/10 pb-6 dark:border-white/10">
+            <DefaultContainer className="py-12 md:py-16">
+                <div className="border-border flex w-full flex-wrap items-end justify-between gap-4 border-b pb-6">
                     <div>
-                        <Heading>Veranstaltungen</Heading>
+                        <h2 className="font-display tracking-heading text-2xl font-semibold">Veranstaltungen</h2>
                     </div>
                     {canCreateEvents && (
                         <div className="flex gap-4">
@@ -29,7 +36,7 @@ export const IndexEvents = ({ organisation, events, canCreateEvents }: { organis
                 </div>
 
                 <div className="mt-8">
-                    <div className="space-y-4">
+                    <div className="divide-border border-border bg-card divide-y overflow-hidden rounded-xl border">
                         {events.data.length > 0 ? (
                             events.data.map((event) => (
                                 <EventRow
@@ -39,7 +46,7 @@ export const IndexEvents = ({ organisation, events, canCreateEvents }: { organis
                             ))
                         ) : (
                             <div className="py-12 text-center">
-                                <p className="text-sm text-zinc-500 dark:text-zinc-400">Keine Veranstaltungen gefunden.</p>
+                                <p className="text-muted-foreground text-sm">Keine Veranstaltungen gefunden.</p>
                             </div>
                         )}
                     </div>

@@ -4,7 +4,11 @@ import clsx from 'clsx';
 import React from 'react';
 import Organisation = Modules.Management.Data.Organisation;
 
-export const EditOrganisationNavigation = ({ className, ...props }: React.ComponentPropsWithoutRef<'nav'>) => {
+export const EditOrganisationNavigation = ({
+    className,
+    overviewRoute = 'organisations.edit',
+    ...props
+}: React.ComponentPropsWithoutRef<'nav'> & { overviewRoute?: 'organisations.show' | 'organisations.edit' }) => {
     const organisation = usePage().props['organisation'] as Organisation;
 
     return (
@@ -17,8 +21,8 @@ export const EditOrganisationNavigation = ({ className, ...props }: React.Compon
             {/*</Link>*/}
             <NavbarSection>
                 <NavbarItem
-                    href={route('organisations.edit', [organisation.slug])}
-                    current={route().current('organisations.edit')}
+                    href={route(overviewRoute, [organisation.slug])}
+                    current={route().current(overviewRoute)}
                 >
                     Überblick
                 </NavbarItem>
